@@ -15,7 +15,6 @@
       <th>Registered</th>
       <th>Uploaded</th>
       <th>Priority</th>
-      <th>Type</th>
       <th>State</th>
       <th></th>
   </thead>
@@ -36,7 +35,6 @@
           {{ form.as_p }}
         </form>
       </td>
-      <td>{{ data_source.type }}</td>
       <td>{{ data_source.get_state_display }}</td>
       <td class="float-sm-center">
         <div class="btn-group">
@@ -60,7 +58,7 @@
       // "lengthMenu": [ 10, 25, 50, 75, 100 ], // change number of records shown
       "columnDefs": [
           {
-              "targets": 6, // sixth column is edit/delete links
+              "targets": 5, // sixth column is edit/delete links
               "orderable": false
           },
           {
@@ -77,7 +75,7 @@
         text: 'Download CSV',
         title: 'Data_Sources_Factotum',
         exportOptions : {
-          columns: [ 0, 1, 2, 3, 4, 5 ],
+          columns: [ 0, 1, 2, 3, 4 ],
           format: {
             body: function( data, row, col, node ) {
               if (col == 3) {

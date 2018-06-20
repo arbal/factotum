@@ -9,7 +9,7 @@
   {% endif %}
 
   {% if line_errors %}
-  <p class="form-control is-invalid">CSV is missing a <b>filename</b> in row/s:
+  <p class="form-control is-invalid">CSV has bad data in row/s:
      {% for error in line_errors %}
         {{error}}
      {% endfor %}
@@ -30,6 +30,7 @@
       <thead class="table-primary">
         <th>filename</th>
         <th>title</th>
+        <th>document_type</th>
         <th>product</th>
         <th>url</th>
       </thead>

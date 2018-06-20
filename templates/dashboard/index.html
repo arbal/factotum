@@ -134,32 +134,6 @@
                 ],
                 'key': 'All',
                 'yAxis': '0'
-            },
-            {
-                'color': 'green',
-                'values': [
-                    {% for item in datadocument_count_by_date.product %}
-                        {
-                            'y': {{ item.document_count }},
-                            'x': '{{ item.upload_date }}'
-                        },
-                    {% endfor %}
-                ],
-                'key': 'Product',
-                'yAxis': '0'
-            },
-            {
-                'color': 'red',
-                'values': [
-                    {% for item in datadocument_count_by_date.msds_sds %}
-                        {
-                            'y': {{ item.document_count }},
-                            'x': '{{ item.upload_date }}'
-                        },
-                    {% endfor %}
-                ],
-                'key': 'MSDS/SDS',
-                'yAxis': '0'
             }
         ];
     </script>

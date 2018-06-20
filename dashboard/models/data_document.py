@@ -2,6 +2,7 @@ from django.db import models
 from .common_info import CommonInfo
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+from .document_type import DocumentType
 
 
 class DataDocument(CommonInfo):
@@ -15,7 +16,7 @@ class DataDocument(CommonInfo):
     matched = models.BooleanField(default=False)
     extracted = models.BooleanField(default=False)
     uploaded_at = models.DateTimeField(default=timezone.now)
-    source_type = models.ForeignKey('SourceType', on_delete=models.PROTECT)
+    document_type = models.ForeignKey(DocumentType, on_delete=models.PROTECT, null=True, blank=True)
 
     class Meta:
         ordering = ['-id']

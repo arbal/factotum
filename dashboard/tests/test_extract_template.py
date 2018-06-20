@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.test import TestCase, RequestFactory
 
-from dashboard.models import (SourceType, DataSource, DataGroup, Script,
+from dashboard.models import (DataSource, GroupType, DataGroup, Script,
                               ExtractedText, ExtractedChemical)
 
 class ModelsTest(TestCase):
@@ -17,15 +17,15 @@ class ModelsTest(TestCase):
         
         self.client.login(username='Karyn', password='specialP@55word')
 
-        self.st = SourceType.objects.create(title='msds/sds')
-
         self.ds = DataSource.objects.create(title='Data Source for Test',
                                             estimated_records=2, state='AT',
-                                            priority='HI', type=self.st)
+                                            priority='HI')
 
         self.dl = Script.objects.create(title='Test Title',
                                         url='http://www.epa.gov/',
                                         qa_begun=False, script_type='DL')
+
+        self.gt = GroupType.objects.create(title='Composition')
 
         self.dg = DataGroup.objects.create(name='Data Group for Test',
                                     description='Testing the DataGroup model',
@@ -33,6 +33,7 @@ class ModelsTest(TestCase):
                                     download_script=self.dl,
                                     downloaded_by=self.user,
                                     downloaded_at=timezone.now(),
+                                    group_type=self.gt,
                                     csv='register_records_matching.csv')
 
     def test_template_colnames(self):

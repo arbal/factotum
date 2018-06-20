@@ -12,10 +12,11 @@ class PUCAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(DataSource)
+admin.site.register(GroupType)
 admin.site.register(DataGroup)
+admin.site.register(DocumentType)
 admin.site.register(DataDocument)
 admin.site.register(Script)
-admin.site.register(SourceType)
 admin.site.register(Product)
 admin.site.register(ProductDocument)
 admin.site.register(SourceCategory)

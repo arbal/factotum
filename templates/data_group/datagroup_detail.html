@@ -42,6 +42,8 @@
     <dl class="row col-sm-12">
         <dt class="col-sm-3">Description</dt>
         <dd class="col-sm-9">{{ datagroup.description }}</dd>
+        <dt class="col-sm-3">Group Type</dt>
+        <dd class="col-sm-9">{{ datagroup.group_type }}</dd>
         <dt class="col-sm-3">Downloaded by</dt>
         <dd class="col-sm-9">{{ datagroup.downloaded_by }}</dd>
         <dt class="col-sm-3">Date Downloaded</dt>
@@ -211,6 +213,7 @@
       <th>filename</th>
       <th>title</th>
       <th>product</th>
+      <th>document_type</th>
       <th>url</th>
     </thead>
     <tbody>
@@ -220,6 +223,7 @@
         <td>{{ doc.filename }}</td>
         <td>{{ doc.title }}</td>
         <td>{{ doc.product_category }}</td>
+        <td>{{ doc.document_type.pk }}</td>
         <td>{{ doc.url }}</td>
       </tr>
     {% endfor %}

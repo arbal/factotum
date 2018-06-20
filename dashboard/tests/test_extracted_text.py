@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from dashboard.models import (SourceType, DataSource, DataGroup, DataDocument,
+from dashboard.models import (DataSource, GroupType, DataGroup, DocumentType, DataDocument,
                               Script, ExtractedText, ExtractedChemical)
 
 class ModelsTest(TestCase):
@@ -16,15 +16,15 @@ class ModelsTest(TestCase):
 
         self.client.login(username='Karyn', password='specialP@55word')
 
-        self.st = SourceType.objects.create(title='msds/sds')
-
         self.ds = DataSource.objects.create(title='Data Source for Test',
                                             estimated_records=2, state='AT',
-                                            priority='HI', type=self.st)
+                                            priority='HI')
 
         self.script = Script.objects.create(title='Test Title',
                                         url='http://www.epa.gov/',
                                         qa_begun=False, script_type='DL')
+
+        self.gt = GroupType.objects.create(title='Composition')
 
         self.dg = DataGroup.objects.create(name='Data Group for Test',
                                     description='Testing the DataGroup model',
@@ -32,10 +32,13 @@ class ModelsTest(TestCase):
                                     download_script=self.script,
                                     downloaded_by=self.user,
                                     downloaded_at=timezone.now(),
+                                    group_type=self.gt,
                                     csv='register_records_matching.csv')
 
+        self.dt = DocumentType.objects.create(title='msds/sds', group_type=self.gt)
+
         self.doc = DataDocument.objects.create(data_group=self.dg,
-                                               source_type=self.st)
+                                               document_type=self.dt)
 
     def test_extracted_doc_date_validation(self):
         # check validation for year

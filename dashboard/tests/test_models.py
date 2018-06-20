@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from dashboard.models import DataSource, DataGroup, DataDocument, SourceType, ExtractedText,\
+from dashboard.models import DataSource, GroupType, DataGroup, DocumentType, DataDocument, ExtractedText,\
     ExtractedChemical, UnitType, WeightFractionType, DSSToxSubstance, Script, Product, ProductDocument,\
     Ingredient, ProductToIngredient, DSSToxSubstanceToIngredient, ProductAttribute, ProductToAttribute
 from django.test import TestCase, RequestFactory
@@ -28,21 +28,24 @@ class ModelsTest(TestCase):
             username='jdoe', email='jon.doe@epa.gov', password='Sup3r_secret')
         self.client.login(username='jdoe', password='Sup3r_secret')
 
-        # SourceType
-        self.st = self.create_source_type()
-
         # DataSource
         self.ds = self.create_data_source()
 
         # Script, type DL
         self.dl = self.create_download_script(script_type='DL')
 
+        # GroupType
+        self.gt = self.create_group_type()
+
         # DataGroup
-        self.dg = self.create_data_group(data_source=self.ds, download_script=self.dl)
+        self.dg = self.create_data_group(data_source=self.ds, download_script=self.dl, group_type=self.gt)
         self.pdfs = self.upload_pdfs()
 
+        # DocumentType
+        self.dt = self.create_document_type(group_type=self.gt)
+
         # DataDocuments
-        self.dds = self.create_data_documents(data_group = self.dg, source_type = self.st)
+        self.dds = self.create_data_documents(data_group = self.dg, document_type = self.dt)
 
         # Script, type EX
         self.ex = self.create_extraction_script(script_type='EX')
@@ -86,26 +89,25 @@ class ModelsTest(TestCase):
         self.pa = ProductAttribute.objects.create(title="Test Product Attribute")
         self.pa.save()
 
-
     def tearDown(self):
         del self.dg
 
-    def create_source_type(self, title='msds/sds'):
-        return SourceType.objects.create(title=title)
-
-    def create_data_source(self, title='Data Source for Test', estimated_records=2, state='AT', priority='HI',
-                           typetitle='msds/sds'):
+    def create_data_source(self, title='Data Source for Test', estimated_records=2, state='AT', priority='HI'):
         return DataSource.objects.create(title=title, estimated_records=estimated_records, state=state,
-                                         priority=priority, type=SourceType.objects.get(title=typetitle))
+                                         priority=priority)
 
     def create_download_script(self, script_type, title='Test Title', url='http://www.epa.gov/', qa_begun=False):
         return Script.objects.create(title=title, url=url, qa_begun=qa_begun, script_type=script_type)
 
-    def create_data_group(self, data_source, download_script, testusername = 'jdoe', name='Data Group for Test',
+    def create_group_type(self):
+        return GroupType.objects.create(title='Composition')
+
+    def create_data_group(self, data_source, download_script, group_type, testusername = 'jdoe', name='Data Group for Test',
                           description='Testing the DataGroup model'):
             source_csv = open('./sample_files/register_records_matching.csv', 'rb')
             return DataGroup.objects.create(name=name,
                                             description=description, data_source = data_source,
+                                            group_type=group_type,
                                             download_script=download_script,
                                             downloaded_by=User.objects.get(username=testusername),
                                             downloaded_at=timezone.now(),
@@ -124,8 +126,13 @@ class ModelsTest(TestCase):
         fs.save(pdf2_name, local_pdf)
         return [pdf1_name, pdf2_name]
 
-    def create_data_documents(self, data_group, source_type):
+    def create_document_type(self, group_type):
+        return DocumentType.objects.create(title='msds/sds', group_type=group_type)
+
+    def create_data_documents(self, data_group, document_type):
         dds = []
+        gt = self.create_group_type()
+        dt = self.create_document_type(group_type=gt)
         with open(data_group.csv.path) as dg_csv:
             table = csv.DictReader(dg_csv)
             text = ['DataDocument_id,' + ','.join(table.fieldnames)+'\n']
@@ -139,11 +146,12 @@ class ModelsTest(TestCase):
                     line['title'] = line['filename'].split('.')[0]
                 dd = DataDocument.objects.create(filename=line['filename'],
                     title=line['title'],
+                    document_type=DocumentType.objects.get(pk=line['document_type']),
                     product_category=line['product'],
                     url=line['url'],
                     matched = line['filename'] in self.pdfs,
                     data_group=data_group,
-                    source_type=source_type)
+                    )
                 dd.save()
                 dds.append(dd)
             return dds

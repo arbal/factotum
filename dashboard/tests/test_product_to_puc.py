@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from dashboard.models import (SourceType, DataSource, DataGroup, DataDocument,
+from dashboard.models import (DataSource, DataGroup, GroupType, DataDocument, DocumentType,
                               Script, ExtractedText, Product, ProductToPUC, PUC)
 
 class ModelsTest(TestCase):
@@ -16,15 +16,15 @@ class ModelsTest(TestCase):
 
         self.client.login(username='Karyn', password='specialP@55word')
 
-        self.st = SourceType.objects.create(title='msds/sds')
-
         self.ds = DataSource.objects.create(title='Data Source for Test',
                                             estimated_records=2, state='AT',
-                                            priority='HI', type=self.st)
+                                            priority='HI')
 
         self.script = Script.objects.create(title='Test Title',
                                         url='http://www.epa.gov/',
                                         qa_begun=False, script_type='DL')
+
+        self.gt = GroupType.objects.create(title='Composition')
 
         self.dg = DataGroup.objects.create(name='Data Group for Test',
                                     description='Testing the DataGroup model',
@@ -32,17 +32,21 @@ class ModelsTest(TestCase):
                                     download_script=self.script,
                                     downloaded_by=self.user,
                                     downloaded_at=timezone.now(),
+                                    group_type=self.gt,
                                     csv='register_records_matching.csv')
 
+        self.dt = DocumentType.objects.create(title='msds/sds', group_type=self.gt)
+
         self.doc = DataDocument.objects.create(data_group=self.dg,
-                                               source_type=self.st)
+                                               document_type=self.dt)
 
         self.p = Product.objects.create(data_source=self.ds,
                                           upc='Test UPC for ProductToPUC')
 
         self.puc = PUC.objects.create(gen_cat='Test General Category',
                                       prod_fam='Test Product Family',
-                                      prod_type='Test Product Type')
+                                      prod_type='Test Product Type',
+                                      last_edited_by=self.user)
 
 
     def test_uber_puc(self):
@@ -50,7 +54,7 @@ class ModelsTest(TestCase):
         # None
         self.assertTrue(self.p.get_uber_product_to_puc() == None)
         
-        self.ppuc = ProductToPUC.objects.create(product=self.p,
+        self.puc = ProductToPUC.objects.create(product=self.p,
                                         PUC=self.puc,
                                         puc_assigned_usr=self.user)
 

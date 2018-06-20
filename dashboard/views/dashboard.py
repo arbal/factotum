@@ -10,7 +10,6 @@ current_date = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d')
 chart_start_datetime = datetime.datetime(datetime.datetime.now().year - 1, datetime.datetime.now().month + 1, 1)
 
 
-@login_required(login_url='/login')
 def index(request):
     stats = {}
     stats['datagroup_count'] = DataGroup.objects.count()
@@ -40,11 +39,11 @@ def datadocument_count_by_date():
                                  .order_by('upload_date'))
     document_stats_by_type = DataDocument.objects.extra(select=select_upload_date) \
         .values('upload_date') \
-        .annotate(source_type = F('data_group__data_source__type__title'), document_count = Count('id')) \
+        .annotate(source_type = F('document_type__title'), document_count = Count('id')) \
         .order_by('upload_date')
     document_stats['product'] = list(document_stats_by_type.filter(source_type = 'product'))
     document_stats['msds_sds'] = list(document_stats_by_type.filter(source_type = 'msds/sds'))
-    for type in {'all', 'product', 'msds_sds'}:
+    for type in {'all'}:
         document_count = 0
         for item in document_stats[type]:
             if isinstance(item['upload_date'], datetime.date):
