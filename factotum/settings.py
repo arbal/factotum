@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django.contrib.humanize',
     'factotum',
-    'debug_toolbar',
+    'django_filters',
+    #'debug_toolbar',
     'haystack',
     'haystack_elasticsearch',
     'bootstrap_datepicker'
@@ -51,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'factotum.urls'
