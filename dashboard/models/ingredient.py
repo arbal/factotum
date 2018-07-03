@@ -24,5 +24,4 @@ class Ingredient(CommonInfo):
 	weight_fraction_type = models.ForeignKey(WeightFractionType, on_delete=models.PROTECT, null=True, default='1')
 
 	def __str__(self):
-		return self.id
-
+		return str(self.id)

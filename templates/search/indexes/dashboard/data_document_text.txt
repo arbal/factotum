@@ -1,5 +1,1 @@
-<h3>{{ object.title }}</h3>
-{{ object.filename }}
-{{ object.prod_cat}}
-{{ object.url }}
-{{object.facet_model_name}}
+{{object.title}}

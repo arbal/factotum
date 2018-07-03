@@ -1,0 +1,20 @@
+- model: dashboard.grouptype
+  pk: 4
+  fields: {created_at: !!timestamp '2018-06-20 17:15:50.625428', updated_at: !!timestamp '2018-06-20
+      17:16:47.450824', title: Habits and practices, description: Habits and Practices Group Type}
+
+- model: dashboard.documenttype
+  pk: 1
+  fields: {created_at: !!timestamp '2018-06-20 17:15:50.625428', updated_at: !!timestamp '2018-06-20
+      17:16:47.450824', title: journal article, description: Journal Article Document Type,
+      group_type_id: 4}
+- model: dashboard.documenttype
+  pk: 2
+  fields: {created_at: !!timestamp '2018-06-20 17:15:50.625428', updated_at: !!timestamp '2018-06-20
+      17:16:47.450824', title: professional society report, description: Professional Society Report Document Type,
+      group_type_id: 4}
+- model: dashboard.documenttype
+  pk: 3
+  fields: {created_at: !!timestamp '2018-06-20 17:15:50.625428', updated_at: !!timestamp '2018-06-20
+      17:16:47.450824', title: government agency report, description: Government Agency Report Document Type,
+      group_type_id: 4}

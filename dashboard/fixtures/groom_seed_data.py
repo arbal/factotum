@@ -36,13 +36,15 @@ DataGroup.objects.filter(id__in=[19,23,24]).delete()
 ######## At the command prompt:
 
 """ 
-python manage.py dumpdata dashboard.sourcetype --format=yaml > ./dashboard/fixtures/01_lookups.yaml
+python manage.py dumpdata dashboard.grouptype dashboard.documenttype dashboard.unittype dashboard.weightfractiontype dashboard.pucattribute --format=yaml > ./dashboard/fixtures/01_lookups.yaml
 python manage.py dumpdata dashboard.datasource --format=yaml > ./dashboard/fixtures/02_datasource.yaml
 python manage.py dumpdata dashboard.datagroup --format=yaml > ./dashboard/fixtures/03_datagroup.yaml
-python manage.py dumpdata dashboard.productcategory --format=yaml > ./dashboard/fixtures/04_productcategory.yaml
+python manage.py dumpdata dashboard.PUC --format=yaml > ./dashboard/fixtures/04_PUC.yaml
 python manage.py dumpdata dashboard.product --format=yaml > ./dashboard/fixtures/05_product.yaml
 python manage.py dumpdata dashboard.datadocument --format=yaml > ./dashboard/fixtures/06_datadocument.yaml
 python manage.py dumpdata dashboard.script --format=yaml > ./dashboard/fixtures/07_script.yaml
 python manage.py dumpdata dashboard.extractedtext --format=yaml > ./dashboard/fixtures/08_extractedtext.yaml
 python manage.py dumpdata dashboard.productdocument --format=yaml > ./dashboard/fixtures/09_productdocument.yaml
+python manage.py dumpdata dashboard.extractedchemical --format=yaml > ./dashboard/fixtures/10_extractedchemical.yaml
+python manage.py dumpdata dashboard.dsstoxsubstance --format=yaml > ./dashboard/fixtures/11_dsstoxsubstance.yaml
 """

@@ -61,7 +61,7 @@
 <body>
 <!-- Fixed navbar -->
 <nav class="navbar navbar-expand-md navbar-custom fixed-top py-0">
-    <a class="navbar-brand" href="#" title="an employee who does all kinds of work">factotum</a>
+    <a class="navbar-brand" href="{% url 'login' %}" title="an employee who does all kinds of work">factotum</a>
     {% if user.is_authenticated %}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">

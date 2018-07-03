@@ -1,84 +1,84 @@
 - model: dashboard.productdocument
   pk: 1
-  fields: {product: 1, document: 8, created_at: !!timestamp '2018-03-09 11:35:45.319568',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-09 11:35:45.319568', updated_at: null,
+    product: 1, document: 8}
 - model: dashboard.productdocument
   pk: 2
-  fields: {product: 2, document: 7, created_at: !!timestamp '2018-03-09 11:36:05.145723',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-09 11:36:05.145723', updated_at: null,
+    product: 2, document: 7}
 - model: dashboard.productdocument
   pk: 3
-  fields: {product: 3, document: 10, created_at: !!timestamp '2018-03-09 11:36:22.941907',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-09 11:36:22.941907', updated_at: null,
+    product: 3, document: 10}
 - model: dashboard.productdocument
   pk: 4
-  fields: {product: 4, document: 12, created_at: !!timestamp '2018-03-09 11:36:41.552485',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-09 11:36:41.552485', updated_at: null,
+    product: 4, document: 12}
 - model: dashboard.productdocument
   pk: 5
-  fields: {product: 5, document: 11, created_at: !!timestamp '2018-03-09 11:36:56.559840',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-09 11:36:56.559840', updated_at: null,
+    product: 5, document: 11}
 - model: dashboard.productdocument
   pk: 6
-  fields: {product: 3, document: 9, created_at: !!timestamp '2018-03-09 11:37:18.473854',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-09 11:37:18.473854', updated_at: null,
+    product: 3, document: 9}
 - model: dashboard.productdocument
   pk: 7
-  fields: {product: 6, document: 1149, created_at: !!timestamp '2018-03-12 09:45:42.080038',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-12 09:45:42.080038', updated_at: null,
+    product: 6, document: 1149}
 - model: dashboard.productdocument
   pk: 8
-  fields: {product: 7, document: 499, created_at: !!timestamp '2018-03-12 09:58:51.344180',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-12 09:58:51.344180', updated_at: null,
+    product: 7, document: 499}
 - model: dashboard.productdocument
   pk: 9
-  fields: {product: 8, document: 559, created_at: !!timestamp '2018-03-12 10:02:02.114709',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-12 10:02:02.114709', updated_at: null,
+    product: 8, document: 559}
 - model: dashboard.productdocument
   pk: 10
-  fields: {product: 9, document: 830, created_at: !!timestamp '2018-03-12 10:06:02.452585',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-12 10:06:02.452585', updated_at: null,
+    product: 9, document: 830}
 - model: dashboard.productdocument
   pk: 11
-  fields: {product: 10, document: 373, created_at: !!timestamp '2018-03-12 10:11:19.261227',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-12 10:11:19.261227', updated_at: null,
+    product: 10, document: 373}
 - model: dashboard.productdocument
   pk: 12
-  fields: {product: 11, document: 503, created_at: !!timestamp '2018-03-12 10:15:57.012387',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-12 10:15:57.012387', updated_at: null,
+    product: 11, document: 503}
 - model: dashboard.productdocument
   pk: 13
-  fields: {product: 12, document: 1069, created_at: !!timestamp '2018-03-12 10:19:06.973090',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-12 10:19:06.973090', updated_at: null,
+    product: 12, document: 1069}
 - model: dashboard.productdocument
   pk: 14
-  fields: {product: 13, document: 880, created_at: !!timestamp '2018-03-12 10:27:24.287552',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-12 10:27:24.287552', updated_at: null,
+    product: 13, document: 880}
 - model: dashboard.productdocument
   pk: 15
-  fields: {product: 14, document: 1022, created_at: !!timestamp '2018-03-12 10:33:16.617876',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-12 10:33:16.617876', updated_at: null,
+    product: 14, document: 1022}
 - model: dashboard.productdocument
   pk: 16
-  fields: {product: 15, document: 1826, created_at: !!timestamp '2018-03-12 10:39:38.789812',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-12 10:39:38.789812', updated_at: null,
+    product: 15, document: 1826}
 - model: dashboard.productdocument
   pk: 17
-  fields: {product: 16, document: 1423, created_at: !!timestamp '2018-03-12 10:45:05.843306',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-12 10:45:05.843306', updated_at: null,
+    product: 16, document: 1423}
 - model: dashboard.productdocument
   pk: 18
-  fields: {product: 17, document: 1246, created_at: !!timestamp '2018-03-12 10:48:38.629702',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-12 10:48:38.629702', updated_at: null,
+    product: 17, document: 1246}
 - model: dashboard.productdocument
   pk: 19
-  fields: {product: 18, document: 1124, created_at: !!timestamp '2018-03-12 10:53:40.427049',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-12 10:53:40.427049', updated_at: null,
+    product: 18, document: 1124}
 - model: dashboard.productdocument
   pk: 20
-  fields: {product: 19, document: 1727, created_at: !!timestamp '2018-03-12 10:58:29.901378',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-12 10:58:29.901378', updated_at: null,
+    product: 19, document: 1727}
 - model: dashboard.productdocument
   pk: 21
-  fields: {product: 20, document: 1605, created_at: !!timestamp '2018-03-12 11:04:45.043201',
-    updated_at: null}
+  fields: {created_at: !!timestamp '2018-03-12 11:04:45.043201', updated_at: null,
+    product: 20, document: 1605}

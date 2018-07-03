@@ -5,7 +5,7 @@
 
   {% if field_error %}
   <p class="form-control is-invalid">CSV column headers are incorrect for upload.
-     {{field_error}}, should read ['filename', 'title','product','url']</p>
+     {{field_error}}, should read ['filename', 'title', 'document_type', 'product', 'url', 'organization']</p>
   {% endif %}
 
   {% if line_errors %}
@@ -33,6 +33,7 @@
         <th>document_type</th>
         <th>product</th>
         <th>url</th>
+        <th>organization</th>
       </thead>
     </table>
 {% endblock %}

@@ -1,0 +1,4 @@
+data_document_id,data_document_filename,record_type,prod_name,doc_date,rev_num,raw_cas,raw_chem_name,report_funcuse,organization
+45,11177849.pdf,MSDS,a,2015-10-12,47,12345,ethylparaben,nagging,Nagging Feeling Co.
+46,11165872.pdf,sds,b,2015-10-12,47,555,sugar,watching,Watchful Eye Org.
+47,11023843.pdf,msds,c,2017-10-12,47,666,floaties,amazing,National Society of Amazement

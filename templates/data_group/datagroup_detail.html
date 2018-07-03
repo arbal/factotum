@@ -3,9 +3,9 @@
 {% load humanize %}
 
 {% block errors %}
-  {% if err %}
-    <div class="bg-warning text-white">
-      There were no matching records in the selected directory.
+  {% if msg %}
+    <div class="bg-warning text-white text-center">
+      {{ msg }}
     </div>
   {% endif %}
 
@@ -71,7 +71,7 @@
           <span class="oi oi-data-transfer-download"></span> Download All PDF Documents
         </button>
 
-        {% if include_extract %}
+        {% if extract_form %}
             <br><br>
             <a class="btn btn-secondary" data-toggle="collapse" id="btn_extract_text_form" href="#extract_form">
               <span class="oi oi-data-transfer-upload"></span>&nbsp;Upload Extracted Text
@@ -89,7 +89,7 @@
             </div>
             <table class="table" id="extract" style="display:none;">
               <thead class="table-primary">
-              {% for field in extract_fieldnames %}
+              {% for field in extract_fields %}
                 <th>{{ field }}</th>
               {% endfor %}
               </thead>
@@ -106,7 +106,7 @@
             </table>
         {% endif %}
 
-        {% if include_upload %}
+        {% if upload_form %}
             <br><br>
             <a class="btn btn-secondary" data-toggle="collapse" href="#upload_form">
                 <span class="oi oi-data-transfer-upload"></span>&nbsp;Upload Data Group PDFs
@@ -215,6 +215,7 @@
       <th>product</th>
       <th>document_type</th>
       <th>url</th>
+      <th>organization</th>
     </thead>
     <tbody>
     {% for doc in all_documents %}
@@ -225,6 +226,7 @@
         <td>{{ doc.product_category }}</td>
         <td>{{ doc.document_type.pk }}</td>
         <td>{{ doc.url }}</td>
+        <td>{{ doc.organization }}</td>
       </tr>
     {% endfor %}
     </tbody>

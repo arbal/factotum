@@ -1,6 +1,2 @@
-<h3>{{ object.title }}</h3>
-{{ object.brand_name }}
-{{ object.prod_cat}}
-{{ object.short_description }}
-{{ object.long_description }}
-{{object.facet_model_name}}
+{{ object.title }}
+{{ object.get_uber_puc }}

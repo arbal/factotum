@@ -1,22 +1,22 @@
 - model: dashboard.datasource
   pk: 7
   fields: {title: British Petroleum (Air), url: 'https://airbpmsds.bp.com/msdspds/airbpmsdspds.nsf/BPHomePage?OpenForm&sitelang=EN',
-    estimated_records: 6, type: 1, state: IP, description: '', created_at: !!timestamp '2018-03-09
+    estimated_records: 6, state: IP, description: '', created_at: !!timestamp '2018-03-09
       11:31:21.121027', updated_at: null, priority: LO}
 - model: dashboard.datasource
   pk: 8
-  fields: {title: Home Depot - ICF, url: '', estimated_records: 1849, type: 1, state: AT,
+  fields: {title: Home Depot - ICF, url: '', estimated_records: 1849, state: AT,
     description: Home Depot MSDS sheets downloaded and extracted by ICF International,
     created_at: !!timestamp '2018-03-12 09:09:50.032960', updated_at: null, priority: HI}
 - model: dashboard.datasource
   pk: 10
   fields: {title: Walmart MSDS, url: 'http://msds.walmartstores.com/', estimated_records: 50000,
-    type: 1, state: AT, description: '', created_at: !!timestamp '2018-03-15 11:30:49.906418',
+    state: AT, description: '', created_at: !!timestamp '2018-03-15 11:30:49.906418',
     updated_at: null, priority: MD}
 - model: dashboard.datasource
   pk: 11
   fields: {title: Georgia Pacific, url: 'http://msds.gp.com/msdsinternet/', estimated_records: 124,
-    type: 3, state: AT, description: "The SDS were downloaded on July 31, 2017 as\
+    state: AT, description: "The SDS were downloaded on July 31, 2017 as\
       \ individual PDF's. Only the United States SDS were downloaded. \r\n\r\nProduct\
       \ types include:\r\n\r\nAgricultural Gypsum,\r\nAir Care,\r\nAirlaid Nonwoven,\t\
       \r\nCellulose,\r\nConsumer / Retail,\t\r\nFiredoor Components,\t\r\nGypsum Board,\t\
@@ -27,7 +27,7 @@
 - model: dashboard.datasource
   pk: 12
   fields: {title: Hewlett-Packard, url: 'http://www8.hp.com/us/en/hp-information/environment/msds-specs.html',
-    estimated_records: 4049, type: 1, state: AT, description: "MSDS sheets were downloaded\
+    estimated_records: 4049, state: AT, description: "MSDS sheets were downloaded\
       \ from the website on August 1, 2017. Product categories that were downloaded\
       \ include:\r\n\r\nInkjet printer supplies,\r\nLaserJet printer supplies,\r\n\
       Samsung Printer Supplies,\r\nIndigo digital press inks,\r\nDesignjet, Latex\
@@ -40,21 +40,21 @@
 - model: dashboard.datasource
   pk: 13
   fields: {title: Sun MSDS, url: 'https://sunproductsmsdsbrand.thewercs.com/private/results.aspx?__VIEWSTATEGENERATOR=D6323F43&subformat=d__AGHS&language=d__EN',
-    estimated_records: 273, type: 1, state: AT, description: 'Downloaded MSDS sheets
+    estimated_records: 273, state: AT, description: 'Downloaded MSDS sheets
       on August 30, 2017. Only downloaded the sheets in English for North America.
       Initial scraping was done using selenium.', created_at: !!timestamp '2018-03-19
       13:44:06.082767', updated_at: null, priority: HI}
 - model: dashboard.datasource
   pk: 14
   fields: {title: Sun SDS, url: 'https://sunproductsmsdsbrand.thewercs.com/private/results.aspx?__VIEWSTATEGENERATOR=D6323F43&subformat=d__AGHS&language=d__EN',
-    estimated_records: 258, type: 3, state: AT, description: 'Downloaded MSDS sheets
+    estimated_records: 258, state: AT, description: 'Downloaded MSDS sheets
       on September 5, 2017. Only downloaded the sheets in English for the United States.
       Initial scraping was done using selenium.', created_at: !!timestamp '2018-03-19
       13:46:24.679885', updated_at: null, priority: HI}
 - model: dashboard.datasource
   pk: 15
   fields: {title: Sun Ingredient Disclosures, url: 'https://sunproductsmsdsbrand.thewercs.com/private/results.aspx?__VIEWSTATEGENERATOR=D6323F43&subformat=d__INDS&language=d__EN',
-    estimated_records: 463, type: 5, state: AT, description: 'Downloaded MSDS sheets
+    estimated_records: 463, state: AT, description: 'Downloaded MSDS sheets
       on September 5, 2017. Only downloaded the sheets in English. Initial scraping
       was done using selenium.', created_at: !!timestamp '2018-03-19 13:48:28.867754',
     updated_at: null, priority: HI}

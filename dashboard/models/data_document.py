@@ -17,6 +17,7 @@ class DataDocument(CommonInfo):
     extracted = models.BooleanField(default=False)
     uploaded_at = models.DateTimeField(default=timezone.now)
     document_type = models.ForeignKey(DocumentType, on_delete=models.PROTECT, null=True, blank=True)
+    organization = models.CharField(max_length=255, blank=True)
 
     class Meta:
         ordering = ['-id']

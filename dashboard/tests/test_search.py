@@ -23,7 +23,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from dashboard.models import (DataGroup, DataSource, DataDocument,
-                              Script, ExtractedText, Product, ProductCategory, ProductDocument)
+                              Script, ExtractedText, Product, PUC, ProductDocument, ProductToPUC)
 
 from haystack import connections
 from haystack.query import SearchQuerySet
@@ -105,9 +105,9 @@ class RollbackStaticLiveServerTestCase(StaticLiveServerTestCase):
 
 class SearchTests(RollbackStaticLiveServerTestCase):
     fixtures = ['00_superuser.yaml', '01_lookups.yaml',
-    '02_datasource.yaml' , '03_datagroup.yaml', '04_productcategory.yaml',
+    '02_datasource.yaml' , '03_datagroup.yaml', '04_PUC.yaml',
     '05_product.yaml', '06_datadocument.yaml' , '07_script.yaml', 
-     '08_extractedtext.yaml','09_productdocument.yaml']
+     '08_extractedtext.yaml','09_productdocument.yaml','10_extractedchemical','11_dsstoxsubstance']
 
     @classmethod
     def setUpClass(cls):
@@ -122,7 +122,7 @@ class SearchTests(RollbackStaticLiveServerTestCase):
         if settings.TEST_BROWSER == 'firefox':
             self.browser = webdriver.Firefox()
         else:
-            self.browser = webdriver.Chrome() 
+            self.browser = webdriver.Chrome(settings.CHROMEDRIVER_PATH) 
         self.test_start = time.time()
         log_karyn_in(self)
 
@@ -131,16 +131,7 @@ class SearchTests(RollbackStaticLiveServerTestCase):
         self.test_elapsed = time.time() - self.test_start
         self.browser.quit()
         print('\nFinished with ' + self._testMethodName)
-        print("Test case took {:.2f}s".format(self.test_elapsed))
-
-    def test_elasticsearch_isolation(self):
-        # update the search engine index
-        update_index.Command().handle(using=['test_index'],remove=True)
-        self.browser.get('http://localhost:9200/product-index/_search?q=obscurity')    
-        # "brand_name": "obscurity"
-        
-        # self.assertNotIn('"brand_name": "obscurity"', self.browser.page_source,
-        #                "The 'obscurity reference should not be in the results")     
+        print("Test case took {:.2f}s".format(self.test_elapsed)) 
 
     def test_elasticsearch(self):
         # Implement faceted search within application. Desire ability to search on Products by title,
@@ -155,7 +146,9 @@ class SearchTests(RollbackStaticLiveServerTestCase):
         # User enters a product title in the search bar. User is then taken to a landing page with
         # search results on product title, with the two facets visible on the left side of the page.
 
-        # Temporary fix: assign a PUC to the product, then update the index
+        # TODO: fix to use new Product-to-PUC foreign key relationship
+        # example results:
+        # http://127.0.0.1:9200/_search?q=lubricity&brand_name=British%20Petroleum
 
         p1 = Product.objects.get(pk=22)
         pc252 = ProductCategory.objects.get(pk=252)

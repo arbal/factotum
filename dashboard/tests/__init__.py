@@ -4,7 +4,9 @@
 
 from .test_product_to_puc import *
 from .test_product_to_attribute import *
-from .test_extract_template import *
 from .test_extracted_text import *
 from .test_models import *
 from .test_root_url_no_login import *
+from .test_datagroup_detail import *
+from .test_dashboard import *
+from .test_qa import *

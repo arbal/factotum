@@ -1,39 +1,49 @@
 - model: dashboard.datagroup
   pk: 6
-  fields: {name: British Petroleum (Air) 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-03-09
-      11:31:35', download_script: null, data_source: 7, updated_at: !!timestamp '2018-03-09
-      11:31:35', csv: British_Petroleum_(Air)_1/British_Petroleum_Air_1_British_Petroleum_Air_1_register_recor_EHDBt5f.csv,
-    zip_file: media/British_Petroleum_(Air)_1/British_Petroleum_(Air)_1.zip}
+  fields: {created_at: null, updated_at: !!timestamp '2018-06-20 18:00:38.834164',
+    name: British Petroleum (Air) 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-03-09
+      11:31:35', download_script: null, data_source: 7, csv: British_Petroleum_(Air)_1/British_Petroleum_Air_1_British_Petroleum_Air_1_register_recor_EHDBt5f.csv,
+    zip_file: media/British_Petroleum_(Air)_1/British_Petroleum_(Air)_1.zip, group_type: 3}
 - model: dashboard.datagroup
   pk: 7
-  fields: {name: Home Depot - ICF 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-03-12
-      09:09:58', download_script: null, data_source: 8, updated_at: !!timestamp '2018-03-12
-      09:09:58', csv: Home_Depot_-_ICF_1/Home_Depot_-_ICF_1_HD_register_records.csv,
-    zip_file: media/Home_Depot_-_ICF_1/Home_Depot_-_ICF_1.zip}
+  fields: {created_at: null, updated_at: !!timestamp '2018-06-20 17:56:57.253192',
+    name: Home Depot - ICF 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-03-12
+      09:09:58', download_script: null, data_source: 8, csv: Home_Depot_-_ICF_1/Home_Depot_-_ICF_1_HD_register_records.csv,
+    zip_file: media/Home_Depot_-_ICF_1/Home_Depot_-_ICF_1.zip, group_type: 2}
+- model: dashboard.datagroup
+  pk: 8
+  fields: {created_at: null, updated_at: !!timestamp '2018-06-20 17:56:57.253192',
+    name: Home Depot - Habits and Practices, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-03-12
+      09:09:58', download_script: null, data_source: 8, csv: Home_Depot_-_ICF_1/Home_Depot_-_ICF_1_HD_register_records.csv,
+    zip_file: media/Home_Depot_-_ICF_1/Home_Depot_-_ICF_1.zip, group_type: 4}
 - model: dashboard.datagroup
   pk: 17
-  fields: {name: Walmart MSDS 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2017-08-20
-      14:48:51', download_script: null, data_source: 10, updated_at: !!timestamp '2018-03-20
-      14:48:51', csv: Walmart_MSDS_1/Walmart_MSDS_1_out_08.csv, zip_file: media/Walmart_MSDS_1/Walmart_MSDS_1.zip}
+  fields: {created_at: null, updated_at: !!timestamp '2018-03-20 14:48:51', name: Walmart
+      MSDS 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2017-08-20
+      14:48:51', download_script: null, data_source: 10, csv: Walmart_MSDS_1/Walmart_MSDS_1_out_08.csv,
+    zip_file: media/Walmart_MSDS_1/Walmart_MSDS_1.zip, group_type: 1}
 - model: dashboard.datagroup
   pk: 18
-  fields: {name: Walmart MSDS 2, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2017-09-20
-      15:30:23', download_script: null, data_source: 10, updated_at: !!timestamp '2018-03-20
-      15:30:23', csv: Walmart_MSDS_2/Walmart_MSDS_2_out_09.csv, zip_file: media/Walmart_MSDS_2/Walmart_MSDS_2.zip}
+  fields: {created_at: null, updated_at: !!timestamp '2018-03-20 15:30:23', name: Walmart
+      MSDS 2, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2017-09-20
+      15:30:23', download_script: null, data_source: 10, csv: Walmart_MSDS_2/Walmart_MSDS_2_out_09.csv,
+    zip_file: media/Walmart_MSDS_2/Walmart_MSDS_2.zip, group_type: 1}
 - model: dashboard.datagroup
   pk: 20
-  fields: {name: Georgia Pacific 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-03-21
-      12:37:36', download_script: 1, data_source: 11, updated_at: !!timestamp '2018-03-21
-      12:37:36', csv: Georgia_Pacific_1/Georgia_Pacific_1_GP_register_records.csv,
-    zip_file: media/Georgia_Pacific_1/Georgia_Pacific_1.zip}
+  fields: {created_at: null, updated_at: !!timestamp '2018-03-21 12:37:36', name: Georgia
+      Pacific 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-03-21
+      12:37:36', download_script: 1, data_source: 11, csv: Georgia_Pacific_1/Georgia_Pacific_1_GP_register_records.csv,
+    zip_file: media/Georgia_Pacific_1/Georgia_Pacific_1.zip, group_type: 1}
 - model: dashboard.datagroup
   pk: 21
-  fields: {name: Sun MSDS 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-03-21
-      12:43:58', download_script: 3, data_source: 13, updated_at: !!timestamp '2018-03-21
-      12:43:58', csv: Sun_MSDS_1/Sun_MSDS_1_Sun_MSDS_register_records.csv, zip_file: media/Sun_MSDS_1/Sun_MSDS_1.zip}
+  fields: {created_at: null, updated_at: !!timestamp '2018-03-21 12:43:58', name: Sun
+      MSDS 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-03-21
+      12:43:58', download_script: 3, data_source: 13, csv: Sun_MSDS_1/Sun_MSDS_1_Sun_MSDS_register_records.csv,
+    zip_file: media/Sun_MSDS_1/Sun_MSDS_1.zip, group_type: 1}
 - model: dashboard.datagroup
   pk: 22
-  fields: {name: Sun Ingredient Disclosures 1, description: '', downloaded_by: 1,
-    downloaded_at: !!timestamp '2018-03-21 13:16:15', download_script: 6, data_source: 15,
-    updated_at: !!timestamp '2018-03-21 13:16:15', csv: Sun_Ingredient_Disclosures_1/Sun_Ingredient_Disclosures_1_Sun_IngDisc_register_records.csv,
-    zip_file: media/Sun_Ingredient_Disclosures_1/Sun_Ingredient_Disclosures_1.zip}
+  fields: {created_at: null, updated_at: !!timestamp '2018-03-21 13:16:15', name: Sun
+      Ingredient Disclosures 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-03-21
+      13:16:15', download_script: 6, data_source: 15, csv: Sun_Ingredient_Disclosures_1/Sun_Ingredient_Disclosures_1_Sun_IngDisc_register_records.csv,
+    zip_file: media/Sun_Ingredient_Disclosures_1/Sun_Ingredient_Disclosures_1.zip,
+    group_type: 1}

@@ -32,6 +32,12 @@ class DataGroup(CommonInfo):
     def matched_docs(self):
         return self.datadocument_set.filter(matched=True).count()
 
+    def all_matched(self):
+        return all(self.datadocument_set.values_list('matched', flat=True))
+
+    def all_extracted(self):
+        return all(self.datadocument_set.values_list('extracted', flat=True))
+
     def registered_docs(self):
         return self.datadocument_set.count()
 

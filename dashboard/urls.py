@@ -4,7 +4,6 @@ from django.conf.urls.static import static
 from haystack.forms import FacetedSearchForm
 from haystack.views import FacetedSearchView
 from . import views
-from factotum import search
 
 urlpatterns = [
 	url(r'^$', views.index, 				name='index'),
@@ -58,9 +57,10 @@ urlpatterns = [
     url(r'^datadocument/(?P<pk>\d+)$', views.data_document_detail,
 											name='data_document'),
     url(r'^search/', include('haystack.urls')),
-    url(r'^find/', search.FacetedSearchView.as_view(),
+    url(r'^find/', views.search.FacetedSearchView.as_view(),
 											name='haystack_search'),
     url(r'^p_json/', views.product_ajax, 	name='p_ajax_url'),
+	url(r'^chem_search/', views.chem_search, name='chem_search'),
     #url(r'^search/', FacetedSearchView(form_class=FacetedSearchForm, facet_fields=['brand_name','prod_cat']), name='haystack_search'),
 	# test with: /puc-autocomplete/?q=Art
 ]

@@ -1,0 +1,2 @@
+{{object.raw_chem_name}}
+{{object.raw_cas}}

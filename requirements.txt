@@ -14,3 +14,4 @@ elasticsearch-dsl>=2.0.0,<3.0.0
 elasticsearch>=2.0.0,<3.0.0
 django-bootstrap-datepicker==1.2.4
 selenium>=3.11.0
+lxml>=4.2.2

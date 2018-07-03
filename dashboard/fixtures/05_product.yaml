@@ -1,159 +1,156 @@
 - model: dashboard.product
   pk: 1
-  fields: { data_source: 7, source_category: null, title: AVCAT (FSII
+  fields: {created_at: !!timestamp '2018-03-09 11:35:45.318077', updated_at: !!timestamp '2018-03-09
+      11:45:55.736035', data_source: 7, source_category: null, title: AVCAT (FSII
       Lubricity Improver Additive), manufacturer: '', upc: stub_1, url: null, brand_name: British
       Petroleum, size: null, model_number: null, color: null, item_id: null, parent_item_id: null,
     short_description: null, long_description: null, thumb_image: null, medium_image: null,
-    large_image: null, created_at: !!timestamp '2018-03-09 11:35:45.318077', updated_at: !!timestamp '2018-03-09
-      11:45:55.736035'}
+    large_image: null}
 - model: dashboard.product
   pk: 2
-  fields: { data_source: 7, source_category: null, title: Avgas 100LL
+  fields: {created_at: !!timestamp '2018-03-09 11:36:05.144719', updated_at: !!timestamp '2018-03-12
+      09:41:31.952900', data_source: 7, source_category: null, title: Avgas 100LL
       (<0.1% Benzene), manufacturer: '', upc: stub_2, url: null, brand_name: British
       Petroleum, size: null, model_number: null, color: null, item_id: null, parent_item_id: null,
     short_description: null, long_description: null, thumb_image: null, medium_image: null,
-    large_image: null, created_at: !!timestamp '2018-03-09 11:36:05.144719', updated_at: !!timestamp '2018-03-12
-      09:41:31.952900'}
+    large_image: null}
 - model: dashboard.product
   pk: 3
-  fields: { data_source: 7, source_category: null, title: Jet A-1 (FSII
+  fields: {created_at: !!timestamp '2018-03-09 11:36:22.940686', updated_at: !!timestamp '2018-03-09
+      11:36:22.940688', data_source: 7, source_category: null, title: Jet A-1 (FSII
       + Lubricity Improver Additive), manufacturer: '', upc: stub_3, url: null, brand_name: British
       Petroleum, size: null, model_number: null, color: null, item_id: null, parent_item_id: null,
     short_description: null, long_description: null, thumb_image: null, medium_image: null,
-    large_image: null, created_at: !!timestamp '2018-03-09 11:36:22.940686', updated_at: !!timestamp '2018-03-09
-      11:36:22.940688'}
+    large_image: null}
 - model: dashboard.product
   pk: 4
-  fields: { data_source: 7, source_category: null, title: Jet A, manufacturer: '',
+  fields: {created_at: !!timestamp '2018-03-09 11:36:41.551227', updated_at: !!timestamp '2018-03-09
+      11:36:41.551229', data_source: 7, source_category: null, title: Jet A, manufacturer: '',
     upc: stub_4, url: null, brand_name: British Petroleum, size: null, model_number: null,
     color: null, item_id: null, parent_item_id: null, short_description: null, long_description: null,
-    thumb_image: null, medium_image: null, large_image: null, created_at: !!timestamp '2018-03-09
-      11:36:41.551227', updated_at: !!timestamp '2018-03-09 11:36:41.551229'}
+    thumb_image: null, medium_image: null, large_image: null}
 - model: dashboard.product
   pk: 5
-  fields: { data_source: 7, source_category: null, title: Jet A-1,
-    manufacturer: '', upc: stub_5, url: null, brand_name: British Petroleum, size: null,
-    model_number: null, color: null, item_id: null, parent_item_id: null, short_description: null,
-    long_description: null, thumb_image: null, medium_image: null, large_image: null,
-    created_at: !!timestamp '2018-03-09 11:36:56.558862', updated_at: !!timestamp '2018-03-09
-      11:36:56.558864'}
+  fields: {created_at: !!timestamp '2018-03-09 11:36:56.558862', updated_at: !!timestamp '2018-03-09
+      11:36:56.558864', data_source: 7, source_category: null, title: Jet A-1, manufacturer: '',
+    upc: stub_5, url: null, brand_name: British Petroleum, size: null, model_number: null,
+    color: null, item_id: null, parent_item_id: null, short_description: null, long_description: null,
+    thumb_image: null, medium_image: null, large_image: null}
 - model: dashboard.product
   pk: 6
-  fields: { data_source: 8, source_category: null, title: 'Wilsonart
-      Laminate Basic Types ', manufacturer: '', upc: stub_6, url: null, brand_name: Wilsonart,
+  fields: {created_at: !!timestamp '2018-03-12 09:45:42.078588', updated_at: !!timestamp '2018-03-12
+      09:45:42.078592', data_source: 8, source_category: null, title: 'Wilsonart Laminate
+      Basic Types ', manufacturer: '', upc: stub_6, url: null, brand_name: Wilsonart,
     size: null, model_number: null, color: null, item_id: null, parent_item_id: null,
     short_description: null, long_description: null, thumb_image: null, medium_image: null,
-    large_image: null, created_at: !!timestamp '2018-03-12 09:45:42.078588', updated_at: !!timestamp '2018-03-12
-      09:45:42.078592'}
+    large_image: null}
 - model: dashboard.product
   pk: 7
-  fields: { data_source: 8, source_category: null, title: Domestic
-      Veneer Core Constructions, manufacturer: '', upc: stub_7, url: null, brand_name: PureBond,
+  fields: {created_at: !!timestamp '2018-03-12 09:58:51.343007', updated_at: !!timestamp '2018-03-12
+      09:58:51.343009', data_source: 8, source_category: null, title: Domestic Veneer
+      Core Constructions, manufacturer: '', upc: stub_7, url: null, brand_name: PureBond,
     size: null, model_number: null, color: null, item_id: null, parent_item_id: null,
     short_description: null, long_description: null, thumb_image: null, medium_image: null,
-    large_image: null, created_at: !!timestamp '2018-03-12 09:58:51.343007', updated_at: !!timestamp '2018-03-12
-      09:58:51.343009'}
+    large_image: null}
 - model: dashboard.product
   pk: 8
-  fields: { data_source: 8, source_category: null, title: Blended Phosphor,
+  fields: {created_at: !!timestamp '2018-03-12 10:02:02.113345', updated_at: !!timestamp '2018-03-12
+      10:02:02.113347', data_source: 8, source_category: null, title: Blended Phosphor,
     manufacturer: '', upc: stub_8, url: null, brand_name: Nichia Shanghai, size: null,
     model_number: null, color: null, item_id: null, parent_item_id: null, short_description: null,
-    long_description: null, thumb_image: null, medium_image: null, large_image: null,
-    created_at: !!timestamp '2018-03-12 10:02:02.113345', updated_at: !!timestamp '2018-03-12
-      10:02:02.113347'}
+    long_description: null, thumb_image: null, medium_image: null, large_image: null}
 - model: dashboard.product
   pk: 9
-  fields: { data_source: 8, source_category: null, title: Brand Easy
-      Sand Lightweight Setting-Type Joint Compound, manufacturer: '', upc: stub_9,
-    url: null, brand_name: Sheetrock, size: null, model_number: null, color: null,
-    item_id: null, parent_item_id: null, short_description: null, long_description: null,
-    thumb_image: null, medium_image: null, large_image: null, created_at: !!timestamp '2018-03-12
-      10:06:02.451235', updated_at: !!timestamp '2018-03-12 10:06:02.451237'}
+  fields: {created_at: !!timestamp '2018-03-12 10:06:02.451235', updated_at: !!timestamp '2018-03-12
+      10:06:02.451237', data_source: 8, source_category: null, title: Brand Easy Sand
+      Lightweight Setting-Type Joint Compound, manufacturer: '', upc: stub_9, url: null,
+    brand_name: Sheetrock, size: null, model_number: null, color: null, item_id: null,
+    parent_item_id: null, short_description: null, long_description: null, thumb_image: null,
+    medium_image: null, large_image: null}
 - model: dashboard.product
   pk: 10
-  fields: { data_source: 8, source_category: null, title: Heavy-Duty
-      Floor Stripper Concentrate, manufacturer: '', upc: stub_10, url: null, brand_name: Zep,
+  fields: {created_at: !!timestamp '2018-03-12 10:11:19.259630', updated_at: !!timestamp '2018-03-12
+      10:11:19.259634', data_source: 8, source_category: null, title: Heavy-Duty Floor
+      Stripper Concentrate, manufacturer: '', upc: stub_10, url: null, brand_name: Zep,
     size: null, model_number: null, color: null, item_id: null, parent_item_id: null,
     short_description: null, long_description: null, thumb_image: null, medium_image: null,
-    large_image: null, created_at: !!timestamp '2018-03-12 10:11:19.259630', updated_at: !!timestamp '2018-03-12
-      10:11:19.259634'}
+    large_image: null}
 - model: dashboard.product
   pk: 11
-  fields: { data_source: 8, source_category: null, title: 3M(TM) Rubber
+  fields: {created_at: !!timestamp '2018-03-12 10:15:57.011088', updated_at: !!timestamp '2018-03-12
+      10:15:57.011090', data_source: 8, source_category: null, title: 3M(TM) Rubber
       & Vinyl 80 Spray Adhesive, manufacturer: '', upc: stub_11, url: null, brand_name: 3M,
     size: null, model_number: null, color: null, item_id: null, parent_item_id: null,
     short_description: null, long_description: null, thumb_image: null, medium_image: null,
-    large_image: null, created_at: !!timestamp '2018-03-12 10:15:57.011088', updated_at: !!timestamp '2018-03-12
-      10:15:57.011090'}
+    large_image: null}
 - model: dashboard.product
   pk: 12
-  fields: { data_source: 8, source_category: null, title: Lithium Manganese
+  fields: {created_at: !!timestamp '2018-03-12 10:19:06.971645', updated_at: !!timestamp '2018-03-12
+      10:19:06.971647', data_source: 8, source_category: null, title: Lithium Manganese
       Battery Bobbin, manufacturer: '', upc: stub_12, url: null, brand_name: FDK,
     size: null, model_number: null, color: null, item_id: null, parent_item_id: null,
     short_description: null, long_description: null, thumb_image: null, medium_image: null,
-    large_image: null, created_at: !!timestamp '2018-03-12 10:19:06.971645', updated_at: !!timestamp '2018-03-12
-      10:19:06.971647'}
+    large_image: null}
 - model: dashboard.product
   pk: 13
-  fields: { data_source: 8, source_category: null, title: Insulating
-      Sheathing Extruded Polystyrene (XPS) Rigid Foam Insulation, manufacturer: '',
-    upc: stub_13, url: null, brand_name: FOAMULAR, size: null, model_number: null,
-    color: null, item_id: null, parent_item_id: null, short_description: null, long_description: null,
-    thumb_image: null, medium_image: null, large_image: null, created_at: !!timestamp '2018-03-12
-      10:27:24.286408', updated_at: !!timestamp '2018-03-12 10:27:24.286410'}
+  fields: {created_at: !!timestamp '2018-03-12 10:27:24.286408', updated_at: !!timestamp '2018-03-12
+      10:27:24.286410', data_source: 8, source_category: null, title: Insulating Sheathing
+      Extruded Polystyrene (XPS) Rigid Foam Insulation, manufacturer: '', upc: stub_13,
+    url: null, brand_name: FOAMULAR, size: null, model_number: null, color: null,
+    item_id: null, parent_item_id: null, short_description: null, long_description: null,
+    thumb_image: null, medium_image: null, large_image: null}
 - model: dashboard.product
   pk: 14
-  fields: { data_source: 8, source_category: null, title: Homax Gloss
+  fields: {created_at: !!timestamp '2018-03-12 10:33:16.616547', updated_at: !!timestamp '2018-03-12
+      10:33:16.616548', data_source: 8, source_category: null, title: Homax Gloss
       Wet Look Cure Seal, manufacturer: '', upc: stub_14, url: null, brand_name: Homax
       Products, size: null, model_number: null, color: null, item_id: null, parent_item_id: null,
     short_description: null, long_description: null, thumb_image: null, medium_image: null,
-    large_image: null, created_at: !!timestamp '2018-03-12 10:33:16.616547', updated_at: !!timestamp '2018-03-12
-      10:33:16.616548'}
+    large_image: null}
 - model: dashboard.product
   pk: 15
-  fields: { data_source: 8, source_category: null, title: Dust Collector
+  fields: {created_at: !!timestamp '2018-03-12 10:39:38.788272', updated_at: !!timestamp '2018-03-12
+      10:39:38.788274', data_source: 8, source_category: null, title: Dust Collector
       Manual, manufacturer: '', upc: stub_15, url: null, brand_name: Steel City, size: null,
     model_number: null, color: null, item_id: null, parent_item_id: null, short_description: null,
-    long_description: null, thumb_image: null, medium_image: null, large_image: null,
-    created_at: !!timestamp '2018-03-12 10:39:38.788272', updated_at: !!timestamp '2018-03-12
-      10:39:38.788274'}
+    long_description: null, thumb_image: null, medium_image: null, large_image: null}
 - model: dashboard.product
   pk: 16
-  fields: { data_source: 8, source_category: null, title: Workmate
-      425 Instructions, manufacturer: '', upc: stub_16, url: null, brand_name: Black
-      & Decker, size: null, model_number: null, color: null, item_id: null, parent_item_id: null,
+  fields: {created_at: !!timestamp '2018-03-12 10:45:05.842058', updated_at: !!timestamp '2018-03-12
+      10:45:05.842060', data_source: 8, source_category: null, title: Workmate 425
+      Instructions, manufacturer: '', upc: stub_16, url: null, brand_name: Black &
+      Decker, size: null, model_number: null, color: null, item_id: null, parent_item_id: null,
     short_description: null, long_description: null, thumb_image: null, medium_image: null,
-    large_image: null, created_at: !!timestamp '2018-03-12 10:45:05.842058', updated_at: !!timestamp '2018-03-12
-      10:45:05.842060'}
+    large_image: null}
 - model: dashboard.product
   pk: 17
-  fields: { data_source: 8, source_category: null, title: Fast Orange
+  fields: {created_at: !!timestamp '2018-03-12 10:48:38.628199', updated_at: !!timestamp '2018-03-12
+      10:48:38.628201', data_source: 8, source_category: null, title: Fast Orange
       Pumice Lotion 64 Fl. Oz, manufacturer: '', upc: stub_17, url: null, brand_name: Permatex,
     size: null, model_number: null, color: null, item_id: null, parent_item_id: null,
     short_description: null, long_description: null, thumb_image: null, medium_image: null,
-    large_image: null, created_at: !!timestamp '2018-03-12 10:48:38.628199', updated_at: !!timestamp '2018-03-12
-      10:48:38.628201'}
+    large_image: null}
 - model: dashboard.product
   pk: 18
-  fields: { data_source: 8, source_category: null, title: Designer
-      Series Paver Joint Sand, manufacturer: '', upc: stub_18, url: null, brand_name: UltraMix,
+  fields: {created_at: !!timestamp '2018-03-12 10:53:40.425759', updated_at: !!timestamp '2018-03-12
+      10:53:40.425761', data_source: 8, source_category: null, title: Designer Series
+      Paver Joint Sand, manufacturer: '', upc: stub_18, url: null, brand_name: UltraMix,
     size: null, model_number: null, color: null, item_id: null, parent_item_id: null,
     short_description: null, long_description: null, thumb_image: null, medium_image: null,
-    large_image: null, created_at: !!timestamp '2018-03-12 10:53:40.425759', updated_at: !!timestamp '2018-03-12
-      10:53:40.425761'}
+    large_image: null}
 - model: dashboard.product
   pk: 19
-  fields: { data_source: 8, source_category: null, title: 'Installation
+  fields: {created_at: !!timestamp '2018-03-12 10:58:29.900141', updated_at: !!timestamp '2018-03-12
+      10:58:29.900143', data_source: 8, source_category: null, title: 'Installation
       and Care Guide, Cable Drain', manufacturer: '', upc: stub_19, url: null, brand_name: Kohler,
     size: null, model_number: null, color: null, item_id: null, parent_item_id: null,
     short_description: null, long_description: null, thumb_image: null, medium_image: null,
-    large_image: null, created_at: !!timestamp '2018-03-12 10:58:29.900141', updated_at: !!timestamp '2018-03-12
-      10:58:29.900143'}
+    large_image: null}
 - model: dashboard.product
   pk: 20
-  fields: { data_source: 8, source_category: null, title: Triazicide
-      Insect Killer For Lawns & Landscapes, manufacturer: '', upc: stub_20, url: null,
-    brand_name: Spectracide, size: null, model_number: null, color: null, item_id: null,
-    parent_item_id: null, short_description: null, long_description: null, thumb_image: null,
-    medium_image: null, large_image: null, created_at: !!timestamp '2018-03-12 11:04:45.041904',
-    updated_at: !!timestamp '2018-03-12 11:04:45.041906'}
+  fields: {created_at: !!timestamp '2018-03-12 11:04:45.041904', updated_at: !!timestamp '2018-03-12
+      11:04:45.041906', data_source: 8, source_category: null, title: Triazicide Insect
+      Killer For Lawns & Landscapes, manufacturer: '', upc: stub_20, url: null, brand_name: Spectracide,
+    size: null, model_number: null, color: null, item_id: null, parent_item_id: null,
+    short_description: null, long_description: null, thumb_image: null, medium_image: null,
+    large_image: null}

@@ -35,14 +35,14 @@
 
 
 	<h3>Product Filters</h3>
-        {% if facets.fields.prod_cat %}
+        {% if facets.fields.pucs %}
         <dl>
-        <dt>Filter by Category</dt>
-        {% for prod_cat in facets.fields.prod_cat %}
-            {% if prod_cat.1 != 0 %}
+        <dt>Filter by PUC</dt>
+        {% for puc in facets.fields.pucs %}
+            {% if puc.1 != 0 %}
             <dd>
-            <input class="facet" id="{{prod_cat.0|cut:" "}}" type="checkbox" name="prod_cat" value="{{ prod_cat.0 }}" 
-            data-toggle="toggle" /> {{ prod_cat.0 }} ({{ prod_cat.1 }})
+            <input class="facet" id="{{puc.0|cut:" "}}" type="checkbox" name="puc" value="{{ puc.0 }}" 
+            data-toggle="toggle" /> {{ puc.0 }} ({{ puc.1 }})
             </dd>
             {% endif %}
         {% endfor %}
@@ -88,14 +88,14 @@
         <h3>Data Document Filters</h3>
         <p><code>Document Type will be a facet: not yet implemented in DataDocument model</code></p>
         <!-- TODO: the doc_type field has not yet been added to the DataDocumentModel -->
-        {% if facets.fields.doc_type %}
+        {% if facets.fields.source_type %}
         <dl>
         <dt>Filter by Document Type</dt>
-        {% for doc_type in facets.fields.doc_type %}
+        {% for doc_type in facets.fields.source_type %}
             {% if doc_type.1 != 0 %}
             <dd>
-            <input class="facet" id="{{doc_type.0|cut:" "}}" type="checkbox" name="doc_type" value="{{ doc_type.0 }}" 
-            data-toggle="toggle" /> {{ doc_type.0 }} ({{ doc_type.1 }})
+            <input class="facet" id="{{source_type.0|cut:" "}}" type="checkbox" name="source_type" value="{{ source_type.0 }}" 
+            data-toggle="toggle" /> {{ source_type.0 }} ({{ source_type.1 }})
             </dd>
             {% endif %}
         {% endfor %}
@@ -109,7 +109,7 @@
 {% endif %}
 	<div class="col-md-9">
             <div class="row">
-                <div class="col-md-6 col-xs-6">
+                <div class="col-md-5 col-xs-5">
                       Search result for: <label> {{query}} </label>
                </div>
                <div class="col-md-6 col-xs-6 align-right">
@@ -126,9 +126,18 @@
                         <div class="showcase col-sm-6 col-md-4">
            <h5>{{result.facet_model_name}}</h5>
 		   <a href="{{ result.object.get_absolute_url }}">
-		      <h4>{{result.object.title}}</h4>
-		   </a>
-		    <p class="text-center"><span class="label label-info">{{result.object.brand_name}}</span></p>
+          <h4 class="{{ result.result_css_class }}">{{result.object.title}}</h4>
+       </a>
+       <dl>
+        {% if  result.pucs %}
+        <dd>PUCs:</dd>
+        <dt>{{result.pucs}}</dt>
+        {% endif %}
+        {% if  result.brand_name %}
+        <dd>Brand Name:</dd>
+        <dt>{{result.brand_name}}</dt>
+        {% endif %}
+      </dl>
 		    </div>
                     {% endfor %}
                 </ol>

@@ -1,28 +1,29 @@
 - model: dashboard.script
   pk: 1
-  fields: {title: Georgia Pacific (download), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_GeorgiaPacific.ipynb',
+  fields: {created_at: null, updated_at: null, title: Georgia Pacific (download),
+    url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_GeorgiaPacific.ipynb',
     qa_begun: false, script_type: DL}
 - model: dashboard.script
   pk: 2
-  fields: {title: Sun INDS (download), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_Sun_INDS.ipynb',
+  fields: {created_at: null, updated_at: null, title: Sun INDS (download), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_Sun_INDS.ipynb',
     qa_begun: false, script_type: DL}
 - model: dashboard.script
   pk: 3
-  fields: {title: Sun MSDS (download), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_Sun_NA_MSDS.ipynb',
+  fields: {created_at: null, updated_at: null, title: Sun MSDS (download), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_Sun_NA_MSDS.ipynb',
     qa_begun: false, script_type: DL}
 - model: dashboard.script
   pk: 4
-  fields: {title: Sun OSHA GHS (download), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_Sun_OSHA_GHS.ipynb',
+  fields: {created_at: null, updated_at: null, title: Sun OSHA GHS (download), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_Sun_OSHA_GHS.ipynb',
     qa_begun: false, script_type: DL}
 - model: dashboard.script
   pk: 5
-  fields: {title: Georgia Pacific (extract), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/extract_GeorgiaPacific.ipynb',
+  fields: {created_at: null, updated_at: null, title: Georgia Pacific (extract), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/extract_GeorgiaPacific.ipynb',
     qa_begun: false, script_type: EX}
 - model: dashboard.script
   pk: 6
-  fields: {title: Sun INDS (extract), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/pdf2text_extract_Sun_INDS.ipynb',
+  fields: {created_at: null, updated_at: null, title: Sun INDS (extract), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/pdf2text_extract_Sun_INDS.ipynb',
     qa_begun: false, script_type: EX}
 - model: dashboard.script
   pk: 7
-  fields: {title: Sun OSHA GHS (extract), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/pdf2text_extract_Sun_OSHA_GHS.ipynb',
+  fields: {created_at: null, updated_at: null, title: Sun OSHA GHS (extract), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/pdf2text_extract_Sun_OSHA_GHS.ipynb',
     qa_begun: false, script_type: EX}

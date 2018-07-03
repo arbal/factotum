@@ -11,17 +11,16 @@ class PUC(CommonInfo):
     last_edited_by = models.ForeignKey('auth.User', default=1, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product, through='ProductToPUC')
     attribute = models.ForeignKey('PUCAttribute', on_delete=models.PROTECT, null=True, blank=True)
+    extracted_habits_and_practices = models.ManyToManyField('dashboard.ExtractedHabitsAndPractices',
+                                                            through='dashboard.ExtractedHabitsAndPracticesToPUC')
 
     class Meta:
         ordering = ['gen_cat', 'prod_fam', 'prod_type']
         verbose_name_plural = 'Product categories'
 
     def __str__(self):
-        cats = (self.gen_cat, ' - ', self.prod_fam, ' - ', self.prod_type)
-        return ''.join(str(cat) for cat in cats if cat is not None)
-        # return self.gen_cat + ' - ' + self.prod_fam + ' - ' + self.prod_type # this may need to change
+        cats = [self.gen_cat, self.prod_fam, self.prod_type]
+        return ' - '.join(cat for cat in cats if cat is not None)
 
     def natural_key(self):
         return self.gen_cat
-
-
