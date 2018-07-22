@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 {% load widget_tweaks %}
+
 <html lang="en">
 <head>
     <!-- Meta tags -->
@@ -13,6 +14,7 @@
     <link rel="stylesheet" href="{% static 'font/open-iconic-master/font/css/open-iconic-bootstrap.min.css' %}">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static "css/bootstrap_overrides.css" %}">
+    <link rel="stylesheet" href="{% static "css/datatables_overrides.css" %}">
     {% block css %}{% endblock %}
 
     <title>{% block title %}factotum{% endblock %}</title>
@@ -20,55 +22,23 @@
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
 
-    <!-- TODO: Refactor this css to a css file to be included only in the pages that need it -->
-    <style media="screen">
-      table.dataTable thead .sorting::after,
-      table.dataTable thead .sorting_asc::after {
-          display:none;
-      }
-
-      table.dataTable thead .sorting_desc::after {
-          display:none;
-      }
-
-      table.dataTable thead .sorting {
-         background-image: url({% static 'DataTables/DataTables-1.10.16/images/sort_both.png' %});
-         background-repeat: no-repeat;
-         background-position: center right;
-      }
-
-      table.dataTable thead .sorting_asc {
-         background-image: url({% static 'DataTables/DataTables-1.10.16/images/sort_asc.png' %});
-         background-repeat: no-repeat;
-         background-position: center right;
-      }
-
-      table.dataTable thead .sorting_desc {
-         background-image: url({% static 'DataTables/DataTables-1.10.16/images/sort_desc.png' %});
-         background-repeat: no-repeat;
-         background-position: center right;
-      }
-
-      .dataTables_paginate, .dt-buttons {
-        float: right;
-      }
-
-      .dataTables_filter, .dataTables_length {
-        display: inline;
-      }
-    </style>
 </head>
 <body>
 <!-- Fixed navbar -->
 <nav class="navbar navbar-expand-md navbar-custom fixed-top py-0">
     <a class="navbar-brand" href="{% url 'login' %}" title="an employee who does all kinds of work">factotum</a>
-    {% if user.is_authenticated %}
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav justify-content-lg-between">
+        <li class="nav-item {% if 'get_data' in request.resolver_match.url_name %}active{% endif %}">
+            <a class="nav-link" href="{% url 'get_data' %}" title="Get Data">Get Data</a>
+        </li>
+    {% if user.is_authenticated %}
+
             <li class="nav-item {% if request.resolver_match.url_name == 'index' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'index' %}">Dashboard</a>
             </li>
@@ -106,8 +76,9 @@
                     </div>
                 </form>
             </li>
-        </ul>
     {% endif %}
+</ul>
+
     </div>
 
 </nav>
@@ -127,11 +98,9 @@
 
     {#<!-- jQuery first, then Popper.js, then Bootstrap JS -->#}
     <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-            integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-            crossorigin="anonymous"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script type="text/javascript" charset="utf8" src="{% static 'DataTables/datatables.js' %}"></script>
+    <script src="{% static 'DataTables/datatables.js' %}"></script>
     <script src="{% static 'js/facet_search.js' %}"></script>
     {% block js %}{% endblock %}
 

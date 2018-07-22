@@ -1,7 +1,7 @@
 from django.db import models
 from .common_info import CommonInfo
 from .data_source import DataSource
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 
 class SourceCategory(CommonInfo):

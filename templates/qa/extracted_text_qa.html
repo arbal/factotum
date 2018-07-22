@@ -1,6 +1,15 @@
 {% extends 'core/base.html' %}
-{% load staticfiles %}
+{% load widget_tweaks %}
+{% load staticfiles %}'
+
 {% load humanize %}
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+
 
 {% block content %}
 <nav aria-label="breadcrumb">
@@ -13,93 +22,206 @@
     </ol>
   </nav>
 
-{% if True %} 
-
   <div class="card">
-                    <h3 class="card-header">{{ doc.title }}</h3>
-                  
-    <div class="card-body">  
-        <dl class="row col-sm-12">
-            <dt class="col-sm-3">File Name</dt>
-            <dd class="col-sm-9">{{ doc.filename }}</dd>
-            <dt class="col-sm-3">URL</dt>
-            <dd class="col-sm-9">{{ doc.url }}</dd>
-            {% if doc.matched %}
-            <dt class="col-sm-3">PDF</dt>
-                <dd class="col-sm-9">
-                    <a href="/media/{{ doc.data_group.dgurl }}/pdf/{{ doc.filename }}"
-                        title="Link to {{ doc.filename }}" target="_blank">{{ doc.title }}</a>
-                </dd>
-            {% endif %}
-            <dt class="col-sm-3">Product Category</dt>
-            <dd class="col-sm-9">{{ doc.product_category }}</dd>
-            <dt class="col-sm-3">Data Group</dt>
-            <dd class="col-sm-9">
-                <a title="Data Group"
-                    href="{% url 'data_group_detail' doc.data_group.id %}"> {{ doc.data_group }}
-                </a>
-            </dd>
+    <h3 class="card-header text-center">DataDocument: {{ doc.title }}</h3>
+    <table class="table table-bordered">
 
-        </dl>
-        </div>
+      <tr>
+        <th>Data Group</th>
+        <td>
+          <a title="Data Group"
+              href="{% url 'data_group_detail' doc.data_group.id %}"> {{ doc.data_group }}
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <th>Product Category</th>
+        <td>
+          {{ doc.product_category }}
+        </td>
+      </tr>
+      <tr>
+        <th>URL</th>
+        <td>
+          {{ doc.url }}
+        </td>
+      </tr>
+      {% if doc.matched %}
+      <tr>
+        <th>PDF</th>
+        <td>
+          <a href="/media/{{ doc.data_group.dgurl }}/pdf/{{ doc.filename }}"
+              title="Link to {{ doc.filename }}" target="_blank">{{ doc.filename }}</a>
+          <small><i>click to open PDF in new window</i></small>
+        </td>
+      </tr>
+      {% endif %}
+    </table>
 </div>
-{% endif %}
 
-<div class="card">
-            <h3 class="card-header">Extracted Text</h3>
-        <div class="card-body">
-        <dl class="row col-sm-12">
-                <dt class="col-sm-3">Record Type</dt>
-                <dd class="col-sm-9">{{ extracted.record_type }}</dd>
-                <dt class="col-sm-3">Product Name</dt>
-                <dd class="col-sm-9">{{ extracted.prod_name }}</dd>
-                <dt class="col-sm-3">Document Date</dt>
-                <dd class="col-sm-9">{{ extracted.doc_date }}</dd>
-            </dl>
-
-
-            <table class="table table-striped table-bordered dataTable no-footer table-sm" id="extractedchemicals">
-                    <thead class="table-primary">
-                        <th>CAS</th>
-                        <th>Chemical Name</th>
-                        <th>raw_min_comp</th>
-                        <th>raw_max_comp</th>
-                        <th>Units</th>
-                        <th>Reported Functional Use</th>
-                    </thead>
-                    <tbody>
-                    {% for chem in chems %}
-                      <tr>
-                        <td>{{chem.raw_cas}}
-                        </td>
-                        <td>{{ chem.raw_chem_name}} %</td>
-                        <td>{{ chem.raw_min_comp | floatformat:0.00}} %</td>
-                        <td>{{ chem.raw_max_comp | floatformat:0.00 }} %</td>
-
-                        <td>{{ chem.units }}</td>
-                        <td>{{ chem.report_funcuse }}</td>
-                      </tr>
-                    {% endfor %}
-                    </tbody>
-                  </table>
-                  <a class="btn btn-success" href="#" role="button">Approve</a>
-                  <a class="btn btn-primary" href="#" role="button">Edit</a>
-                  {% if nextid > 0 %}
-                    <a class="btn btn-warning" href="{% url "extracted_text_qa" nextid %}" role="button">Skip</a>
-                  {% else %}
-                    <button type="button" title="All the other documents in this QA group have been approved" class="btn btn-warning" aria-disabled="true" disabled>Skip</button>
-                  {% endif %}
-                  <a class="btn btn-primary" href="{% url "extraction_script_qa" script.id %}" role="button">Exit</a>
-
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="card-header form-inline">
+        <h3 class="text-center col-9">Extracted Text</h3>
+      <button type="button" id="btn-toggle-edit" data-toggle="button" class="btn btn-secondary" onclick="toggleChemicalEdit(true)">
+              <span id="btn-toggle-label" class="oi oi-wrench"></span>Edit Extracted Chemicals
+      </button>
+      </div>
+      <div class="card-body">
+      <form method="post" >
+        {% csrf_token %}
+      <div class="row">
+        <div class="col-sm-3">
+          <div class=" card-body form-group text-center bg-dark text-white">
+            <!-- <div class="card-header">
+              <h4>Extracted Text Data</h4>
+            </div> -->
+              {% if error %}
+              <div class="form-group has-error">
+                  <span class="help-block">{{ error }}</span>
+              </div>
+              {% endif %}
+              {% include 'core/bs4_form_dl.html' with form=ext_form %}
+          </div>
         </div>
-        <p class="card-footer"> {{stats}}</p>
+        {{ chem_formset.management_form }}
+        {% for form in chem_formset.forms %}
+        <div class="col-sm-3">
+          <div class="card" >
+            <div class="card-body bg-secondary">
+              <!-- {% for hidden_field in form.hidden_fields %}
+              {{ hidden_field }}
+              {% endfor %} -->
+              {% if not form.instance.pk %}
+              <div class="text-center">
+                <small><b>Add New Chemical</b></small><br>
+              </div>
+              {% else %}
+              {% endif %}
+              {{ form.id.as_hidden }}
+              <div class="text-center">
+                <small><b>{{ form.raw_cas.label_tag }}</b></small><br>
+                  {{ form.raw_cas}}
+              </div>
+              <div class="text-center">
+                <small><b>{{ form.raw_chem_name.label_tag }}</b></small><br>
+                  {{ form.raw_chem_name}}
+              </div>
+              <div class="text-center">
+                <small><b>{{ form.raw_min_comp.label_tag }}</b></small><br>
+                  {{ form.raw_min_comp}}
+              </div>
+              <div class="text-center">
+                <small><b>{{ form.raw_max_comp.label_tag }}</b></small><br>
+                  {{ form.raw_max_comp}}
+              </div>
+              <div class="text-center">
+                <small><b>{{ form.unit_type.label_tag }}</b></small><br>
+                {% if form.unit_type.errors %}
+                  {% render_field form.unit_type class="chem-control form-control is-invalid" %}
+                  {{ form.unit_type.errors }}
+                {% else %}
+                  {{ form.unit_type }}
+                {% endif %}
+
+              </div>
+              <div class="text-center">
+                <small><b>{{ form.report_funcuse.label_tag }}</b></small><br>
+                  {{ form.report_funcuse}}
+              </div>
+              <div class="text-center">
+                <small><b>{{ form.ingredient_rank.label_tag }}</b></small><br>
+                  {{ form.ingredient_rank}}
+              </div>
+              <div class="text-center">
+                <small><b>{{ form.raw_central_comp.label_tag }}</b></small><br>
+                  {{ form.raw_central_comp}}
+              </div>
+              <div class="text-center">
+                {% if form.instance.pk %}
+                <small><b>{{ form.DELETE.label_tag }}</b></small><br>
+                  {{ form.DELETE}}
+                {% else %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <button type = "submit" id="save" name="save" class="btn btn-primary chem-control" role="button">Save edits</button>
+      <div class="row card-body">
+        <div class="col-sm-6">
+          <button type = "submit" id="approve" name="approve" class="btn btn-success btn-lg btn-block" role="button">Approve</button>
+          <br>
+          {% if nextid > 0 %}
+              <a class="btn btn-warning btn-lg btn-block" href="{% url "extracted_text_qa" nextid %}" role="button">Skip</a>
+          {% else %}
+              <button type="button" title="All the other documents in this QA group have been approved" class="btn btn-secondary btn-lg btn-block" aria-disabled="true" disabled>Skip</button>
+          {% endif %}
+          <br>
+          <a class="btn btn-secondary btn-lg btn-block" href="{% url "extraction_script_qa" script.id %}" role="button">Exit</a>
+        </div>
+        <div class="col-sm-6 text-center">
+          <b>{{ notesform.qa_notes.label_tag }}</b>
+            <br>
+            {% if notesform.is_bound %}
+              {% if notesform.errors %}
+              {{ notesform.qa_notes.errors }}
+               {% render_field notesform.qa_notes class="form-control is-invalid" %}
+                {% for k, error in notesform.errors.items %}
+                  <div class="invalid-feedback">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% render_field notesform.qa_notes class="form-control is-valid" %}
+              {% endif %}
+            {% else %}
+              {% render_field notesform.qa_notes class="form-control" %}
+            {% endif %}
+        </div>
+      </div>
+        </form>
+      </div>
     </div>
+  </div>
+</div>
+
+    <p class="card-footer"> {{stats}}</p>
 
 {% endblock %}
 {% block js %}
   <script type="text/javascript">
         window.onload = function() {
-        window.open("/media/{{ doc.data_group.dgurl }}/pdf/{{ doc.filename }}",'pdf',' menubar=0, resizable=0,dependent=0,status=0,width=400,height=7000,left=10,top=10')
+        // window.open("/media/{{ doc.data_group.dgurl }}/pdf/{{ doc.filename }}",'pdf',' menubar=0, resizable=0,dependent=0,status=0,width=400,height=7000,left=10,top=10')
+        toggleChemicalEdit(false);
         }
+
+        function toggleChemicalEdit(enable=true) {
+            // set the chemical data fields to editable
+            // show the notes box
+            if (enable)  {
+                // enter edit mode
+                $('#save').removeClass('disabled');
+                $('#btn-toggle-edit').addClass('btn-warning');
+                $('#btn-toggle-edit').attr("onclick","toggleChemicalEdit(false)");
+                $('.chem-control').addClass('unlocked');
+                $('.chem-control').prop('disabled', false);
+                $('.extext-control').addClass('unlocked');
+                $('.extext-control').prop('disabled', false);
+            } else{
+                // exit edit mode
+                $('#btn-toggle-edit').attr("onclick","toggleChemicalEdit(true)");
+                $('#save').addClass('disabled');
+                $('#btn-toggle-edit').removeClass('btn-warning');
+                $('.chem-control').removeClass('unlocked');
+                $('.chem-control').prop('disabled', true);
+                $('.extext-control').removeClass('unlocked');
+                $('.extext-control').prop('disabled', true);
+            }
+        }
+
   </script>
 {% endblock %}

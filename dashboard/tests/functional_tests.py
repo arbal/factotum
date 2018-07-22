@@ -17,13 +17,13 @@ from django.conf import settings
 from django.utils import timezone
 from django.test import LiveServerTestCase, override_settings
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.core.files.storage import FileSystemStorage
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from dashboard.models import (DataGroup, DataSource, DataDocument,
-                              Script, ExtractedText, Product, ProductCategory, ProductDocument, QAGroup)
+                              Script, ExtractedText, Product, PUC, ProductDocument, QAGroup)
 
 from haystack import connections
 from haystack.query import SearchQuerySet

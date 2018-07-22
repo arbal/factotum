@@ -6,7 +6,7 @@ from django.db.models import Q
 class PUCAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         # Don't forget to filter out results depending on the visitor !
-        if not self.request.user.is_authenticated():
+        if not self.request.user.is_authenticated:
             return PUC.objects.none()
         qs = PUC.objects.all()
         if self.q:

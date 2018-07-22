@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 from .loader import load_model_objects
-from dashboard.models import ExtractedText
+from dashboard.models import ExtractedText, QANotes
 
-class ModelsTest(TestCase):
+class ExtractedTest(TestCase):
 
     def setUp(self):
 
@@ -41,3 +41,9 @@ class ModelsTest(TestCase):
             text.clean()
         except ValidationError:
             self.fail("clean() raised ExceptionType unexpectedly!")
+
+    def test_extracted_text_qa_notes(self):
+        self.objects.extext.qa_edited = True
+        note = QANotes.objects.create(extracted_text=self.objects.extext)
+        self.assertEqual(note.qa_notes, None)
+        self.assertRaises(ValidationError, note.clean)

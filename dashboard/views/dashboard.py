@@ -1,8 +1,11 @@
+import csv
+import datetime
 from django.shortcuts import render
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from dashboard.models import DataGroup, DataDocument, DataSource, Product, ProductToPUC
 from django.db.models import Count, F, DateField, DateTimeField
-import datetime, logging
+from dashboard.models import (DataGroup, DataDocument, DataSource, Product,
+                                                            ProductToPUC, PUC)
 from dateutil.relativedelta import relativedelta
 from django.db.models.functions import Trunc
 
@@ -88,3 +91,17 @@ def product_with_puc_count_by_month():
             if i + 1 > len(product_stats) or product_stats[i]['puc_assigned_month'] != chart_month:
                 product_stats.insert(i, {'product_count': '0', 'puc_assigned_month': chart_month})
     return product_stats
+
+
+def download_PUCs(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="PUCs.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['gen_cat', 'prod_fam', 'prod_type', 'description', 'PUC_type'])
+    for puc in PUC.objects.all():
+        attr = puc.attribute if puc.attribute != None else ''
+        writer.writerow([puc.gen_cat, puc.prod_fam, puc.prod_type,
+                                                        puc.description, attr])
+
+    return response

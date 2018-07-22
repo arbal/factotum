@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dashboard.apps.DashboardConfig',
     'api.apps.ApiConfig',
+    'bootstrap_datepicker_plus',
     'widget_tweaks',
     'django.contrib.humanize',
     'factotum',
@@ -40,7 +41,6 @@ INSTALLED_APPS = [
     #'debug_toolbar',
     'haystack',
     'haystack_elasticsearch',
-    'bootstrap_datepicker'
 
 ]
 
@@ -112,13 +112,9 @@ USE_L10N = True
 
 USE_TZ = False
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-   # os.path.join(BASE_DIR, 'assets'),
 ]
 
 DEBUG = True

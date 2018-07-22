@@ -2,7 +2,7 @@ from django.db import models
 from .common_info import CommonInfo
 from .product import Product
 from .data_document import DataDocument
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 
 class ProductDocument(CommonInfo):

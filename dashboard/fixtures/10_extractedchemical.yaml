@@ -25,6 +25,25 @@
     report_funcuse: sweetener, weight_fraction_type: 1, ingredient_rank: null, raw_central_comp: ''}
 - model: dashboard.extractedchemical
   pk: 7
-  fields: {created_at: null, updated_at: null, extracted_text: 12, raw_cas: 120-47-8,
-    raw_chem_name: ethylparaben_PP, raw_min_comp: '4', raw_max_comp: '7', unit_type: 2,
-    report_funcuse: enjoyment, weight_fraction_type: 1, ingredient_rank: null, raw_central_comp: ''}
+  fields: {extracted_text: 12, raw_cas: 120-47-8, raw_chem_name: ethylparaben_PP,
+    raw_min_comp: '4', raw_max_comp: '7', unit_type: '2', report_funcuse: enjoyment, raw_central_comp: ''}
+- model: dashboard.extractedchemical
+  pk: 8
+  fields: {extracted_text: 8, raw_cas: 84-74-2, raw_chem_name: dibutyl phthalate,
+    raw_min_comp: '4', raw_max_comp: '7', unit_type: '1', report_funcuse: swell,  raw_central_comp: ''}
+- model: dashboard.extractedchemical
+  pk: 9
+  fields: {extracted_text: 8, raw_cas: 120-47-8, raw_chem_name: ethylparaben_P, raw_min_comp: '0.47',
+    raw_max_comp: '0.74', unit_type: '1', report_funcuse: sweetener, raw_central_comp: ''}
+- model: dashboard.extractedchemical
+  pk: 10
+  fields: {extracted_text: 9, raw_cas: 84-74-2, raw_chem_name: dibutyl phthalate,
+    raw_min_comp: '4', raw_max_comp: '7', unit_type: '1', report_funcuse: swell,  raw_central_comp: ''}
+- model: dashboard.extractedchemical
+  pk: 11
+  fields: {extracted_text: 9, raw_cas: 120-47-8, raw_chem_name: ethylparaben_P, raw_min_comp: '0.47',
+    raw_max_comp: '0.74', unit_type: '1', report_funcuse: sweetener, raw_central_comp: ''}
+- model: dashboard.extractedchemical
+  pk: 12
+  fields: {extracted_text: 10, raw_cas: 120-47-8, raw_chem_name: ethylparaben_P, raw_min_comp: '0.47',
+    raw_max_comp: '0.74', unit_type: '1', report_funcuse: sweetener, raw_central_comp: ''}

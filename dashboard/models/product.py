@@ -4,7 +4,7 @@ from .data_source import DataSource
 from .source_category import SourceCategory
 #from .product_to_puc import ProductToPUC
 #from .PUC import PUC
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 
 class Product(CommonInfo):

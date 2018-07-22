@@ -119,7 +119,7 @@ class ModelsTest(TestCase):
         self.assertEqual(ExtractedHabitsAndPracticesToPUC.objects.count(), 2)
 
     def test_data_document_organization(self):
-        self.assertEquals(self.objects.doc.organization, '')
+        self.assertEqual(self.objects.doc.organization, '')
         self.objects.doc.organization = 'Test Organization'
         self.objects.doc.save()
         self.assertEqual(DataDocument.objects.filter(organization='Test Organization').count(), 1)

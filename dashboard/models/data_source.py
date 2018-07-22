@@ -1,7 +1,7 @@
 from django.db import models
 from .common_info import CommonInfo
 from django.utils import timezone
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 

@@ -3,7 +3,7 @@ import shutil
 
 from django.db import models
 from .common_info import CommonInfo
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.dispatch import receiver
 from .group_type import GroupType
 

@@ -2,7 +2,7 @@ from django.db import models
 from .common_info import CommonInfo
 from .extracted_chemical import ExtractedChemical
 from .ingredient import Ingredient
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 
 class DSSToxSubstance(CommonInfo):

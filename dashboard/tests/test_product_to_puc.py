@@ -1,8 +1,9 @@
 from django.test import TestCase
 from .loader import load_model_objects
-from dashboard.models import ProductToPUC
+from dashboard.models import ProductToPUC, Product
+from dashboard.views.product_curation import ProductForm
 
-class ModelsTest(TestCase):
+class UberPUCTest(TestCase):
 
     def setUp(self):
         self.objects = load_model_objects()
@@ -28,3 +29,21 @@ class ModelsTest(TestCase):
         uber_puc.gen_cat = None # test str output *w/o* gen_cat or prod_fam
         _str = 'Test Product Type'
         self.assertEqual(_str, str(uber_puc))
+
+class Product_Form_Test(TestCase):
+
+    def setUp(self):
+        self.objects = load_model_objects()
+
+    # it seems to be necessary to us the __dict__ and instance in order to load
+    # the form for testing, w/o I don't think the fields are bound, which will
+    # never validate!
+    def test_ProductForm_invalid(self):
+        form = ProductForm(self.objects.p.__dict__, instance=self.objects.p)
+        self.assertFalse(form.is_valid())
+
+    def test_ProductForm_valid(self):
+        self.objects.p.title = 'Title Necessary'
+        self.objects.p.save()
+        form = ProductForm(self.objects.p.__dict__, instance=self.objects.p)
+        self.assertTrue(form.is_valid())

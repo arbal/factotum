@@ -70,9 +70,8 @@
               {% if datagroup.matched_docs == 0 %}disabled{% endif %}>
           <span class="oi oi-data-transfer-download"></span> Download All PDF Documents
         </button>
-
+        <br><br>
         {% if extract_form %}
-            <br><br>
             <a class="btn btn-secondary" data-toggle="collapse" id="btn_extract_text_form" href="#extract_form">
               <span class="oi oi-data-transfer-upload"></span>&nbsp;Upload Extracted Text
             </a>
@@ -107,7 +106,6 @@
         {% endif %}
 
         {% if upload_form %}
-            <br><br>
             <a class="btn btn-secondary" data-toggle="collapse" href="#upload_form">
                 <span class="oi oi-data-transfer-upload"></span>&nbsp;Upload Data Group PDFs
             </a>
@@ -121,6 +119,13 @@
                     <input type="submit" class="btn btn-primary" name="upload" value="Submit">
                 </form>
             </div>
+        {% endif %}
+        {% if not upload_form and not extract_form and bulk %}
+        <form class="" method="post">
+          {% csrf_token %}
+          <input type="submit" class="btn btn-primary" name="bulk" value="Bulk Create {{ bulk }} Products">
+        </form>
+
         {% endif %}
 
 

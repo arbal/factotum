@@ -7,7 +7,7 @@ class ExtractedChemicalIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.EdgeNgramField(
         document=True, use_template=True,
         template_name = 'search/indexes/dashboard/extractedchemical_text.txt')
-    title=indexes.EdgeNgramField(model_attr='raw_chem_name')
+    title=indexes.EdgeNgramField(model_attr='raw_chem_name', null=True)
     facet_model_name = indexes.CharField(faceted=True)
     result_css_class = indexes.CharField()
 

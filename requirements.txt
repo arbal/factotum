@@ -1,5 +1,5 @@
 certifi
-Django>=1.11.5,<2.0
+Django>=2.0.7,<2.1.0
 pytz==2017.2
 PyYAML==3.12
 wincertstore==0.2
@@ -12,6 +12,6 @@ django-queryset-csv>=1.0.0
 docutils>=0.12
 elasticsearch-dsl>=2.0.0,<3.0.0
 elasticsearch>=2.0.0,<3.0.0
-django-bootstrap-datepicker==1.2.4
+django-bootstrap-datepicker-plus==3.0.4
 selenium>=3.11.0
 lxml>=4.2.2

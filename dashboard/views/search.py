@@ -9,9 +9,7 @@ from haystack.query import SearchQuerySet
 from .  import FacetedProductSearchForm
 from haystack import indexes
 
-
 connections.create_connection()
-
 
 def bulk_indexing():
     # TODO: get bulk indexing to work
@@ -23,11 +21,10 @@ def bulk_indexing():
     bulk(client=es, actions=(b.indexing()
                              for b in DataDocument.objects.all().iterator()))
 
-
 class FacetedSearchView(BaseFacetedSearchView):
-
     form_class = FacetedProductSearchForm
     facet_fields = ['prod_cat', 'brand_name', 'facet_model_name']
     template_name = 'search/facet_search.html'
-    paginate_by = 50
+    paginate_by = 20
     context_object_name = 'object_list'
+

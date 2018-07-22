@@ -93,18 +93,15 @@ def link_product_form(request, pk, template_name=('product_curation/'
         form = ProductForm(request.POST or None)
         if form.is_valid():
             title = form['title'].value()
-            brand_name = form['brand_name'].value()
-            manufacturer = form['manufacturer'].value()
-            upc_stub = form['upc'].value()
-            try:
-                product = Product.objects.get(title=title)
-            except Product.DoesNotExist:
-                now = timezone.now()
-                product = Product.objects.create(title=title,
-                                                 manufacturer=manufacturer,
-                                                 brand_name=brand_name,
-                                                 upc=upc_stub,
-                                                 data_source_id=ds_id)
+            product, created = Product.objects.get_or_create(title=title,
+                                                        data_source_id = ds_id)
+            if created:
+                product.manufacturer = form['manufacturer'].value()
+                product.brand_name = form['brand_name'].value()
+                product.upc = form['upc'].value()
+                product.size = form['size'].value()
+                product.color = form['color'].value()
+                product.save()
             p = ProductDocument(product=product, document=doc)
             p.save()
             return redirect('link_product_list', pk=doc.data_group.pk)

@@ -39,13 +39,16 @@
 {% endblock %}
 
 {% block js %}
-    <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+    <script src="{% static 'bootstrap_datepicker_plus/js/moment-with-locales.min.js' %}"></script>
+    <script src="{% static 'bootstrap_datepicker_plus/js/bootstrap-datetimepicker.min.js' %}"></script>
+    <script src="{% static 'bootstrap_datepicker_plus/js/datepicker-widget.js' %}"></script>
     <script src="{% static 'js/export.js' %}"></script>
     <script src="{% static 'js/data_group_form.js' %}"></script>
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.min.css' %}">
-    <!-- Font Awesome CSS - used by datepicker -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'bootstrap_datepicker_plus/css/bootstrap-datetimepicker.css' %}" type="text/css"
+          media="all" rel="stylesheet" />
+    <link href="{% static 'bootstrap_datepicker_plus/css/datepicker-widget.css' %}" type="text/css"
+          media="all" rel="stylesheet" />
 {% endblock %}

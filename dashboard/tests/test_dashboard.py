@@ -1,9 +1,13 @@
+import csv
 import time
+from lxml import html
+
 from django.urls import resolve
 from django.test import TestCase
+
 from .loader import load_model_objects
 from dashboard import views
-from lxml import html
+from dashboard.models import *
 
 class DashboardTest(TestCase):
 
@@ -46,3 +50,20 @@ class DashboardTest(TestCase):
         response_html = html.fromstring(response)
         extracted_doc_count = response_html.xpath('/html/body/div[1]/div[1]/div[4]/div/div')[0].text
         self.assertEqual('100%', extracted_doc_count)
+
+    def test_PUC_download(self):
+        # assign an attribute to PUC
+        puc_a = PUCAttribute.objects.create(name='test_puc_attribute')
+        self.objects.puc.attribute = puc_a
+        self.objects.puc.save()
+        self.objects.puc.attribute.save()
+        p = self.objects.puc
+        puc_line = (p.gen_cat+','+p.prod_fam+','+p.prod_type+','+p.description+','+str(p.attribute))
+        # get csv
+        response = self.client.get('/dl_pucs/')
+        self.assertEqual(response.status_code, 200)
+        csv_lines = response.content.decode('ascii').split('\r\n')
+        # check header
+        self.assertEqual(csv_lines[0],'gen_cat,prod_fam,prod_type,description,PUC_type')
+        # check the PUC from loader
+        self.assertEqual(csv_lines[1],puc_line)

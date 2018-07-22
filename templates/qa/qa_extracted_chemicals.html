@@ -1,0 +1,62 @@
+<!-- <table role='grid' class='stack hover' style='width:100%'>
+  <thead>
+    <tr>
+      <th scope='col' class='text-center' style='width:10%'>raw_cas</th>
+      <th scope='col' class='text-center' style='width:10%'>raw_chem_name</th>
+      <th scope='col' class='text-center' style='width:10%'>raw_min_comp</th>
+      <th scope='col' class='text-center' style='width:10%'>raw_max_comp</th>
+      <th scope='col' class='text-center' style='width:10%'>unit_type</th>
+      <th scope='col' class='text-center' style='width:10%'>report_funcuse</th>
+      <th scope='col' class='text-center' style='width:10%'>ingredient_rank</th>
+      <th scope='col' class='text-center' style='width:10%'>raw_central_comp</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for form in formset%}
+    <tr class='{% if form.instance.pk %} item {% else %} new {% endif %}'>
+      <td>{{form.raw_cas}}</td>
+      <td>{{form.raw_chem_name}}</td>
+      <td>{{form.raw_min_comp}}</td>
+      <td>{{form.raw_max_comp}}</td>
+      <td>{{form.unit_type}}</td>
+      <td>{{form.report_funcuse}}</td>
+      <td>{{form.ingredient_rank}}</td>
+      <td>{{form.raw_central_comp}}</td>
+
+
+    </tr>
+
+    {% endfor %}
+  </tbody>
+</table> -->
+
+
+<form method="post" >
+        {% csrf_token %}
+        <div class="row">
+        {% for form in formset.forms %}
+        <div class="col-sm-4">
+            <div class="card" >
+                <div class="card-body">
+
+                    {% for hidden_field in form.hidden_fields %}
+                    {{ hidden_field }}
+                    {% endfor %}
+
+                    {% for field in form.visible_fields %}
+                    <div class="form-group ">
+                        {{ field.label_tag }}<br>
+                        {{ field }}
+                        {{ field.errors }}
+                        {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+      </form>
