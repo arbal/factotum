@@ -4,10 +4,11 @@ from .data_source import *
 from .product_curation import *
 from .qa import *
 from .extraction_script import *
-from .product_autocomplete import *
+from .puc_autocomplete import *
 from .ajax import *
 from .search_forms import *
 from .search import *
-from .chem_search import *
+from .chemical_search import *
 from .dsstox_substance import *
+from .habits_n_practices import *
 from .get_data import *

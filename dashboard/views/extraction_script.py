@@ -37,7 +37,7 @@ class ExtractedTextForm(ModelForm):
 
     class Meta:
         model = ExtractedText
-        fields = ['record_type','prod_name', 'doc_date', 'rev_num']
+        fields = ['prod_name', 'doc_date', 'rev_num']
 
 class QANotesForm(ModelForm):
 
@@ -143,7 +143,7 @@ class ExtractedTextQAForm(ModelForm):
 
     class Meta:
         model = ExtractedText
-        fields = ['record_type', 'prod_name', 'data_document', 'qa_checked']
+        fields = ['prod_name', 'data_document', 'qa_checked']
 
 
 
@@ -204,7 +204,6 @@ def extracted_text_qa(request, pk,
         if chem_formset.has_changed() or ext_form.has_changed():
             print(str(extext.qa_edited))
             if chem_formset.is_valid() and ext_form.is_valid():
-                print('yup')
                 chem_formset.save()
                 ext_form.save()
                 extext.qa_edited = True

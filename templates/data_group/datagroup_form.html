@@ -18,7 +18,7 @@
 
     <form method="post" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
-        {% include 'core/bs4_form.html' with form=form %}
+        {% include 'core/bs4_form.html' with form=form colspan='col-6'%}
         <button type="submit" class="btn btn-primary">Submit</button>
         <a class="btn btn-secondary" href="{% url 'data_group_list' %}">Cancel</a>
     </form>

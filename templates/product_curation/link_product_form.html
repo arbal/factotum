@@ -10,7 +10,7 @@ Link {{ document }} to Product</h1>
 
 <form method="post" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
-    {% include 'core/bs4_form.html' with form=form %}
+    {% include 'core/bs4_form.html' with form=form colspan='col-6' %}
     <button type="submit" class="btn btn-primary">Save</button>
     <a class="btn btn-secondary" href="{% url 'link_product_list' document.data_group.id %}">Cancel</a>
     <a class="btn btn-info btn-secondary" role="button" title="details"

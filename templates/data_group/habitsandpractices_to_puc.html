@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+{% load widget_tweaks %}
+{% load humanize %}
+{% load static %}
+
+{% block content %}
+
+<div class="card">
+  <h3 class="card-header text-center">Habit 'n Practice Product: {{ hnp }}
+    <a class="btn btn-info btn-sm float-right" role="button" title="Go Back"
+     href='{% url 'habitsandpractices' hnp.extracted_text.pk %}'>Go Back</a>
+  </h3>
+
+  <form action='' method="post" >
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" id="btn-assign-puc" class="btn btn-primary">Submit</button>
+
+</form>
+</div>
+<br>
+<table class="table table-sm table-bordered table-striped">
+    <thead class="table-primary">
+    <th>PUCs Linked</th>
+    </thead>
+    <tbody>
+    {% for linked_puc in hnp_puc %}
+        <tr>
+            <td>{{ linked_puc }}</td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+{{ form.media }}
+{% endblock %}

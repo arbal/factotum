@@ -17,12 +17,9 @@ from bootstrap_datepicker_plus import DatePickerInput
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from djqscsv import *
+from djqscsv import * # whatever this is used for, it shouldn't be a star import
 
-from dashboard.models import (DataGroup, DataDocument, Script, ExtractedText,
-                            ExtractedChemical, WeightFractionType,
-                            UnitType, ExtractedFunctionalUse, DocumentType,
-                            Product, ProductDocument)
+from dashboard.models import *
 
 
 class DataGroupForm(forms.ModelForm):
@@ -64,6 +61,16 @@ class ExtractionScriptForm(forms.Form):
             del self.fields['weight_fraction_type']
         self.collapsed = True
 
+class ExtractedTextForm(forms.ModelForm):
+
+    class Meta:
+        model = ExtractedText
+        fields = ['doc_date', 'data_document', 'extraction_script']
+        widgets = {
+            'data_document': forms.HiddenInput(),
+            'extraction_script': forms.HiddenInput(),
+        }
+
 @login_required()
 def data_group_list(request, template_name='data_group/datagroup_list.html'):
     datagroup = DataGroup.objects.all()
@@ -94,9 +101,8 @@ def data_group_detail(request, pk,
     paginator = Paginator(docs, npage)
     docs_page = paginator.page(1 if page is None else page)
     store = settings.MEDIA_URL + datagroup.name.replace(' ','_')
-    extract_fields = ['data_document_id','data_document_filename',
-                          'record_type','prod_name','doc_date','rev_num',
-                          'raw_cas', 'raw_chem_name', 'report_funcuse',]
+    extract_fields = ['data_document_id','data_document_filename','prod_name','doc_date','rev_num',
+                      'raw_cas', 'raw_chem_name', 'report_funcuse',]
     if dg_type in ['Composition']:
         extract_fields = extract_fields + ['raw_min_comp','raw_max_comp',
                             'unit_type', 'ingredient_rank', 'raw_central_comp']
@@ -108,7 +114,8 @@ def data_group_detail(request, pk,
                   'upload_form'       : not datagroup.all_matched(),
                   'extract_form'      : include_extract_form(datagroup, dg_type),
                   'bulk'              : len(docs) - len(prod_link),
-                  'msg'               : ''
+                  'msg'               : '',
+                  'hnp'               : dg_type == 'Habits and practices'
                   }
     if request.method == 'POST' and 'upload' in request.POST:
         print(request.FILES)
@@ -321,9 +328,62 @@ def data_document_detail(request, pk,
     doc = get_object_or_404(DataDocument, pk=pk, )
     return render(request, template_name, {'doc'  : doc,})
 
+@login_required()
+def data_document_delete(request, pk, template_name='data_source/datasource_confirm_delete.html'):
+    doc = get_object_or_404(DataDocument, pk=pk)
+    datagroup_id = doc.data_group_id
+    if request.method == 'POST':
+        doc.delete()
+        return redirect('data_group_detail', pk=datagroup_id)
+    return render(request, template_name, {'object': doc})
 
 @login_required
 def dg_dd_csv_view(request, pk, template_name='data_group/docs_in_data_group.csv'):
     qs = DataDocument.objects.filter(data_group_id=pk)
     filename = DataGroup.objects.get(pk=pk).name
     return render_to_csv_response(qs, filename=filename, append_datestamp=True)
+
+@login_required()
+def habitsandpractices(request, pk,
+                      template_name='data_group/habitsandpractices.html'):
+    doc = get_object_or_404(DataDocument, pk=pk, )
+    script = Script.objects.last() # this needs to be changed bewfore checking in!
+    extext, created = ExtractedText.objects.get_or_create(data_document=doc,
+                                                    extraction_script=script)
+    if created:
+        extext.doc_date = 'please add...'
+    HPFormSet = forms.inlineformset_factory(parent_model=ExtractedText,
+                                        model=ExtractedHabitsAndPractices,
+                                        fields=['product_surveyed','mass',
+                                                'mass_unit', 'frequency',
+                                                'frequency_unit',
+                                                'duration', 'duration_unit',
+                                                'prevalence', 'notes'],
+                                                extra=1)
+    # print(extext.pk)
+    ext_form = ExtractedTextForm(request.POST or None, instance=extext)
+    hp_formset = HPFormSet(request.POST or None, instance=extext, prefix='habits')
+    context = {   'doc'         : doc,
+                  'ext_form'    : ext_form,
+                  'hp_formset'  : hp_formset,
+                  }
+    if request.method == 'POST' and 'save' in request.POST:
+        # HPFormSet()
+        print(hp_formset.is_valid())
+        # print(ext_form.cleaned_data['data_document'])
+        # print(ext_form.cleaned_data['extraction_script'])
+        # print(ext_form.cleaned_data['doc_date'])
+        # print(ext_form.non_field_errors())
+        if hp_formset.is_valid():
+            hp_formset.save()
+        if ext_form.is_valid():
+            ext_form.save()
+        doc.extracted = True
+        doc.save()
+        context = {   'doc'         : doc,
+                      'ext_form'    : ext_form,
+                      'hp_formset'  : hp_formset,
+                      }
+        # render(request, template_name, context)
+        # return redirect('habitsandpractices', pk=doc.id)
+    return render(request, template_name, context)

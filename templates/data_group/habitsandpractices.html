@@ -1,0 +1,172 @@
+{% extends 'core/base.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}'
+{% load humanize %}
+
+{% block content %}
+
+<div class="card">
+  <h3 class="card-header text-center">DataDocument: {{ doc.title }}</h3>
+  <table class="table table-bordered">
+
+    <tr>
+      <th>Data Group</th>
+      <td>
+        <a title="Data Group"
+            href="{% url 'data_group_detail' doc.data_group.id %}"> {{ doc.data_group }}
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <th>Product Category</th>
+      <td>
+        {{ doc.product_category }}
+      </td>
+    </tr>
+    <tr>
+      <th>URL</th>
+      <td>
+        {{ doc.url }}
+      </td>
+    </tr>
+    {% if doc.matched %}
+    <tr>
+      <th>PDF</th>
+      <td>
+        <a href="/media/{{ doc.data_group.dgurl }}/pdf/{{ doc.filename }}"
+            title="Link to {{ doc.filename }}" target="_blank">{{ doc.filename }}</a>
+        <small><i>click to open PDF in new window</i></small>
+      </td>
+    </tr>
+    {% endif %}
+  </table>
+</div>
+
+{% if ext_form %}
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="card-header form-inline">
+        <h3 class="text-center col-9">Habits and Practices</h3>
+      </div>
+      <div class="card-body">
+      <form method="post" >
+        {% csrf_token %}
+      <div class="row">
+        <div class="col-sm-3">
+          <div class=" card-body form-group text-center bg-info text-white">
+            <!-- <div class="card-header">
+              <h4>Extracted Text Data</h4>
+            </div> -->
+              {% if error %}
+              <div class="form-group has-error">
+                  <span class="help-block">{{ error }}</span>
+              </div>
+              {% endif %}
+              {% include 'core/bs4_form_dl.html' with form=ext_form %}
+          </div>
+        </div>
+        {{ hp_formset.management_form }}
+        {% for form in hp_formset.forms %}
+        <div class="col-sm-3">
+          <div class="card" >
+            <div class="card-body bg-secondary">
+              <!-- {% for hidden_field in form.hidden_fields %}
+              {{ hidden_field }}
+              {% endfor %} -->
+              {% if form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                  {% for error in form.non_field_errors %}
+                    {{ error }}
+                  {% endfor %}
+                </div>
+              {% endif %}
+              {% if not form.instance.pk %}
+              <div class="text-center">
+                <small><b>Add New Habit and Practice</b></small><br>
+              </div>
+              {% else %}
+              <a class="btn btn-info btn-sm" role="button" title="Link PUCs to Habits 'n Practices'"
+               href='{% url 'link_habitsandpractices' form.instance.pk %}'>Link PUCs</a><br>
+              {% endif %}
+              {{ form.id.as_hidden }}
+
+                <small>
+                  <b>{{ form.product_surveyed.label_tag }}</b>
+                </small><br>
+                  {% render_field form.product_surveyed class="form-control" %}
+
+                <small>
+                  <b>{{ form.mass.label_tag }}</b>
+                </small><br>
+                  {% render_field form.mass class="form-control" %}
+
+                <small>
+                  <b>{{ form.mass_unit.label_tag }}</b>
+                </small><br>
+                {% if form.mass_unit.errors %}
+                 {% render_field form.mass_unit class="form-control is-invalid" %}
+                  {% for error in form.mass_unit.errors %}
+                    <div class="invalid-feedback">
+                      {{ error }}
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  {% render_field form.mass_unit class="form-control" %}
+                {% endif %}
+
+                <small>
+                  <b>{{ form.frequency.label_tag }}</b>
+                </small><br>
+                  {% render_field form.frequency class="form-control" %}
+
+                <small><b>{{ form.frequency_unit.label_tag }}</b></small><br>
+                {% if form.frequency_unit.errors %}
+                  {% render_field form.frequency_unit class="chem-control form-control is-invalid" %}
+                  {{ form.frequency_unit.errors }}
+                {% else %}
+                  {% render_field form.frequency_unit class="form-control" %}
+                {% endif %}
+
+                <small>
+                  <b>{{ form.duration.label_tag }}</b>
+                </small><br>
+                  {% render_field form.duration class="form-control" %}
+
+                <small><b>{{ form.duration_unit.label_tag }}</b></small><br>
+                {% if form.duration_unit.errors %}
+                  {% render_field form.duration_unit class="chem-control form-control is-invalid" %}
+                  {{ form.duration_unit.errors }}
+                {% else %}
+                  {% render_field form.duration_unit class="form-control" %}
+                {% endif %}
+
+                <small>
+                  <b>{{ form.prevalence.label_tag }}</b>
+                </small><br>
+                  {% render_field form.prevalence class="form-control" %}
+
+                <small><b>{{ form.notes.label_tag }}</b></small><br>
+                  {% render_field form.notes class="form-control" %}
+
+              <div class="text-center">
+                {% if form.instance.pk %}
+                <small><b>{{ form.DELETE.label_tag }}</b></small><br>
+                  {{ form.DELETE}}
+                {% else %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <button type = "submit" id="save" name="save" class="btn btn-primary chem-control" role="button">Save</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

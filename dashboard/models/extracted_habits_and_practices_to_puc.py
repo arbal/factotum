@@ -9,5 +9,4 @@ class ExtractedHabitsAndPracticesToPUC(CommonInfo):
 	PUC = models.ForeignKey(PUC, on_delete=models.CASCADE)
 
 	def __str__(self):
-		return self.id
-
+		return str(self.id)

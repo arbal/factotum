@@ -4,33 +4,42 @@ from django.shortcuts import redirect
 from django.db.models import Count, Q
 
 from django.utils import timezone
+from django import forms
 from django.forms import ModelForm, ModelChoiceField
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from dashboard.models import DataSource, DataGroup, DataDocument, Product, ProductDocument, PUC, ProductToPUC
+from dashboard.models import DataSource, DataGroup, DataDocument, DocumentType, Product, ProductDocument, PUC, ProductToPUC
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-
-class ProductForm(ModelForm):
+class ProductLinkForm(ModelForm):
     required_css_class = 'required' # adds to label tag
+    document_type = forms.ModelChoiceField(
+        queryset=DocumentType.objects.all(),
+        label="Data Document Type",
+        required=True)
+
     class Meta:
         model = Product
         fields = ['title', 'manufacturer', 'brand_name', 'upc', 'size', 'color']
 
-
-class ProductPUCForm(ModelForm):
-    puc = ModelChoiceField(
-        queryset=PUC.objects.all(),
-        label='Category',
-        widget=autocomplete.ModelSelect2(
-            url='puc-autocomplete',
-            attrs={'data-minimum-input-length': 3,  })
-    )
+class ProductForm(ModelForm):
+    required_css_class = 'required' # adds to label tag
 
     class Meta:
-        model = ProductToPUC
-        fields = ['puc']
+        model = Product
+        fields = ['title', 'manufacturer', 'brand_name', 'size', 'color', 'short_description', 'long_description',
+                  'model_number']
+
+class ProductViewForm(ProductForm):
+    class Meta(ProductForm.Meta):
+        exclude = ('title',)
+
+    def __init__(self, *args, **kwargs):
+        super(ProductForm, self).__init__(*args, **kwargs)
+        for f in self.fields:
+            self.fields[f].disabled = True
+
 
 
 @login_required()
@@ -88,9 +97,9 @@ def link_product_form(request, pk, template_name=('product_curation/'
     doc = DataDocument.objects.get(pk=pk)
     ds_id = doc.data_group.data_source_id
     upc_stub = ('stub_' + str(Product.objects.all().count() + 1))
-    form = ProductForm(initial={'upc': upc_stub})
+    form = ProductLinkForm(initial={'upc': upc_stub, 'document_type': doc.document_type})
     if request.method == 'POST':
-        form = ProductForm(request.POST or None)
+        form = ProductLinkForm(request.POST or None)
         if form.is_valid():
             title = form['title'].value()
             product, created = Product.objects.get_or_create(title=title,
@@ -104,6 +113,10 @@ def link_product_form(request, pk, template_name=('product_curation/'
                 product.save()
             p = ProductDocument(product=product, document=doc)
             p.save()
+            document_type = form['document_type'].value()
+            if document_type != doc.document_type:
+                doc.document_type = DocumentType.objects.get(pk=document_type)
+                doc.save()
             return redirect('link_product_list', pk=doc.data_group.pk)
     return render(request, template_name,{'document': doc, 'form': form})
 
@@ -116,7 +129,7 @@ def assign_puc_to_product(request, pk, template_name=('product_curation/'
     if form.is_valid():
         puc = PUC.objects.get(id=form['puc'].value())
         ProductToPUC.objects.create(PUC=puc, product=p, classification_method='MA',
-                                    puc_assigned_time=datetime.now(), puc_assigned_usr=request.user)
+                                    puc_assigned_time=timezone.now(), puc_assigned_usr=request.user)
         return redirect('category_assignment', pk=p.data_source.id)
     return render(request, template_name,{'product': p, 'form': form})
 
@@ -124,9 +137,21 @@ def assign_puc_to_product(request, pk, template_name=('product_curation/'
 def product_detail(request, pk, template_name=('product_curation/'
                                                 'product_detail.html')):
     p = get_object_or_404(Product, pk=pk, )
+    form = ProductViewForm(request.POST or None, instance=p)
     ptopuc = p.get_uber_product_to_puc()
     puc = p.get_uber_puc()
-    return render(request, template_name, {'product': p, 'puc': puc, 'ptopuc': ptopuc, })
+    return render(request, template_name, {'product': p, 'puc': puc, 'ptopuc': ptopuc, 'form': form})
+
+@login_required()
+def product_update(request, pk, template_name=('product_curation/'
+                                               'product_edit.html')):
+    p = Product.objects.get(pk=pk)
+    form = ProductForm(request.POST or None, instance=p)
+    if form.is_valid():
+        form.save()
+        return redirect('product_detail', pk=p.pk)
+    return render(request, template_name,{'product': p, 'form': form})
+
 
 @login_required()
 def product_list(request, template_name=('product_curation/'

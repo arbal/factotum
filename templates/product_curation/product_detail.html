@@ -3,30 +3,46 @@
 {% load humanize %}
 
 {% block content %}
-    <h1 class="col-sm-12">
+    <h1 class="col-12">
         <span name="title">{{ product.title }}</span>
+        <div class="btn-group float-lg-right" role="group" aria-label="Edit Product">
+            <a class="btn btn-success btn-sm" role="button" title="edit" href="{% url 'product_edit' pk=product.pk %}">
+                <span class="oi oi-pencil"></span> </a>
+        </div>
     </h1>
-    <dl class="row col-sm-12">
-        <dt class="col-sm-3">UPC</dt>
-        <dd class="col-sm-9">{{ product.upc }}</dd>
-        <dt class="col-sm-3">Product Use Category</dt>
-        <dd class="col-sm-9" id='prod_cat'>{{ puc.id }}</dd>
-        <dt class="col-sm-3">PUC Assignment Script</dt>
-        <dd class="col-sm-9" id='puc_assigned_script'>{{ ptopuc.puc_assigned_script }}</dd>
-        <dt class="col-sm-3">PUC Assigned By</dt>
-        <dd class="col-sm-9" id='puc_assigned_usr'>{{ ptopuc.puc_assigned_usr }}</dd>
-        <dt class="col-sm-3">PUC Assignment Date</dt>
-        <dd class="col-sm-9" id='puc_assigned_time'>{{ ptopuc.puc_assigned_time }}</dd>
-        <dt class="col-sm-3">Brand Name</dt>
-        <dd class="col-sm-9">{{ product.brand_name }}</dd>
-        <dt class="col-sm-3">Size</dt>
-        <dd class="col-sm-9">{{ product.size }}</dd>
-        <dt class="col-sm-3">Color</dt>
-        <dd class="col-sm-9">{{ product.color }}</dd>
-        <dt class="col-sm-3">Short Description</dt>
-        <dd class="col-sm-9">{{ product.short_description }}</dd>
-        <dt class="col-sm-3">Image</dt>
-        <!-- not yet sure where images are being stored for products -->
-        <dd class="col-sm-9"><img src="{{ product.medium_image }}" alt="Image not available"></dd>
-    </dl>
+    <div class="row">
+        <div class="col-6">
+            <form method="post" enctype="multipart/form-data" novalidate>
+                {% include 'core/bs4_form.html' with form=form %}
+            </form>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label>Product Use Category</label>
+                <input name="puc_id" maxlength="250" class="form-control" value="{{ puc.id }}"
+                       disabled="" id="id_manufacturer" type="text">
+            </div>
+            <div class="form-group">
+                <label>PUC Assignment Scrip</label>
+                <input name="puc_assigned_script" maxlength="250" class="form-control" value="{{ ptopuc.puc_assigned_script }}"
+                       disabled="" id="id_puc_assigned_script" type="text">
+            </div>
+            <div class="form-group">
+                <label>PUC Assigned By</label>
+                <input name="puc_assigned_usr" maxlength="250" class="form-control" value="{{ ptopuc.puc_assigned_usr }}"
+                       disabled="" id="id_puc_assigned_usr" type="text">
+            </div>
+            <div class="form-group">
+                <label>PUC Assignment Date</label>
+                <input name="puc_puc_assigned_time" maxlength="250" class="form-control" value="{{ ptopuc.puc_assigned_time }}"
+                       disabled="" id="id_puc_assigned_time" type="text">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block css %}
+    <style>
+    .form-required {display: none; }
+    </style>
 {% endblock %}

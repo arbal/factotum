@@ -19,7 +19,6 @@ class ExtractedChemicalIndex(indexes.SearchIndex, indexes.Indexable):
 
     data_document_id = indexes.EdgeNgramField(model_attr='extracted_text__data_document_id', null=False)
 
-
     def get_model(self):
         return ExtractedChemical
 

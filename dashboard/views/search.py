@@ -6,7 +6,7 @@ from dashboard.models import Product, DataDocument, ExtractedChemical
 from django.http import JsonResponse
 from haystack.generic_views import FacetedSearchView as BaseFacetedSearchView
 from haystack.query import SearchQuerySet
-from .  import FacetedProductSearchForm
+from . import FacetedProductSearchForm
 from haystack import indexes
 
 connections.create_connection()
@@ -27,4 +27,3 @@ class FacetedSearchView(BaseFacetedSearchView):
     template_name = 'search/facet_search.html'
     paginate_by = 20
     context_object_name = 'object_list'
-

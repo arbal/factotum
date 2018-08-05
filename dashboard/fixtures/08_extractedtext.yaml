@@ -1,113 +1,113 @@
 - model: dashboard.extractedtext
   pk: 156062
-  fields: {created_at: null, updated_at: null, record_type: MSDS, prod_name: Sun_INDS_99,
+  fields: {created_at: null, updated_at: null, prod_name: Sun_INDS_99,
     doc_date: '2018-04-07', rev_num: '47', extraction_script: 6, qa_checked: false,
     qa_edited: false, qa_approved_date: null, qa_approved_by: null,
     qa_group: null}
 - model: dashboard.extractedtext
   pk: 156061
-  fields: {created_at: null, updated_at: null, record_type: MSDS, prod_name: Sun_INDS_98,
+  fields: {created_at: null, updated_at: null, prod_name: Sun_INDS_98,
     doc_date: '2018-04-07', rev_num: '47', extraction_script: 6, qa_checked: false,
     qa_edited: false, qa_approved_date: null, qa_approved_by: null,
     qa_group: null}
 - model: dashboard.extractedtext
   pk: 156060
-  fields: {created_at: null, updated_at: null, record_type: MSDS, prod_name: Sun_INDS_97,
+  fields: {created_at: null, updated_at: null, prod_name: Sun_INDS_97,
     doc_date: '2018-04-07', rev_num: '47', extraction_script: 6, qa_checked: false,
     qa_edited: false, qa_approved_date: null, qa_approved_by: null,
     qa_group: null}
 - model: dashboard.extractedtext
   pk: 156059
-  fields: {created_at: null, updated_at: null, record_type: MSDS, prod_name: Sun_INDS_96,
+  fields: {created_at: null, updated_at: null, prod_name: Sun_INDS_96,
     doc_date: '2018-04-07', rev_num: '47', extraction_script: 6, qa_checked: false,
     qa_edited: false, qa_approved_date: null, qa_approved_by: null,
     qa_group: null}
 - model: dashboard.extractedtext
   pk: 156058
-  fields: {created_at: null, updated_at: null, record_type: MSDS, prod_name: Sun_INDS_95,
+  fields: {created_at: null, updated_at: null, prod_name: Sun_INDS_95,
     doc_date: '2018-04-07', rev_num: '47', extraction_script: 6, qa_checked: false,
     qa_edited: false, qa_approved_date: null, qa_approved_by: null,
     qa_group: null}
 - model: dashboard.extractedtext
   pk: 156057
-  fields: {created_at: null, updated_at: null, record_type: MSDS, prod_name: Sun_INDS_94,
+  fields: {created_at: null, updated_at: null, prod_name: Sun_INDS_94,
     doc_date: '2018-04-07', rev_num: '47', extraction_script: 6, qa_checked: false,
     qa_edited: false, qa_approved_date: null, qa_approved_by: null,
     qa_group: null}
 - model: dashboard.extractedtext
   pk: 156056
-  fields: {created_at: null, updated_at: null, record_type: MSDS, prod_name: Sun_INDS_93,
+  fields: {created_at: null, updated_at: null, prod_name: Sun_INDS_93,
     doc_date: '2018-04-07', rev_num: '47', extraction_script: 6, qa_checked: false,
     qa_edited: false, qa_approved_date: null, qa_approved_by: null,
     qa_group: null}
 - model: dashboard.extractedtext
   pk: 156055
-  fields: {created_at: null, updated_at: null, record_type: MSDS, prod_name: Sun_INDS_92,
+  fields: {created_at: null, updated_at: null, prod_name: Sun_INDS_92,
     doc_date: '2018-04-07', rev_num: '47', extraction_script: 6, qa_checked: false,
     qa_edited: false, qa_approved_date: null, qa_approved_by: null,
     qa_group: null}
 - model: dashboard.extractedtext
   pk: 156054
-  fields: {created_at: null, updated_at: null, record_type: MSDS, prod_name: Sun_INDS_91,
+  fields: {created_at: null, updated_at: null, prod_name: Sun_INDS_91,
     doc_date: '2018-04-07', rev_num: '47', extraction_script: 6, qa_checked: false,
     qa_edited: false, qa_approved_date: null, qa_approved_by: null,
     qa_group: null}
 - model: dashboard.extractedtext
   pk: 156053
-  fields: {created_at: null, updated_at: null, record_type: MSDS, prod_name: Sun_INDS_90,
+  fields: {created_at: null, updated_at: null, prod_name: Sun_INDS_90,
     doc_date: '2018-04-07', rev_num: '47', extraction_script: 6, qa_checked: false,
     qa_edited: false, qa_approved_date: null, qa_approved_by: null,
     qa_group: null}
 - model: dashboard.extractedtext
   pk: 156051
-  fields: {created_at: null, updated_at: null, record_type: MSDS, prod_name: Sun_INDS_89,
+  fields: {created_at: null, updated_at: null, prod_name: Sun_INDS_89,
     doc_date: '2018-04-07', rev_num: '47', extraction_script: 6, qa_checked: false,
     qa_edited: false, qa_approved_date: null, qa_approved_by: null,
     qa_group: null}
 - model: dashboard.extractedtext
   pk: 121647
-  fields: {created_at: null, updated_at: null, record_type: MSDS, prod_name: Coconut
+  fields: {created_at: null, updated_at: null, prod_name: Coconut
       Milk, doc_date: '2018-01-08', rev_num: '1', extraction_script: 6, qa_checked: false,
     qa_edited: false, qa_approved_date: null, qa_approved_by: null,
     qa_group: null}
 - model: dashboard.extractedtext
   pk: 121627
-  fields: {created_at: null, updated_at: null, record_type: MSDS, prod_name: Cuticle
+  fields: {created_at: null, updated_at: null, prod_name: Cuticle
       Cream, doc_date: '2018-01-08', rev_num: '1', extraction_script: 6, qa_checked: true,
     qa_edited: false, qa_approved_date: null, qa_approved_by: null,
     qa_group: null}
 - model: dashboard.extractedtext
   pk: 12
   fields: {created_at: null, updated_at: !!timestamp '2018-07-02 22:57:45.967753',
-    record_type: msds, prod_name: Jet Fuel A, doc_date: '2018-04-13', rev_num: '66',
+    prod_name: Jet Fuel A, doc_date: '2018-04-13', rev_num: '66',
     extraction_script: 5, qa_checked: false, qa_edited: false, qa_approved_date: null,
     qa_approved_by: null, qa_group: null}
 - model: dashboard.extractedtext
   pk: 11
   fields: {created_at: null, updated_at: !!timestamp '2018-07-02 22:57:45.919220',
-    record_type: msds, prod_name: A-1 Jet Fuel, doc_date: '2018-04-13', rev_num: '666',
+    prod_name: A-1 Jet Fuel, doc_date: '2018-04-13', rev_num: '666',
     extraction_script: 5, qa_checked: false, qa_edited: false, qa_approved_date: null,
     qa_approved_by: null, qa_group: null}
 - model: dashboard.extractedtext
   pk: 10
   fields: {created_at: null, updated_at: !!timestamp '2018-07-02 22:57:45.874261',
-    record_type: msds, prod_name: Jet Fuel, doc_date: '2011-11-11', rev_num: '555',
+    prod_name: Jet Fuel, doc_date: '2011-11-11', rev_num: '555',
     extraction_script: 5, qa_checked: false, qa_edited: false, qa_approved_date: null,
     qa_approved_by: null, qa_group: null}
 - model: dashboard.extractedtext
   pk: 9
   fields: {created_at: null, updated_at: !!timestamp '2018-07-02 22:57:45.822066',
-    record_type: sds, prod_name: Jet Fuel, doc_date: '2018-04-13', rev_num: '666',
+    prod_name: Jet Fuel, doc_date: '2018-04-13', rev_num: '666',
     extraction_script: 5, qa_checked: false, qa_edited: false, qa_approved_date: null,
     qa_approved_by: null, qa_group: null}
 - model: dashboard.extractedtext
   pk: 8
   fields: {created_at: null, updated_at: !!timestamp '2018-07-02 22:57:45.760331',
-    record_type: sds, prod_name: AVCAT Gas, doc_date: '2018-04-13', rev_num: '666',
+    prod_name: AVCAT Gas, doc_date: '2018-04-13', rev_num: '666',
     extraction_script: 5, qa_checked: false, qa_edited: false, qa_approved_date: null,
     qa_approved_by: null, qa_group: null}
 - model: dashboard.extractedtext
   pk: 7
   fields: {created_at: null, updated_at: !!timestamp '2018-07-02 22:58:59.310189',
-    record_type: msds, prod_name: AV Gas, doc_date: '2018-04-13', rev_num: '666',
+    prod_name: AV Gas, doc_date: '2018-04-13', rev_num: '666',
     extraction_script: 5, qa_checked: false, qa_edited: false, qa_approved_date: null, qa_approved_by: null, qa_group: null}

@@ -15,12 +15,12 @@ class FacetedProductSearchForm(FacetedSearchForm):
     sqs = sqs.filter(facet_model_name__in=['Data Document' ,'Product'])
     if self.pucs:
         query = None
-    for puc in self.pucs:
-        if query:
-            query += u' OR '
-        else:
-            query = u''
-        query += u'"%s"' % sqs.query.clean(puc)
+        for puc in self.pucs:
+            if query:
+                query += u' OR '
+            else:
+                query = u''
+            query += u'"%s"' % sqs.query.clean(puc)
         sqs = sqs.narrow(u'puc:%s' % query)
     if self.brands:
         query = None

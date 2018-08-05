@@ -26,9 +26,13 @@ class ExtractedChemical(CommonInfo):
     def __str__(self):
         return self.raw_chem_name
 
+    def get_datadocument_url(self):
+        return self.extracted_text.data_document.get_absolute_url()
+
     def indexing(self):
         obj = ExtractedChemicalIndex(
             meta={'id': self.id},
+            chem_name=self.raw_chem_name,
             raw_cas=self.raw_cas,
             raw_chem_name=self.raw_chem_name,
             facet_model_name='Extracted Chemical',

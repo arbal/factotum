@@ -1,3 +1,3 @@
-uuid,record_type,prod_name,cas,chem_name,raw_min_comp,raw_max_comp,pt_comp,units,report_funcuse,doc_date,rev_num,extraction_script
-0bf5755e-3a08-4024-9d2f-0ea155a9bd17,MSDS,NUTRA NAIL OLIVE OIL NAIL & CUTICLE TREATMENT,,,22345.22346,1.2,0.8,percent composition,,1/1/18,1,https://github.com/HumanExposure/Extractors/Script1
-0c68ab16-2065-4d9b-a8f2-e428eb192465,SDS,Hawaiian Body Cream Nourishing Coconut Milk,,,12345.12346,2.3,0.7,weight fraction,,1/1/18,1,https://github.com/HumanExposure/Extractors/Script2
+uuid,prod_name,cas,chem_name,raw_min_comp,raw_max_comp,pt_comp,units,report_funcuse,doc_date,rev_num,extraction_script
+0bf5755e-3a08-4024-9d2f-0ea155a9bd17,NUTRA NAIL OLIVE OIL NAIL & CUTICLE TREATMENT,,,22345.22346,1.2,0.8,percent composition,,1/1/18,1,https://github.com/HumanExposure/Extractors/Script1
+0c68ab16-2065-4d9b-a8f2-e428eb192465,Hawaiian Body Cream Nourishing Coconut Milk,,,12345.12346,2.3,0.7,weight fraction,,1/1/18,1,https://github.com/HumanExposure/Extractors/Script2

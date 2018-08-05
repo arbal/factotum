@@ -109,6 +109,7 @@
             <a class="btn btn-secondary" data-toggle="collapse" href="#upload_form">
                 <span class="oi oi-data-transfer-upload"></span>&nbsp;Upload Data Group PDFs
             </a>
+            <p class="text-muted">Please limit upload to <600 documents at one time</p>
             <div id="upload_form" class="col-md-12 border rounded collapse">
                 <form enctype="multipart/form-data" action="" method="post">
                     {% csrf_token %}
@@ -120,7 +121,7 @@
                 </form>
             </div>
         {% endif %}
-        {% if not upload_form and not extract_form and bulk %}
+        {% if not upload_form and not extract_form and bulk and not hnp %}
         <form class="" method="post">
           {% csrf_token %}
           <input type="submit" class="btn btn-primary" name="bulk" value="Bulk Create {{ bulk }} Products">
@@ -132,7 +133,7 @@
     {% if documents %}
     <br>
     <br>
-    <h4>{{ datagroup.registered_docs }} documents registered, {{ datagroup.matched_docs }} matched</h4>
+    <h4>{{ datagroup.registered_docs }} documents registered, {{ datagroup.matched_docs }} matched, {{  datagroup.extracted_docs }} extracted</h4>
     <p>
       <a class="btn btn-secondary" href="docs_csv/{{ datagroup.id }}">
         <span class="oi oi-spreadsheet"></span>
@@ -143,7 +144,12 @@
         <thead class="table-primary">
         <th>Title</th>
         <th>Matched</th>
+        {% if hnp %}
+        <th>Edit</th>
+        {% else %}
         <th>Extracted</th>
+        {% endif %}
+
         </thead>
         <tbody>
         {% for doc in documents %}
@@ -159,15 +165,26 @@
             <td align="center">
           {% if doc.matched %}
             <span class="oi oi-circle-check" style="color:green;"></span>
+            <p style="display:none;">{{doc.matched}}</p>
           {% else %}
-            <span class="oi oi-circle-x" style="color:red;"></span>
+          <a class="btn btn-danger btn-sm" role="button" title="delete"
+             href="{% url "data_document_delete" doc.id %}">
+              <span class="oi oi-trash"></span> </a>
+              <p style="display:none;">{{doc.matched}}</p>
           {% endif %}
             </td>
             <td align="center">
-          {% if doc.extracted %}
+          {% if doc.extracted and not hnp %}
             <span class="oi oi-circle-check" style="color:green;"></span>
+              <p style="display:none;">{{doc.extracted}}</p>
+          {% elif hnp %}
+            <a class="btn btn-info btn-sm" role="button" title="Edit/Inspect Habits and practices"
+             href='{% url 'habitsandpractices' doc.id %}'>Edit / Inspect Habits and practices</a>
+              <p style="display:none;">{{doc.extracted}}</p>
           {% else %}
-            <span class="oi oi-circle-x" style="color:red;"></span>
+            <span class="oi oi-circle-x" style="color:red;">
+              <p style="display:none;">{{doc.extracted}}</p>
+            </span>
           {% endif %}
             </td>
           </tr>

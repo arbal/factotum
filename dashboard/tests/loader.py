@@ -3,6 +3,11 @@ from django.contrib.auth.models import User
 
 from dashboard.models import *
 
+fixtures_standard = ['00_superuser.yaml','01_lookups.yaml','02_datasource.yaml','03_datagroup.yaml',
+                    '04_PUC.yaml','05_product.yaml','06_datadocument.yaml','07_script.yaml',
+                    '08_extractedtext.yaml','09_productdocument.yaml','10_extractedchemical.yaml',
+                     '11_dsstoxsubstance.yaml']
+
 class dotdict(dict):
     """dot.notation access to dictionary attributes"""
     __getattr__ = dict.get

@@ -27,3 +27,7 @@
   pk: 7
   fields: {created_at: null, updated_at: null, title: Sun OSHA GHS (extract), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/pdf2text_extract_Sun_OSHA_GHS.ipynb',
     qa_begun: false, script_type: EX}
+- model: dashboard.script
+  pk: 8
+  fields: {created_at: !!timestamp '2018-07-31 11:28:13.705077', updated_at: !!timestamp '2018-07-31
+      11:28:13.705115', title: Manual (dummy), url: null, qa_begun: false, script_type: EX}

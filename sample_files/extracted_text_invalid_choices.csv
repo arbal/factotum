@@ -1,3 +1,3 @@
-data_document_pk,data_document_filename,record_type,prod_name,doc_date,rev_num,raw_cas,raw_chem_name,raw_min_comp,raw_max_comp,unit_type,report_funcuse,ingredient_rank,raw_central_comp
-121627,0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,MSDS,UTRA NAIL OLIVE OIL NAIL & CUTICLE TREATMENT,,2018-01-01,OIL BASED NAIL TREATMENT,,,22345.22345678,1,invalid choice,,
-121647,0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,invalid choice,Hawaiian Body Cream Nourishing Coconut Milk,2018-01-01,1,,,12345.12345678,2.3,2,,,
+data_document_pk,data_document_filename,prod_name,doc_date,rev_num,raw_cas,raw_chem_name,raw_min_comp,raw_max_comp,unit_type,report_funcuse,ingredient_rank,raw_central_comp
+121627,0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,UTRA NAIL OLIVE OIL NAIL & CUTICLE TREATMENT,,2018-01-01,OIL BASED NAIL TREATMENT,,,22345.22345678,1,invalid choice,,
+121647,0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Hawaiian Body Cream Nourishing Coconut Milk,2018-01-01,1,,,12345.12345678,2.3,2,,,
