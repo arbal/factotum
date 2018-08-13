@@ -1,9 +1,10 @@
 - model: dashboard.datagroup
   pk: 6
-  fields: {created_at: null, updated_at: !!timestamp '2018-06-20 18:00:38.834164',
-    name: British Petroleum (Air) 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-03-09
-      11:31:35', download_script: null, data_source: 7, csv: British_Petroleum_(Air)_1/British_Petroleum_Air_1_British_Petroleum_Air_1_register_recor_EHDBt5f.csv,
-    zip_file: media/British_Petroleum_(Air)_1/British_Petroleum_(Air)_1.zip, group_type: 3}
+  fields: {created_at: !!timestamp '2018-05-11 07:00:37.681930', updated_at: !!timestamp '2018-06-20
+      12:16:49.053559', name: British Petroleum (Air) 1, description: '', downloaded_by: 1,
+    downloaded_at: !!timestamp '2018-03-09 11:31:35', download_script: null, data_source: 7,
+    csv: British_Petroleum_(Air)_1/British_Petroleum_Air_1_British_Petroleum_Air_1_register_recor_EHDBt5f.csv,
+    zip_file: media/British_Petroleum_(Air)_1/British_Petroleum_(Air)_1.zip, group_type: 2}
 - model: dashboard.datagroup
   pk: 7
   fields: {created_at: null, updated_at: !!timestamp '2018-06-20 17:56:57.253192',
