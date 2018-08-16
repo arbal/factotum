@@ -23,7 +23,7 @@ class DashboardTest(TestCase):
         self.client.logout()
         response = self.client.get('/').content.decode('utf8')
         response_html = html.fromstring(response)
-        self.assertIn('factotum', response_html.xpath('string(/html/body/nav//a[@href="/login/"]/text())'),
+        self.assertIn('factotum', response_html.xpath('string(/html/body/nav//a[@href="/"]/text())'),
                          'The app name factotum should appear in the public navbar')
         self.assertNotIn('QA', response_html.xpath('string(/html/body/nav//a[@href="/qa/"])'),
                          'The link to /qa/ should not appear in the public navbar')

@@ -6,6 +6,7 @@ from dashboard import views
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from dashboard.views.get_data import * 
 
 class TestGetData(TestCase):
     fixtures = ['00_superuser.yaml', '01_lookups.yaml',
@@ -15,13 +16,15 @@ class TestGetData(TestCase):
 
     def setUp(self):
         self.client = Client()
-    
-    def test_no_auth(self):
-        # the Get Data menu item should be available to a user who isn't logged in
-        response = self.client.get('/')
-        self.assertContains(response, 'Get Data')
-        response = self.client.get('/get_data/')
-        self.assertContains(response, 'Summary metrics by chemical')
+
+    def test_dtxsid_stats(self):
+        ids =["DTXSID9022528", "DTXSID1020273","DTXSID6026296","DTXSID2021781"]
+        #stats = stats_by_dtxsids(ids)
+        #print(stats)
+        #csv_out = download_chem_stats(stats)
+        #print(csv_out.content)
+        print("This test needs to be updated")
+
 
 
 

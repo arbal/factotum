@@ -7,10 +7,11 @@
     zip_file: media/British_Petroleum_(Air)_1/British_Petroleum_(Air)_1.zip, group_type: 2}
 - model: dashboard.datagroup
   pk: 7
-  fields: {created_at: null, updated_at: !!timestamp '2018-06-20 17:56:57.253192',
-    name: Home Depot - ICF 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-03-12
-      09:09:58', download_script: null, data_source: 8, csv: Home_Depot_-_ICF_1/Home_Depot_-_ICF_1_HD_register_records.csv,
-    zip_file: media/Home_Depot_-_ICF_1/Home_Depot_-_ICF_1.zip, group_type: 2}
+  fields: {created_at: !!timestamp '2018-05-11 07:00:37.681930', updated_at: !!timestamp '2018-07-12
+      10:52:49.496676', name: Home Depot - ICF 1, description: '', downloaded_by: 1,
+    downloaded_at: !!timestamp '2018-03-12 00:00:00', download_script: null, data_source: 8,
+    csv: Home_Depot_-_ICF_1/Home_Depot_-_ICF_1_HD_register_records.csv, zip_file: media/Home_Depot_-_ICF_1/Home_Depot_-_ICF_1.zip,
+    group_type: 2}
 - model: dashboard.datagroup
   pk: 8
   fields: {created_at: null, updated_at: !!timestamp '2018-06-20 17:56:57.253192',
@@ -19,32 +20,94 @@
     zip_file: media/Home_Depot_-_ICF_1/Home_Depot_-_ICF_1.zip, group_type: 4}
 - model: dashboard.datagroup
   pk: 17
-  fields: {created_at: null, updated_at: !!timestamp '2018-03-20 14:48:51', name: Walmart
-      MSDS 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2017-08-20
+  fields: {created_at: !!timestamp '2018-05-11 07:00:37.681930', updated_at: !!timestamp '2018-06-20
+      12:16:49.055558', name: Walmart MSDS 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2017-08-20
       14:48:51', download_script: null, data_source: 10, csv: Walmart_MSDS_1/Walmart_MSDS_1_out_08.csv,
     zip_file: media/Walmart_MSDS_1/Walmart_MSDS_1.zip, group_type: 1}
 - model: dashboard.datagroup
   pk: 18
-  fields: {created_at: null, updated_at: !!timestamp '2018-03-20 15:30:23', name: Walmart
-      MSDS 2, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2017-09-20
+  fields: {created_at: !!timestamp '2018-05-11 07:00:37.681930', updated_at: !!timestamp '2018-06-20
+      12:16:49.056414', name: Walmart MSDS 2, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2017-09-20
       15:30:23', download_script: null, data_source: 10, csv: Walmart_MSDS_2/Walmart_MSDS_2_out_09.csv,
     zip_file: media/Walmart_MSDS_2/Walmart_MSDS_2.zip, group_type: 1}
 - model: dashboard.datagroup
+  pk: 19
+  fields: {created_at: !!timestamp '2018-05-11 07:00:37.681930', updated_at: !!timestamp '2018-06-20
+      12:16:49.057216', name: Walmart MSDS 3, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2017-10-21
+      08:47:08', download_script: null, data_source: 10, csv: Walmart_MSDS_3/Walmart_MSDS_3_out_10.csv,
+    zip_file: media/Walmart_MSDS_3/Walmart_MSDS_3.zip, group_type: 1}
+- model: dashboard.datagroup
   pk: 20
-  fields: {created_at: null, updated_at: !!timestamp '2018-03-21 12:37:36', name: Georgia
-      Pacific 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-03-21
-      12:37:36', download_script: 1, data_source: 11, csv: Georgia_Pacific_1/Georgia_Pacific_1_GP_register_records.csv,
-    zip_file: media/Georgia_Pacific_1/Georgia_Pacific_1.zip, group_type: 1}
+  fields: {created_at: !!timestamp '2018-05-11 07:00:37.681930', updated_at: !!timestamp '2018-06-20
+      12:16:49.057926', name: Georgia Pacific 1, description: '', downloaded_by: 1,
+    downloaded_at: !!timestamp '2018-03-21 12:37:36', download_script: 1, data_source: 11,
+    csv: Georgia_Pacific_1/Georgia_Pacific_1_GP_register_records.csv, zip_file: media/Georgia_Pacific_1/Georgia_Pacific_1.zip,
+    group_type: 1}
 - model: dashboard.datagroup
   pk: 21
-  fields: {created_at: null, updated_at: !!timestamp '2018-03-21 12:43:58', name: Sun
-      MSDS 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-03-21
+  fields: {created_at: !!timestamp '2018-05-11 07:00:37.681930', updated_at: !!timestamp '2018-06-20
+      12:16:49.058775', name: Sun MSDS 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-03-21
       12:43:58', download_script: 3, data_source: 13, csv: Sun_MSDS_1/Sun_MSDS_1_Sun_MSDS_register_records.csv,
     zip_file: media/Sun_MSDS_1/Sun_MSDS_1.zip, group_type: 1}
 - model: dashboard.datagroup
   pk: 22
-  fields: {created_at: null, updated_at: !!timestamp '2018-03-21 13:16:15', name: Sun
-      Ingredient Disclosures 1, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-03-21
-      13:16:15', download_script: 6, data_source: 15, csv: Sun_Ingredient_Disclosures_1/Sun_Ingredient_Disclosures_1_Sun_IngDisc_register_records.csv,
+  fields: {created_at: !!timestamp '2018-05-11 07:00:37.681930', updated_at: !!timestamp '2018-06-20
+      12:16:49.059905', name: Sun Ingredient Disclosures 1, description: '', downloaded_by: 1,
+    downloaded_at: !!timestamp '2018-03-21 13:16:15', download_script: 6, data_source: 15,
+    csv: Sun_Ingredient_Disclosures_1/Sun_Ingredient_Disclosures_1_Sun_IngDisc_register_records.csv,
     zip_file: media/Sun_Ingredient_Disclosures_1/Sun_Ingredient_Disclosures_1.zip,
+    group_type: 1}
+- model: dashboard.datagroup
+  pk: 23
+  fields: {created_at: !!timestamp '2018-05-11 07:00:37.681930', updated_at: !!timestamp '2018-06-20
+      12:16:49.060695', name: Walmart MSDS 4, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2017-11-22
+      07:32:57', download_script: null, data_source: 10, csv: Walmart_MSDS_4/Walmart_MSDS_4_out_11.csv,
+    zip_file: media/Walmart_MSDS_4/Walmart_MSDS_4.zip, group_type: 1}
+- model: dashboard.datagroup
+  pk: 24
+  fields: {created_at: !!timestamp '2018-05-11 07:00:37.681930', updated_at: !!timestamp '2018-06-20
+      12:16:49.061685', name: Walmart MSDS 5, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2017-12-22
+      08:02:33', download_script: null, data_source: 10, csv: Walmart_MSDS_5/Walmart_MSDS_5_out_12.csv,
+    zip_file: media/Walmart_MSDS_5/Walmart_MSDS_5.zip, group_type: 1}
+- model: dashboard.datagroup
+  pk: 26
+  fields: {created_at: !!timestamp '2018-05-11 07:00:37.681930', updated_at: !!timestamp '2018-06-20
+      12:16:49.062741', name: Walmart MSDS 6, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-04-09
+      10:57:57', download_script: null, data_source: 10, csv: Walmart_MSDS_6/Walmart_MSDS_6_out_04.csv,
+    zip_file: media/Walmart_MSDS_6/Walmart_MSDS_6.zip, group_type: 1}
+- model: dashboard.datagroup
+  pk: 27
+  fields: {created_at: !!timestamp '2018-05-11 07:00:37.681930', updated_at: !!timestamp '2018-06-20
+      12:16:49.063518', name: Bell Labs 1, description: One shot download of, downloaded_by: 1,
+    downloaded_at: !!timestamp '2018-04-26 00:00:00', download_script: null, data_source: 18,
+    csv: Bell_Labs_1/Bell_Labs_1_register_records.csv, zip_file: media/Bell_Labs_1/Bell_Labs_1.zip,
+    group_type: 1}
+- model: dashboard.datagroup
+  pk: 28
+  fields: {created_at: !!timestamp '2018-05-11 07:00:37.681930', updated_at: !!timestamp '2018-06-20
+      12:16:49.064368', name: Unilever MSDS USA 1, description: 'Data coming from
+      CPDat. Note data was originally downloaded by ICF, however data was transferred
+      from CPDat into Factotum by Kathie Dionisio and Dave Lyons in May 2018.', downloaded_by: 1,
+    downloaded_at: !!timestamp '2015-07-17 00:00:00', download_script: 10, data_source: 29,
+    csv: Unilever_MSDS_USA_1/Unilever_MSDS_USA_1_UnileverMSDS_registerrecords.csv,
+    zip_file: media/Unilever_MSDS_USA_1/Unilever_MSDS_USA_1.zip, group_type: 1}
+- model: dashboard.datagroup
+  pk: 30
+  fields: {created_at: !!timestamp '2018-05-11 07:00:37.681930', updated_at: !!timestamp '2018-06-20
+      12:16:49.065490', name: Airgas_PureGas, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2018-05-09
+      00:00:00', download_script: null, data_source: 25, csv: Airgas_PureGas/Airgas_PureGas_airgas_puregas.csv,
+    zip_file: media/Airgas_PureGas/Airgas_PureGas.zip, group_type: 1}
+- model: dashboard.datagroup
+  pk: 37
+  fields: {created_at: !!timestamp '2018-05-11 07:00:37.681930', updated_at: !!timestamp '2018-06-20
+      12:16:49.066622', name: Airgas_HardGoods, description: '', downloaded_by: 1,
+    downloaded_at: !!timestamp '2018-05-09 00:00:00', download_script: null, data_source: 25,
+    csv: Airgas_HardGoods/Airgas_HardGoods_airgas_hardgoods.csv, zip_file: media/Airgas_HardGoods/Airgas_HardGoods.zip,
+    group_type: 1}
+- model: dashboard.datagroup
+  pk: 47
+  fields: {created_at: !!timestamp '2018-05-18 18:35:03.828213', updated_at: !!timestamp '2018-06-20
+      12:16:49.067826', name: Airgas_MixedGases, description: '', downloaded_by: 1,
+    downloaded_at: !!timestamp '2018-05-09 00:00:00', download_script: null, data_source: 25,
+    csv: Airgas_MixedGases/Airgas_MixedGases_airgas_mixedgas.csv, zip_file: media/Airgas_MixedGases/Airgas_MixedGases.zip,
     group_type: 1}

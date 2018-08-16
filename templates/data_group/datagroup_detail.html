@@ -1,6 +1,7 @@
 {% extends 'core/base.html' %}
 {% load staticfiles %}
 {% load humanize %}
+{% block title %}Data Group Detail: {{ datagroup.name }}{% endblock %}
 
 {% block errors %}
   {% if msg %}
@@ -57,7 +58,10 @@
             </a>
         </dd>
         <dt class="col-sm-3">Data Source</dt>
-        <dd class="col-sm-9">{{ datagroup.data_source }}</dd>
+        <dd class="col-sm-9">
+          <a href="{% url "data_source_detail" datagroup.data_source.id %}" title="Return to Data Source">
+            {{ datagroup.data_source }}</a>
+        </dd>
         {% if datagroup.updated_at %}
             <dt class="col-sm-3">Last updated</dt>
             <dd class="col-sm-9">{{ datagroup.updated_at }}</dd>
@@ -121,24 +125,27 @@
                 </form>
             </div>
         {% endif %}
-        {% if not upload_form and not extract_form and bulk and not hnp %}
-        <form class="" method="post">
-          {% csrf_token %}
-          <input type="submit" class="btn btn-primary" name="bulk" value="Bulk Create {{ bulk }} Products">
-        </form>
 
-        {% endif %}
 
 
     {% if documents %}
     <br>
     <br>
     <h4>{{ datagroup.registered_docs }} documents registered, {{ datagroup.matched_docs }} matched, {{  datagroup.extracted_docs }} extracted</h4>
-    <p>
-      <a class="btn btn-secondary" href="docs_csv/{{ datagroup.id }}">
-        <span class="oi oi-spreadsheet"></span>
-        &nbsp;Export all records in {{ datagroup.name }} to csv</a>
-    </p>
+    <div class="inline-block">
+      {% if bulk and not upload_form %}
+      <form class="float-right" method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-primary" name="bulk" value="Bulk Create {{ bulk }} Products">
+      </form>
+      {% endif %}
+      <p>
+        <a class="btn btn-secondary" href="docs_csv/{{ datagroup.id }}">
+          <span class="oi oi-spreadsheet"></span>
+          &nbsp;Export all records in {{ datagroup.name }} to csv</a>
+      </p>
+    </div>
+
         </div>
       <table class="table table-striped table-bordered dataTable no-footer table-sm" id="docs">
         <thead class="table-primary">
@@ -148,6 +155,9 @@
         <th>Edit</th>
         {% else %}
         <th>Extracted</th>
+        {% endif %}
+        {% if composition %}
+        <th>Product</th>
         {% endif %}
 
         </thead>
@@ -187,6 +197,20 @@
             </span>
           {% endif %}
             </td>
+
+          {% if composition %}
+          <td align="center">
+            {% if doc.products.exists %}
+            <a class="btn btn-info btn-sm" role="button" title="Go to Product Detail"
+             href='{% url 'product_detail' doc.products.first.pk %}'>{{doc.products.first}}</a>
+              <p style="display:none;">{{ doc.products.exists }}</p>
+            {% else %}
+            <span class="oi oi-circle-x" style="color:red;">
+              <p style="display:none;">{{ doc.products.exists }}</p>
+          </td>
+            {% endif %}
+          {% endif %}
+
           </tr>
         {% endfor %}
         </tbody>

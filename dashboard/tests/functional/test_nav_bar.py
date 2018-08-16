@@ -1,5 +1,6 @@
 from django.urls import resolve
 from django.test import TestCase
+from django.test.client import Client
 from django.http import HttpRequest
 from dashboard.tests.loader import load_model_objects
 from dashboard import views
@@ -12,6 +13,7 @@ class NavBarTest(TestCase):
     '''
     def setUp(self):
         self.objects = load_model_objects()
+        self.client = Client()
 
     def test_home_page_returns_correct_html(self):
         # we need Karyn in the DB in order to log her in.
@@ -39,3 +41,10 @@ class NavBarTest(TestCase):
     def test_qa_link(self):
         found = resolve('/qa/')
         self.assertEqual(found.func, views.qa_index)
+
+    def test_get_data_without_auth(self):
+        # the Get Data menu item should be available to a user who isn't logged in
+        response = self.client.get('/')
+        self.assertContains(response, 'Get Data')
+        response = self.client.get('/get_data/')
+        self.assertContains(response, 'Summary metrics by chemical')

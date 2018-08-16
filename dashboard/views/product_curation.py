@@ -8,8 +8,11 @@ from django import forms
 from django.forms import ModelForm, ModelChoiceField
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.urls import resolve
+from urllib import parse
+from dashboard.models import *
+from dashboard.forms import ProductPUCForm
 
-from dashboard.models import DataSource, DataGroup, DataDocument, DocumentType, Product, ProductDocument, PUC, ProductToPUC
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 class ProductLinkForm(ModelForm):
@@ -28,12 +31,12 @@ class ProductForm(ModelForm):
 
     class Meta:
         model = Product
-        fields = ['title', 'manufacturer', 'brand_name', 'size', 'color', 'short_description', 'long_description',
-                  'model_number']
+        fields = ['title', 'manufacturer', 'brand_name', 'size', 'color', 'model_number', 'short_description',
+                  'long_description']
 
 class ProductViewForm(ProductForm):
     class Meta(ProductForm.Meta):
-        exclude = ('title',)
+        exclude = ('title', 'long_description',)
 
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
@@ -111,8 +114,9 @@ def link_product_form(request, pk, template_name=('product_curation/'
                 product.size = form['size'].value()
                 product.color = form['color'].value()
                 product.save()
-            p = ProductDocument(product=product, document=doc)
-            p.save()
+            if not ProductDocument.objects.filter(document=doc).exists():
+                p = ProductDocument(product=product, document=doc)
+                p.save()
             document_type = form['document_type'].value()
             if document_type != doc.document_type:
                 doc.document_type = DocumentType.objects.get(pk=document_type)
@@ -128,9 +132,27 @@ def assign_puc_to_product(request, pk, template_name=('product_curation/'
     p = Product.objects.get(pk=pk)
     if form.is_valid():
         puc = PUC.objects.get(id=form['puc'].value())
-        ProductToPUC.objects.create(PUC=puc, product=p, classification_method='MA',
+        print('Selected PUC: ' + str(puc))
+        producttopuc = ProductToPUC.objects.filter(product=p, classification_method='MA')
+        # if product already has a puc, update it with a new puc
+        if producttopuc.exists():
+            producttopuc_obj = producttopuc.get()
+            producttopuc_obj.puc = puc # This assignment doesn't appear to be actually happening. . .
+            producttopuc_obj.puc_assigned_time = timezone.now()
+            producttopuc_obj.puc_assigned_usr = request.user
+            print('Updated ProductToPUC values:')
+            for i in producttopuc_obj._meta.get_fields():
+                print(str(i.name) + ': ' + str(getattr(producttopuc_obj, str(i.name))))
+            producttopuc_obj.save()
+        else:
+            ProductToPUC.objects.create(PUC=puc, product=p, classification_method='MA',
                                     puc_assigned_time=timezone.now(), puc_assigned_usr=request.user)
-        return redirect('category_assignment', pk=p.data_source.id)
+        referer = request.POST.get('referer') if request.POST.get('referer') else 'category_assignment'
+        pk = p.id if referer == 'product_detail' else p.data_source.id
+        return redirect(referer, pk=pk)
+    form.referer = resolve(parse.urlparse(request.META['HTTP_REFERER']).path).url_name\
+        if request.META['HTTP_REFERER'] else 'category_assignment'
+    form.referer_pk = p.id if form.referer == 'product_detail' else p.data_source.id
     return render(request, template_name,{'product': p, 'form': form})
 
 @login_required()
@@ -152,6 +174,16 @@ def product_update(request, pk, template_name=('product_curation/'
         return redirect('product_detail', pk=p.pk)
     return render(request, template_name,{'product': p, 'form': form})
 
+@login_required()
+# Stub for future delete functionality
+def product_delete(request, pk, template_name=('product_curation/'
+                                               'product_edit.html')):
+    p = Product.objects.get(pk=pk)
+    form = ProductForm(request.POST or None, instance=p)
+    if form.is_valid():
+        form.save()
+        return redirect('product_detail', pk=p.pk)
+    return render(request, template_name,{'product': p, 'form': form})
 
 @login_required()
 def product_list(request, template_name=('product_curation/'

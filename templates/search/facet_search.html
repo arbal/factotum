@@ -87,16 +87,14 @@
         {% endif %}
 
         <h3>Data Document Filters</h3>
-        <p><code>Document Type will be a facet: not yet implemented in DataDocument model</code></p>
-        <!-- TODO: the doc_type field has not yet been added to the DataDocumentModel -->
-        {% if facets.fields.source_type %}
+        {% if facets.fields.group_type %}
         <dl>
-        <dt>Filter by Document Type</dt>
-        {% for doc_type in facets.fields.source_type %}
-            {% if doc_type.1 != 0 %}
+        <dt>Filter by Group Type</dt>
+        {% for group_type in facets.fields.group_type %}
+            {% if group_type.1 != 0 %}
             <dd>
-            <input class="facet" id="{{source_type.0|cut:" "}}" type="checkbox" name="source_type" value="{{ source_type.0 }}" 
-            data-toggle="toggle" /> {{ source_type.0 }} ({{ source_type.1 }})
+            <input class="facet" id="{{group_type.0|cut:" "}}" type="checkbox" name="group_type" value="{{ group_type.0 }}" 
+            data-toggle="toggle" /> {{ group_type.0 }} ({{ group_type.1 }})
             </dd>
             {% endif %}
         {% endfor %}

@@ -55,21 +55,19 @@ def load_model_objects():
                                     )
     ut = UnitType.objects.create(title='percent composition')
     wft = WeightFractionType.objects.create(title= 'reported', description= 'reported')
+    ing = Ingredient.objects.create(lower_wf_analysis = 0.123456789012345,
+                                     central_wf_analysis = 0.2,
+                                     upper_wf_analysis = 1,
+                                     script = script)
     ec = ExtractedChemical.objects.create(raw_chem_name= 'Test Chem Name',
                                             extracted_text=extext,
                                             unit_type=ut,
-                                            weight_fraction_type = wft)
+                                            weight_fraction_type = wft,
+                                            ingredient = ing)
     dsstox = DSSToxSubstance.objects.create(extracted_chemical=ec,
                                             true_chemname='Test Chem Name')
     pa = ProductAttribute.objects.create(title="Test Product Attribute")
     pd = ProductDocument.objects.create(product=p, document=doc)
-    ing = Ingredient.objects.create(weight_fraction_type = wft,
-                                     lower_wf_analysis = 0.123456789012345,
-                                     central_wf_analysis = 0.2,
-                                     upper_wf_analysis = 1)
-    pi = ProductToIngredient.objects.create(product=p, ingredient=ing)
-    dsi = DSSToxSubstanceToIngredient.objects.create(dsstox_substance=dsstox,
-                                                        ingredient=ing)
     ehp = ExtractedHabitsAndPractices.objects.create(extracted_text=extext,
                                                      product_surveyed='Test Product Surveyed',
                                                      prevalence='Continuous')
@@ -91,8 +89,6 @@ def load_model_objects():
                     'pa':pa,
                     'pd':pd,
                     'ing':ing,
-                    'pi':pi,
-                    'dsi':dsi,
                     'dt':dt,
                     'gt':gt,
                     'ehp':ehp

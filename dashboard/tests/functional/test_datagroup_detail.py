@@ -135,3 +135,21 @@ class DataGroupTest(TestCase):
         span = '<span class="oi oi-circle-check" style="color:green;"></span>'
         self.assertIn(span, response,
                       'Check should be present if matched.')
+
+    def test_detail_table_headers(self):
+        pk = self.objects.dg.pk
+        response = self.client.get(f'/datagroup/{pk}').content.decode('utf8')
+        self.assertIn('<th>Product</th>', response,
+                      'Data Group should have Product column.')
+        fu = GroupType.objects.create(title='Functional use')
+        self.objects.dg.group_type = fu
+        self.objects.dg.save()
+        response = self.client.get(f'/datagroup/{pk}').content.decode('utf8')
+        self.assertNotIn('<th>Product</th>', response,
+                      'Data Group should have Product column.')
+
+    def test_detail_datasource_link(self):
+        pk = self.objects.dg.pk
+        response = self.client.get(f'/datagroup/{pk}')
+        self.assertContains(response,'<a href="/datasource/',
+                    msg_prefix='Should be able to get back to DataSource from here.')

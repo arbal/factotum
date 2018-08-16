@@ -40,10 +40,7 @@ class ModelsTest(TestCase):
         self.assertTrue(isinstance(self.objects.dsstox, DSSToxSubstance))
         self.assertTrue(isinstance(self.objects.ing, Ingredient))
         self.assertTrue(isinstance(self.objects.p, Product))
-        self.assertTrue(isinstance(self.objects.pi, ProductToIngredient))
         self.assertTrue(isinstance(self.objects.pd, ProductDocument))
-        self.assertTrue(isinstance(self.objects.dsi,
-                                            DSSToxSubstanceToIngredient))
         self.assertTrue(isinstance(self.objects.pa, ProductAttribute))
 
     def test_object_properties(self):

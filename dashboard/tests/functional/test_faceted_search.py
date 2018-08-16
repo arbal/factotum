@@ -18,11 +18,16 @@ class FacetedSearchTest(TestCase):
         self.assertContains(response, 'Data Document')
         self.assertNotContains(response, 'Extracted Chemical')
         self.assertNotContains(response, 'DSSTox Substance')
+    
+    def test_group_type_facet(self):
+        response = self.c.get('/find/?q=diatom')
+        self.assertContains(response, 'Filter by Group Type')
+        
+        response = self.c.get('/find/?q=diatom&group_type=Unidentified')
+        self.assertContains(response, 'Showing 1 - 20 of')
 
-    def test_chemical_search_ui_results(self):
-        response = self.client.get('/findchemical/?q=ethyl').content.decode('utf8')
-        response_html = html.fromstring(response)
-        self.assertIn('Sun_INDS_89',
-                      response_html.xpath('string(/html/body/div[1]/div/div[2]/ol/li[1]/a[@href="/datadocument/156051"])'),
-                      'The link to Sun_INDS_89 must be returned by a chemical search for "ethyl"')
+        response = self.c.get('/find/?q=diatom&group_type=BadGroupName')
+        self.assertContains(response, 'Sorry, no result found')
+
+
 

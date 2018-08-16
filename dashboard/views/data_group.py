@@ -38,9 +38,6 @@ class DataGroupForm(forms.ModelForm):
         self.fields['csv'].widget.attrs.update({'accept':'.csv'})
         self.fields['download_script'].queryset = qs
 
-class UploadForm(forms.Form):
-    PDF_directory = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
-
 class ExtractionScriptForm(forms.Form):
     required_css_class = 'required' # adds to label tag
     script_selection = forms.ModelChoiceField(queryset=Script.objects.filter(script_type='EX')
@@ -120,7 +117,8 @@ def data_group_detail(request, pk,
                   'extract_form'      : include_extract_form(datagroup, dg_type),
                   'bulk'              : len(docs) - len(prod_link),
                   'msg'               : '',
-                  'hnp'               : dg_type == 'Habits and practices'
+                  'hnp'               : dg_type == 'Habits and practices',
+                  'composition'       : dg_type == 'Composition',
                   }
     if request.method == 'POST' and 'upload' in request.POST:
         # match filename to pdf name

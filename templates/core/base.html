@@ -26,7 +26,7 @@
 <body>
 <!-- Fixed navbar -->
 <nav class="navbar navbar-expand-md navbar-custom fixed-top py-0">
-    <a class="navbar-brand" href="{% url 'login' %}" title="an employee who does all kinds of work">factotum</a>
+    <a class="navbar-brand" href="{% url 'index' %}" title="an employee who does all kinds of work">factotum</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,10 +38,6 @@
             <a class="nav-link" href="{% url 'get_data' %}" title="Get Data">Get Data</a>
         </li>
     {% if user.is_authenticated %}
-
-            <li class="nav-item {% if request.resolver_match.url_name == 'index' %}active{% endif %}">
-                <a class="nav-link" href="{% url 'index' %}">Dashboard</a>
-            </li>
             <li class="nav-item {% if 'data_source' in request.resolver_match.url_name %}active{% endif %}">
                 <a class="nav-link" href="{% url 'data_source_list' %}">Data Sources</a>
             </li>

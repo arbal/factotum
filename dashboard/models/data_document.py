@@ -37,6 +37,7 @@ class DataDocument(CommonInfo):
             title=self.title,
             filename=self.filename,
             url=self.url,
+            group_type=self.data_group.group_type.title ,
             facet_model_name='Data Document',
         )
         obj.save()

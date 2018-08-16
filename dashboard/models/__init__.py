@@ -9,8 +9,6 @@ from .product import Product
 from .source_category import SourceCategory
 from .product_document import ProductDocument
 from .PUC import PUC
-from .product_to_ingredient import ProductToIngredient
-from .dsstox_substance_to_ingredient import DSSToxSubstanceToIngredient
 from .extracted_text import ExtractedText
 from .extracted_chemical import ExtractedChemical
 from .extracted_functional_use import ExtractedFunctionalUse

@@ -23,7 +23,7 @@ def bulk_indexing():
 
 class FacetedSearchView(BaseFacetedSearchView):
     form_class = FacetedProductSearchForm
-    facet_fields = ['prod_cat', 'brand_name', 'facet_model_name']
+    facet_fields = ['prod_cat', 'brand_name', 'facet_model_name','group_type']
     template_name = 'search/facet_search.html'
     paginate_by = 20
     context_object_name = 'object_list'

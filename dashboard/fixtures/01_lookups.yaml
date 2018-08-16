@@ -1,66 +1,119 @@
-- model: dashboard.unittype
-  pk: 1
-  fields: {title: 'percent composition', description: 'percent composition', created_at: !!timestamp '2018-03-08 14:15:13',
-    updated_at: null}
-- model: dashboard.unittype
-  pk: 2
-  fields: {title: 'weight fraction', description: 'weight fraction', created_at: !!timestamp '2018-03-08 14:15:42',
-    updated_at: null}
-
-- model: dashboard.weightfractiontype
-  pk: 1
-  fields: {title: 'reported', description: 'reported', created_at: !!timestamp '2018-03-08 14:15:13',
-    updated_at: null}
-- model: dashboard.weightfractiontype
-  pk: 2
-  fields: {title: 'predicted', description: 'predicted', created_at: !!timestamp '2018-03-08 14:15:42',
-    updated_at: null}
-- model: dashboard.weightfractiontype
-  pk: 3
-  fields: {title: 'measured', description: 'measured', created_at: !!timestamp '2018-03-08 14:15:42',
-    updated_at: null}
-
-- model: dashboard.pucattribute
-  pk: 1
-  fields: {name: article}
-- model: dashboard.pucattribute
-  pk: 2
-  fields: {name: formulation}
-- model: dashboard.pucattribute
-  pk: 3
-  fields: {name: food contact}
-
 - model: dashboard.grouptype
   pk: 1
-  fields: {created_at: !!timestamp '2018-06-20 12:22:34.396798', updated_at: !!timestamp '2018-06-20
-      12:22:34.396823', title: Unidentified, description: Unidentified Group Type}
+  fields: {created_at: !!timestamp '2018-06-20 12:16:49.051019', updated_at: !!timestamp '2018-06-20
+      12:16:49.051035', title: Unidentified, description: Unidentified Group Type}
 - model: dashboard.grouptype
   pk: 2
-  fields: {created_at: !!timestamp '2018-06-20 17:14:37.904690', updated_at: !!timestamp '2018-06-20
-      17:16:09.688181', title: Functional use, description: this type will load ExtractedFunctionalUse
-      records linked to the ExtractedText model}
+  fields: {created_at: !!timestamp '2018-07-12 10:49:27.780577', updated_at: !!timestamp '2018-07-12
+      10:49:27.780596', title: Composition, description: ''}
 - model: dashboard.grouptype
   pk: 3
-  fields: {created_at: !!timestamp '2018-06-20 17:15:50.625428', updated_at: !!timestamp '2018-06-20
-      17:16:47.450824', title: Composition, description: this type will load ExtractedChemical
-      records to the ExtractedText model in the data_group_detail view.}
+  fields: {created_at: !!timestamp '2018-07-12 10:49:39.992614', updated_at: !!timestamp '2018-07-12
+      10:49:39.992631', title: Functional use, description: ''}
 - model: dashboard.grouptype
   pk: 4
-  fields: {created_at: !!timestamp '2018-06-20 17:15:50.625428', updated_at: !!timestamp '2018-06-20
-      17:16:47.450824', title: Habits and practices, description: Habits and Practices Group Type}
-
+  fields: {created_at: !!timestamp '2018-07-12 10:49:45.927857', updated_at: !!timestamp '2018-07-12
+      10:49:45.927877', title: Habits and Practices, description: ''}
+- model: dashboard.grouptype
+  pk: 5
+  fields: {created_at: !!timestamp '2018-07-12 10:51:29.240851', updated_at: !!timestamp '2018-07-12
+      10:51:29.240872', title: Composition & Functional use, description: ''}
 - model: dashboard.documenttype
   pk: 1
-  fields: {created_at: !!timestamp '2018-06-20 17:15:50.625428', updated_at: !!timestamp '2018-06-20
-      17:16:47.450824', title: journal article, description: Journal Article Document Type,
-      group_type_id: 4}
+  fields: {created_at: !!timestamp '2018-06-20 12:16:49.070487', updated_at: !!timestamp '2018-06-20
+      12:16:49.070504', title: Unidentified, description: Unidentified Document Type,
+    group_type: 1}
 - model: dashboard.documenttype
   pk: 2
-  fields: {created_at: !!timestamp '2018-06-20 17:15:50.625428', updated_at: !!timestamp '2018-06-20
-      17:16:47.450824', title: professional society report, description: Professional Society Report Document Type,
-      group_type_id: 4}
+  fields: {created_at: !!timestamp '2018-07-12 10:50:09.783274', updated_at: !!timestamp '2018-07-12
+      10:50:09.783295', title: MSDS, description: '', group_type: 2}
 - model: dashboard.documenttype
   pk: 3
-  fields: {created_at: !!timestamp '2018-06-20 17:15:50.625428', updated_at: !!timestamp '2018-06-20
-      17:16:47.450824', title: government agency report, description: Government Agency Report Document Type,
-      group_type_id: 4}
+  fields: {created_at: !!timestamp '2018-07-12 10:50:15.238632', updated_at: !!timestamp '2018-07-12
+      10:50:15.238649', title: SDS, description: '', group_type: 2}
+- model: dashboard.documenttype
+  pk: 4
+  fields: {created_at: !!timestamp '2018-07-12 10:50:23.345012', updated_at: !!timestamp '2018-07-12
+      10:50:23.345029', title: ingredient list, description: '', group_type: 2}
+- model: dashboard.documenttype
+  pk: 5
+  fields: {created_at: !!timestamp '2018-07-12 10:50:31.543699', updated_at: !!timestamp '2018-07-12
+      10:50:31.543718', title: ingredient disclosure, description: '', group_type: 2}
+- model: dashboard.documenttype
+  pk: 6
+  fields: {created_at: !!timestamp '2018-07-12 10:50:39.660935', updated_at: !!timestamp '2018-07-12
+      10:50:39.660956', title: MSDS, description: '', group_type: 3}
+- model: dashboard.documenttype
+  pk: 7
+  fields: {created_at: !!timestamp '2018-07-12 10:50:46.594201', updated_at: !!timestamp '2018-07-12
+      10:50:46.594218', title: SDS, description: '', group_type: 3}
+- model: dashboard.documenttype
+  pk: 8
+  fields: {created_at: !!timestamp '2018-07-12 10:50:54.639740', updated_at: !!timestamp '2018-07-12
+      10:50:54.639759', title: ingredient disclosure, description: '', group_type: 3}
+- model: dashboard.documenttype
+  pk: 9
+  fields: {created_at: !!timestamp '2018-07-12 10:51:05.963622', updated_at: !!timestamp '2018-07-12
+      10:51:05.963639', title: chemical use disclosure, description: '', group_type: 3}
+- model: dashboard.documenttype
+  pk: 10
+  fields: {created_at: !!timestamp '2018-07-12 10:51:41.054772', updated_at: !!timestamp '2018-07-12
+      10:51:41.054792', title: MSDS, description: '', group_type: 5}
+- model: dashboard.documenttype
+  pk: 11
+  fields: {created_at: !!timestamp '2018-07-12 10:51:46.155168', updated_at: !!timestamp '2018-07-12
+      10:51:46.155186', title: SDS, description: '', group_type: 5}
+- model: dashboard.unittype
+  pk: 1
+  fields: {created_at: !!timestamp '2018-05-07 16:29:57', updated_at: null, title: weight
+      fraction, description: as a decimal}
+- model: dashboard.unittype
+  pk: 2
+  fields: {created_at: !!timestamp '2018-06-05 13:32:39.347661', updated_at: !!timestamp '2018-06-05
+      13:32:39.347686', title: unknown, description: when text was extracted the unit
+      type was not harvested}
+- model: dashboard.unittype
+  pk: 3
+  fields: {created_at: !!timestamp '2018-07-12 12:05:44.490989', updated_at: !!timestamp '2018-07-12
+      12:05:44.491025', title: percent, description: weight fraction as a percent
+      (ie 3%)}
+- model: dashboard.unittype
+  pk: 4
+  fields: {created_at: !!timestamp '2018-07-12 14:26:11.965294', updated_at: !!timestamp '2018-07-12
+      14:26:11.965314', title: ppm, description: ''}
+- model: dashboard.unittype
+  pk: 5
+  fields: {created_at: !!timestamp '2018-07-12 14:48:53.802278', updated_at: !!timestamp '2018-07-12
+      14:48:53.802297', title: psi, description: ''}
+- model: dashboard.unittype
+  pk: 6
+  fields: {created_at: !!timestamp '2018-07-12 14:49:51.833730', updated_at: !!timestamp '2018-07-12
+      14:49:51.833751', title: volume, description: ''}
+- model: dashboard.unittype
+  pk: 7
+  fields: {created_at: !!timestamp '2018-07-12 14:50:26.320607', updated_at: !!timestamp '2018-07-12
+      14:50:26.320627', title: nCi, description: ''}
+- model: dashboard.unittype
+  pk: 8
+  fields: {created_at: !!timestamp '2018-07-12 14:51:17.900232', updated_at: !!timestamp '2018-07-12
+      14:51:17.900254', title: mg per m3, description: ''}
+- model: dashboard.unittype
+  pk: 9
+  fields: {created_at: !!timestamp '2018-07-12 14:52:23.619012', updated_at: !!timestamp '2018-07-12
+      14:52:23.619032', title: g per pcs, description: ''}
+- model: dashboard.unittype
+  pk: 10
+  fields: {created_at: !!timestamp '2018-07-12 14:53:05.936279', updated_at: !!timestamp '2018-07-12
+      14:53:05.936298', title: Iron (Fe) by 3, description: ''}
+- model: dashboard.unittype
+  pk: 11
+  fields: {created_at: !!timestamp '2018-07-12 14:53:39.399276', updated_at: !!timestamp '2018-07-12
+      14:53:39.399297', title: MPN/g TS, description: ''}
+- model: dashboard.unittype
+  pk: 12
+  fields: {created_at: !!timestamp '2018-07-12 14:55:18.802283', updated_at: !!timestamp '2018-07-12
+      14:55:18.802302', title: gm, description: ''}
+- model: dashboard.weightfractiontype
+  pk: 1
+  fields: {created_at: !!timestamp '2018-05-07 15:25:02', updated_at: null, title: reported,
+    description: 'i.e., from an MSDS sheet, as reported by the manufacturer'}

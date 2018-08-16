@@ -3,6 +3,11 @@ from django.shortcuts import render
 from dashboard.models import DataDocument, ExtractedChemical, DSSToxSubstance
 from django.db.models import Q
 from haystack.query import SearchQuerySet
+from haystack.inputs import Exact
+from haystack import connections
+from django.conf import settings
+
+from django.forms.models import model_to_dict
 
 def chem_search(request, template_name='search/chemical_search.html'):
     return render(request,
@@ -18,6 +23,14 @@ def chem_search_json_view(request):
     return JsonResponse(results)
 
 def chem_search_results(chemical):
+    # Get matching DSSTOX records
+    print("Current Haystack connection: %s" % settings.HAYSTACK_CONN)
+    print(connections.connections_info.keys())
+    print("Calling Search for %s " % chemical)
+    sqs_dsstox = SearchQuerySet().using(settings.HAYSTACK_CONN).filter(content=chemical).models(DSSToxSubstance)
+    print("Search called, dsstox result count:")
+    print(sqs_dsstox.count())
+
     sqs_dsstox = SearchQuerySet().filter(content=chemical).models(DSSToxSubstance)
     dsstox_doc_ids = list()
 
