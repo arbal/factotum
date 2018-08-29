@@ -53,15 +53,15 @@ class QATest(TestCase):
 
         # A button for each row that will take you to the script's QA page
         script_qa_link = response_html.xpath(
-            '//*[@id="extraction_script_table"]/tbody/tr[contains(.,"Test Extraction Script")]/td[4]/a/@href')
-        self.assertIn('/qa/extractionscript/' + str(self.objects.exscript.pk), script_qa_link)
+            '//*[@id="extraction_script_table"]/tbody/tr[contains(.,"Test Extraction Script")]/td[4]/a/@href')[0]
+        self.assertIn(f'/qa/extractionscript/{str(self.objects.exscript.pk)}/', script_qa_link)
 
         # Before clicking the link, the script's qa_done property should be false
         self.assertEqual(es.qa_begun, False,
                          'The qa_done property of the Script should be False')
 
         # The link should open a page where the h1 text matches the title of the Script
-        response = self.client.get(script_qa_link[0]).content.decode('utf8')
+        response = self.client.get(script_qa_link).content.decode('utf8')
         response_html = html.fromstring(response)
         self.assertIn(es.title, response_html.xpath('/html/body/div/h1/text()')[0],
                       'The <h1> text should equal the .title of the Script')

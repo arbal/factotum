@@ -1,46 +1,60 @@
-
-from django.shortcuts import render
-from django.http import HttpResponse
-import datetime
 import csv
-from dashboard.models import DSSToxSubstance, DataDocument, PUC, Product, ExtractedChemical, ExtractedText
+import logging
+import datetime
+
+from django import forms
+from django.db import connection
+from django.urls import reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
+from django.shortcuts import render
 from django.db.models import Count, Q, Value, IntegerField, Subquery, OuterRef
 from django.forms.models import model_to_dict
-from django import forms
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-import logging
-from django.contrib import messages
-from django.db import connection
 
-
-
-
+from dashboard.models import *
+from dashboard.forms import HabitsPUCForm
 
 
 def get_data(request, template_name='get_data/get_data.html'):
-
-    return render(request, template_name)
-
+    hnp = None
+    form = HabitsPUCForm()
+    context = { 'hnp' : hnp,
+    'form': form,
+    'first': None,
+    }
+    if request.method == 'POST':
+        form = HabitsPUCForm(request.POST)
+        if form.is_valid():
+            puc_id = form['puc'].value()
+            links = ExtractedHabitsAndPracticesToPUC.objects.filter(
+                                            PUC_id=puc_id).values_list(
+                                            'extracted_habits_and_practices',
+                                            flat=True)
+            hnp = ExtractedHabitsAndPractices.objects.filter(pk__in=links)
+            context['form'] = form
+            context['hnp'] = hnp if len(hnp)>0 else 0
+            if len(hnp)>0:
+                context['first'] = hnp[0].pk
+    return render(request, template_name, context)
 
 
 def stats_by_dtxsids(dtxs):
-    """     
+    """
     PUCS.n
     The number of unique PUCs (product categories) the chemical is associated with
 
     datadocs.n
-    "The number of data documents (e.g.  MSDS, SDS, ingredient list, product label) 
+    "The number of data documents (e.g.  MSDS, SDS, ingredient list, product label)
     the chemical is appears in"
 
     datadocs_w_wf.n
-    "The number of data documents with associated weight fraction data 
+    "The number of data documents with associated weight fraction data
     that the chemical appears in (weight fraction data may be reported or predicted data,
      i.e., predicted from an ingredient list)"
 
     products.n
-    "The number of products the chemical appears in, where a product is defined as a 
-    product entry in Factotum." 
+    "The number of products the chemical appears in, where a product is defined as a
+    product entry in Factotum."
     """
     print('List of DTXSIDs provided:')
     print(dtxs)
@@ -72,8 +86,8 @@ def stats_by_dtxsids(dtxs):
             .objects
             .filter(pk=OuterRef('extracted_chemical_id') )
             .filter(
-                Q(raw_max_comp__isnull=False) | 
-                Q(raw_min_comp__isnull=False) | 
+                Q(raw_max_comp__isnull=False) |
+                Q(raw_min_comp__isnull=False) |
                 Q(raw_central_comp__isnull=False)
             )
             .values('extracted_text_id')
@@ -136,7 +150,7 @@ def stats_by_dtxsids(dtxs):
 def download_chem_stats(stats):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="chem_summary_metrics_%s.csv"' % (datetime.datetime.now().strftime("%Y%m%d"))
- 
+
     writer = csv.writer(response)
     writer.writerow(['DTXSID',  'pucs_n', 'dds_n', 'dds_wf_n', 'products_n'])
     for stat in stats:
@@ -150,7 +164,7 @@ def get_data_dsstox_csv_template(request):
     writer = csv.writer(response)
     writer.writerow(['DTXSID'])
     return response
- 
+
 
 def upload_dtxsid_csv(request):
     data = {}
@@ -167,10 +181,10 @@ def upload_dtxsid_csv(request):
             messages.error(request,"Uploaded file is too big (%.2f MB)." % (csv_file.size/(1000*1000),))
             return HttpResponseRedirect(reverse("upload_dtxsid_csv"))
 
-        file_data = csv_file.read().decode("utf-8")        
+        file_data = csv_file.read().decode("utf-8")
 
         lines = file_data.split("\n")
-        #loop over the lines 
+        #loop over the lines
         dtxsids = []
         for line in lines:
             print(line)
@@ -187,4 +201,3 @@ def upload_dtxsid_csv(request):
     resp = download_chem_stats(stats)
     print(resp)
     return resp
-

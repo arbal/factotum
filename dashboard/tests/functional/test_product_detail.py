@@ -16,7 +16,7 @@ class TestProductDetail(TestCase):
                             'ProductViewForm should not include the product title')
         self.assertTrue(ProductForm().fields['title'],
                          'ProductViewForm should include the product title')
-        response = self.client.post(f'/product/edit/11',
+        response = self.client.post(f'/product/edit/11/',
                                     {'title': 'x',
                                      'manufacturer': '',
                                      'brand_name': '',
@@ -32,7 +32,7 @@ class TestProductDetail(TestCase):
 
     def test_add_puc(self):
         p = Product.objects.get(pk=14)
-        response = self.client.get('/product/' + str(p.pk)).content.decode('utf8')
+        response = self.client.get(f'/product/{str(p.pk)}/').content.decode('utf8')
         response_html = html.fromstring(response)
 
         self.assertTrue(p.get_uber_puc() == None,
@@ -42,7 +42,7 @@ class TestProductDetail(TestCase):
                       response_html.xpath('string(//*[@id="button_assign_puc"]/text())'),
                       'There should be an Assign PUC button for this product')
 
-        response = self.client.post(f'/product_puc/' + str(p.pk),
+        response = self.client.post(f'/product_puc/{str(p.pk)}/',
                                     {'puc': '96' })
 
         p.refresh_from_db()
@@ -50,15 +50,12 @@ class TestProductDetail(TestCase):
         self.assertTrue(p.get_uber_puc() != None,
                         'Product should now have an assigned PUC')
 
-        response = self.client.get('/product/' + str(p.pk)).content.decode('utf8')
+        response = self.client.get('/product/{str(p.pk)}/').content.decode('utf8')
         response_html = html.fromstring(response)
 
         self.assertNotIn('Assign PUC',
                       response_html.xpath('string(//*[@id="button_assign_puc"]/text())'),
                       'There should not be an Assign PUC button for this product')
-
-        self.assertTrue(response_html.xpath('//*[@id="id_puc"]'),
-                         'The puc form field should exist on the product detail page after the puc is assigned.')
 
 
 

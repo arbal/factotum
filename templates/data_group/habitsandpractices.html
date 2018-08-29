@@ -18,9 +18,9 @@
       </td>
     </tr>
     <tr>
-      <th>Product Category</th>
+      <th>Raw Category</th>
       <td>
-        {{ doc.product_category }}
+        {{ doc.raw_category }}
       </td>
     </tr>
     <tr>
@@ -91,10 +91,20 @@
               {% endif %}
               {{ form.id.as_hidden }}
 
-                <small>
-                  <b>{{ form.product_surveyed.label_tag }}</b>
-                </small><br>
-                  {% render_field form.product_surveyed class="form-control" %}
+                  <small>
+                    <b>{{ form.product_surveyed.label_tag }}</b>
+                  </small><br>
+                  {% if form.product_surveyed.errors %}
+                   {% render_field form.product_surveyed class="form-control is-invalid" %}
+                    {% for error in form.product_surveyed.errors %}
+                      <div class="invalid-feedback">
+                        {{ error }}
+                      </div>
+                    {% endfor %}
+                  {% else %}
+                    {% render_field form.product_surveyed class="form-control" %}
+                  {% endif %}
+
 
                 <small>
                   <b>{{ form.mass.label_tag }}</b>

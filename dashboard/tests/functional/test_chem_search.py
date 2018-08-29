@@ -31,7 +31,6 @@ class ChemSearchTest(TestCase):
 
     def test_chem_search(self):
         response = self.c.get('/chem_search/?chemical=dibutyl')
-        #print(response.content)
         self.assertContains(response, '"matchedDataDocuments": 1')
         self.assertContains(response, '"probableDataDocumentMatches": 55')
         self.assertNotContains(response, 'Sun_INDS_89')
@@ -43,7 +42,6 @@ class ChemSearchTest(TestCase):
     def test_chemical_search_ui_results(self):
         response = self.client.get('/findchemical/?q=ethyl').content.decode('utf8')
         response_html = html.fromstring(response)
-        print(response_html.xpath('string(/html/body/div[1]/div/div[2]/ol)'))
         self.assertIn('Sun_INDS_89',
                       response_html.xpath('string(/html/body/div[1]/div/div[2]/ol)'),
                       'The link to Sun_INDS_89 must be returned by a chemical search for "ethyl"')

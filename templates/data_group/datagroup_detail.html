@@ -69,11 +69,12 @@
     </dl>
 
     <div class="col-sm-12">
-        <a id="rr" href="" class="btn btn-secondary"><span class="oi oi-spreadsheet"></span>&nbsp; Download Registered CSV</a>
-        <button class="btn btn-secondary" onclick="location.href = '/{{ datagroup.zip_file }}';"
-              {% if datagroup.matched_docs == 0 %}disabled{% endif %}>
+        <a href="{% url 'registered_records.csv' datagroup.pk  %}" class="btn btn-secondary">
+            <span class="oi oi-spreadsheet"></span>&nbsp;Download Registered Records CSV</a>
+        <a href = "/{{ datagroup.zip_file }}" class="btn btn-secondary
+              {% if datagroup.matched_docs == 0 %}disabled{% endif %}">
           <span class="oi oi-data-transfer-download"></span> Download All PDF Documents
-        </button>
+        </a>
         <br><br>
         {% if extract_form %}
             <a class="btn btn-secondary" data-toggle="collapse" id="btn_extract_text_form" href="#extract_form">
@@ -84,7 +85,6 @@
                     {% csrf_token %}
                     {% include 'core/bs4_form.html' with form=extract_form %}
                     <input type="submit" class="btn btn-primary" name="extract_button" value="Submit" disabled>
-
                     <a id="xx" href="" class="btn btn-secondary"
                        {% if not doc.matched %}disabled{% endif %}><span class="oi oi-spreadsheet"></span>&nbsp;Download Extracted Text CSV Template
                     </a>
@@ -140,7 +140,7 @@
       </form>
       {% endif %}
       <p>
-        <a class="btn btn-secondary" href="docs_csv/{{ datagroup.id }}">
+        <a class="btn btn-secondary" href="{%  url 'dg_dd_csv_view' datagroup.id %}">
           <span class="oi oi-spreadsheet"></span>
           &nbsp;Export all records in {{ datagroup.name }} to csv</a>
       </p>
@@ -149,17 +149,16 @@
         </div>
       <table class="table table-striped table-bordered dataTable no-footer table-sm" id="docs">
         <thead class="table-primary">
-        <th>Title</th>
-        <th>Matched</th>
-        {% if hnp %}
-        <th>Edit</th>
-        {% else %}
-        <th>Extracted</th>
-        {% endif %}
-        {% if composition %}
-        <th>Product</th>
-        {% endif %}
-
+            <th>Title</th>
+            <th>Matched</th>
+            {% if hnp %}
+                <th>Edit</th>
+            {% else %}
+                <th>Extracted</th>
+            {% endif %}
+            {% if composition %}
+                <th>Product</th>
+            {% endif %}
         </thead>
         <tbody>
         {% for doc in documents %}
@@ -252,31 +251,6 @@
       {% endif %}
       </ul>
     </nav>
-
-  <table class="table" id="registered" style="display:none;">
-    <thead class="table-primary">
-      <th>DataDocument_id</th>
-      <th>filename</th>
-      <th>title</th>
-      <th>product</th>
-      <th>document_type</th>
-      <th>url</th>
-      <th>organization</th>
-    </thead>
-    <tbody>
-    {% for doc in all_documents %}
-      <tr>
-        <td>{{ doc.pk }}</td>
-        <td>{{ doc.filename }}</td>
-        <td>{{ doc.title }}</td>
-        <td>{{ doc.product_category }}</td>
-        <td>{{ doc.document_type.pk }}</td>
-        <td>{{ doc.url }}</td>
-        <td>{{ doc.organization }}</td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
 
 <input type="hidden" id="dg_name" name="variable" value="{{ datagroup.dgurl }}">
 

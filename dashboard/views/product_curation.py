@@ -101,6 +101,9 @@ def link_product_form(request, pk, template_name=('product_curation/'
     ds_id = doc.data_group.data_source_id
     upc_stub = ('stub_' + str(Product.objects.all().count() + 1))
     form = ProductLinkForm(initial={'upc': upc_stub, 'document_type': doc.document_type})
+    # limit document type options to those matching parent datagroup group_type
+    form.fields['document_type'].queryset =\
+        form.fields['document_type'].queryset.filter(group_type_id = doc.data_group.group_type_id)
     if request.method == 'POST':
         form = ProductLinkForm(request.POST or None)
         if form.is_valid():

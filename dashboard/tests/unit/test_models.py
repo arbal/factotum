@@ -15,7 +15,7 @@ def create_data_documents(data_group, source_type, pdfs):
                 line['title'] = line['filename'].split('.')[0]
             dd = DataDocument.objects.create(filename=line['filename'],
                                             title=line['title'],
-                                            product_category=line['product'],
+                                            raw_category=line['product'],
                                             url=line['url'],
                                             matched = line['filename'] in pdfs,
                                             data_group=data_group)
@@ -57,7 +57,7 @@ class ModelsTest(TestCase):
         # show page after upload from CSV
         docs = create_data_documents(self.objects.dg,self.objects.st, self.pdfs)
         self.assertEqual(len(docs),2, ('Only 2 records should be created!'))
-        dg_response = self.client.get('/datagroup/' + str(self.objects.dg.pk))
+        dg_response = self.client.get(f'/datagroup/{str(self.objects.dg.pk)}/')
         self.assertIn(b'NUTRA', dg_response.content)
         self.assertEqual(len(self.pdfs), 2)
         # Confirm that the two data documents in the csv file are matches to

@@ -1,0 +1,24 @@
+- model: dashboard.extractedhabitsandpractices
+  pk: 1
+  fields: {created_at: !!timestamp '2018-08-14 22:21:57.270224', updated_at: !!timestamp '2018-08-14
+      22:21:57.270246', extracted_text: 53, product_surveyed: ball bearings, mass: '47.00000',
+    mass_unit: grams, frequency: '16.00000', frequency_unit: bpm, duration: '21.00000',
+    duration_unit: seconds, prevalence: heavy, notes: a bunch of filth - muck!}
+- model: dashboard.extractedhabitsandpractices
+  pk: 2
+  fields: {created_at: !!timestamp '2018-08-14 22:26:04.985042', updated_at: !!timestamp '2018-08-14
+      22:26:04.985068', extracted_text: 53, product_surveyed: motorcycle, mass: '470.00000',
+    mass_unit: lbs, frequency: '12.00000', frequency_unit: RPM, duration: '56.00000',
+    duration_unit: miles, prevalence: fair-to-middlin', notes: monster trucks!}
+- model: dashboard.extractedhabitsandpractices
+  pk: 3
+  fields: {created_at: !!timestamp '2018-08-14 22:29:38.950672', updated_at: !!timestamp '2018-08-14
+      22:29:38.950695', extracted_text: 54, product_surveyed: vitamin a&d, mass: '63.00000',
+    mass_unit: ounces, frequency: '14.00000', frequency_unit: cycles per second, duration: '15.00000',
+    duration_unit: hours, prevalence: nice, notes: fine thank you!}
+- model: dashboard.extractedhabitsandpractices
+  pk: 4
+  fields: {created_at: !!timestamp '2018-08-14 22:31:16.078315', updated_at: !!timestamp '2018-08-14
+      22:31:16.078340', extracted_text: 54, product_surveyed: dish soap, mass: '33.00000',
+    mass_unit: millgrams, frequency: '32.00000', frequency_unit: bubbles, duration: '88.00000',
+    duration_unit: mounds, prevalence: everywhere, notes: ''}

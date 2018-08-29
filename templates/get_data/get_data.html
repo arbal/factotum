@@ -8,32 +8,81 @@
 
 <div class="card">
     <h3 class="card-header">Report: Summary metrics by chemical</h3>
-    <form action="{% url "upload_dtxsid_csv" %}" method="POST" enctype="multipart/form-data" class="form-horizontal"> 
+    <form action="{% url "upload_dtxsid_csv" %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
         {% csrf_token %}
         <div class="form-group">
             <label for="name" class="col-md-7 col-sm-3 control-label">Upload a csv of DTX SIDs to immediately download a summary table: </label>
             <div class="col-md-8">
                 <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
-            </div>                    
+            </div>
         </div>
-        <div class="form-group">                    
+        <div class="form-group">
             <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
                  <button class="btn btn-primary"> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"></span>Upload </button>
-            </div> 
+            </div>
             <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
                 <a class="btn btn-secondary" href="{% url "get_data_dsstox_csv_template" %}" role="button">Download list template</a>
-            </div> 
+            </div>
         </div>
         </form>
 </div>
 
 <div class="card">
-    <h3 class="card-header">View Data: Habits and Practices parameters</h3>
+  <div class="card-header">
+    <h3 class='mr-5'>Habits and Practices by PUC</h3>
+    <form class='ml-5' action='' method="post" >
+      {% csrf_token %}
+      {{ form }}
+      <button type="submit" id="btn-assign-puc" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  {% if hnp %}
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs pull-right"  id="myTab" role="tablist">
+      {% for habit in hnp %}
+
+          {% if habit.pk == first %}
+          <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#{{ habit.pk }}" role="tab" aria-controls="home" aria-selected="true">{{ habit.product_surveyed }}</a>
+          {% else %}
+          <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#{{ habit.pk }}" role="tab" aria-controls="home" aria-selected="false"><b>{{ habit.product_surveyed }}</b></a>
+          {% endif %}
+         </li>
+      {% endfor %}
+       </ul>
+     </div>
+     <div class="card-body">
+      <div class="tab-content">
+        {% for habit in hnp %}
+
+        {% if habit.pk == first %}
+        <div class="tab-pane fade show active text-center" id="{{ habit.pk }}" role="tabpanel">
+        {% else %}
+        <div class="tab-pane fade show text-center" id="{{ habit.pk }}" role="tabpanel">
+        {% endif %}
+        <label for=""><b>Data Document:</b></label> <a href="/media/{{ habit.extracted_text.data_document.data_group.dgurl }}/pdf/{{ habit.extracted_text.data_document.filename }}" target="_blank" title="Link to {{ habit.extracted_text.data_document.filename }}"><b>{{ habit.extracted_text.data_document }}</b></a> <br>
+        <label for=""><b>Product Surveyed:</b></label> {{ habit.product_surveyed }} <br>
+        <label for=""><b>Mass:</b></label> {{ habit.mass|floatformat:2|intcomma }} {{ habit.mass_unit }} <br>
+        <label for=""><b>Frequency:</b></label> {{ habit.frequency|floatformat:2|intcomma }} {{ habit.frequency_unit }} <br>
+        <label for=""><b>Duration:</b></label> {{ habit.duration|floatformat:2|intcomma }} {{ habit.duration_unit }} <br>
+        <label for=""><b>Prevalence:</b></label> {{ habit.prevalence }} <br>
+        <label for=""><b>Notes:</b></label> {{ habit.notes }}
+        </div>
+        {% endfor %}
+      </div>
+
+  </div>
+  {% elif hnp == 0 %}
+  <div class="card-body">
+   There are no matching Habits and Practices to this PUC!
+  </div>
+  {% endif %}
 </div>
 
 <div class="card">
     <h3 class="card-header">Report: Another report not yet defined</h3>
 </div>
-
-
+<script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+{{ form.media }}
 {% endblock %}

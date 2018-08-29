@@ -23,27 +23,15 @@
         <a class="btn btn-secondary" href="{% url 'data_group_list' %}">Cancel</a>
     </form>
     <br>
-    <a id="reg" href="" class="btn btn-secondary">
+    <a id="reg" href="{% url 'registered_records.csv' 0 %}" class="btn btn-secondary">
       <span class="oi oi-spreadsheet"></span>&nbsp;Registered Records CSV Template
     </a>
-    <table class="table" id="register" style="display:none;">
-      <thead class="table-primary">
-        <th>filename</th>
-        <th>title</th>
-        <th>document_type</th>
-        <th>product</th>
-        <th>url</th>
-        <th>organization</th>
-      </thead>
-    </table>
 {% endblock %}
 
 {% block js %}
     <script src="{% static 'bootstrap_datepicker_plus/js/moment-with-locales.min.js' %}"></script>
     <script src="{% static 'bootstrap_datepicker_plus/js/bootstrap-datetimepicker.min.js' %}"></script>
     <script src="{% static 'bootstrap_datepicker_plus/js/datepicker-widget.js' %}"></script>
-    <script src="{% static 'js/export.js' %}"></script>
-    <script src="{% static 'js/data_group_form.js' %}"></script>
 {% endblock %}
 
 {% block css %}
