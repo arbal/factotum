@@ -3,6 +3,8 @@ from .common_info import CommonInfo
 from django.urls import reverse
 from django.utils import timezone
 from .document_type import DocumentType
+from django.core.exceptions import ValidationError
+
 
 
 class DataDocument(CommonInfo):
@@ -15,7 +17,6 @@ class DataDocument(CommonInfo):
     products = models.ManyToManyField('Product', through='ProductDocument')
     matched = models.BooleanField(default=False)
     extracted = models.BooleanField(default=False)
-    uploaded_at = models.DateTimeField(default=timezone.now)
     document_type = models.ForeignKey(DocumentType, on_delete=models.PROTECT, null=True, blank=True)
     organization = models.CharField(max_length=255, blank=True)
 
@@ -28,17 +29,20 @@ class DataDocument(CommonInfo):
     def get_absolute_url(self):
         return reverse('data_document', kwargs={'pk': self.pk})
 
-    def get_download_script(self):
-        return self__data_group.download_script
+    def get_abstract_filename(self):
+        ext = self.filename.split('.')[-1] #maybe not all are PDF??
+        return f'document_{self.pk}.{ext}'
 
-    def indexing(self):
-        obj = DataDocumentIndex(
-            meta={'id': self.id},
-            title=self.title,
-            filename=self.filename,
-            url=self.url,
-            group_type=self.data_group.group_type.title ,
-            facet_model_name='Data Document',
-        )
-        obj.save()
-        return obj.to_dict(include_meta=True)
+    def pdf_url(self):
+        dg = self.data_group
+        fn = self.get_abstract_filename()
+        return f'/media/{dg.fs_id}/pdf/{fn}'
+
+    def clean(self):
+        # the document_type must be one of the children types
+        # of the datadocument's parent datagroup
+        dg = self.data_group
+        gtype = dg.group_type
+
+        if not self.document_type in DocumentType.objects.filter(group_type=gtype):
+            raise ValidationError('The document type must be allowed by the parent data group.')

@@ -1,6 +1,7 @@
 from .dashboard import *
 from .data_group import *
 from .data_source import *
+from .data_document import *
 from .product_curation import *
 from .qa import *
 from .extraction_script import *

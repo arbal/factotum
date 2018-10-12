@@ -23,7 +23,7 @@
         {% for facet_model_name in facets.fields.facet_model_name %}
             {% if facet_model_name.1 != 0 %}
             <dd>
-            <input class="facet" id="{{facet_model_name.0|cut:" "}}" type="checkbox" name="facet_model_name" value="{{ facet_model_name.0 }}" 
+            <input class="facet" id="{{facet_model_name.0|cut:" "}}" type="checkbox" name="facet_model_name" value="{{ facet_model_name.0 }}"
             data-toggle="toggle" /> {{ facet_model_name.0 }} ({{ facet_model_name.1 }})
             </dd>
             {% endif %}
@@ -42,7 +42,7 @@
         {% for puc in facets.fields.pucs %}
             {% if puc.1 != 0 %}
             <dd>
-            <input class="facet" id="{{puc.0|cut:" "}}" type="checkbox" name="puc" value="{{ puc.0 }}" 
+            <input class="facet" id="{{puc.0|cut:" "}}" type="checkbox" name="puc" value="{{ puc.0 }}"
             data-toggle="toggle" /> {{ puc.0 }} ({{ puc.1 }})
             </dd>
             {% endif %}
@@ -79,7 +79,7 @@
         </dd>
         {% endif %}
         {% endfor %}
-        
+
         </dl>
         <!-- <div>
         <input class="btn btn-info btn-sm pull-right" type="submit" value="apply filter" onclick="return onFacetChangeApplied();" />
@@ -93,7 +93,7 @@
         {% for group_type in facets.fields.group_type %}
             {% if group_type.1 != 0 %}
             <dd>
-            <input class="facet" id="{{group_type.0|cut:" "}}" type="checkbox" name="group_type" value="{{ group_type.0 }}" 
+            <input class="facet" id="{{group_type.0|cut:" "}}" type="checkbox" name="group_type" value="{{ group_type.0 }}"
             data-toggle="toggle" /> {{ group_type.0 }} ({{ group_type.1 }})
             </dd>
             {% endif %}
@@ -112,34 +112,55 @@
                       Search result for: <label> {{query}} </label>
                </div>
                <div class="col-md-6 col-xs-6 align-right">
-               
-                   Showing {{ page_obj.start_index }} - {{ page_obj.end_index }} of total 
+
+                   Showing {{ page_obj.start_index }} - {{ page_obj.end_index }} of total
                     {{ page_obj.paginator.count }}
                     results on page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
                </div>
-            </div>    
+            </div>
             <div>
-	    {% if  page_obj.object_list %}
-                <ol class="row top20">
-                    {% for result in page_obj.object_list %}
-                        <div class="showcase col-sm-6 col-md-4">
-           <h5>{{result.facet_model_name}}</h5>
-		   <a href="{{ result.object.get_absolute_url }}">
-          <h4 class="{{ result.result_css_class }}">{{result.object.title}}</h4>
-       </a>
-       <dl>
-        {% if  result.pucs %}
-        <dd>PUCs:</dd>
-        <dt>{{result.pucs}}</dt>
-        {% endif %}
-        {% if  result.brand_name %}
-        <dd>Brand Name:</dd>
-        <dt>{{result.brand_name}}</dt>
-        {% endif %}
-      </dl>
-		    </div>
-                    {% endfor %}
-                </ol>
+            {% if  page_obj.object_list %}
+              <table class="table text-center">
+                <thead class="table-primary">
+                  <th>Type</th>
+                  <th>Record</th>
+                  <th>PUC</th>
+                  <th>Brand Name</th>
+                </thead>
+                <tbody>
+                {% for result in page_obj.object_list %}
+                  <tr>
+                    <td>
+                      <a class="btn
+                      {% if result.facet_model_name == 'Product' %}
+                      btn-success
+                      {% else %}
+                      btn-warning
+                      {% endif %}
+                       btn-sm" role="button" title="Link to {{ result.object.title }}"
+                        href="{{ result.object.get_absolute_url }}">{{ result.facet_model_name }}</a>
+
+                    </td>
+                    <td>
+                      {{ result.object.title }}
+                    </td>
+
+                    <td>
+                      {% if result.pucs %}
+                      <div style="border-style:solid;border-color:#{{ result.pucs.1 }};border-radius: 2px;">
+                        {{ result.pucs.0 }}
+                      </div>
+                      {% endif %}
+                    </td>
+                    {% if  result.brand_name %}
+                    <td><b>{{ result.brand_name }}</b></td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
             </div>
 
             {% if is_paginated %}
@@ -182,9 +203,3 @@
 </div>
 
 {% endblock %}
-
-
-
-
-
-

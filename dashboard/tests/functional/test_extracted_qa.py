@@ -4,7 +4,7 @@ from dashboard.models import QAGroup, ExtractedText
 
 
 
-class DataGroupTest(TestCase):
+class ExtractedQaTest(TestCase):
 
     def setUp(self):
         self.objects = load_model_objects()
@@ -23,3 +23,11 @@ class DataGroupTest(TestCase):
         ext = ExtractedText.objects.get(qa_group=qa_group)
         self.assertIsNotNone(ext.qa_group)
         response = self.client.get(f'/qa/extractedtext/{ext.pk}/')
+
+    def test_qa_approval_redirect(self):
+        # first need to create a QAGroup w/ this get request.
+        self.client.get(f'/qa/extractionscript/{self.objects.exscript.pk}/')
+        pk = self.objects.extext.pk
+        response = self.client.post(f'/qa/extractedtext/{pk}/',{'approve':[47]})
+        self.assertEqual(response.url, '/qa/',("User should be redirected to "
+                                "QA homepage after last extext is approved."))

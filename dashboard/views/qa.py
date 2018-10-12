@@ -15,5 +15,3 @@ def qa_index(request, template_name='qa/qa_index.html'):
 
     scripts = Script.objects.filter(script_type='EX')
     return render(request, template_name, {'extraction_scripts': scripts})
-
-

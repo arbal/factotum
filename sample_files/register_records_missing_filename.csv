@@ -1,4 +1,4 @@
-filename,title,product,url
-adams_flea_tick_shampoo.pdf,Flea and Tick Shampoo,pet shampoo,
-raid_ant_killer.pdf,Ant Killer,pesticide,
-,Raid,pesticide,
+filename,title,document_type,url,organization
+adams_flea_tick_shampoo.pdf,Flea and Tick Shampoo,,,
+raid_ant_killer.pdf,Ant Killer,,,
+,Raid,,,

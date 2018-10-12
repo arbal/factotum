@@ -14,7 +14,24 @@
   fields: {created_at: null, updated_at: null, extracted_text: 7, raw_cas: 84-74-2,
     raw_chem_name: dibutyl phthalate, raw_min_comp: '4', raw_max_comp: '7', unit_type: 1,
     report_funcuse: swell, weight_fraction_type: 1, ingredient_rank: null, raw_central_comp: ''}
+
+
+
 - model: dashboard.extractedchemical
+  pk: 6
+  fields: {created_at: !!timestamp '2018-09-06 07:16:07', updated_at: !!timestamp '2018-09-06
+      07:16:07', extracted_text: 5, raw_cas: 520-45-7, raw_chem_name: Fictional acid, 
+      raw_min_comp: null, raw_max_comp: null, unit_type: 1,
+      report_funcuse: surfactant, weight_fraction_type: 1, ingredient_rank: null, raw_central_comp: null}
+
+- model: dashboard.extractedchemical
+  pk: 7
+  fields: {created_at: !!timestamp '2018-09-06 07:17:07', updated_at: !!timestamp '2018-09-06
+      07:17:07', extracted_text: 5, raw_cas: 520-45-8, raw_chem_name: Fictional acid 2, 
+      raw_min_comp: null, raw_max_comp: null, unit_type: 1,
+      report_funcuse: surfactant, weight_fraction_type: 1, ingredient_rank: null, raw_central_comp: null}
+
+
   pk: 8
   fields: {created_at: !!timestamp '2018-06-06 07:14:52', updated_at: !!timestamp '2018-06-06
       07:14:52', extracted_text: 8, raw_cas: 84-74-2, raw_chem_name: dibutyl phthalate,

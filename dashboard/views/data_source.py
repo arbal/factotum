@@ -69,11 +69,9 @@ def data_source_detail(request, pk,
             datasource.priority = priority
             datasource.save()
     datagroup_list = DataGroup.objects.filter(data_source=pk)
-    request.session['datasource_title'] = datasource.title
-    request.session['datasource_pk'] = datasource.pk
-    context = 	{'object': 			datasource,
-                'datagroup_list':	datagroup_list,
-                'form': 			form}
+    context =     {'object':             datasource,
+                'datagroup_list':    datagroup_list,
+                'form':             form}
     return render(request, template_name, context)
 
 
@@ -93,10 +91,11 @@ def data_source_update(request, pk, template_name=('data_source/'
     datasource = get_object_or_404(DataSource, pk=pk)
     form = DataSourceForm(request.POST or None, instance=datasource)
     if form.is_valid():
-        form.save()
-        return redirect('data_source_list')
+        if form.has_changed():
+            form.save()
+        return redirect('data_source_detail', pk=pk)
+    form.referer = request.META.get('HTTP_REFERER', None)
     return render(request, template_name, {'form': form})
-
 
 @login_required()
 def data_source_delete(request, pk,

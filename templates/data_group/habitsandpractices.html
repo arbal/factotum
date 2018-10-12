@@ -15,12 +15,7 @@
         <a title="Data Group"
             href="{% url 'data_group_detail' doc.data_group.id %}"> {{ doc.data_group }}
         </a>
-      </td>
-    </tr>
-    <tr>
-      <th>Raw Category</th>
-      <td>
-        {{ doc.raw_category }}
+        <a id="back" name="back" class="btn btn-secondary float-right" href="{% url "data_group_detail" doc.data_group.id %}" role="button">Back</a>
       </td>
     </tr>
     <tr>
@@ -33,8 +28,8 @@
     <tr>
       <th>PDF</th>
       <td>
-        <a href="/media/{{ doc.data_group.dgurl }}/pdf/{{ doc.filename }}"
-            title="Link to {{ doc.filename }}" target="_blank">{{ doc.filename }}</a>
+        <a href="{{ doc.pdf_url }}"
+            title="Link to {{ doc.get_abstract_filename }}" target="_blank">{{ doc.get_abstract_filename }}</a>
         <small><i>click to open PDF in new window</i></small>
       </td>
     </tr>
@@ -55,9 +50,6 @@
       <div class="row">
         <div class="col-sm-3">
           <div class=" card-body form-group text-center bg-info text-white">
-            <!-- <div class="card-header">
-              <h4>Extracted Text Data</h4>
-            </div> -->
               {% if error %}
               <div class="form-group has-error">
                   <span class="help-block">{{ error }}</span>
@@ -91,73 +83,109 @@
               {% endif %}
               {{ form.id.as_hidden }}
 
-                  <small>
-                    <b>{{ form.product_surveyed.label_tag }}</b>
-                  </small><br>
-                  {% if form.product_surveyed.errors %}
-                   {% render_field form.product_surveyed class="form-control is-invalid" %}
-                    {% for error in form.product_surveyed.errors %}
-                      <div class="invalid-feedback">
-                        {{ error }}
-                      </div>
-                    {% endfor %}
-                  {% else %}
-                    {% render_field form.product_surveyed class="form-control" %}
-                  {% endif %}
+              <small>
+                <b>{{ form.product_surveyed.label_tag }}</b>
+              </small><br>
+              {% if form.product_surveyed.errors %}
+               {% render_field form.product_surveyed class="form-control is-invalid" %}
+                {% for error in form.product_surveyed.errors %}
+                  <div class="invalid-feedback">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% render_field form.product_surveyed class="form-control" %}
+              {% endif %}
 
 
-                <small>
-                  <b>{{ form.mass.label_tag }}</b>
-                </small><br>
-                  {% render_field form.mass class="form-control" %}
+              <small>
+                <b>{{ form.mass.label_tag }}</b>
+              </small><br>
+              {% if form.mass.errors %}
+              {% render_field form.mass class="form-control is-invalid" %}
+               {% for error in form.mass.errors %}
+                 <div class="invalid-feedback">
+                   {{ error }}
+                 </div>
+               {% endfor %}
+             {% else %}
+                {% render_field form.mass class="form-control" %}
+             {% endif %}
 
-                <small>
-                  <b>{{ form.mass_unit.label_tag }}</b>
-                </small><br>
-                {% if form.mass_unit.errors %}
-                 {% render_field form.mass_unit class="form-control is-invalid" %}
-                  {% for error in form.mass_unit.errors %}
-                    <div class="invalid-feedback">
-                      {{ error }}
-                    </div>
-                  {% endfor %}
+             <small>
+                <b>{{ form.mass_unit.label_tag }}</b>
+              </small><br>
+              {% if form.mass_unit.errors %}
+               {% render_field form.mass_unit class="form-control is-invalid" %}
+                {% for error in form.mass_unit.errors %}
+                  <div class="invalid-feedback">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% render_field form.mass_unit class="form-control" %}
+              {% endif %}
+
+             <small>
+                <b>{{ form.frequency.label_tag }}</b>
+              </small><br>
+              {% if form.frequency.errors %}
+               {% render_field form.frequency class="form-control is-invalid" %}
+                {% for error in form.frequency.errors %}
+                  <div class="invalid-feedback">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% render_field form.frequency class="form-control" %}
+              {% endif %}
+
+              <small><b>{{ form.frequency_unit.label_tag }}</b></small><br>
+              {% if form.frequency_unit.errors %}
+                {% render_field form.frequency_unit class="chem-control form-control is-invalid" %}
+                {{ form.frequency_unit.errors }}
+              {% else %}
+                {% render_field form.frequency_unit class="form-control" %}
+              {% endif %}
+
+              <small>
+                <b>{{ form.duration.label_tag }}</b>
+              </small><br>
+              {% if form.duration.errors %}
+                {% render_field form.duration class="chem-control form-control is-invalid" %}
+                {{ form.duration.errors }}
+              {% else %}
+                {% render_field form.duration class="form-control" %}
+              {% endif %}
+
+              <small><b>{{ form.duration_unit.label_tag }}</b></small><br>
+              {% if form.duration_unit.errors %}
+                {% render_field form.duration_unit class="chem-control form-control is-invalid" %}
+                {{ form.duration_unit.errors }}
+              {% else %}
+                {% render_field form.duration_unit class="form-control" %}
+              {% endif %}
+
+
+              <small>
+                <b>{{ form.prevalence.label_tag }}</b>
+              </small><br>
+              {% if form.prevalence.errors %}
+                {% render_field form.prevalence class="chem-control form-control is-invalid" %}
+                {{ form.prevalence.errors }}
+              {% else %}
+                {% render_field form.prevalence class="form-control" %}
+              {% endif %}
+
+              <small><b>{{ form.notes.label_tag }}</b></small><br>
+              {% if form.notes.errors %}
+              {% render_field form.notes class="chem-control form-control is-invalid" %}
+              {{ form.notes.errors }}
                 {% else %}
-                  {% render_field form.mass_unit class="form-control" %}
+                {% render_field form.notes class="form-control" %}
                 {% endif %}
+                
 
-                <small>
-                  <b>{{ form.frequency.label_tag }}</b>
-                </small><br>
-                  {% render_field form.frequency class="form-control" %}
-
-                <small><b>{{ form.frequency_unit.label_tag }}</b></small><br>
-                {% if form.frequency_unit.errors %}
-                  {% render_field form.frequency_unit class="chem-control form-control is-invalid" %}
-                  {{ form.frequency_unit.errors }}
-                {% else %}
-                  {% render_field form.frequency_unit class="form-control" %}
-                {% endif %}
-
-                <small>
-                  <b>{{ form.duration.label_tag }}</b>
-                </small><br>
-                  {% render_field form.duration class="form-control" %}
-
-                <small><b>{{ form.duration_unit.label_tag }}</b></small><br>
-                {% if form.duration_unit.errors %}
-                  {% render_field form.duration_unit class="chem-control form-control is-invalid" %}
-                  {{ form.duration_unit.errors }}
-                {% else %}
-                  {% render_field form.duration_unit class="form-control" %}
-                {% endif %}
-
-                <small>
-                  <b>{{ form.prevalence.label_tag }}</b>
-                </small><br>
-                  {% render_field form.prevalence class="form-control" %}
-
-                <small><b>{{ form.notes.label_tag }}</b></small><br>
-                  {% render_field form.notes class="form-control" %}
 
               <div class="text-center">
                 {% if form.instance.pk %}
@@ -172,6 +200,7 @@
         {% endfor %}
       </div>
       <button type = "submit" id="save" name="save" class="btn btn-primary chem-control" role="button">Save</button>
+      <a id="cancel" name="cancel" class="btn btn-secondary" href="{% url "data_group_detail" doc.data_group.id %}" role="button">Cancel</a>
 
         </form>
       </div>

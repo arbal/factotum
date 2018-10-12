@@ -3,7 +3,12 @@
     <form method="post" novalidate>
         {% csrf_token %}
         {% include 'core/bs4_form.html' with form=form colspan='col-6' %}
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <a class="btn btn-secondary" href="{% url 'data_source_list' %}">Cancel</a>
+        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+        <a class="btn btn-secondary" href={% if form.referer %}
+                                          "{{ form.referer }}"
+                                          {% else %}
+                                          "{% url 'data_source_list' %}"
+                                          {% endif %}
+                                          name='cancel'>Cancel</a>
     </form>
 {% endblock %}

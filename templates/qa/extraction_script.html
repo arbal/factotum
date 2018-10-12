@@ -12,6 +12,7 @@
     <thead class="table-primary">
         <th>ID</th>
         <th>Data Group</th>
+        <th>Group Type</th>
         <th>Data Document</th>
         <th>Document Date</th>
         <th>Revision Number</th>
@@ -27,6 +28,7 @@
             href="{% url "data_group_detail" extractedtext.data_document.data_group.id %}"> {{ extractedtext.data_document.data_group.name }}
           </a>
         </td>
+        <td>{{ extractedtext.data_document.data_group.group_type }}</td>
         <td>{{ extractedtext.data_document }}</td>
         <td>{{ extractedtext.doc_date }}</td>
         <td>{{ extractedtext.rev_num }}</td>

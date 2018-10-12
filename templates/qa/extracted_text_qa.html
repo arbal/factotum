@@ -2,6 +2,9 @@
 {% load widget_tweaks %}
 {% load staticfiles %}'
 
+{% block title %}QA Data Document {{doc.id}}: {{doc.title}}{% endblock %}
+
+
 {% load humanize %}
 {% if messages %}
     {% for message in messages %}
@@ -35,6 +38,12 @@
         </td>
       </tr>
       <tr>
+        <th>Document Type</th>
+        <td>
+          {{ doc.document_type }}
+        </td>
+      </tr>
+      <tr>
         <th>Raw Category</th>
         <td>
           {{ doc.raw_category }}
@@ -50,8 +59,8 @@
       <tr>
         <th>PDF</th>
         <td>
-          <a href="/media/{{ doc.data_group.dgurl }}/pdf/{{ doc.filename }}"
-              title="Link to {{ doc.filename }}" target="_blank">{{ doc.filename }}</a>
+          <a href="/media/{{ doc.data_group.get_dg_folder }}/pdf/{{ doc.get_abstract_filename }}"
+              title="Link to {{ doc.get_abstract_filename }}" target="_blank">{{ doc.get_abstract_filename }}</a>
           <small><i>click to open PDF in new window</i></small>
         </td>
       </tr>
@@ -65,7 +74,12 @@
       <div class="card-header form-inline">
         <h3 class="text-center col-9">Extracted Text</h3>
       <button type="button" id="btn-toggle-edit" data-toggle="button" class="btn btn-secondary" onclick="toggleChemicalEdit(true)">
-              <span id="btn-toggle-label" class="oi oi-wrench"></span>Edit Extracted Chemicals
+              <span id="btn-toggle-label" class="oi oi-wrench"></span>
+              {% if doc.data_group.group_type.title != "Functional use" %}
+              Edit Extracted Chemicals
+              {% else %}
+              Edit Extracted Functional Use Records
+              {% endif %}
       </button>
       </div>
       <div class="card-body">
@@ -85,8 +99,8 @@
               {% include 'core/bs4_form_dl.html' with form=ext_form %}
           </div>
         </div>
-        {{ chem_formset.management_form }}
-        {% for form in chem_formset.forms %}
+        {{ detail_formset.management_form }}
+        {% for form in detail_formset.forms %}
         <div class="col-sm-3">
           <div class="card" >
             <div class="card-body bg-secondary">
@@ -108,9 +122,15 @@
                 <small><b>{{ form.raw_chem_name.label_tag }}</b></small><br>
                   {{ form.raw_chem_name}}
               </div>
+
+        {% if doc.data_group.group_type.title != "Functional use" %}
               <div class="text-center">
                 <small><b>{{ form.raw_min_comp.label_tag }}</b></small><br>
                   {{ form.raw_min_comp}}
+              </div>
+              <div class="text-center">
+                  <small><b>{{ form.raw_central_comp.label_tag }}</b></small><br>
+                  {{ form.raw_central_comp}}
               </div>
               <div class="text-center">
                 <small><b>{{ form.raw_max_comp.label_tag }}</b></small><br>
@@ -124,19 +144,17 @@
                 {% else %}
                   {{ form.unit_type }}
                 {% endif %}
+            <div class="text-center">
+                <small><b>{{ form.ingredient_rank.label_tag }}</b></small><br>
+                    {{ form.ingredient_rank}}
+            </div>
+        </div>
+        {% endif  %}
 
-              </div>
+
               <div class="text-center">
                 <small><b>{{ form.report_funcuse.label_tag }}</b></small><br>
                   {{ form.report_funcuse}}
-              </div>
-              <div class="text-center">
-                <small><b>{{ form.ingredient_rank.label_tag }}</b></small><br>
-                  {{ form.ingredient_rank}}
-              </div>
-              <div class="text-center">
-                <small><b>{{ form.raw_central_comp.label_tag }}</b></small><br>
-                  {{ form.raw_central_comp}}
               </div>
               <div class="text-center">
                 {% if form.instance.pk %}
@@ -155,13 +173,15 @@
         <div class="col-sm-6">
           <button type = "submit" id="approve" name="approve" class="btn btn-success btn-lg btn-block" role="button">Approve</button>
           <br>
-          {% if nextid > 0 %}
-              <a class="btn btn-warning btn-lg btn-block" href="{% url "extracted_text_qa" nextid %}" role="button">Skip</a>
-          {% else %}
-              <button type="button" title="All the other documents in this QA group have been approved" class="btn btn-secondary btn-lg btn-block" aria-disabled="true" disabled>Skip</button>
+          {% if referer != 'data_document'%}
+              {% if nextid > 0 %}
+                  <a class="btn btn-warning btn-lg btn-block" href="{% url "extracted_text_qa" nextid %}" role="button">Skip</a>
+              {% else %}
+                  <button type="button" title="All the other documents in this QA group have been approved" class="btn btn-secondary btn-lg btn-block" aria-disabled="true" disabled>Skip</button>
+              {% endif %}
           {% endif %}
           <br>
-          <a class="btn btn-secondary btn-lg btn-block" href="{% url "extraction_script_qa" script.id %}" role="button">Exit</a>
+          <a class="btn btn-secondary btn-lg btn-block" href="{% url referer doc.id %}" role="button">Exit</a>
         </div>
         <div class="col-sm-6 text-center">
           <b>{{ notesform.qa_notes.label_tag }}</b>
@@ -195,7 +215,6 @@
 {% block js %}
   <script type="text/javascript">
         window.onload = function() {
-        // window.open("/media/{{ doc.data_group.dgurl }}/pdf/{{ doc.filename }}",'pdf',' menubar=0, resizable=0,dependent=0,status=0,width=400,height=7000,left=10,top=10')
         toggleChemicalEdit(false);
         }
 

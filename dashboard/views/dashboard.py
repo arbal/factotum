@@ -34,7 +34,7 @@ def index(request):
 def datadocument_count_by_date():
     # Datasets to populate linechart with document-upload statistics
     # Number of datadocuments, both overall and by type, that have been uploaded as of each date
-    select_upload_date = {"upload_date": """date(uploaded_at)"""}
+    select_upload_date = {"upload_date": """date(dashboard_datadocument.created_at)"""}
     document_stats = {}
     document_stats['all'] = list(DataDocument.objects.extra(select=select_upload_date) \
                                  .values('upload_date') \
@@ -62,8 +62,8 @@ def datadocument_count_by_date():
 
 def datadocument_count_by_month():
     # GROUP BY issue solved with https://stackoverflow.com/questions/8746014/django-group-by-date-day-month-year
-    document_stats = list(DataDocument.objects.filter(uploaded_at__gte=chart_start_datetime)\
-        .annotate(upload_month = (Trunc('uploaded_at', 'month', output_field=DateTimeField()))) \
+    document_stats = list(DataDocument.objects.filter(created_at__gte=chart_start_datetime)\
+        .annotate(upload_month = (Trunc('created_at', 'month', output_field=DateTimeField()))) \
         .values('upload_month') \
         .annotate(document_count = (Count('id'))) \
         .values('document_count', 'upload_month') \

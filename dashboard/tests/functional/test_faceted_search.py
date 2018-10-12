@@ -18,16 +18,18 @@ class FacetedSearchTest(TestCase):
         self.assertContains(response, 'Data Document')
         self.assertNotContains(response, 'Extracted Chemical')
         self.assertNotContains(response, 'DSSTox Substance')
-    
+
     def test_group_type_facet(self):
         response = self.c.get('/find/?q=diatom')
         self.assertContains(response, 'Filter by Group Type')
-        
+
         response = self.c.get('/find/?q=diatom&group_type=Unidentified')
         self.assertContains(response, 'Showing 1 - 20 of')
 
         response = self.c.get('/find/?q=diatom&group_type=BadGroupName')
         self.assertContains(response, 'Sorry, no result found')
 
-
-
+    def test_faceted_search_renders_table(self):
+        response = self.c.get('/find/?q=terro')
+        self.assertContains(response, '<table')
+        self.assertContains(response, '<th>Record</th>')

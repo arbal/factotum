@@ -13,11 +13,11 @@ class DashboardTest(TestCase):
 
     def setUp(self):
         self.objects = load_model_objects()
-        self.test_start = time.time()
+        # self.test_start = time.time()
 
-    def tearDown(self):
-        self.test_elapsed = time.time() - self.test_start
-        print('\nFinished with ' + self._testMethodName + ' in {:.2f}s'.format(self.test_elapsed))
+    # def tearDown(self):
+    #     self.test_elapsed = time.time() - self.test_start
+    #     print('\nFinished with ' + self._testMethodName + ' in {:.2f}s'.format(self.test_elapsed))
 
     def test_public_navbar(self):
         self.client.logout()

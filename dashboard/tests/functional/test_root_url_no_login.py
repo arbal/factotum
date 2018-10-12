@@ -6,7 +6,7 @@ from dashboard.views import index
 from dashboard.models import DataDocument, DataGroup, DataSource
 
 
-class DashboardIndexTest(TestCase):
+class RootUrlNoLoginTest(TestCase):
 
     def setUp(self):
         self.c = Client()

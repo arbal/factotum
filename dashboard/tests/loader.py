@@ -34,11 +34,13 @@ def load_model_objects():
                                         downloaded_by=user,
                                         downloaded_at=timezone.now(),
                                         group_type=gt,
-                                        csv='register_records_matching.csv')
+                                        csv='register_records_matching.csv',
+                                        url='https://www.epa.gov')
     dt = DocumentType.objects.create(title='msds/sds', group_type=gt)
     doc = DataDocument.objects.create(title='test document',
                                             data_group=dg,
-                                            document_type=dt)
+                                            document_type=dt,
+                                            filename='example.pdf')
     p = Product.objects.create(data_source=ds,
                                 upc='Test UPC for ProductToPUC')
 

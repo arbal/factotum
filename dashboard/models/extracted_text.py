@@ -6,7 +6,6 @@ from django import forms
 from .data_document import DataDocument
 from .script import Script
 
-
 class ExtractedText(CommonInfo):
     data_document = models.OneToOneField(DataDocument,on_delete=models.CASCADE,
                                                             primary_key=True)
@@ -36,14 +35,6 @@ class ExtractedText(CommonInfo):
         if extextnext == self:
             nextid = 0
         return nextid
-
-    def clean(self):
-        # print('cleaning ExtractedText object in the model')
-        if self.doc_date:
-            if len(self.doc_date) > 25:
-                raise ValidationError(
-                            {'doc_date': "Date format is the wrong length."})
-
 
 
 def get_next_or_prev(models, item, direction):

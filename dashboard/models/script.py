@@ -11,7 +11,7 @@ class Script(CommonInfo):
     TYPE_CHOICES = (('DL', 'download'),
                     ('EX', 'extraction'),
                     ('PC', 'product categorization'))
-    
+
     # Specify the share of a script's ExtractedText objects that must be
     # approved in order for the script's QA sat
     QA_COMPLETE_PERCENTAGE = 0.2
@@ -46,7 +46,7 @@ class Script(CommonInfo):
         pct = (0 if count == 0 else (
                       self.get_qa_complete_extractedtext_count() / count * 100))
         return "{0:.0f}%".format(pct)
-    
+
     def get_pct_checked_numeric(self):
         count = self.get_datadocument_count()
         pct = (0 if count == 0 else (
@@ -55,7 +55,7 @@ class Script(CommonInfo):
 
     def qa_button_text(self):
         return "Begin QA" if not self.qa_begun else "Continue QA"
-    
+
     def get_qa_status(self):
         """
         Compare the derived percent checked against the threshold constant

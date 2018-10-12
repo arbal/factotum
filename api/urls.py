@@ -6,5 +6,5 @@ from haystack.views import FacetedSearchView
 from . import views
 
 urlpatterns = [
-	url(r'^api/(?P<slug>[-\w]+)/$', views.index, name='index'),
-	]
+    url(r'^api/(?P<slug>[-\w]+)/$', views.index, name='index'),
+    ]

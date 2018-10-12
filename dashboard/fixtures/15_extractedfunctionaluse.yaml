@@ -1,0 +1,8 @@
+- model: dashboard.extractedfunctionaluse
+  pk: 1
+  fields: {created_at: !!timestamp '2018-09-06 07:16:07', updated_at: !!timestamp '2018-09-06
+      07:16:07', extracted_text: 5, raw_cas: 520-45-6, raw_chem_name: Functional Use Chem1, report_funcuse: surfactant}
+- model: dashboard.extractedfunctionaluse
+  pk: 2
+  fields: {created_at: !!timestamp '2018-09-06 07:16:07', updated_at: !!timestamp '2018-09-06
+      07:16:07', extracted_text: 5, raw_cas: 520-45-6, raw_chem_name: Functional Use Chem2, report_funcuse: fragrance}

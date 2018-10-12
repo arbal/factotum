@@ -1,4 +1,11 @@
 - model: dashboard.extractedtext
+  pk: 5
+  fields: {created_at: null, updated_at: null, prod_name: Product with functional use,
+    doc_date: '2018-04-07', rev_num: null, extraction_script: 15, qa_checked: false,
+    qa_edited: false, qa_approved_date: null, qa_approved_by: null,
+    qa_group: null}
+
+- model: dashboard.extractedtext
   pk: 156051
   fields: {created_at: null, updated_at: null, prod_name: Sun_INDS_89,
     doc_date: '2018-04-07', rev_num: '47', extraction_script: 6, qa_checked: false,

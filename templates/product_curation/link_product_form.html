@@ -14,7 +14,7 @@ Link {{ document }} to Product</h1>
     <button type="submit" class="btn btn-primary">Save</button>
     <a class="btn btn-secondary" href="{% url 'link_product_list' document.data_group.id %}">Cancel</a>
     <a class="btn btn-info btn-secondary" role="button" title="details"
-     href="/media/{{ document.data_group.dgurl }}/pdf/{{ document.filename }}" target = "_blank">
+     href="{{ document.pdf_url }}" target = "_blank">
     <span class="oi"></span>Open PDF</a>
 </form>
 {% endblock %}

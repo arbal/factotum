@@ -20,8 +20,12 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    url(r'^login/$', auth_views.LoginView.as_view(template_name='core/login.html')),
-    url(r'^logout/$', auth_views.LogoutView.as_view(next_page='index'), name='logout'),
+    url(r'^login/$',
+            auth_views.LoginView.as_view(template_name='core/login.html'),
+            name='login'),
+    url(r'^logout/$',
+            auth_views.LogoutView.as_view(next_page='index'), 
+            name='logout'),
     url(r'^admin/', admin.site.urls),
     url(r'', include('dashboard.urls')),
     url(r'', include('api.urls')),

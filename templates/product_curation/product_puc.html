@@ -2,6 +2,7 @@
 {% load humanize %}
 {% load static %}
 
+{% block title %}Link Product {{ product.id }} to a PUC{% endblock %}
 
 {% block content %}
 
@@ -12,6 +13,13 @@ Link Product To PUC</h1>
 <h2>
   {{ product.title }}
 </h2>
+<div class="">
+  {% if product.puc_set.all %}
+  <h4>Currently assigned PUC: <button class="btn btn-secondary disabled" type="button" name="button">{{ product.puc_set.first }}</button> </h4>
+  {% endif %}
+
+</div>
+
 <div>
 
     <form action='' method="post" >
@@ -19,10 +27,10 @@ Link Product To PUC</h1>
       {% for dd in product.datadocument_set.all %}
         <p>
           <span class="oi oi-file" title="pdf" ></span>
-              <a href="/media/{{ dd.data_group.dgurl }}/pdf/{{ dd.filename }}" title="Link to {{ dd.filename }}" target = "_blank">{{dd.filename}}
+              <a href="{{ dd.pdf_url }}" title="Link to {{ dd.filename }}" target = "_blank">{{dd.filename}}
               </a>
         </p>
-      {%endfor%}
+      {% endfor %}
       {{ form.as_p }}
     <input type="hidden" name="referer" value="{{ form.referer }}">
     <button type="submit" id="btn-assign-puc" class="btn btn-primary">Submit</button>

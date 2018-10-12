@@ -62,3 +62,13 @@
   pk: 13
   fields: {created_at: !!timestamp '2018-07-31 11:28:13.705077', updated_at: !!timestamp '2018-07-31
       11:28:13.705115', title: Manual (dummy), url: null, qa_begun: false, script_type: EX}
+- model: dashboard.script
+  pk: 14
+  fields: {created_at: !!timestamp '2018-09-11 07:00:37.838615', updated_at: !!timestamp '2018-09-11
+      07:00:37.875755', title: Functional Use Download Script, url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_GeorgiaPacific.ipynb',
+    qa_begun: false, script_type: DL}
+- model: dashboard.script
+  pk: 15
+  fields: {created_at: !!timestamp '2018-09-11 07:00:37.838615', updated_at: !!timestamp '2018-09-11
+      07:00:37.875755', title: Functional Use Extraction Script, url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_GeorgiaPacific.ipynb',
+    qa_begun: false, script_type: EX}

@@ -18,16 +18,27 @@ class ChemSearchTest(TestCase):
                 '05_product.yaml', '06_datadocument.yaml', '07_script.yaml',
                 '08_extractedtext.yaml', '09_productdocument.yaml', '10_extractedchemical', '11_dsstoxsubstance']
 
-    def setUp(self):
-        print('Test case setUp() method running')
-        self.c = Client()
-        index_start = time.time()
-        update_index.Command().handle( remove=True, using=['test_index'], interactive=False)
-        index_elapsed = time.time() - index_start
-        print('Indexing took %s seconds' % index_elapsed)
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        update_index.Command().handle( remove=True, using=['test_index'],
+                                            interactive=False, verbosity=0)
 
-    def tearDown(self):
-        clear_index.Command().handle( using=['test_index'], interactive=False)
+    @classmethod
+    def tearDownClass(cls):
+        clear_index.Command().handle( using=['test_index'],
+                                            interactive=False, verbosity=0)
+        super().tearDownClass()
+
+    def setUp(self):
+        # print('Test case setUp() method running')
+        self.c = Client()
+        # index_start = time.time()
+
+        # index_elapsed = time.time() - index_start
+        # print('Indexing took %s seconds' % index_elapsed)
+
+
 
     def test_chem_search(self):
         response = self.c.get('/chem_search/?chemical=dibutyl')
@@ -38,11 +49,10 @@ class ChemSearchTest(TestCase):
         response = self.c.get('/chem_search/?chemical=ethylparaben')
         self.assertContains(response, 'SPICEBOMB3PCSGS')
         self.assertContains(response, 'The Healing Garden')
-    
+
     def test_chemical_search_ui_results(self):
         response = self.client.get('/findchemical/?q=ethyl').content.decode('utf8')
         response_html = html.fromstring(response)
         self.assertIn('Sun_INDS_89',
                       response_html.xpath('string(/html/body/div[1]/div/div[2]/ol)'),
                       'The link to Sun_INDS_89 must be returned by a chemical search for "ethyl"')
-

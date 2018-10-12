@@ -41,8 +41,15 @@
         </div>
     </h1>
     <dl class="row col-sm-12">
+        <dt class="col-sm-3">Data Source</dt>
+        <dd class="col-sm-9">
+            <a href="{% url "data_source_detail" datagroup.data_source.id %}" title="Return to Data Source">
+                {{ datagroup.data_source }}</a>
+        </dd>
         <dt class="col-sm-3">Description</dt>
         <dd class="col-sm-9">{{ datagroup.description }}</dd>
+        <dt class="col-sm-3">URL</dt>
+        <dd class="col-sm-9">{{ datagroup.url }}</dd>
         <dt class="col-sm-3">Group Type</dt>
         <dd class="col-sm-9">{{ datagroup.group_type }}</dd>
         <dt class="col-sm-3">Downloaded by</dt>
@@ -57,11 +64,6 @@
                 {{ datagroup.download_script }}
             </a>
         </dd>
-        <dt class="col-sm-3">Data Source</dt>
-        <dd class="col-sm-9">
-          <a href="{% url "data_source_detail" datagroup.data_source.id %}" title="Return to Data Source">
-            {{ datagroup.data_source }}</a>
-        </dd>
         {% if datagroup.updated_at %}
             <dt class="col-sm-3">Last updated</dt>
             <dd class="col-sm-9">{{ datagroup.updated_at }}</dd>
@@ -71,7 +73,7 @@
     <div class="col-sm-12">
         <a href="{% url 'registered_records.csv' datagroup.pk  %}" class="btn btn-secondary">
             <span class="oi oi-spreadsheet"></span>&nbsp;Download Registered Records CSV</a>
-        <a href = "/{{ datagroup.zip_file }}" class="btn btn-secondary
+        <a href = "{%url 'dg_pdfs_zip_view' datagroup.pk %}" class="btn btn-secondary
               {% if datagroup.matched_docs == 0 %}disabled{% endif %}">
           <span class="oi oi-data-transfer-download"></span> Download All PDF Documents
         </a>
@@ -101,7 +103,7 @@
                   <tr>
                       {% if doc.matched and not doc.extracted %}
                           <td>{{ doc.pk }}</td>
-                          <td>{{ doc.filename }}</td>
+                          <td>{{ doc.get_abstract_filename }}</td>
                       {% endif %}
                   </tr>
               {% endfor %}
@@ -109,7 +111,7 @@
             </table>
         {% endif %}
 
-        {% if upload_form %}
+        {% if not datagroup.all_matched %}
             <a class="btn btn-secondary" data-toggle="collapse" href="#upload_form">
                 <span class="oi oi-data-transfer-upload"></span>&nbsp;Upload Data Group PDFs
             </a>
@@ -119,7 +121,7 @@
                     {% csrf_token %}
                     <div class="form-group col-md-9">
                         <label class="required" for="id_extract_file">Data Group PDF Directory:</label>
-                        <input type="file" id="files" class="btn btn-light form-control is-valid" name="multifiles" webkitdirectory multiple>
+                        <input type="file" id="files" class="btn btn-light form-control" name="multifiles" webkitdirectory multiple>
                     </div>
                     <input type="submit" class="btn btn-primary" name="upload" value="Submit">
                 </form>
@@ -133,7 +135,7 @@
     <br>
     <h4>{{ datagroup.registered_docs }} documents registered, {{ datagroup.matched_docs }} matched, {{  datagroup.extracted_docs }} extracted</h4>
     <div class="inline-block">
-      {% if bulk and not upload_form %}
+      {% if bulk and datagroup.all_matched and composition %}
       <form class="float-right" method="post">
         {% csrf_token %}
         <input type="submit" class="btn btn-primary" name="bulk" value="Bulk Create {{ bulk }} Products">
@@ -165,8 +167,10 @@
           <tr>
           {% if doc.matched %}
             <td>
-              <a href="/media/{{ datagroup.dgurl }}/pdf/{{ doc.filename }}"
-                 title="Link to {{ doc.filename }}" target="_blank">{{ doc.title }}</a>
+              <a href="{{ doc.get_absolute_url }}"
+                 title="Link to document detail">{{ doc.title }}</a>
+              <a href="{{ doc.pdf_url }}"
+                 title="Link to {{ doc.get_abstract_filename }}" target="_blank"><span class="oi oi-document"></span></a>
             </td>
           {% else %}
             <td>{{ doc.title }}</td>
@@ -252,7 +256,7 @@
       </ul>
     </nav>
 
-<input type="hidden" id="dg_name" name="variable" value="{{ datagroup.dgurl }}">
+<input type="hidden" id="dg_name" name="variable" value="{{ datagroup.get_name_as_slug }}">
 
 {% endblock %}
 {% block js %}

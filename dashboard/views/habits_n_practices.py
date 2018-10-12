@@ -18,13 +18,9 @@ def habitsandpractices(request, pk,
                                                     extraction_script=script)
     if created:
         extext.doc_date = 'please add...'
-    # print(extext.pk)
     ext_form = ExtractedTextForm(request.POST or None, instance=extext)
-    hp_formset = HnPFormSet(request.POST or None, instance=extext, prefix='habits')
-    context = {   'doc'         : doc,
-                  'ext_form'    : ext_form,
-                  'hp_formset'  : hp_formset,
-                  }
+    hp_formset = HnPFormSet(request.POST or None,
+                            instance=extext, prefix='habits')
     if request.method == 'POST' and 'save' in request.POST:
         if hp_formset.is_valid() and ext_form.is_valid():
             if not doc.extracted:
@@ -33,10 +29,10 @@ def habitsandpractices(request, pk,
             hp_formset.save()
             ext_form.save()
             return HttpResponseRedirect(f'/habitsandpractices/{doc.pk}')
-        context = {   'doc'         : doc,
-                      'ext_form'    : ext_form,
-                      'hp_formset'  : hp_formset,
-                      }
+    context = {   'doc'         : doc,
+                  'ext_form'    : ext_form,
+                  'hp_formset'  : hp_formset,
+                  }
     return render(request, template_name, context)
 
 

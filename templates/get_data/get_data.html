@@ -2,12 +2,15 @@
 {% load staticfiles %}
 {% load humanize %}
 {% block title %}Get Data{% endblock %}
+
 {% block content %}
 
-<h1>Get Data: A resource for accessing exposure related data stored in Factotum</h1>
+<h1>Get Data
+    <a class="btn btn-success float-lg-right" role="button" href="{% url "download_PUCs" %}">Download PUCs</a>
+</h1>
 
-<div class="card">
-    <h3 class="card-header">Report: Summary metrics by chemical</h3>
+<div class="card m-2">
+    <h3 class="card-header">Summary metrics by chemical</h3>
     <form action="{% url "upload_dtxsid_csv" %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
         {% csrf_token %}
         <div class="form-group">
@@ -27,7 +30,7 @@
         </form>
 </div>
 
-<div class="card">
+<div class="card m-2">
   <div class="card-header">
     <h3 class='mr-5'>Habits and Practices by PUC</h3>
     <form class='ml-5' action='' method="post" >
@@ -61,7 +64,7 @@
         {% else %}
         <div class="tab-pane fade show text-center" id="{{ habit.pk }}" role="tabpanel">
         {% endif %}
-        <label for=""><b>Data Document:</b></label> <a href="/media/{{ habit.extracted_text.data_document.data_group.dgurl }}/pdf/{{ habit.extracted_text.data_document.filename }}" target="_blank" title="Link to {{ habit.extracted_text.data_document.filename }}"><b>{{ habit.extracted_text.data_document }}</b></a> <br>
+        <label for=""><b>Data Document:</b></label> <a href="/media/{{ habit.extracted_text.data_document.data_group.get_dg_folder }}/pdf/{{ habit.extracted_text.data_document.filename }}" target="_blank" title="Link to {{ habit.extracted_text.data_document.filename }}"><b>{{ habit.extracted_text.data_document }}</b></a> <br>
         <label for=""><b>Product Surveyed:</b></label> {{ habit.product_surveyed }} <br>
         <label for=""><b>Mass:</b></label> {{ habit.mass|floatformat:2|intcomma }} {{ habit.mass_unit }} <br>
         <label for=""><b>Frequency:</b></label> {{ habit.frequency|floatformat:2|intcomma }} {{ habit.frequency_unit }} <br>
@@ -80,9 +83,6 @@
   {% endif %}
 </div>
 
-<div class="card">
-    <h3 class="card-header">Report: Another report not yet defined</h3>
-</div>
 <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
 {{ form.media }}
 {% endblock %}

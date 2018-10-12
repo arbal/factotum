@@ -42,44 +42,39 @@ def stats_by_dtxsids(dtxs):
     """
     PUCS.n
     The number of unique PUCs (product categories) the chemical is associated with
-
     datadocs.n
     "The number of data documents (e.g.  MSDS, SDS, ingredient list, product label)
     the chemical is appears in"
-
     datadocs_w_wf.n
     "The number of data documents with associated weight fraction data
     that the chemical appears in (weight fraction data may be reported or predicted data,
      i.e., predicted from an ingredient list)"
-
     products.n
     "The number of products the chemical appears in, where a product is defined as a
     product entry in Factotum."
     """
-    print('List of DTXSIDs provided:')
-    print(dtxs)
+    # print('List of DTXSIDs provided:')
+    # print(dtxs)
 
-    # pucs_n = DSSToxSubstance.objects.filter(sid__in=dtxs).distinct().\
-    #     annotate(pucs_n=Count('ingredient__product__puc')).values('sid','pucs_n')
-    # pucs_n = list(pucs_n)
-    # TODO: Correct this to use the new model traversal after issue #340
-    #pucs_n = DSSToxSubstance.objects.filter(sid__in=dtxs).distinct().\
-    #    annotate(pucs_n=Count('ingredient__product__puc')).values('sid','pucs_n')
-    pucs_n = DSSToxSubstance.objects.filter(sid__in=dtxs).distinct().\
-        annotate(pucs_n=Count('extracted_chemical__extracted_text__data_document__product__puc')).values('sid','pucs_n')
-    print('pucs_n:')
-    print(pucs_n)
 
-    # TODO: Correct this to use the new model traversal after issue #340
-    #dds_n = DSSToxSubstance.objects.filter(sid__in=dtxs).distinct().\
-    #    annotate(dds_n=Count('ingredient__product__datadocument')).values('sid','dds_n')
-    dds_n = DSSToxSubstance.objects.filter(sid__in=dtxs).distinct().\
+    # The number of unique PUCs (product categories) the chemical is associated with
+    pucs_n = DSSToxSubstance.objects.filter(sid__in=dtxs).\
+        values('sid').annotate(pucs_n=Count('extracted_chemical__extracted_text__data_document__product__puc')).values('sid','pucs_n')
+    #print('pucs_n:')
+    #print(pucs_n)
+
+    # "The number of data documents (e.g.  MSDS, SDS, ingredient list, product label)
+    # the chemical appears in
+    dds_n = DSSToxSubstance.objects.filter(sid__in=dtxs).values('sid').\
         annotate(dds_n=Count('extracted_chemical__extracted_text__data_document')).values('sid','dds_n')
-    print('dds_n:')
-    print(dds_n)
+    #print('dds_n:')
+    #print(dds_n)
 
+    # The number of data documents with associated weight fraction data
+    # that the chemical appears in (weight fraction data may be reported or predicted data,
+    # i.e., predicted from an ingredient list)
     dds_wf_n = DSSToxSubstance.objects\
-    .filter(sid__in=dtxs).distinct().values('sid')\
+    .filter(sid__in=dtxs).values('sid')\
     .annotate(
         dds_wf_n = Subquery(
             ExtractedChemical
@@ -119,7 +114,7 @@ def stats_by_dtxsids(dtxs):
     cursor_dds_wf_n.execute(strsql)
     col_names = [desc[0] for desc in cursor_dds_wf_n.description]
 
-    print('dds_wf_n:')
+    #print('dds_wf_n:')
     for row in cursor_dds_wf_n:
         #print('sid: %s      dds_wf_n: %i' % (row[0], row[1]))
         if row[0] in dtxs:
@@ -127,13 +122,11 @@ def stats_by_dtxsids(dtxs):
             dds_wf_n[row[0]] = row[1]
 
 
-    # TODO: Correct this to use the new model traversal after issue #340
-    #products_n = DSSToxSubstance.objects.filter(sid__in=dtxs).distinct().\
-    #   annotate(products_n=Count('ingredient__product')).values('sid', 'products_n')
-    products_n = DSSToxSubstance.objects.filter(sid__in=dtxs).distinct().\
-       annotate(products_n=Count('extracted_chemical__extracted_text__data_document')).values('sid', 'products_n')
-    #print('products_n:')
-    #print(products_n)
+    # The number of products the chemical appears in, where a product is defined as a
+    # product entry in Factotum.
+    products_n = DSSToxSubstance.objects.filter(sid__in=dtxs).values('sid').\
+       annotate(products_n=Count('extracted_chemical__extracted_text__data_document__product')).values('sid', 'products_n')
+
 
     stats = pucs_n\
     .annotate(dds_n=Value(-1, output_field=IntegerField())) \
@@ -187,7 +180,7 @@ def upload_dtxsid_csv(request):
         #loop over the lines
         dtxsids = []
         for line in lines:
-            print(line)
+            #print(line)
             if DSSToxSubstance.objects.filter(sid=str.strip(line)).count() > 0:
                 dtxsids.append(str.strip(line)) # only add DTXSIDs that appear in the database
 
@@ -199,5 +192,5 @@ def upload_dtxsid_csv(request):
     stats = stats_by_dtxsids(dtxsids)
     #stats  = {'pucs_n': 0, 'dds_n': 0, 'dds_wf_n': 0, 'products_n': 0}
     resp = download_chem_stats(stats)
-    print(resp)
+    #print(resp)
     return resp
