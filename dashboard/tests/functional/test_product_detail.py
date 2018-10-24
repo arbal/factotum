@@ -4,7 +4,7 @@ from django.test import TestCase, override_settings
 
 from dashboard.models import *
 from dashboard.tests.loader import *
-from dashboard.views.product_curation import ProductForm, ProductViewForm
+from dashboard.views.product_curation import ProductForm, ProductTagForm
 
 
 @override_settings(ALLOWED_HOSTS=['testserver'])
@@ -79,3 +79,19 @@ class TestProductDetail(TestCase):
         self.assertNotIn('Assign PUC',
                       response_html.xpath('string(//*[@id="button_assign_puc"]/text())'),
                       'There should not be an Assign PUC button for this product')
+
+    def test_document_table_order(self):
+        p = Product.objects.get(pk=1850)
+        one = p.datadocument_set.all()[0]
+        two = p.datadocument_set.all()[1]
+        self.assertTrue(one.created_at < two.created_at,
+                        f'Doc |{one.pk}| needs to have been created first')
+        t1 = one.title
+        t2 = two.title
+        response = self.client.get('/product/1850/')
+        # see that the more recent document is on the top of the table based
+        # on the index of where the title falls in the output
+        older_doc_index = response.content.decode('utf8').index(t1)
+        newer_doc_index = response.content.decode('utf8').index(t2)
+        self.assertTrue(older_doc_index > newer_doc_index,('Most recent doc'
+                                            ' should be on top of the table!'))

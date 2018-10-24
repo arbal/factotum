@@ -1,0 +1,93 @@
+- model: dashboard.puctag
+  pk: 1
+  fields: {created_at: null, updated_at: null, name: aerosol, slug: aerosol}
+- model: dashboard.puctag
+  pk: 2
+  fields: {created_at: null, updated_at: null, name: liquid, slug: liquid}
+- model: dashboard.puctag
+  pk: 3
+  fields: {created_at: null, updated_at: null, name: solid, slug: solid}
+- model: dashboard.puctag
+  pk: 4
+  fields: {created_at: null, updated_at: null, name: gel, slug: gel}
+- model: dashboard.puctag
+  pk: 5
+  fields: {created_at: null, updated_at: null, name: wipes, slug: wipes}
+- model: dashboard.puctag
+  pk: 6
+  fields: {created_at: null, updated_at: null, name: powder, slug: powder}
+- model: dashboard.puctag
+  pk: 7
+  fields: {created_at: null, updated_at: null, name: impregnatedsheets, slug: impregnatedsheets}
+- model: dashboard.puctag
+  pk: 8
+  fields: {created_at: null, updated_at: null, name: pumpspray, slug: pumpspray}
+- model: dashboard.puctag
+  pk: 9
+  fields: {created_at: null, updated_at: null, name: paste, slug: paste}
+- model: dashboard.puctag
+  pk: 10
+  fields: {created_at: null, updated_at: null, name: cartridge, slug: cartridge}
+- model: dashboard.puctag
+  pk: 11
+  fields: {created_at: null, updated_at: null, name: foamspray, slug: foamspray}
+- model: dashboard.puctag
+  pk: 12
+  fields: {created_at: null, updated_at: null, name: gas, slug: gas}
+- model: dashboard.puctag
+  pk: 13
+  fields: {created_at: null, updated_at: null, name: foam, slug: foam}
+- model: dashboard.puctag
+  pk: 14
+  fields: {created_at: null, updated_at: null, name: trap, slug: trap}
+- model: dashboard.puctag
+  pk: 15
+  fields: {created_at: null, updated_at: null, name: powder|spray, slug: powderspray}
+- model: dashboard.puctag
+  pk: 16
+  fields: {created_at: null, updated_at: null, name: pods, slug: pods}
+- model: dashboard.puctag
+  pk: 17
+  fields: {created_at: null, updated_at: null, name: hotmelt, slug: hotmelt}
+- model: dashboard.puctag
+  pk: 18
+  fields: {created_at: null, updated_at: null, name: twocomponent, slug: twocomponent}
+- model: dashboard.puctag
+  pk: 19
+  fields: {created_at: null, updated_at: null, name: hosespray, slug: hosespray}
+
+
+- model: dashboard.producttotag
+  pk: 9
+  fields: {created_at: !!timestamp '2018-10-19 09:39:20.581834', updated_at: !!timestamp '2018-10-19
+      09:39:20.581834', content_object: 11, tag: 1}
+- model: dashboard.producttotag
+  pk: 12
+  fields: {created_at: !!timestamp '2018-10-19 11:34:24.753874', updated_at: !!timestamp '2018-10-19
+      11:34:24.753874', content_object: 11, tag: 11}
+- model: dashboard.producttotag
+  pk: 15
+  fields: {created_at: !!timestamp '2018-10-19 11:41:38.305202', updated_at: !!timestamp '2018-10-19
+      11:41:38.305202', content_object: 11, tag: 9}
+
+
+- model: dashboard.puctotag
+  pk: 2
+  fields: {created_at: !!timestamp '2018-10-18 14:43:28.627924', updated_at: !!timestamp '2018-10-18
+      14:43:28.627924', content_object: 1, tag: 1}
+- model: dashboard.puctotag
+  pk: 8
+  fields: {created_at: !!timestamp '2018-10-19 09:42:29.642749', updated_at: !!timestamp '2018-10-19
+      09:42:29.642749', content_object: 1, tag: 11}
+- model: dashboard.puctotag
+  pk: 11
+  fields: {created_at: !!timestamp '2018-10-19 11:41:05.278630', updated_at: !!timestamp '2018-10-19
+      11:41:05.278630', content_object: 1, tag: 9}
+- model: dashboard.puctotag
+  pk: 12
+  fields: {created_at: !!timestamp '2018-10-19 11:41:05.349443', updated_at: !!timestamp '2018-10-19
+      11:41:05.349443', content_object: 1, tag: 4}
+- model: dashboard.puctotag
+  pk: 13
+  fields: {created_at: !!timestamp '2018-10-19 11:41:05.410278', updated_at: !!timestamp '2018-10-19
+      11:41:05.410278', content_object: 1, tag: 15}

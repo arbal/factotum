@@ -10,72 +10,86 @@
 </h1>
 
 <div class="card m-2">
-    <h3 class="card-header">Summary metrics by chemical</h3>
-    <form action="{% url "upload_dtxsid_csv" %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="name" class="col-md-7 col-sm-3 control-label">Upload a csv of DTX SIDs to immediately download a summary table: </label>
-            <div class="col-md-8">
-                <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
-                 <button class="btn btn-primary"> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"></span>Upload </button>
-            </div>
-            <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
-                <a class="btn btn-secondary" href="{% url "get_data_dsstox_csv_template" %}" role="button">Download list template</a>
-            </div>
-        </div>
-        </form>
+  <h3 class="card-header">Summary metrics by chemical</h3>
+  <form action="{% url "upload_dtxsid_csv" %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name" class="col-md-7 col-sm-3 control-label">Upload a csv of DTX SIDs to immediately download a summary table: </label>
+      <div class="col-md-8">
+        <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
+        <button class="btn btn-primary"> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"></span>Upload </button>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
+        <a class="btn btn-secondary" href="{% url "get_data_dsstox_csv_template" %}" role="button">Download list template</a>
+      </div>
+    </div>
+  </form>
 </div>
 
 <div class="card m-2">
   <div class="card-header">
-    <h3 class='mr-5'>Habits and Practices by PUC</h3>
-    <form class='ml-5' action='' method="post" >
-      {% csrf_token %}
-      {{ form }}
-      <button type="submit" id="btn-assign-puc" class="btn btn-primary">Submit</button>
-    </form>
+    <div class="text-center">
+      <h3 class='mr-5'>Habits and Practices by PUC</h3>
+      <form class='ml-5' action='' method="post" >
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" id="btn-assign-puc" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
   </div>
+
   {% if hnp %}
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs pull-right"  id="myTab" role="tablist">
       {% for habit in hnp %}
-
-          {% if habit.pk == first %}
+        {% if habit.pk == first %}
           <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#{{ habit.pk }}" role="tab" aria-controls="home" aria-selected="true">{{ habit.product_surveyed }}</a>
-          {% else %}
+          <a class="nav-link active" data-toggle="tab" href="#{{ habit.pk }}" role="tab" aria-controls="home" aria-selected="true"><b>{{ habit.product_surveyed }}</b></a>
+        {% else %}
           <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#{{ habit.pk }}" role="tab" aria-controls="home" aria-selected="false"><b>{{ habit.product_surveyed }}</b></a>
-          {% endif %}
-         </li>
-      {% endfor %}
-       </ul>
-     </div>
-     <div class="card-body">
-      <div class="tab-content">
-        {% for habit in hnp %}
-
-        {% if habit.pk == first %}
-        <div class="tab-pane fade show active text-center" id="{{ habit.pk }}" role="tabpanel">
-        {% else %}
-        <div class="tab-pane fade show text-center" id="{{ habit.pk }}" role="tabpanel">
         {% endif %}
-        <label for=""><b>Data Document:</b></label> <a href="/media/{{ habit.extracted_text.data_document.data_group.get_dg_folder }}/pdf/{{ habit.extracted_text.data_document.filename }}" target="_blank" title="Link to {{ habit.extracted_text.data_document.filename }}"><b>{{ habit.extracted_text.data_document }}</b></a> <br>
-        <label for=""><b>Product Surveyed:</b></label> {{ habit.product_surveyed }} <br>
-        <label for=""><b>Mass:</b></label> {{ habit.mass|floatformat:2|intcomma }} {{ habit.mass_unit }} <br>
-        <label for=""><b>Frequency:</b></label> {{ habit.frequency|floatformat:2|intcomma }} {{ habit.frequency_unit }} <br>
-        <label for=""><b>Duration:</b></label> {{ habit.duration|floatformat:2|intcomma }} {{ habit.duration_unit }} <br>
-        <label for=""><b>Prevalence:</b></label> {{ habit.prevalence }} <br>
-        <label for=""><b>Notes:</b></label> {{ habit.notes }}
-        </div>
-        {% endfor %}
-      </div>
-
+       </li>
+      {% endfor %}
+    </ul>
   </div>
+  <div class="card-body">
+    <div class="tab-content">
+      {% for habit in hnp %}
+      <div class="tab-pane fade show text-center
+      {% if habit.pk == first %}
+        active
+      {% endif %}" id="{{ habit.pk }}" role="tabpanel">
+      <label><b>Data Document:</b></label> <a href="/media/{{ habit.extracted_text.data_document.data_group.get_dg_folder }}/pdf/{{ habit.extracted_text.data_document.filename }}" target="_blank" title="Link to {{ habit.extracted_text.data_document.filename }}"><b>{{ habit.extracted_text.data_document }}</b></a> <br>
+      <label><b>Product Surveyed:</b></label> {{ habit.product_surveyed }} <br>
+      <label><b>Mass:</b></label> {{ habit.mass|floatformat:2|intcomma }} {{ habit.mass_unit }} <br>
+      <label><b>Frequency:</b></label> {{ habit.frequency|floatformat:2|intcomma }} {{ habit.frequency_unit }} <br>
+      <label><b>Duration:</b></label> {{ habit.duration|floatformat:2|intcomma }} {{ habit.duration_unit }} <br>
+      <label><b>Prevalence:</b></label> {{ habit.prevalence }} <br>
+      <label><b>Notes:</b></label> {{ habit.notes }} <br>
+      <p style="text-decoration:underline;"><b>PUC/s</b></p>
+
+      {% for puc in habit.PUCs.all %}
+      <p class="btn disabled
+          {% if puc.is_level_one %}
+            puc-level-1
+          {% elif puc.is_level_two %}
+            puc-level-2
+          {% elif puc.is_level_three %}
+            puc-level-3
+          {% endif %}
+        ">{{ puc }}</p><br>
+      {% endfor %}
+
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
   {% elif hnp == 0 %}
   <div class="card-body">
    There are no matching Habits and Practices to this PUC!

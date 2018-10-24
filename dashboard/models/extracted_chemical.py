@@ -26,6 +26,12 @@ class ExtractedChemical(CommonInfo):
     def __str__(self):
         return self.raw_chem_name
 
+    @classmethod
+    def detail_fields(cls):
+        return ['extracted_text','raw_cas','raw_chem_name','raw_min_comp',
+            'raw_max_comp', 'unit_type','weight_fraction_type','report_funcuse',
+            'ingredient_rank','raw_central_comp']
+
     def get_datadocument_url(self):
         return self.extracted_text.data_document.get_absolute_url()
 
@@ -39,3 +45,6 @@ class ExtractedChemical(CommonInfo):
         )
         obj.save()
         return obj.to_dict(include_meta=True)
+
+    def get_extractedtext(self):
+        return self.extracted_text

@@ -1,9 +1,9 @@
 from django.db import models
-from .common_info import CommonInfo
 from django.urls import reverse
 from django.core.validators import URLValidator
-from django.db import models
-from dashboard.models import DataDocument
+
+from .common_info import CommonInfo
+from .data_document import DataDocument
 
 
 class Script(CommonInfo):

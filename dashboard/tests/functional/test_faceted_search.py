@@ -33,3 +33,10 @@ class FacetedSearchTest(TestCase):
         response = self.c.get('/find/?q=terro')
         self.assertContains(response, '<table')
         self.assertContains(response, '<th>Record</th>')
+
+    def test_product_facet_returns(self):
+        response = self.c.get('/find/?q=insecticide')
+        brands = response.content.count(b'name="brand_name"')
+        # default set to options = {"size": 0} in /dashboard/views/search.py
+        self.assertTrue(brands>10, ('There should be ~143 product returns '
+                                                        'for this search term'))

@@ -30,3 +30,11 @@
   pk: 1950
   fields: {created_at: !!timestamp '2018-07-25 09:37:50.845546', updated_at: !!timestamp '2018-07-25
       09:37:50.845571', product: 1849, document: 137309}
+- model: dashboard.productdocument
+  pk: 1951
+  fields: {created_at: !!timestamp '2018-10-14 21:50:48.231361', updated_at: !!timestamp '2018-10-14
+      21:50:48.231398', product: 1850, document: 180966}
+- model: dashboard.productdocument
+  pk: 1952
+  fields: {created_at: !!timestamp '2018-10-19 02:38:32.718979', updated_at: !!timestamp '2018-10-19
+      02:38:32.719009', product: 1850, document: 252806}

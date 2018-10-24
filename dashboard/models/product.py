@@ -2,18 +2,17 @@ from django.db import models
 from .common_info import CommonInfo
 from .data_source import DataSource
 from .source_category import SourceCategory
-#from .product_to_puc import ProductToPUC
-#from .PUC import PUC
 from django.urls import reverse
-
+from taggit.managers import TaggableManager
 
 class Product(CommonInfo):
     data_source = models.ForeignKey(DataSource, related_name='source',
                                     on_delete=models.CASCADE)
     documents = models.ManyToManyField(through='dashboard.ProductDocument',
                                        to='dashboard.DataDocument')
-    attributes = models.ManyToManyField(through='dashboard.ProductToAttribute',
-                                        to='dashboard.ProductAttribute')
+    tags = TaggableManager(through='dashboard.ProductToTag',
+                           to='dashboard.PUCTag',
+                           help_text='A set of PUC Tags applicable to this Product')
     source_category = models.ForeignKey(SourceCategory,
                                         on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=255)
@@ -57,5 +56,17 @@ class Product(CommonInfo):
         else:
             return None
 
+    def get_tag_list(self):
+        return u", ".join(o.name for o in self.tags.all())
+
+    # returns list of valid puc_tags
+    def get_puc_tag_list(self):
+        return u", ".join(o.name for o in self.get_uber_product_to_puc().PUC.tags.all())
+
+    # returns set of valid puc_tags
+    def get_puc_tags(self):
+        return self.get_uber_product_to_puc().PUC.tags.all()
+
     class Meta:
           ordering = ['-created_at']
+

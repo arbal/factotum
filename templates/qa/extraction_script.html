@@ -2,6 +2,9 @@
 {% load staticfiles %}
 {% load humanize %}
 
+{% block title %}Extraction Script {{extractionscript.id}}: {{extractionscript.title}}{% endblock %}
+
+
 {% block content %}
 <h1 class="col-sm-12"><span class="oi oi-task" title="factotum" ></span>
 {{ extractionscript.title }}</h1>

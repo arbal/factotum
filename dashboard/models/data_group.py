@@ -9,7 +9,11 @@ from .common_info import CommonInfo
 from django.urls import reverse
 from django.dispatch import receiver
 from .group_type import GroupType
-
+from .extracted_text import ExtractedText
+from .extracted_cpcat import ExtractedCPCat
+from .extracted_chemical import ExtractedChemical
+from .extracted_functional_use import ExtractedFunctionalUse
+from .extracted_list_presence import ExtractedListPresence
 
 # could be used for dynamically creating filename on instantiation
 # in the 'upload_to' param on th FileField
@@ -23,6 +27,11 @@ def csv_upload_path(instance, filename):
     name = '{0}/{1}'.format(instance.fs_id, filename) # potential space errors in name
     return name
 
+extract_models = {
+    'CO': (ExtractedText, ExtractedChemical),
+    'FU': (ExtractedText, ExtractedFunctionalUse),
+    'CP': (ExtractedCPCat, ExtractedListPresence)
+}
 
 class DataGroup(CommonInfo):
 
@@ -37,6 +46,30 @@ class DataGroup(CommonInfo):
     zip_file = models.CharField(max_length=100)
     group_type = models.ForeignKey(GroupType, on_delete=models.SET_DEFAULT, default=1, null=True, blank=True)
     url = models.CharField(max_length=150, blank=True)
+
+    @property
+    def type(self):
+        return str(self.group_type.code)
+
+    @property
+    def is_composition(self):
+        return self.type == 'CO'
+
+    @property
+    def is_habits_and_practices(self):
+        return self.type == 'HP'
+
+    @property
+    def is_functional_use(self):
+        return self.type == 'FU'
+
+    @property
+    def is_chemical_presence(self):
+        return self.type == 'CP'
+
+    def get_extract_models(self):
+        '''returns a tuple with parent/child extract models'''
+        return extract_models.get(self.type)
 
     def save(self, *args, **kwargs):
         super(DataGroup, self).save(*args, **kwargs)

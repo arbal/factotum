@@ -1,13 +1,13 @@
+from haystack import connections
+
+from django.conf import settings
 from django.http import JsonResponse
+from haystack.inputs import Exact
 from django.shortcuts import render
-from dashboard.models import DataDocument, ExtractedChemical, DSSToxSubstance
 from django.db.models import Q
 from haystack.query import SearchQuerySet
-from haystack.inputs import Exact
-from haystack import connections
-from django.conf import settings
 
-from django.forms.models import model_to_dict
+from dashboard.models import DataDocument, ExtractedChemical, DSSToxSubstance
 
 def chem_search(request, template_name='search/chemical_search.html'):
     return render(request,

@@ -1,31 +1,31 @@
 - model: dashboard.grouptype
   pk: 1
   fields: {created_at: !!timestamp '2018-06-20 12:16:49.051019', updated_at: !!timestamp '2018-06-20
-      12:16:49.051035', title: Unidentified, description: Unidentified Group Type}
+      12:16:49.051035', title: Unidentified, description: Unidentified Group Type,  code: UN}
 - model: dashboard.grouptype
   pk: 2
   fields: {created_at: !!timestamp '2018-07-12 10:49:27.780577', updated_at: !!timestamp '2018-07-12
-      10:49:27.780596', title: Composition, description: ''}
+      10:49:27.780596', title: Composition, description: '',  code: CO}
 - model: dashboard.grouptype
   pk: 3
   fields: {created_at: !!timestamp '2018-07-12 10:49:39.992614', updated_at: !!timestamp '2018-07-12
-      10:49:39.992631', title: Functional use, description: ''}
+      10:49:39.992631', title: Functional use, description: '', code: FU}
 - model: dashboard.grouptype
   pk: 4
   fields: {created_at: !!timestamp '2018-07-12 10:49:45.927857', updated_at: !!timestamp '2018-07-12
-      10:49:45.927877', title: Habits and practices, description: ''}
+      10:49:45.927877', title: Habits and practices, description: '', code: HP}
 - model: dashboard.grouptype
   pk: 5
   fields: {created_at: !!timestamp '2018-07-12 10:51:29.240851', updated_at: !!timestamp '2018-07-12
-      10:51:29.240872', title: Supplemental documents, description: ''}
+      10:51:29.240872', title: Supplemental documents, description: '', code: SU}
 - model: dashboard.grouptype
   pk: 6
   fields: {created_at: !!timestamp '2018-07-12 10:51:29.240851', updated_at: !!timestamp '2018-07-12
-      10:51:29.240872', title: Composition & Functional use, description: ''}
+      10:51:29.240872', title: Composition & Functional use, description: '', code: 'CF'}
 - model: dashboard.grouptype
   pk: 6
   fields: {created_at: !!timestamp '2018-09-17 23:46:47.762560', updated_at: !!timestamp '2018-09-17
-      23:46:47.762583', title: Chemical presence list, description: ''}
+      23:46:47.762583', title: Chemical presence list, description: '', code: 'CP'}
 - model: dashboard.documenttype
   pk: 1
   fields: {created_at: !!timestamp '2018-06-20 12:16:49.070487', updated_at: !!timestamp '2018-06-20

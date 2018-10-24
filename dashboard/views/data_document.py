@@ -1,71 +1,77 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from dashboard.forms import HnPFormSet, ChemicalFormSet
+from dashboard.forms import (ExtractedTextForm, ExtractedCPCatForm,
+                                DocumentTypeForm,
+                                create_detail_formset)
 
 from djqscsv import render_to_csv_response
 
+from factotum.settings import EXTRA # if this goes to 0, tests will fail because of what num form we search for
 from dashboard.models import *
-
-class DocumentTypeForm(forms.ModelForm):
-    class Meta:
-        model = DataDocument
-        fields = ['document_type']
-
-    def __init__(self, *args, **kwargs):
-        super(DocumentTypeForm, self).__init__(*args, **kwargs)
-        self.fields['document_type'].label = ''
-        self.fields['document_type'].widget.attrs.update({
-            'onchange': 'form.submit();'
-        })
-
-class ExtractedTextForm(forms.ModelForm):
-    class Meta:
-        model = ExtractedText
-        fields = ['prod_name',
-                  'rev_num',
-                  'doc_date']
-
 
 @login_required()
 def data_document_detail(request, pk,
                          template_name='data_document/data_document_detail.html'):
     doc = get_object_or_404(DataDocument, pk=pk, )
-    extracted_text = ExtractedText.objects.filter(data_document=doc).get()
-    extracted_text_form = ExtractedTextForm(instance=extracted_text)
-    chemical_formset = ChemicalFormSet(instance=extracted_text, prefix='chemicals')
-    habits_and_practices_formset = HnPFormSet(instance=extracted_text, prefix='habits_and_practices')
-    document_type_form = DocumentTypeForm(instance=doc)
-    if request.method == 'POST' and 'save_extracted_text' in request.POST:
-        extracted_text_form = ExtractedTextForm(request.POST, instance=extracted_text)
-        if extracted_text_form.is_valid():
-            extracted_text_form.save()
-    elif request.method == 'POST' and 'save_habits_and_practices' in request.POST:
-        habits_and_practices_formset = HnPFormSet(request.POST, instance=extracted_text, prefix='habits_and_practices')
-        if habits_and_practices_formset.is_valid():
-            habits_and_practices_formset.save()
-    elif request.method == 'POST' and 'save_chemicals' in request.POST:
-        chemical_formset = ChemicalFormSet(request.POST, instance=extracted_text, prefix='chemicals')
-        if chemical_formset.is_valid():
-            chemical_formset.save()
-    elif request.method == 'POST':
-        document_type_form = DocumentTypeForm(request.POST, instance=doc)
-        if document_type_form.is_valid():
-            document_type = document_type_form.cleaned_data['document_type']
-            doc.document_type = document_type
-            doc.save()
-    habits_and_practices_formset.extra = 0
-    document_type_form.fields['document_type'].queryset = \
-        document_type_form.fields['document_type'].queryset.filter(group_type_id = doc.data_group.group_type_id)
-    if not document_type_form.fields['document_type'].queryset.count():
-        document_type_form = False
+    ParentForm, ChildForm = create_detail_formset(doc.data_group.type, EXTRA)
+
+    document_type_form = DocumentTypeForm(request.POST or None, instance=doc)
+    qs = DocumentType.objects.filter(group_type=doc.data_group.group_type)
+    document_type_form.fields['document_type'].queryset = qs
+
     context = {'doc': doc,
-               'extracted_text': extracted_text,
-               'extracted_text_form': extracted_text_form,
-               'chemical_formset': chemical_formset,
-               'habits_and_practices_formset': habits_and_practices_formset,
-               'document_type_form': document_type_form}
+            'document_type_form': document_type_form}
+
+    # TODO: this needs to account for the absence of an ExtractedText object
+    # https://github.com/HumanExposure/factotum/issues/470
+    #extracted_text = ExtractedText.objects.get(data_document=doc)
+    try:
+        extracted_text = ExtractedText.objects.get(data_document=doc)
+        #print('ExtractedText object found: %s' % extracted_text )
+        extracted_text = extracted_text.pull_out_cp() #get CP if exists
+        extracted_text_form = ParentForm(instance=extracted_text)
+        child_formset = ChildForm(instance=extracted_text)
+
+        context.update(
+            {'extracted_text': extracted_text,
+            'extracted_text_form': extracted_text_form,
+            'detail_formset': child_formset}
+            )
+        if request.method== 'POST':
+            child_formset = ChildForm(request.POST, instance=extracted_text)
+            if child_formset.is_valid() and child_formset.has_changed():
+                child_formset.save()
+                child_formset = ChildForm(instance=extracted_text) # load extra form
+                
+        colors = ['#d6d6a6','#dfcaa9','#d8e5bf'] * 47
+        color = (hex for hex in colors)
+        for form in child_formset.forms:
+            form.color = next(color)
+
+    except ExtractedText.DoesNotExist:
+        #print('No ExtractedText object found for DataDocument: %s' % doc )
+        extracted_text = None
+
     return render(request, template_name, context)
+
+@login_required()
+def save_doc_form(request, pk):
+    doc = get_object_or_404(DataDocument, pk=pk)
+    document_type_form = DocumentTypeForm(request.POST, instance=doc)
+    if document_type_form.is_valid() and document_type_form.has_changed():
+        document_type_form.save()
+    return redirect('data_document', pk=pk)
+
+@login_required()
+def save_ext_form(request, pk):
+    doc = get_object_or_404(DataDocument, pk=pk)
+    ExtractedTextForm, _ = create_detail_formset(doc.data_group.type)
+    extracted_text = doc.extractedtext.pull_out_cp()
+    ext_text_form = ExtractedTextForm(request.POST, instance=extracted_text)
+    if ext_text_form.is_valid() and ext_text_form.has_changed():
+        ext_text_form.save()
+    return redirect('data_document', pk=pk)
 
 @login_required()
 def data_document_delete(request, pk, template_name='data_source/datasource_confirm_delete.html'):

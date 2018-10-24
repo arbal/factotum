@@ -73,13 +73,9 @@
     <div class="card">
       <div class="card-header form-inline">
         <h3 class="text-center col-9">Extracted Text</h3>
-      <button type="button" id="btn-toggle-edit" data-toggle="button" class="btn btn-secondary" onclick="toggleChemicalEdit(true)">
+      <button type="button" id="btn-toggle-edit" data-toggle="button" class="btn btn-secondary" onclick="toggleDetailEdit(true)">
               <span id="btn-toggle-label" class="oi oi-wrench"></span>
-              {% if doc.data_group.group_type.title != "Functional use" %}
-              Edit Extracted Chemicals
-              {% else %}
-              Edit Extracted Functional Use Records
-              {% endif %}
+              Edit {{ doc.data_group.group_type }} Records
       </button>
       </div>
       <div class="card-body">
@@ -101,74 +97,33 @@
         </div>
         {{ detail_formset.management_form }}
         {% for form in detail_formset.forms %}
+        {{ form.management_form }}
         <div class="col-sm-3">
           <div class="card" >
+                {% if not form.instance.pk %}
+                <div class="text-center">
+                  <small><b>Add new {{ doc.data_group.group_type }} record </b></small><br>
+                </div>
+                {% else %}
+                {% endif %}
             <div class="card-body bg-secondary">
-              <!-- {% for hidden_field in form.hidden_fields %}
-              {{ hidden_field }}
-              {% endfor %} -->
-              {% if not form.instance.pk %}
-              <div class="text-center">
-                <small><b>Add New Chemical</b></small><br>
-              </div>
-              {% else %}
-              {% endif %}
-              {{ form.id.as_hidden }}
-              <div class="text-center">
-                <small><b>{{ form.raw_cas.label_tag }}</b></small><br>
-                  {{ form.raw_cas}}
-              </div>
-              <div class="text-center">
-                <small><b>{{ form.raw_chem_name.label_tag }}</b></small><br>
-                  {{ form.raw_chem_name}}
+
+             {{ form.id.as_hidden }}
+              {% for field in form.visible_fields %}
+                    <small><b>{{ field.label_tag }}</b></small><br>
+              <div class="text-center small form-group {%if field.errors %}alert-danger{%endif%}">
+                    {{ field}}
               </div>
 
-        {% if doc.data_group.group_type.title != "Functional use" %}
-              <div class="text-center">
-                <small><b>{{ form.raw_min_comp.label_tag }}</b></small><br>
-                  {{ form.raw_min_comp}}
-              </div>
-              <div class="text-center">
-                  <small><b>{{ form.raw_central_comp.label_tag }}</b></small><br>
-                  {{ form.raw_central_comp}}
-              </div>
-              <div class="text-center">
-                <small><b>{{ form.raw_max_comp.label_tag }}</b></small><br>
-                  {{ form.raw_max_comp}}
-              </div>
-              <div class="text-center">
-                <small><b>{{ form.unit_type.label_tag }}</b></small><br>
-                {% if form.unit_type.errors %}
-                  {% render_field form.unit_type class="chem-control form-control is-invalid" %}
-                  {{ form.unit_type.errors }}
-                {% else %}
-                  {{ form.unit_type }}
-                {% endif %}
-            <div class="text-center">
-                <small><b>{{ form.ingredient_rank.label_tag }}</b></small><br>
-                    {{ form.ingredient_rank}}
-            </div>
-        </div>
-        {% endif  %}
+             {% endfor %} <!-- fields -->
 
 
-              <div class="text-center">
-                <small><b>{{ form.report_funcuse.label_tag }}</b></small><br>
-                  {{ form.report_funcuse}}
-              </div>
-              <div class="text-center">
-                {% if form.instance.pk %}
-                <small><b>{{ form.DELETE.label_tag }}</b></small><br>
-                  {{ form.DELETE}}
-                {% else %}
-                {% endif %}
-              </div>
             </div>
           </div>
         </div>
         {% endfor %}
       </div>
-      <button type = "submit" id="save" name="save" class="btn btn-primary chem-control" role="button">Save edits</button>
+      <button type = "submit" id="save" name="save" class="btn btn-primary detail-control" role="button">Save edits</button>
       <div class="row card-body">
         <div class="col-sm-6">
           <button type = "submit" id="approve" name="approve" class="btn btn-success btn-lg btn-block" role="button">Approve</button>
@@ -215,28 +170,28 @@
 {% block js %}
   <script type="text/javascript">
         window.onload = function() {
-        toggleChemicalEdit(false);
+        toggleDetailEdit(false);
         }
 
-        function toggleChemicalEdit(enable=true) {
-            // set the chemical data fields to editable
+        function toggleDetailEdit(enable=true) {
+            // set the detail fields to editable
             // show the notes box
             if (enable)  {
                 // enter edit mode
                 $('#save').removeClass('disabled');
                 $('#btn-toggle-edit').addClass('btn-warning');
-                $('#btn-toggle-edit').attr("onclick","toggleChemicalEdit(false)");
-                $('.chem-control').addClass('unlocked');
-                $('.chem-control').prop('disabled', false);
+                $('#btn-toggle-edit').attr("onclick","toggleDetailEdit(false)");
+                $('.detail-control').addClass('unlocked');
+                $('.detail-control').prop('disabled', false);
                 $('.extext-control').addClass('unlocked');
                 $('.extext-control').prop('disabled', false);
             } else{
                 // exit edit mode
-                $('#btn-toggle-edit').attr("onclick","toggleChemicalEdit(true)");
+                $('#btn-toggle-edit').attr("onclick","toggleDetailEdit(true)");
                 $('#save').addClass('disabled');
                 $('#btn-toggle-edit').removeClass('btn-warning');
-                $('.chem-control').removeClass('unlocked');
-                $('.chem-control').prop('disabled', true);
+                $('.detail-control').removeClass('unlocked');
+                $('.detail-control').prop('disabled', true);
                 $('.extext-control').removeClass('unlocked');
                 $('.extext-control').prop('disabled', true);
             }

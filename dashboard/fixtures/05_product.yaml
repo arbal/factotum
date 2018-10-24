@@ -457,11 +457,10 @@
 - model: dashboard.product
   pk: 60
   fields: {created_at: !!timestamp '2018-03-13 11:27:21.499807', updated_at: !!timestamp '2018-03-13
-      11:27:21.499809', data_source: 8, source_category: null, title: "Sikaflex Self-\
-      Leveling Sealant", manufacturer: '', upc: stub_60, url: null, brand_name: Sika,
-    size: null, model_number: null, color: null, item_id: null, parent_item_id: null,
-    short_description: null, long_description: null, thumb_image: null, medium_image: null,
-    large_image: null}
+      11:27:21.499809', data_source: 8, source_category: null, title: Sikaflex Self-Leveling
+      Sealant, manufacturer: '', upc: stub_60, url: null, brand_name: Sika, size: null,
+    model_number: null, color: null, item_id: null, parent_item_id: null, short_description: null,
+    long_description: null, thumb_image: null, medium_image: null, large_image: null}
 - model: dashboard.product
   pk: 61
   fields: {created_at: !!timestamp '2018-03-13 11:28:18.465216', updated_at: !!timestamp '2018-03-13
@@ -8508,8 +8507,8 @@
 - model: dashboard.product
   pk: 1079
   fields: {created_at: !!timestamp '2018-04-25 10:59:47.591856', updated_at: !!timestamp '2018-04-25
-      10:59:47.591858', data_source: 8, source_category: null, title: "Botanical Disinfecting\
-      \ Multi-Surface Cleaner", manufacturer: 'Seventh Generation, Inc.', upc: stub_1079,
+      10:59:47.591858', data_source: 8, source_category: null, title: Botanical Disinfecting
+      Multi-Surface Cleaner, manufacturer: 'Seventh Generation, Inc.', upc: stub_1079,
     url: null, brand_name: Seventh Generation, size: null, model_number: null, color: null,
     item_id: null, parent_item_id: null, short_description: null, long_description: null,
     thumb_image: null, medium_image: null, large_image: null}
@@ -14625,10 +14624,10 @@
     thumb_image: null, medium_image: null, large_image: null}
 - model: dashboard.product
   pk: 1842
-  fields: {created_at: !!timestamp '2018-07-25 09:13:03.712935', updated_at: !!timestamp '2018-07-25
-      09:13:03.725402', data_source: 25, source_category: null, title: Acetone, manufacturer: '',
-    upc: stub_1842, url: null, brand_name: '', size: '', model_number: null, color: '',
-    item_id: null, parent_item_id: null, short_description: null, long_description: null,
+  fields: {created_at: !!timestamp '2018-07-25 09:13:03.712935', updated_at: !!timestamp '2018-10-14
+      02:14:53.036301', data_source: 25, source_category: null, title: Acetone, manufacturer: me,
+    upc: stub_1842, url: null, brand_name: null, size: null, model_number: null, color: null,
+    item_id: null, parent_item_id: null, short_description: '', long_description: '',
     thumb_image: null, medium_image: null, large_image: null}
 - model: dashboard.product
   pk: 1843
@@ -14678,4 +14677,13 @@
       09:37:50.836571', data_source: 10, source_category: null, title: Magic Minerals,
     manufacturer: '', upc: stub_1849, url: null, brand_name: '', size: '', model_number: null,
     color: '', item_id: null, parent_item_id: null, short_description: null, long_description: null,
+    thumb_image: null, medium_image: null, large_image: null}
+- model: dashboard.product
+  pk: 1850
+  fields: {created_at: !!timestamp '2018-10-14 21:50:48.212226', updated_at: !!timestamp '2018-10-19
+      01:23:44.812837', data_source: 25, source_category: null, title: testes, manufacturer: me,
+    upc: stub_1850, url: null, brand_name: goop, size: big, model_number: null, color: brown,
+    item_id: null, parent_item_id: null, short_description: null, long_description: this
+      is a very long description of the product that is described on this page and
+      it tells me all kinds of information that I need to know about this given product,
     thumb_image: null, medium_image: null, large_image: null}

@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.decorators import login_required
 
 from dashboard.models import *
-from dashboard.forms import ExtractedTextForm, HabitsPUCForm, HnPFormSet
+from dashboard.forms import HabitsPUCForm, create_detail_formset
 
 
 @login_required()
@@ -18,6 +18,7 @@ def habitsandpractices(request, pk,
                                                     extraction_script=script)
     if created:
         extext.doc_date = 'please add...'
+    ExtractedTextForm, HnPFormSet = create_detail_formset(doc.data_group.type)
     ext_form = ExtractedTextForm(request.POST or None, instance=extext)
     hp_formset = HnPFormSet(request.POST or None,
                             instance=extext, prefix='habits')

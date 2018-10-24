@@ -1,16 +1,11 @@
 from django.test import Client
+from dashboard.tests.loader import *
 from django.test import TestCase, override_settings, RequestFactory
 from dashboard.models import DataDocument, Script, ExtractedText, ExtractedChemical, QAGroup
 
 @override_settings(ALLOWED_HOSTS=['testserver'])
 class TestQaPage(TestCase):
-    fixtures = ['00_superuser.yaml','01_lookups.yaml',
-    '02_datasource.yaml','03_datagroup.yaml',
-    '04_PUC.yaml','05_product.yaml',
-    '06_datadocument.yaml','07_script.yaml',
-    '08_extractedtext.yaml','09_productdocument.yaml',
-    '10_extractedchemical.yaml', '11_dsstoxsubstance.yaml',
-    '15_extractedfunctionaluse.yaml']
+    fixtures = fixtures_standard
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -34,18 +29,27 @@ class TestQaPage(TestCase):
         response = self.client.get('/qa/extractedtext/7', follow=True)
         # print(response.context['extracted_text'])
 
+    def test_chemical_presence_formset(self):
+        # Open the Script page to create a QA Group
+        response = self.client.get('/qa/extractionscript/11', follow=True)
+        # Follow the first approval link
+        response = self.client.get('/qa/extractedtext/254781', follow=True)
+        self.assertIn(b'<input type="text" name="presence-0-raw_cas" value="0000064-17-5"', response.content)
+        self.assertIn(b'<input type="text" name="presence-0-raw_chem_name" value="sd alcohol 40-b (ethanol)"', response.content)
+        # Check for the presence of the new Chemical Presence-specific class tags
+        self.assertIn(b'class="detail-control form-control CP"', response.content)
 
     def test_hidden_fields(self):
         '''ExtractionScript 15 includes a functional use data group with pk = 5.
         Its QA page should hide the composition fields '''
         # Create the QA group by opening the Script's page
-        response = self.client.get('/qa/extractionscript/15', follow=True)
+        response = self.client.get('/qa/extractionscript/15/', follow=True)
         # Open the DataGroup's first QA approval link
         response = self.client.get('/qa/extractedtext/5/', follow=True)
         # A raw_cas field should be in the page
-        self.assertIn(b'<input type="text" name="details-1-raw_cas"', response.content)
+        self.assertIn(b'<input type="text" name="uses-1-raw_cas"', response.content)
         # There should not be any unit_type field in the functional use QA display
-        self.assertNotIn(b'<input type="text" name="details-1-unit_type"', response.content)
+        self.assertNotIn(b'<input type="text" name="uses-1-unit_type"', response.content)
         # The values shown should match the functional use record, not the chemical record
         self.assertIn(b'Functional Use Chem1', response.content)
 
@@ -54,4 +58,4 @@ class TestQaPage(TestCase):
         # Open the QA page for a non-FunctionalUse document
         response = self.client.get('/qa/extractedtext/7/', follow=True)
         # This page should include a unit_type input form
-        self.assertIn(b'details-1-unit_type', response.content)
+        self.assertIn(b'chemicals-1-unit_type', response.content)

@@ -6,7 +6,7 @@ from lxml import html
 
 from dashboard import views
 from dashboard.models import *
-from dashboard.forms import HnPFormSet
+from dashboard.forms import create_detail_formset
 from dashboard.tests.loader import load_model_objects
 
 
@@ -26,7 +26,9 @@ class HabitViewTest(TestCase):
         self.assertEqual(found.func, views.link_habitsandpractices)
 
     def test_product_surveyed_field(self):
-
+        self.objects.gt.code = 'HP'
+        self.objects.gt.save()
+        _, HnPFormSet = create_detail_formset(self.objects.dg.type)
         data = {'habits-TOTAL_FORMS':'2',
                 'habits-INITIAL_FORMS':'1',
                 'habits-MIN_NUM_FORMS':'0',

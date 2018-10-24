@@ -52,13 +52,8 @@ class DashboardTest(TestCase):
         self.assertEqual('100%', extracted_doc_count)
 
     def test_PUC_download(self):
-        # assign an attribute to PUC
-        puc_a = PUCAttribute.objects.create(name='test_puc_attribute')
-        self.objects.puc.attribute = puc_a
-        self.objects.puc.save()
-        self.objects.puc.attribute.save()
         p = self.objects.puc
-        puc_line = (p.gen_cat+','+p.prod_fam+','+p.prod_type+','+p.description+','+str(p.attribute))
+        puc_line = (p.gen_cat+','+p.prod_fam+','+p.prod_type+','+p.description)
         # get csv
         response = self.client.get('/dl_pucs/')
         self.assertEqual(response.status_code, 200)
@@ -74,3 +69,12 @@ class DashboardTest(TestCase):
         response_html = html.fromstring(response)
         self.assertTrue(response_html.xpath('//*[@id="chemical_search"]'),
                       'The chemical search input should appear on the dashboard')
+
+    def test_chemical_card(self): #this can be joined w/ the one being merged in
+        response = self.client.get('/').content.decode('utf8')
+        self.assertIn('DSS Tox Chemicals', response,
+                                    'Where is the DSS Tox Chemicals card???')
+        response_html = html.fromstring(response)
+        num_dss = int(response_html.xpath('//*[@name="dsstox"]')[0].text)
+        self.assertEqual(num_dss, 1, 'There should be one DSSToxSubstance')
+

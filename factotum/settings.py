@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     #'debug_toolbar',
     'haystack',
     'haystack_elasticsearch',
-
+    'taggit',
+    'taggit_labels'
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,7 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 HAYSTACK_CONN = 'default'
+
+TAGGIT_CASE_INSENSITIVE = True
+
+EXTRA = 1

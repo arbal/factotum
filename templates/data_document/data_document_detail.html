@@ -3,6 +3,8 @@
 {% load humanize %}
 {% load widget_tweaks %}
 
+{% block title %}Data Doc {{ doc.id }}: {{ doc.title }}{% endblock %}
+
 {% block content %}
     <h1 class="col-12">
         <span name="title">{{ doc.title }}</span>
@@ -29,15 +31,18 @@
         <dd class="col-sm-9">
             {{ doc.data_group.group_type }}
         </dd>
-        {% if document_type_form %}
+        <dt class="col-sm-3">Data Group Type Code</dt>
+        <dd class="col-sm-9">
+            {{ doc.data_group.group_type.code }}
+        </dd>
         <dt class="col-sm-3">Data Document Type</dt>
         <dd class="col-sm-9">
-            <form method="post" novalidate>
+            <form method="post" action="{% url 'save_doc_form' doc.pk %}" novalidate>
                 {% csrf_token %}
                 {{ document_type_form }}
+                {{ detail_formset.management_form }}
             </form>
         </dd>
-        {% endif %}
         {% if doc.organization %}
         <dt class="col-sm-3">Organization/dt>
         <dd class="col-sm-9">
@@ -46,9 +51,10 @@
         {% endif %}
     </dl>
 
-    <div class=" row col-sm-12">
+    <div class="row col-sm-12">
 
-    {%  if not habits_and_practices_formset.forms %}
+    {%  if not doc.data_group.is_habits_and_practices %}
+    <!-- add products -->
     <div class="col-sm-6">
     <h4>Products</h4>
     <div class="card-body border">
@@ -64,27 +70,29 @@
     </div>
     {% endif %}
 
-    <div class="col-sm-6">
+    <div class="col-sm-6 extracted-text">
     <h4>Extracted Text</h4>
     <div class="card-body border">
+        {% if extracted_text_form %}
         {% if extracted_text_form.errors %}
             <div class="form-group has-error">
                 <span class="help-block">{{ extracted_text_form.errors }}</span>
             </div>
         {% endif %}
-        <form method="post" >
+        <form method="post" action="{% url 'save_ext_form' doc.pk %}">
             {% csrf_token %}
             {{ form.id.as_hidden }}
             <dl class="row col-sm-12">
+                {% if extracted_text_form.cat_code %}
+                <dt class="col-sm-6">CPCat Code</dt>
+                <dd  class="col-sm-6">{{ extracted_text_form.cat_code }}</dd>
+                {% endif %}
                 <dt class="col-sm-6">Product Name</dt>
-                <dd  class="col-sm-6">{{ extracted_text_form.prod_name }}
-                </dd>
+                <dd  class="col-sm-6">{{ extracted_text_form.prod_name }}</dd>
                 <dt class="col-sm-6">Doc Date</dt>
-                <dd  class="col-sm-6">{{ extracted_text_form.doc_date }}
-                </dd>
+                <dd  class="col-sm-6">{{ extracted_text_form.doc_date }}</dd>
                 <dt class="col-sm-6">Rev Num</dt>
-                <dd  class="col-sm-6">{{ extracted_text_form.rev_num }}
-                </dd>
+                <dd  class="col-sm-6">{{ extracted_text_form.rev_num }}</dd>
                 <dt class="col-sm-6">Script</dt>
                 <dd  class="col-sm-6">
                     <a href="{{ extracted_text.extraction_script.url| default_if_none:'' }}" target="_blank">
@@ -104,105 +112,54 @@
             <button type="submit" id="save_extracted_text" name="save_extracted_text"
                     class="btn btn-primary chem-control" role="button">Save edits</button>
         </form>
-    </div>
-    </div>
-    </div>
-
-
-    {%  if chemical_formset.forms %}
-    <br>
-    <h4>Extracted Chemicals</h4>
-    <div class="card-body">
-    <form method="post" >
-    {{ chemical_formset.management_form }}
-    {% csrf_token %}
-    <div class="row">
-        {% for form in chemical_formset.forms %}
-            <div class="col-sm-6">
-                <div class="card" >
-                    <div class="card-body">
-                        {% if form.errors %}
-                            <div class="form-group has-error">
-                                <span class="help-block">{{ form.errors }}</span>
-                            </div>
-                        {% endif %}
-                        {{ form.id.as_hidden }}
-                        <dl class="row col-sm-12">
-                            <dt class="col-sm-6">{{ form.raw_cas.label_tag }}</dt>
-                            <dd  class="col-sm-6">{{ form.raw_cas}}</dd>
-                            <dt class="col-sm-6">{{ form.raw_chem_name.label_tag }}</dt>
-                            <dd  class="col-sm-6">{{ form.raw_chem_name}}</dd>
-                            <dt class="col-sm-6">{{ form.raw_min_comp.label_tag }}</dt>
-                            <dd  class="col-sm-6">{{ form.raw_min_comp}}</dd>
-                            <dt class="col-sm-6">{{ form.raw_central_comp.label_tag }}</dt>
-                            <dd  class="col-sm-6">{{ form.raw_central_comp}}</dd>
-                            <dt class="col-sm-6">{{ form.raw_max_comp.label_tag }}</dt>
-                            <dd  class="col-sm-6">{{ form.raw_max_comp}}</dd>
-                            <dt class="col-sm-6">{{ form.unit_type.label_tag }}</dt>
-                            <dd  class="col-sm-6">{{ form.unit_type}}</dd>
-                            <dt class="col-sm-6">{{ form.weight_fraction_type.label_tag }}</dt>
-                            <dd  class="col-sm-6">{{ form.weight_fraction_type}}</dd>
-                            <dt class="col-sm-6">{{ form.report_funcuse.label_tag }}</dt>
-                            <dd  class="col-sm-6">{{ form.report_funcuse}}</dd>
-                        </dl>
-                        <button type="submit" id="save_chemicals" name="save_chemicals"
-                                class="btn btn-primary chem-control" role="button">Save edits</button>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-    </form>
-    </div>
-    {%  endif %}
-
-    {%  if habits_and_practices_formset.forms %}
-        <br><br>
-        <h4>Extracted Habits and Practices</h4>
-        <div class="card-body">
-        <form method="post" >
-            {{ habits_and_practices_formset.management_form }}
-            {% csrf_token %}
-            <div class="row">
-                {% for form in habits_and_practices_formset.forms %}
-                    <div class="col-sm-6">
-                        <div class="card" >
-                            <div class="card-body">
-                                {% if form.errors %}
-                                    <div class="form-group has-error">
-                                        <span class="help-block">{{ form.errors }}</span>
-                                    </div>
-                                {% endif %}
-                                {{ form.id.as_hidden }}
-                                <dl class="row col-sm-12">
-                                    <dt class="col-sm-6">{{ form.product_surveyed.label_tag }}</dt>
-                                    <dd  class="col-sm-6">{{ form.product_surveyed}}</dd>
-                                    <dt class="col-sm-6">{{ form.mass.label_tag }}</dt>
-                                    <dd  class="col-sm-6">{{ form.mass}}</dd>
-                                    <dt class="col-sm-6">{{ form.mass_unit.label_tag }}</dt>
-                                    <dd  class="col-sm-6">{{ form.mass_unit}}</dd>
-                                    <dt class="col-sm-6">{{ form.frequency.label_tag }}</dt>
-                                    <dd  class="col-sm-6">{{ form.frequency}}</dd>
-                                    <dt class="col-sm-6">{{ form.frequency_unit.label_tag }}</dt>
-                                    <dd  class="col-sm-6">{{ form.frequency_unit}}</dd>
-                                    <dt class="col-sm-6">{{ form.duration.label_tag }}</dt>
-                                    <dd  class="col-sm-6">{{ form.duration}}</dd>
-                                    <dt class="col-sm-6">{{ form.duration_unit.label_tag }}</dt>
-                                    <dd  class="col-sm-6">{{ form.duration_unit}}</dd>
-                                    <dt class="col-sm-6">{{ form.prevalence.label_tag }}</dt>
-                                    <dd  class="col-sm-6">{{ form.prevalence}}</dd>
-                                    <dt class="col-sm-2">{{ form.notes.label_tag }}</dt>
-                                    <dd  class="col-sm-10">{{ form.notes}}</dd>
-                                </dl>
-                                <button type="submit" id="save_habits_and_practices" name="save_habits_and_practices"
-                                        class="btn btn-primary chem-control" role="button">Save edits</button>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </form>
+        {% else %}
+            No Extracted Text exists for this Data Document
+        {% endif %}
         </div>
-    {%  endif %}
+    </div>
+    </div>
 
+{% if extracted_text_form %}
+<form method="post" action="">
+    <div class="row col-sm-12">
+        <h4>{{ doc.data_group.group_type }} detail</h4>
+    </div>
+    <button type="submit" id="save_extracted_detail" name="save_extracted_detail"
+    class="btn btn-primary detail-control" role="button">Save {{ doc.data_group.group_type }} edits</button>
+    <div class="card-body">
+        {% csrf_token %}
+        <div class="row">
+        {% for form in detail_formset.forms %}
+        <div class="col-sm-6" style="padding-top: 30px;" >
+            <div class="card" style="background-color:{{ form.color }};" >
+                <div class="card-body">
+                    {% if not form.instance.pk %}
+                    <div class="text-center">
+                      <small><b>Add New {{ doc.data_group.group_type }}</b></small><br>
+                    </div>
+                    {% else %}
+                    {% endif %}
+                    {% if form.errors %}
+                        <div class="form-group alert alert-danger" role="alert">
+                            <span class="alert-danger">{{ form.errors }}</span>
+                        </div>
+                    {% endif %}
+                    {{ form.id.as_hidden }}
+                    <dl class="row col-sm-12">
+                    {% for field in form.visible_fields %}
+                        <dt class="col-sm-6">{{ field.label_tag }}</dt>
+                        <dd  class="col-sm-6 small form-group {%if field.errors %}alert-danger{%endif%}" style="max-width: 100%;max-height: 100%;">
+                            {{ field}}
+                        </dd>
+                    {% endfor %}
+                    </dl>
+                </div>
+                {{ detail_formset.management_form }}
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+</form>
+{% endif %}
 {% endblock %}

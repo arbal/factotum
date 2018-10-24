@@ -68,4 +68,9 @@ python manage.py dumpdata dashboard.productdocument --format=yaml > ./dashboard/
 python manage.py dumpdata dashboard.extractedchemical --format=yaml > ./dashboard/fixtures/10_extractedchemical.yaml
 
 python manage.py dumpdata dashboard.dsstoxsubstance --format=yaml > ./dashboard/fixtures/11_dsstoxsubstance.yaml
+
+python manage.py dumpdata dashboard.extractedlistpresence --format=yaml > ./dashboard/fixtures/16_extractedcpcat.yaml
+
+python manage.py dumpdata dashboard.extractedlistpresence --format=yaml > ./dashboard/fixtures/17_extractedlistpresence.yaml
+
 """

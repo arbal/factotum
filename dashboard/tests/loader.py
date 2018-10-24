@@ -6,7 +6,10 @@ from dashboard.models import *
 fixtures_standard = ['00_superuser.yaml','01_lookups.yaml','02_datasource.yaml','03_datagroup.yaml',
                     '04_PUC.yaml','05_product.yaml','06_datadocument.yaml','07_script.yaml',
                     '08_extractedtext.yaml','09_productdocument.yaml','10_extractedchemical.yaml',
-                     '11_dsstoxsubstance.yaml']
+                     '11_dsstoxsubstance.yaml', '12_habits_and_practices.yaml', 
+                     '13_habits_and_practices_to_puc.yaml','14_product_to_puc.yaml',
+                     '15_extractedfunctionaluse.yaml','16_extractedcpcat.yaml',
+                     '17_extractedlistpresence.yaml','18_puc_tag.yaml']
 
 class dotdict(dict):
     """dot.notation access to dictionary attributes"""
@@ -17,6 +20,9 @@ class dotdict(dict):
 def load_model_objects():
     user = User.objects.create_user(username='Karyn',
                                         password='specialP@55word')
+    superuser = User.objects.create_superuser(username='SuperKaryn',
+                                              password='specialP@55word',
+                                              email='me@epa.gov')
     ds = DataSource.objects.create(title='Data Source for Test',
                                         estimated_records=2, state='AT',
                                         priority='HI')
@@ -26,7 +32,7 @@ def load_model_objects():
     exscript = Script.objects.create(title='Test Extraction Script',
                                    url='http://www.epa.gov/',
                                    qa_begun=False, script_type='EX')
-    gt = GroupType.objects.create(title='Composition')
+    gt = GroupType.objects.create(id=2, title='Composition', code='CO')
     dg = DataGroup.objects.create(name='Data Group for Test',
                                         description='Testing...',
                                         data_source = ds,
@@ -36,7 +42,8 @@ def load_model_objects():
                                         group_type=gt,
                                         csv='register_records_matching.csv',
                                         url='https://www.epa.gov')
-    dt = DocumentType.objects.create(title='msds/sds', group_type=gt)
+    dt = DocumentType.objects.create(id=2, title='MSDS', group_type=gt)
+    
     doc = DataDocument.objects.create(title='test document',
                                             data_group=dg,
                                             document_type=dt,
@@ -68,7 +75,7 @@ def load_model_objects():
                                             ingredient = ing)
     dsstox = DSSToxSubstance.objects.create(extracted_chemical=ec,
                                             true_chemname='Test Chem Name')
-    pa = ProductAttribute.objects.create(title="Test Product Attribute")
+    pt = PUCTag.objects.create(name="Test PUC Attribute")
     pd = ProductDocument.objects.create(product=p, document=doc)
     ehp = ExtractedHabitsAndPractices.objects.create(extracted_text=extext,
                                                      product_surveyed='Test Product Surveyed',
@@ -76,6 +83,7 @@ def load_model_objects():
 
 
     return dotdict({'user':user,
+                    'superuser':superuser,
                     'ds':ds,
                     'script':script,
                     'exscript':exscript,
@@ -88,7 +96,7 @@ def load_model_objects():
                     'wft':wft,
                     'ec':ec,
                     'dsstox':dsstox,
-                    'pa':pa,
+                    'pt':pt,
                     'pd':pd,
                     'ing':ing,
                     'dt':dt,

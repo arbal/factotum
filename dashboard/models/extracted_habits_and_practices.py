@@ -26,6 +26,12 @@ class ExtractedHabitsAndPractices(CommonInfo):
     def __str__(self):
         return self.product_surveyed
 
+    @classmethod
+    def detail_fields(cls):
+        return ['product_surveyed','mass','mass_unit','frequency',
+                'frequency_unit','duration','duration_unit',
+                'prevalence','notes']
+        
     def clean(self):
         if self.mass and self.mass_unit == "":
             msg = "Mass unit must be supplied if mass is specified."
@@ -36,3 +42,6 @@ class ExtractedHabitsAndPractices(CommonInfo):
         if self.duration and self.duration_unit == "":
             msg = "Duration unit must be supplied if duration is specified."
             raise ValidationError({'duration_unit': msg})
+
+    def get_extractedtext(self):
+        return self.extracted_text

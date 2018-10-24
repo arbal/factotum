@@ -1,12 +1,5 @@
-from django import forms
-from django.conf import settings
-from django.core.files import File
-from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
-
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render, get_object_or_404
 
 from dashboard.models import (DSSToxSubstance)
 

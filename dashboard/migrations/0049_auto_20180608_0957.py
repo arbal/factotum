@@ -3,13 +3,13 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-from dashboard.models.group_type import GroupType
 from dashboard.models.document_type import DocumentType
 
 
 def create_default_data_group_type(apps, schema_editor):
     # create the default "unidentified" group_type
-    GroupType.objects.create(title='Unidentified', description='Unidentified Group Type')
+    group_type = apps.get_model('dashboard', 'GroupType')
+    group_type.objects.create(title='Unidentified', description='Unidentified Group Type')
 
     data_group = apps.get_model('dashboard', 'DataGroup')
     for dg in data_group.objects.all():

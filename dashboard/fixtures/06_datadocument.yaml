@@ -1,26 +1,29 @@
 - model: dashboard.datadocument
   pk: 5
-  fields: {created_at: !!timestamp '2018-08-21 13:16:47.965719', updated_at: null,
-    filename: test_functional_use_1.pdf, title: Test Functional Use Doc 1, url: '',
-    raw_category: '', data_group: 5, matched: true, extracted: true, document_type: null,
-    organization: ''}
+  fields: {created_at: !!timestamp '2018-08-21 13:16:47.965719', updated_at: !!timestamp '2018-10-18
+      02:46:36.855219', filename: test_functional_use_1.pdf, title: Test Functional
+      Use Doc 1, url: '', raw_category: '', data_group: 5, matched: true, extracted: true,
+    document_type: 9, organization: ''}
 - model: dashboard.datadocument
   pk: 7
-  fields: {created_at: !!timestamp '2018-03-09 11:32:00.391711', updated_at: null,
-    filename: 11165872.pdf, title: Avgas 100LL (<0.1% Benzene), url: 'https://airbpmsds.bp.com/ussds/amersdsf.nsf/AllFiles_AIR_BP_FUELS/89C50579C812749A8025806F0057F0C0/$File/11165872.pdf',
-    raw_category: '', data_group: 6, matched: true, extracted: false, document_type: null,
+  fields: {created_at: !!timestamp '2018-03-09 11:32:00.391711', updated_at: !!timestamp '2018-10-16
+      04:08:02.564253', filename: 11165872.pdf, title: Avgas 100LL (<0.1% Benzene),
+    url: 'https://airbpmsds.bp.com/ussds/amersdsf.nsf/AllFiles_AIR_BP_FUELS/89C50579C812749A8025806F0057F0C0/$File/11165872.pdf',
+    raw_category: '', data_group: 6, matched: true, extracted: false, document_type: 2,
     organization: ''}
 - model: dashboard.datadocument
   pk: 8
-  fields: {created_at: !!timestamp '2018-03-09 11:32:00.392831', updated_at: null,
-    filename: 11177849.pdf, title: AVCAT (FSII + Lubricity Improver Additive), url: 'https://airbpmsds.bp.com/ussds/amersdsf.nsf/AllFiles_AIR_BP_FUELS/A419F6F11DA742518025808E0057F2DB/$File/11177849.pdf',
-    raw_category: '', data_group: 6, matched: true, extracted: false, document_type: null,
+  fields: {created_at: !!timestamp '2018-03-09 11:32:00.392831', updated_at: !!timestamp '2018-10-14
+      00:02:30.509335', filename: 11177849.pdf, title: AVCAT (FSII + Lubricity Improver
+      Additive), url: 'https://airbpmsds.bp.com/ussds/amersdsf.nsf/AllFiles_AIR_BP_FUELS/A419F6F11DA742518025808E0057F2DB/$File/11177849.pdf',
+    raw_category: '', data_group: 6, matched: true, extracted: false, document_type: 5,
     organization: ''}
 - model: dashboard.datadocument
   pk: 53
-  fields: {created_at: !!timestamp '2018-03-12 09:10:17.429346', updated_at: null,
-    filename: 41.pdf, title: Material Safety Data Sheet - Menards, url: 'http://www.homedepot.com/catalog/pdfImages/b3/b30c0a92-eb85-4f1a-ad18-0c8448070cb7.pdf',
-    raw_category: '', data_group: 8, matched: true, extracted: false, document_type: null,
+  fields: {created_at: !!timestamp '2018-03-12 09:10:17.429346', updated_at: !!timestamp '2018-10-17
+      11:54:34.138803', filename: 41.pdf, title: Material Safety Data Sheet - Menards,
+    url: 'http://www.homedepot.com/catalog/pdfImages/b3/b30c0a92-eb85-4f1a-ad18-0c8448070cb7.pdf',
+    raw_category: '', data_group: 8, matched: true, extracted: true, document_type: 12,
     organization: ''}
 - model: dashboard.datadocument
   pk: 54
@@ -1344,10 +1347,10 @@
     data_group: 24, matched: true, extracted: true, document_type: 1, organization: ''}
 - model: dashboard.datadocument
   pk: 165493
-  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
-      12:17:12.025610', filename: 54d9e7b9-c9b8-4753-8ea4-45ee5495ab31.pdf, title: 'RK1
+  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-10-14
+      23:03:25.975998', filename: 54d9e7b9-c9b8-4753-8ea4-45ee5495ab31.pdf, title: 'RK1
       (Model: 5146G) / (TCL Communication Ltd)', url: '', raw_category: '', data_group: 24,
-    matched: true, extracted: true, document_type: 1, organization: ''}
+    matched: true, extracted: true, document_type: 3, organization: ''}
 - model: dashboard.datadocument
   pk: 165721
   fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
@@ -1362,10 +1365,10 @@
     extracted: true, document_type: 1, organization: ''}
 - model: dashboard.datadocument
   pk: 165963
-  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
-      12:17:11.689020', filename: 5f7ef5de-9de9-4338-b0fc-1d12327d8017.pdf, title: 3M
+  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-10-14
+      22:39:44.747715', filename: 5f7ef5de-9de9-4338-b0fc-1d12327d8017.pdf, title: 3M
       Bondo Metal-Fill 452 256 KIT / (3M Company), url: '', raw_category: '', data_group: 24,
-    matched: true, extracted: true, document_type: 1, organization: ''}
+    matched: true, extracted: true, document_type: 4, organization: ''}
 - model: dashboard.datadocument
   pk: 166229
   fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
@@ -1387,10 +1390,10 @@
     document_type: 1, organization: ''}
 - model: dashboard.datadocument
   pk: 166372
-  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
-      12:17:11.399764', filename: 6a6b2529-6475-42c3-8cd6-66b893d0272e.pdf, title: (LF)
+  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-10-14
+      23:31:39.826161', filename: 6a6b2529-6475-42c3-8cd6-66b893d0272e.pdf, title: (LF)
       Alphabet Phonics Bus / (VTech Electronics Ltd), url: '', raw_category: '', data_group: 24,
-    matched: true, extracted: true, document_type: 1, organization: ''}
+    matched: true, extracted: true, document_type: 5, organization: ''}
 - model: dashboard.datadocument
   pk: 166510
   fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
@@ -1443,16 +1446,16 @@
     data_group: 24, matched: true, extracted: true, document_type: 1, organization: ''}
 - model: dashboard.datadocument
   pk: 167497
-  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
-      12:17:10.550958', filename: 866176cf-aa81-48e5-97c4-84115a4e8a5e.pdf, title: Acorn
+  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-10-17
+      11:55:30.455153', filename: 866176cf-aa81-48e5-97c4-84115a4e8a5e.pdf, title: Acorn
       Compound / (The Gyde Group), url: '', raw_category: '', data_group: 24, matched: true,
-    extracted: true, document_type: 1, organization: ''}
+    extracted: true, document_type: 4, organization: ''}
 - model: dashboard.datadocument
   pk: 167827
-  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
-      12:17:10.293684', filename: 8ee00c32-de37-4396-9afb-f13a42b5043b.pdf, title: Revlon
+  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-10-14
+      23:06:12.232979', filename: 8ee00c32-de37-4396-9afb-f13a42b5043b.pdf, title: Revlon
       Photoready Filter Foundation / (Revlon Research Center), url: '', raw_category: '',
-    data_group: 24, matched: true, extracted: true, document_type: 1, organization: ''}
+    data_group: 24, matched: true, extracted: true, document_type: 4, organization: ''}
 - model: dashboard.datadocument
   pk: 168025
   fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
@@ -1461,10 +1464,10 @@
     data_group: 24, matched: true, extracted: true, document_type: 1, organization: ''}
 - model: dashboard.datadocument
   pk: 168107
-  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
-      12:17:10.073255', filename: 95d9574b-6800-42bd-8c02-f5e01f844086.pdf, title: 2017
+  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-10-14
+      22:52:25.619472', filename: 95d9574b-6800-42bd-8c02-f5e01f844086.pdf, title: 2017
       National Hair Care Base SH-CN PDQ (2234) / (KAO USA Inc.), url: '', raw_category: '',
-    data_group: 24, matched: true, extracted: true, document_type: 1, organization: ''}
+    data_group: 24, matched: true, extracted: true, document_type: 3, organization: ''}
 - model: dashboard.datadocument
   pk: 168259
   fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
@@ -1473,10 +1476,10 @@
     matched: true, extracted: true, document_type: 1, organization: ''}
 - model: dashboard.datadocument
   pk: 168353
-  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
-      12:17:09.877805', filename: 9c266dad-9d00-45cb-b864-6f2f042cfad8.pdf, title: 'Remote
+  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-10-14
+      22:59:46.049263', filename: 9c266dad-9d00-45cb-b864-6f2f042cfad8.pdf, title: 'Remote
       Control Toy / (Abrim Enterprises, Inc.)', url: '', raw_category: '', data_group: 24,
-    matched: true, extracted: true, document_type: 1, organization: ''}
+    matched: true, extracted: true, document_type: 4, organization: ''}
 - model: dashboard.datadocument
   pk: 168359
   fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
@@ -1498,10 +1501,10 @@
     matched: true, extracted: true, document_type: 1, organization: ''}
 - model: dashboard.datadocument
   pk: 169226
-  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
-      12:17:09.211055', filename: b12b2234-efff-4797-aea0-592e7347102f.pdf, title: 0V3-Tussin
+  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-10-14
+      23:39:40.818839', filename: b12b2234-efff-4797-aea0-592e7347102f.pdf, title: 0V3-Tussin
       Day-Nighttime DM MAX Liquid Combo Pack / (Perrigo Company), url: '', raw_category: '',
-    data_group: 24, matched: true, extracted: true, document_type: 1, organization: ''}
+    data_group: 24, matched: true, extracted: true, document_type: 3, organization: ''}
 - model: dashboard.datadocument
   pk: 169314
   fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
@@ -1528,16 +1531,16 @@
     data_group: 24, matched: true, extracted: true, document_type: 1, organization: ''}
 - model: dashboard.datadocument
   pk: 169472
-  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
-      12:17:09.018745', filename: b6a65432-b05f-4ae9-91b8-21fab8a3f281.pdf, title: 26
+  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-10-14
+      22:44:36.583917', filename: b6a65432-b05f-4ae9-91b8-21fab8a3f281.pdf, title: 26
       WH Li Ion Battery Containing Products / (Stanley Black & Decker), url: '', raw_category: '',
-    data_group: 24, matched: true, extracted: true, document_type: 1, organization: ''}
+    data_group: 24, matched: true, extracted: true, document_type: 2, organization: ''}
 - model: dashboard.datadocument
   pk: 169615
-  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
-      12:17:08.907877', filename: b9ea8382-5ac5-413e-86d5-ff5fe903c90c.pdf, title: Apple
+  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-10-14
+      23:19:05.050706', filename: b9ea8382-5ac5-413e-86d5-ff5fe903c90c.pdf, title: Apple
       Cell Phone Battery / (Brightstar Corp.), url: '', raw_category: '', data_group: 24,
-    matched: true, extracted: true, document_type: 1, organization: ''}
+    matched: true, extracted: true, document_type: 5, organization: ''}
 - model: dashboard.datadocument
   pk: 169753
   fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
@@ -1590,10 +1593,10 @@
     document_type: 1, organization: ''}
 - model: dashboard.datadocument
   pk: 170709
-  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
-      12:17:08.051453', filename: d4f14c96-80e9-4344-9f90-4afa65854836.pdf, title: SoundLink627840
+  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-10-14
+      23:01:38.923968', filename: d4f14c96-80e9-4344-9f90-4afa65854836.pdf, title: SoundLink627840
       / (E & S INTERNATIONAL), url: '', raw_category: '', data_group: 24, matched: true,
-    extracted: true, document_type: 1, organization: ''}
+    extracted: true, document_type: 4, organization: ''}
 - model: dashboard.datadocument
   pk: 170788
   fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
@@ -1633,16 +1636,16 @@
     matched: true, extracted: true, document_type: 1, organization: ''}
 - model: dashboard.datadocument
   pk: 171774
-  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
-      12:17:07.226587', filename: ef365f21-b9b5-490e-9a2c-939f16dfb9c4.pdf, title: 'FOUND
+  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-10-14
+      01:57:46.408690', filename: ef365f21-b9b5-490e-9a2c-939f16dfb9c4.pdf, title: 'FOUND
       Radiant Illuminating Drops / (HATCHBEAUTY Products, LLC.)', url: '', raw_category: '',
-    data_group: 24, matched: true, extracted: true, document_type: 1, organization: ''}
+    data_group: 24, matched: true, extracted: false, document_type: 1, organization: ''}
 - model: dashboard.datadocument
   pk: 171900
-  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
-      12:17:07.131525', filename: f2727133-1f8c-42b5-9ac7-5b9e419dbaca.pdf, title: Walmart
+  fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-10-14
+      22:55:12.532102', filename: f2727133-1f8c-42b5-9ac7-5b9e419dbaca.pdf, title: Walmart
       USA (PLP) / (G T Plus Limited), url: '', raw_category: '', data_group: 24, matched: true,
-    extracted: true, document_type: 1, organization: ''}
+    extracted: true, document_type: 3, organization: ''}
 - model: dashboard.datadocument
   pk: 172146
   fields: {created_at: !!timestamp '2017-12-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
@@ -2006,8 +2009,8 @@
     data_group: 37, matched: true, extracted: true, document_type: 1, organization: ''}
 - model: dashboard.datadocument
   pk: 180966
-  fields: {created_at: !!timestamp '2018-01-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20
-      12:17:00.234231', filename: 005363.pdf, title: Oxford Alloys Nickel Flux Cored
+  fields: {created_at: !!timestamp '2018-10-19 02:40:18.029489', updated_at: !!timestamp '2018-10-19
+      02:40:28.789633', filename: 005363.pdf, title: Oxford Alloys Nickel Flux Cored
       Wire, url: 'http://www.airgas.com/msds/005363.pdf', raw_category: '', data_group: 37,
     matched: true, extracted: true, document_type: 1, organization: ''}
 - model: dashboard.datadocument
@@ -3515,13 +3518,13 @@
     organization: ''}
 - model: dashboard.datadocument
   pk: 254780
-  fields: {created_at: !!timestamp '2018-09-27 22:49:26.971596', updated_at: !!timestamp '2018-09-27
-      22:49:26.971623', filename: 0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf, title: List of Chemicals 1,
-      url: 'https://www.epa.gov', raw_category: null,
-    data_group: 49, matched: true, extracted: false, document_type: 10, organization: ''}
+  fields: {created_at: !!timestamp '2018-09-27 22:49:26.971596', updated_at: !!timestamp '2018-10-18
+      05:20:14.698196', filename: 0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf, title: List
+      of Chemicals 1, url: 'https://www.epa.gov', raw_category: null, data_group: 49,
+    matched: true, extracted: true, document_type: 10, organization: ''}
 - model: dashboard.datadocument
   pk: 254781
-  fields: {created_at: !!timestamp '2018-09-27 22:49:26.999437', updated_at: !!timestamp '2018-09-27
-      22:49:26.999467', filename: 0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf, title: List of Chemicals 2,
-      url: 'https://www.epa.gov', raw_category: null,
-    data_group: 49, matched: true, extracted: false, document_type: 10, organization: ''}
+  fields: {created_at: !!timestamp '2018-09-27 22:49:26.999437', updated_at: !!timestamp '2018-10-18
+      05:36:00.325527', filename: 0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf, title: List
+      of Chemicals 2, url: 'https://www.epa.gov', raw_category: null, data_group: 49,
+    matched: true, extracted: true, document_type: 10, organization: ''}

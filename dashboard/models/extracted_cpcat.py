@@ -1,6 +1,6 @@
 from django.db import models
 
-from dashboard.models import CommonInfo, ExtractedText
+from .extracted_text import ExtractedText
 
 class ExtractedCPCat(ExtractedText):
     cat_code = models.CharField("Cat Code", max_length=100,

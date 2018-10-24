@@ -66,14 +66,14 @@
         </div>
         <div class="card text-center bg-light">
             <div class="card-body">
-                <h3 class="card-title text-muted"></h3>
-                <div class="card-text font-weight-bold display-4"></div>
+                <h3 class="card-title text-muted">Extracted Chemicals</h3>
+                <div class="card-text font-weight-bold display-4">{{ chemical_count | intword}}</div>
             </div>
         </div>
         <div class="card text-center bg-light">
             <div class="card-body">
-                <h3 class="card-title text-muted"></h3>
-                <div class="card-text font-weight-bold display-4"></div>
+                <h3 class="card-title text-muted">DSS Tox Chemicals</h3>
+                <div class="card-text font-weight-bold display-4" name='dsstox'>{{ dss_tox_count | intword}}</div>
             </div>
         </div>
     </div>

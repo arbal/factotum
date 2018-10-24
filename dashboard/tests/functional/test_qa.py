@@ -9,11 +9,6 @@ class QATest(TestCase):
     def setUp(self):
         self.objects = load_model_objects()
         self.client.login(username='Karyn', password='specialP@55word')
-        # self.test_start = time.time()
-
-    # def tearDown(self):
-    #     self.test_elapsed = time.time() - self.test_start
-    #     print('\nFinished with ' + self._testMethodName + ' in {:.2f}s'.format(self.test_elapsed))
 
     def test_qa_scoreboard(self):
         response = self.client.get('/qa/').content.decode('utf8')

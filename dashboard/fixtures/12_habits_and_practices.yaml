@@ -22,3 +22,10 @@
       22:31:16.078340', extracted_text: 54, product_surveyed: dish soap, mass: '33.00000',
     mass_unit: millgrams, frequency: '32.00000', frequency_unit: bubbles, duration: '88.00000',
     duration_unit: mounds, prevalence: everywhere, notes: ''}
+- model: dashboard.extractedhabitsandpractices
+  pk: 5
+  fields: {created_at: !!timestamp '2018-10-23 14:07:09.203430', updated_at: !!timestamp '2018-10-23
+      14:07:09.203456', extracted_text: 53, product_surveyed: trombone, mass: '0.00047',
+    mass_unit: grams, frequency: '4.70000', frequency_unit: slides, duration: '22.00000',
+    duration_unit: whole notes, prevalence: out-n-about, notes: another HnP to link
+      to PUCs}

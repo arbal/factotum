@@ -22,3 +22,7 @@
   pk: 6
   fields: {created_at: !!timestamp '2018-08-14 22:31:21.854854', updated_at: !!timestamp '2018-08-14
       22:31:21.854879', extracted_habits_and_practices: 4, PUC: 2}
+- model: dashboard.extractedhabitsandpracticestopuc
+  pk: 7
+  fields: {created_at: !!timestamp '2018-10-23 14:35:39.191381', updated_at: !!timestamp '2018-10-23
+      14:35:39.191498', extracted_habits_and_practices: 5, PUC: 6}

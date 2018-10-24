@@ -1,9 +1,10 @@
 import csv
+
 from django.utils import timezone
 from django.test import TestCase
 
 from dashboard.models import *
-from dashboard.tests.loader import load_model_objects
+from dashboard.tests.loader import *
 
 def create_data_documents(data_group, source_type, pdfs):
     '''Used to imitate the creation of new DataDocuments from CSV'''
@@ -41,7 +42,7 @@ class ModelsTest(TestCase):
         self.assertTrue(isinstance(self.objects.ing, Ingredient))
         self.assertTrue(isinstance(self.objects.p, Product))
         self.assertTrue(isinstance(self.objects.pd, ProductDocument))
-        self.assertTrue(isinstance(self.objects.pa, ProductAttribute))
+        self.assertTrue(isinstance(self.objects.pt, PUCTag))
 
     def test_datagroup(self):
         self.assertTrue(isinstance(self.objects.dg, DataGroup))
@@ -83,10 +84,10 @@ class ModelsTest(TestCase):
                                     str(self.objects.ec))
 
     def test_product_attribute(self):
-        self.assertEqual(ProductToAttribute.objects.count(), 0)
-        p2a = ProductToAttribute.objects.create(product=self.objects.p,
-                                            product_attribute=self.objects.pa)
-        self.assertEqual(ProductToAttribute.objects.count(), 1)
+        self.assertEqual(ProductToTag.objects.count(), 0)
+        p2t = ProductToTag.objects.create(content_object=self.objects.p,
+                                            tag=self.objects.pt)
+        self.assertEqual(ProductToTag.objects.count(), 1)
 
     def test_data_group(self):
         doc = DataDocument.objects.create(data_group=self.objects.dg)
@@ -130,3 +131,18 @@ class ModelsTest(TestCase):
         self.assertEqual(self.objects.doc.get_abstract_filename(),
                         f'document_{pk}.pdf',
                         'This is used in the FileSystem naming convention.')
+
+class PUCModelTest(TestCase):
+
+    fixtures = fixtures_standard
+
+    def test_get_the_kids(self):
+        puc = PUC.objects.get(pk=20) # PUC w/ only gen_cat value
+        self.assertGreater(len(puc.get_the_kids()),1, ('PUC should have more'
+                                                        'than one child PUCs'))
+        puc = PUC.objects.get(pk=6) # PUC w/ gen_cat and prod_fam value
+        self.assertGreater(len(puc.get_the_kids()),1, ('PUC should have more'
+                                                        'than one child PUCs'))
+        puc = PUC.objects.get(pk=126) # PUC w/ ALL values
+        self.assertEqual(len(puc.get_the_kids()),1, ('PUC should only have '
+                                                        'itself associated'))

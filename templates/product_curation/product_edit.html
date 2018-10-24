@@ -11,4 +11,13 @@
         <button type="submit" class="btn btn-primary">Submit</button>
         <a class="btn btn-secondary" href="{% url 'product_detail' pk=product.pk %}">Cancel</a>
     </form>
+
+{% endblock %}
+
+{% block css %} {{ form.media.css }} {% endblock %}
+{% block js %}
+    <script type="text/javascript">
+        $('#id_tags').addClass('taggit-labels taggit-list')
+    </script>
+    {{ form.media.js }}
 {% endblock %}

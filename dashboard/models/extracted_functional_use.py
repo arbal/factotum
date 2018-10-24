@@ -15,3 +15,10 @@ class ExtractedFunctionalUse(CommonInfo):
 
     def __str__(self):
         return self.raw_chem_name
+
+    @classmethod
+    def detail_fields(cls):
+        return ['extracted_text','raw_cas','raw_chem_name','report_funcuse']
+
+    def get_extractedtext(self):
+        return self.extracted_text
