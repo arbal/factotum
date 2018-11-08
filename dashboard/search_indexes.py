@@ -65,6 +65,7 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
     template_name='search/indexes/dashboard/product_text.txt')
     title = indexes.EdgeNgramField(model_attr='title')
     facet_model_name = indexes.CharField(faceted=True)
+    upc = indexes.CharField(model_attr='upc')
     result_css_class = indexes.CharField()
     short_description = indexes.EdgeNgramField(model_attr="short_description", null=True)
 

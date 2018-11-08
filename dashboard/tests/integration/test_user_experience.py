@@ -94,6 +94,12 @@ class TestIntegration(StaticLiveServerTestCase):
         self.assertIn('/datasource/', self.browser.current_url,
                         "User should always return to detail page after submit")
 
+        num_pucs = len(PUC.objects.all())
+        self.browser.get(self.live_server_url)
+        bubbles = self.browser.find_elements_by_class_name('bubble')
+        self.assertEqual(num_pucs, len(bubbles), ('There should be a circle'
+                                                    'drawn for every PUC'))
+
     def test_datagroup(self):
         list_url = self.live_server_url + '/datagroups/'
         self.browser.get(list_url)

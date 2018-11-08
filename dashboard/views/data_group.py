@@ -36,13 +36,15 @@ def data_group_detail(request, pk,
                       template_name='data_group/datagroup_detail.html'):
     dg = get_object_or_404(DataGroup, pk=pk, )
     dg_type = str(dg.type)
+    dg.doc_types = DocumentType.objects.filter(group_type=dg.group_type)
     docs = dg.datadocument_set.get_queryset()#this needs to be updated after matching...
     prod_link = ProductDocument.objects.filter(document__in=docs)
     page = request.GET.get('page')
     paginator = Paginator(docs, 50) # TODO: make this dynamic someday in its own ticket
     store = settings.MEDIA_URL + str(dg.fs_id)
-    # TODO: test to see if this handles DoesNotExist
     ext = ExtractedText.objects.filter(data_document_id__in=docs).first()
+    if ext:
+        ext = ext.pull_out_cp()
     context = { 'datagroup'      : dg,
                 'documents'      : paginator.page(1 if page is None else page),
                 'all_documents'  : docs, # this used for template download
@@ -190,7 +192,7 @@ def data_group_create(request, pk,
             for line in table: # read every csv line, create docs for each
                 count+=1
                 doc_type = DocumentType.objects.get(pk=1)
-                dtype = line['document_type']
+                code = line['document_type']
                 if line['filename'] == '' :
                     errors.append([count,"Filename can't be empty!"])
                     continue
@@ -202,16 +204,16 @@ def data_group_create(request, pk,
                     continue
                 if line['title'] == '': # updates title in line object
                     line['title'] = line['filename'].split('.')[0]
-                if dtype == '':
+                if code == '':
                     errors.append([count,
                                     "'document_type' field can't be empty"])
                     continue
-                if DocumentType.objects.filter(pk=int(dtype)).exists():
-                    doc_type = DocumentType.objects.get(pk=int(dtype))
-                    if doc_type.group_type != datagroup.group_type:
-                        errors.append([count,"Group Type doesn't match"])
+                if DocumentType.objects.filter(group_type=datagroup.group_type,
+                                                            code=code).exists():
+                    doc_type = DocumentType.objects.get(
+                                    group_type=datagroup.group_type,code=code)
                 else:
-                    errors.append([count,"GroupType id doesn't exist."])
+                    errors.append([count,"DocumentType code doesn't exist."])
 
                 filenames.append(line['filename'])
                 doc=DataDocument(filename=line['filename'],
@@ -244,8 +246,12 @@ def data_group_create(request, pk,
             datagroup.save()
             return redirect('data_group_detail', pk=datagroup.id)
     else:
+        groups = GroupType.objects.all()
+        for group in groups:
+            group.codes = DocumentType.objects.filter(group_type=group)
         form = DataGroupForm(user=request.user, initial=initial_values)
-    context = {'form': form, 'header': header, 'datasource': datasource}
+    context = {'form': form, 'header': header,
+                'datasource': datasource, 'groups' : groups}
     return render(request, template_name, context)
 
 
@@ -326,3 +332,21 @@ def habitsandpractices(request, pk,
                       'hp_formset'  : hp_formset,
                       }
     return render(request, template_name, context)
+
+@login_required
+def dg_raw_extracted_records(request, pk):
+    columnlist = ['extracted_text_id','id','raw_cas','raw_chem_name','raw_min_comp','raw_central_comp','raw_max_comp','unit_type__title']
+    dg = DataGroup.objects.get(pk=pk)
+    et = ExtractedText.objects.filter(data_document__data_group = dg).first()
+    if et:
+        dg_name = dg.get_name_as_slug()
+        qs = ExtractedChemical.objects.filter(extracted_text__data_document__data_group_id=pk).values(*columnlist)
+        #print('Writing %s records to csv' % len(qs) )
+        return render_to_csv_response(qs, filename=(dg_name +
+                                                    "_raw_extracted_records.csv"),
+                                  field_header_map={"id": "ExtractedChemical_id"},
+                                  use_verbose_names=False)
+    else:
+        qs = ExtractedChemical.objects.filter(extracted_text__data_document__id=pk).values(*columnlist)
+        return render_to_csv_response(qs, filename='raw_extracted_records.csv' ,
+                                        use_verbose_names=False)

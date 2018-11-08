@@ -23,11 +23,14 @@ def data_document_detail(request, pk,
     context = {'doc': doc,
             'document_type_form': document_type_form}
 
-    # TODO: this needs to account for the absence of an ExtractedText object
-    # https://github.com/HumanExposure/factotum/issues/470
-    #extracted_text = ExtractedText.objects.get(data_document=doc)
     try:
         extracted_text = ExtractedText.objects.get(data_document=doc)
+
+    except ExtractedText.DoesNotExist:
+        #print('No ExtractedText object found for DataDocument: %s' % doc )
+        extracted_text = None
+
+    else:
         #print('ExtractedText object found: %s' % extracted_text )
         extracted_text = extracted_text.pull_out_cp() #get CP if exists
         extracted_text_form = ParentForm(instance=extracted_text)
@@ -48,11 +51,6 @@ def data_document_detail(request, pk,
         color = (hex for hex in colors)
         for form in child_formset.forms:
             form.color = next(color)
-
-    except ExtractedText.DoesNotExist:
-        #print('No ExtractedText object found for DataDocument: %s' % doc )
-        extracted_text = None
-
     return render(request, template_name, context)
 
 @login_required()

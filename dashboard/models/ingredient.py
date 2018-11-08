@@ -9,20 +9,24 @@ from .script import Script
 def validate_wf_analysis(value):
     if value < 0 or value > 1:
         raise ValidationError(
-            ('Quantity {} is not allowed'.format(value)),params={'value': value},
-        )
+            (f'Quantity {value} is not allowed'),params={'value': value})
 
 
 class Ingredient(CommonInfo):
     lower_wf_analysis = models.DecimalField(max_digits=16, decimal_places=15,
-                                            null=True, blank=True, validators=[validate_wf_analysis])
+                                            null=True, blank=True,
+                                            validators=[validate_wf_analysis])
     central_wf_analysis = models.DecimalField(max_digits=16, decimal_places=15,
-                                              null=True, blank=True, validators=[validate_wf_analysis])
+                                              null=True, blank=True,
+                                              validators=[validate_wf_analysis])
     upper_wf_analysis = models.DecimalField(max_digits=16, decimal_places=15,
-                                            null=True, blank=True, validators=[validate_wf_analysis])
-    extracted_chemical = models.OneToOneField(to=ExtractedChemical, on_delete=models.CASCADE, null=True,
-                                              blank=True)
-    script = models.ForeignKey(to=Script, on_delete=models.CASCADE, null=True, blank=True)
+                                            null=True, blank=True,
+                                            validators=[validate_wf_analysis])
+    extracted_chemical = models.OneToOneField(to=ExtractedChemical,
+                                                    on_delete=models.CASCADE,
+                                                    null=True, blank=True)
+    script = models.ForeignKey(to=Script, on_delete=models.CASCADE,
+                                                    null=True, blank=True)
 
     def __str__(self):
         return str(self.id)

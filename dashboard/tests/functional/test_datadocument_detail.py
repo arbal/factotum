@@ -4,7 +4,7 @@ from django.test import Client
 from dashboard.tests.loader import *
 from dashboard.forms import *
 from lxml import html
-from factotum.settings import EXTRA 
+from factotum.settings import EXTRA
 
 
 @override_settings(ALLOWED_HOSTS=['testserver'])
@@ -37,19 +37,35 @@ class DataDocumentDetailTest(TestCase):
         dd.refresh_from_db()
         self.assertEqual(dd.document_type_id, 2,
                          'DataDocument 7 should have a final document_type_id of 2')
-    
+
     def test_absent_extracted_text(self):
         # Check every data document and confirm that its detail page loads,
         # with or without a detail formset
         for dd in DataDocument.objects.all():
-            ddid = dd.id 
+            ddid = dd.id
             resp = self.client.get('/datadocument/%s/' % ddid)
             self.assertEqual(resp.status_code, 200, 'The page must return a 200 status code')
             try:
                 extracted_text = ExtractedText.objects.get(data_document=dd)
-                self.assertContains(resp, '<h4>Extracted Text</h4>')
             except ExtractedText.DoesNotExist:
-                self.assertNotContains(resp, '<h4>Extracted Text</h4>')
+                #print(dd.id)
+                self.assertContains(resp, 'No Extracted Text exists for this Data Document')
+            else:
+                self.assertContains(resp, '<h4>Extracted Text</h4>')
+
+    def test_script_links(self):
+        doc = DataDocument.objects.first()
+        response = self.client.get(f'/datadocument/{doc.pk}/')
+        self.assertIn('Download Script',response.content.decode('utf-8'))
+        self.assertIn('Extraction Script',response.content.decode('utf-8'))
+
+    def test_product_card_location(self):
+        response = self.client.get('/datadocument/179486/')
+        html = response.content.decode('utf-8')
+        e_idx = html.index('<h4>Extracted Text</h4>')
+        p_idx = html.index('<h4>Products</h4>')
+        self.assertTrue(p_idx > e_idx, ('Product card should come after ' 
+                                        'Extracted Text card'))
 
 
 class TestDynamicDetailFormsets(TestCase):
@@ -85,5 +101,3 @@ class TestDynamicDetailFormsets(TestCase):
             dd_child_model  = get_extracted_models(dd.data_group.group_type.code)[1]
             childform_model = child_formset.__dict__.get('queryset').__dict__.get('model')
             self.assertEqual(dd_child_model, childform_model)
-
-

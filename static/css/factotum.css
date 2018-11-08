@@ -1,0 +1,12 @@
+div.search-result-main{
+    display: flex;
+    justify-content: space-between;
+    border-top:solid 1px #AEB6BF;
+}
+.search-result-main{margin-top: 1em;padding-top:0.5em;}
+
+.search-result-meta li + li::before {
+    content: " | ";
+}
+
+

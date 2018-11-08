@@ -95,18 +95,72 @@
     <div id="product_with_puc_count_by_month_barchart">
         <svg style="height:350px;width:100%;overflow:visible"></svg>
     </div>
+    <h4>Products Linked to PUCs</h4>
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button class="org b1" id="split">PUC Level Split</button>
+      <button class="org b2" id="combine">Combine</button>
+    </div>
+
+      <div class="chart-example" id="chart">
+        <svg>
+
+        </svg>
+      </div>
+
+    <div class="">
+      <svg style="height:35px;width:100%;overflow:visible"></svg>
+    </div>
 
 {% endblock %}
 
 {% block css %}
     <!-- NVD3 CSS -->
     <link rel="stylesheet" href="{% static "css/nv.d3.css" %}">
+    <style media="screen">
+
+      .chart-example {
+        width:840px;
+        height:500px;
+        border-radius: 25px;
+        border:2px solid;
+        background-color:#d9ffcc;
+      }
+      .chart-wrap {
+        padding-left: 80px;
+        padding-right: 50%;
+        display:inline;
+      }
+      .org {
+        background-color:#ffb84d;
+        /* border: none; */
+        border-radius: 5px;
+        border-color: black;
+      }
+      .org:hover {
+        background-color:#ffcc80;
+      }
+      .b1 {
+        border-radius: 5px 0px 0px 0px;
+        border-width: 2px 2px 0px 2px;
+        margin-left:100px;
+      }
+      .b2 {
+        border-radius: 0px 5px 0px 0px;
+        border-width: 2px 2px 0px 0px;
+      }
+      .org:focus {
+        outline: none;
+      }
+
+    </style>
 {% endblock %}
 
 {% block js %}
+    <script src="{% static 'js/d3_rick.min.js' %}"></script>
     <script src="{% static 'js/d3.js' %}"></script>
     <script src="{% static 'js/nv.d3.js' %}"></script>
     <script src="{% static 'js/dashboard/index.js' %}"></script>
+    <script src="{% static 'js/bubble_chart.js' %}"></script>
     <script>
         product_with_puc_count_by_month = [
             {
@@ -154,5 +208,18 @@
                 'yAxis': '0'
             }
         ];
+
+
+        d3.csv('{% url "download_PUCs" %}', function(error, data) {
+          if (error) {
+              console.error('Error getting or parsing the data.');
+              throw error;
+          }
+          // selection.datum() returns the bound datum for the first element in the selection and
+          //  doesn't join the specified array of data with the selected elements
+          var chart = bubbleChart().width(840).height(500);
+          d3.select('#chart').datum(data).call(chart);
+        });
+
     </script>
 {% endblock %}

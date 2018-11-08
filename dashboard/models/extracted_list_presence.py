@@ -3,7 +3,8 @@ from django.db import models
 from dashboard.models import CommonInfo
 
 class ExtractedListPresence(CommonInfo):
-    extracted_cpcat = models.ForeignKey('ExtractedCPCat', on_delete=models.CASCADE,
+    extracted_cpcat = models.ForeignKey('ExtractedCPCat',
+                                        on_delete=models.CASCADE,
                                         related_name='presence')
     raw_cas = models.CharField("Raw CAS", max_length=100,
                                         null=True, blank=True)

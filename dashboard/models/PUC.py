@@ -3,7 +3,8 @@ from taggit.managers import TaggableManager
 from django.db import models
 
 from .common_info import CommonInfo
-from .extracted_habits_and_practices_to_puc import ExtractedHabitsAndPracticesToPUC
+from .extracted_habits_and_practices_to_puc import (
+                                            ExtractedHabitsAndPracticesToPUC)
 from .extracted_habits_and_practices import ExtractedHabitsAndPractices
 
 
@@ -12,10 +13,12 @@ class PUC(CommonInfo):
     prod_fam = models.CharField(max_length=50, null=True, blank=True)
     prod_type = models.CharField(max_length=100, null=True, blank=True)
     description = models.TextField(null=False, blank=False)
-    last_edited_by = models.ForeignKey('auth.User', default=1, on_delete=models.CASCADE)
+    last_edited_by = models.ForeignKey('auth.User', on_delete=models.CASCADE,
+                                                                    default=1)
     products = models.ManyToManyField('Product', through='ProductToPUC')
-    extracted_habits_and_practices = models.ManyToManyField('dashboard.ExtractedHabitsAndPractices',
-                                                            through='dashboard.ExtractedHabitsAndPracticesToPUC')
+    extracted_habits_and_practices = models.ManyToManyField(
+                        'dashboard.ExtractedHabitsAndPractices',
+                        through='dashboard.ExtractedHabitsAndPracticesToPUC')
     tags = TaggableManager(through='dashboard.PUCToTag',
                            to='dashboard.PUCTag',
                            help_text='A set of PUC Tags applicable to this PUC')
@@ -33,6 +36,16 @@ class PUC(CommonInfo):
 
     def tag_list(self, obj):
         return u", ".join(o.name for o in obj.tags.all())
+
+
+    def get_level(self):
+        if self.is_level_one:
+            return 1
+        if self.is_level_two:
+            return 2
+        else:
+            return 3
+
 
     @property
     def is_level_one(self): # gen_cat only

@@ -4,7 +4,7 @@ from django.test.client import Client
 from django.http import HttpRequest
 from dashboard.tests.loader import load_model_objects
 from dashboard import views
-
+from lxml import html
 
 
 class NavBarTest(TestCase):
@@ -48,3 +48,12 @@ class NavBarTest(TestCase):
         self.assertContains(response, 'Get Data')
         response = self.client.get('/get_data/')
         self.assertContains(response, 'Summary metrics by chemical')
+
+    def test_data_curation(self):
+        self.client.login(username='Karyn', password='specialP@55word')
+        response = self.client.get('/').content.decode('utf8')
+        response_html = html.fromstring(response)
+        self.assertIn('Data Curation',
+                      response_html.xpath('string(//*[@id="navbarDataCurationDropdownMenuLink"]/text())'),
+                      'The Data Curation dropdown should appear in the navbar.')
+

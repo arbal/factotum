@@ -39,7 +39,8 @@ class Script(CommonInfo):
                 extractedtext__extraction_script=self.pk).count()
 
     def get_qa_complete_extractedtext_count(self):
-        return DataDocument.objects.filter(extractedtext__qa_checked=True, extractedtext__extraction_script=self.pk).count()
+        return DataDocument.objects.filter(extractedtext__qa_checked=True,
+                            extractedtext__extraction_script=self.pk).count()
 
     def get_pct_checked(self):
         count = self.get_datadocument_count()
@@ -61,4 +62,4 @@ class Script(CommonInfo):
         Compare the derived percent checked against the threshold constant
         Return true when the percent checked is above the threshold
         """
-        return self.get_pct_checked_numeric() >= self.QA_COMPLETE_PERCENTAGE * 100
+        return self.get_pct_checked_numeric() >= QA_COMPLETE_PERCENTAGE * 100

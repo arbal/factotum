@@ -14,65 +14,58 @@
             </a>
         </div>
     </h1>
-    <dl class="row col-sm-12">
-        <dt class="col-sm-3">Data Source</dt>
-        <dd class="col-sm-9">
+    <dl class="row col-lg-12">
+        <dt class="col-lg-3">Data Source</dt>
+        <dd class="col-lg-9">
             <a title="Data Source"
                href="{% url 'data_source_detail' doc.data_group.data_source.id %}"> {{ doc.data_group.data_source }}
             </a>
         </dd>
-        <dt class="col-sm-3">Data Group</dt>
-        <dd class="col-sm-9">
+        <dt class="col-lg-3">Data Group</dt>
+        <dd class="col-lg-9">
             <a title="Data Group"
                 href="{% url 'data_group_detail' doc.data_group.id %}"> {{ doc.data_group }}
             </a>
         </dd>
-        <dt class="col-sm-3">Data Group Type</dt>
-        <dd class="col-sm-9">
+        <dt class="col-lg-3">Data Group Type</dt>
+        <dd class="col-lg-9">
             {{ doc.data_group.group_type }}
         </dd>
-        <dt class="col-sm-3">Data Group Type Code</dt>
-        <dd class="col-sm-9">
+        <dt class="col-lg-3">Data Group Type Code</dt>
+        <dd class="col-lg-9">
             {{ doc.data_group.group_type.code }}
         </dd>
-        <dt class="col-sm-3">Data Document Type</dt>
-        <dd class="col-sm-9">
+        <dt class="col-lg-3">Data Document Type</dt>
+        <dd class="col-lg-9">
             <form method="post" action="{% url 'save_doc_form' doc.pk %}" novalidate>
                 {% csrf_token %}
                 {{ document_type_form }}
                 {{ detail_formset.management_form }}
             </form>
         </dd>
+        <dt class="col-lg-3">Download Script</dt>
+        <dd class="col-lg-9">
+          {% if doc.data_group.download_script %}
+          <a title="Data Group"
+              href="{{ doc.data_group.download_script.url }}"> {{ doc.data_group.download_script }}
+          </a>
+          {% else %}
+          None
+          {% endif %}
+        </dd>
         {% if doc.organization %}
-        <dt class="col-sm-3">Organization/dt>
-        <dd class="col-sm-9">
+        <dt class="col-lg-3">Organization</dt>
+        <dd class="col-lg-9">
             {{ doc.organization }}
         </dd>
         {% endif %}
     </dl>
 
-    <div class="row col-sm-12">
+    <div class="row col-lg-12">
 
-    {%  if not doc.data_group.is_habits_and_practices %}
-    <!-- add products -->
-    <div class="col-sm-6">
-    <h4>Products</h4>
-    <div class="card-body border">
-        <dl class="row col-sm-12">
-        <dt class="col-sm-6"></dt>
-        <dd  class="col-sm-6">
-            {%  for product in doc.products.all %}
-                <a href="{% url "product_detail" product.pk %}">{{ product }}</a><br>
-            {% endfor %}
-        </dd>
-        </dl>
-    </div>
-    </div>
-    {% endif %}
-
-    <div class="col-sm-6 extracted-text">
+    <div class="col-lg-6 col-md-6 extracted-text">
     <h4>Extracted Text</h4>
-    <div class="card-body border">
+    <div class="card-body border container">
         {% if extracted_text_form %}
         {% if extracted_text_form.errors %}
             <div class="form-group has-error">
@@ -82,25 +75,25 @@
         <form method="post" action="{% url 'save_ext_form' doc.pk %}">
             {% csrf_token %}
             {{ form.id.as_hidden }}
-            <dl class="row col-sm-12">
+            <dl class="row col-lg-12">
                 {% if extracted_text_form.cat_code %}
-                <dt class="col-sm-6">CPCat Code</dt>
-                <dd  class="col-sm-6">{{ extracted_text_form.cat_code }}</dd>
+                <dt class="col-lg-6">CPCat Code</dt>
+                <dd  class="col-lg-6">{{ extracted_text_form.cat_code }}</dd>
                 {% endif %}
-                <dt class="col-sm-6">Product Name</dt>
-                <dd  class="col-sm-6">{{ extracted_text_form.prod_name }}</dd>
-                <dt class="col-sm-6">Doc Date</dt>
-                <dd  class="col-sm-6">{{ extracted_text_form.doc_date }}</dd>
-                <dt class="col-sm-6">Rev Num</dt>
-                <dd  class="col-sm-6">{{ extracted_text_form.rev_num }}</dd>
-                <dt class="col-sm-6">Script</dt>
-                <dd  class="col-sm-6">
+                <dt class="col-lg-6">Product Name</dt>
+                <dd  class="col-lg-6">{{ extracted_text_form.prod_name }}</dd>
+                <dt class="col-lg-6">Doc Date</dt>
+                <dd  class="col-lg-6">{{ extracted_text_form.doc_date }}</dd>
+                <dt class="col-lg-6">Rev Num</dt>
+                <dd  class="col-lg-6">{{ extracted_text_form.rev_num }}</dd>
+                <dt class="col-lg-6">Extraction Script</dt>
+                <dd  class="col-lg-6">
                     <a href="{{ extracted_text.extraction_script.url| default_if_none:'' }}" target="_blank">
                         {{ extracted_text.extraction_script.title }}
                     </a>
                 </dd>
-                <dt class="col-sm-6">QA Approved</dt>
-                <dd  class="col-sm-6">{{ extracted_text.qa_checked | yesno | capfirst}}
+                <dt class="col-lg-6">QA Approved</dt>
+                <dd  class="col-lg-6">{{ extracted_text.qa_checked | yesno | capfirst}}
                     {% if not extracted_text.qa_checked %}
                         <div class="btn-group float-lg-right" role="group">
                         <a class="btn btn-primary btn-sm" role="button" title="QA"
@@ -117,11 +110,26 @@
         {% endif %}
         </div>
     </div>
+        {%  if not doc.data_group.is_habits_and_practices %}
+        <!-- add products -->
+        <div class="col-lg-6 col-md-6">
+        <h4>Products</h4>
+        <div class="card-body border container">
+          <ol>
+          {%  for product in doc.products.all %}
+              <li>
+                <a href="{% url "product_detail" product.pk %}">{{ product }}</a><br>
+              </li>
+          {% endfor %}
+          </ol>
+        </div>
+        </div>
+        {% endif %}
     </div>
-
+<br>
 {% if extracted_text_form %}
 <form method="post" action="">
-    <div class="row col-sm-12">
+    <div class="row col-lg-12">
         <h4>{{ doc.data_group.group_type }} detail</h4>
     </div>
     <button type="submit" id="save_extracted_detail" name="save_extracted_detail"
@@ -130,7 +138,7 @@
         {% csrf_token %}
         <div class="row">
         {% for form in detail_formset.forms %}
-        <div class="col-sm-6" style="padding-top: 30px;" >
+        <div class="col-lg-6 col-md-6" style="padding-top: 30px;" >
             <div class="card" style="background-color:{{ form.color }};" >
                 <div class="card-body">
                     {% if not form.instance.pk %}
@@ -145,10 +153,10 @@
                         </div>
                     {% endif %}
                     {{ form.id.as_hidden }}
-                    <dl class="row col-sm-12">
+                    <dl class="row col-lg-12">
                     {% for field in form.visible_fields %}
-                        <dt class="col-sm-6">{{ field.label_tag }}</dt>
-                        <dd  class="col-sm-6 small form-group {%if field.errors %}alert-danger{%endif%}" style="max-width: 100%;max-height: 100%;">
+                        <dt class="col-lg-6">{{ field.label_tag }}</dt>
+                        <dd  class="col-lg-6 small form-group {%if field.errors %}alert-danger{%endif%}" style="max-width: 100%;max-height: 100%;">
                             {{ field}}
                         </dd>
                     {% endfor %}

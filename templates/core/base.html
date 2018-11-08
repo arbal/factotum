@@ -11,8 +11,12 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- Open Iconic CSS -->
-    <link rel="stylesheet" href="{% static 'font/open-iconic-master/font/css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static "font/open-iconic-master/font/css/open-iconic-bootstrap.css" %}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static "DataTables/datatables.min.css" %}">
     <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static "css/factotum.css" %}">
+
     <link rel="stylesheet" href="{% static "css/bootstrap_overrides.css" %}">
     <link rel="stylesheet" href="{% static "css/datatables_overrides.css" %}">
     {% block css %}{% endblock %}
@@ -41,12 +45,20 @@
             <li class="nav-item {% if 'data_source' in request.resolver_match.url_name %}active{% endif %}">
                 <a class="nav-link" href="{% url 'data_source_list' %}">Data Sources</a>
             </li>
-            <li class="nav-item {% if 'product_curation' in request.resolver_match.url_name %}active{% endif %}">
-                <a class="nav-link" href="{% url 'product_curation' %}">Product Curation</a>
+            <li class="nav-item dropdown {% if 'product_curation' in request.resolver_match.url_name %}active{% endif %}">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDataCurationDropdownMenuLink"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Data Curation
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="{% url 'product_curation' %}">Product Curation</a>
+                    <a class="dropdown-item" href="{% url 'bulk_product_puc' %}">Bulk Assign Products to PUCs</a>
+                </div>
             </li>
             <li class="nav-item {% if 'qa' in request.resolver_match.url_name %}active{% endif %}">
                 <a class="nav-link" href="{% url 'qa' %}">QA</a>
             </li>
+            {% block nav %}{% endblock %}
         </ul>
         <ul class="nav navbar-nav navbar-right ml-auto">
             <li class="nav-item dropdown">
@@ -93,10 +105,10 @@
 </footer>
 
     {#<!-- jQuery first, then Popper.js, then Bootstrap JS -->#}
-    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'DataTables/datatables.js' %}"></script>
+    <script src="{% static 'DataTables/datatables.min.js' %}"></script>
     <script src="{% static 'js/facet_search.js' %}"></script>
     {% block js %}{% endblock %}
 

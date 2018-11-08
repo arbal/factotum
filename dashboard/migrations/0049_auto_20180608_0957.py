@@ -9,7 +9,8 @@ from dashboard.models.document_type import DocumentType
 def create_default_data_group_type(apps, schema_editor):
     # create the default "unidentified" group_type
     group_type = apps.get_model('dashboard', 'GroupType')
-    group_type.objects.create(title='Unidentified', description='Unidentified Group Type')
+    group_type.objects.create(title='Unidentified',
+                                description='Unidentified Group Type')
 
     data_group = apps.get_model('dashboard', 'DataGroup')
     for dg in data_group.objects.all():
@@ -19,7 +20,10 @@ def create_default_data_group_type(apps, schema_editor):
 
 def create_default_document_type(apps, schema_editor):
     # create the default "unidentified" document_type
-    DocumentType.objects.create(title='Unidentified', description='Unidentified Document Type', group_type_id=1)
+    doc_type = apps.get_model('dashboard', 'DocumentType')
+    doc_type.objects.create(title='Unidentified',
+                            description='Unidentified Document Type',
+                            group_type_id=1)
 
     docs = apps.get_model('dashboard', 'DataDocument')
     for dd in docs.objects.all():
@@ -33,6 +37,8 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(create_default_data_group_type),
-        migrations.RunPython(create_default_document_type),
+        migrations.RunPython(create_default_data_group_type,
+                            reverse_code=migrations.RunPython.noop),
+        migrations.RunPython(create_default_document_type,
+                            reverse_code=migrations.RunPython.noop),
     ]

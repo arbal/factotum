@@ -38,3 +38,7 @@
   pk: 1952
   fields: {created_at: !!timestamp '2018-10-19 02:38:32.718979', updated_at: !!timestamp '2018-10-19
       02:38:32.719009', product: 1850, document: 252806}
+- model: dashboard.productdocument
+  pk: 1953
+  fields: {created_at: !!timestamp '2018-10-30 02:28:15.222681', updated_at: !!timestamp '2018-10-30
+      02:28:15.222712', product: 1836, document: 179486}

@@ -23,4 +23,8 @@
             }
         }
         );
+    // scroll the extract form into view when toggled
+        $('#extract_form').on('shown.bs.collapse', function () {
+          this.scrollIntoView({ behavior: 'smooth'});
+        });
     });

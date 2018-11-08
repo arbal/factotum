@@ -19,6 +19,11 @@ class FacetedSearchTest(TestCase):
         self.assertNotContains(response, 'Extracted Chemical')
         self.assertNotContains(response, 'DSSTox Substance')
 
+    def test_faceted_search_returns_upc(self):
+        response = self.c.get('/find/?q=avcat')
+        self.assertContains(response, 'stub_1845')
+
+
     def test_group_type_facet(self):
         response = self.c.get('/find/?q=diatom')
         self.assertContains(response, 'Filter by Group Type')
@@ -29,10 +34,10 @@ class FacetedSearchTest(TestCase):
         response = self.c.get('/find/?q=diatom&group_type=BadGroupName')
         self.assertContains(response, 'Sorry, no result found')
 
-    def test_faceted_search_renders_table(self):
+    def test_faceted_search_renders_div(self):
         response = self.c.get('/find/?q=terro')
-        self.assertContains(response, '<table')
-        self.assertContains(response, '<th>Record</th>')
+        self.assertNotContains(response, '<table')
+        self.assertContains(response, '<div class="results-wrapper">')
 
     def test_product_facet_returns(self):
         response = self.c.get('/find/?q=insecticide')

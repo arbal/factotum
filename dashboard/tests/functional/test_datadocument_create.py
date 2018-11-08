@@ -50,8 +50,8 @@ class DDTestUpload(TestCase):
 
     def testGoodGroupTypeInCSV(self):
         csv_string_good = ("filename,title,document_type,url,organization\n"
-                "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,2,, \n"
-                "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,2,, \n")
+                "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,, \n"
+                "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,MS,, \n")
                 # DocumentType.objects.all().filter(group_type__title='Composition').values('id', 'title')
                 # assigning the (compatible) MSDS document type in the csv
 

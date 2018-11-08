@@ -5,6 +5,7 @@ from django.test import TestCase
 
 from dashboard.models import *
 from dashboard.tests.loader import *
+from django.db.models import Q
 
 def create_data_documents(data_group, source_type, pdfs):
     '''Used to imitate the creation of new DataDocuments from CSV'''
@@ -16,7 +17,9 @@ def create_data_documents(data_group, source_type, pdfs):
                 line['title'] = line['filename'].split('.')[0]
             dd = DataDocument.objects.create(filename=line['filename'],
                                             title=line['title'],
-                                            document_type=DocumentType.objects.get(pk=line['document_type']),
+                                            document_type=DocumentType.objects.get(
+                                                Q(code='MS') & Q(group_type_id= data_group.group_type_id)
+                                                ),
                                             url=line['url'],
                                             organization=line['organization'],
                                             matched = line['filename'] in pdfs,

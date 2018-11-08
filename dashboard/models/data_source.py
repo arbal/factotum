@@ -30,7 +30,7 @@ class DataSource(CommonInfo):
     title = models.CharField(max_length=50)
     url = models.CharField(max_length=150, blank=True)
     estimated_records = models.PositiveIntegerField(default=47,
-                                                    validators=[validate_nonzero])
+                                                validators=[validate_nonzero])
     state = models.CharField(max_length=2,
                              choices=STATE_CHOICES,
                              default='AT')

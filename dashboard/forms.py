@@ -27,19 +27,23 @@ class DataGroupForm(forms.ModelForm):
 
 class ExtractionScriptForm(forms.Form):
     required_css_class = 'required' # adds to label tag
-    script_selection = forms.ModelChoiceField(queryset=Script.objects.filter(script_type='EX')
-                                              , label="Extraction Script")
-    weight_fraction_type = forms.ModelChoiceField(queryset=WeightFractionType.objects.all()
-                                                  , label="Weight Fraction Type"
-                                                  , initial="1")
+    script_selection = forms.ModelChoiceField(
+                            queryset=Script.objects.filter(script_type='EX'),
+                            label="Extraction Script")
+    weight_fraction_type = forms.ModelChoiceField(
+                            queryset=WeightFractionType.objects.all(),
+                            label="Weight Fraction Type",
+                            initial="1")
     extract_file = forms.FileField(label="Extracted Text CSV File")
 
     def __init__(self, *args, **kwargs):
         self.dg_type = kwargs.pop('dg_type', 0)
         self.user = kwargs.pop('user', None)
         super(ExtractionScriptForm, self).__init__(*args, **kwargs)
-        self.fields['weight_fraction_type'].widget.attrs.update({'style':'height:2.75rem; !important'})
-        self.fields['script_selection'].widget.attrs.update({'style':'height:2.75rem; !important'})
+        self.fields['weight_fraction_type'].widget.attrs.update(
+                                        {'style':'height:2.75rem; !important'})
+        self.fields['script_selection'].widget.attrs.update(
+                                        {'style':'height:2.75rem; !important'})
         self.fields['extract_file'].widget.attrs.update({'accept':'.csv'})
         if self.dg_type in ['FU','CP']:
             del self.fields['weight_fraction_type']
@@ -86,7 +90,8 @@ class ExtractedTextQAForm(forms.ModelForm):
 
 class BaseExtractedDetailFormSet(forms.BaseInlineFormSet):
     """
-    Base class for the form in which users edit the chemical composition or functional use data
+    Base class for the form in which users edit the chemical composition or
+    functional use data
     """
     required_css_class = 'required'  # adds to label tag
 
@@ -144,6 +149,14 @@ class ProductPUCForm(BasePUCForm):
         model = ProductToPUC
         fields = ['puc']
 
+class BulkProductPUCForm(BasePUCForm):
+    id_pks = forms.CharField(label='Product Titles',
+                             widget=forms.HiddenInput(),
+                             required=True)
+    class Meta:
+        model = ProductToPUC
+        fields = ['puc', 'id_pks']
+
 class HabitsPUCForm(BasePUCForm):
     class Meta:
         model = ExtractedHabitsAndPracticesToPUC
@@ -200,7 +213,7 @@ def create_detail_formset(group_type, extra=0):
                                             model=model,
                                             fields=fields,
                                             extra=extra)
-    
+
     def one(): # for chemicals
         ChemicalFormSet = make_formset(parent,child,child.detail_fields())
         return (ExtractedTextForm, ChemicalFormSet)

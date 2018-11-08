@@ -7,6 +7,9 @@ class PUCAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = PUC.objects.all()
         if self.q:
-            qs = qs.filter(Q(gen_cat__icontains=self.q) | Q(prod_fam__icontains=self.q) | Q(prod_type__icontains=self.q))
+            cats = Q(gen_cat__icontains=self.q)
+            fams = Q(prod_fam__icontains=self.q)
+            types = Q(prod_type__icontains=self.q)
+            qs = qs.filter( cats | fams | types )
 
         return qs

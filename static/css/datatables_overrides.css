@@ -8,19 +8,19 @@ table.dataTable thead .sorting_desc::after {
 }
 
 table.dataTable thead .sorting {
-    background-image: url('../DataTables/DataTables-1.10.16/images/sort_both.png');
+    background-image: url('../DataTables/DataTables-1.10.18/images/sort_both.png');
     background-repeat: no-repeat;
     background-position: center right;
 }
 
 table.dataTable thead .sorting_asc {
-    background-image: url('../DataTables/DataTables-1.10.16/images/sort_asc.png');
+    background-image: url('../DataTables/DataTables-1.10.18/images/sort_asc.png');
     background-repeat: no-repeat;
     background-position: center right;
 }
 
 table.dataTable thead .sorting_desc {
-    background-image: url('../DataTables/DataTables-1.10.16/images/sort_desc.png');
+    background-image: url('../DataTables/DataTables-1.10.18/images/sort_desc.png');
     background-repeat: no-repeat;
     background-position: center right;
 }

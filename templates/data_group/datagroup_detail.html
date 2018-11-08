@@ -93,6 +93,11 @@
               {% if datagroup.matched_docs == 0 %}disabled{% endif %}">
           <span class="oi oi-data-transfer-download"></span> Download All PDF Documents
         </a>
+        {% if datagroup.group_type.code in "CO" %}
+        <a href="{% url 'dg_raw_extracted_records' datagroup.pk  %}" class="btn btn-secondary">
+            <span class="oi oi-spreadsheet"></span>&nbsp;Download Raw {{ datagroup.group_type }} Records</a>
+        {% endif %}
+
         <br><br>
         {% if extract_form %}
             <a class="btn btn-secondary" data-toggle="collapse" id="btn_extract_text_form" href="#extract_form">

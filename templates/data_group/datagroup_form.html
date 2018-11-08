@@ -1,6 +1,47 @@
 {% extends 'core/base.html' %}
 {% load staticfiles %}
 
+{% block nav %}
+<li class="nav-item active">
+    <!-- <a class="nav-link btn btn-info" href="{% url 'qa' %}">CRAP</a> -->
+    <!-- <button type="button" class="btn btn-secondary btn-sm">Small button</button> -->
+    <div class="dropdown  allow-focus">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        CODE menu<span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <div id="accordion">
+          <div class="card">
+            {% for group in groups %}
+            <div class="card-header-sm btn btn-secondary border text-white"  data-toggle="collapse" data-target="#{{group.id}}">
+                  {{group.title}}
+            </div>
+            <div id="{{group.id}}" class="collapse {% if group.code == 'CO' %} show {% endif %}" data-parent="#accordion">
+              <div class="card-body">
+                <table class="table table-sm table-bordered text-center">
+                  <thead class="bg-light">
+                    <th class="text-center">code</th>
+                    <th class="text-center">title</th>
+                  </thead>
+                  <tbody>
+                    {% for doc_type in group.codes %}
+                    <tr>
+                      <td>{{doc_type.code}}</td>
+                      <td>{{doc_type.title}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+</li>
+{% endblock %}
+
 {% block content %}
     <h2 class="col-sm-12">
         <span name="title">{{ header }}</span>
@@ -20,29 +61,42 @@
      {% endfor %}
      Please fix this before uploading.</p>
   {% endif %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <form method="post" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            {% include 'core/bs4_form.html' with form=form colspan='col-6'%}
+            <button type="submit" class="btn btn-primary">Submit</button>
+            {# This template can be accessed from multiple places #}
+            <a class="btn btn-secondary" href={% if form.referer %}
+                                              "{{ form.referer }}"
+                                              {% else %}
+                                              "{% url 'data_group_list' %}"
+                                              {% endif %}
+                                              name='cancel'>Cancel</a>
+        </form>
+        <br>
+        <a id="reg" href="{% url 'registered_records.csv' 0 %}" class="btn btn-secondary">
+          <span class="oi oi-spreadsheet"></span>&nbsp;Registered Records CSV Template
+        </a>
+      </div>
+      <div class="col-md-3">
+      </div>
+      <div class="col-md-3">
+      </div>
+    </div>
 
-    <form method="post" enctype="multipart/form-data" novalidate>
-        {% csrf_token %}
-        {% include 'core/bs4_form.html' with form=form colspan='col-6'%}
-        <button type="submit" class="btn btn-primary">Submit</button>
-        {# This template can be accessed from multiple places #}
-        <a class="btn btn-secondary" href={% if form.referer %}
-                                          "{{ form.referer }}"
-                                          {% else %}
-                                          "{% url 'data_group_list' %}"
-                                          {% endif %}
-                                          name='cancel'>Cancel</a>
-    </form>
-    <br>
-    <a id="reg" href="{% url 'registered_records.csv' 0 %}" class="btn btn-secondary">
-      <span class="oi oi-spreadsheet"></span>&nbsp;Registered Records CSV Template
-    </a>
+
+  </div>
+
 {% endblock %}
 
 {% block js %}
     <script src="{% static 'bootstrap_datepicker_plus/js/moment-with-locales.min.js' %}"></script>
     <script src="{% static 'bootstrap_datepicker_plus/js/bootstrap-datetimepicker.min.js' %}"></script>
     <script src="{% static 'bootstrap_datepicker_plus/js/datepicker-widget.js' %}"></script>
+    <script src="{% static 'js/data_group_create.js' %}"></script>
 {% endblock %}
 
 {% block css %}

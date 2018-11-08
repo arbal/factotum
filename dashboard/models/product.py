@@ -12,9 +12,11 @@ class Product(CommonInfo):
                                        to='dashboard.DataDocument')
     tags = TaggableManager(through='dashboard.ProductToTag',
                            to='dashboard.PUCTag',
-                           help_text='A set of PUC Tags applicable to this Product')
+                           help_text=('A set of PUC Tags applicable '
+                                                            'to this Product'))
     source_category = models.ForeignKey(SourceCategory,
-                                        on_delete=models.CASCADE, null=True, blank=True)
+                                                on_delete=models.CASCADE,
+                                                null=True, blank=True)
     title = models.CharField(max_length=255)
     manufacturer = models.CharField(db_index=True, max_length=250,
                             null=True, blank=True, default = '')
@@ -42,9 +44,13 @@ class Product(CommonInfo):
 
     def get_uber_product_to_puc(self):
         pucs = self.producttopuc_set
-        if pucs.filter(classification_method='MA').count() == 1:
+        if pucs.filter(classification_method='MA').exists():
             return pucs.filter(classification_method='MA').first()
-        elif pucs.filter(classification_method='AU').count() == 1:
+        elif pucs.filter(classification_method='MB').exists():
+            return pucs.filter(classification_method='MB').first()
+        elif pucs.filter(classification_method='RU').exists():
+            return pucs.filter(classification_method='RU').first()
+        elif pucs.filter(classification_method='AU').exists():
             return pucs.filter(classification_method='AU').first()
         else:
             return None
@@ -61,7 +67,8 @@ class Product(CommonInfo):
 
     # returns list of valid puc_tags
     def get_puc_tag_list(self):
-        return u", ".join(o.name for o in self.get_uber_product_to_puc().PUC.tags.all())
+        all_uber_tags = self.get_uber_product_to_puc().PUC.tags.all()
+        return u", ".join(o.name for o in all_uber_tags)
 
     # returns set of valid puc_tags
     def get_puc_tags(self):
@@ -69,4 +76,3 @@ class Product(CommonInfo):
 
     class Meta:
           ordering = ['-created_at']
-

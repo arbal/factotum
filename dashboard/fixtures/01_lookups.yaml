@@ -18,71 +18,71 @@
   pk: 5
   fields: {created_at: !!timestamp '2018-07-12 10:51:29.240851', updated_at: !!timestamp '2018-07-12
       10:51:29.240872', title: Supplemental documents, description: '', code: SU}
-- model: dashboard.grouptype
-  pk: 6
-  fields: {created_at: !!timestamp '2018-07-12 10:51:29.240851', updated_at: !!timestamp '2018-07-12
-      10:51:29.240872', title: Composition & Functional use, description: '', code: 'CF'}
+
 - model: dashboard.grouptype
   pk: 6
   fields: {created_at: !!timestamp '2018-09-17 23:46:47.762560', updated_at: !!timestamp '2018-09-17
       23:46:47.762583', title: Chemical presence list, description: '', code: 'CP'}
 - model: dashboard.documenttype
   pk: 1
-  fields: {created_at: !!timestamp '2018-06-20 12:16:49.070487', updated_at: !!timestamp '2018-06-20
-      12:16:49.070504', title: Unidentified, description: Unidentified Document Type,
-    group_type: 1}
+  fields: {created_at: !!timestamp '2018-06-20 12:16:49.070487', updated_at: !!timestamp '2018-10-31
+      21:39:49.839800', title: Unidentified, description: Unidentified Document Type,
+    code: UN, group_type: 1}
 - model: dashboard.documenttype
   pk: 2
-  fields: {created_at: !!timestamp '2018-07-12 10:50:09.783274', updated_at: !!timestamp '2018-07-12
-      10:50:09.783295', title: MSDS, description: '', group_type: 2}
+  fields: {created_at: !!timestamp '2018-07-12 10:50:09.783274', updated_at: !!timestamp '2018-10-31
+      21:39:49.836220', title: MSDS, description: '', code: MS, group_type: 2}
 - model: dashboard.documenttype
   pk: 3
-  fields: {created_at: !!timestamp '2018-07-12 10:50:15.238632', updated_at: !!timestamp '2018-07-12
-      10:50:15.238649', title: SDS, description: '', group_type: 2}
+  fields: {created_at: !!timestamp '2018-07-12 10:50:15.238632', updated_at: !!timestamp '2018-10-31
+      21:39:49.838866', title: SDS, description: '', code: SD, group_type: 2}
 - model: dashboard.documenttype
   pk: 4
-  fields: {created_at: !!timestamp '2018-07-12 10:50:23.345012', updated_at: !!timestamp '2018-07-12
-      10:50:23.345029', title: ingredient list, description: '', group_type: 2}
+  fields: {created_at: !!timestamp '2018-07-12 10:50:23.345012', updated_at: !!timestamp '2018-10-31
+      21:39:49.834781', title: ingredient list, description: '', code: IL, group_type: 2}
 - model: dashboard.documenttype
   pk: 5
-  fields: {created_at: !!timestamp '2018-07-12 10:50:31.543699', updated_at: !!timestamp '2018-07-12
-      10:50:31.543718', title: ingredient disclosure, description: '', group_type: 2}
+  fields: {created_at: !!timestamp '2018-07-12 10:50:31.543699', updated_at: !!timestamp '2018-10-31
+      21:39:49.833812', title: ingredient disclosure, description: '', code: ID, group_type: 2}
 - model: dashboard.documenttype
   pk: 6
-  fields: {created_at: !!timestamp '2018-07-12 10:50:39.660935', updated_at: !!timestamp '2018-07-12
-      10:50:39.660956', title: MSDS, description: '', group_type: 3}
+  fields: {created_at: !!timestamp '2018-07-12 10:50:39.660935', updated_at: !!timestamp '2018-10-31
+      21:39:49.836700', title: MSDS, description: '', code: MS, group_type: 3}
 - model: dashboard.documenttype
   pk: 7
-  fields: {created_at: !!timestamp '2018-07-12 10:50:46.594201', updated_at: !!timestamp '2018-07-12
-      10:50:46.594218', title: SDS, description: '', group_type: 3}
+  fields: {created_at: !!timestamp '2018-07-12 10:50:46.594201', updated_at: !!timestamp '2018-10-31
+      21:39:49.839346', title: SDS, description: '', code: SD, group_type: 3}
 - model: dashboard.documenttype
   pk: 8
-  fields: {created_at: !!timestamp '2018-07-12 10:50:54.639740', updated_at: !!timestamp '2018-07-12
-      10:50:54.639759', title: ingredient disclosure, description: '', group_type: 3}
+  fields: {created_at: !!timestamp '2018-07-12 10:50:54.639740', updated_at: !!timestamp '2018-10-31
+      21:39:49.834306', title: ingredient disclosure, description: '', code: ID, group_type: 3}
 - model: dashboard.documenttype
   pk: 9
-  fields: {created_at: !!timestamp '2018-07-12 10:51:05.963622', updated_at: !!timestamp '2018-07-12
-      10:51:05.963639', title: chemical use disclosure, description: '', group_type: 3}
+  fields: {created_at: !!timestamp '2018-07-12 10:51:05.963622', updated_at: !!timestamp '2018-10-31
+      21:39:49.833169', title: chemical use disclosure, description: '', code: CD,
+    group_type: 3}
 - model: dashboard.documenttype
   pk: 10
-  fields: {created_at: !!timestamp '2018-07-12 10:51:41.054772', updated_at: !!timestamp '2018-07-12
-      10:51:41.054792', title: Memo, description: '', group_type: 6}
+  fields: {created_at: !!timestamp '2018-07-12 10:51:41.054772', updated_at: !!timestamp '2018-10-31
+      21:39:49.835717', title: Memo, description: '', code: MO, group_type: 6}
 - model: dashboard.documenttype
   pk: 11
-  fields: {created_at: !!timestamp '2018-07-12 10:51:46.155168', updated_at: !!timestamp '2018-07-12
-      10:51:46.155186', title: 'journal article', description: '', group_type: 4}
+  fields: {created_at: !!timestamp '2018-07-12 10:51:46.155168', updated_at: !!timestamp '2018-10-31
+      21:39:49.835249', title: journal article, description: '', code: JA, group_type: 4}
 - model: dashboard.documenttype
   pk: 12
-  fields: {created_at: !!timestamp '2018-07-12 10:51:46.155168', updated_at: !!timestamp '2018-07-12
-      10:51:46.155186', title: 'poster', description: '', group_type: 4}
+  fields: {created_at: !!timestamp '2018-07-12 10:51:46.155168', updated_at: !!timestamp '2018-10-31
+      21:39:49.837887', title: poster, description: '', code: PO, group_type: 4}
 - model: dashboard.documenttype
   pk: 13
-  fields: {created_at: !!timestamp '2018-07-12 10:51:46.155168', updated_at: !!timestamp '2018-07-12
-      10:51:46.155186', title: 'professional society report', description: '', group_type: 4}
+  fields: {created_at: !!timestamp '2018-07-12 10:51:46.155168', updated_at: !!timestamp '2018-10-31
+      21:39:49.838392', title: professional society report, description: '', code: SR,
+    group_type: 4}
 - model: dashboard.documenttype
   pk: 14
-  fields: {created_at: !!timestamp '2018-07-12 10:51:46.155168', updated_at: !!timestamp '2018-07-12
-      10:51:46.155186', title: 'other survey/study', description: '', group_type: 4}
+  fields: {created_at: !!timestamp '2018-07-12 10:51:46.155168', updated_at: !!timestamp '2018-10-31
+      21:39:49.837264', title: other survey/study, description: '', code: OT, group_type: 4}
+
 - model: dashboard.unittype
   pk: 1
   fields: {created_at: !!timestamp '2018-05-07 16:29:57', updated_at: null, title: weight

@@ -6,7 +6,8 @@ from django.urls import reverse
 
 
 class ProductDocument(CommonInfo):
-	product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
+	product = models.ForeignKey(Product, on_delete=models.CASCADE,
+                                                        null=True, blank=True)
 	document = models.ForeignKey(DataDocument, on_delete=models.CASCADE)
 
 	def __str__(self):

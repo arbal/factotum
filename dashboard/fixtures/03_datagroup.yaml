@@ -136,3 +136,11 @@
     download_script: 1, data_source: 28, fs_id: 1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842,
     csv: 1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842/register_records_matching.csv, zip_file: media/1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842/1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842.zip,
     group_type: 6, url: www.chemicals_in_the_wild.com}
+
+- model: dashboard.datagroup
+  pk: 50
+  fields: {created_at: !!timestamp '2018-09-22 07:00:37.681930', updated_at: !!timestamp '2018-09-20
+      12:16:49.053559', name: Functional Use Example Group 2, description: '', downloaded_by: 1,
+    downloaded_at: !!timestamp '2018-09-15 11:31:35', download_script: null, data_source: 6,
+    fs_id: f6ef84dd-e176-477c-814b-c1b4cfc6e714, csv: path/to/uuid, zip_file: media/test_func_use/test_func_use.zip,
+    group_type: 3, url: 'http://factotum.epa.gov'}

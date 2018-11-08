@@ -109,3 +109,56 @@ class UploadExtractedFileTest(TestCase):
 
         dg = DataGroup.objects.get(pk=49)
         dg.delete()
+
+    def test_functionaluse_upload(self):
+        # This action is performed on a data document without extracted text
+        # but with a matched data document. DataDocument 500 was added to the
+        # seed data for this test
+        dd_id = 500
+        dd = DataDocument.objects.get(pk=dd_id)
+        #et = ExtractedText.objects.get(data_document=dd)
+        dd_pdf = dd.pdf_url()
+        
+        sample_csv = ("data_document_id,data_document_filename,prod_name,"
+                      "doc_date,rev_num,raw_category,raw_cas,raw_chem_name,report_funcuse"
+                    "\n"
+                    "%s,"
+                    "%s,"
+                    "sample functional use product,"
+                    "2018-04-07,"
+                    ","
+                    "raw PUC,"
+                    "RAW-CAS-01,"
+                    "raw chemname 01,"
+                    "surfactant" % (dd_id, dd_pdf)
+        )
+        sample_csv_bytes = sample_csv.encode(encoding='UTF-8',errors='strict' )
+        in_mem_sample_csv = InMemoryUploadedFile(
+                io.BytesIO(sample_csv_bytes),
+                field_name='extract_file',
+                name='Functional_use_extract_template.csv',
+                content_type='text/csv',
+                size=len(sample_csv),
+                charset='utf-8',
+        )
+        req_data = {'script_selection': 5,
+                    'extract_button': 'Submit',
+                    }
+        
+        req = self.factory.post('/datagroup/50/' , data=req_data)
+        req.FILES['extract_file'] = in_mem_sample_csv
+        req.user = User.objects.get(username='Karyn')
+        self.assertEqual(len(ExtractedFunctionalUse.objects.filter(extracted_text_id=dd_id)),0,
+                            "Empty before upload.")
+        # Now get the response
+        resp = views.data_group_detail(request=req, pk=50)
+        self.assertContains(resp,'1 extracted records uploaded successfully.')
+
+        doc_count = DataDocument.objects.filter(raw_category='raw PUC').count()
+        self.assertTrue(doc_count > 0, 'DataDocument raw category values must be updated.')
+
+        self.assertEqual(len(ExtractedFunctionalUse.objects.filter(extracted_text_id=dd_id)),1,
+                            "One new ExtractedFunctionalUse after upload.")
+
+        #dg = DataGroup.objects.get(pk=50)
+        #dg.delete()

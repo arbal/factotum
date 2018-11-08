@@ -9,7 +9,7 @@
   fields: {created_at: !!timestamp '2018-03-09 11:32:00.391711', updated_at: !!timestamp '2018-10-16
       04:08:02.564253', filename: 11165872.pdf, title: Avgas 100LL (<0.1% Benzene),
     url: 'https://airbpmsds.bp.com/ussds/amersdsf.nsf/AllFiles_AIR_BP_FUELS/89C50579C812749A8025806F0057F0C0/$File/11165872.pdf',
-    raw_category: '', data_group: 6, matched: true, extracted: false, document_type: 2,
+    raw_category: '', data_group: 6, matched: true, extracted: true, document_type: 2,
     organization: ''}
 - model: dashboard.datadocument
   pk: 8
@@ -31,6 +31,14 @@
     filename: 42.pdf, title: MSDS - Home Depot, url: 'http://www.homedepot.com/catalog/pdfImages/34/34185649-1857-4622-a06a-eca836ff4352.pdf',
     raw_category: '', data_group: 8, matched: true, extracted: false, document_type: null,
     organization: ''}
+
+- model: dashboard.datadocument
+  pk: 500
+  fields: {created_at: !!timestamp '2018-08-21 13:16:47.965719', updated_at: !!timestamp '2018-10-18
+      02:46:36.855219', filename: test_functional_use_1.pdf, title: Test Functional
+      Use Doc 2, url: '', raw_category: '', data_group: 50, matched: true, extracted: false,
+    document_type: 9, organization: ''}
+
 - model: dashboard.datadocument
   pk: 121576
   fields: {created_at: !!timestamp '2017-08-09 11:30:00.090909', updated_at: !!timestamp '2018-06-20

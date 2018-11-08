@@ -19,4 +19,5 @@ class QANotes(CommonInfo):
         # print(self.extracted_text.qa_edited)
 
         if self.extracted_text.qa_edited and self.qa_notes is None:
-            raise ValidationError(_('qa_notes needs to be populated if you edited the data'))
+            raise ValidationError(
+                    _('qa_notes needs to be populated if you edited the data'))

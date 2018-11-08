@@ -118,49 +118,66 @@
                     results on page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
                </div>
             </div>
-            <div>
-            {% if  page_obj.object_list %}
-              <table class="table text-center">
-                <thead class="table-primary">
-                  <th>Type</th>
-                  <th>Record</th>
-                  <th>PUC</th>
-                  <th>Brand Name</th>
-                </thead>
-                <tbody>
+            <div class="results-wrapper">
+
+                {% if  page_obj.object_list %}
+
                 {% for result in page_obj.object_list %}
-                  <tr>
-                    <td>
-                      <a class="btn
-                      {% if result.facet_model_name == 'Product' %}
-                      btn-success
-                      {% else %}
-                      btn-warning
-                      {% endif %}
-                       btn-sm" role="button" title="Link to {{ result.object.title }}"
-                        href="{{ result.object.get_absolute_url }}">{{ result.facet_model_name }}</a>
+                  <div class="search-result-main">
 
-                    </td>
-                    <td>
-                      {{ result.object.title }}
-                    </td>
+                    <a class="text-left" title="Link to {{ result.object.title }}"
+                    href="{{ result.object.get_absolute_url }}">
+                            <b>{{ result.object.title }}</b>
+                    </a>
+                    
+                        {% if result.upc %}
+                        <span class="result-upc text-right"></span>
+                            {{ result.upc }}
+                        </span>
+                        {% endif %}
+                    
+                </div>
+                <ul class="search-result-meta list-inline">
 
-                    <td>
-                      {% if result.pucs %}
-                      <div style="border-style:solid;border-color:#{{ result.pucs.1 }};border-radius: 2px;">
-                        {{ result.pucs.0 }}
-                      </div>
-                      {% endif %}
-                    </td>
                     {% if  result.brand_name %}
-                    <td><b>{{ result.brand_name }}</b></td>
-                    {% else %}
-                    <td></td>
+                    <li  class="list-inline-item">
+                        <b>
+                          <a href="{{ request.get_full_path }}&brand_name={{ result.brand_name }}" title="filter on this brand name">
+                            {{ result.brand_name }}
+                          </a> 
+                        </b>
+                    </li>
                     {% endif %}
-                  </tr>
+
+                    <li class="list-inline-item">
+                      <a class="result-object-link"
+                        title="Filter on {{result.facet_model_name}} records"
+                        href="{{ request.get_full_path }}&facet_model_name={{ result.facet_model_name }}">{{ result.facet_model_name }}</a>
+                    </li>
+
+                    {% if result.group_type %}
+                    <li class="result-group_type list-inline-item">
+                        <a class="result-object-link"
+                            title="Filter on {{result.group_type}} records"
+                            href="{{ request.get_full_path }}&group_type={{ result.group_type }}">
+                        {{ result.group_type }}
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% if result.pucs %}
+                    <li class="list-inline-item"> 
+                      Product Use Codes:
+                      <!-- <span style="border-bottom:solid;color:#{{ result.pucs.1 }};"> -->
+                        {{ result.pucs.0 }}
+                     <!--  </span> -->
+                      
+                    </li>
+                    {% endif %}
+
+
+                </ul>
                 {% endfor %}
-                </tbody>
-              </table>
             </div>
 
             {% if is_paginated %}
@@ -194,6 +211,9 @@
                     {% endif %}
                 </ul>
             {% endif %}
+            </div>
+
+            
 
         {% else %}
 	    <p> Sorry, no result found for the search term  <strong>{{query}} </strong></p>

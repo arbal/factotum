@@ -186,3 +186,40 @@ class DataGroupDetailTest(TestCase):
                                          "User is redirected to detail page.")
         self.assertEqual(response.url, f'/datagroup/{dgpk}/',
                                          "Should go to detail page.")
+
+class DataGroupDetailTestWithFixtures(TestCase):
+    fixtures = fixtures_standard
+
+    def setUp(self):
+        self.client.login(username='Karyn', password='specialP@55word')
+
+    def test_download_raw_comp_data(self):
+        # Ability to download, by data group, a csv file of raw extracted chemical composition data.
+        # Download button would appear on data group detail page,
+        # Download button would appear if any data documents have extracted text.
+        # Only applies for data group type Composition. (group_type = 2)
+        # Unidentified is excluded as of issue #502
+        dg_co = DataGroup.objects.filter(group_type__code = 'CO').first()
+        resp = self.client.get(f'/datagroup/%s/' % dg_co.id)
+        self.assertIn(b'Download Raw', resp.content)
+
+        dg_un = DataGroup.objects.filter(group_type__code = 'UN').first()
+        resp = self.client.get(f'/datagroup/%s/' % dg_un.id)
+        self.assertNotIn(b'Download Raw', resp.content)
+
+        # Test download on all data groups with ExtractedChemicals, whether
+        # they are CO or UN
+        dg_ids = DataDocument.objects.filter(
+            id__in=ExtractedChemical.objects.all().values('extracted_text_id')
+            ).order_by().values_list('data_group_id',flat=True).distinct()
+
+        for dg_id in dg_ids:
+            #resp = self.client.get(f'/datagroup/%s/' % dg_id)
+            resp = self.client.get(f'/datagroup/raw_extracted_records/%s/' % dg_id)
+            self.assertEqual(resp.status_code, 200)
+
+        # File downloaded must include [specified fields]
+        resp = self.client.get(f'/datagroup/raw_extracted_records/%s/' % dg_ids[0])
+        field_list = 'ExtractedChemical_id,raw_cas,raw_chem_name,raw_min_comp,raw_central_comp,raw_max_comp,unit_type'
+        content = list(i.decode('utf-8') for i in resp.streaming_content)
+        self.assertIn(field_list, content[1])

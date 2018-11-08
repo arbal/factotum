@@ -1,16 +1,14 @@
 from urllib import parse
 
 from django.urls import resolve
-from django.utils import timezone
+from django.utils import timezone, safestring
 from django.shortcuts import redirect
 from django.db.models import Count, Q
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-
 from django.forms import ModelForm
 from dashboard.models import *
-from dashboard.forms import (ProductPUCForm, ProductLinkForm,
-                             ProductForm)
+from dashboard.forms import (ProductPUCForm, ProductLinkForm, BulkProductPUCForm, ProductForm)
 
 from taggit.forms import TagField
 from taggit_labels.widgets import LabelWidget
@@ -118,6 +116,31 @@ def detach_puc_from_product(request, pk):
     pp = ProductToPUC.objects.get(product=p)
     pp.delete()
     return redirect('product_detail', pk=p.pk)
+
+@login_required()
+def bulk_assign_puc_to_product(request, template_name=('product_curation/'
+                                                      'bulk_product_puc.html')):
+    max_products_returned = 50
+    q = safestring.mark_safe(request.GET.get('q', '')).lstrip()
+    if q > '':
+        p = (Product.objects
+            .filter( Q(title__icontains=q) | Q(brand_name__icontains=q) )
+            .exclude(id__in=(ProductToPUC.objects.values_list('product_id', flat=True))
+            )[:max_products_returned])
+        full_p_count = Product.objects.filter( Q(title__icontains=q) | Q(brand_name__icontains=q) ).count()
+    else:
+        p = {}
+        full_p_count = 0
+    form = BulkProductPUCForm(request.POST or None)
+    if form.is_valid():
+        puc = PUC.objects.get(id=form['puc'].value())
+        product_ids = form['id_pks'].value().split(",")
+        for id in product_ids:
+            product = Product.objects.get(id=id)
+            ProductToPUC.objects.create(PUC=puc, product=product, classification_method='MA',
+                                    puc_assigned_time=timezone.now(), puc_assigned_usr=request.user)
+    form["puc"].label = 'PUC to Assign to Selected Products'
+    return render(request, template_name, {'products': p, 'q': q, 'form': form, 'full_p_count': full_p_count})
 
 @login_required()
 def assign_puc_to_product(request, pk, template_name=('product_curation/'

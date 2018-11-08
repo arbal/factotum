@@ -17,7 +17,8 @@ class DataDocument(CommonInfo):
     products = models.ManyToManyField('Product', through='ProductDocument')
     matched = models.BooleanField(default=False)
     extracted = models.BooleanField(default=False)
-    document_type = models.ForeignKey(DocumentType, on_delete=models.PROTECT, null=True, blank=True)
+    document_type = models.ForeignKey(DocumentType, on_delete=models.PROTECT,
+                                                        null=True, blank=True)
     organization = models.CharField(max_length=255, blank=True)
 
     class Meta:
@@ -41,8 +42,8 @@ class DataDocument(CommonInfo):
     def clean(self):
         # the document_type must be one of the children types
         # of the datadocument's parent datagroup
-        dg = self.data_group
-        gtype = dg.group_type
-
-        if not self.document_type in DocumentType.objects.filter(group_type=gtype):
-            raise ValidationError('The document type must be allowed by the parent data group.')
+        this_type = self.data_group.group_type
+        doc_types = DocumentType.objects.filter(group_type=this_type)
+        if not self.document_type in doc_types:
+            raise ValidationError(('The document type must be allowed by '
+                                                    'the parent data group.'))
