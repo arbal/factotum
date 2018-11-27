@@ -21,7 +21,6 @@ class ProductToPUC(CommonInfo):
     puc_assigned_script = models.ForeignKey('Script',
                                             on_delete=models.SET_NULL,
                                             null=True, blank=True)
-    puc_assigned_time = models.DateTimeField(null=True, blank=True)
     classification_method = models.CharField(max_length=2,
                                                 choices=CLASSIFICATION_CHOICES,
                                                 null=False, default='MA')

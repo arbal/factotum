@@ -169,15 +169,17 @@
 {% endblock %}
 {% block js %}
   <script type="text/javascript">
-        window.onload = function() {
+      $( document ).ready(function() {
+        console.log( "(document).ready is running" );
         toggleDetailEdit(false);
-        }
+        });
 
         function toggleDetailEdit(enable=true) {
             // set the detail fields to editable
             // show the notes box
             if (enable)  {
                 // enter edit mode
+                console.log( "enabling editor" );
                 $('#save').removeClass('disabled');
                 $('#btn-toggle-edit').addClass('btn-warning');
                 $('#btn-toggle-edit').attr("onclick","toggleDetailEdit(false)");
@@ -194,6 +196,9 @@
                 $('.detail-control').prop('disabled', true);
                 $('.extext-control').removeClass('unlocked');
                 $('.extext-control').prop('disabled', true);
+                console.log( "Has disabled class been added to controls?" );
+                console.log( $('.detail-control').hasClass('disabled') );
+
             }
         }
 

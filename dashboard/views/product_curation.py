@@ -138,7 +138,7 @@ def bulk_assign_puc_to_product(request, template_name=('product_curation/'
         for id in product_ids:
             product = Product.objects.get(id=id)
             ProductToPUC.objects.create(PUC=puc, product=product, classification_method='MA',
-                                    puc_assigned_time=timezone.now(), puc_assigned_usr=request.user)
+                                    puc_assigned_usr=request.user)
     form["puc"].label = 'PUC to Assign to Selected Products'
     return render(request, template_name, {'products': p, 'q': q, 'form': form, 'full_p_count': full_p_count})
 
@@ -154,7 +154,7 @@ def assign_puc_to_product(request, pk, template_name=('product_curation/'
         if producttopuc.exists():
             producttopuc.delete()
         ProductToPUC.objects.create(PUC=puc, product=p, classification_method='MA',
-                                    puc_assigned_time=timezone.now(), puc_assigned_usr=request.user)
+                                    puc_assigned_usr=request.user)
         referer = request.POST.get('referer') if request.POST.get('referer') else 'category_assignment'
         pk = p.id if referer == 'product_detail' else p.data_source.id
         return redirect(referer, pk=pk)

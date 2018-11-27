@@ -142,7 +142,7 @@
 
               <small><b>{{ form.frequency_unit.label_tag }}</b></small><br>
               {% if form.frequency_unit.errors %}
-                {% render_field form.frequency_unit class="chem-control form-control is-invalid" %}
+                {% render_field form.frequency_unit class="detail-control form-control is-invalid" %}
                 {{ form.frequency_unit.errors }}
               {% else %}
                 {% render_field form.frequency_unit class="form-control" %}
@@ -152,7 +152,7 @@
                 <b>{{ form.duration.label_tag }}</b>
               </small><br>
               {% if form.duration.errors %}
-                {% render_field form.duration class="chem-control form-control is-invalid" %}
+                {% render_field form.duration class="detail-control form-control is-invalid" %}
                 {{ form.duration.errors }}
               {% else %}
                 {% render_field form.duration class="form-control" %}
@@ -160,7 +160,7 @@
 
               <small><b>{{ form.duration_unit.label_tag }}</b></small><br>
               {% if form.duration_unit.errors %}
-                {% render_field form.duration_unit class="chem-control form-control is-invalid" %}
+                {% render_field form.duration_unit class="detail-control form-control is-invalid" %}
                 {{ form.duration_unit.errors }}
               {% else %}
                 {% render_field form.duration_unit class="form-control" %}
@@ -171,7 +171,7 @@
                 <b>{{ form.prevalence.label_tag }}</b>
               </small><br>
               {% if form.prevalence.errors %}
-                {% render_field form.prevalence class="chem-control form-control is-invalid" %}
+                {% render_field form.prevalence class="detail-control form-control is-invalid" %}
                 {{ form.prevalence.errors }}
               {% else %}
                 {% render_field form.prevalence class="form-control" %}
@@ -179,7 +179,7 @@
 
               <small><b>{{ form.notes.label_tag }}</b></small><br>
               {% if form.notes.errors %}
-              {% render_field form.notes class="chem-control form-control is-invalid" %}
+              {% render_field form.notes class="detail-control form-control is-invalid" %}
               {{ form.notes.errors }}
                 {% else %}
                 {% render_field form.notes class="form-control" %}
@@ -199,7 +199,7 @@
         </div>
         {% endfor %}
       </div>
-      <button type = "submit" id="save" name="save" class="btn btn-primary chem-control" role="button">Save</button>
+      <button type = "submit" id="save" name="save" class="btn btn-primary detail-control" role="button">Save</button>
       <a id="cancel" name="cancel" class="btn btn-secondary" href="{% url "data_group_detail" doc.data_group.id %}" role="button">Cancel</a>
 
         </form>

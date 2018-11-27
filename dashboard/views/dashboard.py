@@ -84,8 +84,8 @@ def datadocument_count_by_month():
 def product_with_puc_count_by_month():
     # GROUP BY issue solved with https://stackoverflow.com/questions/8746014/django-group-by-date-day-month-year
     # TODO: currently just grabs manually assigned PUCs, logic to be updated for handling Auto assigned PUCS
-    product_stats = list(ProductToPUC.objects.filter(classification_method__exact='MA').filter(puc_assigned_time__gte=chart_start_datetime) \
-        .annotate(puc_assigned_month = (Trunc('puc_assigned_time', 'month', output_field=DateField()))) \
+    product_stats = list(ProductToPUC.objects.filter(classification_method__exact='MA').filter(created_at__gte=chart_start_datetime) \
+        .annotate(puc_assigned_month = (Trunc('created_at', 'month', output_field=DateField()))) \
         .values('puc_assigned_month') \
         .annotate(product_count = (Count('id'))) \
         .values('product_count', 'puc_assigned_month') \

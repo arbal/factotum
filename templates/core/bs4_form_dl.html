@@ -21,17 +21,17 @@
     <dd>
     {% if form.is_bound %}
       {% if field.errors %}
-       {% render_field field class="chem-control form-control is-invalid" %}
+       {% render_field field class="detail-control form-control is-invalid" %}
         {% for error in field.errors %}
           <div class="invalid-feedback">
             {{ error }}
           </div>
         {% endfor %}
       {% else %}
-        {% render_field field class="chem-control form-control is-valid" %}
+        {% render_field field class="detail-control form-control is-valid" %}
       {% endif %}
     {% else %}
-      {% render_field field class="chem-control form-control" %}
+      {% render_field field class="detail-control form-control" %}
     {% endif %}
     </dd>
     {% if field.help_text %}

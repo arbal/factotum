@@ -117,12 +117,6 @@ def extracted_text_qa(request, pk,
     # Create the formset factory for the extracted records
     # The model used for the formset depends on whether the
     # extracted text object matches a data document()
-    parent_model, detail_model = get_extracted_models(doc.data_group.type)
-    DetailFormSet = inlineformset_factory(parent_model=parent_model,
-                                        model=detail_model,
-                                        formset=BaseExtractedDetailFormSet,
-                                        fields=detail_model.detail_fields(),
-                                                extra=1)
     
     ParentForm, ChildForm = create_detail_formset(doc.data_group.type, EXTRA)
     extext = extext.pull_out_cp() #get CP if exists
@@ -151,24 +145,12 @@ def extracted_text_qa(request, pk,
         }
 
     if request.method == 'POST' and 'save' in request.POST:
-        # print('---saving')
-        parent_model, detail_model = get_extracted_models(doc.data_group.type)
-        DetailFormSet = inlineformset_factory(parent_model=parent_model,
-                                            model=detail_model,
-                                            formset=BaseExtractedDetailFormSet,
-                                            fields=detail_model.detail_fields(),
-                                                    extra=1)
-        
+        #print(request.__dict__)
+       
         ParentForm, ChildForm = create_detail_formset(doc.data_group.type, EXTRA)
         extext = extext.pull_out_cp() #get CP if exists
         ext_form = ParentForm(request.POST, instance=extext)
         detail_formset = ChildForm(request.POST, instance=extext)
-        # Add CSS selector classes to each form
-        for form in detail_formset:
-            for field in form.fields:
-                form.fields[field].widget.attrs.update(
-                    {'class': f'detail-control form-control %s' % doc.data_group.type}
-                    )
 
         notesform = QANotesForm(request.POST, instance=note)
         if detail_formset.has_changed() or ext_form.has_changed():
@@ -177,9 +159,18 @@ def extracted_text_qa(request, pk,
                 ext_form.save()
                 extext.qa_edited = True
                 extext.save()
+        # rebuild the formset after saving it
+        detail_formset = ChildForm( instance=extext)
         context['detail_formset'] = detail_formset
         context['ext_form'] = ext_form
         context.update({'notesform' : notesform}) # calls the clean method? y?
+        # Add CSS selector classes to each form
+        for form in detail_formset:
+            for field in form.fields:
+                form.fields[field].widget.attrs.update(
+                    {'class': f'detail-control form-control %s' % doc.data_group.type}
+                    )
+
     elif request.method == 'POST' and 'approve' in request.POST: # APPROVAL
         notesform =  QANotesForm(request.POST, instance=note)
         context['notesform'] = notesform

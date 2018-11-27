@@ -105,7 +105,7 @@ class BaseExtractedDetailFormSet(forms.BaseInlineFormSet):
         for form in self.forms:
             for field in form.fields:
                 form.fields[field].widget.attrs.update(
-                                        {'class': 'chem-control form-control'})
+                                        {'class': 'detail-control form-control'})
 
 class ProductLinkForm(forms.ModelForm):
     required_css_class = 'required' # adds to label tag
