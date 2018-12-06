@@ -27,9 +27,11 @@ QA</h1>
         <td>{{ extraction_script.get_datadocument_count }}</td>
         <td>{{ extraction_script.get_pct_checked }}</td>
         <td>
+         {% if extraction_script.get_datadocument_count > 0 %}
           <a class="btn btn-info btn-sm" role="button" title="{{ extraction_script.qa_button_text }} on {{ extraction_script.title }}"
            href='{% url "extraction_script_qa" extraction_script.id %}'> {{ extraction_script.qa_button_text }}
          </a>
+         {% endif %}
         </td>
       </tr>
     {% endfor %}

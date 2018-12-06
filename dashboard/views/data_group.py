@@ -18,9 +18,12 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator
 
 from dashboard.models import *
-from dashboard.forms import (DataGroupForm, ExtractionScriptForm,
-                                                create_detail_formset,
-                                                include_extract_form)
+from dashboard.forms import (DataGroupForm,
+                             ExtractionScriptForm,
+                             CleanCompDataForm,
+                             create_detail_formset,
+                             include_extract_form,
+                             include_clean_comp_data_form)
 from dashboard.utils import get_extracted_models, clean_dict, update_fields
 
 
@@ -50,7 +53,9 @@ def data_group_detail(request, pk,
                 'all_documents'  : docs, # this used for template download
                 'extract_fields' : dg.get_extracted_template_fieldnames(),
                 'ext_err'        : {},
+                'clean_comp_err'        : {},
                 'extract_form'   : include_extract_form(dg),
+                'clean_comp_data_form'   : include_clean_comp_data_form(dg),
                 'bulk'           : len(docs) - len(prod_link),
                 'msg'            : '',
                 }
@@ -111,6 +116,10 @@ def data_group_detail(request, pk,
                     row['ingredient_rank'] = None if rank == '' else rank
                 ext, created = ext_parent.objects.get_or_create(data_document=d,
                                                     extraction_script=script)
+                if not created and ext.prod_name != row['prod_name']:
+                    # check that there is a 1:1 relation w/ prod_name
+                    err_msg = ['must be 1:1 with "data_document_id".']
+                    context['ext_err'][i+1] = {'prod_name': err_msg}
                 if created:
                     update_fields(row, ext)
                 row['extracted_text'] = ext
@@ -139,20 +148,86 @@ def data_group_detail(request, pk,
                                                     'uploaded successfully.')
                 context['extract_form'] = include_extract_form(dg)
     if request.method == 'POST' and 'bulk' in request.POST:
+        # get the set of documents that have not been matched
         a = set(docs.values_list('pk',flat=True))
         b = set(prod_link.values_list('document_id',flat=True))
         # DataDocs to make products for...
         docs_needing_products = DataDocument.objects.filter(pk__in=list(a-b))
         stub = Product.objects.all().count() + 1
         for doc in docs_needing_products:
+            # Try to name the new product from the ExtractedText record's prod_name
+            try:
+                ext = ExtractedText.objects.get(data_document_id=doc.id)
+                if ext:
+                    ext = ext.pull_out_cp()
+                    if ext.prod_name:
+                        new_prod_title = ext.prod_name
+                    else:
+                        new_prod_title = None
+            except ExtractedText.DoesNotExist:
+                new_prod_title = None
+            # If the ExtractedText record can't provide a title, use the DataDocument's title
+            if not new_prod_title:
+                if doc.title:
+                    new_prod_title = '%s stub' % doc.title
+                else:
+                    new_prod_title = 'unknown'
             product = Product.objects.create(
-                                    title='unknown',
+                                    title=new_prod_title,
                                     upc=f'stub_{stub}',
                                     data_source_id=doc.data_group.data_source_id
                                     )
             ProductDocument.objects.create(product=product, document=doc)
             stub += 1
         context['bulk'] = 0
+    if request.method == 'POST' and 'clean_comp_data_button' in request.POST:
+        clean_comp_data_form = CleanCompDataForm(request.POST, request.FILES)
+        if clean_comp_data_form.is_valid():
+            script_pk = int(request.POST['script_selection'])
+            script = Script.objects.get(pk=script_pk)
+            csv_file = request.FILES.get('clean_comp_data_file')
+            info = [x.decode('ascii','ignore') for x in csv_file.readlines()]
+            table = csv.DictReader(info)
+            missing =  list(set(dg.get_clean_comp_data_fieldnames())-
+                                                        set(table.fieldnames))
+            if missing: #column names are NOT a match, send back to user
+                context['clean_comp_data_form'].collapsed = False
+                context['msg'] = ('The following columns need to be added or '
+                                            f'renamed in the csv: {missing}')
+                return render(request, template_name, context)
+
+            good_records = []
+            for i, row in enumerate(csv.DictReader(info)):
+                try:
+                    extracted_chemical = ExtractedChemical.objects.get(pk=int(row['id']))
+                except ExtractedChemical.DoesNotExist as e:
+                    extracted_chemical = None
+                    context['clean_comp_err'][i + 1] = {'id': ['No ExtractedChemical matches id ' + row['id'], ]}
+                try:
+                    ingredient = Ingredient.objects.get(extracted_chemical=extracted_chemical)
+                except Ingredient.DoesNotExist as e:
+                    ingredient = Ingredient(extracted_chemical=extracted_chemical)
+                ingredient.lower_wf_analysis = row['lower_wf_analysis']
+                ingredient.central_wf_analysis = row['central_wf_analysis']
+                ingredient.upper_wf_analysis = row['upper_wf_analysis']
+                ingredient.script = script
+                try:
+                    ingredient.full_clean()
+                except ValidationError as e:
+                    context['clean_comp_err'][i+1] = e.message_dict
+                good_records.append(ingredient)
+            if context['clean_comp_err']: # if errors, send back with errors
+                context['clean_comp_data_form'].collapsed = False
+                return render(request, template_name, context)
+            if not context['clean_comp_err']:  # no saving until all errors are removed
+                for ingredient in good_records:
+                    ingredient.save()
+                context['msg'] = (f'{len(good_records)} clean composition data records '
+                                                    'uploaded successfully.')
+                context['clean_comp_data_form'] = include_clean_comp_data_form(dg)
+        else:
+            context['clean_comp_data_form'].collapsed = False
+
     return render(request, template_name, context)
 
 
@@ -261,13 +336,19 @@ def data_group_update(request, pk, template_name='data_group/datagroup_form.html
     #  in the case the "Register Records CSV file" is updated.
     datagroup = get_object_or_404(DataGroup, pk=pk)
     form = DataGroupForm(request.POST or None, instance=datagroup)
-    header = 'Update Data Group for Data Source "' + str(datagroup.data_source) + '"'
+    header = f'Update Data Group for Data Source "{datagroup.data_source}"'
     if form.is_valid():
         if form.has_changed():
             form.save()
         return redirect('data_group_detail', pk=datagroup.id)
     form.referer = request.META.get('HTTP_REFERER', None)
-    return render(request, template_name, {'datagroup': datagroup, 'form': form, 'header': header})
+    groups = GroupType.objects.all()
+    for group in groups:
+            group.codes = DocumentType.objects.filter(group_type=group)
+    return render(request, template_name, {'datagroup': datagroup, 
+                                            'form': form,
+                                            'header': header,
+                                            'groups': groups})
 
 @login_required()
 def data_group_delete(request, pk, template_name='data_source/datasource_confirm_delete.html'):

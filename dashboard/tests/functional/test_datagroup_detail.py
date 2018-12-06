@@ -112,17 +112,18 @@ class DataGroupDetailTest(TestCase):
 
     def test_bulk_create_post(self):
         '''test the POST to create Products and link if needed'''
+        # create a new DataDocument with no Product
         doc = DataDocument.objects.create(data_group=self.objects.dg)
         response = self.client.get(f'/datagroup/{self.objects.dg.pk}/')
         self.assertEqual(response.context['bulk'], 1,
                 'Not all DataDocuments linked to Product, bulk_create needed')
         response = self.client.post(f'/datagroup/{self.objects.dg.pk}/',
-                                                                {'bulk':47})
+                                                                {'bulk':1})
         self.assertEqual(response.context['bulk'], 0,
-                'Product linked to all DataDocuments, no bulk_create needed.')
+                'Products linked to all DataDocuments, no bulk_create needed.')
         product = ProductDocument.objects.get(document=doc).product
         self.assertEqual(product.title, 'unknown',
-                                        'Title should be unkown in bulk_create')
+                                        'Title should be unknown in bulk_create')
         self.assertEqual(product.upc, 'stub_2',
                                     'UPC should be created for second Product')
 

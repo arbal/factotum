@@ -24,6 +24,20 @@
     </div>
     <br>
   {% endif %}
+ {% if clean_comp_err %}
+    <div class="bg-danger text-white">
+      {% for fn, message in clean_comp_err.items %}
+        {% for col, msg in message.items %}
+          <p style="margin:0;padding:0;">Error {% if fn == 'every' %}in header
+                                                {% else %}on line {{ fn }}
+                                               {% endif %}:
+              {% if not col == '__all__' %}Column "{{ col }}"{% endif %}
+            {{ msg.0 }} </p>
+        {% endfor %}
+      {% endfor %}
+    </div>
+    <br>
+  {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -66,20 +80,7 @@
                 {{ datagroup.download_script }}
             </a>
         </dd>
-        <dt class="col-sm-3">
-            <abbr title="extract script">Extraction Script URL</abbr>
-        </dt>
-        <dd class="col-sm-9">
-            {% with all_documents|first as document %}
-                {% if document.extracted %}
-                <a href="{{ document.extractedtext.extraction_script.url }}" target="_blank">
-                    {{ document.extractedtext.extraction_script }}
-                </a>
-                {% else %}
-                No extraction script associated.
-                {% endif %}
-            {% endwith %}
-        </dd>
+
         {% if datagroup.updated_at %}
             <dt class="col-sm-3">Last updated</dt>
             <dd class="col-sm-9">{{ datagroup.updated_at }}</dd>
@@ -94,17 +95,29 @@
           <span class="oi oi-data-transfer-download"></span> Download All PDF Documents
         </a>
         {% if datagroup.group_type.code in "CO" %}
-        <a href="{% url 'dg_raw_extracted_records' datagroup.pk  %}" class="btn btn-secondary">
-            <span class="oi oi-spreadsheet"></span>&nbsp;Download Raw {{ datagroup.group_type }} Records</a>
+            <a href="{% url 'dg_raw_extracted_records' datagroup.pk  %}" class="btn btn-secondary">
+                <span class="oi oi-spreadsheet"></span>&nbsp;Download Raw Composition Records</a>
         {% endif %}
-
+        {% if clean_comp_data_form %}
+            <br><br>
+            <a class="btn btn-secondary" data-toggle="collapse" id="btn_clean_comp_data_form" href="#clean_comp_data_form">
+              <span class="oi oi-data-transfer-upload"></span>&nbsp;Upload Clean Composition Data
+            </a>
+            <div id="clean_comp_data_form" class="col-md-12 border rounded {% if clean_comp_data_form.collapsed %}collapse{% endif %}">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% include 'core/bs4_form.html' with form=clean_comp_data_form %}
+                    <input type="submit" class="btn btn-primary" name="clean_comp_data_button" value="Submit" disabled>
+                </form>
+            </div>
+        {% endif %}
         <br><br>
         {% if extract_form %}
             <a class="btn btn-secondary" data-toggle="collapse" id="btn_extract_text_form" href="#extract_form">
               <span class="oi oi-data-transfer-upload"></span>&nbsp;Upload Extracted Text
             </a>
             <div id="extract_form" class="col-md-12 border rounded {% if extract_form.collapsed %}collapse{% endif %}">
-                <form method="post" enctype="multipart/form-data" novalidate>
+                <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% include 'core/bs4_form.html' with form=extract_form %}
                     <input type="submit" class="btn btn-primary" name="extract_button" value="Submit" disabled>

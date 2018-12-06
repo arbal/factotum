@@ -9,7 +9,7 @@ from .script import Script
 def validate_wf_analysis(value):
     if value < 0 or value > 1:
         raise ValidationError(
-            (f'Quantity {value} is not allowed'),params={'value': value})
+            (f'Quantity {value} must be between 0 and 1'),params={'value': value})
 
 
 class Ingredient(CommonInfo):

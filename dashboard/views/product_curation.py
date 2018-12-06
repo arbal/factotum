@@ -82,11 +82,13 @@ def link_product_form(request, pk, template_name=('product_curation/'
                                                     'link_product_form.html')):
     doc = DataDocument.objects.get(pk=pk)
     ds_id = doc.data_group.data_source_id
-    upc_stub = ('stub_' + str(Product.objects.all().count() + 1))
-    form = ProductLinkForm(initial={'upc': upc_stub, 'document_type': doc.document_type})
+    initial = {   'upc': ('stub_' + str(Product.objects.all().count() + 1)),
+        'document_type': doc.document_type,
+           'return_url': request.META.get('HTTP_REFERER')}
+    form = ProductLinkForm(initial=initial)
     # limit document type options to those matching parent datagroup group_type
-    form.fields['document_type'].queryset =\
-        form.fields['document_type'].queryset.filter(group_type_id = doc.data_group.group_type_id)
+    queryset = DocumentType.objects.filter(group_type=doc.data_group.group_type)
+    form.fields['document_type'].queryset = queryset
     if request.method == 'POST':
         form = ProductLinkForm(request.POST or None)
         if form.is_valid():
@@ -100,14 +102,18 @@ def link_product_form(request, pk, template_name=('product_curation/'
                 product.size = form['size'].value()
                 product.color = form['color'].value()
                 product.save()
-            if not ProductDocument.objects.filter(document=doc).exists():
+            if not ProductDocument.objects.filter(document=doc,
+                                                    product=product).exists():
                 p = ProductDocument(product=product, document=doc)
                 p.save()
             document_type = form['document_type'].value()
-            if document_type != doc.document_type:
+            if document_type != doc.document_type: # update if user changes
                 doc.document_type = DocumentType.objects.get(pk=document_type)
                 doc.save()
-            return redirect('link_product_list', pk=doc.data_group.pk)
+            if 'datadocument' in form['return_url'].value():
+                return redirect('data_document', pk=doc.pk)
+            else:
+                return redirect('link_product_list', pk=doc.data_group.pk)
     return render(request, template_name,{'document': doc, 'form': form})
 
 @login_required()
@@ -137,7 +143,7 @@ def bulk_assign_puc_to_product(request, template_name=('product_curation/'
         product_ids = form['id_pks'].value().split(",")
         for id in product_ids:
             product = Product.objects.get(id=id)
-            ProductToPUC.objects.create(PUC=puc, product=product, classification_method='MA',
+            ProductToPUC.objects.create(PUC=puc, product=product, classification_method='MB',
                                     puc_assigned_usr=request.user)
     form["puc"].label = 'PUC to Assign to Selected Products'
     return render(request, template_name, {'products': p, 'q': q, 'form': form, 'full_p_count': full_p_count})

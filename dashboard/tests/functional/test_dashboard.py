@@ -53,13 +53,15 @@ class DashboardTest(TestCase):
 
     def test_PUC_download(self):
         p = self.objects.puc
-        puc_line = (p.gen_cat+','+p.prod_fam+','+p.prod_type+','+p.description+','+str(p.get_level())+','+str(p.producttopuc_set.count()))
+        puc_line = (p.gen_cat+','+p.prod_fam+','+p.prod_type+','+p.description+
+                    ','+str(p.get_level())+','+str(p.get_the_kids().count()))
         # get csv
         response = self.client.get('/dl_pucs/')
         self.assertEqual(response.status_code, 200)
         csv_lines = response.content.decode('ascii').split('\r\n')
         # check header
-        self.assertEqual(csv_lines[0],'gen_cat,prod_fam,prod_type,description,PUC_type,num_prods')
+        self.assertEqual(csv_lines[0],('gen_cat,prod_fam,prod_type,description,'
+                                                        'PUC_type,num_prods'))
         # check the PUC from loader
         self.assertEqual(csv_lines[1],puc_line)
 

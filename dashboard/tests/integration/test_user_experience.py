@@ -96,6 +96,8 @@ class TestIntegration(StaticLiveServerTestCase):
 
         num_pucs = len(PUC.objects.all())
         self.browser.get(self.live_server_url)
+        import time
+        time.sleep(3) #or however long you think it'll take you to scroll down to bubble chart
         bubbles = self.browser.find_elements_by_class_name('bubble')
         self.assertEqual(num_pucs, len(bubbles), ('There should be a circle'
                                                     'drawn for every PUC'))

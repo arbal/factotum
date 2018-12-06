@@ -47,7 +47,7 @@
       12:16:49.057216', name: Walmart MSDS 3, description: '', downloaded_by: 1, downloaded_at: !!timestamp '2017-10-21
       08:47:08', download_script: null, data_source: 10, fs_id: e6d5926b-f05a-4e12-a7d8-a8db9d495c32,
     csv: Walmart_MSDS_3/Walmart_MSDS_3_out_10.csv, zip_file: media/Walmart_MSDS_3/Walmart_MSDS_3.zip,
-    group_type: 1, url: ''}
+    group_type: 2, url: ''}
 - model: dashboard.datagroup
   pk: 20
   fields: {created_at: !!timestamp '2018-05-11 07:00:37.681930', updated_at: !!timestamp '2018-06-20

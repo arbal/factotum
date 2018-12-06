@@ -11,7 +11,7 @@ class ProductDocument(CommonInfo):
 	document = models.ForeignKey(DataDocument, on_delete=models.CASCADE)
 
 	def __str__(self):
-		return self.product.title
+		return '%s --> %s' % (self.product.title, self.document.title)
 
 	def get_absolute_url(self):
 		return reverse('product_detail', kwargs={'pk': self.pk})

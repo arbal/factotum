@@ -14,30 +14,6 @@ class DataDocumentDetailTest(TestCase):
     def setUp(self):
         self.client.login(username='Karyn', password='specialP@55word')
 
-    def test_extractedtext_update(self):
-        self.assertTrue(ExtractedTextForm().fields['prod_name'],
-                        'ExtractedTextForm must include prod_name')
-        dd = DataDocument.objects.get(pk=7)
-        et = ExtractedText.objects.filter(data_document=dd).get()
-        response = self.client.post(f'/save_ext/{dd.pk}/',
-                                    {'prod_name': 'zzz',
-                                     'rev_num': '1',
-                                     'doc_date': '01/01/2018',
-                                     'save_extracted_text': ''})
-        et.refresh_from_db()
-        self.assertEqual(et.prod_name, 'zzz',
-                         'The ExtractedText for DataDocument 7 should have a prod_name of "zzz"')
-
-    def test_documenttype_update(self):
-        self.assertTrue(DocumentTypeForm().fields['document_type'],
-                        'DocumentTypeForm must include document_type')
-        dd = DataDocument.objects.get(pk=7)
-        response = self.client.post(f'/save_type/{dd.pk}/',
-                                    {'document_type': 2})
-        dd.refresh_from_db()
-        self.assertEqual(dd.document_type_id, 2,
-                         'DataDocument 7 should have a final document_type_id of 2')
-
     def test_absent_extracted_text(self):
         # Check every data document and confirm that its detail page loads,
         # with or without a detail formset
@@ -63,9 +39,21 @@ class DataDocumentDetailTest(TestCase):
         response = self.client.get('/datadocument/179486/')
         html = response.content.decode('utf-8')
         e_idx = html.index('<h4>Extracted Text</h4>')
-        p_idx = html.index('<h4>Products</h4>')
+        p_idx = html.index('<h4 class="d-inline">Products</h4>')
         self.assertTrue(p_idx > e_idx, ('Product card should come after ' 
                                         'Extracted Text card'))
+
+    def test_product_create_link(self):
+        response = self.client.get('/datadocument/167497/')
+        self.assertContains(response, '/link_product_form/167497/')
+        data = {'title'        : ['New Product'],
+                'upc'          : ['stub_1860'],
+                'document_type': [1],
+                'return_url'   : ['/datadocument/167497/']}
+        response = self.client.post('/link_product_form/167497/', data=data)
+        self.assertRedirects(response,'/datadocument/167497/')
+        response = self.client.get(response.url)
+        self.assertContains(response, 'New Product')
 
 
 class TestDynamicDetailFormsets(TestCase):

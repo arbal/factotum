@@ -60,11 +60,4 @@ class DataGroupFormTest(TestCase):
         resp = data_group_create(request=req, pk=6)
         self.assertContains(resp,'CSV column headers are incorrect for upload')
 
-    def test_extraction_script_link(self):
-        response = self.client.get('/datagroup/49/')
-        ext_script_url = (b'https://github.com/HumanExposure/data_mgmt_scripts'
-                                b'/blob/master/Unilever_Code/Unilever.py')
-        self.assertIn(ext_script_url,response.content)
-        response = self.client.get('/datagroup/20/')
-        self.assertIn(b'No extraction script associated.',response.content,
-                                    'Datagroup has no extraction script url')
+

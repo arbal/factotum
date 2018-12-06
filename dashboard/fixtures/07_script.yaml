@@ -72,3 +72,13 @@
   fields: {created_at: !!timestamp '2018-09-11 07:00:37.838615', updated_at: !!timestamp '2018-09-11
       07:00:37.875755', title: Functional Use Extraction Script, url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_GeorgiaPacific.ipynb',
     qa_begun: false, script_type: EX}
+- model: dashboard.script
+  pk: 16
+  fields: {created_at: !!timestamp '2018-11-11 07:00:37.838615', updated_at: !!timestamp '2018-09-11
+    07:00:37.875755', title: Data Cleaning Script 1, url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_GeorgiaPacific.ipynb',
+           qa_begun: false, script_type: DC}
+- model: dashboard.script
+  pk: 17
+  fields: {created_at: !!timestamp '2018-11-11 07:00:37.838615', updated_at: !!timestamp '2018-09-11
+    07:00:37.875755', title: Data Cleaning Script 2, url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_GeorgiaPacific.ipynb',
+           qa_begun: false, script_type: DC}

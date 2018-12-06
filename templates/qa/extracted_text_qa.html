@@ -26,7 +26,9 @@
   </nav>
 
   <div class="card">
-    <h3 class="card-header text-center">DataDocument: {{ doc.title }}</h3>
+    <h3 class="card-header text-center">
+            <a  href="{% url "data_document" doc.pk %}" target="_blank" title='Data Document Detail Page'>DataDocument: {{ doc.title }}</a>
+    </h3>
     <table class="table table-bordered">
 
       <tr>

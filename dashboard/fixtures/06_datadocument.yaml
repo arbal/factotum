@@ -16,7 +16,7 @@
   fields: {created_at: !!timestamp '2018-03-09 11:32:00.392831', updated_at: !!timestamp '2018-10-14
       00:02:30.509335', filename: 11177849.pdf, title: AVCAT (FSII + Lubricity Improver
       Additive), url: 'https://airbpmsds.bp.com/ussds/amersdsf.nsf/AllFiles_AIR_BP_FUELS/A419F6F11DA742518025808E0057F2DB/$File/11177849.pdf',
-    raw_category: '', data_group: 6, matched: true, extracted: false, document_type: 5,
+    raw_category: '', data_group: 6, matched: true, extracted: true, document_type: 5,
     organization: ''}
 - model: dashboard.datadocument
   pk: 53

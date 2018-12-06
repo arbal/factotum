@@ -13,7 +13,7 @@ from dashboard.models import *
 from dashboard.models import *
 
 current_date = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d')
-chart_start_datetime = datetime.datetime(datetime.datetime.now().year - 1, datetime.datetime.now().month + 1, 1)
+chart_start_datetime = datetime.datetime(datetime.datetime.now().year - 1, min(12,datetime.datetime.now().month + 1), 1)
 
 
 def index(request):
@@ -107,7 +107,12 @@ def download_PUCs(request):
     cols = ['gen_cat','prod_fam','prod_type','description','PUC_type','num_prods']
     writer.writerow(cols)
     for puc in PUC.objects.all():
-        row = [puc.gen_cat, puc.prod_fam, puc.prod_type, puc.description, puc.get_level(), puc.producttopuc_set.count()] #puc.producttopuc_set.count()  random.randrange(0,4)
+        row = [ puc.gen_cat,
+                puc.prod_fam, 
+                puc.prod_type, 
+                puc.description, 
+                puc.get_level(), 
+                puc.get_the_kids().count()]
         writer.writerow(row)
 
     return response

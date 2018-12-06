@@ -122,14 +122,12 @@ class RegisterRecordsTest(TestCase):
         dd_csv_href = f'/datagroup/docs_csv/{dg.pk}/'  # this is an interpreted django URL
         resp_dd_csv = self.client.get(dd_csv_href)
         for csv_row in resp_dd_csv.streaming_content:
-            #print(csv_row)
             if doc_fn in str(csv_row):
                 docfound = 'found'
         self.assertEqual(docfound, 'found', "the document file name should appear in the data documents csv")
 
 
         # test whether the "Download All PDF Documents" link works
-        #print('dg.get_zip_url(): %s' % dg.get_zip_url())
         dg_zip_href = f'/datagroup/pdfs_zipped/{dg.pk}/' # this is the django-interpreted URL
         self.assertIn(dg_zip_href, str(resp._container),
                         "The data group detail page must contain the right zip download link")

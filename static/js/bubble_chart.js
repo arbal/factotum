@@ -1,5 +1,5 @@
 function bubbleChart() {
-    var width = 840,
+    var width = 1080,
         height = 500,
         maxRadius = 6,
         columnForColors = "gen_cat",
@@ -7,14 +7,16 @@ function bubbleChart() {
 
     function chart(selection) {
         var data = selection.datum();
+        var legendColors = [];
         var div = selection,
             svg = div.selectAll('svg');
-        svg.attr('width', width).attr('height', height);
+        svg.attr('width', width)
+            .attr('height', height);
 
         var ldat = [
-                        {"title":"Level 1","x":80},
-                        {"title":"Level 2","x":347},
-                        {"title":"Level 3","x":640}
+                      {"title":"Level 1","x":80},
+                      {"title":"Level 2","x":347},
+                      {"title":"Level 3","x":620}
                     ]
 
         var labels = svg.selectAll('text')
@@ -27,7 +29,7 @@ function bubbleChart() {
                 .style('font-size','20px')
                 .style("visibility", "hidden")
                 .text(function(d){ return d.title })
-
+        
         var tooltip = selection
             .append("div")
             .style("position", "absolute")
@@ -37,15 +39,15 @@ function bubbleChart() {
             .style("background-color", "#626D71")
             .style("border-radius", "6px")
             .style("text-align", "center")
-            .style("font-family", "monospace")
+            .style("font-family", "sans-serif")
             .style("width", "400px")
             .text("");
 
-        var scaleRadius = d3v4.scaleLinear().domain([d3v4.min(data, function(d) {
+        var scaleRadius = d3v4.scaleSqrt().domain([d3v4.min(data, function(d) {
             return +d[columnForRadius];
         }), d3v4.max(data, function(d) {
             return +d[columnForRadius];
-        })]).range([2,10]);
+        })]).range([2,20]);
         var colorCircles = d3v4.scaleOrdinal(d3v4.schemeCategory10)
 
 
@@ -57,7 +59,7 @@ function bubbleChart() {
             } else if (d.PUC_type === '2'){
                 return 420
             } else {
-                return 660
+                return 620
             }
         }).strength(0.08)
 
@@ -101,11 +103,50 @@ function bubbleChart() {
                 .style("visibility", "hidden")
         })
 
-        // var scaleRadius = d3v4.scaleLinear().domain([d3v4.min(data, function(d) {
-        //     return +d[columnForRadius];
-        // }), d3v4.max(data, function(d) {
-        //     return +d[columnForRadius];
-        // })]).range([11, 55])
+
+
+        let result = data.map(a => a.gen_cat);
+        function onlyUnique(value, index, self) {
+            return self.indexOf(value) === index;
+        }
+        var unique = result.filter( onlyUnique );
+        var colors = unique.map(a => colorCircles(a));
+
+        for (i=0; i<unique.length; i++) {
+            legendColors.push({title:unique[i], color:colors[i]})
+        }
+
+        var slot = 90
+        var legend = svg.append('g')
+
+        legend.append('text')
+          .attr("x", 807)
+          .attr("y", slot)
+          .style('fill','black')
+          .style('font-size','16px')
+          .style('text-decoration','underline')
+          .style("font-weight", "bold")
+          .text("General Categories")
+
+        for (var i = 0;i<legendColors.length;i++){
+          console.log(i);
+          slot += 30;
+          legend.append('text')
+            .attr("x", 807)
+            .attr("y", slot)
+            .style('font-size','14px')
+            .style('fill','black')
+            .style("font-weight", "bold")
+            .text(legendColors[i].title)
+          legend.append('rect')
+            .attr('width', 12)
+            .attr('height', 12)
+            .attr('fill', legendColors[i].color)
+            .attr('x',793)
+            .attr('y', slot -11)
+            .attr('rx',2)
+            .attr('ry',2)
+        }
 
         var node = svg.selectAll("circle")
             .data(data)
@@ -128,6 +169,7 @@ function bubbleChart() {
                   .attr('stroke-width',1)
                 var matrix = this.getScreenCTM()
                     .translate(+ this.getAttribute("cx"), + this.getAttribute("cy"));
+                    console.log(matrix)
                 tooltip.html("PUC Level: " + d.PUC_type + "<br><b>" + d.gen_cat + "-</b><br><b>-" + d.prod_fam + "-</b><br><b>-" + d.prod_type + "</b><br>" + "Product Count: " + d[columnForRadius])
                     .style("left", (window.pageXOffset + matrix.e + 15) + "px")
                     .style("top", (window.pageYOffset + matrix.f - 30) + "px");
@@ -141,40 +183,6 @@ function bubbleChart() {
                 return tooltip.style("visibility", "hidden");
             });
     }
-
-
-    chart.width = function(value) {
-        if (!arguments.length) {
-            return width;
-        }
-        width = value;
-        return chart;
-    };
-
-    chart.height = function(value) {
-        if (!arguments.length) {
-            return height;
-        }
-        height = value;
-        return chart;
-    };
-
-
-    chart.columnForColors = function(value) {
-        if (!arguments.columnForColors) {
-            return columnForColors;
-        }
-        columnForColors = value;
-        return chart;
-    };
-
-    chart.columnForRadius = function(value) {
-        if (!arguments.columnForRadius) {
-            return columnForRadius;
-        }
-        columnForRadius = value;
-        return chart;
-    };
 
     return chart;
 }

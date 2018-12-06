@@ -49,13 +49,28 @@ class ExtractionScriptForm(forms.Form):
             del self.fields['weight_fraction_type']
         self.collapsed = True
 
+class CleanCompDataForm(forms.Form):
+    required_css_class = 'required' # adds to label tag
+    script_selection = forms.ModelChoiceField(
+                            queryset=Script.objects.filter(script_type='DC'),
+                            label="Data Cleaning Script",
+                            required=True)
+    clean_comp_data_file = forms.FileField(label="Clean Composition Data CSV File",
+                            required=True)
+
+    def __init__(self, *args, **kwargs):
+        super(CleanCompDataForm, self).__init__(*args, **kwargs)
+        self.fields['script_selection'].widget.attrs.update(
+                                        {'style':'height:2.75rem; !important'})
+        self.fields['clean_comp_data_file'].widget.attrs.update({'accept':'.csv'})
+        self.collapsed = True
+
 class DataSourceForm(forms.ModelForm):
     required_css_class = 'required'
     class Meta:
         model = DataSource
         fields = ['title', 'url', 'estimated_records', 'state', 'priority',
                   'description']
-
 
 class PriorityForm(forms.ModelForm):
     class Meta:
@@ -70,7 +85,6 @@ class PriorityForm(forms.ModelForm):
             })
 
 class QANotesForm(forms.ModelForm):
-
     class Meta:
         model = QANotes
         fields = ['qa_notes']
@@ -113,10 +127,15 @@ class ProductLinkForm(forms.ModelForm):
         queryset=DocumentType.objects.all(),
         label="Data Document Type",
         required=True)
+    return_url = forms.CharField()
 
     class Meta:
         model = Product
         fields = ['title', 'manufacturer', 'brand_name', 'upc', 'size', 'color']
+        
+    def __init__(self, *args, **kwargs):
+        super(ProductLinkForm, self).__init__(*args, **kwargs)
+        self.fields['return_url'].widget = forms.HiddenInput()
 
 class ProductForm(forms.ModelForm):
     required_css_class = 'required' # adds to label tag
@@ -200,8 +219,18 @@ def include_extract_form(dg):
     else:
         return False
 
+def include_clean_comp_data_form(dg):
+    '''Returns the CleanCompDataForm based on conditions of DataGroup
+    type = Composition and at least 1 document extracted
+    '''
+    if not dg.type in ['CO']:
+        return False
+    if dg.extracted_docs() > 0:
+        return CleanCompDataForm()
+    else:
+        return False
 
-def create_detail_formset(group_type, extra=0):
+def create_detail_formset(group_type, extra=0, can_delete=True):
     '''Returns the pair of formsets that will be needed based on group_type.
     .                       ('CO'),('CP'),('FU'),('HP')
     .
@@ -212,7 +241,8 @@ def create_detail_formset(group_type, extra=0):
         return forms.inlineformset_factory(parent_model=parent_model,
                                             model=model,
                                             fields=fields,
-                                            extra=extra)
+                                            extra=extra,
+                                            can_delete=can_delete)
 
     def one(): # for chemicals
         ChemicalFormSet = make_formset(parent,child,child.detail_fields())

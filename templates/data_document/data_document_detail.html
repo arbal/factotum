@@ -63,77 +63,75 @@
 
     <div class="row col-lg-12">
 
-    <div class="col-lg-6 col-md-6 extracted-text">
-    <h4>Extracted Text</h4>
-    <div class="card-body border container">
-        {% if extracted_text_form %}
-        {% if extracted_text_form.errors %}
-            <div class="form-group has-error">
-                <span class="help-block">{{ extracted_text_form.errors }}</span>
-            </div>
-        {% endif %}
-        <form method="post" action="{% url 'save_ext_form' doc.pk %}">
-            {% csrf_token %}
-            {{ form.id.as_hidden }}
-            <dl class="row col-lg-12">
-                {% if extracted_text_form.cat_code %}
-                <dt class="col-lg-6">CPCat Code</dt>
-                <dd  class="col-lg-6">{{ extracted_text_form.cat_code }}</dd>
-                {% endif %}
-                <dt class="col-lg-6">Product Name</dt>
-                <dd  class="col-lg-6">{{ extracted_text_form.prod_name }}</dd>
-                <dt class="col-lg-6">Doc Date</dt>
-                <dd  class="col-lg-6">{{ extracted_text_form.doc_date }}</dd>
-                <dt class="col-lg-6">Rev Num</dt>
-                <dd  class="col-lg-6">{{ extracted_text_form.rev_num }}</dd>
-                <dt class="col-lg-6">Extraction Script</dt>
-                <dd  class="col-lg-6">
-                    <a href="{{ extracted_text.extraction_script.url| default_if_none:'' }}" target="_blank">
-                        {{ extracted_text.extraction_script.title }}
-                    </a>
-                </dd>
-                <dt class="col-lg-6">QA Approved</dt>
-                <dd  class="col-lg-6">{{ extracted_text.qa_checked | yesno | capfirst}}
-                    {% if not extracted_text.qa_checked %}
-                        <div class="btn-group float-lg-right" role="group">
-                        <a class="btn btn-primary btn-sm" role="button" title="QA"
-                           href="{% url "data_document_extracted_text_qa" extracted_text.pk %}">QA</a>
-                        </div>
-                    {% endif %}
-                </dd>
-            </dl>
-            <button type="submit" id="save_extracted_text" name="save_extracted_text"
-                    class="btn btn-primary detail-control" role="button">Save edits</button>
-        </form>
-        {% else %}
-            No Extracted Text exists for this Data Document
-        {% endif %}
+      <div class="col-lg-6 col-md-6 extracted-text">
+        <div class="card-header">
+          <h4>Extracted Text</h4>
         </div>
+      <div class="card-body border container">
+          {% if extracted_text %}
+          <dl>
+            <dt >Product Name</dt>
+            <dd class="col-lg-9">
+                {{ extracted_text.prod_name }}
+            </dd>
+
+            <dt>Doc date</dt>
+            <dd class="col-lg-9">
+                {{ extracted_text.doc_date }}
+            </dd>
+
+            <dt>Rev Num</dt>
+            <dd class="col-lg-9">
+                {{ extracted_text.rev_num }}
+            </dd>
+
+            <dt >Extraction Script</dt>
+            <dd class="col-lg-9">
+                    <a href="{{ extracted_text.extraction_script.url| default_if_none:'' }}" target="_blank">
+                            {{ extracted_text.extraction_script.title }}
+                        </a>
+            </dd>
+            <dt >QA Approved</dt>
+            <dd  class="col-lg-6">{{ extracted_text.qa_checked | yesno | capfirst}}
+                {% if not extracted_text.qa_checked %}
+                    <div class="btn-group float-lg-right" role="group">
+                    <a class="btn btn-primary btn-sm" role="button" title="QA"
+                      href="{% url "data_document_extracted_text_qa" extracted_text.pk %}">QA</a>
+                    </div>
+                {% endif %}
+            </dd>
+          </dl>
+          {% else %}
+            No Extracted Text exists for this Data Document
+          {% endif %}
+      </div>
     </div>
         {%  if not doc.data_group.is_habits_and_practices %}
         <!-- add products -->
         <div class="col-lg-6 col-md-6">
-        <h4>Products</h4>
-        <div class="card-body border container">
-          <ol>
-          {%  for product in doc.products.all %}
-              <li>
-                <a href="{% url "product_detail" product.pk %}">{{ product }}</a><br>
-              </li>
-          {% endfor %}
-          </ol>
-        </div>
+          <div class="card-header">
+            <h4 class="d-inline">Products</h4>
+            <a class="btn btn-md btn-warning float-right d-inline" href="{% url 'link_product_form' doc.pk %}" role="button">Create New Product</a>
+          </div>
+          <div class="card-body border container">
+            <ol>
+            {%  for product in doc.products.all %}
+            <li>
+              <a href="{% url "product_detail" product.pk %}">{{ product }}</a><br>
+            </li>
+            {% endfor %}
+            </ol>
+          </div>
         </div>
         {% endif %}
     </div>
 <br>
-{% if extracted_text_form %}
-<form method="post" action="">
-    <div class="row col-lg-12">
+{% if detail_formset %}
+    <div class="row col-lg-12 card-header">
         <h4>{{ doc.data_group.group_type }} detail</h4>
+        <button type="submit" id="save_extracted_detail" name="save_extracted_detail"
+        class="btn btn-primary detail-control ml-auto" role="button">Save {{ doc.data_group.group_type }} edits</button>    
     </div>
-    <button type="submit" id="save_extracted_detail" name="save_extracted_detail"
-    class="btn btn-primary detail-control" role="button">Save {{ doc.data_group.group_type }} edits</button>
     <div class="card-body">
         {% csrf_token %}
         <div class="row">
@@ -141,12 +139,6 @@
         <div class="col-lg-6 col-md-6" style="padding-top: 30px;" >
             <div class="card" style="background-color:{{ form.color }};" >
                 <div class="card-body">
-                    {% if not form.instance.pk %}
-                    <div class="text-center">
-                      <small><b>Add New {{ doc.data_group.group_type }}</b></small><br>
-                    </div>
-                    {% else %}
-                    {% endif %}
                     {% if form.errors %}
                         <div class="form-group alert alert-danger" role="alert">
                             <span class="alert-danger">{{ form.errors }}</span>
@@ -168,6 +160,5 @@
         {% endfor %}
         </div>
     </div>
-</form>
 {% endif %}
 {% endblock %}

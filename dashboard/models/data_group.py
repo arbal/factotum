@@ -150,6 +150,10 @@ class DataGroup(CommonInfo):
             return extract_fields + ['cat_code','description_cpcat',
                                     'cpcat_code','cpcat_sourcetype']
 
+    def get_clean_comp_data_fieldnames(self):
+        return ['id','lower_wf_analysis','central_wf_analysis', 'upper_wf_analysis']
+
+
 @receiver(models.signals.post_delete, sender=DataGroup)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
     """

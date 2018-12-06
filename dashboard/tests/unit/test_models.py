@@ -28,6 +28,27 @@ def create_data_documents(data_group, source_type, pdfs):
             dds.append(dd)
         return dds
 
+def create_data_documents_with_txt(data_group, source_type, pdf_txt):
+    '''Used to imitate the creation of new DataDocuments from CSV'''
+    dds = []
+    with open('./sample_files/register_records_matching_with_txt.csv', 'r') as dg_csv:
+        table = csv.DictReader(dg_csv)
+        for line in table: # read every csv line, create docs for each
+            if line['title'] == '': # updates title in line object
+                line['title'] = line['filename'].split('.')[0]
+            dd = DataDocument.objects.create(filename=line['filename'],
+                                            title=line['title'],
+                                            document_type=DocumentType.objects.get(
+                                                Q(code='MS') & Q(group_type_id= data_group.group_type_id)
+                                                ),
+                                            url=line['url'],
+                                            organization=line['organization'],
+                                            matched = line['filename'] in pdf_txt,
+                                            data_group=data_group)
+            dd.save()
+            dds.append(dd)
+        return dds
+
 class ModelsTest(TestCase):
 
     def setUp(self):
@@ -35,6 +56,8 @@ class ModelsTest(TestCase):
         self.client.login(username='Karyn', password='specialP@55word')
         self.pdfs = ['0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf',
                         '0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf']
+        self.pdf_txt = ['0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf',
+                        '0bf5755e-3a08-4024-9d2f-0ea155a9bd17.txt']
 
     def test_object_creation(self):
         self.assertTrue(isinstance(self.objects.ds, DataSource))
@@ -134,6 +157,29 @@ class ModelsTest(TestCase):
         self.assertEqual(self.objects.doc.get_abstract_filename(),
                         f'document_{pk}.pdf',
                         'This is used in the FileSystem naming convention.')
+
+    def test_dg_with_txt(self):
+        # Test properties of objects
+        # DataSource
+        self.assertEqual(str(self.objects.ds), self.objects.ds.title)
+
+        # DataDocuments
+        # Confirm that one of the data documents appears in the data group
+        # show page after upload from CSV
+        docs = create_data_documents_with_txt(self.objects.dg,self.objects.st, self.pdf_txt)
+        self.assertEqual(len(docs),2, ('Only 2 records should be created!'))
+        dg_response = self.client.get(f'/datagroup/{str(self.objects.dg.pk)}/')
+        self.assertIn(b'NUTRA', dg_response.content)
+        self.assertEqual(len(self.pdf_txt), 2)
+        # Confirm that the two data documents in the csv file are matches to
+        # the pdfs via their file names
+        self.assertEqual(self.objects.dg.matched_docs(), 2)
+        # Test a link to an uploaded text file
+        fn = docs[1].get_abstract_filename()
+        u = "{0}/pdf/{1}".format(self.objects.dg.fs_id, fn).encode('utf-8')
+        self.assertIn(u, dg_response.content, (
+                                    'link to PDF should be in HTML!'))
+
 
 class PUCModelTest(TestCase):
 

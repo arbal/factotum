@@ -2828,7 +2828,7 @@
 - model: dashboard.extractedtext
   pk: 141892
   fields: {created_at: !!timestamp '2018-06-06 07:19:07', updated_at: !!timestamp '2018-06-06
-      07:19:07', prod_name: null, doc_date: null, rev_num: null,
+      07:19:07', prod_name: 'SSC Dark & Natural Hair Color Kit', doc_date: null, rev_num: null,
     extraction_script: 12, qa_checked: false, qa_edited: false, qa_approved_date: null,
     qa_approved_by: null, qa_group: null}
 - model: dashboard.extractedtext

@@ -1,10 +1,12 @@
 from django.db import models
 from .common_info import CommonInfo
-from .script import Script
 from .extracted_text import ExtractedText
 
 
+
+
 class QAGroup(CommonInfo):
+    from .script import Script
 
     extraction_script = models.ForeignKey(Script,
                                     on_delete=models.CASCADE,
