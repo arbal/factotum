@@ -40,22 +40,3 @@ class ExtractedTest(TestCase):
         note = QANotes.objects.create(extracted_text=self.objects.extext)
         self.assertEqual(note.qa_notes, None)
         self.assertRaises(ValidationError, note.clean)
-
-    def test_long_qa_notes(self):
-        self.objects.extext.qa_edited = True
-        note = QANotes.objects.create(extracted_text=self.objects.extext)
-        self.assertEqual(note.qa_notes, None)
-        note.qa_notes = "A short QA note"
-        try:
-            note.clean()
-        except Exception as ex:
-            template = "An exception of type {0} occurred. Arguments:\n{1!r}"
-            message = template.format(type(ex).__name__, ex.args)
-
-        long_note = 'A long QA note' * 200
-        note.qa_notes = long_note
-        try:
-            note.clean()
-        except Exception as ex:
-            template = "An exception of type {0} occurred. Arguments:\n{1!r}"
-            message = template.format(type(ex).__name__, ex.args)

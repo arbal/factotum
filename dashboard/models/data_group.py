@@ -101,9 +101,6 @@ class DataGroup(CommonInfo):
     def get_absolute_url(self):
         return reverse('data_group_edit', kwargs={'pk': self.pk})
 
-    def get_name_as_slug(self):
-        return self.name.replace(' ', '_')
-
     def get_dg_folder(self):
         uuid_dir = f'{settings.MEDIA_ROOT}{str(self.fs_id)}'
         name_dir = f'{settings.MEDIA_ROOT}{self.get_name_as_slug()}'
@@ -122,39 +119,8 @@ class DataGroup(CommonInfo):
         else:
             return 'no_folder_found'
 
-    @property
-    def dg_folder(self):
-        '''This is a "falsy" property. If the folder cannot be found,
-        dg.dg_folder evaluates to boolean False '''
-        if self.get_dg_folder() != 'no_folder_found':
-            return self.get_dg_folder()
-        else:
-            return False
-
-
-
-    @property
-    def csv_url(self):
-        '''This is a "falsy" property. If the csv file cannot be found,
-        dg.csv_url evaluates to boolean False '''
-        try:
-            self.csv.size
-            csv_url = self.csv.url
-        except ValueError:
-            csv_url = False
-        except:
-            csv_url = False
-        return csv_url
-
-    @property
-    def zip_url(self):
-        '''This is a "falsy" property. If the zip file cannot be found,
-        dg.zip_url evaluates to boolean False '''
-        if self.get_zip_url()!='no_path_found':
-            return(self.get_zip_url)
-        else:
-            return False
-        
+    def get_name_as_slug(self):
+        return self.name.replace(' ', '_')
 
     def get_zip_url(self):
         # the path if the data group's folder was built from a UUID:

@@ -7,8 +7,8 @@ from dashboard.models import ExtractedText
 
 
 class QANotes(CommonInfo):
-    extracted_text = models.OneToOneField(ExtractedText, on_delete=models.CASCADE)
-    qa_notes = models.TextField(null=True, blank=True)
+    extracted_text = models.ForeignKey(ExtractedText, on_delete=models.CASCADE)
+    qa_notes = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return 'Notes for {}'.format(self.extracted_text)

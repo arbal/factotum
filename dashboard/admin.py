@@ -1,7 +1,5 @@
 from django.contrib import admin
 from dashboard.models import *
-from django.db.models import Count
-
 from django import forms
 from taggit_labels.widgets import LabelWidget
 from dashboard.signals import *
@@ -9,25 +7,20 @@ from dashboard.signals import *
 class PUCAdminForm(forms.ModelForm):
     class Meta:
         model = PUC
-        fields = ['gen_cat', 'prod_fam', 'prod_type', 'description','tags',]
-        readonly_fields = ('num_products',)
+        fields = ['gen_cat', 'prod_fam', 'prod_type', 'description','tags']
         widgets = {
             'tags': LabelWidget(model=PUCTag),
         }
 
 class PUCAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'tag_list','num_products')
+    list_display = ('__str__', 'tag_list')
     form = PUCAdminForm
     def get_changeform_initial_data(self, request):
         get_data = super(PUCAdmin, self).get_changeform_initial_data(request)
         get_data['last_edited_by'] = request.user.pk
         return get_data
     def get_queryset(self, request):
-        return super(PUCAdmin, self).get_queryset(request).prefetch_related('tags').annotate(num_products=Count('products'))
-    def num_products(self, obj):
-        return obj.num_products
-    num_products.short_description = 'Product Count'
-    num_products.admin_order_field = 'num_products'
+        return super(PUCAdmin, self).get_queryset(request).prefetch_related('tags')
     def tag_list(self, obj):
         return u", ".join(o.name for o in obj.tags.all())
 
