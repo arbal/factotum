@@ -67,3 +67,9 @@ class PUC(CommonInfo):
                                         prod_fam=self.prod_fam)
         if self.is_level_three:
             return PUC.objects.filter(pk=self.pk)
+
+    @property
+    def product_count(self):
+        '''Don't use this in large querysets. It uses a SQL query for each 
+        PUC record. '''
+        return self.products.count()

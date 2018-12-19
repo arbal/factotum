@@ -89,10 +89,12 @@
 
     <div class="col-sm-12">
         <a href="{% url 'registered_records.csv' datagroup.pk  %}" class="btn btn-secondary">
-            <span class="oi oi-spreadsheet"></span>&nbsp;Download Registered Records CSV</a>
+            <span class="oi oi-spreadsheet
+            {% if datagroup.registered_docs == 0 %}disabled{% endif %}">
+        </span>&nbsp;Download Registered Records CSV</a>
         <a href = "{%url 'dg_pdfs_zip_view' datagroup.pk %}" class="btn btn-secondary
-              {% if datagroup.matched_docs == 0 %}disabled{% endif %}">
-          <span class="oi oi-data-transfer-download"></span> Download All PDF Documents
+              {% if not datagroup.zip_url or datagroup.matched_docs == 0  %}disabled{% endif %}">
+          <span class="oi oi-data-transfer-download"></span> Download All PDF Documents 
         </a>
         {% if datagroup.group_type.code in "CO" %}
             <a href="{% url 'dg_raw_extracted_records' datagroup.pk  %}" class="btn btn-secondary">

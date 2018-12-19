@@ -81,6 +81,7 @@ urlpatterns = [
                                             name='chem_search_json_view'),
     path('findchemical/', views.chemical_search.chem_search,
                                             name='chem_search'),
+    path('pucs/', views.puc_list,  name='puc_list'),
     path('dl_pucs/', views.download_PUCs,  name='download_PUCs'),
     path('dsstox_substance/<int:pk>/', views.dsstox_substance_detail,
                                             name='dsstox_substance'),
@@ -95,6 +96,10 @@ urlpatterns = [
                                             name='upload_dtxsid_csv'),
     path('get_data/get_dsstox_csv_template/', views.get_data_dsstox_csv_template,
                                             name='get_data_dsstox_csv_template'),
+    path('datagroup/diagnostics/<int:pk>/',   views.data_group_diagnostics,
+                                            name='data_group_diagnostics'),
+    path('datagroup/diagnostics/',   views.data_group_diagnostics,
+                                            name='data_group_diagnostics'),
 ]
 
 if settings.DEBUG is True:

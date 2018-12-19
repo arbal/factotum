@@ -15,7 +15,7 @@ from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 from factotum.settings import EXTRA
 from dashboard.models import *
 from dashboard.utils import get_extracted_models
-from dashboard.forms import (BaseExtractedDetailFormSet, ExtractedTextForm,
+from dashboard.forms import (ExtractedTextForm,
                             create_detail_formset,   QANotesForm)
 
 
@@ -159,6 +159,7 @@ def extracted_text_qa(request, pk,
         detail_formset = ChildForm(request.POST, instance=extext)
 
         notesform = QANotesForm(request.POST, instance=note)
+        notesform.save()
         if detail_formset.has_changed() or ext_form.has_changed():
             if detail_formset.is_valid() and ext_form.is_valid():
                 detail_formset.save()
