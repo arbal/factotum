@@ -54,3 +54,24 @@ class ExtractedChemical(CommonInfo):
 
     def get_extractedtext(self):
         return self.extracted_text
+
+    @property
+    def true_cas(self):
+        if hasattr(self, 'curated_chemical') and self.curated_chemical is not None:
+            return self.curated_chemical.true_cas
+        else:
+            return None
+
+    @property
+    def true_chemname(self):
+        if hasattr(self, 'curated_chemical') and self.curated_chemical is not None:
+            return self.curated_chemical.true_chemname
+        else:
+            return None
+    
+    @property
+    def sid(self):
+        if hasattr(self, 'curated_chemical') and self.curated_chemical is not None:
+            return self.curated_chemical.sid
+        else:
+            return None

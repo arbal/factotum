@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% block title %}Product Use Categories (PUCs){% endblock %}
+{% block content %}
+
+    <h1>
+        <span>Product Use Categories (PUCs)</span>
+    </h1>
+
+    <table class="table table-sm table-bordered table-striped">
+        <thead class="table-primary">
+        <th>Gen Cat</th>
+        <th>Prod Fam</th>
+        <th>Prod Type</th>
+        <th>Product Count</th>
+        </thead>
+        <tbody>
+        {% for puc in pucs %}
+            <tr>
+                <td>{{ puc.gen_cat }}</td>
+                <td>{{ puc.prod_fam }}</td>
+                <td>{{ puc.prod_type }}</td>
+                <td>{{ puc.num_products }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}
