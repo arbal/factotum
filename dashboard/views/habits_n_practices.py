@@ -45,7 +45,6 @@ def link_habitsandpractices(request, pk,
     if request.method == 'POST':
         form = HabitsPUCForm(request.POST)
         if form.is_valid():
-            print(form['puc'].value())
             puc = PUC.objects.get(id=form['puc'].value())
             # make sure the PUC link doesn't already exist
             if not ExtractedHabitsAndPracticesToPUC.objects.filter(

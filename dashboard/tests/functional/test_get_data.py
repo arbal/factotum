@@ -57,7 +57,7 @@ class TestGetData(TestCase):
         # add a puc to one of the products containing ethylparaben
 
         ppuc = ProductToPUC.objects.create(product=Product.objects.get(pk=pid),
-                                        PUC=puc,
+                                        puc=puc,
                                         puc_assigned_usr=User.objects.get(username='Karyn'))
         ppuc.refresh_from_db()
         stats = stats_by_dtxsids(dtxs)

@@ -1,8 +1,6 @@
 {% extends 'core/base.html' %}
 {% load staticfiles %}
 {% load humanize %}
-<!-- @zach the code that you commented out exists on commit <194662c> or earlier
-if you want to check it out -->
 {% block title %}Product {{ product.id }}: {{ product.title }}{% endblock %}
 
 {% block content %}
@@ -50,7 +48,7 @@ if you want to check it out -->
         </div>
         {% if puc.id %}
             <h4>
-                <span name="PUCTags" class="disabled">PUC Tags</span>
+                <span name="PUCTags" class="disabled">PUC Attributes</span>
             </h4>
             <div class="form-group ">
                 {% if product.get_puc_tag_list|length > 1 %}
@@ -62,7 +60,7 @@ if you want to check it out -->
                         </div>
                     </form>
                 {%  else %}
-                    No tags are associated with this PUC
+                    No attributes are associated with this PUC
                 {% endif %}
             </div>
         {%  endif %}

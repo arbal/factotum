@@ -1,7 +1,7 @@
 certifi
 Django>=2.1.2
 pytz==2017.2
-PyYAML==3.12
+pyyaml>=4.2b1
 wincertstore==0.2
 django-autocomplete-light==3.3.2
 django-debug-toolbar==1.9.1
@@ -17,3 +17,4 @@ selenium>=3.11.0
 lxml>=4.2.2
 django-taggit>=0.23.0
 -e git+https://github.com/bennylope/django-taggit-labels.git#egg=django_taggit_labels
+fuzzywuzzy>=0.17.0

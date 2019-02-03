@@ -6,8 +6,8 @@ from django.utils.translation import ugettext_lazy as _
 class PUCTag(TagBase, CommonInfo):
 
 	class Meta:
-		verbose_name = _("PUC Tag")
-		verbose_name_plural = _("PUC Tags")
+		verbose_name = _("PUC Attribute")
+		verbose_name_plural = _("PUC Attributes")
 		ordering = ('name',)
 
 	def __str__(self):

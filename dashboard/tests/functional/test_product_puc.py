@@ -101,3 +101,25 @@ class TestProductPuc(TestCase):
         self.assertEqual(response.status_code, 200, 
             "The request should return a valid response even without any Products" )
 
+    def test_bulk_product_tag_post(self):
+        product_response_url = reverse('bulk_product_tag')
+        response = self.client.post(product_response_url,
+                                    {'puc': 1,
+                                     'tag': '4',
+                                     'id_pks': '11,1845',
+                                     'save':'save'})
+
+        self.assertIn('The &quot;gel&quot; Attribute was assigned to 2 Product(s)', response.content.decode('utf-8'),
+                      'The "aerosol" tag message should be displayed in the response')
+
+        product = Product.objects.get(pk=11)
+        tag = PUCTag.objects.get(pk=1)
+        tag_count  = product.producttotag_set.count()
+        self.assertEqual(tag_count, 4, "Product 11 should now be assigned to 4 Tags" )
+
+    def test_bulk_product_tag_post_without_products(self):
+        product_response_url = reverse('bulk_product_tag')
+        response = self.client.post(product_response_url,
+                                    {'puc': 1, 'tag': '1'})
+        self.assertEqual(response.status_code, 200,
+            "The request should return a valid response even without any Products" )

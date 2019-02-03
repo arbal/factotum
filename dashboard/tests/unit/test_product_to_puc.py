@@ -14,7 +14,7 @@ class UberPUCTest(TestCase):
         self.assertTrue(self.objects.p.get_uber_product_to_puc() == None)
 
         self.ppuc = ProductToPUC.objects.create(product=self.objects.p,
-                                        PUC=self.objects.puc,
+                                        puc=self.objects.puc,
                                         puc_assigned_usr=self.objects.user)
 
         # Test that the get_uber_product_to_puc method returns expected values

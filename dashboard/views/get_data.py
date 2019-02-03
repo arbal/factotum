@@ -19,9 +19,9 @@ def get_data(request, template_name='get_data/get_data.html'):
     hnp = None
     form = HabitsPUCForm()
     context = { 'hnp' : hnp,
-    'form': form,
-    'first': None,
-    }
+                'form': form,
+                'first': None,
+                }
     if request.method == 'POST':
         form = HabitsPUCForm(request.POST)
         if form.is_valid():

@@ -58,7 +58,7 @@ class Product(CommonInfo):
     def get_uber_puc(self):
         thispuc = self.get_uber_product_to_puc()
         if thispuc is not None:
-            return thispuc.PUC
+            return thispuc.puc
         else:
             return None
 
@@ -67,12 +67,12 @@ class Product(CommonInfo):
 
     # returns list of valid puc_tags
     def get_puc_tag_list(self):
-        all_uber_tags = self.get_uber_product_to_puc().PUC.tags.all()
+        all_uber_tags = self.get_uber_product_to_puc().puc.tags.all()
         return u", ".join(o.name for o in all_uber_tags)
 
     # returns set of valid puc_tags
     def get_puc_tags(self):
-        return self.get_uber_product_to_puc().PUC.tags.all()
+        return self.get_uber_product_to_puc().puc.tags.all()
 
     class Meta:
           ordering = ['-created_at']

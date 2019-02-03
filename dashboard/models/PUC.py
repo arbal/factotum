@@ -21,7 +21,7 @@ class PUC(CommonInfo):
                         through='dashboard.ExtractedHabitsAndPracticesToPUC')
     tags = TaggableManager(through='dashboard.PUCToTag',
                            to='dashboard.PUCTag',
-                           help_text='A set of PUC Tags applicable to this PUC')
+                           help_text='A set of PUC Attributes applicable to this PUC')
 
     class Meta:
         ordering = ['gen_cat', 'prod_fam', 'prod_type']

@@ -1,0 +1,177 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% block title %}Bulk Assign Products to Attributes{% endblock %}
+
+{% block errors %}
+    {% if form.errors %}
+        <ul class="user-msg error">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>
+                        {% if field != '__all__' %}
+                            <strong>{{ field.label }}:</strong>
+                        {% endif %}
+                        {{ error }}
+                    </li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if msg %}
+    <div class="user-msg alert-info">
+      {{ msg }}
+    </div>
+    {% endif %}
+{%  endblock %}
+
+{% block content %}
+    <h1>
+        <span>Bulk Assign Products to Attributes</span>
+    </h1>
+    <br><br>
+    <form action='' method="post" >
+    {% csrf_token %}
+    <p>{{ form.puc.label_tag }} {{ form.puc }}</p>
+
+    {% if products %}
+    <p>{{ form.tag.label_tag }} {{ form.tag }}</p>
+
+    <table class="table table-striped table-bordered dataTable no-footer table-sm" id="products">
+      <thead class="table-primary">
+          <tr>
+              <th></th>
+              <th>Product Title</th>
+              <th>Brand Name</th>
+              <th>pk</th>
+          </tr>
+      </thead>
+      <tbody>
+      {% for product in products %}
+        <tr>
+            <td></td>
+            <td><a href="{% url "product_detail" product.id %}"> {{ product.title }}</a></td>
+            <td>{{ product.brand_name }}</td>
+            <td>{{ product.pk }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <br><br>
+        {{ form.id_pks }}
+        <button type="submit" name="save" id="btn-assign-puc" class="btn btn-primary">Submit</button>
+    {% elif form.puc.value > '' %}
+        <br><br>
+        <br><br>
+        <p>No products belong to the currently selected PUC.</p>
+    {% endif %}
+    </form>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+    $(document).ready(function () {
+        let product_table = $('#products').DataTable({
+            "bPaginate":false,
+            "bFilter": false,
+            columnDefs: [
+                {
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0,
+                width: '3%'
+            },
+                { width: '60%', targets: 1 },
+                { width: '35%', targets: 2 },
+                {className: 'hide_column', targets:3}
+            ],
+            select: {
+                style: 'multi',
+                selector: 'td:first-child'
+            },
+            order: [
+                [1, 'asc']
+            ],
+            "initComplete": function(settings, json) {
+                $("div#products_info").insertAfter('div#products_wrapper');
+            }
+        });
+        product_table.on("click", "th.select-checkbox", function() {
+            if ($("th.select-checkbox").hasClass("selected")) {
+                product_table.rows().deselect();
+                $(product_table).removeClass("selected");
+            } else {
+                product_table.rows().select();
+                $("th.select-checkbox").addClass("selected");
+            }
+        }).on("select deselect", function() {
+            if (product_table.rows({
+                selected: true
+            }).count() !== product_table.rows().count()) {
+                $("th.select-checkbox").removeClass("selected");
+            } else {
+                $("th.select-checkbox").addClass("selected");
+            }
+        });
+        $('#btn-assign-puc').click( function (e) {
+            pk_data = product_table.rows( {selected:true} );
+            pk = '';
+            for (i=0; i < pk_data.count(); i++) {
+                pk += pk_data.data()[i][3] + ',';
+            }
+            pk = pk.replace(/,$/g,'');
+            $('input[name="id_pks"]').val(pk);
+            return true;
+        });
+  });
+  </script>
+{{ form.media }}
+{% endblock %}
+
+{% block css %}
+    <style type="text/css">
+        span.select2-container {
+            width: 50% !important;
+        }
+
+        table.dataTable thead tr th.select-checkbox::before, table.dataTable thead tr th.select-checkbox::after {
+            display: block;
+            position: absolute;
+            top: 1.2em;
+            width: 12px;
+            height: 12px;
+            box-sizing: border-box;
+        }
+        table.dataTable thead tr th.select-checkbox::before {
+            content: ' ';
+            margin-bottom: 6px;
+            margin-left: 6px;
+            border: 1px solid black;
+            border-radius: 3px;
+        }
+        table.dataTable thead tr th.select-checkbox.selected::after {
+            content: "✔";
+            margin-top: -8px;
+            margin-left: 6px;
+            text-align: center;
+            text-shadow: rgb(176, 190, 217) 1px 1px, rgb(176, 190, 217) -1px -1px, rgb(176, 190, 217) 1px -1px, rgb(176, 190, 217) -1px 1px;
+        }
+        div#products_wrapper {
+            /* height:300px; */
+            /* overflow-y: scroll; */
+            /* overflow-x: hidden; */
+            border: solid 1px #e9ecef;
+        }
+        span.select-info {
+            margin-left: 15px;
+        }
+        .hide_column {
+            display : none;
+        }
+        .error {
+            border: 1px solid red;
+            padding-top: 6px;
+            padding-bottom: 6px;
+        }
+    </style>
+{% endblock %}

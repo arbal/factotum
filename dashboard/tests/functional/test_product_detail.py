@@ -49,24 +49,24 @@ class TestProductDetail(TestCase):
                       response_html.xpath('string(//*[@id="button_assign_puc"]/text())'),
                       'There should be an Assign PUC button for this product')
 
-        response = self.client.get(f'/product_puc/{str(p.pk)}/')
+        response = self.client.get(f'/product_puc/{str(p.pk)}/').content.decode('utf8')
 
         self.assertNotIn('Currently assigned PUC:', response,
                                 'Assigned PUC should not be visible')
         # Assign PUC 96
         self.client.post(f'/product_puc/{str(p.pk)}/', {'puc': '96' })
-        response = self.client.get(f'/product_puc/{str(p.pk)}/')
 
-        self.assertIn(b'Currently assigned PUC:', response.content,
+        response = self.client.get(f'/product_puc/{str(p.pk)}/?').content.decode('utf8')
+        self.assertIn('Currently assigned PUC:', response,
                                 'Assigned PUC should be visible')
 
         # PUC is assigned....check that an edit will updated the record
-        self.assertTrue(ProductToPUC.objects.filter(PUC_id=96, product_id=p.pk).exists(), 
+        self.assertTrue(ProductToPUC.objects.filter(puc_id=96, product_id=p.pk).exists(),
                             "PUC link should exist in table")
 
         # Assign PUC 47, check that it replaces 96
         self.client.post(f'/product_puc/{str(p.pk)}/', {'puc': '47' })
-        self.assertTrue(ProductToPUC.objects.filter(product=p).filter(PUC_id=47).exists(),
+        self.assertTrue(ProductToPUC.objects.filter(product=p).filter(puc_id=47).exists(),
                             "PUC link should be updated in table")
         p.refresh_from_db()
         self.assertTrue(p.get_uber_puc() != None,

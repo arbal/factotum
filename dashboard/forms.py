@@ -145,7 +145,7 @@ class BasePUCForm(forms.ModelForm):
         label='Category',
         widget=autocomplete.ModelSelect2(
             url='puc-autocomplete',
-            attrs={'data-minimum-input-length': 3,  })
+            attrs={'data-minimum-input-length': 3,})
     )
 
 class ProductPUCForm(BasePUCForm):
@@ -153,7 +153,12 @@ class ProductPUCForm(BasePUCForm):
         model = ProductToPUC
         fields = ['puc']
 
-class BulkProductPUCForm(BasePUCForm):
+class HabitsPUCForm(BasePUCForm):
+    class Meta:
+        model = ExtractedHabitsAndPracticesToPUC
+        fields = ['puc']
+
+class BulkProductPUCForm(forms.ModelForm):
     id_pks = forms.CharField(label='Product Titles',
                              widget=forms.HiddenInput(),
                              required=True)
@@ -161,10 +166,20 @@ class BulkProductPUCForm(BasePUCForm):
         model = ProductToPUC
         fields = ['puc', 'id_pks']
 
-class HabitsPUCForm(BasePUCForm):
+class BulkProductTagForm(BasePUCForm):
+    required_css_class = 'required' # adds to label tag
+    tag = forms.ModelChoiceField(queryset=PUCTag.objects.none(),
+                                 label='Attribute')
+    id_pks = forms.CharField(label='Product Titles',
+                             widget=forms.HiddenInput())
     class Meta:
-        model = ExtractedHabitsAndPracticesToPUC
-        fields = ['puc']
+        model = ProductToPUC
+        fields = ['puc', 'tag', 'id_pks']
+    def __init__(self, *args, **kwargs):
+        super(BulkProductTagForm, self).__init__(*args, **kwargs)
+        self.fields['puc'].label = 'Select PUC for Attribute to Assign to Selected Products'
+        self.fields['tag'].label = 'Select Attribute to Assign to Selected Products'
+        self.fields['puc'].widget.attrs['onchange'] = 'form.submit();'
 
 class ExtractedTextForm(forms.ModelForm):
     class Meta:
@@ -238,7 +253,7 @@ def include_clean_comp_data_form(dg):
 
 
 
-def create_detail_formset(group_type, extra=0, can_delete=False):
+def create_detail_formset(group_type, extra=1, can_delete=False):
     '''Returns the pair of formsets that will be needed based on group_type.
     .                       ('CO'),('CP'),('FU'),('HP')
     .

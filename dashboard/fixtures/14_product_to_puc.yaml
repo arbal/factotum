@@ -1,27 +1,27 @@
 - model: dashboard.producttopuc
   pk: 1
   fields: {created_at: !!timestamp '2018-08-30 18:29:30.348842', updated_at: !!timestamp '2018-08-30
-      18:29:30.348873', product: 1840, PUC: 20, puc_assigned_usr: null, puc_assigned_script: null,
+      18:29:30.348873', product: 1840, puc: 20, puc_assigned_usr: null, puc_assigned_script: null,
     classification_method: MA, classification_confidence: '1.000'}
 - model: dashboard.producttopuc
   pk: 2
   fields: {created_at: !!timestamp '2018-08-30 18:38:10.868539', updated_at: !!timestamp '2018-08-30
-      18:38:10.868561', product: 878, PUC: 245, puc_assigned_usr: null, puc_assigned_script: null,
+      18:38:10.868561', product: 878, puc: 245, puc_assigned_usr: null, puc_assigned_script: null,
     classification_method: MA,
     classification_confidence: '1.000'}
 - model: dashboard.producttopuc
   pk: 3
   fields: {created_at: !!timestamp '2018-09-06 00:24:50.290404', updated_at: !!timestamp '2018-09-06
-      00:24:50.290438', product: 1672, PUC: 3, puc_assigned_usr: null, puc_assigned_script: null,
+      00:24:50.290438', product: 1672, puc: 3, puc_assigned_usr: null, puc_assigned_script: null,
     classification_method: MA, classification_confidence: '1.000'}
 - model: dashboard.producttopuc
   pk: 4
   fields: {created_at: !!timestamp '2018-09-06 00:27:58.990304', updated_at: !!timestamp '2018-09-06
-      00:27:58.990398', product: 793, PUC: 6, puc_assigned_usr: null, puc_assigned_script: null,
+      00:27:58.990398', product: 793, puc: 6, puc_assigned_usr: null, puc_assigned_script: null,
     classification_method: MA, classification_confidence: '1.000'}
 - model: dashboard.producttopuc
   pk: 5
   fields: {created_at: !!timestamp '2018-10-04 10:55:10.319166', updated_at: !!timestamp '2018-10-04
-      10:55:10.319166', product: 11, PUC: 1, puc_assigned_usr: null, puc_assigned_script: null,
+      10:55:10.319166', product: 11, puc: 1, puc_assigned_usr: null, puc_assigned_script: null,
     classification_method: MA,
     classification_confidence: '1.000'}

@@ -103,16 +103,10 @@ class TestQaPage(TestCase):
         # Make sure that the number of documents in the QA Group has increased
         self.assertTrue(ExtractedText.objects.filter(qa_group = new_group ).count() > initial_qa_count )
 
-
-
-        
-       
-
-
-
-
-
-
+    def test_habitsandpractices(self):
+        # Begin from the QA index page
+        response = self.client.get(f'/habitsandpractices/54/')
+        self.assertContains(response, '<b>Add New Habit and Practice</b>')
 
     def test_dd_link(self):
         # Open the Script page to create a QA Group

@@ -14,7 +14,7 @@ class ProductToPUC(CommonInfo):
                                 ('MB', 'Manual Batch'))
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    PUC = models.ForeignKey(PUC, on_delete=models.CASCADE)
+    puc = models.ForeignKey(PUC, on_delete=models.CASCADE)
     puc_assigned_usr = models.ForeignKey('auth.User',
                                          on_delete=models.SET_NULL,
                                          null=True, blank=True)
@@ -28,14 +28,6 @@ class ProductToPUC(CommonInfo):
                                                     decimal_places=3,
                                                     default=1,
                                                     null=True, blank=True)
-
-    # This isn't compatible with updating an existing record
-    # def save(self, *args, **kwargs):
-    #     if ProductToPUC.objects.filter(product=self.product,
-    #                           classification_method='MA').count() > 0:
-    #         raise ValidationError("Too many manually linked PUCs!")
-    #     else:
-    #         super(ProductToPUC, self).save(*args, **kwargs)
 
     def __str__(self):
         return str(self.id)

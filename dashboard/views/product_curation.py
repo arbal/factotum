@@ -8,7 +8,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.forms import ModelForm
 from dashboard.models import *
-from dashboard.forms import (ProductPUCForm, ProductLinkForm, BulkProductPUCForm, ProductForm)
+from dashboard.forms import (ProductPUCForm, ProductLinkForm, BulkProductPUCForm, BulkProductTagForm, ProductForm)
 
 from taggit.forms import TagField
 from taggit_labels.widgets import LabelWidget
@@ -124,6 +124,32 @@ def detach_puc_from_product(request, pk):
     return redirect('product_detail', pk=p.pk)
 
 @login_required()
+def bulk_assign_tag_to_products(request, template_name=('product_curation/'
+                                                      'bulk_product_tag.html')):
+    form = BulkProductTagForm(request.POST or None)
+    msg = ''
+    if form['puc'].value():
+        puc = PUC.objects.get(pk = form['puc'].value())
+        form.fields['tag'].queryset = PUCTag.objects.filter(id__in=(PUCToTag.objects.
+                           filter(content_object=puc).
+                           values_list('tag', flat=True)))
+        products = (Product.objects.
+                    filter(id__in=(ProductToPUC.objects.filter(puc = puc).values_list('product_id', flat=True))))
+    else:
+        products = {}
+    if request.method == 'POST' and 'save' in request.POST:
+        if form.is_valid():
+            tag = PUCTag.objects.get(id=form['tag'].value())
+            product_ids = form['id_pks'].value().split(",")
+            for id in product_ids:
+                product = Product.objects.get(id=id)
+                ProductToTag.objects.update_or_create(tag=tag, content_object=product)
+                form = BulkProductTagForm(None)
+            msg = f'The "{tag.name}" Attribute was assigned to {len(product_ids)} Product(s)'
+            products = {}
+    return render(request, template_name, {'products': products, 'form': form, 'msg': msg})
+
+@login_required()
 def bulk_assign_puc_to_product(request, template_name=('product_curation/'
                                                       'bulk_product_puc.html')):
     max_products_returned = 50
@@ -143,9 +169,9 @@ def bulk_assign_puc_to_product(request, template_name=('product_curation/'
         product_ids = form['id_pks'].value().split(",")
         for id in product_ids:
             product = Product.objects.get(id=id)
-            ProductToPUC.objects.create(PUC=puc, product=product, classification_method='MB',
+            ProductToPUC.objects.create(puc=puc, product=product, classification_method='MB',
                                     puc_assigned_usr=request.user)
-    form["puc"].label = 'PUC to Assign to Selected Products'
+    form['puc'].label = 'PUC to Assign to Selected Products'
     return render(request, template_name, {'products': p, 'q': q, 'form': form, 'full_p_count': full_p_count})
 
 @login_required()
@@ -159,7 +185,7 @@ def assign_puc_to_product(request, pk, template_name=('product_curation/'
         producttopuc = ProductToPUC.objects.filter(product=p, classification_method='MA')
         if producttopuc.exists():
             producttopuc.delete()
-        ProductToPUC.objects.create(PUC=puc, product=p, classification_method='MA',
+        ProductToPUC.objects.create(puc=puc, product=p, classification_method='MA',
                                     puc_assigned_usr=request.user)
         referer = request.POST.get('referer') if request.POST.get('referer') else 'category_assignment'
         pk = p.id if referer == 'product_detail' else p.data_source.id
