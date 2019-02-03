@@ -26,6 +26,7 @@ from .product_to_tag import ProductToTag
 from .product_to_puc import ProductToPUC
 from .extracted_habits_and_practices_to_puc import ExtractedHabitsAndPracticesToPUC
 from .qa_notes import QANotes
+from .raw_chem import RawChem
 from .taxonomy import Taxonomy
 from .taxonomy_source import TaxonomySource
 from .taxonomy_to_PUC import TaxonomyToPUC

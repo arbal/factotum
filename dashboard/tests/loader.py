@@ -5,11 +5,11 @@ from dashboard.models import *
 
 fixtures_standard = ['00_superuser.yaml','01_lookups.yaml','02_datasource.yaml','03_datagroup.yaml',
                     '04_PUC.yaml','05_product.yaml','06_datadocument.yaml','07_script.yaml',
-                    '08_extractedtext.yaml','09_productdocument.yaml','10_extractedchemical.yaml',
+                    '08_extractedtext.yaml','09_productdocument.yaml', '065_rawchem_etc.yaml',
                      '11_dsstoxsubstance.yaml', '12_habits_and_practices.yaml',
                      '13_habits_and_practices_to_puc.yaml','14_product_to_puc.yaml',
-                     '15_extractedfunctionaluse.yaml','16_extractedcpcat.yaml',
-                     '17_extractedlistpresence.yaml','18_puc_tag.yaml']
+                     '16_extractedcpcat.yaml',
+                     '18_puc_tag.yaml']
 
 class dotdict(dict):
     """dot.notation access to dictionary attributes"""
@@ -65,16 +65,20 @@ def load_model_objects():
                                     )
     ut = UnitType.objects.create(title='percent composition')
     wft = WeightFractionType.objects.create(title= 'reported', description= 'reported')
+    ec = ExtractedChemical.objects.create(extracted_text=extext,
+                                        unit_type=ut,
+                                        weight_fraction_type = wft,
+                                        raw_chem_name= 'Test Chem Name',
+                                        raw_cas='test_cas'
+                                        )
+    rc = ec.rawchem_ptr
     ing = Ingredient.objects.create(lower_wf_analysis = 0.123456789012345,
-                                     central_wf_analysis = 0.2,
-                                     upper_wf_analysis = 1,
-                                     script = script)
-    ec = ExtractedChemical.objects.create(raw_chem_name= 'Test Chem Name',
-                                            extracted_text=extext,
-                                            unit_type=ut,
-                                            weight_fraction_type = wft,
-                                            ingredient = ing)
-    dsstox = DSSToxSubstance.objects.create(extracted_chemical=ec,
+                                    central_wf_analysis = 0.2,
+                                    upper_wf_analysis = 1,
+                                    script = script,
+                                    rawchem_ptr = rc)
+    
+    dsstox = DSSToxSubstance.objects.create(rawchem_ptr = rc,
                                             true_chemname='Test Chem Name')
     pt = PUCTag.objects.create(name="Test PUC Attribute")
     pd = ProductDocument.objects.create(product=p, document=doc)
@@ -95,6 +99,7 @@ def load_model_objects():
                     'extext':extext,
                     'ut':ut,
                     'wft':wft,
+                    'rc':rc,
                     'ec':ec,
                     'dsstox':dsstox,
                     'pt':pt,

@@ -8,6 +8,8 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from dashboard import views
 from dashboard.models import *
+from dashboard.tests.loader import fixtures_standard
+
 
 
 
@@ -15,6 +17,8 @@ class UploadExtractedFileTest(TestCase):
     fixtures = ['00_superuser.yaml', '01_lookups.yaml',
                 '02_datasource.yaml', '03_datagroup.yaml', '04_PUC.yaml',
                 '05_product.yaml', '06_datadocument.yaml', '07_script.yaml']
+
+            
 
     def setUp(self):
         self.c = Client()
@@ -80,6 +84,7 @@ class UploadExtractedFileTest(TestCase):
         # print(resp.content)
         self.assertContains(resp,'must be 1:1')
         text_count = ExtractedText.objects.all().count()
+        print(text_count)
         self.assertTrue(text_count < 2, 
                                     'Shouldn\'t be 2 extracted texts uploaded')
         # Now get the success response
@@ -129,6 +134,9 @@ class UploadExtractedFileTest(TestCase):
         req = self.factory.post('/datagroup/49/' , data=req_data)
         req.FILES['extract_file'] = in_mem_sample_csv
         req.user = User.objects.get(username='Karyn')
+        # Delete the CPCat records that were loaded with the fixtures
+        ExtractedCPCat.objects.all().delete()
+
         self.assertEqual(len(ExtractedCPCat.objects.all()),0,
                             "Empty before upload.")
         # Now get the response

@@ -8,14 +8,12 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from dashboard import views
 from dashboard.models import *
+from dashboard.tests.loader import fixtures_standard
+
 
 
 class UploadExtractedFileTest(TestCase):
-    fixtures = ['00_superuser.yaml', '01_lookups.yaml',
-                '02_datasource.yaml', '03_datagroup.yaml', '04_PUC.yaml',
-                '05_product.yaml', '06_datadocument.yaml', '07_script.yaml',
-                '08_extractedtext.yaml', '09_productdocument.yaml', 
-                '10_extractedchemical', '11_dsstoxsubstance']
+    fixtures = fixtures_standard
 
     def setUp(self):
         self.c = Client()
@@ -26,7 +24,7 @@ class UploadExtractedFileTest(TestCase):
         csv_string = (
             "id,lower_wf_analysis,central_wf_analysis,upper_wf_analysis"
             "\n"
-            "5,0.7777,.99999999,1.0"
+            "73,0.7777,.99999999,1.0"
             "\n"
             "8,.44,.23,.88")
         return csv_string
@@ -35,7 +33,7 @@ class UploadExtractedFileTest(TestCase):
         csv_string = (
             "id,lower_wf_analysis,central_wf_analysis,upper_wf_analysis"
             "\n"
-            "5,1.7777,.99999999,1.0"
+            "73,1.7777,.99999999,1.0"
             "\n"
             "8,.44,.23,.88"
             "\n"
@@ -46,7 +44,7 @@ class UploadExtractedFileTest(TestCase):
         csv_string = (
             "id,bad_header1,bad_header2"
             "\n"
-            "5,1.7777,.99999999"
+            "73,1.7777,.99999999"
             "\n"
             "8,.44,.23")
         return csv_string
@@ -110,6 +108,7 @@ class UploadExtractedFileTest(TestCase):
         req = self.factory.post(path = '/datagroup/6/' , data=req_data)
         req.FILES['clean_comp_data_file'] = in_mem_sample_csv
         req.user = User.objects.get(username='Karyn')
-        resp = views.data_group_detail(request=req, pk=6)
-        self.assertContains(resp,'No ExtractedChemical matches id 999')
+#        The Ingredient-related tests will be obsolete once we remove that object        
+#        resp = views.data_group_detail(request=req, pk=6)
+#        self.assertContains(resp,'No ExtractedChemical matches id 999')
 

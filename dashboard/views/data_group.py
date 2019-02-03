@@ -199,14 +199,15 @@ def data_group_detail(request, pk,
             good_records = []
             for i, row in enumerate(csv.DictReader(info)):
                 try:
-                    extracted_chemical = ExtractedChemical.objects.get(pk=int(row['id']))
+                    extracted_chemical = ExtractedChemical.objects.get(rawchem_ptr=int(row['id']))
                 except ExtractedChemical.DoesNotExist as e:
                     extracted_chemical = None
-                    context['clean_comp_err'][i + 1] = {'id': ['No ExtractedChemical matches id ' + row['id'], ]}
+                    context['clean_comp_err'][i + 1] = {'id': ['No ExtractedChemical matches rawchem_ptr_id ' + row['id'], ]}
+                    print('No ExtractedChemical matches rawchem_ptr_id %s' % row['id'])
                 try:
-                    ingredient = Ingredient.objects.get(extracted_chemical=extracted_chemical)
+                    ingredient = Ingredient.objects.get(rawchem_ptr=extracted_chemical.rawchem_ptr)
                 except Ingredient.DoesNotExist as e:
-                    ingredient = Ingredient(extracted_chemical=extracted_chemical)
+                    ingredient = Ingredient(rawchem_ptr=extracted_chemical.rawchem_ptr)
                 ingredient.lower_wf_analysis = row['lower_wf_analysis']
                 ingredient.central_wf_analysis = row['central_wf_analysis']
                 ingredient.upper_wf_analysis = row['upper_wf_analysis']

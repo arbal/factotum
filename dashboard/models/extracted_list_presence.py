@@ -1,15 +1,20 @@
 from django.db import models
 
 from dashboard.models import CommonInfo
+from .raw_chem import RawChem
 
-class ExtractedListPresence(CommonInfo):
+class ExtractedListPresence(CommonInfo, RawChem):
     extracted_cpcat = models.ForeignKey('ExtractedCPCat',
                                         on_delete=models.CASCADE,
                                         related_name='presence')
-    raw_cas = models.CharField("Raw CAS", max_length=100,
+    raw_cas_old = models.CharField("Raw CAS", max_length=100,
                                         null=True, blank=True)
-    raw_chem_name = models.CharField("Raw chemical name", max_length=500,
+    raw_chem_name_old = models.CharField("Raw chemical name", max_length=500,
                                         null=True, blank=True)
+                                        
+    rawchem_ptr = models.OneToOneField(blank=False, null=False, 
+            related_name='extracted_listpresence',parent_link=True ,
+            on_delete=models.CASCADE, to='dashboard.RawChem')
 
     # Use a property to simulate the extracted_text attribute so that that
     # the child of an ExtractedCPCat object behaves like the child of an

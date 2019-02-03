@@ -60,14 +60,14 @@ def stats_by_dtxsids(dtxs):
 
     # The number of unique PUCs (product categories) the chemical is associated with
     pucs_n = DSSToxSubstance.objects.filter(sid__in=dtxs).\
-        values('sid').annotate(pucs_n=Count('extracted_chemical__extracted_text__data_document__product__puc')).values('sid','pucs_n')
+        values('sid').annotate(pucs_n=Count('rawchem_ptr__extracted_chemical__extracted_text__data_document__product__puc')).values('sid','pucs_n')
     #print('pucs_n:')
     #print(pucs_n)
 
     # "The number of data documents (e.g.  MSDS, SDS, ingredient list, product label)
     # the chemical appears in
     dds_n = DSSToxSubstance.objects.filter(sid__in=dtxs).values('sid').\
-        annotate(dds_n=Count('extracted_chemical__extracted_text__data_document')).values('sid','dds_n')
+        annotate(dds_n=Count('rawchem_ptr__extracted_chemical__extracted_text__data_document')).values('sid','dds_n')
     #print('dds_n:')
     #print(dds_n)
 
@@ -80,13 +80,13 @@ def stats_by_dtxsids(dtxs):
         dds_wf_n = Subquery(
             ExtractedChemical
             .objects
-            .filter(pk=OuterRef('extracted_chemical_id') )
+            .filter(rawchem_ptr_id=OuterRef('rawchem_ptr_id') )
             .filter(
                 Q(raw_max_comp__isnull=False) |
                 Q(raw_min_comp__isnull=False) |
                 Q(raw_central_comp__isnull=False)
             )
-            .values('extracted_text_id')
+            .values('rawchem_ptr__extracted_chemical__extracted_text_id')
             .annotate(dds_wf_n=Count('extracted_text_id') )
             .values('dds_wf_n')
         )
@@ -98,8 +98,8 @@ def stats_by_dtxsids(dtxs):
                     "SUM( "
                         "(SELECT Count(DISTINCT ec2.extracted_text_id) as dd_wf_id "
                         "FROM dashboard_extractedchemical ec2 "
-                        "WHERE ec2.id = dss.extracted_chemical_id "
-                        "GROUP BY ec2.extracted_text_id "
+                        "WHERE ec2.rawchem_ptr_id = dss.rawchem_ptr_id "
+                        "GROUP BY ec2.rawchem_ptr_id "
                         "HAVING SUM( ( "
                             "(ec2.raw_max_comp IS NULL) +  "
                             "(ec2.raw_min_comp IS NULL) +  "
@@ -109,7 +109,7 @@ def stats_by_dtxsids(dtxs):
                             ") as dds_wf_n "
                             "FROM dashboard_dsstoxsubstance dss "
                             "LEFT JOIN dashboard_extractedchemical ec "
-                            "on ec.id = dss.extracted_chemical_id "
+                            "on ec.rawchem_ptr_id = dss.rawchem_ptr_id "
                             "GROUP BY dss.sid ")
     cursor_dds_wf_n = connection.cursor()
     cursor_dds_wf_n.execute(strsql)
@@ -126,7 +126,7 @@ def stats_by_dtxsids(dtxs):
     # The number of products the chemical appears in, where a product is defined as a
     # product entry in Factotum.
     products_n = DSSToxSubstance.objects.filter(sid__in=dtxs).values('sid').\
-       annotate(products_n=Count('extracted_chemical__extracted_text__data_document__product')).values('sid', 'products_n')
+       annotate(products_n=Count('rawchem_ptr__extracted_chemical__extracted_text__data_document__product')).values('sid', 'products_n')
 
 
     stats = pucs_n\

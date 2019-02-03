@@ -1,6 +1,8 @@
 from django.test import TestCase, override_settings
 
 from dashboard.tests.loader import *
+from dashboard.tests.loader import fixtures_standard
+
 
 class DataGroupTest(TestCase):
 
@@ -13,8 +15,7 @@ class DataGroupTest(TestCase):
 
 class DataGroupCodes(TestCase):
 
-    fixtures = ['00_superuser.yaml','01_lookups.yaml',
-                '02_datasource.yaml','07_script.yaml']
+    fixtures = fixtures_standard
 
     def setUp(self):
         self.client.login(username='Karyn', password='specialP@55word')

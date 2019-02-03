@@ -10,6 +10,8 @@ from django.test import TestCase
 from django.test.client import Client
 
 from dashboard.views.get_data import *
+from dashboard.tests.loader import fixtures_standard
+
 
 # from dashboard import views
 # from django.urls import resolve
@@ -19,13 +21,7 @@ from dashboard.views.get_data import *
 @override_settings(ALLOWED_HOSTS=['testserver'])
 class TestGetData(TestCase):
 
-    fixtures = ['00_superuser.yaml', '01_lookups.yaml',
-                '02_datasource.yaml', '03_datagroup.yaml', '04_PUC.yaml',
-                '05_product.yaml', '06_datadocument.yaml','07_script.yaml',
-                '08_extractedtext.yaml', '09_productdocument.yaml',
-                '10_extractedchemical', '11_dsstoxsubstance',
-                '12_habits_and_practices.yaml',
-                '13_habits_and_practices_to_puc.yaml']
+    fixtures = fixtures_standard
 
     def setUp(self):
         self.client = Client()
@@ -41,7 +37,7 @@ class TestGetData(TestCase):
         self.client.login(username='Karyn', password='specialP@55word')
         # get the associated documents for linking to products
         dds = DataDocument.objects.filter(pk__in=DSSToxSubstance.objects.filter(sid='DTXSID9022528').\
-        values('extracted_chemical__extracted_text__data_document'))
+        values('rawchem_ptr__extracted_chemical__extracted_text__data_document'))
         dd = dds[0]
 
         ds = dd.data_group.data_source
@@ -78,7 +74,7 @@ class TestGetData(TestCase):
         self.client.login(username='Karyn', password='specialP@55word')
         # get the associated documents for linking to products
         dds = DataDocument.objects.filter(pk__in=DSSToxSubstance.objects.filter(sid='DTXSID9022528').\
-            values('extracted_chemical__extracted_text__data_document'))
+            values('rawchem_ptr__extracted_chemical__extracted_text__data_document'))
         dd = dds[0]
         dd.delete()
 
@@ -100,7 +96,7 @@ class TestGetData(TestCase):
         self.assertEqual(1, ethylparaben_stats['dds_wf_n'], 'There should be 1 extracted chemical \
         with weight fraction data associated with ethylaraben')
         # add weight fraction data to a different extractedchemical
-        ec = ExtractedChemical.objects.get(pk=27216)
+        ec = ExtractedChemical.objects.get(rawchem_ptr_id = 73)
         ec.raw_min_comp=0.1
         ec.save()
         stats = stats_by_dtxsids(dtxs)
@@ -126,7 +122,7 @@ class TestGetData(TestCase):
         self.client.login(username='Karyn', password='specialP@55word')
         # get the associated documents for linking to products
         dds = DataDocument.objects.filter(pk__in=DSSToxSubstance.objects.filter(sid='DTXSID9022528').\
-        values('extracted_chemical__extracted_text__data_document'))
+        values('rawchem_ptr__extracted_chemical__extracted_text__data_document'))
         dd = dds[0]
 
 

@@ -105,6 +105,8 @@ class ModelsTest(TestCase):
         # ExtractedText
         self.assertEqual(str(self.objects.extext),
                                     'Test Extracted Text Record')
+        # RawChem
+        self.assertEqual(str(self.objects.rc), 'Test Chem Name')
         # ExtractedChemical
         self.assertEqual(str(self.objects.ec), 'Test Chem Name')
         # DSSToxSubstance

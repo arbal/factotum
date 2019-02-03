@@ -61,16 +61,18 @@ python manage.py dumpdata dashboard.datagroup --format=yaml > ./dashboard/fixtur
 python manage.py dumpdata dashboard.PUC --format=yaml > ./dashboard/fixtures/04_PUC.yaml
 python manage.py dumpdata dashboard.product --format=yaml > ./dashboard/fixtures/05_product.yaml
 python manage.py dumpdata dashboard.datadocument --format=yaml > ./dashboard/fixtures/06_datadocument.yaml
-python manage.py dumpdata dashboard.qagroup --format=yaml > ./dashboard/fixtures/065_qagroup.yaml
+python manage.py dumpdata dashboard.rawchem dashboard.extractedchemical dashboard.extractedfunctionaluse dashboard.extractedlistpresence --format=yaml > ./dashboard/fixtures/065_rawchem_etc.yaml
 python manage.py dumpdata dashboard.script --format=yaml > ./dashboard/fixtures/07_script.yaml
 python manage.py dumpdata dashboard.extractedtext --format=yaml > ./dashboard/fixtures/08_extractedtext.yaml
 python manage.py dumpdata dashboard.productdocument --format=yaml > ./dashboard/fixtures/09_productdocument.yaml
-python manage.py dumpdata dashboard.extractedchemical --format=yaml > ./dashboard/fixtures/10_extractedchemical.yaml
-
+# python manage.py dumpdata dashboard.extractedchemical --format=yaml > ./dashboard/fixtures/10_extractedchemical.yaml
 python manage.py dumpdata dashboard.dsstoxsubstance --format=yaml > ./dashboard/fixtures/11_dsstoxsubstance.yaml
-
-python manage.py dumpdata dashboard.extractedlistpresence --format=yaml > ./dashboard/fixtures/16_extractedcpcat.yaml
-
-python manage.py dumpdata dashboard.extractedlistpresence --format=yaml > ./dashboard/fixtures/17_extractedlistpresence.yaml
+python manage.py dumpdata dashboard.extractedhabitsandpractices --format=yaml > ./dashboard/fixtures/12_habits_and_practices.yaml
+python manage.py dumpdata dashboard.extractedhabitsandpracticestopuc --format=yaml > ./dashboard/fixtures/13_habits_and_practices_to_puc.yaml
+python manage.py dumpdata dashboard.producttopuc --format=yaml > ./dashboard/fixtures/14_product_to_puc.yaml
+# python manage.py dumpdata dashboard.extractedfunctionaluse --format=yaml > ./dashboard/fixtures/15_extractedfunctionaluse.yaml
+python manage.py dumpdata dashboard.extractedcpcat --format=yaml > ./dashboard/fixtures/16_extractedcpcat.yaml
+# python manage.py dumpdata dashboard.extractedlistpresence --format=yaml > ./dashboard/fixtures/17_extractedlistpresence.yaml
+python manage.py dumpdata dashboard.puctag dashboard.producttotag dashboard.puctotag --format=yaml > ./dashboard/fixtures/18_puc_tag.yaml
 
 """

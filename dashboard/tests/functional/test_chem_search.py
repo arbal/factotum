@@ -8,15 +8,14 @@ import time
 from django.conf import settings
 from dashboard.models import DSSToxSubstance
 from lxml import html
+from dashboard.tests.loader import fixtures_standard
+
 
 
 
 @override_settings(HAYSTACK_CONN='test_index')
 class ChemSearchTest(TestCase):
-    fixtures = ['00_superuser.yaml', '01_lookups.yaml',
-                '02_datasource.yaml', '03_datagroup.yaml', '04_PUC.yaml',
-                '05_product.yaml', '06_datadocument.yaml', '07_script.yaml',
-                '08_extractedtext.yaml', '09_productdocument.yaml', '10_extractedchemical', '11_dsstoxsubstance']
+    fixtures = fixtures_standard
 
     @classmethod
     def setUpClass(cls):
