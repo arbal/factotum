@@ -1,114 +1,111 @@
 - model: dashboard.datasource
   pk: 6
-  fields: {created_at: !!timestamp '2018-09-09 11:31:21.121027', updated_at: !!timestamp '2018-09-23
-      06:30:04.484498', title: Functional Use Example Source, url: '',
-    estimated_records: 3, state: CO, description: '', priority: LO}
+  fields: {created_at: ! '2018-09-09 11:31:21.121027', updated_at: ! '2018-09-23 06:30:04.484498',
+    title: Functional Use Example Source, url: '', estimated_records: 3, state: CO,
+    description: '', priority: LO}
 - model: dashboard.datasource
   pk: 7
-  fields: {created_at: !!timestamp '2018-03-09 11:31:21.121027', updated_at: !!timestamp '2018-05-27
-      06:30:04.484498', title: British Petroleum (Air), url: 'https://airbpmsds.bp.com/msdspds/airbpmsdspds.nsf/BPHomePage?OpenForm&sitelang=EN',
+  fields: {created_at: ! '2018-03-09 11:31:21.121027', updated_at: ! '2018-05-27 06:30:04.484498',
+    title: British Petroleum (Air), url: 'https://airbpmsds.bp.com/msdspds/airbpmsdspds.nsf/BPHomePage?OpenForm&sitelang=EN',
     estimated_records: 6, state: CO, description: '', priority: LO}
 - model: dashboard.datasource
   pk: 8
-  fields: {created_at: !!timestamp '2018-03-12 09:09:50.032960', updated_at: null,
-    title: Home Depot - ICF, url: '', estimated_records: 1849, state: AT, description: Home
+  fields: {created_at: ! '2018-03-12 09:09:50.032960', updated_at: null, title: Home
+      Depot - ICF, url: '', estimated_records: 1849, state: AT, description: Home
       Depot MSDS sheets downloaded and extracted by ICF International, priority: HI}
 - model: dashboard.datasource
   pk: 10
-  fields: {created_at: !!timestamp '2018-03-15 11:30:49.906418', updated_at: !!timestamp '2018-04-09
-      10:57:41.321211', title: Walmart MSDS, url: 'http://msds.walmartstores.com/',
-    estimated_records: 65000, state: AT, description: '', priority: MD}
+  fields: {created_at: ! '2018-03-15 11:30:49.906418', updated_at: ! '2018-04-09 10:57:41.321211',
+    title: Walmart MSDS, url: 'http://msds.walmartstores.com/', estimated_records: 65000,
+    state: AT, description: '', priority: MD}
 - model: dashboard.datasource
   pk: 11
-  fields: {created_at: !!timestamp '2018-03-19 13:18:52.272376', updated_at: !!timestamp '2018-03-19
-      13:32:47.021761', title: Georgia Pacific, url: 'http://msds.gp.com/msdsinternet/',
-    estimated_records: 124, state: AT, description: "The SDS were downloaded on July\
-      \ 31, 2017 as individual PDF's. Only the United States SDS were downloaded.\
-      \ \r\n\r\nProduct types include:\r\n\r\nAgricultural Gypsum,\r\nAir Care,\r\n\
-      Airlaid Nonwoven,\t\r\nCellulose,\r\nConsumer / Retail,\t\r\nFiredoor Components,\t\
-      \r\nGypsum Board,\t\r\nGypsum Plaster,\r\nIndustrial Wipers,\t\r\nJoint Treatment\
-      \ & Texture,\t\r\nLotioned Towels,\t\r\nPressure Treated Wood,\r\nSkin Care,\t\
-      \r\nand Wood Products.", priority: HI}
+  fields: {created_at: ! '2018-03-19 13:18:52.272376', updated_at: ! '2018-03-19 13:32:47.021761',
+    title: Georgia Pacific, url: 'http://msds.gp.com/msdsinternet/', estimated_records: 124,
+    state: AT, description: "The SDS were downloaded on July 31, 2017 as individual
+      PDF's. Only the United States SDS were downloaded. \r\n\r\nProduct types include:\r\n\r\nAgricultural
+      Gypsum,\r\nAir Care,\r\nAirlaid Nonwoven,\t\r\nCellulose,\r\nConsumer / Retail,\t\r\nFiredoor
+      Components,\t\r\nGypsum Board,\t\r\nGypsum Plaster,\r\nIndustrial Wipers,\t\r\nJoint
+      Treatment & Texture,\t\r\nLotioned Towels,\t\r\nPressure Treated Wood,\r\nSkin
+      Care,\t\r\nand Wood Products.", priority: HI}
 - model: dashboard.datasource
   pk: 12
-  fields: {created_at: !!timestamp '2018-03-19 13:33:58.044145', updated_at: !!timestamp '2018-03-19
-      13:34:13.873160', title: Hewlett-Packard, url: 'http://www8.hp.com/us/en/hp-information/environment/msds-specs.html',
-    estimated_records: 4049, state: AT, description: "MSDS sheets were downloaded\
-      \ from the website on August 1, 2017. Product categories that were downloaded\
-      \ include:\r\n\r\nInkjet printer supplies,\r\nLaserJet printer supplies,\r\n\
-      Samsung Printer Supplies,\r\nIndigo digital press inks,\r\nDesignjet, Latex\
-      \ and Scitex supplies,\r\nSpecialty Printing Systems (SPS) inkjet printer supplies,\r\
-      \nOPG/EMO inkjet printer supplies,\r\nHP Hardware & PC Liquid supplies,\r\n\
-      HP Branded 3D Materials and Consumables, \r\nBonding agents, cleaners, maintenance\
-      \ supplies and other liquids,\r\nand Digital projector and printer lamps (psds).\r\
-      \n\r\nInformation from the battery MSDS sheets wasn't extracted.", priority: HI}
+  fields: {created_at: ! '2018-03-19 13:33:58.044145', updated_at: ! '2018-03-19 13:34:13.873160',
+    title: Hewlett-Packard, url: 'http://www8.hp.com/us/en/hp-information/environment/msds-specs.html',
+    estimated_records: 4049, state: AT, description: "MSDS sheets were downloaded
+      from the website on August 1, 2017. Product categories that were downloaded
+      include:\r\n\r\nInkjet printer supplies,\r\nLaserJet printer supplies,\r\nSamsung
+      Printer Supplies,\r\nIndigo digital press inks,\r\nDesignjet, Latex and Scitex
+      supplies,\r\nSpecialty Printing Systems (SPS) inkjet printer supplies,\r\nOPG/EMO
+      inkjet printer supplies,\r\nHP Hardware & PC Liquid supplies,\r\nHP Branded
+      3D Materials and Consumables, \r\nBonding agents, cleaners, maintenance supplies
+      and other liquids,\r\nand Digital projector and printer lamps (psds).\r\n\r\nInformation
+      from the battery MSDS sheets wasn't extracted.", priority: HI}
 - model: dashboard.datasource
   pk: 13
-  fields: {created_at: !!timestamp '2018-03-19 13:44:06.082767', updated_at: null,
-    title: Sun MSDS, url: 'https://sunproductsmsdsbrand.thewercs.com/private/results.aspx?__VIEWSTATEGENERATOR=D6323F43&subformat=d__AGHS&language=d__EN',
+  fields: {created_at: ! '2018-03-19 13:44:06.082767', updated_at: null, title: Sun
+      MSDS, url: 'https://sunproductsmsdsbrand.thewercs.com/private/results.aspx?__VIEWSTATEGENERATOR=D6323F43&subformat=d__AGHS&language=d__EN',
     estimated_records: 273, state: AT, description: 'Downloaded MSDS sheets on August
       30, 2017. Only downloaded the sheets in English for North America. Initial scraping
       was done using selenium.', priority: HI}
 - model: dashboard.datasource
   pk: 14
-  fields: {created_at: !!timestamp '2018-03-19 13:46:24.679885', updated_at: null,
-    title: Sun SDS, url: 'https://sunproductsmsdsbrand.thewercs.com/private/results.aspx?__VIEWSTATEGENERATOR=D6323F43&subformat=d__AGHS&language=d__EN',
+  fields: {created_at: ! '2018-03-19 13:46:24.679885', updated_at: null, title: Sun
+      SDS, url: 'https://sunproductsmsdsbrand.thewercs.com/private/results.aspx?__VIEWSTATEGENERATOR=D6323F43&subformat=d__AGHS&language=d__EN',
     estimated_records: 258, state: AT, description: 'Downloaded MSDS sheets on September
       5, 2017. Only downloaded the sheets in English for the United States. Initial
       scraping was done using selenium.', priority: HI}
 - model: dashboard.datasource
   pk: 15
-  fields: {created_at: !!timestamp '2018-03-19 13:48:28.867754', updated_at: null,
-    title: Sun Ingredient Disclosures, url: 'https://sunproductsmsdsbrand.thewercs.com/private/results.aspx?__VIEWSTATEGENERATOR=D6323F43&subformat=d__INDS&language=d__EN',
+  fields: {created_at: ! '2018-03-19 13:48:28.867754', updated_at: null, title: Sun
+      Ingredient Disclosures, url: 'https://sunproductsmsdsbrand.thewercs.com/private/results.aspx?__VIEWSTATEGENERATOR=D6323F43&subformat=d__INDS&language=d__EN',
     estimated_records: 463, state: AT, description: 'Downloaded MSDS sheets on September
       5, 2017. Only downloaded the sheets in English. Initial scraping was done using
       selenium.', priority: HI}
 - model: dashboard.datasource
   pk: 16
-  fields: {created_at: !!timestamp '2018-04-10 12:51:48.706573', updated_at: null,
-    title: Walmart Labs, url: 'https://www.walmartlabs.com/', estimated_records: 21000000,
-    state: IP, description: Scraped daily from walmart api. Only products that are
-      matched with msds/sds are brought over to factotum, priority: LO}
+  fields: {created_at: ! '2018-04-10 12:51:48.706573', updated_at: null, title: Walmart
+      Labs, url: 'https://www.walmartlabs.com/', estimated_records: 21000000, state: IP,
+    description: Scraped daily from walmart api. Only products that are matched with
+      msds/sds are brought over to factotum, priority: LO}
 - model: dashboard.datasource
   pk: 17
-  fields: {created_at: !!timestamp '2018-04-10 13:47:05.769062', updated_at: !!timestamp '2018-06-06
-      09:26:17.659223', title: Blick, url: 'https://www.dickblick.com/msds/', estimated_records: 20000,
+  fields: {created_at: ! '2018-04-10 13:47:05.769062', updated_at: ! '2018-06-06 09:26:17.659223',
+    title: Blick, url: 'https://www.dickblick.com/msds/', estimated_records: 20000,
     state: AT, description: 'Retailer selling art supplies. Specific product pages
       include links to MSDS sheets. Estimated records is unknown, number indicated
       above is random.', priority: LO}
 - model: dashboard.datasource
   pk: 18
-  fields: {created_at: !!timestamp '2018-04-26 10:40:20.275326', updated_at: !!timestamp '2018-05-27
-      06:29:48.981504', title: Bell Labs, url: 'http://www.belllabs.com/downloads/safety-data-sheets',
+  fields: {created_at: ! '2018-04-26 10:40:20.275326', updated_at: ! '2018-05-27 06:29:48.981504',
+    title: Bell Labs, url: 'http://www.belllabs.com/downloads/safety-data-sheets',
     estimated_records: 40, state: CO, description: 'Bell Laboratories provides Safety
       Data Sheets (SDS) for all its rodenticides and other products, where required.',
     priority: LO}
 - model: dashboard.datasource
   pk: 19
-  fields: {created_at: !!timestamp '2018-04-26 14:28:16.561560', updated_at: null,
-    title: Crop Data Management Systems, url: 'http://www.cdms.net/Label-Database',
-    estimated_records: 440, state: AT, description: SDS and pesticide labels from
-      120 manufacturers. List by manufacturer or search by product name to get SDS
-      and and labels as PDF files in varying formats. Each manufacturer listing includes
-      its web site address., priority: LO}
-- model: dashboard.datasource
-  pk: 20
-  fields: {created_at: !!timestamp '2018-04-26 14:31:13.044360', updated_at: !!timestamp '2018-04-26
-      14:31:55.813506', title: DoMyOwnPestControl.com, url: 'https://www.domyown.com/labels?page=1',
-    estimated_records: 2300, state: AT, description: Pesticide and adjuvant SDS's
-      and labels. Alphabetical multi-age list to browse or search. Various formats.,
+  fields: {created_at: ! '2018-04-26 14:28:16.561560', updated_at: null, title: Crop
+      Data Management Systems, url: 'http://www.cdms.net/Label-Database', estimated_records: 440,
+    state: AT, description: SDS and pesticide labels from 120 manufacturers. List
+      by manufacturer or search by product name to get SDS and and labels as PDF files
+      in varying formats. Each manufacturer listing includes its web site address.,
     priority: LO}
 - model: dashboard.datasource
+  pk: 20
+  fields: {created_at: ! '2018-04-26 14:31:13.044360', updated_at: ! '2018-04-26 14:31:55.813506',
+    title: DoMyOwnPestControl.com, url: 'https://www.domyown.com/labels?page=1', estimated_records: 2300,
+    state: AT, description: Pesticide and adjuvant SDS's and labels. Alphabetical
+      multi-age list to browse or search. Various formats., priority: LO}
+- model: dashboard.datasource
   pk: 21
-  fields: {created_at: !!timestamp '2018-04-26 14:34:43.085766', updated_at: null,
-    title: Greenbook, url: 'https://www.greenbook.net/', estimated_records: 1500,
-    state: AT, description: Pesticide and adjuvant SDS's and labels. Regular updates
-      from participating manufacturers. PDF files in varying formats. Quick search
-      by name or active ingredients., priority: LO}
+  fields: {created_at: ! '2018-04-26 14:34:43.085766', updated_at: null, title: Greenbook,
+    url: 'https://www.greenbook.net/', estimated_records: 1500, state: AT, description: Pesticide
+      and adjuvant SDS's and labels. Regular updates from participating manufacturers.
+      PDF files in varying formats. Quick search by name or active ingredients., priority: LO}
 - model: dashboard.datasource
   pk: 22
-  fields: {created_at: !!timestamp '2018-04-26 14:39:09.620773', updated_at: null,
-    title: 'Millpore Sigma Sigma-Aldrich, Fluka, Supelco, RdH-', url: 'https://www.sigmaaldrich.com/',
+  fields: {created_at: ! '2018-04-26 14:39:09.620773', updated_at: null, title: 'Millpore
+      Sigma Sigma-Aldrich, Fluka, Supelco, RdH-', url: 'https://www.sigmaaldrich.com/',
     estimated_records: 200000, state: AT, description: 'Select your country, then
       search for the product and then click on the SDS link to display GHS-compliant
       sheet in PDF format. Versions are available in 50 languages. If you know the
@@ -116,49 +113,54 @@
       quality of information and disposal considerations that you will find.', priority: LO}
 - model: dashboard.datasource
   pk: 23
-  fields: {created_at: !!timestamp '2018-04-26 14:44:22.223050', updated_at: null,
-    title: Abcam PLC, url: 'http://www.abcam.com/', estimated_records: 70000, state: AT,
-    description: 'Biochemical supplies - antibodies, proteins, peptides, assay kits
-      and more. Search for product and then click on SDS link. Sheets are GHS-compliant
-      and are in PDF format.', priority: LO}
+  fields: {created_at: ! '2018-04-26 14:44:22.223050', updated_at: null, title: Abcam
+      PLC, url: 'http://www.abcam.com/', estimated_records: 70000, state: AT, description: 'Biochemical
+      supplies - antibodies, proteins, peptides, assay kits and more. Search for product
+      and then click on SDS link. Sheets are GHS-compliant and are in PDF format.',
+    priority: LO}
 - model: dashboard.datasource
   pk: 24
-  fields: {created_at: !!timestamp '2018-04-26 14:58:52.282672', updated_at: null,
-    title: EMD Millipore, url: 'http://www.emdmillipore.com/US/en/documents/Z.qb.qB.tecAAAFDDJUsznLq,navv',
+  fields: {created_at: ! '2018-04-26 14:58:52.282672', updated_at: null, title: EMD
+      Millipore, url: 'http://www.emdmillipore.com/US/en/documents/Z.qb.qB.tecAAAFDDJUsznLq,navv',
     estimated_records: 12000, state: AT, description: 'Search by catalog number only.
       Alternatively, search the catalog for a product and then the SDS link on the
       right side under "About this product". GHS-compliant sheets in PDF format; some
       are available in multiple language/regional versions.', priority: LO}
 - model: dashboard.datasource
   pk: 25
-  fields: {created_at: !!timestamp '2018-04-26 14:59:38.642020', updated_at: !!timestamp '2018-05-27
-      06:29:21.908755', title: Airgas, url: 'http://www.airgas.com/sds-search', estimated_records: 13450,
+  fields: {created_at: ! '2018-04-26 14:59:38.642020', updated_at: ! '2018-05-27 06:29:21.908755',
+    title: Airgas, url: 'http://www.airgas.com/sds-search', estimated_records: 13450,
     state: CO, description: 'SDS on their pure gases, gas mixtures, and hard goods.
       Color PDF documents in GHS format.', priority: MD}
 - model: dashboard.datasource
   pk: 26
-  fields: {created_at: !!timestamp '2018-04-26 15:05:16.283245', updated_at: null,
-    title: Gelest Inc, url: 'http://www.gelest.com/product-lines/silanes/', estimated_records: 2408,
+  fields: {created_at: ! '2018-04-26 15:05:16.283245', updated_at: null, title: Gelest
+      Inc, url: 'http://www.gelest.com/product-lines/silanes/', estimated_records: 2408,
     state: AT, description: Products include silanes and silicones; germanium and
       tin compounds; and metal alkoxides and diketonates. Search for product and then
       click the SDS link. PDF file in GHS-compliant format., priority: HI}
 - model: dashboard.datasource
   pk: 27
-  fields: {created_at: !!timestamp '2018-05-02 08:29:02.803165', updated_at: null,
-    title: Declare/Living Future, url: 'https://living-future.org/declare/', estimated_records: 47,
-    state: AT, description: 'Ingredient lists (including chemical name, cas, weight
-      fraction) for building materials, similar to a health product declaration. Voluntary
-      release of information, may skew towards ''green'' products.', priority: HI}
+  fields: {created_at: ! '2018-05-02 08:29:02.803165', updated_at: null, title: Declare/Living
+      Future, url: 'https://living-future.org/declare/', estimated_records: 47, state: AT,
+    description: 'Ingredient lists (including chemical name, cas, weight fraction)
+      for building materials, similar to a health product declaration. Voluntary release
+      of information, may skew towards ''green'' products.', priority: HI}
 - model: dashboard.datasource
   pk: 28
-  fields: {created_at: !!timestamp '2018-05-03 13:14:19.502706', updated_at: null,
-    title: SIRI, url: 'http://hazard.com/msds/index.php', estimated_records: 47, state: AT,
-    description: Database may not be maintained anymore., priority: HI}
+  fields: {created_at: ! '2018-05-03 13:14:19.502706', updated_at: null, title: SIRI,
+    url: 'http://hazard.com/msds/index.php', estimated_records: 47, state: AT, description: Database
+      may not be maintained anymore., priority: HI}
 - model: dashboard.datasource
   pk: 29
-  fields: {created_at: !!timestamp '2018-05-07 12:37:53.623227', updated_at: null,
-    title: Unilever MSDS USA, url: 'http://www.unilevermsdsusa.com/MSDSSearch.aspx?fm=0&tb=0',
-    estimated_records: 392, state: AT, description: 'This is an original CPDat data
-      source, with data transferred from CPDat into Factotum by Kathie Dionisio, May
-      2018. Data was originally downloaded and extracted by ICF. Data comes from dev_consumer_product.data_sources.id=36
+  fields: {created_at: ! '2018-05-07 12:37:53.623227', updated_at: null, title: Unilever
+      MSDS USA, url: 'http://www.unilevermsdsusa.com/MSDSSearch.aspx?fm=0&tb=0', estimated_records: 392,
+    state: AT, description: 'This is an original CPDat data source, with data transferred
+      from CPDat into Factotum by Kathie Dionisio, May 2018. Data was originally downloaded
+      and extracted by ICF. Data comes from dev_consumer_product.data_sources.id=36
       in CPDat database.', priority: HI}
+- model: dashboard.datasource
+  pk: 30
+  fields: {created_at: ! '2019-02-21 13:58:08.340107', updated_at: ! '2019-02-21 13:58:08.340134',
+    title: HHE Reports, url: '', estimated_records: 10, state: AT, description: '',
+    priority: HI}

@@ -10,8 +10,8 @@ from .extracted_habits_and_practices import ExtractedHabitsAndPractices
 
 class PUC(CommonInfo):
     gen_cat = models.CharField(max_length=50, blank=False)
-    prod_fam = models.CharField(max_length=50, null=True, blank=True)
-    prod_type = models.CharField(max_length=100, null=True, blank=True)
+    prod_fam = models.CharField(max_length=50, blank=True, default='')
+    prod_type = models.CharField(max_length=100, blank=True, default='')
     description = models.TextField(null=False, blank=False)
     last_edited_by = models.ForeignKey('auth.User', on_delete=models.CASCADE,
                                                                     default=1)

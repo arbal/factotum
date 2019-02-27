@@ -12,8 +12,7 @@ def validate_ingredient_rank(value):
             (f'Quantity {value} is not allowed'), params={'value': value},)
 
 class ExtractedChemical(CommonInfo, RawChem):
-    extracted_text = models.ForeignKey(ExtractedText, on_delete=models.CASCADE,
-                                                    related_name='chemicals')
+
     raw_cas_old = models.CharField("Raw CAS", max_length=100, null=True, blank=True)
     raw_chem_name_old = models.CharField("Raw chemical name", max_length=500,
                                                         null=True, blank=True)
@@ -41,10 +40,14 @@ class ExtractedChemical(CommonInfo, RawChem):
     def detail_fields(cls):
         return ['extracted_text','raw_cas','raw_chem_name','raw_min_comp',
             'raw_max_comp', 'unit_type','weight_fraction_type','report_funcuse',
-            'ingredient_rank','raw_central_comp']
+            'ingredient_rank','raw_central_comp','rawchem_ptr']
 
     def get_datadocument_url(self):
         return self.extracted_text.data_document.get_absolute_url()
+
+    @property
+    def data_document(self):
+        return self.extracted_text.data_document
 
     def indexing(self):
         obj = ExtractedChemicalIndex(

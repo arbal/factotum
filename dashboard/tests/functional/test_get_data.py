@@ -4,7 +4,7 @@ from django.test.client import Client
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from dashboard.models import PUC, Product, ProductToPUC, ProductDocument, DSSToxSubstance
+from dashboard.models import PUC, Product, ProductToPUC, ProductDocument, DSSToxLookup
 from dashboard.views.get_data import *
 from django.test import TestCase
 from django.test.client import Client
@@ -36,8 +36,8 @@ class TestGetData(TestCase):
 
         self.client.login(username='Karyn', password='specialP@55word')
         # get the associated documents for linking to products
-        dds = DataDocument.objects.filter(pk__in=DSSToxSubstance.objects.filter(sid='DTXSID9022528').\
-        values('rawchem_ptr__extracted_chemical__extracted_text__data_document'))
+        dds = DataDocument.objects.filter(pk__in=ExtractedChemical.objects.filter(dsstox__sid='DTXSID9022528').\
+        values('extracted_text__data_document'))
         dd = dds[0]
 
         ds = dd.data_group.data_source
@@ -73,8 +73,9 @@ class TestGetData(TestCase):
         # change the number of related data documents by deleting one
         self.client.login(username='Karyn', password='specialP@55word')
         # get the associated documents for linking to products
-        dds = DataDocument.objects.filter(pk__in=DSSToxSubstance.objects.filter(sid='DTXSID9022528').\
-            values('rawchem_ptr__extracted_chemical__extracted_text__data_document'))
+        dds = DataDocument.objects.filter(pk__in=ExtractedChemical.objects.filter(dsstox__sid='DTXSID9022528').\
+            values('extracted_text__data_document'))
+
         dd = dds[0]
         dd.delete()
 
@@ -92,9 +93,8 @@ class TestGetData(TestCase):
         for e in stats:
             if e['sid'] == 'DTXSID9022528':
                ethylparaben_stats = e
-
         self.assertEqual(1, ethylparaben_stats['dds_wf_n'], 'There should be 1 extracted chemical \
-        with weight fraction data associated with ethylaraben')
+        with weight fraction data associated with ethylparaben')
         # add weight fraction data to a different extractedchemical
         ec = ExtractedChemical.objects.get(rawchem_ptr_id = 73)
         ec.raw_min_comp=0.1
@@ -104,8 +104,8 @@ class TestGetData(TestCase):
             if e['sid'] == 'DTXSID9022528':
                ethylparaben_stats = e
 
-        self.assertEqual(1, ethylparaben_stats['dds_wf_n'], 'There should be 2 extracted chemicals \
-        with weight fraction data associated with ethylaraben')
+        self.assertEqual(2, ethylparaben_stats['dds_wf_n'], 'There should be 2 extracted chemicals \
+        with weight fraction data associated with ethylparaben')
 
 
     def test_dtxsid_products_n(self):
@@ -121,8 +121,8 @@ class TestGetData(TestCase):
         associated with ethylparaben')
         self.client.login(username='Karyn', password='specialP@55word')
         # get the associated documents for linking to products
-        dds = DataDocument.objects.filter(pk__in=DSSToxSubstance.objects.filter(sid='DTXSID9022528').\
-        values('rawchem_ptr__extracted_chemical__extracted_text__data_document'))
+        dds = DataDocument.objects.filter(pk__in=ExtractedChemical.objects.filter(dsstox__sid='DTXSID9022528').\
+        values('extracted_text__data_document'))
         dd = dds[0]
 
 

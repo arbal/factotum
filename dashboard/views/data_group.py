@@ -38,7 +38,6 @@ def data_group_list(request, template_name='data_group/datagroup_list.html'):
 def data_group_detail(request, pk,
                       template_name='data_group/datagroup_detail.html'):
     dg = get_object_or_404(DataGroup, pk=pk, )
-    dg_type = str(dg.type)
     dg.doc_types = DocumentType.objects.filter(group_type=dg.group_type)
     docs = dg.datadocument_set.get_queryset()#this needs to be updated after matching...
     prod_link = ProductDocument.objects.filter(document__in=docs)
@@ -46,8 +45,6 @@ def data_group_detail(request, pk,
     paginator = Paginator(docs, 50) # TODO: make this dynamic someday in its own ticket
     store = settings.MEDIA_URL + str(dg.fs_id)
     ext = ExtractedText.objects.filter(data_document_id__in=docs).first()
-    if ext:
-        ext = ext.pull_out_cp()
     context = { 'datagroup'      : dg,
                 'documents'      : paginator.page(1 if page is None else page),
                 'all_documents'  : docs, # this used for template download
@@ -102,7 +99,7 @@ def data_group_detail(request, pk,
                                             f'renamed in the csv: {missing}')
                 return render(request, template_name, context)
             good_records = []
-            ext_parent, ext_child = get_extracted_models(dg_type)
+            ext_parent, ext_child = get_extracted_models(dg.type)
             for i, row in enumerate(csv.DictReader(info)):
                 d = docs.get(pk=int(row['data_document_id']))
                 d.raw_category = row.pop('raw_category')
@@ -116,25 +113,27 @@ def data_group_detail(request, pk,
                     row['ingredient_rank'] = None if rank == '' else rank
                 ext, created = ext_parent.objects.get_or_create(data_document=d,
                                                     extraction_script=script)
-                if not created and ext.prod_name != row['prod_name']:
-                    # check that there is a 1:1 relation w/ prod_name
+                if not created and ext.one_to_one_check(row):
+                    # check that there is a 1:1 relation ExtParent and DataDoc
+                    col = 'cat_code' if hasattr(ext,'cat_code') else 'prod_name' 
                     err_msg = ['must be 1:1 with "data_document_id".']
-                    context['ext_err'][i+1] = {'prod_name': err_msg}
+                    context['ext_err'][i+1] = {col: err_msg}
                 if created:
                     update_fields(row, ext)
                 row['extracted_text'] = ext
                 if (ext_child == ExtractedListPresence):
-                    row['extracted_cpcat'] = ext
+                    row['extracted_cpcat'] = ext.extractedtext_ptr
                 row = clean_dict(row, ext_child)
                 try:
                     ext.full_clean()
                     ext.save()
                     record = ext_child(**row)
                     record.full_clean()
+                    good_records.append((d,ext,record))
                 except ValidationError as e:
                     context['ext_err'][i+1] = e.message_dict
-                good_records.append((d,ext,record))
             if context['ext_err']: # if errors, send back with errors
+                [e[1].delete() for e in good_records] # delete any created exts
                 return render(request, template_name, context)
             if not context['ext_err']:  # no saving until all errors are removed
                 for doc,text,record in good_records:
@@ -159,7 +158,6 @@ def data_group_detail(request, pk,
             try:
                 ext = ExtractedText.objects.get(data_document_id=doc.id)
                 if ext:
-                    ext = ext.pull_out_cp()
                     if ext.prod_name:
                         new_prod_title = ext.prod_name
                     else:
@@ -343,6 +341,8 @@ def data_group_update(request, pk, template_name='data_group/datagroup_form.html
             form.save()
         return redirect('data_group_detail', pk=datagroup.id)
     form.referer = request.META.get('HTTP_REFERER', None)
+    if datagroup.extracted_docs():
+        form.fields['group_type'].disabled = True
     groups = GroupType.objects.all()
     for group in groups:
             group.codes = DocumentType.objects.filter(group_type=group)

@@ -111,7 +111,9 @@
             <div class="card-body bg-secondary">
 
              {{ form.id.as_hidden }}
-              {% for field in form.visible_fields %}
+             {{ form.rawchem_ptr.as_hidden }}
+
+             {% for field in form.visible_fields %}
                     <small><b>{{ field.label_tag }}</b></small><br>
               <div class="text-center small form-group {%if field.errors %}alert-danger{%endif%}">
                     {{ field}}

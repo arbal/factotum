@@ -125,7 +125,7 @@ def extracted_text_qa(request, pk,
     # extracted text object matches a data document()
     
     ParentForm, ChildForm = create_detail_formset(doc.data_group.type, EXTRA)
-    extext = extext.pull_out_cp() #get CP if exists
+    # extext = extext.pull_out_cp()
     ext_form = ParentForm(instance=extext)
     detail_formset = ChildForm(instance=extext)
     # Add CSS selector classes to each form
@@ -152,9 +152,9 @@ def extracted_text_qa(request, pk,
 
     if request.method == 'POST' and 'save' in request.POST:
         #print(request.__dict__)
-       
+        
         ParentForm, ChildForm = create_detail_formset(doc.data_group.type, EXTRA)
-        extext = extext.pull_out_cp() #get CP if exists
+        # extext = extext.pull_out_cp()
         ext_form = ParentForm(request.POST, instance=extext)
         detail_formset = ChildForm(request.POST, instance=extext)
 
@@ -166,11 +166,17 @@ def extracted_text_qa(request, pk,
                 ext_form.save()
                 extext.qa_edited = True
                 extext.save()
-        # rebuild the formset after saving it
-        detail_formset = ChildForm( instance=extext)
-        context['detail_formset'] = detail_formset
-        context['ext_form'] = ext_form
-        context.update({'notesform' : notesform}) # calls the clean method? y?
+                # rebuild the formset after saving it
+                detail_formset = ChildForm( instance=extext)
+            else:
+                print(detail_formset.errors)
+                # TODO: iterate through this dict of errors and map each error to
+                # the corresponding form in the template for rendering
+
+            context['detail_formset'] = detail_formset
+            context['ext_form'] = ext_form
+            context.update({'notesform' : notesform}) # calls the clean method? y?
+
         # Add CSS selector classes to each form
         for form in detail_formset:
             for field in form.fields:

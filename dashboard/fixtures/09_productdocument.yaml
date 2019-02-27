@@ -1,44 +1,44 @@
 - model: dashboard.productdocument
   pk: 1943
-  fields: {created_at: !!timestamp '2018-07-25 09:13:03.736361', updated_at: !!timestamp '2018-07-25
-      09:13:03.736393', product: 1842, document: 179486}
+  fields: {created_at: ! '2018-07-25 09:13:03.736361', updated_at: ! '2018-07-25 09:13:03.736393',
+    product: 1842, document: 179486}
 - model: dashboard.productdocument
   pk: 1944
-  fields: {created_at: !!timestamp '2018-07-25 09:36:27.336727', updated_at: !!timestamp '2018-07-25
-      09:36:27.336758', product: 1843, document: 181273}
+  fields: {created_at: ! '2018-07-25 09:36:27.336727', updated_at: ! '2018-07-25 09:36:27.336758',
+    product: 1843, document: 181273}
 - model: dashboard.productdocument
   pk: 1945
-  fields: {created_at: !!timestamp '2018-07-25 09:36:39.636977', updated_at: !!timestamp '2018-07-25
-      09:36:39.637007', product: 1844, document: 181081}
+  fields: {created_at: ! '2018-07-25 09:36:39.636977', updated_at: ! '2018-07-25 09:36:39.637007',
+    product: 1844, document: 181081}
 - model: dashboard.productdocument
   pk: 1946
-  fields: {created_at: !!timestamp '2018-07-25 09:37:08.101785', updated_at: !!timestamp '2018-07-25
-      09:37:08.101818', product: 1845, document: 8}
+  fields: {created_at: ! '2018-07-25 09:37:08.101785', updated_at: ! '2018-07-25 09:37:08.101818',
+    product: 1845, document: 8}
 - model: dashboard.productdocument
   pk: 1947
-  fields: {created_at: !!timestamp '2018-07-25 09:37:17.170687', updated_at: !!timestamp '2018-07-25
-      09:37:17.170718', product: 1846, document: 7}
+  fields: {created_at: ! '2018-07-25 09:37:17.170687', updated_at: ! '2018-07-25 09:37:17.170718',
+    product: 1846, document: 7}
 - model: dashboard.productdocument
   pk: 1948
-  fields: {created_at: !!timestamp '2018-07-25 09:37:33.301086', updated_at: !!timestamp '2018-07-25
-      09:37:33.301110', product: 1847, document: 141765}
+  fields: {created_at: ! '2018-07-25 09:37:33.301086', updated_at: ! '2018-07-25 09:37:33.301110',
+    product: 1847, document: 141765}
 - model: dashboard.productdocument
   pk: 1949
-  fields: {created_at: !!timestamp '2018-07-25 09:37:42.073644', updated_at: !!timestamp '2018-07-25
-      09:37:42.073666', product: 1848, document: 140076}
+  fields: {created_at: ! '2018-07-25 09:37:42.073644', updated_at: ! '2018-07-25 09:37:42.073666',
+    product: 1848, document: 140076}
 - model: dashboard.productdocument
   pk: 1950
-  fields: {created_at: !!timestamp '2018-07-25 09:37:50.845546', updated_at: !!timestamp '2018-07-25
-      09:37:50.845571', product: 1849, document: 137309}
+  fields: {created_at: ! '2018-07-25 09:37:50.845546', updated_at: ! '2018-07-25 09:37:50.845571',
+    product: 1849, document: 137309}
 - model: dashboard.productdocument
   pk: 1951
-  fields: {created_at: !!timestamp '2018-10-14 21:50:48.231361', updated_at: !!timestamp '2018-10-14
-      21:50:48.231398', product: 1850, document: 180966}
+  fields: {created_at: ! '2018-10-14 21:50:48.231361', updated_at: ! '2018-10-14 21:50:48.231398',
+    product: 1850, document: 180966}
 - model: dashboard.productdocument
   pk: 1952
-  fields: {created_at: !!timestamp '2018-10-19 02:38:32.718979', updated_at: !!timestamp '2018-10-19
-      02:38:32.719009', product: 1850, document: 252806}
+  fields: {created_at: ! '2018-10-19 02:38:32.718979', updated_at: ! '2018-10-19 02:38:32.719009',
+    product: 1850, document: 252806}
 - model: dashboard.productdocument
   pk: 1953
-  fields: {created_at: !!timestamp '2018-10-30 02:28:15.222681', updated_at: !!timestamp '2018-10-30
-      02:28:15.222712', product: 1836, document: 179486}
+  fields: {created_at: ! '2018-10-30 02:28:15.222681', updated_at: ! '2018-10-30 02:28:15.222712',
+    product: 1836, document: 179486}

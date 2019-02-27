@@ -6,6 +6,8 @@ from django import forms
 from .data_document import DataDocument
 from .script import Script
 from itertools import chain
+from model_utils.managers import InheritanceManager
+
 
 class ExtractedText(CommonInfo):
     data_document = models.OneToOneField(DataDocument,on_delete=models.CASCADE,
@@ -26,6 +28,9 @@ class ExtractedText(CommonInfo):
                                                      on_delete=models.SET_NULL,
                                                      null=True, blank=True)
 
+    objects = InheritanceManager()
+
+
     def __str__(self):
         return str(self.prod_name)
 
@@ -41,22 +46,7 @@ class ExtractedText(CommonInfo):
         return nextid
 
     def fetch_extracted_records(self):
-        '''Collect the related objects in all the Extracted... models
-        '''
-        # Start with the known children of the base Model: ExtractedText
-        full_chain = chain(self.practices.all(),
-                    self.chemicals.all(),
-                    self.uses.all()
-                    )
-        # Try to get all the child objects of derived (inherited) models
-
-        # ExtractedCPCat has related ExtractedListPresence objects connected
-        # by the .presence relation
-        if hasattr(self, 'extractedcpcat'):
-            presence_chain = self.extractedcpcat.presence.all()
-            full_chain = chain(full_chain, presence_chain)
-
-        return full_chain
+        return self.rawchem.all()
 
     def pull_out_cp(self):
         if hasattr(self, 'extractedcpcat'):
@@ -64,8 +54,16 @@ class ExtractedText(CommonInfo):
         else:
             return self
 
-
-
+    def one_to_one_check(self, odict):
+        '''
+        Used in the upload of extracted text in the data_group_detail view, this
+        returns a boolean to assure that there is a 1:1 relationship w/
+        the Extracted{parent}, i.e. (Text/CPCat), and the DataDocument
+        '''
+        if hasattr(self, 'cat_code'):
+            return self.cat_code != odict['cat_code']
+        else:
+            return self.prod_name != odict['prod_name']
 
 
 

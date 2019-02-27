@@ -20,6 +20,7 @@ class DataDocument(CommonInfo):
     document_type = models.ForeignKey(DocumentType, on_delete=models.PROTECT,
                                                         null=True, blank=True)
     organization = models.CharField(max_length=255, blank=True)
+    note = models.TextField(blank=True, null=True)
 
     class Meta:
         ordering = ['-id']

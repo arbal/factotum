@@ -1,2 +1,5 @@
 {{object.raw_chem_name}}
 {{object.raw_cas}}
+{{object.true_chemname}}
+{{object.true_cas}}
+{{object.sid}}

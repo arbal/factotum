@@ -10,13 +10,25 @@ from dashboard import views
 from dashboard.models import *
 from dashboard.tests.loader import fixtures_standard
 
-
+def make_upload_csv(filename):
+    with open(filename) as f:
+        sample_csv = ''.join([line for line in f.readlines()])
+    sample_csv_bytes = sample_csv.encode(encoding='UTF-8',errors='strict' )
+    in_mem_sample_csv = InMemoryUploadedFile(
+            file=io.BytesIO(sample_csv_bytes),
+            field_name='extract_file',
+            name='test.csv',
+            content_type='text/csv',
+            size=len(sample_csv),
+            charset='utf-8',
+    )
+    return in_mem_sample_csv
 
 
 class UploadExtractedFileTest(TestCase):
     fixtures = ['00_superuser.yaml', '01_lookups.yaml',
                 '02_datasource.yaml', '03_datagroup.yaml', '04_PUC.yaml',
-                '05_product.yaml', '06_datadocument.yaml', '07_script.yaml']
+                '05_product.yaml', '06_datadocument.yaml', '08_script.yaml']
 
             
 
@@ -106,42 +118,35 @@ class UploadExtractedFileTest(TestCase):
         dg.delete()
 
     def test_presence_upload(self):
-        sample_csv = ("data_document_id,data_document_filename,"
-                    "doc_date,raw_category,raw_cas,raw_chem_name,"
-                    "cat_code,description_cpcat,cpcat_code,cpcat_sourcetype"
-                    "\n"
-                    "254780,11177849.pdf,,list presence category,"
-                    "0000075-37-6,hydrofluorocarbon 152a,presence_cat_code,"
-                    "desc,cpcat_code,free"
-                    "\n"
-                    "254781,11165872.pdf,,list presence category,"
-                    "0000064-17-5,sd alcohol 40-b (ethanol),presence_cat_code,"
-                    "desc,cpcat_code,free"
-        )
-        sample_csv_bytes = sample_csv.encode(encoding='UTF-8',errors='strict' )
-        in_mem_sample_csv = InMemoryUploadedFile(
-                io.BytesIO(sample_csv_bytes),
-                field_name='extract_file',
-                name='SIRI_Chemical_Presence_extract_template.csv',
-                content_type='text/csv',
-                size=len(sample_csv),
-                charset='utf-8',
-        )
+        # Delete the CPCat records that were loaded with the fixtures
+        ExtractedCPCat.objects.all().delete()
+        self.assertEqual(len(ExtractedCPCat.objects.all()),0,
+                        "Should be empty before upload.")
+        usr = User.objects.get(username='Karyn')
+        # test for error to be propogated w/o a 1:1 match of ExtCPCat to DataDoc
+        in_mem_sample_csv = make_upload_csv('sample_files/presence_cpcat.csv')
         req_data = {'script_selection': 5,
                     'extract_button': 'Submit',
                     }
-
         req = self.factory.post('/datagroup/49/' , data=req_data)
         req.FILES['extract_file'] = in_mem_sample_csv
-        req.user = User.objects.get(username='Karyn')
-        # Delete the CPCat records that were loaded with the fixtures
-        ExtractedCPCat.objects.all().delete()
-
-        self.assertEqual(len(ExtractedCPCat.objects.all()),0,
-                            "Empty before upload.")
-        # Now get the response
+        req.user = usr
         resp = views.data_group_detail(request=req, pk=49)
-        self.assertContains(resp,'2 extracted records uploaded successfully.')
+        self.assertContains(resp,'must be 1:1')
+        self.assertEqual(len(ExtractedCPCat.objects.all()),0,
+                        "ExtractedCPCat records remain 0 if error in upload.")
+        # test for error to propogate w/ too many chars in a field
+        in_mem_sample_csv = make_upload_csv('sample_files/presence_chars.csv')
+        req.FILES['extract_file'] = in_mem_sample_csv
+        resp = views.data_group_detail(request=req, pk=49)
+        self.assertContains(resp,'Ensure this value has at most 50 characters')
+        self.assertEqual(len(ExtractedCPCat.objects.all()),0,
+                        "ExtractedCPCat records remain 0 if error in upload.")
+        # test that upload works successfully...
+        in_mem_sample_csv = make_upload_csv('sample_files/presence_good.csv')
+        req.FILES['extract_file'] = in_mem_sample_csv
+        resp = views.data_group_detail(request=req, pk=49)
+        self.assertContains(resp,'3 extracted records uploaded successfully.')
 
         doc_count = DataDocument.objects.filter(raw_category='list presence category').count()
         self.assertTrue(doc_count > 0, 'DataDocument raw category values must be updated.')

@@ -6,7 +6,7 @@ from haystack.management.commands import update_index, clear_index
 from haystack import connections
 import time
 from django.conf import settings
-from dashboard.models import DSSToxSubstance
+from dashboard.models import DSSToxLookup
 from lxml import html
 from dashboard.tests.loader import fixtures_standard
 
@@ -41,8 +41,8 @@ class ChemSearchTest(TestCase):
 
     def test_chem_search(self):
         response = self.c.get('/chem_search/?chemical=dibutyl')
-        self.assertContains(response, '"matchedDataDocuments": 1')
-        self.assertContains(response, '"probableDataDocumentMatches": 55')
+        self.assertContains(response, '"matchedDataDocuments": 2')
+        self.assertContains(response, '"probableDataDocumentMatches": 54')
         self.assertNotContains(response, 'Sun_INDS_89')
 
         response = self.c.get('/chem_search/?chemical=ethylparaben')

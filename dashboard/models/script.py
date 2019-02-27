@@ -106,7 +106,7 @@ class Script(CommonInfo):
         else:
             # If there are no related ExtractedText records, something has gone wrong
             # Don't make a new QA Group with zero ExtractedTexts
-            print('The Script has no related ExtractedText records')
+            # print('The Script has no related ExtractedText records')
             texts = None
 
         # Set the qa_group attribute of each ExtractedText record to the new QA Group    

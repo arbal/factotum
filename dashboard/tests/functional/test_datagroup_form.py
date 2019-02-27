@@ -1,4 +1,5 @@
 import io
+from lxml import html
 
 from django.utils import timezone
 from django.test import RequestFactory, TestCase, override_settings
@@ -33,6 +34,25 @@ class DataGroupFormTest(TestCase):
         dg = DataGroup.objects.get(pk=dg.pk)
         self.assertEqual(dg.url, 'http://www.epa.gov',
                      f'DataDocument {dg.pk} should have the url "http://www.epa.gov"')
+
+    def test_detail_form_group_type(self):
+        # DG 6 has extracted docs, so group_type should be disabled, and a forced update should fail
+        dg = DataGroup.objects.get(pk=6)
+        response = self.client.get(f'/datagroup/edit/{str(dg.pk)}/').content.decode('utf8')
+        response_html = html.fromstring(response)
+        self.assertTrue(response_html.xpath('//*[@id="id_group_type"][@disabled]'),
+                      'The group_type select box should be disabled')
+        response = self.client.post(f'/datagroup/edit/{dg.pk}/',
+                                    {'name': dg.name,
+                                    'url': 'http://www.epa.gov',
+                                    'group_type': dg.group_type_id + 1,
+                                    'downloaded_by': dg.downloaded_by_id,
+                                    'downloaded_at': dg.downloaded_at,
+                                    'data_source': dg.data_source_id})
+
+        response_html = html.fromstring(response.content.decode('utf8'))
+        self.assertTrue(response_html.xpath('//*[@id="id_group_type"]/following::div[@class="invalid-feedback"]'),
+                      'Changing the group_type when extracted_docs exists should raise a ValidationError')
 
     def test_register_records_header(self):
         ds_pk = DataSource.objects.first().pk

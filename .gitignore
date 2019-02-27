@@ -145,3 +145,4 @@ factotum.iml
 /assets/bundles/
 /media/
 .vscode/settings.json
+*.code-workspace

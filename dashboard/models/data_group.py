@@ -7,7 +7,11 @@ from pathlib import Path, PurePath
 from django.db import models
 from .common_info import CommonInfo
 from django.urls import reverse
+from django.db.models.signals import pre_save
 from django.dispatch import receiver
+from model_utils import FieldTracker
+from django.core.exceptions import ValidationError
+
 from .group_type import GroupType
 from .extracted_text import ExtractedText
 from .extracted_cpcat import ExtractedCPCat
@@ -52,6 +56,8 @@ class DataGroup(CommonInfo):
     group_type = models.ForeignKey(GroupType, on_delete=models.SET_DEFAULT,
                                             default=1, null=True, blank=True)
     url = models.CharField(max_length=150, blank=True)
+
+    tracker = FieldTracker()
 
     @property
     def type(self):
@@ -132,7 +138,6 @@ class DataGroup(CommonInfo):
             return False
 
 
-
     @property
     def csv_url(self):
         '''This is a "falsy" property. If the csv file cannot be found,
@@ -145,6 +150,7 @@ class DataGroup(CommonInfo):
         except:
             csv_url = False
         return csv_url
+
 
     @property
     def zip_url(self):
@@ -169,6 +175,7 @@ class DataGroup(CommonInfo):
             zip_url = 'no_path_found'
         return zip_url
 
+
     def get_extracted_template_fieldnames(self):
         extract_fields = ['data_document_id','data_document_filename',
                             'prod_name', 'doc_date','rev_num', 'raw_category',
@@ -186,6 +193,12 @@ class DataGroup(CommonInfo):
 
     def get_clean_comp_data_fieldnames(self):
         return ['id','lower_wf_analysis','central_wf_analysis', 'upper_wf_analysis']
+
+    def clean_fields(self, exclude=None):
+        super().clean_fields(exclude=exclude)
+        if self.tracker.has_changed('group_type_id') and self.extracted_docs():
+            msg = "The Group Type may not be changed once extracted documents have been associated with the group."
+            raise ValidationError({'group_type': msg})
 
 
 @receiver(models.signals.post_delete, sender=DataGroup)

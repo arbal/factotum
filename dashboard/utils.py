@@ -15,12 +15,16 @@ def get_extracted_models(t):
     def four():
         return (ExtractedText, ExtractedHabitsAndPractices)
 
+    def five():
+        return (ExtractedHHDoc, ExtractedHHRec)
+
     models = {
         'CO': one,
         'FU': two,
         'CP': three,
         'HP': four,
-        'UN': one
+        'UN': one,
+        'HH': five,
     }
     func = models.get(t, lambda: None)
     return func()

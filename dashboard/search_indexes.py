@@ -1,9 +1,9 @@
 import datetime
 from haystack import indexes
-from dashboard.models import Product, DataDocument, PUC, ProductToPUC, ExtractedChemical, DSSToxSubstance
+from dashboard.models import Product, DataDocument, PUC, ProductToPUC, ExtractedChemical, DSSToxLookup, RawChem
 
 
-class ExtractedChemicalIndex(indexes.SearchIndex, indexes.Indexable):
+class RawChemIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.EdgeNgramField(
         document=True, use_template=True,
         template_name = 'search/indexes/dashboard/extractedchemical_text.txt')
@@ -12,20 +12,34 @@ class ExtractedChemicalIndex(indexes.SearchIndex, indexes.Indexable):
     result_css_class = indexes.CharField()
 
     raw_chem_name = indexes.EdgeNgramField(model_attr='raw_chem_name', null=True)
-
     raw_cas = indexes.CharField(model_attr='raw_cas', null=True)
 
-    extracted_text_id = indexes.CharField(model_attr='extracted_text_id', null=False)
+    sid = indexes.CharField(model_attr='dsstox__sid', null=True)
+    true_cas = indexes.CharField(model_attr='dsstox__true_cas', null=True)
+    true_chem_name = indexes.CharField(model_attr='dsstox__true_chemname', null=True)
 
-    data_document_id = indexes.CharField(model_attr='extracted_text__data_document_id', null=False)
+    raw_chem_id = indexes.CharField(model_attr='id', null=False)
+
+    data_document_id = indexes.CharField()
 
     def get_model(self):
-        return ExtractedChemical
+        # TODO: should this use the subclass instead?
+        return RawChem
+
+    def prepare_data_document_id(self, obj):
+        dd = obj.get_data_document()
+        if dd:
+            return dd.id
+        else:
+            return -1
+
 
     def prepare_facet_model_name(self, obj):
+        # TODO: make this aware of the subclass
         return "Extracted Chemical"
 
     def prepare_result_css_class(self, obj):
+        # TODO: make this aware of the subclass
         return "exchem-result"
 
     def index_queryset(self, using=None):
@@ -33,23 +47,22 @@ class ExtractedChemicalIndex(indexes.SearchIndex, indexes.Indexable):
         return self.get_model().objects.all()
 
 
-class DSSToxSubstanceIndex(indexes.SearchIndex, indexes.Indexable):
+class DSSToxIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.EdgeNgramField(
         document=True, use_template=True,
-        template_name = 'search/indexes/dashboard/dsstox_substance_text.txt')
+        template_name = 'search/indexes/dashboard/dsstox_lookup_text.txt')
+    sid = indexes.CharField(model_attr='sid')
     title=indexes.EdgeNgramField(model_attr='true_chemname')
     facet_model_name = indexes.CharField(faceted=True)
     result_css_class = indexes.CharField()
     true_chemname = indexes.EdgeNgramField(model_attr='true_chemname', null=True)
     true_cas = indexes.CharField(model_attr='true_cas', null=True)
-    extracted_text_id = indexes.CharField(model_attr='extracted_chemical__extracted_text_id', null=False)
-    data_document_id = indexes.CharField(model_attr='extracted_chemical__extracted_text__data_document_id', null=False)
 
     def get_model(self):
-        return DSSToxSubstance
+        return DSSToxLookup
 
     def prepare_facet_model_name(self, obj):
-        return "DSSTox Substance"
+        return "DSSTox Lookup"
 
     def prepare_result_css_class(self, obj):
         return "dsstox-result"
@@ -129,3 +142,4 @@ class DataDocumentIndex(indexes.SearchIndex, indexes.Indexable):
     def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
         return self.get_model().objects.all()
+

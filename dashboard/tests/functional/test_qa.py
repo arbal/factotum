@@ -19,6 +19,13 @@ class QATest(TestCase):
         self.assertEqual(scriptcount, row_count, ('The seed data contains 1 '
                                                   'Script object with the script_type'
                                                   'EX, which should appear in this table'))
+
+        script_url = response_html.xpath(
+            '//*[@id="extraction_script_table"]/tbody/tr[' + str(row_count) + ']/td[1]/a/@href')[0]
+        self.assertEqual(script_url, 'http://www.epa.gov/', 'The URL on the page should be the external link to the script.')
+        
+        
+
         displayed_doc_count = response_html.xpath(
             '//*[@id="extraction_script_table"]/tbody/tr[' + str(row_count) + ']/td[2]')[0].text
         model_doc_count = DataDocument.objects.filter(

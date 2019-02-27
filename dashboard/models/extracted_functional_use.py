@@ -5,8 +5,7 @@ from .extracted_text import ExtractedText
 from .raw_chem import RawChem
 
 class ExtractedFunctionalUse(CommonInfo, RawChem):
-    extracted_text = models.ForeignKey(ExtractedText, on_delete=models.CASCADE,
-                                    related_name='uses')
+
     raw_cas_old = models.CharField("Raw CAS", max_length=50, null=True, blank=True)
     raw_chem_name_old = models.CharField("Raw chemical name", max_length=500,
                                   null=True, blank=True)
@@ -26,3 +25,7 @@ class ExtractedFunctionalUse(CommonInfo, RawChem):
 
     def get_extractedtext(self):
         return self.extracted_text
+
+    @property
+    def data_document(self):
+        return self.extracted_text.data_document

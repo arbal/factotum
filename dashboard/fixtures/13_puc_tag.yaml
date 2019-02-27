@@ -55,39 +55,35 @@
 - model: dashboard.puctag
   pk: 19
   fields: {created_at: null, updated_at: null, name: hosespray, slug: hosespray}
-
-
 - model: dashboard.producttotag
   pk: 9
-  fields: {created_at: !!timestamp '2018-10-19 09:39:20.581834', updated_at: !!timestamp '2018-10-19
-      09:39:20.581834', content_object: 11, tag: 1}
+  fields: {created_at: ! '2018-10-19 09:39:20.581834', updated_at: ! '2018-10-19 09:39:20.581834',
+    content_object: 11, tag: 1}
 - model: dashboard.producttotag
   pk: 12
-  fields: {created_at: !!timestamp '2018-10-19 11:34:24.753874', updated_at: !!timestamp '2018-10-19
-      11:34:24.753874', content_object: 11, tag: 11}
+  fields: {created_at: ! '2018-10-19 11:34:24.753874', updated_at: ! '2018-10-19 11:34:24.753874',
+    content_object: 11, tag: 11}
 - model: dashboard.producttotag
   pk: 15
-  fields: {created_at: !!timestamp '2018-10-19 11:41:38.305202', updated_at: !!timestamp '2018-10-19
-      11:41:38.305202', content_object: 11, tag: 9}
-
-
+  fields: {created_at: ! '2018-10-19 11:41:38.305202', updated_at: ! '2018-10-19 11:41:38.305202',
+    content_object: 11, tag: 9}
 - model: dashboard.puctotag
   pk: 2
-  fields: {created_at: !!timestamp '2018-10-18 14:43:28.627924', updated_at: !!timestamp '2018-10-18
-      14:43:28.627924', content_object: 1, tag: 1}
+  fields: {created_at: ! '2018-10-18 14:43:28.627924', updated_at: ! '2018-10-18 14:43:28.627924',
+    content_object: 1, tag: 1}
 - model: dashboard.puctotag
   pk: 8
-  fields: {created_at: !!timestamp '2018-10-19 09:42:29.642749', updated_at: !!timestamp '2018-10-19
-      09:42:29.642749', content_object: 1, tag: 11}
+  fields: {created_at: ! '2018-10-19 09:42:29.642749', updated_at: ! '2018-10-19 09:42:29.642749',
+    content_object: 1, tag: 11}
 - model: dashboard.puctotag
   pk: 11
-  fields: {created_at: !!timestamp '2018-10-19 11:41:05.278630', updated_at: !!timestamp '2018-10-19
-      11:41:05.278630', content_object: 1, tag: 9}
+  fields: {created_at: ! '2018-10-19 11:41:05.278630', updated_at: ! '2018-10-19 11:41:05.278630',
+    content_object: 1, tag: 9}
 - model: dashboard.puctotag
   pk: 12
-  fields: {created_at: !!timestamp '2018-10-19 11:41:05.349443', updated_at: !!timestamp '2018-10-19
-      11:41:05.349443', content_object: 1, tag: 4}
+  fields: {created_at: ! '2018-10-19 11:41:05.349443', updated_at: ! '2018-10-19 11:41:05.349443',
+    content_object: 1, tag: 4}
 - model: dashboard.puctotag
   pk: 13
-  fields: {created_at: !!timestamp '2018-10-19 11:41:05.410278', updated_at: !!timestamp '2018-10-19
-      11:41:05.410278', content_object: 1, tag: 15}
+  fields: {created_at: ! '2018-10-19 11:41:05.410278', updated_at: ! '2018-10-19 11:41:05.410278',
+    content_object: 1, tag: 15}

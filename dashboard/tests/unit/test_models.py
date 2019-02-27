@@ -1,13 +1,11 @@
 import csv
-
 from django.utils import timezone
 from django.test import TestCase
 from django.db.models import Count
-
-
 from dashboard.models import *
 from dashboard.tests.loader import *
 from django.db.models import Q
+
 
 def create_data_documents(data_group, source_type, pdfs):
     '''Used to imitate the creation of new DataDocuments from CSV'''
@@ -30,6 +28,7 @@ def create_data_documents(data_group, source_type, pdfs):
             dds.append(dd)
         return dds
 
+
 def create_data_documents_with_txt(data_group, source_type, pdf_txt):
     '''Used to imitate the creation of new DataDocuments from CSV'''
     dds = []
@@ -51,6 +50,7 @@ def create_data_documents_with_txt(data_group, source_type, pdf_txt):
             dds.append(dd)
         return dds
 
+
 class ModelsTest(TestCase):
 
     def setUp(self):
@@ -66,7 +66,6 @@ class ModelsTest(TestCase):
         self.assertTrue(isinstance(self.objects.script, Script))
         self.assertTrue(isinstance(self.objects.extext, ExtractedText))
         self.assertTrue(isinstance(self.objects.ec, ExtractedChemical))
-        self.assertTrue(isinstance(self.objects.dsstox, DSSToxSubstance))
         self.assertTrue(isinstance(self.objects.ing, Ingredient))
         self.assertTrue(isinstance(self.objects.p, Product))
         self.assertTrue(isinstance(self.objects.pd, ProductDocument))
@@ -77,7 +76,6 @@ class ModelsTest(TestCase):
 
         self.assertEqual(str(self.objects.dg), self.objects.dg.name)
         self.assertEqual('https://www.epa.gov', self.objects.dg.url)
-
 
     def test_object_properties(self):
         # Test properties of objects
@@ -109,9 +107,6 @@ class ModelsTest(TestCase):
         self.assertEqual(str(self.objects.rc), 'Test Chem Name')
         # ExtractedChemical
         self.assertEqual(str(self.objects.ec), 'Test Chem Name')
-        # DSSToxSubstance
-        self.assertEqual(str(self.objects.dsstox),
-                                    str(self.objects.ec))
 
     def test_product_attribute(self):
         self.assertEqual(ProductToTag.objects.count(), 0)
@@ -200,12 +195,22 @@ class PUCModelTest(TestCase):
         self.assertEqual(len(puc.get_the_kids()),1, ('PUC should only have '
                                                         'itself associated'))
 
+    def test_puc_category_defaults(self):
+        '''Assert that the prod_fam and prod_type are nulled w/ an
+        empty string and not NULL.
+        '''
+        k = User.objects.get(username='Karyn')
+        puc = PUC.objects.create(last_edited_by=k)
+        self.assertTrue(puc.prod_fam == '')
+        self.assertTrue(puc.prod_type == '')
+
     def test_product_counts(self):
         '''Make sure the product_count property
         returns the same thing as the num_products annotation'''
         pucs = PUC.objects.all().annotate(num_products=Count('products'))
         # pucs 1-3 have products associated with them
         self.assertEqual(pucs.get(pk=1).num_products , PUC.objects.get(pk=1).product_count)
+
 
 class DataGroupFilesTest(TestCase):
 
@@ -226,6 +231,22 @@ class DataGroupFilesTest(TestCase):
         # 50 is the only datagroup that has a linked file in the /media folder
         self.assertTrue(dg50.dg_folder == dg50.get_dg_folder())
         self.assertFalse(dg50.zip_url)
+
+
+class DataDocumentTest(TestCase):
+
+    fixtures = fixtures_standard
+
+    def test_datadocument_note(self):
+
+        datadocument = DataDocument(filename="MyFile.pdf",
+                                    title="My Title",
+                                    data_group=DataGroup.objects.first(),
+                                    note="Some long note.")
+        datadocument.save()
+        self.assertTrue(datadocument.note, "Some long note.")
+
+
 
 
 

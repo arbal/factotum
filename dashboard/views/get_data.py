@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.shortcuts import render
-from django.db.models import Count, Q, Value, IntegerField, Subquery, OuterRef
+from django.db.models import Count, Q, Value, IntegerField, Subquery, OuterRef, F, Sum
 from django.forms.models import model_to_dict
 
 from dashboard.models import *
@@ -59,86 +59,59 @@ def stats_by_dtxsids(dtxs):
 
 
     # The number of unique PUCs (product categories) the chemical is associated with
-    pucs_n = DSSToxSubstance.objects.filter(sid__in=dtxs).\
-        values('sid').annotate(pucs_n=Count('rawchem_ptr__extracted_chemical__extracted_text__data_document__product__puc')).values('sid','pucs_n')
-    #print('pucs_n:')
-    #print(pucs_n)
+    pucs_n = DSSToxLookup.objects.filter(sid__in=dtxs).\
+        annotate(pucs_n=Count('curated_chemical__extracted_text__data_document__product__puc')).\
+        values('sid','pucs_n').order_by()
 
     # "The number of data documents (e.g.  MSDS, SDS, ingredient list, product label)
     # the chemical appears in
-    dds_n = DSSToxSubstance.objects.filter(sid__in=dtxs).values('sid').\
-        annotate(dds_n=Count('rawchem_ptr__extracted_chemical__extracted_text__data_document')).values('sid','dds_n')
+    dds_n = RawChem.objects.filter(dsstox__sid__in=dtxs).values('dsstox__sid').\
+        annotate(sid=F('dsstox__sid'), dds_n=Count('extracted_text__data_document')).\
+        values('sid','dds_n').order_by()
+
     #print('dds_n:')
     #print(dds_n)
 
     # The number of data documents with associated weight fraction data
     # that the chemical appears in (weight fraction data may be reported or predicted data,
     # i.e., predicted from an ingredient list)
-    dds_wf_n = DSSToxSubstance.objects\
-    .filter(sid__in=dtxs).values('sid')\
-    .annotate(
-        dds_wf_n = Subquery(
-            ExtractedChemical
-            .objects
-            .filter(rawchem_ptr_id=OuterRef('rawchem_ptr_id') )
-            .filter(
+    # This query only applies to ExtractedChemical objects, so the RawChem model can be bypassed
+    wf_ecs = ExtractedChemical.objects.filter(dsstox__sid__in=dtxs).filter(
                 Q(raw_max_comp__isnull=False) |
                 Q(raw_min_comp__isnull=False) |
                 Q(raw_central_comp__isnull=False)
             )
-            .values('rawchem_ptr__extracted_chemical__extracted_text_id')
-            .annotate(dds_wf_n=Count('extracted_text_id') )
-            .values('dds_wf_n')
-        )
-    )
+    dds_wf_n = DSSToxLookup.objects.filter(sid__in=dtxs).filter(curated_chemical__in=wf_ecs).\
+        annotate(dds_wf_n=Count('curated_chemical__extracted_text_id', distinct=True)).\
+        order_by().values('sid','dds_wf_n')
 
-    dds_wf_n = {}
-    strsql = ("SELECT dss.sid , "
-                "IFNULL("
-                    "SUM( "
-                        "(SELECT Count(DISTINCT ec2.extracted_text_id) as dd_wf_id "
-                        "FROM dashboard_extractedchemical ec2 "
-                        "WHERE ec2.rawchem_ptr_id = dss.rawchem_ptr_id "
-                        "GROUP BY ec2.rawchem_ptr_id "
-                        "HAVING SUM( ( "
-                            "(ec2.raw_max_comp IS NULL) +  "
-                            "(ec2.raw_min_comp IS NULL) +  "
-                            "(ec2.raw_central_comp IS NULL) "
-                            ") = 0) > 0 )) "
-                            ",0 "
-                            ") as dds_wf_n "
-                            "FROM dashboard_dsstoxsubstance dss "
-                            "LEFT JOIN dashboard_extractedchemical ec "
-                            "on ec.rawchem_ptr_id = dss.rawchem_ptr_id "
-                            "GROUP BY dss.sid ")
-    cursor_dds_wf_n = connection.cursor()
-    cursor_dds_wf_n.execute(strsql)
-    col_names = [desc[0] for desc in cursor_dds_wf_n.description]
 
-    #print('dds_wf_n:')
-    for row in cursor_dds_wf_n:
-        #print('sid: %s      dds_wf_n: %i' % (row[0], row[1]))
-        if row[0] in dtxs:
-            #print('adding to dds_wf_n')
-            dds_wf_n[row[0]] = row[1]
+
+
 
 
     # The number of products the chemical appears in, where a product is defined as a
     # product entry in Factotum.
-    products_n = DSSToxSubstance.objects.filter(sid__in=dtxs).values('sid').\
-       annotate(products_n=Count('rawchem_ptr__extracted_chemical__extracted_text__data_document__product')).values('sid', 'products_n')
+    products_n = RawChem.objects.filter(dsstox__sid__in=dtxs).values('dsstox__sid').\
+       annotate(products_n=Count('extracted_text__data_document__product')).\
+       annotate(sid=F('dsstox__sid')).values('sid', 'products_n')
 
-
+    # build a list of stats, starting with the pucs_n object
     stats = pucs_n\
     .annotate(dds_n=Value(-1, output_field=IntegerField())) \
     .annotate(dds_wf_n=Value(-1, output_field=IntegerField())) \
-    .annotate(products_n=Value(-1, output_field=IntegerField()))
+    .annotate(products_n=Value(-1, output_field=IntegerField())) 
 
     for row in stats:
         row['dds_n'] = int(dds_n.get(sid=row['sid'])['dds_n'] or 0)
-        row['dds_wf_n'] = dds_wf_n[row['sid']]
-        row['products_n'] = int(products_n.get(sid=row['sid'])['products_n'] or 0)
 
+        if not dds_wf_n.filter(sid=row['sid']):
+            row['dds_wf_n'] = 0
+        else:
+            row['dds_wf_n'] = int(dds_wf_n.get(sid=row['sid'])['dds_wf_n'] or 0)
+            
+        row['products_n'] = int(products_n.get(sid=row['sid'])['products_n'] or 0)
+        
     return stats
 
 def download_chem_stats(stats):
@@ -154,7 +127,7 @@ def download_chem_stats(stats):
 
 def get_data_dsstox_csv_template(request):
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="dsstox_substance_template.csv"'
+    response['Content-Disposition'] = 'attachment; filename="dsstox_lookup_template.csv"'
     writer = csv.writer(response)
     writer.writerow(['DTXSID'])
     return response
@@ -182,7 +155,7 @@ def upload_dtxsid_csv(request):
         dtxsids = []
         for line in lines:
             #print(line)
-            if DSSToxSubstance.objects.filter(sid=str.strip(line)).count() > 0:
+            if DSSToxLookup.objects.filter(sid=str.strip(line)).count() > 0:
                 dtxsids.append(str.strip(line)) # only add DTXSIDs that appear in the database
 
     except Exception as e:

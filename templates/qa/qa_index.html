@@ -22,8 +22,12 @@ QA</h1>
     {% for extraction_script in extraction_scripts %}
       <tr>
         <td>
-            <a href="{% url "extraction_script_detail" extraction_script.id %}" title="Link to {{ extraction_script.title }}">{{ extraction_script.title }}</a>
-          </td>
+            {% if extraction_script.url %}
+            <a href="{{ extraction_script.url }}" title="Link to {{ extraction_script.title }}" id="{{extraction_script.id}}">{{ extraction_script.title }}</a>
+            {% else %}
+            {{ extraction_script.title }}
+            {% endif %}
+        </td>
         <td>{{ extraction_script.get_datadocument_count }}</td>
         <td>{{ extraction_script.get_pct_checked }}</td>
         <td>
