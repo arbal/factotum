@@ -162,9 +162,19 @@ def upload_dtxsid_csv(request):
         logging.getLogger("error_logger").error("Unable to upload file. "+repr(e))
         messages.error(request,"Unable to upload file. "+repr(e))
 
-    #TODO: Correct the stats calculations to use the new model structure created in #340
     stats = stats_by_dtxsids(dtxsids)
     #stats  = {'pucs_n': 0, 'dds_n': 0, 'dds_wf_n': 0, 'products_n': 0}
     resp = download_chem_stats(stats)
     #print(resp)
     return resp
+
+def download_raw_chems(stats):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="uncurated_chemicals_%s.csv"' % (datetime.datetime.now().strftime("%Y%m%d"))
+
+    writer = csv.writer(response)
+    writer.writerow(['dashboard_rawchem_id', 'raw_cas', 'raw_chem_name', 'rid'])
+    for rawchem in RawChem.objects.filter(dsstox_id=None):
+        writer.writerow([rawchem.id, rawchem.raw_cas, rawchem.raw_chem_name, rawchem.rid if rawchem.rid else '' ])
+
+    return response

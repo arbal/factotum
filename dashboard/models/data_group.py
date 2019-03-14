@@ -39,6 +39,8 @@ extract_models = {
     'CP': (ExtractedCPCat, ExtractedListPresence)
 }
 
+
+
 class DataGroup(CommonInfo):
 
     name = models.CharField(max_length=50)
@@ -78,6 +80,11 @@ class DataGroup(CommonInfo):
     @property
     def is_chemical_presence(self):
         return self.type == 'CP'
+
+    @property
+    def is_hh(self):
+        return self.type == 'HH'
+
 
     def get_extract_models(self):
         '''returns a tuple with parent/child extract models'''

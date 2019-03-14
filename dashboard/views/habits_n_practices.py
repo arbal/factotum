@@ -18,7 +18,7 @@ def habitsandpractices(request, pk,
                                                     extraction_script=script)
     if created:
         extext.doc_date = 'please add...'
-    ExtractedTextForm, HnPFormSet = create_detail_formset(doc.data_group.type)
+    ExtractedTextForm, HnPFormSet = create_detail_formset(doc)
     ext_form = ExtractedTextForm(request.POST or None, instance=extext)
     hp_formset = HnPFormSet(request.POST or None,
                             instance=extext, prefix='habits')

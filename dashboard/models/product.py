@@ -1,9 +1,11 @@
+from taggit.managers import TaggableManager
+
 from django.db import models
+from django.urls import reverse
+
 from .common_info import CommonInfo
 from .data_source import DataSource
 from .source_category import SourceCategory
-from django.urls import reverse
-from taggit.managers import TaggableManager
 
 class Product(CommonInfo):
     data_source = models.ForeignKey(DataSource, related_name='source',
@@ -57,7 +59,7 @@ class Product(CommonInfo):
 
     def get_uber_puc(self):
         thispuc = self.get_uber_product_to_puc()
-        if thispuc is not None:
+        if thispuc:
             return thispuc.puc
         else:
             return None

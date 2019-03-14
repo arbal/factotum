@@ -2748,7 +2748,7 @@
 - model: dashboard.extractedhhdoc
   pk: 354783
   fields: {hhe_report_number: 2016-0090-3317, study_location: Minnesota, naics_code: '111419',
-    sampling_date: "\_August 2016 and April 2017", population_gender: Both, population_age: 'average
+    sampling_date: "\_August 2016 and April 2017", population_gender: BO, population_age: 'average
       age 38, age range 24-55', population_other: 'employment: average 1 year and
       2 months, range 2 months - 1 year 10 months', occupation: employees, facility: Medical
       Cannabis Manufacturing}
@@ -2767,7 +2767,7 @@
 - model: dashboard.rawchem
   pk: 5
   fields: {extracted_text: 5, raw_cas: 520-45-7, raw_chem_name: Fictional acid, temp_id: 6,
-    temp_obj_name: ExtractedChemical, rid: null, dsstox: null}
+    temp_obj_name: ExtractedChemical, rid: DTXRID005, dsstox: null}
 - model: dashboard.rawchem
   pk: 6
   fields: {extracted_text: 8, raw_cas: 84-74-2, raw_chem_name: dibutyl phthalate,

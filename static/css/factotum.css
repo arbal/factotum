@@ -9,4 +9,34 @@ div.search-result-main{
     content: " | ";
 }
 
+/* Used in the DataGroup list view */
+.dot {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    color:white;
+    }
 
+/* ☺☺☺☺☺☺ feel free to make changes here ☺☺☺☺☺☺ */
+.dot-dg-CO {
+    background-color: #808000;
+}
+.dot-dg-HP {
+    background-color: #469990;
+}
+.dot-dg-FU {
+    background-color: #9A6324;
+}
+.dot-dg-CP {
+    background-color: #911eb4;
+}
+.dot-dg-HH {
+    background-color: #e6194b;
+}
+.dot-dg-SU {
+    background-color: #000075;
+}
+.dot-dg-UN {
+    background-color: #2F4F4F;
+}

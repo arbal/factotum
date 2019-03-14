@@ -21,9 +21,7 @@ from .dsstox_lookup import DSSToxLookup
 from .qa_group import QAGroup
 from .unit_type import UnitType
 from .weight_fraction_type import WeightFractionType
-from .PUC import PUC
-from .PUC_tag import PUCTag
-from .PUC_to_tag import PUCToTag
+from .PUC import PUC, PUCToTag, PUCTag
 from .product_to_tag import ProductToTag
 from .product_to_puc import ProductToPUC
 from .extracted_habits_and_practices_to_puc import ExtractedHabitsAndPracticesToPUC

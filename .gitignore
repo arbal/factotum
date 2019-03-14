@@ -146,3 +146,8 @@ factotum.iml
 /media/
 .vscode/settings.json
 *.code-workspace
+slop/
+slop/
+.vscode/
+elasticsearch-2.4.6/
+src/

@@ -32,10 +32,10 @@
     <br><br>
     <form action='' method="post" >
     {% csrf_token %}
-    <p>{{ form.puc.label_tag }} {{ form.puc }}</p>
+    <p>{{ puc_form.puc.label_tag }} {{ puc_form.puc }}</p>
 
     {% if products %}
-    <p>{{ form.tag.label_tag }} {{ form.tag }}</p>
+    <p>{{ form.tag.label_tag }} {{ form.tag }} <small><i>assumed Tags will not be listed, but <b>will</b> be assigned.</i></small></p>
 
     <table class="table table-striped table-bordered dataTable no-footer table-sm" id="products">
       <thead class="table-primary">
@@ -43,6 +43,7 @@
               <th></th>
               <th>Product Title</th>
               <th>Brand Name</th>
+              <th>Current Attributes</th>
               <th>pk</th>
           </tr>
       </thead>
@@ -52,6 +53,7 @@
             <td></td>
             <td><a href="{% url "product_detail" product.id %}"> {{ product.title }}</a></td>
             <td>{{ product.brand_name }}</td>
+            <td>{{ product.get_tag_list }}</td>
             <td>{{ product.pk }}</td>
         </tr>
       {% endfor %}
@@ -60,7 +62,7 @@
     <br><br>
         {{ form.id_pks }}
         <button type="submit" name="save" id="btn-assign-puc" class="btn btn-primary">Submit</button>
-    {% elif form.puc.value > '' %}
+    {% elif puc_form.puc.value > '' %}
         <br><br>
         <br><br>
         <p>No products belong to the currently selected PUC.</p>
@@ -81,9 +83,10 @@
                 targets: 0,
                 width: '3%'
             },
-                { width: '60%', targets: 1 },
-                { width: '35%', targets: 2 },
-                {className: 'hide_column', targets:3}
+                { width: '30%', targets: 1 },
+                { width: '30%', targets: 2 },
+                { width: '35%', targets: 3 },
+                {className: 'hide_column', targets:4}
             ],
             select: {
                 style: 'multi',
@@ -117,7 +120,7 @@
             pk_data = product_table.rows( {selected:true} );
             pk = '';
             for (i=0; i < pk_data.count(); i++) {
-                pk += pk_data.data()[i][3] + ',';
+                pk += pk_data.data()[i][4] + ',';
             }
             pk = pk.replace(/,$/g,'');
             $('input[name="id_pks"]').val(pk);
@@ -125,7 +128,7 @@
         });
   });
   </script>
-{{ form.media }}
+{{ puc_form.media }}
 {% endblock %}
 
 {% block css %}

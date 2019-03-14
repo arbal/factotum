@@ -28,7 +28,7 @@ class HabitViewTest(TestCase):
     def test_product_surveyed_field(self):
         self.objects.gt.code = 'HP'
         self.objects.gt.save()
-        _, HnPFormSet = create_detail_formset(self.objects.dg.type)
+        _, HnPFormSet = create_detail_formset(self.objects.doc)
         data = {'habits-TOTAL_FORMS':'2',
                 'habits-INITIAL_FORMS':'1',
                 'habits-MIN_NUM_FORMS':'0',

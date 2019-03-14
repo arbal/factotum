@@ -29,10 +29,6 @@ class ExtractedChemical(CommonInfo, RawChem):
                                         validators=[validate_ingredient_rank])
     raw_central_comp = models.CharField(max_length=100, null=True, blank=True)
 
-    rawchem_ptr = models.OneToOneField(blank=False, null=False,
-            related_name='extracted_chemical', parent_link=True ,
-            on_delete=models.CASCADE, to='dashboard.RawChem')
-
     def __str__(self):
         return str(self.raw_chem_name) if self.raw_chem_name else ''
 

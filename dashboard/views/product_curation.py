@@ -8,7 +8,9 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.forms import ModelForm
 from dashboard.models import *
-from dashboard.forms import (ProductPUCForm, ProductLinkForm, BulkProductPUCForm, BulkProductTagForm, ProductForm)
+from dashboard.forms import (ProductPUCForm, ProductLinkForm, 
+                            BulkProductPUCForm, BulkProductTagForm, 
+                            BulkPUCForm, ProductForm)
 
 from taggit.forms import TagField
 from taggit_labels.widgets import LabelWidget
@@ -19,11 +21,13 @@ class FilteredLabelWidget(LabelWidget):
     def tag_list(self, tags):
         # must set form_instance in form __init__()
         puc = self.form_instance.instance.get_uber_puc() or None
+        qs = self.model.objects.filter(content_object=puc,assumed=False)
+        filtered = [unassumed.tag for unassumed in qs]
         return [(tag.name, 'selected taggit-tag' if tag.name in tags else 'taggit-tag')
-                for tag in self.model.objects.filter(puc = puc)]
+                for tag in filtered]
 
 class ProductTagForm(ModelForm):
-    tags = TagField(required=False, widget=FilteredLabelWidget(model=PUCTag))
+    tags = TagField(required=False, widget=FilteredLabelWidget(model=PUCToTag))
     class Meta:
         model = Product
         fields = ['tags']
@@ -124,30 +128,46 @@ def detach_puc_from_product(request, pk):
     return redirect('product_detail', pk=p.pk)
 
 @login_required()
-def bulk_assign_tag_to_products(request, template_name=('product_curation/'
-                                                      'bulk_product_tag.html')):
-    form = BulkProductTagForm(request.POST or None)
+def bulk_assign_tag_to_products(request):
+    template_name = 'product_curation/bulk_product_tag.html'
+    products = {}
     msg = ''
-    if form['puc'].value():
-        puc = PUC.objects.get(pk = form['puc'].value())
-        form.fields['tag'].queryset = PUCTag.objects.filter(id__in=(PUCToTag.objects.
-                           filter(content_object=puc).
-                           values_list('tag', flat=True)))
-        products = (Product.objects.
-                    filter(id__in=(ProductToPUC.objects.filter(puc = puc).values_list('product_id', flat=True))))
-    else:
-        products = {}
+    puc_form = BulkPUCForm(request.POST or None)
+    form = BulkProductTagForm()
+    if puc_form['puc'].value():
+        puc = PUC.objects.get(pk = puc_form['puc'].value())
+        assumed_tags = puc.get_assumed_tags()
+        puc2tags = (PUCToTag.objects.filter(content_object=puc,assumed=False).
+                                                values_list('tag', flat=True))
+        form.fields['tag'].queryset = PUCTag.objects.filter(id__in=puc2tags)
+        prod2pucs = (ProductToPUC.objects.filter(puc = puc).
+                                        values_list('product_id', flat=True))
+        products = Product.objects.filter(id__in=prod2pucs)
     if request.method == 'POST' and 'save' in request.POST:
+        form = BulkProductTagForm(request.POST or None)
+        form.fields['tag'].queryset = PUCTag.objects.filter(id__in=puc2tags)
         if form.is_valid():
-            tag = PUCTag.objects.get(id=form['tag'].value())
+            assign_tag = PUCTag.objects.filter(id=form['tag'].value())
+            tags = assumed_tags | assign_tag
             product_ids = form['id_pks'].value().split(",")
             for id in product_ids:
                 product = Product.objects.get(id=id)
-                ProductToTag.objects.update_or_create(tag=tag, content_object=product)
-                form = BulkProductTagForm(None)
-            msg = f'The "{tag.name}" Attribute was assigned to {len(product_ids)} Product(s)'
+                #add the assumed tags to the update
+                for tag in tags:
+                    ProductToTag.objects.update_or_create(tag=tag,
+                                                        content_object=product)
+            puc_form = BulkPUCForm()
+            form = BulkProductTagForm()
+            tag = assign_tag[0]
+            msg = f'The "{tag.name}" Attribute was assigned to {len(product_ids)} Product(s).'
+            if assumed_tags:
+                msg += (' Along with the assumed tags: '
+                            f'{" | ".join(x.name for x in assumed_tags)}')
             products = {}
-    return render(request, template_name, {'products': products, 'form': form, 'msg': msg})
+    return render(request, template_name, {'products': products,
+                                            'puc_form': puc_form,
+                                            'form': form, 
+                                            'msg': msg})
 
 @login_required()
 def bulk_assign_puc_to_product(request, template_name=('product_curation/'
@@ -177,18 +197,18 @@ def bulk_assign_puc_to_product(request, template_name=('product_curation/'
 @login_required()
 def assign_puc_to_product(request, pk, template_name=('product_curation/'
                                                       'product_puc.html')):
-    """Assign a PUC to a single product"""
-    form = ProductPUCForm(request.POST or None)
     p = Product.objects.get(pk=pk)
+    p2p = ProductToPUC.objects.filter(classification_method='MA', product=p).first()
+    form = ProductPUCForm(request.POST or None, instance=p2p)
     if form.is_valid():
-        puc = PUC.objects.get(id=form['puc'].value())
-        producttopuc = ProductToPUC.objects.filter(product=p, classification_method='MA')
-        if producttopuc.exists():
-            producttopuc.delete()
-        ProductToPUC.objects.create(puc=puc, product=p, classification_method='MA',
-                                    puc_assigned_usr=request.user)
+        if p2p:
+            p2p.save()
+        else:
+            puc = PUC.objects.get(id=form['puc'].value())
+            p2p = ProductToPUC.objects.create(puc=puc, product=p, classification_method='MA',
+                                        puc_assigned_usr=request.user)
         referer = request.POST.get('referer') if request.POST.get('referer') else 'category_assignment'
-        pk = p.id if referer == 'product_detail' else p.data_source.id
+        pk = p2p.product.pk if referer == 'product_detail' else p2p.product.data_source.pk
         return redirect(referer, pk=pk)
     form.referer = resolve(parse.urlparse(request.META['HTTP_REFERER']).path).url_name\
         if 'HTTP_REFERER' in request.META else 'category_assignment'
@@ -196,21 +216,21 @@ def assign_puc_to_product(request, pk, template_name=('product_curation/'
     return render(request, template_name,{'product': p, 'form': form})
 
 @login_required()
-def product_detail(request, pk, template_name=('product_curation/'
-                                                'product_detail.html')):
+def product_detail(request, pk):
+    template_name = 'product_curation/product_detail.html'
     p = get_object_or_404(Product, pk=pk, )
     tagform = ProductTagForm(request.POST or None, instance=p)
     tagform['tags'].label = ''
-    ptopuc = p.get_uber_product_to_puc()
     puc = p.get_uber_puc()
+    assumed_tags = puc.get_assumed_tags() if puc else PUCTag.objects.none()
     if tagform.is_valid():
         tagform.save()
     docs = p.datadocument_set.order_by('-created_at')
-    return render(request, template_name, {'product': p,
-                                            'puc'   : puc,
-                                            'ptopuc': ptopuc,
-                                            'tagform'  : tagform,
-                                            'docs'  : docs
+    return render(request, template_name, {'product'      : p,
+                                            'puc'         : puc,
+                                            'tagform'     : tagform,
+                                            'docs'        : docs,
+                                            'assumed_tags': assumed_tags
                                             })
 
 @login_required()
@@ -230,9 +250,9 @@ def product_delete(request, pk):
     return redirect('product_curation')
 
 @login_required()
-def product_list(request, template_name=('product_curation/'
-                                                'products.html')):
-    product = Product.objects.all()
+def product_list(request):
+    template_name = 'product_curation/products.html'
+    products = Product.objects.all()
     data = {}
-    data['object_list'] = product
+    data['products'] = products
     return render(request, template_name, data)

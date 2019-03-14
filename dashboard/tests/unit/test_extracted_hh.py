@@ -46,7 +46,7 @@ class HHTest(TestCase):
                             extraction_script=hhexscript
                             )
 
-        self.assertEqual(exhhdoc.__str__(), exhhdoc.hhe_report_number)
+        self.assertEqual(exhhdoc.__str__(), str(hhdd))
 
         # Add extracted records to the document
         hhrec1 = ExtractedHHRec.objects.create(extracted_text = exhhdoc,

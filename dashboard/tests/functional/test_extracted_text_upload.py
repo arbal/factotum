@@ -96,7 +96,7 @@ class UploadExtractedFileTest(TestCase):
         # print(resp.content)
         self.assertContains(resp,'must be 1:1')
         text_count = ExtractedText.objects.all().count()
-        print(text_count)
+        # print(text_count)
         self.assertTrue(text_count < 2, 
                                     'Shouldn\'t be 2 extracted texts uploaded')
         # Now get the success response

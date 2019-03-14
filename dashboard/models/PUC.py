@@ -1,6 +1,9 @@
+from taggit.models import TaggedItemBase, TagBase
 from taggit.managers import TaggableManager
 
 from django.db import models
+from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
 
 from .common_info import CommonInfo
 from .extracted_habits_and_practices_to_puc import (
@@ -73,3 +76,33 @@ class PUC(CommonInfo):
         '''Don't use this in large querysets. It uses a SQL query for each 
         PUC record. '''
         return self.products.count()
+
+    @property
+    def admin_url(self):
+        return reverse('admin:dashboard_puc_change', args=(self.pk,))
+        
+    def get_assumed_tags(self):
+        '''Queryset of used to filter which PUCs a Product can have '''
+        qs = PUCToTag.objects.filter(content_object=self, assumed=True)
+        return PUCTag.objects.filter(dashboard_puctotag_items__in=qs)
+
+
+class PUCToTag(TaggedItemBase, CommonInfo):
+    content_object = models.ForeignKey(PUC, on_delete=models.CASCADE)
+    tag = models.ForeignKey('PUCTag', on_delete=models.CASCADE,
+                            related_name="%(app_label)s_%(class)s_items")
+    assumed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.content_object)
+
+
+class PUCTag(TagBase, CommonInfo):
+
+    class Meta:
+        verbose_name = _("PUC Attribute")
+        verbose_name_plural = _("PUC Attributes")
+        ordering = ('name',)
+
+    def __str__(self):
+        return self.name

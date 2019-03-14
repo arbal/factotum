@@ -898,7 +898,7 @@
   pk: 156051
   fields: {created_at: ! '2018-03-21 13:16:47.965719', updated_at: null, filename: Sun_INDS_89.pdf,
     title: Sun_INDS_89, url: '', raw_category: '', data_group: 22, matched: true,
-    extracted: false, document_type: null, organization: ''}
+    extracted: true, document_type: null, organization: ''}
 - model: dashboard.datadocument
   pk: 156182
   fields: {created_at: ! '2017-11-09 11:30:00.090909', updated_at: ! '2018-06-20 12:17:19.042051',
@@ -3464,6 +3464,12 @@
     url: 'https://www.epa.gov', raw_category: null, data_group: 49, matched: true,
     extracted: true, document_type: 10, organization: ''}
 - model: dashboard.datadocument
+  pk: 254782
+  fields: {created_at: !!timestamp '2019-03-05 01:45:02.419628', updated_at: !!timestamp '2019-03-05
+      01:45:02.419649', filename: just_about_any.pdf, title: List of Chemicals 3,
+    url: null, raw_category: null, data_group: 49, matched: true, extracted: false,
+    document_type: 10, organization: Chemical Warfare, note: ''}
+- model: dashboard.datadocument
   pk: 354780
   fields: {created_at: ! '2018-09-27 22:49:26.971596', updated_at: ! '2018-10-18 05:20:14.698196',
     filename: 0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf, title: HH Doc 1, url: 'https://www.epa.gov',
@@ -3480,12 +3486,23 @@
   fields: {created_at: ! '2019-02-21 13:59:12.751315', updated_at: ! '2019-02-21 13:59:12.751338',
     filename: HHE_3.pdf, title: '"Characterizing Exposures During Laser Tattoo Removal
       in a Hospital Dermatology Center"', url: 'https://github.com/HumanExposure/factotum/files/2861896/HHE_3.pdf',
-    raw_category: null, data_group: 51, matched: false, extracted: false, document_type: 15,
+    raw_category: null, data_group: 51, matched: true, extracted: true, document_type: 15,
     organization: EPA}
 - model: dashboard.datadocument
   pk: 354783
   fields: {created_at: ! '2019-02-21 13:59:12.784011', updated_at: ! '2019-02-21 13:59:12.784036',
     filename: HHE_0.pdf, title: '"Evaluation of a Medicinal Cannabis Manufacturing
       Facility with an Indoor and Outdoor Grow Operation"', url: 'https://github.com/HumanExposure/factotum/files/2861896/HHE_1.pdf',
-    raw_category: null, data_group: 51, matched: false, extracted: false, document_type: 15,
+    raw_category: null, data_group: 51, matched: true, extracted: true, document_type: 15,
     organization: EPA}
+- model: dashboard.datadocument
+  pk: 354784
+  fields: {created_at: !!timestamp '2019-03-02 12:25:25.903764', updated_at: !!timestamp '2019-03-04
+      21:19:49.319945', filename: HHE_2.pdf, title: '"Contrasting Opioid Presence
+      Among Touring Musicians"', url: www.jambands.com, raw_category: purple haze,
+    data_group: 51, matched: true, extracted: false, document_type: 15, organization: Jerry
+      Garcia Foundation, note: "Now to fit in on the Seattle scene\r\nYou had to show\
+      \ people something that they'd never seen\r\nSo thinkin' up a gimmick one day\r\
+      \nWe decided to be the only band that wouldn't play a note\r\nUnder any circumstance\r\
+      \nWe called it silence...\r\nMusic's original alternative\r\n              \
+      \                        "}

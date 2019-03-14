@@ -18,7 +18,9 @@
         <tbody>
         {% for data_group in object_list %}
             <tr>
-                <td>{{ data_group.name }}</td>
+                <td class="text-center"> {{ data_group.name }}
+                    <span class="dot dot-dg-{{ data_group.type }} float-right"><small><b>{{ data_group.type }}</b></small></span>
+                </td>
                 <td><a class="btn btn-info btn-sm" role="button" title="details"
                     href="{% url "data_source_detail" data_group.data_source.id %}">{{ data_group.data_source }} 
                      <span class="oi oi-info"></span> </a></td>

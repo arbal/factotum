@@ -1,32 +1,7 @@
 {% extends 'core/base.html' %}
 {% load staticfiles %}
 {% load humanize %}
-{% block js %}
-  <script type="text/javascript">
-    $(document).ready(function () {
-      var table = $('#products').DataTable({
-        "serverSide": true,
-        "processing": true,
-        "ajax": {
-                 "processing": true,
-                 "url": "{% url 'p_ajax_url' %}"             },
-        "lengthMenu": [ 10, 25, 50, 75, 100 ], // change number of records shown
-      dom:"<'row'<'col-md-4 form-inline'l><'col-md-4 form-inline'f><'col-md-4'B>>" +
-          "<'row'<'col-sm-12'tr>>" +
-          "<'row'<'col-sm-5'i><'col-sm-7'p>>", // order the control divs
-      buttons: [{
-        extend: 'csv',
-        text: 'Download CSV',
-        title: 'Products_Factotum',
-        exportOptions : {
-          columns: [ 0, 1, 2]
-          }
-        }]
-      });
-  });
 
-  </script>
-{% endblock %}
 {% block content %}
 
 
@@ -41,7 +16,18 @@
       <th>PUC</th>
   </thead>
   <tbody>
+    {% for product in products %}
+    <tr>
+      <td><a href="{{ product.get_absolute_url }}" title="Link to product detail">{{ product.title }}</a></td>
+      <td>{{ product.brand_name }}</td>
+{#      <td>{{ product.get_uber_puc }}</td>#}
+      <td>---</td>
+    </tr>
+    {% endfor %}
   </tbody>
 </table>
 {% endblock %}
 
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/dashboard/product_list.js' %}"></script>
+{% endblock %}

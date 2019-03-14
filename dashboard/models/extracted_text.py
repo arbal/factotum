@@ -1,21 +1,28 @@
-from django.db import models
-from .common_info import CommonInfo
-from datetime import datetime
-from django.core.exceptions import ValidationError
-from django import forms
-from .data_document import DataDocument
-from .script import Script
 from itertools import chain
+from datetime import datetime
 from model_utils.managers import InheritanceManager
 
+from django.db import models
+from django.core.exceptions import ValidationError
+from django import forms
+
+from .common_info import CommonInfo
+
+    # this could potentially be used for 1:1 matching when uploading
+    # coming in django v2.2!!
+	# class Meta:
+	# 	constraints = [
+	# 		models.UniqueConstraint(fields=['prod_name','data_document'],
+	# 								name='unique_assignment'),
+	# 	]
 
 class ExtractedText(CommonInfo):
-    data_document = models.OneToOneField(DataDocument,on_delete=models.CASCADE,
+    data_document = models.OneToOneField('DataDocument',on_delete=models.CASCADE,
                                                             primary_key=True)
     prod_name = models.CharField(max_length=500, null=True, blank=True)
     doc_date = models.CharField(max_length=25, null=True, blank=True)
     rev_num = models.CharField(max_length=50, null=True, blank=True)
-    extraction_script = models.ForeignKey(Script, on_delete=models.CASCADE,
+    extraction_script = models.ForeignKey('Script', on_delete=models.CASCADE,
                                         limit_choices_to={'script_type': 'EX'})
     qa_checked = models.BooleanField(default=False, verbose_name="QA approved")
     qa_edited = models.BooleanField(default=False, verbose_name="QA edited")
@@ -32,7 +39,7 @@ class ExtractedText(CommonInfo):
 
 
     def __str__(self):
-        return str(self.prod_name)
+        return str(self.data_document)
 
     def next_extracted_text_in_qa_group(self):
         nextid = 0
@@ -51,6 +58,12 @@ class ExtractedText(CommonInfo):
     def pull_out_cp(self):
         if hasattr(self, 'extractedcpcat'):
             return self.extractedcpcat
+        else:
+            return self
+
+    def pull_out_hh(self):
+        if hasattr(self, 'extractedhhdoc'):
+            return self.extractedhhdoc
         else:
             return self
 

@@ -31,3 +31,6 @@ class ProductToPUC(CommonInfo):
 
     def __str__(self):
         return str(self.id)
+
+    class Meta:
+          unique_together = ("product", "puc", "classification_method")

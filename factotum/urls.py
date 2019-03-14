@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^logout/$',
             auth_views.LogoutView.as_view(next_page='index'), 
             name='logout'),
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls, name='admin'),
     url(r'', include('dashboard.urls')),
     url(r'', include('api.urls')),
 ]

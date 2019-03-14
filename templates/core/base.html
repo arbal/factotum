@@ -19,7 +19,7 @@
 
     <link rel="stylesheet" href="{% static "css/bootstrap_overrides.css" %}">
     <link rel="stylesheet" href="{% static "css/datatables_overrides.css" %}">
-    {% block css %}{% endblock %}
+
 
     <title>{% block title %}factotum{% endblock %}</title>
 
@@ -42,10 +42,13 @@
             <a class="nav-link" href="{% url 'get_data' %}" title="Get Data">Get Data</a>
         </li>
     {% if user.is_authenticated %}
-            <li class="nav-item {% if 'data_source' in request.resolver_match.url_name %}active{% endif %}">
+            <li class="nav-item {% if 'data_source_list' in request.resolver_match.url_name %}active{% endif %}">
                 <a class="nav-link" href="{% url 'data_source_list' %}">Data Sources</a>
             </li>
-            <li class="nav-item dropdown {% if 'product_curation' in request.resolver_match.url_name %}active{% endif %}">
+            <li class="nav-item {% if 'product_list' in request.resolver_match.url_name %}active{% endif %}">
+                <a class="nav-link" href="{% url 'product_list' %}">Products</a>
+            </li>
+            <li class="nav-item dropdown {% if 'product_curation' in request.resolver_match.url_name or 'puc_list' in request.resolver_match.url_name or 'bulk_product_puc' in request.resolver_match.url_name or 'bulk_product_tag' in request.resolver_match.url_name %}active{% endif %}">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDataCurationDropdownMenuLink"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Data Curation
@@ -113,6 +116,7 @@
     <script src="{% static 'DataTables/datatables.min.js' %}"></script>
     <script src="{% static 'js/facet_search.js' %}"></script>
     {% block js %}{% endblock %}
+    {% block css %}{% endblock %}
 
 </body>
 </html>

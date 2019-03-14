@@ -11,8 +11,8 @@ class DataDocument(CommonInfo):
 
     filename = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
-    url = models.CharField(null=True, blank=True, max_length=200)
-    raw_category = models.CharField(null=True, blank=True, max_length=50)
+    url = models.CharField(null=True, blank=True, max_length=275)
+    raw_category = models.CharField(null=True, blank=True, max_length=100)
     data_group = models.ForeignKey('DataGroup', on_delete=models.CASCADE)
     products = models.ManyToManyField('Product', through='ProductDocument')
     matched = models.BooleanField(default=False)
@@ -27,6 +27,10 @@ class DataDocument(CommonInfo):
 
     def __str__(self):
         return str(self.title)
+
+    @property
+    def is_extracted(self):
+        return hasattr(self,'extractedtext')
 
     def get_absolute_url(self):
         return reverse('data_document', kwargs={'pk': self.pk})

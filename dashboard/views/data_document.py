@@ -1,54 +1,53 @@
 from django import forms
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from dashboard.forms import (ExtractedTextForm, ExtractedCPCatForm,
-                                DocumentTypeForm,
-                                create_detail_formset)
 
 from djqscsv import render_to_csv_response
 
+from dashboard.forms import *
 from factotum.settings import EXTRA # if this goes to 0, tests will fail because of what num form we search for
 from dashboard.models import *
 
 @login_required()
-def data_document_detail(request, pk,
-                         template_name='data_document/data_document_detail.html'):
+def data_document_detail(request, pk):
+    template_name='data_document/data_document_detail.html'
     doc = get_object_or_404(DataDocument, pk=pk, )
-    ParentForm, ChildForm = create_detail_formset(doc.data_group.type, extra=0, can_delete=False)
-
+    code = doc.data_group.group_type.code
+    edit = 1 if code in ['CP','HH'] else 0
+    # edit adds an extra record to the formset, but is also a switch in the 
+    # template and to add the delete input, this will only work if we add one at
+    # a time...
+    ParentForm, ChildFormSet = create_detail_formset(doc, extra=edit, can_delete=edit)
     document_type_form = DocumentTypeForm(request.POST or None, instance=doc)
     qs = DocumentType.objects.filter(group_type=doc.data_group.group_type)
     document_type_form.fields['document_type'].queryset = qs
-
     context = {'doc': doc,
-            'document_type_form': document_type_form}
-
-    try:
-        extracted_text = ExtractedText.objects.get(data_document=doc)
-
-    except ExtractedText.DoesNotExist:
-        #print('No ExtractedText object found for DataDocument: %s' % doc )
-        extracted_text = None
-
-    else:
-        #print('ExtractedText object found: %s' % extracted_text )
+                'edit':edit,
+                'document_type_form': document_type_form}
+    if doc.is_extracted:
+        
+        extracted_text = doc.extractedtext.pull_out_hh()
         extracted_text_form = ParentForm(instance=extracted_text)
-        child_formset = ChildForm(instance=extracted_text)
+        child_formset = ChildFormSet(instance=extracted_text)
 
-
-        for form in child_formset.forms:
-            for field in form.fields:
-                form.fields[field].widget.attrs['disabled'] = True
+        if not edit:
+            for form in child_formset.forms:
+                for field in form.fields:
+                    form.fields[field].widget.attrs['disabled'] = True
 
         context.update(
-            {'extracted_text': extracted_text,
-            'detail_formset': child_formset}
-            )
+            {'edit_text_form':ParentForm(instance=extracted_text),
+             'extracted_text': extracted_text,
+             'detail_formset': child_formset}
+        )
                 
         colors = ['#d6d6a6','#dfcaa9','#d8e5bf'] * 47
         color = (hex for hex in colors)
         for form in child_formset.forms:
             form.color = next(color)
+    else:
+        context['edit_text_form'] = ParentForm()
     return render(request, template_name, context)
 
 @login_required()
@@ -72,7 +71,7 @@ def data_document_note(request, pk):
 @login_required()
 def save_ext_form(request, pk):
     doc = get_object_or_404(DataDocument, pk=pk)
-    ExtractedTextForm, _ = create_detail_formset(doc.data_group.type)
+    ExtractedTextForm, _ = create_detail_formset(doc)
     extracted_text = doc.extractedtext.get_subclass()
     print('Saving extracted text form')
     print(type(extracted_text))
@@ -95,3 +94,30 @@ def dg_dd_csv_view(request, pk):
     qs = DataDocument.objects.filter(data_group_id=pk)
     filename = DataGroup.objects.get(pk=pk).name
     return render_to_csv_response(qs, filename=filename, append_datestamp=True)
+
+@login_required
+def extracted_text_edit(request, pk):
+    doc = get_object_or_404(DataDocument, pk=pk)
+    ParentForm, _ = create_detail_formset(doc, extra=0, can_delete=False)
+    model = ParentForm.Meta.model
+    script = Script.objects.get(title__icontains='Manual (dummy)')
+    exttext, _ = model.objects.get_or_create(extraction_script=script,
+                                    data_document_id=pk)
+    form = ParentForm(request.POST, instance=exttext)
+    if form.is_valid():
+        form.save()
+        doc.extracted = True
+        doc.save()
+        return redirect('data_document', pk=doc.pk)
+    else:
+        extext.delete()
+        return HttpResponse("Houston, we have a problem.")
+
+@login_required
+def extracted_child_edit(request, pk):
+    doc = get_object_or_404(DataDocument, pk=pk)
+    _, ChildFormSet = create_detail_formset(doc, extra=1, can_delete=True)
+    formset = ChildFormSet(request.POST,instance=doc.extractedtext)
+    if formset.is_valid():
+        formset.save()
+    return redirect('data_document', pk=doc.pk)

@@ -1,0 +1,9 @@
+.taggit-labels.taggit-list .taggit-tag.selected {
+    background-color: #0071bc;
+    color: #FFFFFF;
+    border-color: #0071bc;
+}
+
+.border-2 {
+    border-width:2px !important;
+}

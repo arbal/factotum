@@ -2,44 +2,49 @@
 {% load staticfiles %}
 
 {% block nav %}
-<li class="nav-item active">
+<div class="nav-item active">
     <!-- <a class="nav-link btn btn-info" href="{% url 'qa' %}">CRAP</a> -->
     <!-- <button type="button" class="btn btn-secondary btn-sm">Small button</button> -->
-    <div class="dropdown  allow-focus">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        CODE menu<span class="sr-only">Toggle Dropdown</span>
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <div id="accordion">
+  <div class="dropdown  allow-focus">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      CODE menu<span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <div class="accordion" id="codeAccordion">
+          {% for group in groups %}
           <div class="card">
-            {% for group in groups %}
-            <div class="card-header-sm btn btn-secondary border text-white"  data-toggle="collapse" data-target="#{{group.id}}">
-                  {{group.title}}
+            <div class="card-header-sm bg-light" id="headingOne">
+              <h4>
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#dg-{{group.code}}" aria-expanded="true" aria-controls="collapseOne">
+                    <span class="dot mr-1 dot-dg-{{ group.code }}"><small><b>{{ group.code }}</b></small></span>
+                      <b>{{group.title}}</b>
+                </button>
+              </h4>
             </div>
-            <div id="{{group.id}}" class="collapse {% if group.code == 'CO' %} show {% endif %}" data-parent="#accordion">
+            <div id="dg-{{group.code}}" class="collapse {% if group.code == 'CO' %} show {% endif %}" aria-labelledby="headingOne" data-parent="#codeAccordion">
               <div class="card-body">
-                <table class="table table-sm table-bordered text-center">
-                  <thead class="bg-light">
-                    <th class="text-center">code</th>
-                    <th class="text-center">title</th>
-                  </thead>
-                  <tbody>
-                    {% for doc_type in group.codes %}
-                    <tr>
-                      <td>{{doc_type.code}}</td>
-                      <td>{{doc_type.title}}</td>
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
+                  <table class="table table-sm table-bordered text-center">
+                      <thead class="bg-light">
+                        <th class="text-center">code</th>
+                        <th class="text-center">title</th>
+                      </thead>
+                      <tbody>
+                        {% for doc_type in group.codes %}
+                        <tr>
+                          <td>{{doc_type.code}}</td>
+                          <td>{{doc_type.title}}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
               </div>
             </div>
-            {% endfor %}
           </div>
+          {% endfor %} 
         </div>
-      </div>
     </div>
-</li>
+  </div>
+</div>
 {% endblock %}
 
 {% block content %}
@@ -84,6 +89,7 @@
       <div class="col-md-3">
       </div>
       <div class="col-md-3">
+
       </div>
     </div>
 

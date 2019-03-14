@@ -49,5 +49,5 @@ class Product_Form_Test(TestCase):
         # print(self.objects.p)
         self.objects.p.save()
         form = ProductForm(self.objects.p.__dict__, instance=self.objects.p)
-        print(form.errors)
+        # print(form.errors)
         self.assertTrue(form.is_valid())

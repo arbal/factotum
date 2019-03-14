@@ -1,7 +1,7 @@
 from django.db import models
 from .common_info import CommonInfo
 from .product import Product
-from .PUC_tag import PUCTag
+from .PUC import PUCTag
 from taggit.models import TaggedItemBase
 
 class ProductToTag(TaggedItemBase, CommonInfo):

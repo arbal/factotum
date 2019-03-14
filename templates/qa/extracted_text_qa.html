@@ -112,7 +112,14 @@
 
              {{ form.id.as_hidden }}
              {{ form.rawchem_ptr.as_hidden }}
-
+             {% if form.non_field_errors %}
+                {{ form.non_field_errors }}
+             {% endif %}
+             {% if form.errors %}
+             <div class="form-group alert alert-danger" role="alert">
+                 <span class="alert-danger">{{ form.errors }}</span>
+             </div>
+             {% endif %}
              {% for field in form.visible_fields %}
                     <small><b>{{ field.label_tag }}</b></small><br>
               <div class="text-center small form-group {%if field.errors %}alert-danger{%endif%}">

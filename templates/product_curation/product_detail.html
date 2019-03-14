@@ -4,149 +4,159 @@
 {% block title %}Product {{ product.id }}: {{ product.title }}{% endblock %}
 
 {% block content %}
-<h1>
-    <span name="title">{{ product.title }}</span>
-    <div class="btn-group float-lg-right" role="group" aria-label="Manage Product">
-        <a class="btn btn-success btn-sm" role="button" title="edit" href="{% url 'product_edit' pk=product.pk %}">
-            <span class="oi oi-pencil"></span> </a>
-        <a class="btn btn-danger btn-sm" role="button" title="delete"
-           href="{% url "product_delete" pk=product.pk %}">
-            <span class="oi oi-trash"></span> </a>
-    </div>
-</h1>
-<h2>
-    <span name="title">{{ product.upc }}</span>
-</h2>
-<br>
-<div class="row">
-    <div class="col-lg-3">
-        <h4>
-            <span>PUC</span>
-            <div class="btn-group float-lg-right" role="group" aria-label="Manage PUC">
-                {% if puc.id %}
-                    <a class="btn btn-success btn-sm" role="button" title="Edit PUC Relationship"
-                       href="{% url 'product_puc' pk=product.pk %}">
-                        <span class="oi oi-pencil"></span> </a>
-                    <a class="btn btn-danger btn-sm" role="button" title="Delete PUC Relationship"
-                       href="{% url 'product_puc_delete' pk=product.pk %}">
-                        <span class="oi oi-trash"></span> </a>
-                {%  else %}
-                    <a class="btn btn-success btn-sm" role="button" title="edit" id="button_assign_puc"
-                       href="{% url 'product_puc' pk=product.pk %}">Assign PUC</a>
-                {%  endif %}
-            </div>
-        </h4>
-        <div class="form-group border bg-light">
-          <dl>
-              <dt>General Category:</dt>
-              <dd class="text-center">{{  puc.gen_cat|default:"PUC not yet assigned" }} -</dd>
-              <dt>Product Family:</dt>
-              <dd class="text-center">- {{  puc.prod_fam|default:"not specified" }} -</dd>
-              <dt>Product Type:</dt>
-              <dd class="text-center">- {{  puc.prod_type|default:"not specified" }}</dd>
-          </dl>
+    <h1>
+        <span name="title">{{ product.title }}</span>
+        <div class="btn-group float-lg-right" role="group" aria-label="Manage Product">
+            <a class="btn btn-success btn-sm" role="button" title="edit" href="{% url 'product_edit' pk=product.pk %}">
+                <span class="oi oi-pencil"></span> </a>
+            <a class="btn btn-danger btn-sm" role="button" title="delete"
+               href="{% url "product_delete" pk=product.pk %}">
+                <span class="oi oi-trash"></span> </a>
         </div>
-        {% if puc.id %}
+    </h1>
+    <h2>
+        <span name="title">{{ product.upc }}</span>
+    </h2>
+    <br>
+    <div class="row">
+        <div class="col-lg-3">
             <h4>
-                <span name="PUCTags" class="disabled">PUC Attributes</span>
+                <span>PUC</span>
+                <div class="btn-group float-lg-right" role="group" aria-label="Manage PUC">
+                    {% if puc.id %}
+                        <a class="btn btn-success btn-sm" role="button" title="Edit PUC Relationship"
+                           href="{% url 'product_puc' pk=product.pk %}">
+                            <span class="oi oi-pencil"></span> </a>
+                        <a class="btn btn-danger btn-sm" role="button" title="Delete PUC Relationship"
+                           href="{% url 'product_puc_delete' pk=product.pk %}">
+                            <span class="oi oi-trash"></span> </a>
+                    {% else %}
+                        <a class="btn btn-success btn-sm" role="button" title="edit" id="button_assign_puc"
+                           href="{% url 'product_puc' pk=product.pk %}">Assign PUC</a>
+                    {% endif %}
+                </div>
             </h4>
-            <div class="form-group ">
+            <div class="form-group border bg-light">
+                <dl>
+                    <dt>General Category:</dt>
+                    <dd class="text-center">{{ puc.gen_cat|default:"PUC not yet assigned" }}</dd>
+                    <dt>Product Family:</dt>
+                    <dd class="text-center">{{ puc.prod_fam|default:"not specified" }}</dd>
+                    <dt>Product Type:</dt>
+                    <dd class="text-center">{{ puc.prod_type|default:"not specified" }}</dd>
+                </dl>
+            </div>
+
+
+
+            {% if puc.id %}
+                <h5 class="">
+                    <span>Assumed Attributes</span>
+                </h5>
+                <div class="flex border border-secondary border-2 border-top-0 border-left-0 rounded-bottom">
+                    {% for assumed in assumed_tags %}
+                        <button type="button" class="flex-1 mb-1 ml-1 assumed btn btn-primary" disabled>{{ assumed.name }}</button>
+                    {% endfor %}
+                </div>
+                </br>
+                <div class="form-group">
                 {% if product.get_puc_tag_list|length > 1 %}
                     <form method="post" enctype="multipart/form-data" novalidate>
                         {% csrf_token %}
+                        <h5 class="d-flex">
+                            <span name="PUCTags" class="disabled">Product Attributes</span>
+                        {% if product.get_puc_tag_list|length > 1 %}
+                            <button type="submit" 
+                                    id="tag_submit" 
+                                    class="btn btn-sm btn-success rounded-0 ml-auto"><small>Submit</small></button>
+                        </h5>
                         {{ tagform }}
-                        <div class="btn-group float-lg-right" role="group">
-                            <button type="submit" class="btn btn-success">Submit</button>
-                        </div>
                     </form>
-                {%  else %}
-                    No attributes are associated with this PUC
+                        {%  else %}
+                        </h5>
+                    </form>
+                            No attributes are associated with this PUC
+                            <a href={{ puc.admin_url }}>(edit)</a>
+                        {% endif %}
+                </div>
                 {% endif %}
+            {% endif %}
+        </div>
+        <div class="col-5">
+            <div class="form-group ">
+                <i>{{ product.long_description|default:"" }}  </i>
             </div>
-        {%  endif %}
-    </div>
-    <div class="col-5">
-        <div class="form-group ">
-            <i>{{ product.long_description|default:"" }}  </i>
+        </div>
+        <div class="col-4 border">
+            {% if product.medium_image %}
+                <img src="{{ product.medium_image }}" height="180px" width="180px" alt="Product Medium Image">
+                <br>
+            {% endif %}
+            <dl>
+                <dt>Brand Name</dt>
+                <dd>{{ product.brand_name|default:"" }}</dd>
+                <dt>Manufacturer</dt>
+                <dd>{{ product.manufacturer|default:"" }}</dd>
+                <dt>Model Number</dt>
+                <dd>{{ product.model_number|default:"" }}</dd>
+                <dt>Size</dt>
+                <dd>{{ product.size|default:"" }}</dd>
+                <dt>Color</dt>
+                <dd>{{ product.color|default:"" }}</dd>
+            </dl>
+            {{ product.short_description|default:"" }}
         </div>
     </div>
-    <div class="col-4 border">
-        {% if product.medium_image %}
-            <img src="{{ product.medium_image }}" height="180px" width="180px" alt="Product Medium Image">
-            <br>
-        {% endif %}
-        <dl>
-            <dt>Brand Name</dt>
-            <dd>{{ product.brand_name|default:"" }}</dd>
-            <dt>Manufacturer</dt>
-            <dd>{{ product.manufacturer|default:"" }}</dd>
-            <dt>Model Number</dt>
-            <dd>{{ product.model_number|default:"" }}</dd>
-            <dt>Size</dt>
-            <dd>{{ product.size|default:"" }}</dd>
-            <dt>Color</dt>
-            <dd>{{ product.color|default:"" }}</dd>
-        </dl>
-        {{ product.short_description|default:"" }}
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-bordered dataTable no-footer table-sm" align="center">
+                <thead class="table-primary">
+                <!-- data document title, the document type,
+                if it has been extracted or not,
+                and a link that opens up the pdf in a new page (perhaps a pdf icon)  -->
+                <th>Linked Documents</th>
+                <th>Type</th>
+                <th>Extracted</th>
+                <th>Link</th>
+                </thead>
+                <tbody>
+                {% for doc in docs %}
+                    <tr>
+                        <td align="center"><a href="{% url "data_document" doc.id %}"> {{ doc.title }}</a></td>
+                        <td align="center">{{ doc.document_type }}</td>
+                        <td align="center">
+                            {% if doc.extracted %}
+                                <span class="oi oi-circle-check" style="color:green;"></span>
+                                <p style="display:none;">{{ doc.extracted }}</p>
+                            {% else %}
+                                <a class="btn btn-danger btn-sm" role="button" title="delete"
+                                   href="{% url "data_document_delete" doc.id %}">
+                                    <span class="oi oi-trash"></span>
+                                </a><p style="display:none;">{{ doc.extracted }}</p>
+                            {% endif %}
+                        </td>
+                        <td align="center">
+                            <div class="btn-group">
+                                <a href="{{ doc.pdf_url }}" title="Link to {{ doc.get_abstract_filename }}"
+                                   target="_blank">
+                                    <img src="{% static 'images/PDF_32.png' %}" height="32px" width="32px">
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-<br>
-<div class="row">
-    <div class="col-md-12">
-        <table class="table table-striped table-bordered dataTable no-footer table-sm" align="center">
-            <thead class="table-primary">
-            <!-- data document title, the document type,
-            if it has been extracted or not,
-            and a link that opens up the pdf in a new page (perhaps a pdf icon)  -->
-            <th>Linked Documents</th>
-            <th>Type</th>
-            <th>Extracted</th>
-            <th>Link</th>
-            </thead>
-            <tbody>
-            {% for doc in docs %}
-                <tr>
-                    <td align="center"><a href="{% url "data_document" doc.id %}"> {{ doc.title }}</a></td>
-                    <td align="center">{{ doc.document_type }}</td>
-                    <td align="center">
-                        {% if doc.extracted %}
-                            <span class="oi oi-circle-check" style="color:green;"></span>
-                            <p style="display:none;">{{doc.extracted}}</p>
-                        {% else %}
-                            <a class="btn btn-danger btn-sm" role="button" title="delete"
-                               href="{% url "data_document_delete" doc.id %}">
-                                <span class="oi oi-trash"></span>
-                            </a><p style="display:none;">{{doc.extracted}}</p>
-                        {% endif %}
-                    </td>
-                    <td align="center">
-                        <div class="btn-group">
-                            <a href="{{ doc.pdf_url }}" title="Link to {{ doc.get_abstract_filename }}" target="_blank">
-                                <img src="{% static 'images/PDF_32.png' %}" height="32px" width="32px">
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
 {% endblock %}
 
 {% block css %}
     {{ tagform.media.css }}
-    <style>
-        .taggit-labels.taggit-list .taggit-tag.selected {
-            background-color: #0071bc;
-            color: #FFFFFF;
-            border-color: #0071bc;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard/product.css' %}">
 {% endblock %}
 {% block js %}
-    <script type="text/javascript">
-        $('#id_tags').addClass('taggit-labels taggit-list')
-    </script>
+    <script src="{% static 'js/dashboard/product.js' %}"></script>
     {{ tagform.media.js }}
 {% endblock %}
