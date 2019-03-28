@@ -25,6 +25,7 @@ from dashboard.forms import (DataGroupForm,
                              include_extract_form,
                              include_clean_comp_data_form)
 from dashboard.utils import get_extracted_models, clean_dict, update_fields
+from django.db.models import Max
 
 
 @login_required()
@@ -152,7 +153,7 @@ def data_group_detail(request, pk,
         b = set(prod_link.values_list('document_id',flat=True))
         # DataDocs to make products for...
         docs_needing_products = DataDocument.objects.filter(pk__in=list(a-b))
-        stub = Product.objects.all().count() + 1
+        stub = Product.objects.all().aggregate(Max('id'))["id__max"] + 1
         for doc in docs_needing_products:
             # Try to name the new product from the ExtractedText record's prod_name
             try:

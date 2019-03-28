@@ -15,6 +15,7 @@ from dashboard.forms import (ProductPUCForm, ProductLinkForm,
 from taggit.forms import TagField
 from taggit_labels.widgets import LabelWidget
 from django.core.paginator import Paginator
+from django.db.models import Max
 
 class FilteredLabelWidget(LabelWidget):
     # overriding django-taggit-label function to display subset of tags
@@ -86,7 +87,7 @@ def link_product_form(request, pk, template_name=('product_curation/'
                                                     'link_product_form.html')):
     doc = DataDocument.objects.get(pk=pk)
     ds_id = doc.data_group.data_source_id
-    initial = {   'upc': ('stub_' + str(Product.objects.all().count() + 1)),
+    initial = {   'upc': ('stub_' + str(Product.objects.all().aggregate(Max('id'))["id__max"] + 1)),
         'document_type': doc.document_type,
            'return_url': request.META.get('HTTP_REFERER')}
     form = ProductLinkForm(initial=initial)
@@ -118,6 +119,8 @@ def link_product_form(request, pk, template_name=('product_curation/'
                 return redirect('data_document', pk=doc.pk)
             else:
                 return redirect('link_product_list', pk=doc.data_group.pk)
+        else:
+            pass #form is invalid
     return render(request, template_name,{'document': doc, 'form': form})
 
 @login_required()
