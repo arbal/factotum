@@ -3506,3 +3506,21 @@
       \nWe decided to be the only band that wouldn't play a note\r\nUnder any circumstance\r\
       \nWe called it silence...\r\nMusic's original alternative\r\n              \
       \                        "}
+- model: dashboard.datadocument
+  pk: 354785
+  fields: {created_at: ! '2018-09-27 22:49:26.971596', updated_at: ! '2018-10-18 05:20:14.698196',
+           filename: 0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf, title: Alexa List of Chemicals 1,
+           url: 'https://www.epa.gov', raw_category: null, data_group: 52, matched: true,
+           extracted: true, document_type: 10, organization: ''}
+- model: dashboard.datadocument
+  pk: 354786
+  fields: {created_at: ! '2018-09-27 22:49:26.999437', updated_at: ! '2018-10-18 05:36:00.325527',
+           filename: 0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf, title: Alexa List of Chemicals 2,
+           url: 'https://www.epa.gov', raw_category: null, data_group: 52, matched: true,
+           extracted: true, document_type: 10, organization: ''}
+- model: dashboard.datadocument
+  pk: 354787
+  fields: {created_at: !!timestamp '2019-03-05 01:45:02.419628', updated_at: !!timestamp '2019-03-05
+    01:45:02.419649', filename: just_about_any.pdf, title: Alexa List of Chemicals 3,
+           url: null, raw_category: null, data_group: 52, matched: true, extracted: false,
+           document_type: 10, organization: Chemical Warfare, note: ''}

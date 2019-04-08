@@ -8,6 +8,9 @@ from dashboard.models import *
 from selenium import webdriver
 from django.conf import settings
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 
 
 def log_karyn_in(object):
@@ -68,7 +71,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
     def test_new_chem(self):
         '''
-        Adding a new ExtractedChemical without a unity type should return a validation error
+        Adding a new ExtractedChemical without a unit type should return a validation error
         '''
         # currently "loops" over just a single data document. Other cases can be added
         ets_with_curation = ExtractedText.objects.filter(
@@ -79,11 +82,19 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
             self.browser.find_element_by_xpath(
                 '//*[@id="btn-toggle-edit"]').click()
+            # wait for the Save button to be clickable
+            wait = WebDriverWait(self.browser, 10)
+            save_button = wait.until(
+                ec.element_to_be_clickable((By.XPATH, "//*[@id='save']")))
+            # edit the Raw CAS field
             raw_cas_input = self.browser.find_element_by_xpath(
                 '//*[@id="id_rawchem-1-raw_cas"]')
             raw_cas_input.send_keys('test raw cas')
-            self.browser.find_element_by_xpath('//*[@id="save"]').click()
+            # Save the edits
+            save_button.send_keys("\n")
             # Check for the error message after clicking Save
+            wait.until(ec.visibility_of(self.browser.find_element_by_xpath(
+                '//*[@id="id_rawchem-1-raw_cas"]/parent::*')))
             parent_div = self.browser.find_element_by_xpath(
                 '//*[@id="id_rawchem-1-raw_cas"]/parent::*')
             card_div = parent_div.find_element_by_xpath(
@@ -93,6 +104,10 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             # Try editing a new record correctly
             self.browser.find_element_by_xpath(
                 '//*[@id="btn-toggle-edit"]').click()
+            # wait for the Save button to be clickable
+            wait = WebDriverWait(self.browser, 10)
+            save_button = wait.until(
+                ec.element_to_be_clickable((By.XPATH, "//*[@id='save']")))
             raw_cas_input = self.browser.find_element_by_xpath(
                 '//*[@id="id_rawchem-1-raw_cas"]')
             raw_cas_input.send_keys('test raw cas')
@@ -101,7 +116,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 '//*[@id="id_rawchem-1-unit_type"]'))
             unit_type_select.select_by_index(1)
 
-            self.browser.find_element_by_xpath('//*[@id="save"]').click()
+            save_button.send_keys("\n")
             # Check for the absence of an error message after clicking Save
             parent_div = self.browser.find_element_by_xpath(
                 '//*[@id="id_rawchem-1-raw_cas"]/parent::*')
@@ -109,3 +124,98 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 '../..')
             self.assertFalse(
                 "errorlist" in card_div.get_attribute("innerHTML"))
+
+    def test_redirects(self):
+        '''
+        Editing the data document type should return the user to the page on which the edits were made
+        '''
+        for doc_id in [7]:
+            # QA Page
+            doc_qa_link = f'/qa/extractedtext/%s/' % doc_id
+            self.browser.get(self.live_server_url + doc_qa_link)
+            doc_type_select = Select(self.browser.find_element_by_xpath(
+                '//*[@id="id_document_type"]'))
+            option = doc_type_select.first_selected_option
+            doc_type_select.select_by_visible_text("ingredient disclosure")
+            self.assertIn(doc_qa_link, self.browser.current_url)
+
+            # Data Document Detail Page
+            doc_detail_link = f'/datadocument/%s/' % doc_id
+            self.browser.get(self.live_server_url + doc_detail_link)
+            doc_type_select = Select(self.browser.find_element_by_xpath(
+                '//*[@id="id_document_type"]'))
+            doc_type_select.select_by_visible_text("MSDS")
+            self.assertIn(doc_detail_link, self.browser.current_url)
+
+    def test_qa_approval(self):
+        '''
+        Test the QA process in the browser
+        1. Open the QA page for an ExtractedText record
+        2. Edit one of the child records
+        3. Attempt to approve the document without a QA note
+        4. Add a note
+        5. Approve 
+        '''
+        for doc_id in [7,      # Composition
+                       5,      # Functional Use
+                       254781, # Chemical Presence List
+                       354783, # HHE Report 
+                       ]: 
+            # QA Page
+            qa_url = self.live_server_url + f'/qa/extractedtext/{doc_id}/'
+            self.browser.get(qa_url)
+            # Activate the edit mode
+            self.browser.find_element_by_xpath(
+                '//*[@id="btn-toggle-edit"]').click()
+
+            # Modify the first raw_chem_name field's value
+            #  
+            raw_chem = self.browser.find_element_by_xpath(
+                '//*[@id="id_rawchem-0-raw_chem_name"]')
+            # Wait for the field to be editable
+            wait = WebDriverWait(self.browser, 10)
+            raw_chem_name_field = wait.until(ec.element_to_be_clickable(
+                (By.XPATH, "//*[@id='id_rawchem-0-raw_chem_name']")))
+
+            old_raw_chem_name = raw_chem_name_field.get_attribute('value')
+
+            # Get the detailed child record's ID
+            rawchem_id_field = self.browser.find_element_by_xpath(
+                '//*[@id="id_rawchem-0-rawchem_ptr"]')
+            rawchem_id = rawchem_id_field.get_attribute('value')
+            # print(rawchem_id)
+
+            raw_chem_name_field.send_keys(' edited')
+            # save changes
+            self.browser.find_element_by_xpath('//*[@id="save"]').click()
+
+            # Confirm the changes in the ORM
+            rc = RawChem.objects.get(pk=rawchem_id)
+            self.assertEqual(rc.raw_chem_name, f'%s edited' %
+                             old_raw_chem_name, 'The raw_chem_name field should have changed')
+
+            et = ExtractedText.objects.get(pk=doc_id)
+            # print(et.data_document.data_group.group_type)
+            self.assertTrue(
+                et.qa_edited, 'The qa_edited attribute should be True')
+
+            # Click Approve without any notes and confirm validation failure
+            self.browser.find_element_by_xpath('//*[@id="approve"]').click()
+            # The QA notes field should be invalid
+            qa_notes_field = self.browser.find_element_by_xpath(
+                '//*[@id="id_qa_notes"]')
+            self.assertIn('is-invalid', qa_notes_field.get_attribute('class'))
+            et.refresh_from_db()
+            self.assertFalse(
+                et.qa_checked, 'The qa_checked attribute should be False')
+
+            # Add the mandatory QA note
+            qa_notes_field.send_keys('Some QA Notes')
+            # Click "Approve" again
+            self.browser.find_element_by_xpath('//*[@id="approve"]').click()
+            et.refresh_from_db()
+            self.assertTrue(
+                et.qa_checked, 'The qa_checked attribute should be True')
+
+
+

@@ -12,31 +12,32 @@
     {% endfor %}
   </div>
 {% endif %}
-<!-- above is where the error is coming through -->
-<dl>
-<dt> <small><b><u>EXTRACTED TEXT INFO</u></b></small> </dt>
+<label for="" class="form-required"><b>* required</b></label>
+<table class="table table-bordered {{ colspan }}">
 {% for field in form.visible_fields %}
-  <div>
-   <dt> <small><b>{{ field.label_tag }}</b></small> </dt>
-    <dd>
+<tr class="form-group">
+    <td>{{ field.label_tag }}</td>
+    <td> 
     {% if form.is_bound %}
       {% if field.errors %}
-       {% render_field field class="detail-control form-control is-invalid" %}
+        {% render_field field class="form-control is-invalid" %}
         {% for error in field.errors %}
           <div class="invalid-feedback">
             {{ error }}
           </div>
         {% endfor %}
       {% else %}
-        {% render_field field class="detail-control form-control is-valid" %}
+        {% render_field field class="form-control is-valid" %}
       {% endif %}
     {% else %}
-      {% render_field field class="detail-control form-control" %}
+      {% render_field field class="form-control" %}
     {% endif %}
-    </dd>
+
     {% if field.help_text %}
       <small class="form-text text-muted">{{ field.help_text }}</small>
     {% endif %}
-  </div>
+    </td>
+    </tr>
 {% endfor %}
-</dl>
+</table>
+

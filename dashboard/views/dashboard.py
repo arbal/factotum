@@ -102,13 +102,22 @@ def product_with_puc_count_by_month():
 
 
 def download_PUCs(request):
+    '''This view gets called every time we call the index view and is used to
+    populate the bubble plot. It is also used to download all of the PUCs in 
+    csv form. The "bubbles" parameter in the request will either be "True" or 
+    "None", it's worth noting that if when making the call to here from the 
+    index page we were to use ?bubbles=False it would also give us the filtered
+    PUCs because the if expression is just checking whether that parameter is 
+    there.
+    '''
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="PUCs.csv"'
-
+    bubbles = request.GET.get('bubbles')
     writer = csv.writer(response)
     cols = ['gen_cat','prod_fam','prod_type','description','PUC_type','num_prods']
     writer.writerow(cols)
-    for puc in PUC.objects.all():
+    pucs = PUC.objects.filter(kind='FO') if bubbles else PUC.objects.all()
+    for puc in pucs:
         row = [ puc.gen_cat,
                 puc.prod_fam, 
                 puc.prod_type, 

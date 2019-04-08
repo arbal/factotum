@@ -13,6 +13,7 @@
 <br>
 <table class="table table-sm table-bordered table-striped table-sortable" id='extracted_text_table'>
     <thead class="table-primary">
+        <tr>
         <th>ID</th>
         <th>Data Group</th>
         <th>Group Type</th>
@@ -20,6 +21,7 @@
         <th>Document Date</th>
         <th>Revision Number</th>
         <th>QA Checked</th>
+        </tr>
     </thead>
     <tbody>
     {% for extractedtext in extractedtexts %}
@@ -27,7 +29,7 @@
 
         <td width="42">{{ extractedtext.id }}</td> <!-- added width for sort image -->
         <td>
-          <a class="btn btn-info btn-sm" role="button" title="details"
+          <a title="details"
             href="{% url "data_group_detail" extractedtext.data_document.data_group.id %}"> {{ extractedtext.data_document.data_group.name }}
           </a>
         </td>

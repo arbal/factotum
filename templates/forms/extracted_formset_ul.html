@@ -1,0 +1,46 @@
+
+
+<form method="post"  >
+        {% csrf_token %}
+        {{ detail_formset.management_form }}
+        <ul class="list-inline factotum-control-row" role="group" aria-label="Extracted child record editing controls">
+                <li class="list-inline-item">
+                        <button type="button" id="btn-toggle-edit" data-toggle="button" class="btn btn-secondary" onclick="toggleDetailEdit(true)">
+                                <span id="btn-toggle-label" class="oi oi-wrench"></span>
+                                Edit {{ doc.data_group.group_type }} Records
+                        </button>  
+                </li>
+                <li class="list-inline-item">
+                <button type = "submit" id="save" name="save" class="btn btn-primary detail-control" role="button">Save edits</button>
+                </li>
+            </ul>
+
+
+            <ul id="formset" class="form">
+            {% for form in detail_formset.forms %}
+            {% if forloop.first %}
+            <ul class="list-inline factotum-control-row" role="group" aria-label="Field headers">
+                {% for field in form.visible_fields %}
+                <li class="list-inline-item" >{{ field.label|capfirst }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <ul class="list-inline factotum-control-row {% cycle row1 row2 %}">
+            {{ form.management_form }}
+            {% for field in form.visible_fields %}
+                <li  class="list-inline-item" >
+                {# Include the hidden fields in the form #}
+                {% if forloop.first %}
+                {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+                {% endfor %}
+                {% endif %}
+                {{ field.errors.as_ul }}
+                {{ field }}
+                </li>
+            {% endfor %} 
+            {# End of the form #}
+            </ul>
+            {% endfor %}
+        </ul>
+        </form>

@@ -149,3 +149,11 @@
       00:00:00', download_script: null, data_source: 30, fs_id: 6e69891a-0893-4b88-aff8-94e579b53d7f,
     csv: 6e69891a-0893-4b88-aff8-94e579b53d7f/HHE_registered_datadocs.csv, zip_file: media/6e69891a-0893-4b88-aff8-94e579b53d7f/6e69891a-0893-4b88-aff8-94e579b53d7f.zip,
     group_type: 7, url: ''}
+- model: dashboard.datagroup
+  pk: 52
+  fields: {created_at: ! '2018-09-27 22:49:26.938843', updated_at: ! '2018-09-27 22:49:27.024094',
+    name: Alexa Chemical Presence, description: paid chemical presence associations,
+    downloaded_by: 1, downloaded_at: ! '2018-01-11 00:00:00', download_script: 1,
+    data_source: 28, fs_id: 1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842, csv: 1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842/register_records_matching.csv,
+    zip_file: media/1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842/1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842.zip,
+    group_type: 6, url: www.chemicals_in_captivity.com}

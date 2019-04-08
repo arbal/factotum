@@ -74,7 +74,7 @@ class TestIntegration(StaticLiveServerTestCase):
         self.assertIn('/datasource/', self.browser.current_url,
                       "User should always return to detail page after submit")
 
-        num_pucs = len(PUC.objects.all())
+        num_pucs = len(PUC.objects.filter(kind='FO'))
         self.browser.get(self.live_server_url)
         import time
         time.sleep(3)  # or however long you think it'll take you to scroll down to bubble chart
@@ -128,10 +128,22 @@ class TestIntegration(StaticLiveServerTestCase):
     def test_field_exclusion(self):
         doc = self.objects.doc
         # The element should not appear on the QA page
-        qa_url = self.live_server_url + f'/qa/{doc.pk}/'
+        qa_url = self.live_server_url + f'/qa/extractedtext/{doc.pk}/'
         self.browser.get(qa_url)
         with self.assertRaises(NoSuchElementException):
             self.browser.find_element_by_xpath('//*[@id="id_rawchem-0-weight_fraction_type"]')
+        with self.assertRaises(NoSuchElementException):
+            self.browser.find_element_by_xpath('//*[@id="id_rawchem-0-true_cas"]')
+        with self.assertRaises(NoSuchElementException):
+            self.browser.find_element_by_xpath('//*[@id="id_rawchem-0-true_chemname"]')
+        with self.assertRaises(NoSuchElementException):
+            self.browser.find_element_by_xpath('//*[@id="id_rawchem-0-SID"]')
+        # make sure the test can pick up one that should be there
+        try:
+            self.browser.find_element_by_xpath('//*[@id="id_rawchem-0-raw_cas"]')
+        except NoSuchElementException:
+            self.fail("Absence of raw_cas element raised exception")
+
         # The element should appear on the datadocument page
         dd_url = self.live_server_url + f'/datadocument/{doc.pk}/'
         self.browser.get(dd_url)

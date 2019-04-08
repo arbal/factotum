@@ -179,12 +179,27 @@ class ModelsTest(TestCase):
         self.assertIn(u, dg_response.content, (
                                     'link to PDF should be in HTML!'))
 
+    def test_script_fields(self):
+        fields = ['title','url','qa_begun','script_type','confidence']
+        for fld in fields:
+            self.assertIn(fld, Script.__dict__, (f'{fld} '
+                                                'should be in Script model.'))
+
 
 class PUCModelTest(TestCase):
 
     fixtures = fixtures_standard
 
+    def test_puc_fields(self):
+        fields = ['kind','gen_cat','prod_fam','prod_type','description',
+                'last_edited_by','products','extracted_habits_and_practices',
+                'tags']
+        for fld in fields:
+            self.assertIn(fld, PUC.__dict__, f'{fld} should be in PUC model.')
+
     def test_get_the_kids(self):
+        '''Level 1 and 2 PUCs should accumulate lower level PUCs.
+        '''
         puc = PUC.objects.get(pk=20) # PUC w/ only gen_cat value
         self.assertGreater(len(puc.get_the_kids()),1, ('PUC should have more'
                                                         'than one child PUCs'))

@@ -61,9 +61,10 @@ class DataGroupDetailTest(TestCase):
                 'ingredient_rank', 'raw_central_comp'],
                 "Fieldnames passed are incorrect!")
         self.objects.gt.title = 'Functional use'
+        self.objects.gt.code = 'FU'
         self.objects.gt.save()
         self.assertEqual(str(self.objects.dg.group_type),'Functional use',
-            'Type of DataGroup needs to be "Functional_use" for this test.')
+            'Type of DataGroup needs to be "FU" for this test.')
         response = self.client.get(f'/datagroup/{pk}/')
         self.assertEqual(response.context['extract_fields'],
                 ['data_document_id','data_document_filename',

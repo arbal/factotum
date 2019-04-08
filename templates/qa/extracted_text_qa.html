@@ -19,16 +19,32 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/qa">QA</a></li>
       <li class="breadcrumb-item">
-           <a href='{% url "extraction_script_qa" script.id %}'> {{ script }} </a>
+           <a href='{% url "qa_extraction_script" script.id %}'> {{ script }} </a>
     </li>
       <li class="breadcrumb-item active" aria-current="page">{{ doc.title }}</li>
     </ol>
   </nav>
 
   <div class="card">
-    <h3 class="card-header text-center">
+    <h3 class="card-header ">
             <a  href="{% url "data_document" doc.pk %}" target="_blank" title='Data Document Detail Page'>DataDocument: {{ doc.title }}</a>
-    </h3>
+        </h3>
+        <!-- maybe include functionality to edit the dd later -->
+            <!-- <ul class="list-inline factotum-control-row" role="group" aria-label="Data document editing controls">
+                <li class="list-inline-item">
+                <a id="edit-data-document" class="btn btn-md " role="button" title="edit data document"
+                data-toggle="modal"
+                data-target="#datadocModal">
+                Edit Data Document
+                <span class="oi oi-pencil">
+                </span> 
+                </a>
+            </li>
+            </ul> -->
+
+            <!-- Data Document Modal -->
+            <!-- {% include 'forms/data_document_modal.html' with form=edit_doc_form colspan='col-6'%} -->
+
     <table class="table table-bordered">
 
       <tr>
@@ -39,18 +55,20 @@
           </a>
         </td>
       </tr>
-      <tr>
-        <th>Document Type</th>
-        <td>
-          {{ doc.document_type }}
-        </td>
-      </tr>
+
+      <form method="post" action="{% url 'save_doc_form' doc.pk %}" novalidate>
+            <input type="hidden" name="referer" value="{{request.path}}" />
+                        {% csrf_token %}
+                        {{ document_type_form }}
+      </form>
+
       <tr>
         <th>Raw Category</th>
         <td>
           {{ doc.raw_category }}
         </td>
       </tr>
+
       <tr>
         <th>URL</th>
         <td>
@@ -74,108 +92,92 @@
   <div class="col">
     <div class="card">
       <div class="card-header form-inline">
-        <h3 class="text-center col-9">Extracted Text</h3>
-      <button type="button" id="btn-toggle-edit" data-toggle="button" class="btn btn-secondary" onclick="toggleDetailEdit(true)">
-              <span id="btn-toggle-label" class="oi oi-wrench"></span>
-              Edit {{ doc.data_group.group_type }} Records
-      </button>
-      </div>
+        <h3 class="col-9">Extracted Text</h3>
+      </div> <!-- card-header -->
+
+      <!-- control list -->
+      <ul class="list-inline factotum-control-row" role="group" aria-label="Extracted Text editing controls">
+            <li class="list-inline-item">
+            <a id="btn-edit-extracted-text" class="btn btn-secondary" href=""  role="button" title="edit extracted text"
+            data-toggle="modal"
+            data-target="#extextModal">
+            Edit Extracted Text
+            <span class="oi oi-pencil">
+            </span> 
+            </a>
+            </li>
+        </ul>
+
       <div class="card-body">
-      <form method="post" >
-        {% csrf_token %}
-      <div class="row">
-        <div class="col-sm-3">
-          <div class=" card-body form-group text-center bg-dark text-white">
-            <!-- <div class="card-header">
-              <h4>Extracted Text Data</h4>
-            </div> -->
-              {% if error %}
-              <div class="form-group has-error">
-                  <span class="help-block">{{ error }}</span>
-              </div>
-              {% endif %}
-              {% include 'core/bs4_form_dl.html' with form=ext_form %}
-          </div>
-        </div>
-        {{ detail_formset.management_form }}
-        {% for form in detail_formset.forms %}
-        {{ form.management_form }}
-        <div class="col-sm-3">
-          <div class="card" >
-                {% if not form.instance.pk %}
-                <div class="text-center">
-                  <small><b>Add new {{ doc.data_group.group_type }} record </b></small><br>
+          
+          <!-- Extracted text form with modal editor -->
+            {% include 'forms/extracted_text_form_rows.html' with form=ext_form colspan='col-6'%}
+
+            <!-- Extracted Text Modal -->
+            {% include 'forms/extracted_text_modal.html' with form=ext_form colspan='col-8'%}
+            <div class="row">
+ 
+
+            </div> <!-- row -->
+
+
+            <!-- Extracted Record Formset -->
+
+            {% include 'forms/extracted_formset_table.html' %}
+
+        </div> <!-- card-body -->
+
+        <div class="card">
+            <div class="card-header form-inline">
+                <h3 class="col-9">QA Review
+                </h3>
                 </div>
-                {% else %}
-                {% endif %}
-            <div class="card-body bg-secondary">
-
-             {{ form.id.as_hidden }}
-             {{ form.rawchem_ptr.as_hidden }}
-             {% if form.non_field_errors %}
-                {{ form.non_field_errors }}
-             {% endif %}
-             {% if form.errors %}
-             <div class="form-group alert alert-danger" role="alert">
-                 <span class="alert-danger">{{ form.errors }}</span>
-             </div>
-             {% endif %}
-             {% for field in form.visible_fields %}
-                    <small><b>{{ field.label_tag }}</b></small><br>
-              <div class="text-center small form-group {%if field.errors %}alert-danger{%endif%}">
-                    {{ field}}
-              </div>
-
-             {% endfor %} <!-- fields -->
-
-
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-      <button type = "submit" id="save" name="save" class="btn btn-primary detail-control" role="button">Save edits</button>
-      <div class="row card-body">
+        <div class="row card-body">
         <div class="col-sm-6">
-          <button type = "submit" id="approve" name="approve" class="btn btn-success btn-lg btn-block" role="button">Approve</button>
-          <br>
-          {% if referer != 'data_document'%}
-              {% if nextid > 0 %}
-                  <a class="btn btn-warning btn-lg btn-block" href="{% url "extracted_text_qa" nextid %}" role="button">Skip</a>
-              {% else %}
-                  <button type="button" title="All the other documents in this QA group have been approved" class="btn btn-secondary btn-lg btn-block" aria-disabled="true" disabled>Skip</button>
-              {% endif %}
-          {% endif %}
-          <br>
-          <a class="btn btn-secondary btn-lg btn-block" href="{% url referer doc.id %}" role="button">Exit</a>
-        </div>
-        <div class="col-sm-6 text-center">
-          <b>{{ notesform.qa_notes.label_tag }}</b>
-            <br>
-            {% if notesform.is_bound %}
-              {% if notesform.errors %}
-              {{ notesform.qa_notes.errors }}
-               {% render_field notesform.qa_notes class="form-control is-invalid" %}
-                {% for k, error in notesform.errors.items %}
-                  <div class="invalid-feedback">
-                    {{ error }}
-                  </div>
-                {% endfor %}
-              {% else %}
-                {% render_field notesform.qa_notes class="form-control is-valid" %}
-              {% endif %}
-            {% else %}
-              {% render_field notesform.qa_notes class="form-control" %}
-            {% endif %}
-        </div>
-      </div>
+        <form method="post">
+                {% csrf_token %}
+            <button type = "submit" id="approve" name="approve" class="btn btn-success btn-lg btn-block" role="button">Approve</button>
+
+                <br>
+                {% if referer != 'data_document'%}
+                    {% if nextid > 0 %}
+                        <a class="btn btn-warning btn-lg btn-block" href="{% url "extracted_text_qa" nextid %}" role="button">Skip</a>
+                    {% else %}
+                        <button type="button" title="All the other documents in this QA group have been approved" class="btn btn-secondary btn-lg btn-block" aria-disabled="true" disabled>Skip</button>
+                    {% endif %}
+                {% endif %}
+                <br>
+                <a class="btn btn-secondary btn-lg btn-block" href="{% url referer doc.id %}" role="button">Exit</a>
+            </div>
+            <div class="col-sm-6 text-center">
+                <b>{{ notesform.qa_notes.label_tag }}</b>
+                <br>
+                {% if notesform.is_bound %}
+                    {% if notesform.errors %}
+                    {{ notesform.qa_notes.errors }}
+                    {% render_field notesform.qa_notes class="form-control is-invalid" %}
+                    {% for k, error in notesform.errors.items %}
+                        <div class="invalid-feedback">
+                        {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% else %}
+                    {% render_field notesform.qa_notes class="form-control is-valid" %}
+                    {% endif %}
+                {% else %}
+                    {% render_field notesform.qa_notes class="form-control" %}
+                {% endif %}
+            </div>
         </form>
+        </div>
+        <p class="card-footer"> {{stats}}</p>
       </div>
     </div>
-  </div>
+    </div>
 </div>
 
-    <p class="card-footer"> {{stats}}</p>
+
+
 
 {% endblock %}
 {% block js %}
@@ -191,22 +193,27 @@
             if (enable)  {
                 // enter edit mode
                 console.log( "enabling editor" );
+                // show the Save button 
                 $('#save').removeClass('disabled');
+                $('#save').show();
                 $('#btn-toggle-edit').addClass('btn-warning');
                 $('#btn-toggle-edit').attr("onclick","toggleDetailEdit(false)");
+                // TODO: change the button's label to read "Stop Editing"
                 $('.detail-control').addClass('unlocked');
                 $('.detail-control').prop('disabled', false);
-                $('.extext-control').addClass('unlocked');
-                $('.extext-control').prop('disabled', false);
+                //$('.extext-control').addClass('unlocked');
+                //$('.extext-control').prop('disabled', false);
             } else{
                 // exit edit mode
                 $('#btn-toggle-edit').attr("onclick","toggleDetailEdit(true)");
+                // hide the Save button
                 $('#save').addClass('disabled');
+                $('#save').hide();
                 $('#btn-toggle-edit').removeClass('btn-warning');
                 $('.detail-control').removeClass('unlocked');
                 $('.detail-control').prop('disabled', true);
-                $('.extext-control').removeClass('unlocked');
-                $('.extext-control').prop('disabled', true);
+                //$('.extext-control').removeClass('unlocked');
+                //$('.extext-control').prop('disabled', true);
                 console.log( "Has disabled class been added to controls?" );
                 console.log( $('.detail-control').hasClass('disabled') );
 

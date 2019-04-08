@@ -14,10 +14,6 @@ class QANotes(CommonInfo):
         return 'Notes for {}'.format(self.extracted_text)
 
     def clean(self):
-
-        # print('------inside the QANotes model clean')
-        # print(self.extracted_text.qa_edited)
-
-        if self.extracted_text.qa_edited and self.qa_notes is None:
+        if self.extracted_text.qa_edited and not self.qa_notes:
             raise ValidationError(
-                    _('qa_notes needs to be populated if you edited the data'))
+                    _('Before approving, please add a note explaining your edits to the extracted data'))

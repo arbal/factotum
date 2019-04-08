@@ -1,0 +1,26 @@
+<div class="modal fade" id="datadocModal" tabindex="-1" role="dialog" aria-labelledby="extextModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="datadocModalLabel">Edit Data Document</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="{% url 'data_document_edit' doc.id %}" method="post">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        {% include 'core/bs4_form.html' with form=edit_doc_form colspan='col-6'%}
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="hidden" name="referer" value="{{request.path}}" />
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <button type="submit" value="Doc" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>

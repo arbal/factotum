@@ -1,6 +1,6 @@
 from django.db import models
-
 from .extracted_text import ExtractedText
+
 
 class ExtractedCPCat(ExtractedText):
     cat_code = models.CharField("Cat Code", max_length=100,
@@ -14,5 +14,7 @@ class ExtractedCPCat(ExtractedText):
 
     def __str__(self):
         return str(self.prod_name)
-    
 
+    @property
+    def qa_begun(self):
+        return self.rawchem.select_subclasses().filter(extractedlistpresence__qa_flag=True).count() > 0

@@ -26,18 +26,17 @@ class DashboardTest(TestCase):
         response_html = html.fromstring(response)
         self.assertIn('factotum', response_html.xpath('string(/html/body/nav//a[@href="/"]/text())'),
                       'The app name factotum should appear in the public navbar')
-        self.assertNotIn('QA', response_html.xpath('string(/html/body/nav//a[@href="/qa/"])'),
+        self.assertNotIn('QA', response_html.xpath('string(/html/body/nav//a[@href="/qa/extractionscript/"])'),
                          'The link to /qa/ should not appear in the public navbar')
 
     def test_logged_in_navbar(self):
         self.client.login(username='Karyn', password='specialP@55word')
         response = self.client.get('/').content.decode('utf8')
         response_html = html.fromstring(response)
-        self.assertIn('QA', response_html.xpath('string(/html/body/nav//a[@href="/qa/"])'),
+        self.assertIn('QA', response_html.xpath('string(//*[@id="navbarQADropdownMenuLink"])'),
                       'The link to /qa/ must be in the logged-in navbar')
-
-        found = resolve('/qa/')
-        self.assertEqual(found.func, views.qa_index)
+        found = resolve('/qa/extractionscript/')
+        self.assertEqual(found.func, views.qa_extractionscript_index)
 
     def test_percent_extracted_text_doc(self):
         response = self.client.get('/').content.decode('utf8')

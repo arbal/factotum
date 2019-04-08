@@ -56,3 +56,20 @@ class DataGroupFileDownloadTest(TestCase):
         dg = DataGroup.objects.get(pk=6)
         self.assertEqual(testpath, dg.get_dg_folder().rsplit('/')[-1],
         'The get_dg_folder() method should have returned the newly created directory')
+
+    def test_get_dg_folder(self):
+        '''
+        The dev environment does not contain folders for most of the datagroups,
+        so this just tests whether the methods can return their messages without
+        errors.
+        '''
+        for dg in DataGroup.objects.all():
+            with self.assertRaises(Exception):
+                try:
+                    folderpath = dg.get_dg_folder()
+                    zippath = dg.get_zip_url()
+                except:
+                    pass
+                else:
+                    raise Exception
+

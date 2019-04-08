@@ -1,0 +1,45 @@
+{% load widget_tweaks %}
+
+
+{% for hidden_field in form.hidden_fields %}
+  {{ hidden_field }}
+{% endfor %}
+{% if form.non_field_errors %}
+  <div class="alert alert-danger" role="alert">
+    {% for error in form.non_field_errors %}
+      {{ error }}
+    {% endfor %}
+  </div>
+{% endif %}
+
+<div class='form-row col-md-12'>
+{% for field in form.visible_fields %}
+    <div class="form-group col-md-3">
+   {{ field.label_tag }}
+
+    {% if form.is_bound %}
+      {% if field.errors %}
+       {% render_field field class="extext-control form-control is-invalid" readonly="readonly" %}
+        {% for error in field.errors %}
+          <div class="invalid-feedback">
+            {{ error }}
+          </div>
+        {% endfor %}
+      {% else %}
+        {% render_field field class="extext-control form-control is-valid" readonly="readonly"%}
+      {% endif %}
+    {% else %}
+      {% render_field field class="extext-control form-control" readonly="readonly"%}
+    {% endif %}
+
+    {% if field.help_text %}
+      <small class="form-text text-muted">{{ field.help_text }}</small>
+    {% endif %}
+    </div>  <!-- close the form-group-->
+        {% if forloop.counter|divisibleby:4 %} <!-- if it is after form 4, 8, 12, etc -->
+        </div> <!-- close the form-row -->
+        <div class='form-row col-md-12'> <!-- open a new form-row -->
+        {% endif %}
+{% endfor %}
+</div> <!-- close the form-row -->
+

@@ -169,7 +169,7 @@
         ];
 
 
-        d3.csv('{% url "download_PUCs" %}', function (error, data) {
+        d3.csv("{% url 'download_PUCs' %}?bubbles=True", function (error, data) {
             if (error) {
                 console.error('Error getting or parsing the data.');
                 throw error;

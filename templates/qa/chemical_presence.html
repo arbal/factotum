@@ -1,0 +1,51 @@
+  {% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block title %}QA Chemical Presence for Datagroup {{datagroup.name}}{% endblock %}
+
+
+{% block content %}
+<h1 class="col-sm-12"><span class="oi oi-task" title="factotum" ></span>
+QA Chemical Presence for Datagroup {{datagroup.name}}</h1>
+<br>
+<table class="table table-sm table-bordered table-striped table-sortable" id='extracted_text_table'>
+    <thead class="table-primary">
+        <tr>
+            <th>Product Name</th>
+            <th>Data Document</th>
+            <th>Document Date</th>
+            <th>QA Status</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for extractedcpcat in extractedcpcats %}
+      <tr>
+        <td>{{ extractedcpcat.prod_name }}
+        </td>
+        <td>
+          <a href="{% url "data_document" extractedcpcat.data_document.id %}"> {{ extractedcpcat.data_document }}</a>
+        </td>
+        <td>{{ extractedcpcat.created_at }}</td>
+        <td>
+            {% if extractedcpcat.qa_checked %}
+                Complete
+            {%  else %}
+                {% if extractedcpcat.qa_begun %}
+                    <a class="btn btn-info btn-sm" role="button"
+                    href="{% url "extracted_text_qa" extractedcpcat.pk %}"> Continue QA </a>
+                {% else %}
+                    <a class="btn btn-info btn-sm" role="button"
+                    href="{% url "extracted_text_qa" extractedcpcat.pk %}"> Begin QA </a>
+                {%  endif %}
+            {%  endif %}
+          </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}
+{% block js %}
+    <script src="{% static 'js/dashboard/qa_chemical_presence.js' %}"></script>
+{% endblock %}

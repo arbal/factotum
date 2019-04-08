@@ -1,0 +1,47 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% block title %}QA Chemical Presence Data Groups{% endblock %}
+
+{% block content %}
+<h1 class="col-sm-12"><span class="oi oi-task" title="factotum"></span>
+QA Chemical Presence</h1>
+<br>
+<table class="table table-striped table-bordered dataTable no-footer" id='chemical_presence_table'>
+    <thead class="table-primary">
+        <tr>
+        <th>Data Group</th>
+        <th>Documents</th>
+        <th>Percent QA Checked</th>
+        <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for datagroup in datagroups %}
+      <tr>
+        <td>
+            {% if datagroup.url %}
+            <a href="{{ datagroup.url }}" title="Link to {{ datagroup.name }}" id="{{datagroup.id}}">{{ datagroup.name }}</a>
+            {% else %}
+            {{ datagroup.name }}
+            {% endif %}
+        </td>
+        <td>{{ datagroup.datadocument_count }}</td>
+        {% widthratio extraction_script.qa_complete_extractedtext_count extraction_script.datadocument_count 100 as pct_complete %}%
+        <td>{{  pct_complete|default:"0" }}%</td>
+        <td>
+         {% if datagroup.datadocument_count > 0 %}
+          <a class="btn btn-info btn-sm" role="button" title="QA on {{ datagroup.name }}"
+           href='{% url "qa_chemical_presence_group" datagroup.id %}'> View Chemical Presence Lists
+         </a>
+         {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/dashboard/qa_chemical_presence_index.js' %}"></script>
+{% endblock %}

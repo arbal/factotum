@@ -6,7 +6,6 @@ from .document_type import DocumentType
 from django.core.exceptions import ValidationError
 
 
-
 class DataDocument(CommonInfo):
 
     filename = models.CharField(max_length=255)

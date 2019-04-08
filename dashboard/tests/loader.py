@@ -64,7 +64,8 @@ def load_model_objects():
                               prod_fam='Test Product Family',
                               prod_type='Test Product Type',
                              description='Test Product Description',
-                             last_edited_by = user)
+                             last_edited_by = user,
+                             kind='FO')
 
     extext = ExtractedText.objects.create(
                                     prod_name='Test Extracted Text Record',

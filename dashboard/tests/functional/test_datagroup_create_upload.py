@@ -55,12 +55,10 @@ class RegisterRecordsTest(TestCase):
         request.session['datasource_title'] = 'Walmart'
         request.session['datasource_pk'] = 10
         resp = views.data_group_create(request=request, pk=10)
-        # print(resp.content)
         dg_exists = DataGroup.objects.filter(
                                         name='Walmart MSDS Test Group').exists()
         self.assertContains(resp,'Filename too long')
         self.assertFalse(dg_exists,)
-        # print(dg.__dict__)
 
         csv_string = ("filename,title,document_type,url,organization\n"
                 "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,UN,, \n"

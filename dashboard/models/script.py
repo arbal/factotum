@@ -1,11 +1,13 @@
+import math
+from random import shuffle
+
 from django.db import models
 from django.urls import reverse
-from django.core.validators import URLValidator
+from django.core.validators import (URLValidator, MaxValueValidator, 
+                                                    MinValueValidator)
 
 from .common_info import CommonInfo
 from .data_document import DataDocument
-import math
-from random import shuffle
 
 
 class Script(CommonInfo):
@@ -30,6 +32,11 @@ class Script(CommonInfo):
                                     choices    = TYPE_CHOICES,
                                     blank      = False,
                                     default    = 'EX')
+    confidence = models.PositiveSmallIntegerField('Confidence', blank=True,
+                                                validators=[
+                                                        MaxValueValidator(100),
+                                                        MinValueValidator(1)],
+                                                                default=1)
 
     def __str__(self):
         return str(self.title)
@@ -58,14 +65,19 @@ class Script(CommonInfo):
         return pct
 
     def qa_button_text(self):
-        return "Begin QA" if not self.qa_begun else "Continue QA"
+        if self.get_qa_status():
+            return "QA Complete" 
+        elif self.qa_begun:
+            return "Continue QA"
+        else:
+            return "Begin QA"
 
     def get_qa_status(self):
         """
         Compare the derived percent checked against the threshold constant
         Return true when the percent checked is above the threshold
         """
-        return self.get_pct_checked_numeric() >= QA_COMPLETE_PERCENTAGE * 100
+        return self.get_pct_checked_numeric() >= self.QA_COMPLETE_PERCENTAGE * 100
 
     def create_qa_group(self, force_doc_id=None):
         """

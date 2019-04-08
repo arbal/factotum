@@ -76,7 +76,6 @@ class TestProductLinkage(TestCase):
                                         'with "stub" appended') )
         # 3: check a case where the ExtractedText doesn't exist
         # Data Group 6 has 2 docs that are linked to Product and ExtractedText records
-        #docs = DataDocument.objects.filter(data_group__group_type__title='Composition').exclude(extracted=True)
         dg = DataGroup.objects.get(pk=6)
         docs = DataDocument.objects.filter(data_group=dg)
         doc_list = docs.values_list('id')

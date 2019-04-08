@@ -4,6 +4,7 @@ from dashboard.tests.loader import load_model_objects
 from dashboard.models import DataDocument, Script, ExtractedText
 from lxml import html
 
+
 class QATest(TestCase):
 
     def setUp(self):
@@ -11,10 +12,12 @@ class QATest(TestCase):
         self.client.login(username='Karyn', password='specialP@55word')
 
     def test_qa_scoreboard(self):
-        response = self.client.get('/qa/').content.decode('utf8')
+        response = self.client.get(
+            '/qa/extractionscript/').content.decode('utf8')
         response_html = html.fromstring(response)
 
-        row_count = len(response_html.xpath('//table[@id="extraction_script_table"]/tbody/tr'))
+        row_count = len(response_html.xpath(
+            '//table[@id="extraction_script_table"]/tbody/tr'))
         scriptcount = Script.objects.filter(script_type='EX').count()
         self.assertEqual(scriptcount, row_count, ('The seed data contains 1 '
                                                   'Script object with the script_type'
@@ -22,9 +25,8 @@ class QATest(TestCase):
 
         script_url = response_html.xpath(
             '//*[@id="extraction_script_table"]/tbody/tr[' + str(row_count) + ']/td[1]/a/@href')[0]
-        self.assertEqual(script_url, 'http://www.epa.gov/', 'The URL on the page should be the external link to the script.')
-        
-        
+        self.assertEqual(script_url, 'http://www.epa.gov/',
+                         'The URL on the page should be the external link to the script.')
 
         displayed_doc_count = response_html.xpath(
             '//*[@id="extraction_script_table"]/tbody/tr[' + str(row_count) + ']/td[2]')[0].text
@@ -56,11 +58,12 @@ class QATest(TestCase):
         # A button for each row that will take you to the script's QA page
         script_qa_link = response_html.xpath(
             '//*[@id="extraction_script_table"]/tbody/tr[contains(.,"Test Extraction Script")]/td[4]/a/@href')[0]
-        self.assertIn(f'/qa/extractionscript/{str(self.objects.exscript.pk)}/', script_qa_link)
+        self.assertIn(
+            f'/qa/extractionscript/{str(self.objects.exscript.pk)}/', script_qa_link)
 
         # Before clicking the link, the script's qa_done property should be false
         self.assertEqual(es.qa_begun, False,
-                         'The qa_done property of the Script should be False')
+                         'The qa_begun property of the Script should be False')
 
         # The link should open a page where the h1 text matches the title of the Script
         response = self.client.get(script_qa_link).content.decode('utf8')
@@ -73,10 +76,12 @@ class QATest(TestCase):
         self.assertEqual(es.qa_begun, True,
                          'The qa_begun property of the ExtractionScript should now be True')
 
-        # Go back to the QA index page to confirm
-        response = self.client.get('/qa/').content.decode('utf8')
+        # Go back to the QA index page to confirm that the QA is complete
+        response = self.client.get(
+            '/qa/extractionscript/').content.decode('utf8')
         response_html = html.fromstring(response)
-        script_qa_link = response_html.xpath(
-            '//*[@id="extraction_script_table"]/tbody/tr[contains(.,"Test Extraction Script")]/td[4]/a/text()')[0]
-        self.assertIn('Continue QA', script_qa_link,
-                      'The QA button should now say "Continue QA" instead of "Begin QA"')
+        script_qa_status = response_html.xpath(
+            '//*[@id="extraction_script_table"]/tbody/tr[contains(.,"Test Extraction Script")]/td[4]/text()')[0]
+        str_qa_complete = 'QA Complete'
+        self.assertIn(str_qa_complete, script_qa_status,
+                      'The QA Status field should now say "QA Complete" instead of "Begin QA"')

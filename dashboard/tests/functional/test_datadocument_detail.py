@@ -59,6 +59,31 @@ class DataDocumentDetailTest(TestCase):
         response = self.client.get(response.url)
         self.assertContains(response, 'New Product')
 
+    def test_product_title_duplication(self):
+        response = self.client.get('/datadocument/245401/')
+        self.assertContains(response, '/link_product_form/245401/')
+        # Add a new Product
+        data = {'title'        : ['Product Title'],
+                'upc'          : ['stub_9100'],
+                'document_type': [1],
+                'return_url'   : ['/datadocument/245401/']}
+        response = self.client.post('/link_product_form/245401/', data=data)
+        self.assertRedirects(response,'/datadocument/245401/')
+        response = self.client.get(response.url)
+        new_product = Product.objects.get(upc='stub_9100')
+        self.assertContains(response, f'product/%s' % new_product.id )
+
+        # Add another new Product with the same title
+        data = {'title'        : ['Product Title'],
+                'upc'          : ['stub_9101'],
+                'document_type': [1],
+                'return_url'   : ['/datadocument/245401/']}
+        response = self.client.post('/link_product_form/245401/', data=data)
+        self.assertRedirects(response,'/datadocument/245401/')
+        response = self.client.get(response.url)
+        new_product = Product.objects.get(upc='stub_9101')
+        self.assertContains(response, f'product/%s' % new_product.id )
+
     def test_add_extracted(self):
         '''Check that the user has the ability to create an extracted record
         when the document doesn't yet have an extracted record for data 
@@ -165,23 +190,27 @@ class TestDynamicDetailFormsets(TestCase):
                         'HH': ExtractedHHRec
         }
         for code, model in group_models.items():
-
-            doc = DataDocument.objects.filter(
+            if DataDocument.objects.filter(
                                 document_type__group_type__code=code,
                                 extractedtext__isnull=False
-            ).first()
-            response = self.client.get(
-                                reverse('data_document',kwargs={'pk': doc.pk})
-            )
-            num_forms = response.context['detail_formset'].total_form_count()
-            children = model.objects.filter(
-                                extracted_text=doc.extractedtext
-            ).count()
-            if code in ['CO','FU','HP']:
-                error = (f'{model.__module__} should have the same number'
-                                                    ' of forms as instances')
-                self.assertEqual(num_forms, children, error)
-            if code in ['CP','HH']:
-                error = (f'{model.__module__} should have one more forms'
-                                                            ' than instances')
-                self.assertEqual(num_forms, children + 1, error)
+            ):
+
+                doc = DataDocument.objects.filter(
+                                    document_type__group_type__code=code,
+                                    extractedtext__isnull=False
+                ).first()
+                response = self.client.get(
+                                    reverse('data_document',kwargs={'pk': doc.pk})
+                )
+                num_forms = response.context['detail_formset'].total_form_count()
+                children = model.objects.filter(
+                                    extracted_text=doc.extractedtext
+                ).count()
+                if code in ['CO','FU','HP']:
+                    error = (f'{model.__module__} should have the same number'
+                                                        ' of forms as instances')
+                    self.assertEqual(num_forms, children, error)
+                if code in ['CP','HH']:
+                    error = (f'{model.__module__} should have one more forms'
+                                                                ' than instances')
+                    self.assertEqual(num_forms, children + 1, error)

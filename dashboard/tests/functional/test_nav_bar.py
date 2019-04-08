@@ -39,8 +39,8 @@ class NavBarTest(TestCase):
         self.assertEqual(found.func, views.product_curation_index)
 
     def test_qa_link(self):
-        found = resolve('/qa/')
-        self.assertEqual(found.func, views.qa_index)
+        found = resolve('/qa/extractionscript/')
+        self.assertEqual(found.func, views.qa_extractionscript_index)
 
     def test_get_data_without_auth(self):
         # the Get Data menu item should be available to a user who isn't logged in

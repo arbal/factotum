@@ -40,3 +40,10 @@ div.search-result-main{
 .dot-dg-UN {
     background-color: #2F4F4F;
 }
+
+.factotum-control-row{
+    padding-left: 1em;
+    padding-top: .5em;
+    border-width: .2rem;
+    border: 1px solid #e9ecef;
+}

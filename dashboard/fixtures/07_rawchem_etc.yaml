@@ -5965,6 +5965,202 @@
   pk: 801
   fields: {extracted_text: 354783, raw_cas: null, raw_chem_name: particulate matter,
     temp_id: null, temp_obj_name: null, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 802
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-6, raw_chem_name: sd alcohol40-jj (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 803
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-7, raw_chem_name: sd alcohol40-ll (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 804
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-8, raw_chem_name: sd alcohol40-mm (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 805
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-9, raw_chem_name: sd alcohol40-nn (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 806
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-10, raw_chem_name: sd alcohol40-oo (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 807
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-11, raw_chem_name: sd alcohol40-pp (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 808
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-12, raw_chem_name: sd alcohol40-qq (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 809
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-13, raw_chem_name: sd alcohol40-rr (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 810
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-14, raw_chem_name: sd alcohol40-ss (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 811
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-15, raw_chem_name: sd alcohol40-tt (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 812
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-16, raw_chem_name: sd alcohol40-uu (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 813
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-17, raw_chem_name: sd alcohol40-vv (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 814
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-18, raw_chem_name: sd alcohol40-ww (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 815
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-19, raw_chem_name: sd alcohol40-xx (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 816
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-20, raw_chem_name: sd alcohol40-yy (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 817
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-21, raw_chem_name: sd alcohol40-zz (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 818
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-22, raw_chem_name: sd alcohol40-a (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 819
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-22, raw_chem_name: sd alcohol40-b (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 820
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-23, raw_chem_name: sd alcohol40-c (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 821
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-24, raw_chem_name: sd alcohol40-d (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 822
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-25, raw_chem_name: sd alcohol40-e (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 823
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-26, raw_chem_name: sd alcohol40-f (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 824
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-27, raw_chem_name: sd alcohol40-g (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 825
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-28, raw_chem_name: sd alcohol40-h (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 826
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-29, raw_chem_name: sd alcohol40-i (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 827
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-30, raw_chem_name: sd alcohol40-j (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 828
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-31, raw_chem_name: sd alcohol40-k (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 829
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-32, raw_chem_name: sd alcohol40-l (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 830
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-33, raw_chem_name: sd alcohol40-m (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 831
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-34, raw_chem_name: sd alcohol40-n (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 832
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-35, raw_chem_name: sd alcohol40-o (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 833
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-36, raw_chem_name: sd alcohol40-p (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 834
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-37, raw_chem_name: sd alcohol40-q (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 835
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-38, raw_chem_name: sd alcohol40-r (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 836
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-39, raw_chem_name: sd alcohol40-s (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 837
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-40, raw_chem_name: sd alcohol40-t (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 838
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-41, raw_chem_name: sd alcohol40-u (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 839
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-42, raw_chem_name: sd alcohol40-v (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 840
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-43, raw_chem_name: sd alcohol40-w (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 841
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-44, raw_chem_name: sd alcohol40-x (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 842
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-45, raw_chem_name: sd alcohol40-y (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 843
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-46, raw_chem_name: sd alcohol40-z (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 844
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-46, raw_chem_name: sd alcohol40-z (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 845
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-46, raw_chem_name: sd alcohol40-z (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 846
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-46, raw_chem_name: sd alcohol40-z (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 847
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-46, raw_chem_name: sd alcohol40-z (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 848
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-46, raw_chem_name: sd alcohol40-z (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 849
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-46, raw_chem_name: sd alcohol40-z (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
+- model: dashboard.rawchem
+  pk: 850
+  fields: {extracted_text: 254781, raw_cas: 0000064-17-46, raw_chem_name: sd alcohol40-z (ethanol),
+    temp_id: 2, temp_obj_name: ExtractedListPresence, rid: null, dsstox: null}
 - model: dashboard.extractedchemical
   pk: 2
   fields: {created_at: null, updated_at: null, raw_cas_old: 120-47-8, raw_chem_name_old: ethylparaben,
@@ -10501,6 +10697,202 @@
 - model: dashboard.extractedlistpresence
   pk: 759
   fields: {created_at: ! '2018-10-03 10:07:24.422541', updated_at: ! '2018-10-03 10:07:24.422571',
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 802
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 803
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 804
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 805
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 806
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 807
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 808
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 809
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 810
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 811
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 812
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 813
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 814
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 815
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 816
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 817
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 818
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 819
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 820
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 821
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 822
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 823
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 824
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 825
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 826
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 827
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 828
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 829
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 830
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 831
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 832
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 833
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 834
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 835
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 836
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 837
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 838
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 839
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 840
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 841
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 842
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 843
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 844
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 845
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 846
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 847
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 848
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 849
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
+    raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
+- model: dashboard.extractedlistpresence
+  pk: 850
+  fields: {created_at: ! '2019-03-10 10:07:24.422541', updated_at: null,
     raw_cas_old: 0000064-17-5, raw_chem_name_old: sd alcohol 40-b (ethanol)}
 - model: dashboard.extractedhhrec
   pk: 760

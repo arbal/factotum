@@ -5,6 +5,8 @@ from model_utils.managers import InheritanceManager
 from django.db import models
 from django.core.exceptions import ValidationError
 from django import forms
+from django.urls import reverse
+
 
 from .common_info import CommonInfo
 
@@ -43,6 +45,9 @@ class ExtractedText(CommonInfo):
 
     def next_extracted_text_in_qa_group(self):
         nextid = 0
+        # If the document is part of a Script-based QA Group, the 
+        # next document is drawn from that group. If it is a CPCat
+        # or HHE record, there is no next document
         extextnext = get_next_or_prev(ExtractedText.objects.filter(
             qa_group=self.qa_group, qa_checked=False), self, 'next')
         if extextnext:
@@ -51,6 +56,20 @@ class ExtractedText(CommonInfo):
         if extextnext == self:
             nextid = 0
         return nextid
+    
+    def get_qa_index_path(self):
+        """
+        The type of data group to which the extracted text object belongs
+        determines which QA index it will use.
+        """
+        group_type_code = self.data_document.data_group.group_type.code
+
+        if group_type_code in ['CP','HH']:
+            # TODO: change HH to its own path
+            return reverse('qa_chemicalpresence_index')
+        else:
+            return reverse('qa_extractionscript_index')
+
 
     def fetch_extracted_records(self):
         return self.rawchem.all()

@@ -13,6 +13,7 @@
       <th>Name</th>
       <th>Registered</th>
       <th>Uploaded</th>
+      <th>Extracted</th>
       <th>Priority</th>
       <th>State</th>
       <th></th>
@@ -25,8 +26,9 @@
            href="{% url "data_source_detail" data_source.id %}"> {{ data_source.title }}
          </a>
       </td>
-      <td>{{ data_source.registered | floatformat:0}} %</td>
-      <td>{{ data_source.uploaded | floatformat:0 }} %</td>
+      <td>{{ data_source.registered }} </td>
+      <td>{{ data_source.uploaded }} </td>
+      <td>{{ data_source.extracted }} </td>
       <td>
         <form method="post" novalidate>
           {% csrf_token %}

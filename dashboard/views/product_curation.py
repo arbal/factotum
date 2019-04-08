@@ -97,10 +97,12 @@ def link_product_form(request, pk, template_name=('product_curation/'
     if request.method == 'POST':
         form = ProductLinkForm(request.POST or None)
         if form.is_valid():
+            upc = form['upc'].value()
             title = form['title'].value()
-            product, created = Product.objects.get_or_create(title=title,
+            product, created = Product.objects.get_or_create(upc=upc,
                                                         data_source_id = ds_id)
             if created:
+                product.title = title
                 product.manufacturer = form['manufacturer'].value()
                 product.brand_name = form['brand_name'].value()
                 product.upc = form['upc'].value()

@@ -9,7 +9,7 @@ from dashboard.signals import *
 class PUCAdminForm(forms.ModelForm):
     class Meta:
         model = PUC
-        fields = ['gen_cat', 'prod_fam', 'prod_type', 'description','tags',]
+        fields = ['gen_cat', 'prod_fam', 'prod_type', 'description','tags','kind']
         readonly_fields = ('num_products',)
         widgets = {
             'tags': LabelWidget(model=PUCTag),
@@ -17,6 +17,7 @@ class PUCAdminForm(forms.ModelForm):
 
 class PUCAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'tag_list','num_products')
+    list_filter = ('kind',)
     form = PUCAdminForm
     def get_changeform_initial_data(self, request):
         get_data = super(PUCAdmin, self).get_changeform_initial_data(request)
@@ -34,6 +35,27 @@ class PUCAdmin(admin.ModelAdmin):
 class HHDocAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'hhe_report_number')
 
+class ScriptForm(forms.ModelForm):
+    class Meta(object):
+        model = Script
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(ScriptForm, self).__init__(*args, **kwargs)
+        if self.instance and self.instance.pk and not self.instance.script_type == 'EX':
+            # Since the pk is set this is not a new instance
+            self.fields['confidence'].widget = forms.HiddenInput()
+
+class ScriptAdmin(admin.ModelAdmin):
+    list_filter = ('script_type',)
+    list_display = ('__str__','confidence_level')
+    form = ScriptForm
+    def confidence_level(self, obj):
+        if obj.script_type == 'EX':
+            return obj.confidence
+        else:
+            return ''
+
 class PUCToTagAdmin(admin.ModelAdmin):
     list_display = ('content_object', 'tag', 'assumed')
     list_filter = ('tag',)
@@ -48,7 +70,7 @@ admin.site.register(GroupType)
 admin.site.register(DataGroup)
 admin.site.register(DocumentType)
 admin.site.register(DataDocument)
-admin.site.register(Script)
+admin.site.register(Script, ScriptAdmin)
 admin.site.register(Product)
 admin.site.register(ProductToPUC)
 admin.site.register(ProductDocument)

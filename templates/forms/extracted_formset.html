@@ -1,0 +1,37 @@
+{{ detail_formset.management_form }}
+        {% for form in detail_formset.forms %}
+        {{ form.management_form }}
+        <div class="col-sm-3">
+          <div class="card" >
+                {% if not form.instance.pk %}
+                <div class="text-center">
+                  <small><b>Add new {{ doc.data_group.group_type }} record </b></small><br>
+                </div>
+                {% else %}
+                {% endif %}
+            <div class="card-body bg-secondary">
+
+             {{ form.id.as_hidden }}
+             {{ form.rawchem_ptr.as_hidden }}
+             {% if form.non_field_errors %}
+                {{ form.non_field_errors }}
+             {% endif %}
+             {% if form.errors %}
+             <div class="form-group alert alert-danger" role="alert">
+                 <span class="alert-danger">{{ form.errors }}</span>
+             </div>
+             {% endif %}
+             {% for field in form.visible_fields %}
+                    <small><b>{{ field.label_tag }}</b></small><br>
+              <div class="text-center small form-group {%if field.errors %}alert-danger{%endif%}">
+                    {{ field}}
+              </div>
+
+             {% endfor %} <!-- fields -->
+
+
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>

@@ -12,6 +12,14 @@ from .extracted_habits_and_practices import ExtractedHabitsAndPractices
 
 
 class PUC(CommonInfo):
+    KIND_CHOICES = (
+        ('UN', 'unknown'),
+        ('FO', 'formulations'),
+        ('AR', 'articles'),
+        ('OC', 'occupational'))
+
+    kind = models.CharField(max_length=2, blank=True, default='UN',
+                             choices=KIND_CHOICES)
     gen_cat = models.CharField(max_length=50, blank=False)
     prod_fam = models.CharField(max_length=50, blank=True, default='')
     prod_type = models.CharField(max_length=100, blank=True, default='')
@@ -24,6 +32,7 @@ class PUC(CommonInfo):
                         through='dashboard.ExtractedHabitsAndPracticesToPUC')
     tags = TaggableManager(through='dashboard.PUCToTag',
                            to='dashboard.PUCTag',
+                           blank=True,
                            help_text='A set of PUC Attributes applicable to this PUC')
 
     class Meta:

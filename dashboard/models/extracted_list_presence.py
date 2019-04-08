@@ -9,6 +9,7 @@ class ExtractedListPresence(CommonInfo, RawChem):
                                         null=True, blank=True)
     raw_chem_name_old = models.CharField("Raw chemical name", max_length=500,
                                         null=True, blank=True)
+    qa_flag = models.BooleanField(default=False)
 
     @classmethod
     def detail_fields(cls):

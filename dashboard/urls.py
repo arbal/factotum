@@ -1,6 +1,8 @@
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+
+import dashboard.views.qa
 from . import views
 
 urlpatterns = [
@@ -45,15 +47,18 @@ urlpatterns = [
                                             name='link_product_list'),
     path('link_product_form/<int:pk>/', views.link_product_form,
                                             name='link_product_form'),
-    path('qa/extractionscript/<int:pk>/', views.extraction_script_qa,
-                                            name='extraction_script_qa'),
-    path('qa/extractedtext/<int:pk>/', views.extracted_text_qa,
+    path('qa/extractionscript/', views.qa_extractionscript_index,
+                                            name='qa_extractionscript_index'),
+    path('qa/extractionscript/<int:pk>/', dashboard.views.qa.qa_extraction_script,
+                                            name='qa_extraction_script'),
+    path('qa/extractedtext/<int:pk>/', dashboard.views.qa.extracted_text_qa,
                                             name='extracted_text_qa'),
-    path('datadocument/qa/extractedtext/<int:pk>/', views.extracted_text_qa,
-                                            name='data_document_extracted_text_qa'),
     path('extractionscript/<int:pk>/', views.extraction_script_detail,
                                             name='extraction_script_detail'),
-    path('qa/', views.qa_index,            name='qa'),
+    path('qa/chemicalpresence/', views.qa_chemicalpresence_index,
+                                            name='qa_chemicalpresence_index'),
+    path('qa/chemicalpresencegroup/<int:pk>/', views.qa_chemicalpresence_group,
+                                            name='qa_chemical_presence_group'),
     path('bulk_product_puc/', views.bulk_assign_puc_to_product,
                                             name='bulk_product_puc'),
     path('bulk_product_tag/', views.bulk_assign_tag_to_products,
@@ -80,10 +85,11 @@ urlpatterns = [
     path('search/', include('haystack.urls')),
     path('find/', views.search.FacetedSearchView.as_view(),
                                             name='haystack_search'),
-    path('p_json/', views.product_ajax,    name='p_ajax_url'),
-    path('pucs/', views.puc_list,  name='puc_list'),
-    path('dl_pucs/', views.download_PUCs,  name='download_PUCs'),
-    path('dl_raw_chems/', views.download_raw_chems,  name='download_raw_chems'),
+    path('p_json/', views.product_ajax,     name='p_ajax_url'),
+    path('pucs/', views.puc_list,           name='puc_list'),
+    path('dl_pucs/', views.download_PUCs,   name='download_PUCs'),
+    path('dl_raw_chems/', views.download_raw_chems,  
+                                            name='download_raw_chems'),
     path('dsstox_lookup/<int:pk>/', views.dsstox_lookup_detail,
                                             name='dsstox_lookup'),
     path('habitsandpractices/<int:pk>/', views.habitsandpractices,
@@ -99,12 +105,14 @@ urlpatterns = [
                                             name='get_data_dsstox_csv_template'),
     path('datagroup/diagnostics/<int:pk>/',   views.data_group_diagnostics,
                                             name='data_group_diagnostics'),
-    path('datagroup/diagnostics/',   views.data_group_diagnostics,
+    path('datagroup/diagnostics/',          views.data_group_diagnostics,
                                             name='data_group_diagnostics'),
     path('extractedtext/edit/<int:pk>/',   views.extracted_text_edit,
                                             name='extracted_text_edit'),
     path('extractedchild/edit/<int:pk>/',   views.extracted_child_edit,
                                             name='extracted_child_edit'),
+    path('datadocument/edit/<int:pk>/',   views.data_document_edit,
+                                            name='data_document_edit'),
 ]
 
 if settings.DEBUG is True:
