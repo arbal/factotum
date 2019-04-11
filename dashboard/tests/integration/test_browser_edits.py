@@ -154,13 +154,15 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         2. Edit one of the child records
         3. Attempt to approve the document without a QA note
         4. Add a note
-        5. Approve 
+
+        5. Approve
         '''
         for doc_id in [7,      # Composition
                        5,      # Functional Use
-                       254781, # Chemical Presence List
-                       354783, # HHE Report 
-                       ]: 
+                       254781,  # Chemical Presence List
+                       354783,  # HHE Report
+                       ]:
+
             # QA Page
             qa_url = self.live_server_url + f'/qa/extractedtext/{doc_id}/'
             self.browser.get(qa_url)
@@ -169,7 +171,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 '//*[@id="btn-toggle-edit"]').click()
 
             # Modify the first raw_chem_name field's value
-            #  
+
             raw_chem = self.browser.find_element_by_xpath(
                 '//*[@id="id_rawchem-0-raw_chem_name"]')
             # Wait for the field to be editable
@@ -217,5 +219,68 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             self.assertTrue(
                 et.qa_checked, 'The qa_checked attribute should be True')
 
+
+    def test_datadoc_add_extracted(self):
+        '''
+        Test that when a datadocument has no ExtractedText,
+        the user can add one in the browser
+        1.
+        '''
+
+        for doc_id in [155324   # CO record with no ExtractedText
+                       ]:
+            # QA Page
+            dd_url = self.live_server_url + f'/datadocument/{doc_id}/'
+            self.browser.get(dd_url)
+            # Activate the edit mode
+            self.browser.find_element_by_xpath(
+                '//*[@id="btn-add-or-edit-extracted-text"]').click()
+
+            # Verify that the modal window appears by finding the Cancel button
+            # The modal window does not immediately appear, so the browser
+            # should wait for the button to be clickable
+            wait = WebDriverWait(self.browser, 10)
+            cancel_button = wait.until(
+                ec.element_to_be_clickable(
+                    (By.XPATH, "//*[@id='extracted-text-modal-cancel']")
+                )
+            )
+            self.assertEqual("Cancel", cancel_button.text,
+                             'The Cancel button should say Cancel')
+            cancel_button.click()
+            # Verify that no ExtractedText record was created
+            self.assertEqual(0, ExtractedText.objects.filter(
+                data_document_id=doc_id).count(),
+                "the count of ExtractedText records related to the \
+                data document should be zero")
+
+            # Wait for the modal div to disappear
+            edit_modal = wait.until(
+                ec.invisibility_of_element(
+                    (By.XPATH, '//*[@id="extextModal"]')
+                )
+            )
+            # Click the Add button again to reopen the editor
+            add_button = self.browser.find_element_by_xpath(
+                '//*[@id="btn-add-or-edit-extracted-text"]')
+            add_button.click()
+            # Once again, check that the controls on the modal form are clickable
+            # before trying to interact with them
+            cancel_button = wait.until(
+                ec.element_to_be_clickable(
+                    (By.XPATH, "//*[@id='extracted-text-modal-cancel']")
+                )
+            )
+            prod_name_box = self.browser.find_element_by_id(
+                'id_prod_name')
+            # Add a prod_name value to the box
+            prod_name_box.send_keys('Fake Product')
+            save_button = self.browser.find_element_by_id(
+                'extracted-text-modal-save')
+            save_button.click()
+            # Confirm the presence of the new ExtractedText record
+            et = ExtractedText.objects.get(data_document_id=doc_id)
+            self.assertEqual('Fake Product', et.prod_name,
+                             "The prod_name of the new object should match what was entered")
 
 

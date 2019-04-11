@@ -11,11 +11,11 @@ from dashboard.models import *
 from dashboard.forms import (ProductPUCForm, ProductLinkForm, 
                             BulkProductPUCForm, BulkProductTagForm, 
                             BulkPUCForm, ProductForm)
-
 from taggit.forms import TagField
 from taggit_labels.widgets import LabelWidget
 from django.core.paginator import Paginator
 from django.db.models import Max
+
 
 class FilteredLabelWidget(LabelWidget):
     # overriding django-taggit-label function to display subset of tags
@@ -27,11 +27,14 @@ class FilteredLabelWidget(LabelWidget):
         return [(tag.name, 'selected taggit-tag' if tag.name in tags else 'taggit-tag')
                 for tag in filtered]
 
+
 class ProductTagForm(ModelForm):
     tags = TagField(required=False, widget=FilteredLabelWidget(model=PUCToTag))
+
     class Meta:
         model = Product
         fields = ['tags']
+
     def __init__(self, *args, **kwargs):
         super(ProductTagForm, self).__init__(*args, **kwargs)
         self.fields['tags'].widget.form_instance = self
@@ -60,8 +63,8 @@ def product_curation_index(request, template_name='product_curation/product_cura
         for dg in dgs:
             dg.unlinked = dg.datadocument_set.count() - dg.datadocument_set.filter(productdocument__document__isnull=False).count()
         ds.data_groups = dgs
-
     return render(request, template_name, {'data_sources': data_sources})
+
 
 @login_required()
 def category_assignment(request, pk, template_name=('product_curation/'
@@ -70,6 +73,7 @@ def category_assignment(request, pk, template_name=('product_curation/'
     ds = DataSource.objects.get(pk=pk)
     products = ds.source.exclude(id__in=(ProductToPUC.objects.values_list('product_id', flat=True))).order_by('-created_at')
     return render(request, template_name, {'datasource': ds, 'products': products})
+
 
 @login_required()
 def link_product_list(request,  pk, template_name='product_curation/link_product_list.html'):
@@ -81,6 +85,7 @@ def link_product_list(request,  pk, template_name='product_curation/link_product
     page = 1 if page is None else page
     docs_page = paginator.page(page)
     return render(request, template_name, {'documents':docs_page, 'datagroup':dg})
+
 
 @login_required()
 def link_product_form(request, pk, template_name=('product_curation/'
@@ -125,12 +130,14 @@ def link_product_form(request, pk, template_name=('product_curation/'
             pass #form is invalid
     return render(request, template_name,{'document': doc, 'form': form})
 
+
 @login_required()
 def detach_puc_from_product(request, pk):
     p = Product.objects.get(pk=pk)
     pp = ProductToPUC.objects.get(product=p)
     pp.delete()
     return redirect('product_detail', pk=p.pk)
+
 
 @login_required()
 def bulk_assign_tag_to_products(request):
@@ -174,6 +181,7 @@ def bulk_assign_tag_to_products(request):
                                             'form': form, 
                                             'msg': msg})
 
+
 @login_required()
 def bulk_assign_puc_to_product(request, template_name=('product_curation/'
                                                       'bulk_product_puc.html')):
@@ -184,7 +192,7 @@ def bulk_assign_puc_to_product(request, template_name=('product_curation/'
             .filter( Q(title__icontains=q) | Q(brand_name__icontains=q) )
             .exclude(id__in=(ProductToPUC.objects.values_list('product_id', flat=True))
             )[:max_products_returned])
-        full_p_count = Product.objects.filter( Q(title__icontains=q) | Q(brand_name__icontains=q) ).count()
+        full_p_count = Product.objects.filter(Q(title__icontains=q) | Q(brand_name__icontains=q)).count()
     else:
         p = {}
         full_p_count = 0
@@ -198,6 +206,7 @@ def bulk_assign_puc_to_product(request, template_name=('product_curation/'
                                     puc_assigned_usr=request.user)
     form['puc'].label = 'PUC to Assign to Selected Products'
     return render(request, template_name, {'products': p, 'q': q, 'form': form, 'full_p_count': full_p_count})
+
 
 @login_required()
 def assign_puc_to_product(request, pk, template_name=('product_curation/'
@@ -220,6 +229,7 @@ def assign_puc_to_product(request, pk, template_name=('product_curation/'
     form.referer_pk = p.id if form.referer == 'product_detail' else p.data_source.id
     return render(request, template_name,{'product': p, 'form': form})
 
+
 @login_required()
 def product_detail(request, pk):
     template_name = 'product_curation/product_detail.html'
@@ -238,6 +248,7 @@ def product_detail(request, pk):
                                             'assumed_tags': assumed_tags
                                             })
 
+
 @login_required()
 def product_update(request, pk, template_name=('product_curation/'
                                                'product_edit.html')):
@@ -248,11 +259,13 @@ def product_update(request, pk, template_name=('product_curation/'
         return redirect('product_detail', pk=p.pk)
     return render(request, template_name,{'product': p, 'form': form})
 
+
 @login_required()
 def product_delete(request, pk):
     p = Product.objects.get(pk=pk)
     p.delete()
     return redirect('product_curation')
+
 
 @login_required()
 def product_list(request):

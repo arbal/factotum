@@ -168,13 +168,4 @@ def upload_dtxsid_csv(request):
     #print(resp)
     return resp
 
-def download_raw_chems(stats):
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="uncurated_chemicals_%s.csv"' % (datetime.datetime.now().strftime("%Y%m%d"))
 
-    writer = csv.writer(response)
-    writer.writerow(['data_group_id', 'dashboard_rawchem_id', 'raw_cas', 'raw_chem_name', 'rid'])
-    for rawchem in RawChem.objects.filter(dsstox_id=None):
-        writer.writerow([rawchem.extracted_text.data_document.data_group.id, rawchem.id, rawchem.raw_cas, rawchem.raw_chem_name, rawchem.rid if rawchem.rid else '' ])
-
-    return response

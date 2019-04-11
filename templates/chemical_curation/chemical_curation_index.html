@@ -1,0 +1,58 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% block title %}Chemical Curation{% endblock %}
+
+{% block errors %}
+    {% if records_processed %}
+        <div class="alert alert-success" role="alert">
+            {{ records_processed }} records processed.
+        </div>
+    {% endif %}
+    {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+            {{ error_message }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-5"><span class="oi oi-beaker" title="factotum" aria-hidden="true"></span> Chemical Curation</h1>
+    <div class="row">
+        <div class="col-3">Download {{ uncurated_chemical_count | intcomma }} extracted chemical records
+            without DSSTOX SIDs assigned.
+        </div>
+        <div class="col-9"><a class="btn btn-outline-primary btn-sm" role="button"
+                              href="{% url "download_raw_chems" %}">Download Uncurated Chemicals</a>
+        </div>
+    </div>
+    <hr>
+    <div class="row mb-2">
+        <div class="col-3">Upload curated CSV Chemicals
+        </div>
+        <div class="col-9">
+            <div class="text-info mb-4">The uploaded csv must have the following column names in this order:
+                <br>
+                <code class="m-2">external_id, rid, sid, true_chemical_name, true_cas</code>
+            </div>
+
+            <form action="{% url "chemical_curation" %}" method="POST"
+                  enctype="multipart/form-data" class="form-horizontal">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
+                        <button class="btn btn-primary"> Upload</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+{% endblock %}

@@ -14,3 +14,4 @@ from .habits_n_practices import *
 from .get_data import *
 from .puc import *
 from .diagnostics import *
+from .chemical_curation import *

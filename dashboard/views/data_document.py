@@ -16,7 +16,7 @@ def data_document_detail(request, pk):
     template_name = 'data_document/data_document_detail.html'
     doc = get_object_or_404(DataDocument, pk=pk, )
     code = doc.data_group.group_type.code
-    edit = 1 if code in ['CP', 'HH'] else 0
+    edit = 1 if doc.detail_page_editable else 0
     # edit adds an extra record to the formset, but is also a switch in the
     # template and to add the delete input, this will only work if we add one at
     # a time...

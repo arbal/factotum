@@ -208,10 +208,6 @@ class DataGroupDetailTestWithFixtures(TestCase):
         resp = self.client.get(f'/datagroup/%s/' % dg_co.id)
         self.assertIn(b'Download Raw', resp.content)
 
-        dg_un = DataGroup.objects.filter(group_type__code = 'UN').first()
-        resp = self.client.get(f'/datagroup/%s/' % dg_un.id)
-        self.assertNotIn(b'Download Raw', resp.content)
-
         # Test download on all data groups with ExtractedChemicals, whether
         # they are CO or UN
         dg_ids = DataDocument.objects.filter(

@@ -206,11 +206,14 @@ class TestDynamicDetailFormsets(TestCase):
                 children = model.objects.filter(
                                     extracted_text=doc.extractedtext
                 ).count()
-                if code in ['CO','FU','HP']:
-                    error = (f'{model.__module__} should have the same number'
-                                                        ' of forms as instances')
-                    self.assertEqual(num_forms, children, error)
-                if code in ['CP','HH']:
+
+                if doc.detail_page_editable:
                     error = (f'{model.__module__} should have one more forms'
                                                                 ' than instances')
                     self.assertEqual(num_forms, children + 1, error)
+                else:
+                    error = (f'{model.__module__} should have the same number'
+                                                        ' of forms as instances')
+                    self.assertEqual(num_forms, children, error)
+
+

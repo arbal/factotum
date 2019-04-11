@@ -41,6 +41,8 @@ urlpatterns = [
                                             name='data_document_note'),
     path('product_curation/', views.product_curation_index,
                                             name='product_curation'),
+    path('chemical_curation/', views.chemical_curation_index,
+         name='chemical_curation'),
     path('category_assignment/<int:pk>/', views.category_assignment,
                                             name='category_assignment'),
     path('link_product_list/<int:pk>/', views.link_product_list,
