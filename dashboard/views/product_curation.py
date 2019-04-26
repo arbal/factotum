@@ -1,43 +1,18 @@
 from urllib import parse
 
 from django.urls import resolve
-from django.utils import timezone, safestring
+from django.utils import safestring
 from django.shortcuts import redirect
 from django.db.models import Count, Q
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.forms import ModelForm
 from dashboard.models import *
-from dashboard.forms import (ProductPUCForm, ProductLinkForm, 
-                            BulkProductPUCForm, BulkProductTagForm, 
-                            BulkPUCForm, ProductForm)
-from taggit.forms import TagField
-from taggit_labels.widgets import LabelWidget
+from dashboard.forms import (ProductPUCForm, ProductLinkForm, ProductTagForm,
+                                   BulkProductPUCForm, BulkProductTagForm,
+                                   BulkPUCForm, ProductForm)
 from django.core.paginator import Paginator
 from django.db.models import Max
 
-
-class FilteredLabelWidget(LabelWidget):
-    # overriding django-taggit-label function to display subset of tags
-    def tag_list(self, tags):
-        # must set form_instance in form __init__()
-        puc = self.form_instance.instance.get_uber_puc() or None
-        qs = self.model.objects.filter(content_object=puc,assumed=False)
-        filtered = [unassumed.tag for unassumed in qs]
-        return [(tag.name, 'selected taggit-tag' if tag.name in tags else 'taggit-tag')
-                for tag in filtered]
-
-
-class ProductTagForm(ModelForm):
-    tags = TagField(required=False, widget=FilteredLabelWidget(model=PUCToTag))
-
-    class Meta:
-        model = Product
-        fields = ['tags']
-
-    def __init__(self, *args, **kwargs):
-        super(ProductTagForm, self).__init__(*args, **kwargs)
-        self.fields['tags'].widget.form_instance = self
 
 
 @login_required()

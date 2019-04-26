@@ -2,14 +2,11 @@ import csv
 import logging
 import datetime
 
-from django import forms
-from django.db import connection
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.shortcuts import render
-from django.db.models import Count, Q, Value, IntegerField, Subquery, OuterRef, F, Sum
-from django.forms.models import model_to_dict
+from django.db.models import Count, Q, Value, IntegerField, F
 
 from dashboard.models import *
 from dashboard.forms import HabitsPUCForm

@@ -1,16 +1,13 @@
 from django.db import models
-from .dsstox_lookup import DSSToxLookup
-from .extracted_text import ExtractedText
 from model_utils.managers import InheritanceManager
 from django.apps import apps
 from django.db.models.signals import pre_save
-from django.dispatch import receiver
 
 from model_utils import FieldTracker
 
 
 class RawChem(models.Model):
-    extracted_text = models.ForeignKey(ExtractedText, related_name = 'rawchem', 
+    extracted_text = models.ForeignKey('ExtractedText', related_name = 'rawchem',
         on_delete=models.CASCADE, null=False, blank = False)
 
     raw_cas = models.CharField("Raw CAS", max_length=100, null=True, blank=True)
@@ -21,7 +18,7 @@ class RawChem(models.Model):
 
     rid = models.CharField(max_length=50, null=True, blank=True)
 
-    dsstox = models.ForeignKey(DSSToxLookup, related_name = 'curated_chemical', on_delete=models.PROTECT,
+    dsstox = models.ForeignKey('DSSToxLookup', related_name = 'curated_chemical', on_delete=models.PROTECT,
                                                     null=True, blank=True)
 
     objects = InheritanceManager()

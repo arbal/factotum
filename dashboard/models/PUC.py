@@ -6,9 +6,6 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from .common_info import CommonInfo
-from .extracted_habits_and_practices_to_puc import (
-                                            ExtractedHabitsAndPracticesToPUC)
-from .extracted_habits_and_practices import ExtractedHabitsAndPractices
 
 
 class PUC(CommonInfo):
@@ -103,7 +100,7 @@ class PUCToTag(TaggedItemBase, CommonInfo):
     assumed = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.content_object)
+        return str(self.tag)
 
 
 class PUCTag(TagBase, CommonInfo):

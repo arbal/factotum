@@ -1,8 +1,5 @@
-from dal import autocomplete
-
-from django.shortcuts import (render, redirect, get_object_or_404,
-                                                HttpResponseRedirect)
-from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import (render, get_object_or_404,
+                              HttpResponseRedirect)
 from django.contrib.auth.decorators import login_required
 
 from dashboard.models import *

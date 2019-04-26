@@ -23,7 +23,7 @@ class Script(CommonInfo):
 
 
     title = models.CharField(max_length=50)
-    url = models.CharField(max_length  = 100,
+    url = models.CharField(max_length  = 225,
                             null       = True,
                             blank      = True,
                             validators = [URLValidator()])

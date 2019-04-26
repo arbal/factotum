@@ -1,25 +1,6 @@
-from lxml import html
-from django.test import TestCase
-from dashboard.tests.loader import load_model_objects
-from dashboard.models import *
-import os
-import csv
-import time
-import unittest
-import collections
-import json
-import re
-from selenium import webdriver
-from selenium.webdriver.support.select import Select
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import NoSuchElementException
-from django.conf import settings
+from dashboard.tests.loader import *
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from dashboard.models import *
-
 
 def log_karyn_in(object):
     '''
@@ -39,10 +20,7 @@ class TestIntegration(StaticLiveServerTestCase):
 
     def setUp(self):
         self.objects = load_model_objects()
-        if settings.TEST_BROWSER == 'firefox':
-            self.browser = webdriver.Firefox()
-        else:
-            self.browser = webdriver.Chrome()
+        self.browser = load_browser()
         log_karyn_in(self)
 
     def tearDown(self):

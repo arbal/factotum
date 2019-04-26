@@ -184,7 +184,20 @@ class ModelsTest(TestCase):
         for fld in fields:
             self.assertIn(fld, Script.__dict__, (f'{fld} '
                                                 'should be in Script model.'))
+        url = next(f for f in Script._meta.fields if f.name == 'url')
+        self.assertTrue(url.max_length == 225, ("'url' field should be of "
+                                                                "length 225"))
 
+    def test_taxonomy_fields(self):
+        fields = ['title','description','parent','source', 'category_code', 
+                    'last_edited_by','created_at','updated_at']
+        taxonomy_fields = [f.name for f in Taxonomy._meta.fields]   
+        for fld in fields:
+            self.assertIn(fld, taxonomy_fields, (f'{fld} '
+                                                'should be in Taxonomy model.'))
+        title = next(f for f in Taxonomy._meta.fields if f.name == 'title')
+        self.assertTrue(title.max_length == 250, ("'title' field should have "
+                                                        "max length of 250"))
 
 class PUCModelTest(TestCase):
 

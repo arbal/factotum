@@ -1,11 +1,11 @@
-from django import forms
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-
+from django.core.exceptions import ObjectDoesNotExist
 from djqscsv import render_to_csv_response
 
 from dashboard.forms import *
+from dashboard.forms import ExtractedListPresenceTagForm
 # if this goes to 0, tests will fail because of what num form we search for
 from factotum.settings import EXTRA
 from dashboard.models import *
@@ -21,34 +21,37 @@ def data_document_detail(request, pk):
     # template and to add the delete input, this will only work if we add one at
     # a time...
     ParentForm, ChildFormSet = create_detail_formset(
-        doc, extra=edit, can_delete=edit)
+        doc, extra=edit, can_delete=bool(edit))
     document_type_form = DocumentTypeForm(request.POST or None, instance=doc)
     qs = DocumentType.objects.filter(group_type=doc.data_group.group_type)
     document_type_form.fields['document_type'].queryset = qs
     context = {'doc': doc,
                'edit': edit,
                'document_type_form': document_type_form}
+    if code == 'CP':
+        # although keywords display as if at the datadocument level, they are
+        # attached to each list_presence record. To display, we're getting the
+        # tags associated with the first list_presence record, but on saving
+        # (in save_list_presence_tag_form()) we loop over the whole set
+        try:
+            list_presence = doc.extractedtext.rawchem.select_subclasses('extractedlistpresence').first()
+            list_presence_tag_form = ExtractedListPresenceTagForm(instance=list_presence)
+            context.update({'list_presence_tag_form': list_presence_tag_form})
+        except ObjectDoesNotExist:
+            pass
     if doc.is_extracted:
-
-        extracted_text = ExtractedText.objects.get_subclass(pk=doc.pk) 
-        extracted_text_form = ParentForm(instance=extracted_text)
+        extracted_text = ExtractedText.objects.get_subclass(pk=doc.pk)
         child_formset = ChildFormSet(instance=extracted_text)
-
         if not edit:
             for form in child_formset.forms:
                 for field in form.fields:
                     form.fields[field].widget.attrs['disabled'] = True
-
         context.update(
             {'edit_text_form': ParentForm(instance=extracted_text),
              'extracted_text': extracted_text,
              'detail_formset': child_formset}
         )
 
-        colors = ['#d6d6a6', '#dfcaa9', '#d8e5bf'] * 47
-        color = (hex for hex in colors)
-        for form in child_formset.forms:
-            form.color = next(color)
     else:
         context['edit_text_form'] = ParentForm()
     return render(request, template_name, context)
@@ -65,7 +68,7 @@ def save_doc_form(request, pk):
     extracted text QA page template
     '''
 
-    referer = request.POST['referer'] if request.POST['referer'] else 'data_document'
+    referer = request.POST.get('referer', 'data_document')
     doc = get_object_or_404(DataDocument, pk=pk)
     document_type_form = DocumentTypeForm(request.POST, instance=doc)
     if document_type_form.is_valid() and document_type_form.has_changed():
@@ -84,7 +87,7 @@ def data_document_note(request, pk):
 
 @login_required()
 def save_ext_form(request, pk):
-    referer = request.POST['referer'] if request.POST['referer'] else 'data_document'
+    referer = request.POST.get('referer', 'data_document')
     doc = get_object_or_404(DataDocument, pk=pk)
     ExtractedTextForm, _ = create_detail_formset(doc)
     extracted_text = ExtractedText.objects.get_subclass(pk=pk)
@@ -93,6 +96,15 @@ def save_ext_form(request, pk):
         ext_text_form.save()
     return redirect(referer, pk=pk)
 
+@login_required()
+def save_list_presence_tag_form(request, pk):
+    referer = request.POST.get('referer', 'data_document')
+    extracted_text = get_object_or_404(ExtractedText, pk=pk)
+    for extracted_list_presence in extracted_text.rawchem.select_subclasses('extractedlistpresence'):
+        tag_form = ExtractedListPresenceTagForm(request.POST or None, instance=extracted_list_presence)
+        if tag_form.is_valid():
+            tag_form.save()
+    return redirect(referer, pk=pk)
 
 @login_required()
 def data_document_delete(request, pk, template_name='data_source/datasource_confirm_delete.html'):
@@ -103,30 +115,23 @@ def data_document_delete(request, pk, template_name='data_source/datasource_conf
         return redirect('data_group_detail', pk=datagroup_id)
     return render(request, template_name, {'object': doc})
 
-
 @login_required
 def dg_dd_csv_view(request, pk):
     qs = DataDocument.objects.filter(data_group_id=pk)
     filename = DataGroup.objects.get(pk=pk).name
     return render_to_csv_response(qs, filename=filename, append_datestamp=True)
 
-
 @login_required
-def data_document_edit(request, pk):
-
-    referer = request.POST['referer'] if request.POST['referer'] else 'data_document'
-    doc = get_object_or_404(DataDocument, pk=pk)
-    ParentForm, _ = create_detail_formset(doc, extra=0, can_delete=False)
-    model = ParentForm.Meta.model
-    script = Script.objects.get(title__icontains='Manual (dummy)')
-    exttext, _ = model.objects.get_or_create(extraction_script=script,
-                                             data_document_id=pk)
-    form = ParentForm(request.POST, instance=exttext)
+def data_document_edit(request, pk, template_name=('data_document/'
+                                                    'data_document_form.html')):
+    datadocument = get_object_or_404(DataDocument, pk=pk)
+    form = DataDocumentForm(request.POST or None, instance=datadocument)
     if form.is_valid():
-        form.save()
-        return redirect(referer, pk=doc.pk)
-    else:
-        return HttpResponse("Houston, we have a problem.")
+        if form.has_changed():
+            form.save()
+        return redirect('data_document', pk=pk)
+    form.referer = request.META.get('HTTP_REFERER', None)
+    return render(request, template_name, {'form': form})
 
 
 @login_required

@@ -1,17 +1,6 @@
-from lxml import html
-
-from django.test import TestCase
-from dashboard.tests.loader import load_model_objects, fixtures_standard
+from dashboard.tests.loader import *
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-
 from dashboard.models import *
-from selenium import webdriver
-from django.conf import settings
-from selenium.webdriver.support.select import Select
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
-
 
 def log_karyn_in(object):
     '''
@@ -31,10 +20,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
     fixtures = fixtures_standard
 
     def setUp(self):
-        if settings.TEST_BROWSER == 'firefox':
-            self.browser = webdriver.Firefox()
-        else:
-            self.browser = webdriver.Chrome()
+        self.browser = load_browser()
         log_karyn_in(self)
 
     def tearDown(self):
@@ -139,14 +125,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             doc_type_select.select_by_visible_text("ingredient disclosure")
             self.assertIn(doc_qa_link, self.browser.current_url)
 
-            # Data Document Detail Page
-            doc_detail_link = f'/datadocument/%s/' % doc_id
-            self.browser.get(self.live_server_url + doc_detail_link)
-            doc_type_select = Select(self.browser.find_element_by_xpath(
-                '//*[@id="id_document_type"]'))
-            doc_type_select.select_by_visible_text("MSDS")
-            self.assertIn(doc_detail_link, self.browser.current_url)
-
     def test_qa_approval(self):
         '''
         Test the QA process in the browser
@@ -170,10 +148,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             self.browser.find_element_by_xpath(
                 '//*[@id="btn-toggle-edit"]').click()
 
-            # Modify the first raw_chem_name field's value
 
-            raw_chem = self.browser.find_element_by_xpath(
-                '//*[@id="id_rawchem-0-raw_chem_name"]')
             # Wait for the field to be editable
             wait = WebDriverWait(self.browser, 10)
             raw_chem_name_field = wait.until(ec.element_to_be_clickable(
@@ -185,10 +160,9 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             rawchem_id_field = self.browser.find_element_by_xpath(
                 '//*[@id="id_rawchem-0-rawchem_ptr"]')
             rawchem_id = rawchem_id_field.get_attribute('value')
-            # print(rawchem_id)
 
+            # Modify the first raw_chem_name field's value and save changes
             raw_chem_name_field.send_keys(' edited')
-            # save changes
             self.browser.find_element_by_xpath('//*[@id="save"]').click()
 
             # Confirm the changes in the ORM
@@ -197,22 +171,38 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                              old_raw_chem_name, 'The raw_chem_name field should have changed')
 
             et = ExtractedText.objects.get(pk=doc_id)
-            # print(et.data_document.data_group.group_type)
             self.assertTrue(
                 et.qa_edited, 'The qa_edited attribute should be True')
 
-            # Click Approve without any notes and confirm validation failure
+            # Click Approve without any notes and confirm that approval fails
             self.browser.find_element_by_xpath('//*[@id="approve"]').click()
-            # The QA notes field should be invalid
-            qa_notes_field = self.browser.find_element_by_xpath(
-                '//*[@id="id_qa_notes"]')
-            self.assertIn('is-invalid', qa_notes_field.get_attribute('class'))
+
+            # The page should include an error message like this one:
+            '''
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                The extracted text
+                could not be approved. Make sure that if the records have been edited,
+                the QA Notes have been populated.
+                </div>
+            '''
+            message_element = self.browser.find_element_by_xpath(
+                '/html/body/div[1]/div[1]')
+            self.assertIn('alert', message_element.get_attribute('role'))
             et.refresh_from_db()
             self.assertFalse(
                 et.qa_checked, 'The qa_checked attribute should be False')
 
+            qa_notes_field = self.browser.find_element_by_xpath(
+                '//*[@id="qa-notes-textarea"]')
             # Add the mandatory QA note
             qa_notes_field.send_keys('Some QA Notes')
+            # Save the notes
+            btn_save_notes = self.browser.find_element_by_xpath(
+                '//*[@id="btn-save-notes"]')
+            btn_save_notes.click()
             # Click "Approve" again
             self.browser.find_element_by_xpath('//*[@id="approve"]').click()
             et.refresh_from_db()

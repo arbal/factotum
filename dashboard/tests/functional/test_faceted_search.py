@@ -28,7 +28,7 @@ class FacetedSearchTest(TestCase):
         response = self.c.get('/find/?q=diatom')
         self.assertContains(response, 'Filter by Group Type')
 
-        response = self.c.get('/find/?q=diatom&group_type=Unidentified')
+        response = self.c.get('/find/?q=diatom&group_type=Composition')
         self.assertContains(response, 'Showing 1 - 20 of')
 
         response = self.c.get('/find/?q=diatom&group_type=BadGroupName')

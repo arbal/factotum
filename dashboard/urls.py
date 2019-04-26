@@ -84,6 +84,8 @@ urlpatterns = [
                                             name='save_doc_form'),
     path('save_ext/<int:pk>/', views.save_ext_form,
                                             name='save_ext_form'),
+    path('save_list_presence_tags/<int:pk>/', views.save_list_presence_tag_form,
+                                            name='save_list_presence_tag_form'),
     path('search/', include('haystack.urls')),
     path('find/', views.search.FacetedSearchView.as_view(),
                                             name='haystack_search'),
@@ -115,6 +117,10 @@ urlpatterns = [
                                             name='extracted_child_edit'),
     path('datadocument/edit/<int:pk>/',   views.data_document_edit,
                                             name='data_document_edit'),
+    path('qanotes/save/<int:pk>/',   views.save_qa_notes,
+                                            name='save_qa_notes'),
+    path('extractedtext/approve/<int:pk>/',   views.approve_extracted_text,
+                                            name='approve_extracted_text'),
 ]
 
 if settings.DEBUG is True:

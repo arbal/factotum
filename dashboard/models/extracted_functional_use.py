@@ -1,7 +1,5 @@
 from django.db import models
 from .common_info import CommonInfo
-from django.core.exceptions import ValidationError
-from .extracted_text import ExtractedText
 from .raw_chem import RawChem
 
 class ExtractedFunctionalUse(CommonInfo, RawChem):

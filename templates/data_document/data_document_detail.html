@@ -6,14 +6,30 @@
 {% block title %}Data Doc {{ doc.id }}: {{ doc.title }}{% endblock %}
 
 {% block content %}
-    <h1 class="col-12">
-        <span name="title">{{ doc.title }}</span>
-        <div class="btn-group float-lg-right" role="group">
+    <div class="row" style="display: flex; align-items: center;">
+        <div class="col-lg-1" style="padding-left:30px;">
             <a href="{{ doc.pdf_url }}" title="Link to {{ doc.get_abstract_filename }}" target="_blank">
-                <span class="oi oi-file"></span> </a>
-            </a>
+            <span class="oi oi-file" style="font-size: 50px"></span></a>
         </div>
-    </h1>
+        <div class="col-lg-10">
+            <div class="row col-lg-12">
+                <h1>{{ doc.title }}</h1>
+            </div>
+            {% if doc.subtitle %}
+                <div class="row col-lg-12">
+                    <h3>{{ doc.subtitle }}</h3>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-lg-1">
+            <div class="btn-group float-lg-right" role="group" aria-label="Data Document Modification">
+                <a class="btn btn-success btn-sm" role="button" title="edit" href="{% url 'data_document_edit' doc.id %}">
+                    <span class="oi oi-pencil"></span></a>
+                <a class="btn btn-danger btn-sm" role="button" title="delete" href="{% url 'data_document_delete' doc.id %}">
+                    <span class="oi oi-trash"></span></a>
+            </div>
+        </div>
+    </div>
     <dl class="row col-lg-12">
         <dt class="col-lg-3">Data Source</dt>
         <dd class="col-lg-9">
@@ -37,12 +53,7 @@
         </dd>
         <dt class="col-lg-3">Data Document Type</dt>
         <dd class="col-lg-9">
-            <form method="post" action="{% url 'save_doc_form' doc.pk %}" novalidate>
-                <input type="hidden" name="referer" value="{{request.path}}" />
-                {% csrf_token %}
-                {{ document_type_form }}
-                {{ document_type_form.management_form }}
-            </form>
+            {{ doc.document_type }}
         </dd>
         <dt class="col-lg-3">Download Script</dt>
         <dd class="col-lg-9">
@@ -60,43 +71,8 @@
                 {{ doc.organization }}
             </dd>
         {% endif %}
-        <dt class="col-lg-3">Note <a href="" class="btn btn-primary btn-sm float-right" role="button" title="edit"
-                                     data-toggle="modal"
-                                     data-target="#noteModal">
-            <span class="oi oi-pencil"></span> </a>
-            <!-- Modal -->
-            <div class="modal fade" id="noteModal" tabindex="-1" role="dialog" aria-labelledby="noteModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="noteModalLabel">Add or Edit Note</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action="{% url 'data_document_note' doc.id %}" method="post">
-                            {% csrf_token %}
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                      <textarea class="form-control" name="dd_note" id="dd_note" rows="10"
-                                                placeholder="Add your note here...">{{ doc.note }}
-                                      </textarea>
-                                    </div>
-                                </div>
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <button type="submit" value="Note" class="btn btn-primary">Save</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </dt>
-
+        <dt class="col-lg-3">Note</dt>
         <dd class="col-lg-9">
             {{ doc.note }}
         </dd>
@@ -163,7 +139,35 @@
                             <dd>
                                 {{ extracted_text.rev_num }}
                             </dd>
-    
+
+                            {% if extracted_text.cat_code %}
+                                <dt>cat_code</dt>
+                                <dd>
+                                    {{ extracted_text.cat_code }}
+                                </dd>
+                            {% endif %}
+
+                            {% if extracted_text.description_cpcat %}
+                                <dt>CPCat cassette</dt>
+                                <dd>
+                                    {{ extracted_text.description_cpcat }}
+                                </dd>
+                            {% endif %}
+
+                            {% if extracted_text.cpcat_code %}
+                                <dt>ACToR snaid</dt>
+                                <dd>
+                                    {{ extracted_text.cpcat_code }}
+                                </dd>
+                            {% endif %}
+
+                            {% if extracted_text.cpcat_sourcetype %}
+                                <dt>CPCat source</dt>
+                                <dd>
+                                    {{ extracted_text.cpcat_sourcetype }}
+                                </dd>
+                            {% endif %}
+
                             <dt>Extraction Script</dt>
                             <dd>
                                 <a href="{{ extracted_text.extraction_script.url| default_if_none:'' }}" target="_blank">
@@ -261,23 +265,33 @@
     </div>
     <br>
     {% if detail_formset %}
-    <form action="{% url 'extracted_child_edit' doc.id %}" method="post">
-        {% csrf_token %}
-        {{ detail_formset.management_form }}
         <div class="row col-lg-12 card-header">
             <h4>{{ doc.data_group.group_type }} detail</h4>
             {% if edit %}
-            <button type="submit" 
+            <button onclick="document.getElementById('detail_formset').submit();"
                     class="btn btn-primary ml-auto" 
                     role="button">Save {{ doc.data_group.group_type }} edits</button>
-                    
             {% endif %}
         </div>
+
+        {% if list_presence_tag_form %}
+        <div class="card card-body col-10 mt-2 mx-auto">
+        <form class="form-inline" action="{% url 'save_list_presence_tag_form' doc.id %}" method="post">
+            {% csrf_token %}
+                {{ list_presence_tag_form }}
+              <button class="btn btn-primary" type="submit">Save</button>
+        </form>
+        </div>
+        {% endif %}
+
+        <form id="detail_formset" action="{% url 'extracted_child_edit' doc.id %}" method="post">
+        {% csrf_token %}
+        {{ detail_formset.management_form }}
         <div class="card-body">
             <div class="row">
                 {% for form in detail_formset.forms %}
                     <div class="col-lg-6 col-md-6" style="padding-top: 30px;">
-                        <div class="card" style="background-color:{{ form.color }};">
+                        <div class="card bg-info">
                             <div class="card-body">
                                 {% if form.errors %}
                                     <div class="form-group alert alert-danger" role="alert">

@@ -1,11 +1,7 @@
 from django.urls import resolve
 from django.test import TestCase
-from django.http import HttpRequest
-
-from lxml import html
 
 from dashboard import views
-from dashboard.models import *
 from dashboard.forms import create_detail_formset
 from dashboard.tests.loader import load_model_objects
 

@@ -3,7 +3,7 @@ from .common_info import CommonInfo
 
 
 class Taxonomy(CommonInfo):
-    title = models.CharField(max_length=100, blank=False, null=False)
+    title = models.CharField(max_length=250, blank=False, null=False)
     description = models.TextField(null=True, blank=True)
     parent = models.ForeignKey('Taxonomy', on_delete=models.CASCADE,
                                                     null=True, blank=True)

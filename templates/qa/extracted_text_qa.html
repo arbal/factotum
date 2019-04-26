@@ -6,15 +6,9 @@
 
 
 {% load humanize %}
-{% if messages %}
-    {% for message in messages %}
-        <p>{{ message }}</p>
-    {% endfor %}
-{% endif %}
-
-
 
 {% block content %}
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/qa">QA</a></li>
@@ -29,21 +23,6 @@
     <h3 class="card-header ">
             <a  href="{% url "data_document" doc.pk %}" target="_blank" title='Data Document Detail Page'>DataDocument: {{ doc.title }}</a>
         </h3>
-        <!-- maybe include functionality to edit the dd later -->
-            <!-- <ul class="list-inline factotum-control-row" role="group" aria-label="Data document editing controls">
-                <li class="list-inline-item">
-                <a id="edit-data-document" class="btn btn-md " role="button" title="edit data document"
-                data-toggle="modal"
-                data-target="#datadocModal">
-                Edit Data Document
-                <span class="oi oi-pencil">
-                </span> 
-                </a>
-            </li>
-            </ul> -->
-
-            <!-- Data Document Modal -->
-            <!-- {% include 'forms/data_document_modal.html' with form=edit_doc_form colspan='col-6'%} -->
 
     <table class="table table-bordered">
 
@@ -133,9 +112,12 @@
                 </h3>
                 </div>
         <div class="row card-body">
+
         <div class="col-sm-6">
-        <form method="post">
+
+        <form action="{% url 'approve_extracted_text' doc.pk %}" method="post" id="approve-form">
                 {% csrf_token %}
+                <input type="hidden" name="referer" value="{{request.path}}" />
             <button type = "submit" id="approve" name="approve" class="btn btn-success btn-lg btn-block" role="button">Approve</button>
 
                 <br>
@@ -149,26 +131,34 @@
                 <br>
                 <a class="btn btn-secondary btn-lg btn-block" href="{% url referer doc.id %}" role="button">Exit</a>
             </div>
+        </form>
+
+
+              
             <div class="col-sm-6 text-center">
-                <b>{{ notesform.qa_notes.label_tag }}</b>
-                <br>
-                {% if notesform.is_bound %}
+                <form action="{% url 'save_qa_notes' doc.pk %}" method="POST" id="qa-notes-form">
+                    {% csrf_token %}
+                    <b>{{ notesform.qa_notes.label_tag }}</b>&nbsp;<input type="submit" id="btn-save-notes" value="Save notes" class="btn btn-sm btn-primary">
+                    <br>
+                    {% if notesform.is_bound %}
                     {% if notesform.errors %}
                     {{ notesform.qa_notes.errors }}
                     {% render_field notesform.qa_notes class="form-control is-invalid" %}
                     {% for k, error in notesform.errors.items %}
-                        <div class="invalid-feedback">
+                    <div class="invalid-feedback">
                         {{ error }}
-                        </div>
+                    </div>
                     {% endfor %}
                     {% else %}
                     {% render_field notesform.qa_notes class="form-control is-valid" %}
                     {% endif %}
-                {% else %}
+                    {% else %}
                     {% render_field notesform.qa_notes class="form-control" %}
-                {% endif %}
+                    {% endif %}
+                </form>
             </div>
-        </form>
+
+
         </div>
         <p class="card-footer"> {{stats}}</p>
       </div>
@@ -180,45 +170,8 @@
 
 
 {% endblock %}
+
+
 {% block js %}
-  <script type="text/javascript">
-      $( document ).ready(function() {
-        console.log( "(document).ready is running" );
-        toggleDetailEdit(false);
-        });
-
-        function toggleDetailEdit(enable=true) {
-            // set the detail fields to editable
-            // show the notes box
-            if (enable)  {
-                // enter edit mode
-                console.log( "enabling editor" );
-                // show the Save button 
-                $('#save').removeClass('disabled');
-                $('#save').show();
-                $('#btn-toggle-edit').addClass('btn-warning');
-                $('#btn-toggle-edit').attr("onclick","toggleDetailEdit(false)");
-                // TODO: change the button's label to read "Stop Editing"
-                $('.detail-control').addClass('unlocked');
-                $('.detail-control').prop('disabled', false);
-                //$('.extext-control').addClass('unlocked');
-                //$('.extext-control').prop('disabled', false);
-            } else{
-                // exit edit mode
-                $('#btn-toggle-edit').attr("onclick","toggleDetailEdit(true)");
-                // hide the Save button
-                $('#save').addClass('disabled');
-                $('#save').hide();
-                $('#btn-toggle-edit').removeClass('btn-warning');
-                $('.detail-control').removeClass('unlocked');
-                $('.detail-control').prop('disabled', true);
-                //$('.extext-control').removeClass('unlocked');
-                //$('.extext-control').prop('disabled', true);
-                console.log( "Has disabled class been added to controls?" );
-                console.log( $('.detail-control').hasClass('disabled') );
-
-            }
-        }
-
-  </script>
+    <script src="{% static 'js/dashboard/qa_extracted_text.js' %}"></script>
 {% endblock %}

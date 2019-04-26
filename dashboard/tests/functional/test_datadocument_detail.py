@@ -1,6 +1,5 @@
 from lxml import html
 
-from django.test import Client
 from django.urls import reverse
 from django.test import TestCase, override_settings
 from django.core.exceptions import ObjectDoesNotExist
@@ -101,22 +100,30 @@ class DataDocumentDetailTest(TestCase):
         hhe_no = page.xpath('//dd[contains(@class, "hh-report-no")]')[0].text
         self.assertIn('47', hhe_no)
 
+    def test_delete(self):
+        '''Checks if data document is deleted after POSTing to
+        /datadocument/delete/<pk>
+        '''
+        post_uri = "/datadocument/delete/"
+        pk = 354784
+        doc_exists = lambda: DataDocument.objects.filter(pk=pk).exists()
+        self.assertTrue(doc_exists(), "Document does not exist prior to delete attempt.")
+        self.client.post(post_uri + str(pk) + "/")
+        self.assertTrue(not doc_exists(), "Document still exists after delete attempt.")
+
 
 class TestDynamicDetailFormsets(TestCase):
     fixtures = fixtures_standard
 
     def setUp(self):
-
         self.client.login(username='Karyn', password='specialP@55word')
 
-    def test_fetch_extracted_records(self):
-        ''' Confirm that each detail child object returned by the fetch_extracted_records
+    def test_get_extracted_records(self):
+        ''' Confirm that each detail child object returned by the get_extracted_records
         function has the correct parent '''
         for et in ExtractedText.objects.all():
-            #print('Fetching extracted child records from %s: %s ' % (et.pk , et))
-            for ex_child in et.fetch_extracted_records():
-                child_model = ex_child.__class__ # the fetch_extracted_records function returns different classes
-                #print('    %s: %s' % (ex_child.__class__.__name__ , ex_child ))
+            for ex_child in et.get_extracted_records():
+                child_model = ex_child.__class__ # the get_extracted_records function returns different classes
                 self.assertEqual(et.pk , child_model.objects.get(pk=ex_child.pk).extracted_text.pk,
                     'The ExtractedChemical object with the returned child pk should have the correct extracted_text parent')
 
@@ -130,7 +137,6 @@ class TestDynamicDetailFormsets(TestCase):
                 # A document with the CP data group type should be linked to 
                 # ExtractedCPCat objects
                 if doc.data_group.group_type.code=='CP':
-                    #print(f'%s %s %s' % (doc.id, extsub, type(extsub)))
                     self.assertEqual(type(extsub) , ExtractedCPCat)
                 elif doc.data_group.group_type.code=='HH':
                     self.assertEqual(type(extsub) , ExtractedHHDoc)
@@ -138,7 +144,6 @@ class TestDynamicDetailFormsets(TestCase):
                     self.assertEqual(type(extsub) , ExtractedText)
             except ObjectDoesNotExist:
                 pass
-                #print('No extracted text for data document %s' % doc.id)
 
 
     def test_every_extractedtext(self):
@@ -148,7 +153,6 @@ class TestDynamicDetailFormsets(TestCase):
         for et in ExtractedText.objects.all():
             dd = et.data_document
             ParentForm, ChildForm = create_detail_formset(dd, EXTRA)
-            extracted_text_form = ParentForm(instance=et)
             child_formset = ChildForm(instance=et)
             # Compare the model of the child formset's QuerySet to the model
             # of the ExtractedText object's child objects
@@ -165,7 +169,6 @@ class TestDynamicDetailFormsets(TestCase):
             dd = et.data_document
             ParentForm, ChildForm = create_detail_formset(dd)
             child_formset = ChildForm(instance=et)
-            #print('Data doc %s , Group Type: %s ' % (dd.id, dd.data_group.type ))
             for form in child_formset.forms:
                 if dd.data_group.type in ['CO','UN']:
                     ec = form.instance
@@ -179,17 +182,9 @@ class TestDynamicDetailFormsets(TestCase):
                     self.assertFalse( 'true_cas' in form.fields )
             
     def test_num_forms(self):
-        ''''Assure that the number of child forms is appropriate for the group
-        type.
+        ''''Assure that the number of child forms is appropriate for the group type.
         '''
-        group_models = {
-                        'CO': ExtractedChemical,
-                        'FU': ExtractedFunctionalUse,
-                        'HP': ExtractedHabitsAndPractices,
-                        'CP': ExtractedListPresence,
-                        'HH': ExtractedHHRec
-        }
-        for code, model in group_models.items():
+        for code, model in datadocument_models.items():
             if DataDocument.objects.filter(
                                 document_type__group_type__code=code,
                                 extractedtext__isnull=False
@@ -215,5 +210,34 @@ class TestDynamicDetailFormsets(TestCase):
                     error = (f'{model.__module__} should have the same number'
                                                         ' of forms as instances')
                     self.assertEqual(num_forms, children, error)
+
+
+    def test_listpresence_tags_form(self):
+        ''''Assure that the list presence keywords appear for correct doc types and tags save
+        '''
+        for code, model in datadocument_models.items():
+            if DataDocument.objects.filter(
+                                document_type__group_type__code=code,
+                                extractedtext__isnull=False
+            ):
+                doc = DataDocument.objects.filter(
+                                    document_type__group_type__code=code,
+                                    extractedtext__isnull=False
+                ).first()
+                response = self.client.get(reverse('data_document',kwargs={'pk': doc.pk}))
+                response_html = html.fromstring(response.content.decode('utf8'))
+                if code=='CP':
+                    self.assertTrue(response_html.xpath('string(//*[@id="id_tags"])'),
+                              'Tag input should exist for Chemical Presence doc type')
+                    self.assertEqual(ExtractedListPresenceTag.objects.count(), 0)
+                    self.assertEqual(ExtractedListPresenceToTag.objects.count(), 0)
+                    req = self.client.post(path=reverse('save_list_presence_tag_form',kwargs={'pk': doc.pk}),
+                                           data={'tags':'pesticide,flavoring'})
+                    self.assertEqual(ExtractedListPresenceTag.objects.count(), 2)
+                    self.assertEqual(ExtractedListPresenceToTag.objects.count(), 2 * doc.extractedtext.objects.count())
+                else:
+                    self.assertFalse(response_html.xpath('string(//*[@id="id_tags"])'),
+                              'Tag input should only exist for Chemical Presence doc type')
+
 
 

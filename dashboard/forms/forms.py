@@ -7,7 +7,6 @@ from django.forms import BaseInlineFormSet
 from django.utils.translation import ugettext_lazy as _
 
 from dashboard.models import *
-from django.db.models import F
 from dashboard.utils import get_extracted_models
 
 
@@ -100,7 +99,9 @@ class QANotesForm(forms.ModelForm):
         model = QANotes
         fields = ['qa_notes']
         widgets = {
-            'qa_notes': forms.Textarea,
+            'qa_notes': forms.Textarea(attrs={
+                'id': 'qa-notes-textarea', 
+            }),
         }
         labels = {
             'qa_notes': _('QA Notes (required if approving edited records)'),
@@ -223,13 +224,11 @@ class ExtractedTextForm(forms.ModelForm):
             'extraction_script': forms.HiddenInput(),
         }
 
-
 class ExtractedCPCatForm(ExtractedTextForm):
 
     class Meta:
         model = ExtractedCPCat
-        fields = ['doc_date', 'cat_code',
-                  'description_cpcat', 'cpcat_sourcetype']
+        fields = ['doc_date', 'cat_code', 'description_cpcat', 'cpcat_code', 'cpcat_sourcetype']
 
 
 class ExtractedCPCatEditForm(ExtractedCPCatForm):
@@ -389,3 +388,28 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[]):
     }
     func = dg_types.get(group_type, lambda: None)
     return func()
+
+class DataDocumentForm(forms.ModelForm):
+    required_css_class = 'required'
+
+    class Meta:
+        model = DataDocument
+        fields = ['title', 'subtitle', 'document_type', 'note']
+
+    @staticmethod
+    def label_from_instance(obj):
+        return f"{obj.title} (in Group Type: {obj.group_type})"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        qs_hotfix = (
+            self.fields['document_type']
+            .queryset
+            .filter(pk=1)
+        )
+        self.fields['document_type'].queryset = (
+            self.fields['document_type']
+            .queryset
+            .filter(group_type=self.instance.data_group.group_type)
+        ) | qs_hotfix
+        self.fields['document_type'].label_from_instance = self.label_from_instance

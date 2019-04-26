@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.db.models import Count, Q
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.core.exceptions import ValidationError, MultipleObjectsReturned, ObjectDoesNotExist
 from django.urls import reverse
 from django.utils import timezone
+import json
 
 from dashboard.forms import create_detail_formset, QANotesForm, DocumentTypeForm
 from dashboard.models import Script, DataGroup, DataDocument,\
@@ -12,6 +14,7 @@ from dashboard.models import Script, DataGroup, DataDocument,\
     QAGroup, QANotes, DocumentType
 from factotum.settings import EXTRA
 from django import forms
+from django.utils.http import is_safe_url
 
 
 @login_required()
@@ -239,8 +242,6 @@ def extracted_text_qa(request, pk,
         # extext = extext.pull_out_cp()
         detail_formset = ChildForm(request.POST, instance=extext)
 
-        notesform = QANotesForm(request.POST, instance=note)
-        notesform.save()
         if detail_formset.has_changed():
             if detail_formset.is_valid() :
                 detail_formset.save()
@@ -256,8 +257,6 @@ def extracted_text_qa(request, pk,
 
             context['detail_formset'] = detail_formset
             context['ext_form'] = ext_form
-            # calls the clean method? y?
-            context.update({'notesform': notesform})
 
         # This code is being repeated in the GET and POST blocks
         # 
@@ -271,37 +270,87 @@ def extracted_text_qa(request, pk,
                     {'class': f'detail-control form-control %s' % doc.data_group.type}
                 )
 
-    elif request.method == 'POST' and 'approve' in request.POST:  # APPROVAL
-        notesform = QANotesForm(request.POST, instance=note)
-        context['notesform'] = notesform
-        nextpk = extext.next_extracted_text_in_qa_group()
-        if notesform.is_valid():
+    return render(request, template_name, context)
+
+
+@login_required()
+def save_qa_notes(request, pk):
+    '''
+    This is an endpoint that serves the AJAX call
+    '''
+
+    if request.method == 'POST':
+        #print("Saving {request.POST.get('qa_note_text')} to the object")
+        qa_note_text = request.POST.get('qa_note_text')
+
+        response_data = {}
+        
+        et = ExtractedText.objects.get(pk=pk)
+
+        qa, created = QANotes.objects.get_or_create(extracted_text=et)
+        qa.qa_notes = qa_note_text
+        qa.save()
+
+        response_data['result'] = 'QA Note edits successfully saved'
+        response_data['qa_note_text'] = qa.qa_notes
+        #print(response_data)
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
+    else:
+        return HttpResponse(
+            json.dumps({"not a POST request": "this will not happen"}),
+            content_type="application/json"
+        )
+
+@login_required()
+def approve_extracted_text(request, pk):
+    '''
+    This is an endpoint that processes the ExtractedText approval
+    '''
+    extext = get_object_or_404(
+	        ExtractedText.objects.select_subclasses(), pk=pk)
+    nextpk = extext.next_extracted_text_in_qa_group()
+    
+    
+    if request.method == 'POST':
+        if extext.is_approvable():
             extext.qa_approved_date = timezone.now()
             extext.qa_approved_by = request.user
             extext.qa_checked = True
             extext.save()
-            notesform.save()
-            # After approval, the user proceeds to either the next document
-            # in the QA Group, to the extractionscript QA index, or to the
-            # index page that matches the document's data group type 
-            # 
+            # The ExtractedText record is now approved.
+            # Redirect to the appropriate page.
 
+            referer = request.POST.get('referer', '') 
             if referer == 'data_document':
                 # The user got to the QA page from a data document detail page,
                 # so return there
-                return HttpResponseRedirect(
-                    reverse(referer, kwargs={'pk': pk}))
+                redirect_to = reverse(referer, kwargs={'pk': pk})
             elif not nextpk == 0:
-                return HttpResponseRedirect(
-                    reverse('extracted_text_qa', args=[(nextpk)]))
+                redirect_to = reverse('extracted_text_qa', args=[(nextpk)])
             elif nextpk == 0:
                 # return to the top of the most local QA stack.
                 # that may be the list of ExtractionScripts or 
                 # the list of Chemical Presence Data Groups
+                redirect_to = extext.get_qa_index_path()
+
+            messages.success(request, "The extracted text has been approved!")
+            if is_safe_url(url=redirect_to, allowed_hosts=request.get_host()):
+                return HttpResponseRedirect(redirect_to)
+            else:
                 return HttpResponseRedirect(
-                        extext.get_qa_index_path()
-                            )
+                    reverse('extracted_text_qa', args=[(pk)]))
         else:
-            # The notesform is not valid
-            pass
-    return render(request, template_name, context)
+            # The ExtractedText record cannot be approved.
+            # Return to the QA page and display an error.
+            messages.error(request, "The extracted text \
+                could not be approved. Make sure that if the records have been edited,\
+                the QA Notes have been populated.")
+            return HttpResponseRedirect(
+                    reverse('extracted_text_qa', args=[(pk)]))
+
+        
+        
+

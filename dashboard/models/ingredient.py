@@ -1,8 +1,6 @@
 from django.db import models
 from .common_info import CommonInfo
 from django.core.exceptions import ValidationError
-from .weight_fraction_type import WeightFractionType
-from .extracted_chemical import ExtractedChemical
 from .script import Script
 
 

@@ -54,19 +54,34 @@ class DashboardTest(TestCase):
         self.assertEqual('100%', extracted_doc_count)
 
     def test_PUC_download(self):
-        p = self.objects.puc
-        puc_line = (p.gen_cat + ',' + p.prod_fam + ',' + p.prod_type + ',' + p.description +
-                    ',' + str(p.get_level()) + ',' + str(p.product_count))
+        puc = self.objects.puc
+        # import pdb; pdb.set_trace()
+
+        allowedTag = PUCTag.objects.create(name='aerosol')
+        PUCToTag.objects.create(tag=allowedTag,content_object=puc,assumed=False)
+
+        assumedTag = PUCTag.objects.create(name='foamspray')
+        PUCToTag.objects.create(tag=assumedTag,content_object=puc,assumed=True)
+
         # get csv
         response = self.client.get('/dl_pucs/')
         self.assertEqual(response.status_code, 200)
         csv_lines = response.content.decode('ascii').split('\r\n')
         # check header
-        self.assertEqual(csv_lines[0], ('gen_cat,prod_fam,prod_type,description,'
-                                        'PUC_type,num_prods'))
+        self.assertEqual(csv_lines[0], ('General category,Product family,Product type,'
+            'Allowed attributes,Assumed attributes,Description,PUC type,PUC level,Product count'))
         # check the PUC from loader
-        self.assertEqual(csv_lines[1], puc_line)
-
+        row1 = csv_lines[1].split(',')
+        self.assertEqual(len(row1), 9)
+        self.assertEqual(row1[0], 'Test General Category')
+        self.assertEqual(row1[1], 'Test Product Family')
+        self.assertEqual(row1[2], 'Test Product Type')
+        self.assertEqual(row1[3], 'aerosol; foamspray')
+        self.assertEqual(row1[4], 'foamspray')
+        self.assertEqual(row1[5], 'Test Product Description')
+        self.assertEqual(row1[6], 'FO')
+        self.assertEqual(row1[7], '3')
+        self.assertEqual(row1[8], '0')
 
 class DashboardTestWithFixtures(TestCase):
     fixtures = fixtures_standard

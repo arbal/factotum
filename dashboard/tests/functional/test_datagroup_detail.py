@@ -1,14 +1,6 @@
-from lxml import html
-from importlib import import_module
-
-from django.test import Client
 from django.test import TestCase
 from dashboard.tests.loader import load_model_objects, fixtures_standard
-from dashboard.views.data_group import ExtractionScriptForm, DataGroupForm
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth.models import User
-from django.test import Client
-from importlib import import_module
 from django.db.models import Max
 
 from dashboard.forms import *

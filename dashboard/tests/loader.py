@@ -1,7 +1,16 @@
+from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth.models import User
-
 from dashboard.models import *
+
+from selenium import webdriver
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
 
 fixtures_standard = [ '00_superuser',
                       '01_lookups',
@@ -11,19 +20,38 @@ fixtures_standard = [ '00_superuser',
                       '05_product',
                       '06_datadocument',
                       '07_rawchem_etc',
-                       '08_script',
-                    '09_productdocument',  
-                    '10_habits_and_practices',
-                     '11_habits_and_practices_to_puc',
+                      '08_script',
+                      '09_productdocument',
+                      '10_habits_and_practices',
+                      '11_habits_and_practices_to_puc',
                       '12_product_to_puc',
-                        '13_puc_tag'
-                        ]
+                      '13_puc_tag'
+                      ]
+
+datadocument_models = {
+                        'CO': ExtractedChemical,
+                        'FU': ExtractedFunctionalUse,
+                        'HP': ExtractedHabitsAndPractices,
+                        'CP': ExtractedListPresence,
+                        'HH': ExtractedHHRec
+                    }
+
 
 class dotdict(dict):
     """dot.notation access to dictionary attributes"""
     __getattr__ = dict.get
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__
+
+
+def load_browser():
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    if settings.TEST_BROWSER == 'firefox':
+        return webdriver.Firefox()
+    else:
+        return webdriver.Chrome(executable_path=settings.CHROMEDRIVER_PATH, chrome_options=chrome_options)
+
 
 def load_model_objects():
     user = User.objects.create_user(username='Karyn',

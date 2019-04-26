@@ -1,5 +1,6 @@
 from django.test import Client
 from dashboard.tests.loader import *
+from dashboard import views
 from django.test import TestCase, override_settings, RequestFactory
 from dashboard.models import DataDocument, Script, ExtractedText, ExtractedChemical, QAGroup
 from django.db.models import Count
@@ -131,6 +132,89 @@ class TestQaPage(TestCase):
         response = self.client.get('/qa/extractedtext/7', follow=True)
         # print(response.context['extracted_text'])
 
+    def test_detail_edits(self):
+        '''
+        After editing a detail ("child") record, confirm that
+        the save and approval functions work
+        '''
+
+        resp = self.client.get('/qa/extractedtext/7/')
+        self.assertContains(resp, 'value="dibutyl phthalate"', status_code=200)
+
+        post_context = {
+            'csrfmiddlewaretoken': ['BvtzIX6JjC5XkPWmAOduJllMTMdRLoVWeJtneuBVe5Bc3Js35EVsJunvII6vNFAy'],
+            'rawchem-TOTAL_FORMS': ['2'],
+            'rawchem-INITIAL_FORMS': ['1'],
+            'rawchem-MIN_NUM_FORMS': ['0'],
+            'rawchem-MAX_NUM_FORMS': ['1000'],
+            'save': [''],
+            'rawchem-0-extracted_text': ['7'],
+            'rawchem-0-true_cas': ['84-74-2'],
+            'rawchem-0-true_chemname': ['dibutyl phthalate'],
+            'rawchem-0-SID': ['DTXSID2021781'],
+            'rawchem-0-rawchem_ptr': ['4'],
+            # change the raw_chem_name
+            'rawchem-0-raw_chem_name': ['dibutyl phthalate edited'],
+            'rawchem-0-raw_cas': ['84-74-2'],
+            'rawchem-0-raw_min_comp': ['4'],
+            'rawchem-0-raw_central_comp': [''],
+            'rawchem-0-raw_max_comp': ['7'],
+            'rawchem-0-unit_type': ['1'],
+            'rawchem-0-report_funcuse': ['swell'],
+            'rawchem-0-ingredient_rank': [''],
+            'rawchem-1-extracted_text': ['7'],
+            'rawchem-1-rawchem_ptr': [''],
+            'rawchem-1-raw_chem_name': [''],
+            'rawchem-1-raw_cas': [''],
+            'rawchem-1-raw_min_comp': [''],
+            'rawchem-1-raw_central_comp': [''],
+            'rawchem-1-raw_max_comp': [''],
+            'rawchem-1-unit_type': [''],
+            'rawchem-1-report_funcuse': [''],
+            'rawchem-1-ingredient_rank': ['']
+        } 
+        
+        request = self.factory.post(
+            path='/qa/extractedtext/7/', data=post_context)
+        
+        request.user = User.objects.get(username='Karyn')
+        request.session = {}
+        request.save = [""]
+        resp = views.extracted_text_qa(pk=7, request=request)
+        # The response has a 200 status code and contains the 
+        # new edited value
+        self.assertContains(resp, 'value="dibutyl phthalate edited"', status_code=200)
+
+        # Check the ORM objects here to make sure the editing has proceeded
+        # correctly and the qa-related attributes are updated
+        et = ExtractedText.objects.get(pk=7)
+        self.assertEqual(et.qa_edited, True)
+
+        # The RawChem object of interest is the one with the first detail form
+        rc_key = post_context['rawchem-0-rawchem_ptr'][0]
+        rc = RawChem.objects.get(pk=rc_key)
+
+        # The raw_chem_name matches the new value
+        self.assertEqual(rc.raw_chem_name, 'dibutyl phthalate edited')
+        # The dsstox link has been broken
+        self.assertFalse(rc.sid)
+        
+        # Change a different value and try to save it
+        post_context.update({'rawchem-0-raw_central_comp': '6'})
+
+        request = self.factory.post(
+            path='/qa/extractedtext/7/', data=post_context)
+        request.user = User.objects.get(username='Karyn')
+        request.session = {}
+        request.save = [""]
+        resp = views.extracted_text_qa(pk=7, request=request)
+        # The second edit appears in the page
+        self.assertContains(resp, 'name="rawchem-0-raw_central_comp" value="6"', status_code=200)
+        
+        
+
+        
+
     def test_hidden_fields(self):
         '''ExtractionScript 15 includes a functional use data group with pk = 5.
         Its QA page should hide the composition fields '''
@@ -186,7 +270,8 @@ class TestQaPage(TestCase):
     def test_every_extractedtext_qa(self):
         # Attempt to open a QA page for every ExtractedText record
         for et in ExtractedText.objects.all():
-            response = self.client.get(f'/qa/extractedtext/%s' % et.data_document_id, follow=True)
+            response = self.client.get(
+                f'/qa/extractedtext/%s' % et.data_document_id, follow=True)
             if response.status_code != 200:
                 print(et.data_document_id)
             self.assertEqual(response.status_code, 200)

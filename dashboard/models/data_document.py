@@ -15,7 +15,10 @@ class DataDocument(CommonInfo):
 
     ``title``
         the title of the document
-    
+
+    ``subtitle``
+        the subtitle of the document
+
     ``url``
         an optional URL to the document's remote source
 
@@ -54,6 +57,7 @@ class DataDocument(CommonInfo):
 
     filename = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
+    subtitle = models.CharField(null=True, blank=True, max_length=250, default=None)
     url = models.CharField(null=True, blank=True, max_length=275)
     raw_category = models.CharField(null=True, blank=True, max_length=100)
     data_group = models.ForeignKey('DataGroup', on_delete=models.CASCADE)
@@ -104,7 +108,8 @@ class DataDocument(CommonInfo):
         # the document_type must be one of the children types
         # of the datadocument's parent datagroup
         this_type = self.data_group.group_type
-        doc_types = DocumentType.objects.filter(group_type=this_type)
+        qs_hotfix = DocumentType.objects.filter(pk=1)
+        doc_types = DocumentType.objects.filter(group_type=this_type) | qs_hotfix
         if not self.document_type in doc_types:
             raise ValidationError(('The document type must be allowed by '
                                                     'the parent data group.'))
