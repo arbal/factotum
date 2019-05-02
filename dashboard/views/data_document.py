@@ -140,8 +140,10 @@ def extracted_text_edit(request, pk):
     ParentForm, _ = create_detail_formset(doc, extra=0, can_delete=False)
     model = ParentForm.Meta.model
     script = Script.objects.get(title__icontains='Manual (dummy)', script_type='EX')
-    exttext, _ = model.objects.get_or_create(extraction_script=script,
-                                             data_document_id=pk)
+    try:
+        exttext = model.objects.get_subclass(data_document_id=pk)
+    except ExtractedText.DoesNotExist:
+        exttext = model(data_document_id=pk, extraction_script=script)
     form = ParentForm(request.POST, instance=exttext)
     if form.is_valid():
         form.save()
