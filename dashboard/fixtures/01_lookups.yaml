@@ -51,107 +51,350 @@
   fields: {created_at: null, updated_at: null, sid: DTXSID7020182, true_cas: 80-05-7,
     true_chemname: bisphenol a}
 - model: dashboard.documenttype
-  pk: 1
-  fields: {created_at: ! '2018-06-20 12:16:49.070487', updated_at: ! '2018-10-31 21:39:49.839800',
-    title: Unidentified, description: Unidentified Document Type, code: UN, group_type: 1}
-- model: dashboard.documenttype
   pk: 2
-  fields: {created_at: ! '2018-07-12 10:50:09.783274', updated_at: ! '2018-10-31 21:39:49.836220',
-    title: MSDS, description: '', code: MS, group_type: 2}
+  fields:
+    created_at: 2018-07-12 10:50:09.783274
+    updated_at: 2018-10-31 21:39:49.836220
+    title: MSDS
+    description: ''
+    code: MS
 - model: dashboard.documenttype
   pk: 3
-  fields: {created_at: ! '2018-07-12 10:50:15.238632', updated_at: ! '2018-10-31 21:39:49.838866',
-    title: SDS, description: '', code: SD, group_type: 2}
+  fields:
+    created_at: 2018-07-12 10:50:15.238632
+    updated_at: 2018-10-31 21:39:49.838866
+    title: SDS
+    description: ''
+    code: SD
 - model: dashboard.documenttype
   pk: 4
-  fields: {created_at: ! '2018-07-12 10:50:23.345012', updated_at: ! '2018-10-31 21:39:49.834781',
-    title: ingredient list, description: '', code: IL, group_type: 2}
+  fields:
+    created_at: 2018-07-12 10:50:23.345012
+    updated_at: 2018-10-31 21:39:49.834781
+    title: ingredient list
+    description: ''
+    code: IL
 - model: dashboard.documenttype
   pk: 5
-  fields: {created_at: ! '2018-07-12 10:50:31.543699', updated_at: ! '2018-10-31 21:39:49.833812',
-    title: ingredient disclosure, description: '', code: ID, group_type: 2}
-- model: dashboard.documenttype
-  pk: 6
-  fields: {created_at: ! '2018-07-12 10:50:39.660935', updated_at: ! '2018-10-31 21:39:49.836700',
-    title: MSDS, description: '', code: MS, group_type: 3}
-- model: dashboard.documenttype
-  pk: 7
-  fields: {created_at: ! '2018-07-12 10:50:46.594201', updated_at: ! '2018-10-31 21:39:49.839346',
-    title: SDS, description: '', code: SD, group_type: 3}
-- model: dashboard.documenttype
-  pk: 8
-  fields: {created_at: ! '2018-07-12 10:50:54.639740', updated_at: ! '2018-10-31 21:39:49.834306',
-    title: ingredient disclosure, description: '', code: ID, group_type: 3}
+  fields:
+    created_at: 2018-07-12 10:50:31.543699
+    updated_at: 2018-10-31 21:39:49.833812
+    title: ingredient disclosure
+    description: ''
+    code: ID
 - model: dashboard.documenttype
   pk: 9
-  fields: {created_at: ! '2018-07-12 10:51:05.963622', updated_at: ! '2018-10-31 21:39:49.833169',
-    title: chemical use disclosure, description: '', code: CD, group_type: 3}
+  fields:
+    created_at: 2018-07-12 10:51:05.963622
+    updated_at: 2018-10-31 21:39:49.833169
+    title: chemical use disclosure
+    description: ''
+    code: CD
 - model: dashboard.documenttype
   pk: 10
-  fields: {created_at: ! '2018-07-12 10:51:41.054772', updated_at: ! '2018-10-31 21:39:49.835717',
-    title: Memo, description: '', code: MO, group_type: 5}
+  fields:
+    created_at: 2018-07-12 10:51:41.054772
+    updated_at: 2018-10-31 21:39:49.835717
+    title: Memo
+    description: ''
+    code: MO
 - model: dashboard.documenttype
   pk: 11
-  fields: {created_at: ! '2018-07-12 10:51:46.155168', updated_at: ! '2018-10-31 21:39:49.835249',
-    title: journal article, description: '', code: JA, group_type: 4}
+  fields:
+    created_at: 2018-07-12 10:51:46.155168
+    updated_at: 2018-10-31 21:39:49.835249
+    title: journal article
+    description: ''
+    code: JA
 - model: dashboard.documenttype
   pk: 12
-  fields: {created_at: ! '2018-07-12 10:51:46.155168', updated_at: ! '2018-10-31 21:39:49.837887',
-    title: poster, description: '', code: PO, group_type: 4}
+  fields:
+    created_at: 2018-07-12 10:51:46.155168
+    updated_at: 2018-10-31 21:39:49.837887
+    title: poster
+    description: ''
+    code: PO
 - model: dashboard.documenttype
   pk: 13
-  fields: {created_at: ! '2018-07-12 10:51:46.155168', updated_at: ! '2018-10-31 21:39:49.838392',
-    title: professional society report, description: '', code: SR, group_type: 4}
+  fields:
+    created_at: 2018-07-12 10:51:46.155168
+    updated_at: 2018-10-31 21:39:49.838392
+    title: professional society report
+    description: ''
+    code: SR
 - model: dashboard.documenttype
   pk: 14
-  fields: {created_at: ! '2018-07-12 10:51:46.155168', updated_at: ! '2018-10-31 21:39:49.837264',
-    title: other survey/study, description: '', code: OT, group_type: 4}
+  fields:
+    created_at: 2018-07-12 10:51:46.155168
+    updated_at: 2018-10-31 21:39:49.837264
+    title: other survey/study
+    description: ''
+    code: OT
 - model: dashboard.documenttype
   pk: 15
-  fields: {created_at: ! '2019-02-21 09:08:21.652415', updated_at: ! '2019-02-21 09:08:21.652431',
-    title: HHE Report, description: null, code: HH, group_type: 7}
-
-
+  fields:
+    created_at: 2019-02-21 09:08:21.652415
+    updated_at: 2019-02-21 09:08:21.652431
+    title: HHE Report
+    description: null
+    code: HH
 - model: dashboard.documenttype
-  fields: {created_at: ! '2018-07-12 10:50:39.660935', updated_at: ! '2018-07-12 10:50:39.660935',
-    title: Product Safety Data Sheet (PSDS), code: PS, group_type: 2}
+  pk: 16
+  fields:
+    created_at: 2018-07-12 10:50:39.660935
+    updated_at: 2018-07-12 10:50:39.660935
+    title: Product Safety Data Sheet (PSDS)
+    description: null
+    code: PS
 - model: dashboard.documenttype
-  fields: {created_at: ! '2018-07-12 10:50:39.660936', updated_at: ! '2018-07-12 10:50:39.660936',
-    title: Unidentified, code: UN, group_type: 2}
+  pk: 18
+  fields:
+    created_at: 2018-07-12 10:50:39.660937
+    updated_at: 2018-07-12 10:50:39.660937
+    title: product label
+    description: null
+    code: PL
 - model: dashboard.documenttype
-  fields: {created_at: ! '2018-07-12 10:50:39.660937', updated_at: ! '2018-07-12 10:50:39.660937',
-    title: product label, code: PL, group_type: 2}
+  pk: 19
+  fields:
+    created_at: 2018-07-12 10:50:39.660938
+    updated_at: 2018-07-12 10:50:39.660938
+    title: Declare Product Declaration
+    description: Standard information sheet from the Declare/Living Future website
+      (https://living-future.org/declare/)
+    code: DL
 - model: dashboard.documenttype
-  fields: {created_at: ! '2018-07-12 10:50:39.660938', updated_at: ! '2018-07-12 10:50:39.660938',
-    title: Declare Product Declaration, 
-    description: "Standard information sheet from the Declare/Living Future website (https://living-future.org/declare/)", code: DL, group_type: 2}
+  pk: 20
+  fields:
+    created_at: 2018-07-12 10:50:39.660939
+    updated_at: 2018-07-12 10:50:39.660939
+    title: Technical Data Sheet
+    description: null
+    code: TD
 - model: dashboard.documenttype
-  fields: {created_at: ! '2018-07-12 10:50:39.660939', updated_at: ! '2018-07-12 10:50:39.660939',
-    title: Technical Data Sheet, code: TD, group_type: 2}
+  pk: 21
+  fields:
+    created_at: 2018-07-12 10:50:39.660940
+    updated_at: 2018-07-12 10:50:39.660940
+    title: RIVM Report
+    description: null
+    code: RI
 - model: dashboard.documenttype
-  fields: {created_at: ! '2018-07-12 10:50:39.660940', updated_at: ! '2018-07-12 10:50:39.660940',
-    title: RIVM Report, code: RI, group_type: 4}
+  pk: 22
+  fields:
+    created_at: 2018-07-12 10:50:39.660941
+    updated_at: 2018-07-12 10:50:39.660941
+    title: governmental report
+    description: reports published/made public by a U.S. government agency
+    code: GO
 - model: dashboard.documenttype
-  fields: {created_at: ! '2018-07-12 10:50:39.660941', updated_at: ! '2018-07-12 10:50:39.660941',
-    title: governmental report, description: reports published/made public by a U.S. government agency, code: GO, group_type: 4}
+  pk: 23
+  fields:
+    created_at: 2018-07-12 10:50:39.660942
+    updated_at: 2018-07-12 10:50:39.660942
+    title: State government
+    description: Report, etc. issued by a state level governmental agency
+    code: SG
 - model: dashboard.documenttype
-  fields: {created_at: ! '2018-07-12 10:50:39.660942', updated_at: ! '2018-07-12 10:50:39.660942',
-    title: State government, description: "Report, etc. issued by a state level governmental agency", code: SG, group_type: 6}
+  pk: 24
+  fields:
+    created_at: 2018-07-12 10:50:39.660943
+    updated_at: 2018-07-12 10:50:39.660943
+    title: Federal government (US)
+    description: Report, etc. issued by a federal government agency in the U.S. (e.g.
+      FDA, EPA, etc)
+    code: FG
 - model: dashboard.documenttype
-  fields: {created_at: ! '2018-07-12 10:50:39.660943', updated_at: ! '2018-07-12 10:50:39.660943',
-    title: Federal government (US), description: "Report, etc. issued by a federal government agency in the U.S. (e.g. FDA, EPA, etc)", code: FG, group_type: 6}
+  pk: 25
+  fields:
+    created_at: 2018-07-12 10:50:39.660944
+    updated_at: 2018-07-12 10:50:39.660944
+    title: Foreign government
+    description: Report, etc. issue by a foreign government agency (non-US)
+    code: FO
 - model: dashboard.documenttype
-  fields: {created_at: ! '2018-07-12 10:50:39.660944', updated_at: ! '2018-07-12 10:50:39.660944',
-    title: Foreign government, description: "Report, etc. issue by a foreign government agency (non-US)", code: FO, group_type: 6}
-- model: dashboard.documenttype
-  fields: {created_at: ! '2018-07-12 10:50:39.660945', updated_at: ! '2018-07-12 10:50:39.660945',
-    title: journal article, description: "Peer reviewed, published article in a recognized journal", code: JA, group_type: 6}
-- model: dashboard.documenttype
-  fields: {created_at: ! '2018-07-12 10:50:39.660946', updated_at: ! '2018-07-12 10:50:39.660946',
-    title: Unidentified, description: "Unidentified or not otherwise classified document type", code: UN, group_type: 6}
-- model: dashboard.documenttype
-  fields: {created_at: ! '2018-07-12 10:50:39.660947', updated_at: ! '2018-07-12 10:50:39.660947',
-    title: Academic, description: "Report, etc. issued by a university", code: AC, group_type: 6}
+  pk: 28
+  fields:
+    created_at: 2018-07-12 10:50:39.660947
+    updated_at: 2018-07-12 10:50:39.660947
+    title: Academic
+    description: Report, etc. issued by a university
+    code: AC
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 1
+  fields:
+    created_at: 2019-04-30 11:51:34.012308
+    updated_at: 2019-04-30 11:51:34.012329
+    document_type: 28
+    group_type: 6
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 2
+  fields:
+    created_at: 2019-04-30 11:51:34.012358
+    updated_at: 2019-04-30 11:51:34.012366
+    document_type: 9
+    group_type: 3
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 3
+  fields:
+    created_at: 2019-04-30 11:51:34.012383
+    updated_at: 2019-04-30 11:51:34.012389
+    document_type: 19
+    group_type: 2
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 4
+  fields:
+    created_at: 2019-04-30 11:51:34.012405
+    updated_at: 2019-04-30 11:51:34.012410
+    document_type: 24
+    group_type: 6
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 5
+  fields:
+    created_at: 2019-04-30 11:51:34.012426
+    updated_at: 2019-04-30 11:51:34.012432
+    document_type: 25
+    group_type: 6
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 6
+  fields:
+    created_at: 2019-04-30 11:51:34.012447
+    updated_at: 2019-04-30 11:51:34.012453
+    document_type: 22
+    group_type: 4
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 7
+  fields:
+    created_at: 2019-04-30 11:51:34.012468
+    updated_at: 2019-04-30 11:51:34.012474
+    document_type: 15
+    group_type: 7
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 8
+  fields:
+    created_at: 2019-04-30 11:51:34.012488
+    updated_at: 2019-04-30 11:51:34.012494
+    document_type: 5
+    group_type: 2
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 9
+  fields:
+    created_at: 2019-04-30 11:51:34.012509
+    updated_at: 2019-04-30 11:51:34.012514
+    document_type: 5
+    group_type: 3
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 10
+  fields:
+    created_at: 2019-04-30 11:51:34.012529
+    updated_at: 2019-04-30 11:51:34.012535
+    document_type: 4
+    group_type: 2
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 11
+  fields:
+    created_at: 2019-04-30 11:51:34.012549
+    updated_at: 2019-04-30 11:51:34.012555
+    document_type: 11
+    group_type: 4
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 12
+  fields:
+    created_at: 2019-04-30 11:51:34.012570
+    updated_at: 2019-04-30 11:51:34.012575
+    document_type: 11
+    group_type: 6
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 13
+  fields:
+    created_at: 2019-04-30 11:51:34.012590
+    updated_at: 2019-04-30 11:51:34.012596
+    document_type: 10
+    group_type: 5
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 14
+  fields:
+    created_at: 2019-04-30 11:51:34.012610
+    updated_at: 2019-04-30 11:51:34.012616
+    document_type: 2
+    group_type: 2
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 15
+  fields:
+    created_at: 2019-04-30 11:51:34.012631
+    updated_at: 2019-04-30 11:51:34.012637
+    document_type: 2
+    group_type: 3
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 16
+  fields:
+    created_at: 2019-04-30 11:51:34.012651
+    updated_at: 2019-04-30 11:51:34.012657
+    document_type: 14
+    group_type: 4
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 17
+  fields:
+    created_at: 2019-04-30 11:51:34.012672
+    updated_at: 2019-04-30 11:51:34.012677
+    document_type: 12
+    group_type: 4
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 18
+  fields:
+    created_at: 2019-04-30 11:51:34.012692
+    updated_at: 2019-04-30 11:51:34.012698
+    document_type: 18
+    group_type: 2
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 19
+  fields:
+    created_at: 2019-04-30 11:51:34.012712
+    updated_at: 2019-04-30 11:51:34.012718
+    document_type: 16
+    group_type: 2
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 20
+  fields:
+    created_at: 2019-04-30 11:51:34.012733
+    updated_at: 2019-04-30 11:51:34.012739
+    document_type: 13
+    group_type: 4
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 21
+  fields:
+    created_at: 2019-04-30 11:51:34.012753
+    updated_at: 2019-04-30 11:51:34.012759
+    document_type: 21
+    group_type: 4
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 22
+  fields:
+    created_at: 2019-04-30 11:51:34.012774
+    updated_at: 2019-04-30 11:51:34.012779
+    document_type: 3
+    group_type: 2
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 23
+  fields:
+    created_at: 2019-04-30 11:51:34.012794
+    updated_at: 2019-04-30 11:51:34.012799
+    document_type: 3
+    group_type: 3
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 24
+  fields:
+    created_at: 2019-04-30 11:51:34.012814
+    updated_at: 2019-04-30 11:51:34.012820
+    document_type: 23
+    group_type: 6
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 25
+  fields:
+    created_at: 2019-04-30 11:51:34.012834
+    updated_at: 2019-04-30 11:51:34.012840
+    document_type: 20
+    group_type: 2
 - model: dashboard.unittype
   pk: 1
   fields: {created_at: ! '2018-05-07 16:29:57', updated_at: null, title: weight fraction,

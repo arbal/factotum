@@ -273,4 +273,13 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             self.assertEqual('Fake Product', et.prod_name,
                              "The prod_name of the new object should match what was entered")
 
-
+    def test_bubble_plot(self):
+        num_pucs = len(PUC.objects.filter(kind='FO'))
+        self.browser.get(self.live_server_url)
+        import time
+        time.sleep(3)
+        bubbles = self.browser.find_elements_by_class_name('bubble')
+        self.assertTrue(num_pucs > 0, "Need more than one PUC")
+        self.assertTrue(len(bubbles) > 0, "Need more than one bubble")
+        self.assertEqual(num_pucs, len(bubbles), ('There should be a circle'
+                                                  'drawn for every PUC'))

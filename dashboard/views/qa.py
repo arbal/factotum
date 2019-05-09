@@ -216,7 +216,7 @@ def extracted_text_qa(request, pk,
 
     # Allow the user to edit the data document type
     document_type_form = DocumentTypeForm(request.POST or None, instance=doc)
-    qs = DocumentType.objects.filter(group_type=doc.data_group.group_type)
+    qs = DocumentType.objects.compatible(doc)
     document_type_form.fields['document_type'].queryset = qs
     # the form class overrides the label, so over-override it
     document_type_form.fields['document_type'].label = 'Data document type:'

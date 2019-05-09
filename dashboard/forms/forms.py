@@ -121,7 +121,8 @@ class ProductLinkForm(forms.ModelForm):
     document_type = forms.ModelChoiceField(
         queryset=DocumentType.objects.all(),
         label="Data Document Type",
-        required=True)
+        required=False)
+
     return_url = forms.CharField()
 
     class Meta:
@@ -394,22 +395,13 @@ class DataDocumentForm(forms.ModelForm):
 
     class Meta:
         model = DataDocument
-        fields = ['title', 'subtitle', 'document_type', 'note']
-
-    @staticmethod
-    def label_from_instance(obj):
-        return f"{obj.title} (in Group Type: {obj.group_type})"
+        fields = ['title', 'subtitle', 'document_type', 'note', 'url']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        qs_hotfix = (
-            self.fields['document_type']
-            .queryset
-            .filter(pk=1)
-        )
         self.fields['document_type'].queryset = (
-            self.fields['document_type']
-            .queryset
-            .filter(group_type=self.instance.data_group.group_type)
-        ) | qs_hotfix
-        self.fields['document_type'].label_from_instance = self.label_from_instance
+            DocumentType
+            .objects
+            .compatible(self.instance)
+        )
+

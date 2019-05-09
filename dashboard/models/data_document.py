@@ -72,8 +72,12 @@ class DataDocument(CommonInfo):
     extracted = models.BooleanField(default=False)  
     # The is_extracted method below should replace this attribute
     #############################################################
-    document_type = models.ForeignKey(DocumentType, on_delete=models.PROTECT,
-                                                        null=True, blank=True)
+    document_type = models.ForeignKey(
+        'DocumentType',
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True
+    )
     organization = models.CharField(max_length=255, blank=True)
     note = models.TextField(blank=True, null=True)
 
@@ -106,10 +110,8 @@ class DataDocument(CommonInfo):
 
     def clean(self):
         # the document_type must be one of the children types
-        # of the datadocument's parent datagroup
-        this_type = self.data_group.group_type
-        qs_hotfix = DocumentType.objects.filter(pk=1)
-        doc_types = DocumentType.objects.filter(group_type=this_type) | qs_hotfix
-        if not self.document_type in doc_types:
+        # of the datadocument's parent datagroup or null
+        if self.document_type and self.document_type not in DocumentType.objects.compatible(self):
+
             raise ValidationError(('The document type must be allowed by '
-                                                    'the parent data group.'))
+                                   'the parent data group.'))

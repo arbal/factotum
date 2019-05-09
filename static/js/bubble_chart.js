@@ -2,8 +2,8 @@ function bubbleChart() {
     var width = 1080,
         height = 500,
         maxRadius = 6,
-        columnForColors = "gen_cat",
-        columnForRadius = "num_prods";
+        columnForColors = "General category",
+        columnForRadius = "Product count";
 
     function chart(selection) {
         var data = selection.datum();
@@ -52,11 +52,10 @@ function bubbleChart() {
 
 
 
-
         var forceXSeparate = d3v4.forceX(function (d){
-            if(d.PUC_type === '1'){
+            if(d['PUC level']  === '1'){
                 return 180
-            } else if (d.PUC_type === '2'){
+            } else if (d['PUC level'] === '2'){
                 return 420
             } else {
                 return 620
@@ -105,7 +104,7 @@ function bubbleChart() {
 
 
 
-        let result = data.map(a => a.gen_cat);
+        let result = data.map(a => a['General category']);
         function onlyUnique(value, index, self) {
             return self.indexOf(value) === index;
         }
@@ -169,8 +168,8 @@ function bubbleChart() {
                   .attr('stroke-width',1)
                 var matrix = this.getScreenCTM()
                     .translate(+ this.getAttribute("cx"), + this.getAttribute("cy"));
-                    console.log(matrix)
-                tooltip.html("PUC Level: " + d.PUC_type + "<br><b>" + d.gen_cat + "-</b><br><b>-" + d.prod_fam + "-</b><br><b>-" + d.prod_type + "</b><br>" + "Product Count: " + d[columnForRadius])
+                    // console.log(matrix)
+                tooltip.html("PUC level: " + d['PUC level'] + "<br><b>" + d['General category'] + "-</b><br><b>-" + d['Product family'] + "-</b><br><b>-" + d['Product type'] + "</b><br>" + "Product Count: " + d[columnForRadius])
                     .style("left", (window.pageXOffset + matrix.e + 15) + "px")
                     .style("top", (window.pageYOffset + matrix.f - 30) + "px");
                 return tooltip.style("visibility", "visible");

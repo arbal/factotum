@@ -26,14 +26,14 @@ class DDTestModel(TestCase):
             group_type__title='Composition').first()
         # Choose a document type from the wrong parent group type
         dt_fu = DocumentType.objects.filter(
-            group_type__title='Functional use').first()
+            group_types__title='Functional use').first()
         dd = DataDocument.objects.create(
             filename="some.pdf", title="My Document", document_type=dt_fu, data_group=dgcomp)
         with self.assertRaises(ValidationError):
             dd.save()
             dd.full_clean()
         dt_comp = DocumentType.objects.filter(
-            group_type__title='Composition').first()
+            group_types__title='Composition').first()
         dd = DataDocument.objects.create(
             filename="some.pdf", title="My Document", document_type=dt_comp, data_group=dgcomp)
         dd.save()

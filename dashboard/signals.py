@@ -1,7 +1,7 @@
 from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_delete, pre_save
-from dashboard.models import ProductToPUC, ProductToTag, PUCToTag, RawChem, ExtractedChemical, ExtractedListPresence, ExtractedFunctionalUse
+from dashboard.models import ProductToPUC, ProductToTag, PUCToTag, RawChem, ExtractedChemical, ExtractedListPresence, ExtractedFunctionalUse, DataDocument, DocumentType, DocumentTypeGroupTypeCompatibilty
 
 #When dissociating a product from a PUC, delete it's (PUC-dependent) tags
 @receiver(post_delete, sender=ProductToPUC)
@@ -26,3 +26,17 @@ def uncurate(sender, **kwargs):
     watched_keys = {'raw_cas','raw_chem_name'}
     if not instance.tracker.changed().keys().isdisjoint(watched_keys):
         instance.dsstox = None
+
+
+@receiver(post_delete, sender=DocumentTypeGroupTypeCompatibilty)
+def rm_invalid_doctypes(sender, **kwargs):
+    '''When a DocumentTypeGroupTypeCompatibilty is dropped, the newly invalid DocumentType
+    fields of affected DataDocuments need to be nullified.
+    '''
+    compat_obj = kwargs['instance']
+    doc_type = compat_obj.document_type
+    group_type = compat_obj.group_type
+    (DataDocument
+     .objects
+     .filter(document_type=doc_type, data_group__group_type=group_type)
+     .update(document_type=None))

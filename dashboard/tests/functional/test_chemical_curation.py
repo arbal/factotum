@@ -23,11 +23,12 @@ class ChemicalCurationTests(TestCase):
         # respectively.
         rc = RawChem.objects.filter(dsstox_id__isnull=True).first()
         response = self.client.get('/dl_raw_chems/')
-        rc_row = f'%s,%s,%s,%s\r\n' % (rc.id, rc.raw_cas, rc.raw_chem_name, rc.rid if rc.rid else '')
+        header = 'dashboard_rawchem_id,raw_cas,raw_chem_name,rid,datagroup_id'
+        self.assertEqual(header, str(response.content,'utf-8').split('\r\n')[0], "header fields should match")
+        rc_row = f'{rc.id},{rc.raw_cas},{rc.raw_chem_name},{rc.rid if rc.rid else ""},{rc.data_group_id}'
         rc_row = bytes(rc_row, 'utf-8')
         self.assertIn(rc_row, response.content, 'The non-curated row should appear')
-
         rc = RawChem.objects.filter(dsstox_id__isnull=False).first()
-        rc_row = f'%s,%s,%s,%s\r\n' % (rc.id, rc.raw_cas, rc.raw_chem_name, rc.sid if rc.sid else '')
+        rc_row = f'{rc.id},{rc.raw_cas},{rc.raw_chem_name},{rc.rid if rc.rid else ""},{rc.data_group_id}'
         rc_row = bytes(rc_row, 'utf-8')
         self.assertNotIn(rc_row, response.content, 'The curated row should not appear')

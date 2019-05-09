@@ -34,7 +34,7 @@ def data_group_list(request, template_name='data_group/datagroup_list.html'):
 def data_group_detail(request, pk,
                       template_name='data_group/datagroup_detail.html'):
     dg = get_object_or_404(DataGroup, pk=pk, )
-    dg.doc_types = DocumentType.objects.filter(group_type=dg.group_type)
+    dg.doc_types = DocumentType.objects.compatible(dg)
     docs = dg.datadocument_set.get_queryset()#this needs to be updated after matching...
     prod_link = ProductDocument.objects.filter(document__in=docs)
     page = request.GET.get('page')
@@ -261,7 +261,7 @@ def data_group_create(request, pk,
             count = 0
             for line in table: # read every csv line, create docs for each
                 count+=1
-                doc_type = DocumentType.objects.get(pk=1)
+                doc_type = None
                 code = line['document_type']
                 if line['filename'] == '' :
                     errors.append([count,"Filename can't be empty!"])
@@ -274,15 +274,11 @@ def data_group_create(request, pk,
                     continue
                 if line['title'] == '': # updates title in line object
                     line['title'] = line['filename'].split('.')[0]
-                if code == '':
-                    errors.append([count,
-                                    "'document_type' field can't be empty"])
-                    continue
-                if DocumentType.objects.filter(group_type=datagroup.group_type,
-                                                            code=code).exists():
-                    doc_type = DocumentType.objects.get(
-                                    group_type=datagroup.group_type,code=code)
-                else:
+                a = bool(code)
+                b = a and DocumentType.objects.filter(code=code).exists()
+                if b:
+                    doc_type = DocumentType.objects.get(code=code)
+                elif a & ~b:
                     errors.append([count,"DocumentType code doesn't exist."])
 
                 filenames.append(line['filename'])
@@ -318,7 +314,7 @@ def data_group_create(request, pk,
     else:
         groups = GroupType.objects.all()
         for group in groups:
-            group.codes = DocumentType.objects.filter(group_type=group)
+            group.codes = DocumentType.objects.compatible(group)
         form = DataGroupForm(user=request.user, initial=initial_values)
     context = {'form': form, 'header': header,
                 'datasource': datasource, 'groups' : groups}
@@ -341,8 +337,8 @@ def data_group_update(request, pk, template_name='data_group/datagroup_form.html
         form.fields['group_type'].disabled = True
     groups = GroupType.objects.all()
     for group in groups:
-            group.codes = DocumentType.objects.filter(group_type=group)
-    return render(request, template_name, {'datagroup': datagroup, 
+            group.codes = DocumentType.objects.compatible(group)
+    return render(request, template_name, {'datagroup': datagroup,
                                             'form': form,
                                             'header': header,
                                             'groups': groups})

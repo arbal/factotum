@@ -25,7 +25,10 @@ fixtures_standard = [ '00_superuser',
                       '10_habits_and_practices',
                       '11_habits_and_practices_to_puc',
                       '12_product_to_puc',
-                      '13_puc_tag'
+                      '13_puc_tag',
+                      '14_list_presence_tag',
+                      '15_list_presence_to_tag'
+
                       ]
 
 datadocument_models = {
@@ -79,7 +82,7 @@ def load_model_objects():
                                         csv='register_records_matching.csv',
                                         url='https://www.epa.gov')
     dt = DocumentType.objects.create(title='MSDS',
-                                    code='MS', group_type=gt)
+                                     code='MS')
 
     doc = DataDocument.objects.create(title='test document',
                                             data_group=dg,

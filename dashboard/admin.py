@@ -56,19 +56,41 @@ class ScriptAdmin(admin.ModelAdmin):
         else:
             return ''
 
-class PUCToTagAdmin(admin.ModelAdmin):
-    list_display = ('content_object', 'tag', 'assumed')
+class ExtractedListPresenceToTagAdmin(admin.ModelAdmin):
+    list_display = ('content_object', 'tag')
     list_filter = ('tag',)
     def tag(self, obj):
         return obj.tag    
+
+class PUCToTagAdmin(admin.ModelAdmin):
+    list_display = ('content_object', 'tag', 'assumed')
+    list_filter = ('tag',)
+
+    def tag(self, obj):
+        return obj.tag
+
     def assumed(self, obj):
-        return obj.assumed 
+        return obj.assumed
+
+
+class GroupTypeInline(admin.TabularInline):
+    model = DocumentType.group_types.through
+    extra = 0
+    can_delete = False
+    verbose_name = "Compatible Group Type"
+    verbose_name_plural = "Compatible Group Types"
+
+class DocumentTypeAdmin(admin.ModelAdmin):
+    inlines = [
+        GroupTypeInline,
+    ]
+
 
 # Register your models here.
 admin.site.register(DataSource)
 admin.site.register(GroupType)
 admin.site.register(DataGroup)
-admin.site.register(DocumentType)
+admin.site.register(DocumentType, DocumentTypeAdmin)
 admin.site.register(DataDocument)
 admin.site.register(Script, ScriptAdmin)
 admin.site.register(Product)
@@ -91,3 +113,6 @@ admin.site.register(TaxonomyToPUC)
 admin.site.register(ExtractedHHDoc, HHDocAdmin)
 admin.site.register(ExtractedHHRec)
 admin.site.register(PUCToTag, PUCToTagAdmin)
+admin.site.register(ExtractedListPresence)
+admin.site.register(ExtractedListPresenceTag)
+admin.site.register(ExtractedListPresenceToTag, ExtractedListPresenceToTagAdmin)

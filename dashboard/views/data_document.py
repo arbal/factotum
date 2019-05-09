@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from djqscsv import render_to_csv_response
+from django.contrib import messages
 
 from dashboard.forms import *
 from dashboard.forms import ExtractedListPresenceTagForm
@@ -22,12 +23,8 @@ def data_document_detail(request, pk):
     # a time...
     ParentForm, ChildFormSet = create_detail_formset(
         doc, extra=edit, can_delete=bool(edit))
-    document_type_form = DocumentTypeForm(request.POST or None, instance=doc)
-    qs = DocumentType.objects.filter(group_type=doc.data_group.group_type)
-    document_type_form.fields['document_type'].queryset = qs
     context = {'doc': doc,
-               'edit': edit,
-               'document_type_form': document_type_form}
+               'edit': edit}
     if code == 'CP':
         # although keywords display as if at the datadocument level, they are
         # attached to each list_presence record. To display, we're getting the
@@ -105,6 +102,24 @@ def save_list_presence_tag_form(request, pk):
         if tag_form.is_valid():
             tag_form.save()
     return redirect(referer, pk=pk)
+
+@login_required()
+def save_list_presence_tag_form(request, pk):
+    referer = request.POST.get('referer', 'data_document')
+    extracted_text = get_object_or_404(ExtractedText, pk=pk)
+    tag_form = None
+    for extracted_list_presence in extracted_text.rawchem.select_subclasses('extractedlistpresence'):
+        tag_form = ExtractedListPresenceTagForm(request.POST or None, instance=extracted_list_presence)
+        if tag_form.is_valid():
+            tag_form.save()
+        else:
+            messages.error(request,tag_form.errors['tags'])
+            break
+    if not len(tag_form.errors):
+        messages.success(request,
+            "The following keywords are now associated with these list presence objects: %s" % tag_form['tags'].data)
+    return redirect(referer, pk=pk)
+
 
 @login_required()
 def data_document_delete(request, pk, template_name='data_source/datasource_confirm_delete.html'):

@@ -8,15 +8,16 @@ from .raw_chem import RawChem
 
 
 class ExtractedListPresence(CommonInfo, RawChem):
-    raw_cas_old = models.CharField("Raw CAS", max_length=100,
-                                        null=True, blank=True)
-    raw_chem_name_old = models.CharField("Raw chemical name", max_length=500,
-                                        null=True, blank=True)
+
     qa_flag = models.BooleanField(default=False)
     tags = TaggableManager(through='dashboard.ExtractedListPresenceToTag',
                            to='dashboard.ExtractedListPresenceTag',
                            blank=True,
                            help_text='A set of keywords applicable to this Extracted List Presence')
+
+    tags = TaggableManager(through='dashboard.ExtractedListPresenceToTag',
+                           to='dashboard.ExtractedListPresenceTag',
+                           blank=True)
 
     @classmethod
     def detail_fields(cls):
@@ -41,6 +42,13 @@ class ExtractedListPresenceToTag(TaggedItemBase, CommonInfo):
     tag = models.ForeignKey('ExtractedListPresenceTag', on_delete=models.CASCADE,
                             related_name="%(app_label)s_%(class)s_items")
 
+
+    class Meta:
+        verbose_name = _("Extracted list presence to keyword")
+        verbose_name_plural = _("Extracted list presence to keywords")
+        ordering = ('content_object',)
+
+
     def __str__(self):
         return str(self.content_object)
 
@@ -48,8 +56,9 @@ class ExtractedListPresenceToTag(TaggedItemBase, CommonInfo):
 class ExtractedListPresenceTag(TagBase, CommonInfo):
 
     class Meta:
-        verbose_name = _("ExtractedListPresence Keyword")
-        verbose_name_plural = _("ExtractedListPresence Keywords")
+
+        verbose_name = _("Extracted list presence keyword")
+        verbose_name_plural = _("Extracted list presence keywords")
         ordering = ('name',)
 
     def __str__(self):

@@ -3,13 +3,13 @@ from .extracted_text import ExtractedText
 
 
 class ExtractedCPCat(ExtractedText):
-    cat_code = models.CharField("Cat Code", max_length=100,
+    cat_code = models.CharField("Cat code", max_length=100,
                                         null=True, blank=True)
-    description_cpcat = models.CharField("Description CPCat", max_length=200,
+    description_cpcat = models.CharField("CPCat cassette", max_length=200,
                                         null=True, blank=True)
-    cpcat_code = models.CharField("CPCat Code", max_length=50,
+    cpcat_code = models.CharField("ACToR snaid", max_length=50,
                                         null=True, blank=True)
-    cpcat_sourcetype = models.CharField("CPCat SourceType", max_length=50,
+    cpcat_sourcetype = models.CharField("CPCat source", max_length=50,
                                         null=True, blank=True)
 
     def __str__(self):

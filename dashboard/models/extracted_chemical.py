@@ -14,10 +14,6 @@ def validate_ingredient_rank(value):
 
 class ExtractedChemical(CommonInfo, RawChem):
 
-    raw_cas_old = models.CharField(
-        "Raw CAS", max_length=100, null=True, blank=True)
-    raw_chem_name_old = models.CharField("Raw chemical name", max_length=500,
-                                         null=True, blank=True)
     raw_min_comp = models.CharField("Raw minimum composition", max_length=100,
                                     null=True, blank=True)
     raw_max_comp = models.CharField("Raw maximum composition", max_length=100,

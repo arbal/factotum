@@ -1,10 +1,10 @@
 import csv
 from django.utils import timezone
 from django.test import TestCase
+from django.db.utils import IntegrityError
 from django.db.models import Count
 from dashboard.models import *
 from dashboard.tests.loader import *
-from django.db.models import Q
 
 
 def create_data_documents(data_group, source_type, pdfs):
@@ -17,9 +17,7 @@ def create_data_documents(data_group, source_type, pdfs):
                 line['title'] = line['filename'].split('.')[0]
             dd = DataDocument.objects.create(filename=line['filename'],
                                             title=line['title'],
-                                            document_type=DocumentType.objects.get(
-                                                Q(code='MS') & Q(group_type_id= data_group.group_type_id)
-                                                ),
+                                            document_type=DocumentType.objects.get(code='MS'),
                                             url=line['url'],
                                             organization=line['organization'],
                                             matched = line['filename'] in pdfs,
@@ -39,9 +37,7 @@ def create_data_documents_with_txt(data_group, source_type, pdf_txt):
                 line['title'] = line['filename'].split('.')[0]
             dd = DataDocument.objects.create(filename=line['filename'],
                                             title=line['title'],
-                                            document_type=DocumentType.objects.get(
-                                                Q(code='MS') & Q(group_type_id= data_group.group_type_id)
-                                                ),
+                                            document_type=DocumentType.objects.get(code='MS'),
                                             url=line['url'],
                                             organization=line['organization'],
                                             matched = line['filename'] in pdf_txt,
@@ -275,7 +271,44 @@ class DataDocumentTest(TestCase):
         self.assertTrue(datadocument.note, "Some long note.")
 
 
+class DocumentTypeTest(TestCase):
 
+    fixtures = fixtures_standard
 
+    def test_unique_title(self):
+        doctype = DocumentType.objects.first()
+        new_doctype = DocumentType(title=doctype.title, code="YO")
+        err_msg = ("DocumentType was saved with duplicate title,"
+            " but this field should be unique")
+        self.assertRaises(IntegrityError, new_doctype.save, err_msg)
 
+    def test_unique_code(self):
+        doctype = DocumentType.objects.first()
+        new_doctype = DocumentType(title="lol", code=doctype.code)
+        err_msg = ("DocumentType was saved with duplicate code,"
+            " but this field should be unique")
+        self.assertRaises(IntegrityError, new_doctype.save, err_msg)
 
+    def test_rm_signal(self):
+        document_type_id = 15
+        group_type_id = 7
+        qs = (DataDocument
+              .objects
+              .filter(document_type_id=document_type_id,
+                      data_group__group_type__id=group_type_id))
+        qs_exclude = (DataDocument
+                      .objects
+                      .exclude(document_type_id=document_type_id,
+                               data_group__group_type__id=group_type_id))
+        num_doc_pre_rm = qs.count()
+        num_ex_doc_pre_rm = qs_exclude.count()
+        self.assertTrue(num_doc_pre_rm > 0, "Expected at least one initial valid DataDocument")
+        (DocumentTypeGroupTypeCompatibilty
+         .objects
+         .get(document_type_id=document_type_id,
+              group_type_id=group_type_id)
+         .delete())
+        num_doc_post_rm = qs.count()
+        num_ex_doc_post_rm = qs_exclude.count()
+        self.assertTrue(num_doc_post_rm == 0, "post_delete signal not received")
+        self.assertTrue(num_ex_doc_post_rm == num_ex_doc_pre_rm + num_doc_pre_rm, "Too many DataDocument.document_types nullified")

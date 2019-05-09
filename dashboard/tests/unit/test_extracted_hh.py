@@ -32,8 +32,7 @@ class HHTest(TestCase):
                                         group_type=hhgt,
                                         csv='register_records_matching.csv',
                                         url='https://www.epa.gov')
-        hhdt = DocumentType.objects.create(title='HHE Report',
-                                    code='HH', group_type=hhgt)
+        hhdt = DocumentType.objects.get(title='HHE Report', code='HH')
 
         hhdd = DataDocument.objects.create(title='test HHE document',
                             data_group=hhdg,

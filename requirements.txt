@@ -1,21 +1,23 @@
-certifi==2018.11.29
-Django>=2.1.2
-pytz==2018.9
-pyyaml>=4.2b1
-wincertstore==0.2
+certifi
+Django>=2.2,<2.3
 django-autocomplete-light==3.3.2
+django-bootstrap-datepicker-plus==3.0.5
 django-debug-toolbar==1.11
 django-haystack>=2.7.0
 django-haystack-elasticsearch>=0.1.0
-django-widget-tweaks>=1.4.1
+django-model-utils>=3.1
 django-queryset-csv>=1.0.0
+django-taggit<1
+django-widget-tweaks>=1.4.1
 docutils>=0.12
 elasticsearch-dsl>=2.0.0,<3.0.0
 elasticsearch>=2.0.0,<3.0.0
-django-bootstrap-datepicker-plus==3.0.5
-selenium>=3.14.0
-lxml>=4.2.2
-django-taggit>=0.23.0
--e git+https://github.com/bennylope/django-taggit-labels.git#egg=django_taggit_labels
 fuzzywuzzy>=0.17.0
-django-model-utils>=3.1
+lxml>=4.2.2
+mysqlclient==1.4.2.post1
+pytz==2018.9
+pyyaml>=4.2b1
+selenium>=3.14.0
+wincertstore==0.2
+
+-e git+https://github.com/bennylope/django-taggit-labels.git@7afef34125653e958dc5dba0280904a0714aa808#egg=django_taggit_labels

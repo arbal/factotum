@@ -150,10 +150,10 @@ class UploadExtractedFileTest(TestCase):
 
         doc_count = DataDocument.objects.filter(raw_category='list presence category').count()
         self.assertTrue(doc_count > 0, 'DataDocument raw category values must be updated.')
-
         self.assertEqual(len(ExtractedCPCat.objects.all()),2,
                             "Two after upload.")
-
+        chem = ExtractedListPresence.objects.get(raw_cas__icontains='100784-20-1')
+        self.assertTrue(chem.raw_cas[0] != ' ',  "White space should be stripped.")
         dg = DataGroup.objects.get(pk=49)
         dg.delete()
 

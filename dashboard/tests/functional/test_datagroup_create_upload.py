@@ -32,7 +32,7 @@ class RegisterRecordsTest(TestCase):
     def test_datagroup_create(self):
         long_fn = 'a filename that is too long ' * 10
         csv_string = ("filename,title,document_type,url,organization\n"
-                "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,UN,, \n"
+                "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,,, \n"
                 f"{long_fn},Body Cream,1,, \n")
         data = io.StringIO(csv_string)
         sample_csv = InMemoryUploadedFile(data,
@@ -61,8 +61,8 @@ class RegisterRecordsTest(TestCase):
         self.assertFalse(dg_exists,)
 
         csv_string = ("filename,title,document_type,url,organization\n"
-                "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,UN,, \n"
-                "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,UN,, \n")
+                "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,,, \n"
+                "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,,, \n")
         data = io.StringIO(csv_string)
         sample_csv = InMemoryUploadedFile(data,
                                             field_name='csv',

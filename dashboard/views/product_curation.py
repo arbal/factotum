@@ -72,7 +72,7 @@ def link_product_form(request, pk, template_name=('product_curation/'
            'return_url': request.META.get('HTTP_REFERER')}
     form = ProductLinkForm(initial=initial)
     # limit document type options to those matching parent datagroup group_type
-    queryset = DocumentType.objects.filter(group_type=doc.data_group.group_type)
+    queryset = DocumentType.objects.compatible(doc)
     form.fields['document_type'].queryset = queryset
     if request.method == 'POST':
         form = ProductLinkForm(request.POST or None)
@@ -94,8 +94,12 @@ def link_product_form(request, pk, template_name=('product_curation/'
                 p = ProductDocument(product=product, document=doc)
                 p.save()
             document_type = form['document_type'].value()
-            if document_type != doc.document_type: # update if user changes
-                doc.document_type = DocumentType.objects.get(pk=document_type)
+            # update if user changes
+            a = bool(document_type)
+            b = bool(doc.document_type)
+            c = b and (document_type != str(doc.document_type.pk))
+            if a^b | c:
+                doc.document_type = DocumentType.objects.get(pk=document_type) if a else None
                 doc.save()
             if 'datadocument' in form['return_url'].value():
                 return redirect('data_document', pk=doc.pk)

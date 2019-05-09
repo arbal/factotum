@@ -15,3 +15,4 @@ from .get_data import *
 from .puc import *
 from .diagnostics import *
 from .chemical_curation import *
+from .list_presence_tag_autocomplete import *

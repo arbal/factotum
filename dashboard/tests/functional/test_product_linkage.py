@@ -15,10 +15,10 @@ class TestProductLinkage(TestCase):
         self.assertTrue(ProductLinkForm().fields['document_type'],
                             'ProductLinkForm must include a document_type select input')
         dd = DataDocument.objects.get(pk=155324)
-        dd.document_type_id = 1
+        dd.document_type = None
         dd.save()
-        self.assertEqual(dd.document_type_id, 1,
-                         'DataDocument 155324 must have a document_type_id of 1 for test to function')
+        self.assertEqual(dd.document_type_id, None,
+                         'DataDocument 155324 must have a document_type_id of NULL for test to function')
         response = self.client.post(f'/link_product_form/155324/',
                                     {'title': 'x',
                                      'manufacturer': '',

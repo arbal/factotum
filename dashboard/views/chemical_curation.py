@@ -87,7 +87,7 @@ def download_raw_chems(stats):
                                       (datetime.datetime.now().strftime("%Y%m%d"))
 
     writer = csv.writer(response)
-    writer.writerow(['dashboard_rawchem_id', 'raw_cas', 'raw_chem_name', 'rid'])
-    for rawchem in RawChem.objects.filter(dsstox_id=None):
-        writer.writerow([rawchem.id, rawchem.raw_cas, rawchem.raw_chem_name, rawchem.rid if rawchem.rid else ''])
+    writer.writerow(['dashboard_rawchem_id', 'raw_cas', 'raw_chem_name', 'rid','datagroup_id'])
+    for rc in RawChem.objects.filter(dsstox_id=None):
+        writer.writerow([rc.id, rc.raw_cas, rc.raw_chem_name, rc.rid if rc.rid else '',rc.data_group_id])
     return response

@@ -14,9 +14,11 @@ class DataDocumentDetailFormTest(TestCase, DashboardFormFieldTestMixin):
         self.factory = RequestFactory()
         self.client.login(username='Karyn', password='specialP@55word')
     def test_field_exclusive_existence(self):
-        self.fields_exclusive(['title', 'subtitle', 'document_type', 'note'])
+        self.fields_exclusive(['title', 'subtitle', 'document_type', 'note', 'url'])
     def test_post_fields(self):
         self.post_field('/datadocument/edit/', 'title', 'lol', pk=354784)
         self.post_field('/datadocument/edit/', 'subtitle', 'lol', pk=354784)
-        self.post_field('/datadocument/edit/', 'document_type', 7, pk=5)
+        self.post_field('/datadocument/edit/', 'document_type', 5, pk=5)
         self.post_field('/datadocument/edit/', 'note', 'lol', pk=354784)
+        self.post_field('/datadocument/edit/', 'url', 'lol', pk=8)
+

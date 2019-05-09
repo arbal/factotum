@@ -86,6 +86,8 @@ urlpatterns = [
                                             name='save_ext_form'),
     path('save_list_presence_tags/<int:pk>/', views.save_list_presence_tag_form,
                                             name='save_list_presence_tag_form'),
+    path('list_presence_tags_autocomplete/', views.list_presence_tag_autocomplete.ListPresenceTagAutocomplete.as_view(),
+                                            name='list_presence_tags_autocomplete'),
     path('search/', include('haystack.urls')),
     path('find/', views.search.FacetedSearchView.as_view(),
                                             name='haystack_search'),

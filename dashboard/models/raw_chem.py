@@ -1,9 +1,8 @@
-from django.db import models
+from model_utils import FieldTracker
 from model_utils.managers import InheritanceManager
+from django.db import models
 from django.apps import apps
 from django.db.models.signals import pre_save
-
-from model_utils import FieldTracker
 
 
 class RawChem(models.Model):
@@ -37,6 +36,9 @@ class RawChem(models.Model):
         except AttributeError:
             return False
 
+    @property
+    def data_group_id(self):
+        return str(self.extracted_text.data_document.data_group_id)
 
     def get_data_document(self):
         '''Find the child object by trying each of the classes, then return the 
@@ -55,6 +57,18 @@ class RawChem(models.Model):
                     return apps.get_model('dashboard.ExtractedListPresence').objects.get(rawchem_ptr=id).data_document
                 except apps.get_model('dashboard.ExtractedListPresence').DoesNotExist: 
                     return False
+
+    def clean(self):
+        def whitespace(fld):
+            if fld:
+                return fld.startswith(' ') or fld.endswith(' ')
+            else:
+                return False
+
+        if whitespace(self.raw_cas):
+            self.raw_cas = self.raw_cas.strip()
+        if whitespace(self.raw_chem_name):
+            self.raw_chem_name = self.raw_chem_name.strip()
 
     @staticmethod
     def pre_save(sender, **kwargs):

@@ -3,6 +3,7 @@ from .data_source import DataSource
 from .group_type import GroupType
 from .data_group import DataGroup
 from .document_type import DocumentType
+from .document_type_group_type_compatibility import DocumentTypeGroupTypeCompatibilty
 from .data_document import DataDocument
 from .ingredient import Ingredient
 from .product import Product
