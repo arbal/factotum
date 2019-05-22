@@ -1,0 +1,62 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% block title %}PUC {{ puc.id }}: {{ puc }}{% endblock %}
+
+{% block content %}
+    <h1>
+        <span name="title">{{ puc.gen_cat }}</span>
+    </h1>
+    <h2>
+        <span name="title">{{ puc.prod_fam }}</span>
+        {% if puc.prod_type %}
+            <span name="title">/ {{ puc.prod_fam }}</span>
+        {% endif %}
+    </h2>
+    <div class="row">
+        <div class="col-lg-12">
+            Kind: {{ puc.get_kind_display }}<br><br>
+            {{ puc.description }}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6" id="assumed_attributes">
+        <h5 class="">
+            <span>Assumed Attributes</span>
+        </h5>
+            {% if puc.get_assumed_tags|length > 1 %}
+                {% for tag in puc.get_assumed_tags %}
+                    <button type="button" class="flex-1 mb-1 ml-1 btn btn-primary" disabled>{{ tag.name }}</button>
+                {% endfor %}
+            {% else %}
+                No assumed attributes are associated with this PUC
+            {% endif %}
+        </div>
+        <div class="col-lg-6" id="allowed_attributes">
+            <h5 class="">
+                <span>Allowed Attributes</span>
+            </h5>
+            {% if puc.get_allowed_tags|length > 1 %}
+                {% for tag in puc.get_allowed_tags %}
+                    <button type="button" class="flex-1 mb-1 ml-1 btn btn-primary" disabled>{{ tag.name }}</button>
+                {% endfor %}
+            {% else %}
+                No allowed attributes are associated with this PUC
+            {% endif %}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6" id="puc_stats">
+            {{ puc.product_count }} Products<br>
+            {{ puc.cumulative_product_count }} Cumulative Products<br>
+            {{ puc.curated_chemical_count }} Curated Chemicals<br>
+            {{ puc.document_count }} Documents
+        <br><br><br>
+        {% if referer %}
+            <a class="btn btn-secondary" href="{{ referer }}">Back</a>
+        {%  endif %}
+        </div>
+    </div>
+{% endblock %}

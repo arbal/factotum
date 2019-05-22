@@ -15,8 +15,12 @@
                 <h3 class="card-header">Downloads</h3>
                 <ul class="list-group">
                         <li class="list-group-item">
-                                <a class="btn btn-primary btn-sm" role="button" href="{% url "download_PUCs" %}">Download PUCs</a>
-                                <span class="float-lg-right">Download all the Product Use Codes with their respective product counts</span>
+                                <a class="btn btn-primary" role="button" href="{% url "download_PUCs" %}">Download PUCs</a>
+                                <p>Download all the Product Use Codes with their respective product counts</p>
+                        </li>
+                        <li class="list-group-item">
+                                <a class="btn btn-primary" role="button" href="{% url "download_PUCTags" %}">Download PUC Attributes</a>
+                                <p>Download all the Product Use Code attributes and their definitions.</p>
                         </li>
                 </ul> <!-- list-group -->
         </div> <!-- card-m-2 -->

@@ -99,13 +99,13 @@ class DataGroup(CommonInfo):
         return all(self.datadocument_set.values_list('matched', flat=True))
 
     def all_extracted(self):
-        return all(self.datadocument_set.values_list('extracted', flat=True))
+        return not(self.datadocument_set.filter(extractedtext__isnull=False).exists())
 
     def registered_docs(self):
         return self.datadocument_set.count()
 
     def extracted_docs(self):
-        return self.datadocument_set.filter(extracted=True).count()
+        return self.datadocument_set.filter(extractedtext__isnull=False).count()
 
     def __str__(self):
         return self.name

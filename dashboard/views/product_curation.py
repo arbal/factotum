@@ -12,7 +12,7 @@ from dashboard.forms import (ProductPUCForm, ProductLinkForm, ProductTagForm,
                                    BulkPUCForm, ProductForm)
 from django.core.paginator import Paginator
 from django.db.models import Max
-
+from django.urls import reverse
 
 
 @login_required()
@@ -46,8 +46,11 @@ def category_assignment(request, pk, template_name=('product_curation/'
                                                 'category_assignment.html')):
     """Deliver a datasource and its associated products"""
     ds = DataSource.objects.get(pk=pk)
-    products = ds.source.exclude(id__in=(ProductToPUC.objects.values_list('product_id', flat=True))).order_by('-created_at')
-    return render(request, template_name, {'datasource': ds, 'products': products})
+    product_count = ds.source.exclude(id__in=(ProductToPUC.objects.values_list('product_id', flat=True))).count()
+    products = ds.source.exclude(
+        id__in=(ProductToPUC.objects.values_list('product_id', flat=True))).\
+        order_by('-created_at')[:500]
+    return render(request, template_name, {'datasource': ds, 'products': products, 'product_count': product_count})
 
 
 @login_required()
@@ -188,7 +191,7 @@ def bulk_assign_puc_to_product(request, template_name=('product_curation/'
 
 
 @login_required()
-def assign_puc_to_product(request, pk, template_name=('product_curation/'
+def category_assign_puc_to_product(request, ds_pk, pk, template_name=('product_curation/'
                                                       'product_puc.html')):
     p = Product.objects.get(pk=pk)
     p2p = ProductToPUC.objects.filter(classification_method='MA', product=p).first()
@@ -200,12 +203,26 @@ def assign_puc_to_product(request, pk, template_name=('product_curation/'
             puc = PUC.objects.get(id=form['puc'].value())
             p2p = ProductToPUC.objects.create(puc=puc, product=p, classification_method='MA',
                                         puc_assigned_usr=request.user)
-        referer = request.POST.get('referer') if request.POST.get('referer') else 'category_assignment'
-        pk = p2p.product.pk if referer == 'product_detail' else p2p.product.data_source.pk
-        return redirect(referer, pk=pk)
-    form.referer = resolve(parse.urlparse(request.META['HTTP_REFERER']).path).url_name\
-        if 'HTTP_REFERER' in request.META else 'category_assignment'
-    form.referer_pk = p.id if form.referer == 'product_detail' else p.data_source.id
+        return redirect('category_assignment', pk=ds_pk)
+    form.return_url = reverse('category_assignment', kwargs={'pk': ds_pk})
+    return render(request, template_name,{'product': p, 'form': form})
+
+
+@login_required()
+def product_assign_puc_to_product(request, pk, template_name=('product_curation/'
+                                                      'product_puc.html')):
+    p = Product.objects.get(pk=pk)
+    p2p = ProductToPUC.objects.filter(classification_method='MA', product=p).first()
+    form = ProductPUCForm(request.POST or None, instance=p2p)
+    if form.is_valid():
+        if p2p:
+            p2p.save()
+        else:
+            puc = PUC.objects.get(id=form['puc'].value())
+            p2p = ProductToPUC.objects.create(puc=puc, product=p, classification_method='MA',
+                                        puc_assigned_usr=request.user)
+        return redirect('product_detail', pk=pk)
+    form.return_url = reverse('product_detail', kwargs={'pk': pk})
     return render(request, template_name,{'product': p, 'form': form})
 
 

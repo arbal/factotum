@@ -1,1517 +1,1680 @@
 - model: dashboard.puc
   pk: 1
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: body paint, prod_type: '',
-    description: 'body paints, markers, glitters, play cosmetics, and halloween cosmetics',
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.897509', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: body
+      paint, prod_type: '', description: 'products placed on the skin for decorative
+      purposes (body paints, markers, glitters, play cosmetics, and Halloween cosmetics)',
     last_edited_by: 1}
 - model: dashboard.puc
   pk: 2
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: children's art and toys, prod_type: bubble
-      solution, description: 'liquid bubble solutions, including solutions for bubble
-      machines', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.898858', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: children's
+      art and toys, prod_type: bubble solution, description: 'liquid bubble solutions,
+      including solutions for bubble machines', last_edited_by: 1}
 - model: dashboard.puc
   pk: 3
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: children's art and toys, prod_type: crayons,
-    description: wax crayons for coloring or illustration, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.899523', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: children's
+      art and toys, prod_type: crayons, description: wax crayons for coloring or illustration,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 4
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: children's art and toys, prod_type: finger
-      paint, description: non-edible finger paints, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.900159', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: children's
+      art and toys, prod_type: finger paint, description: non-edible finger paints,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 5
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: children's art and toys, prod_type: play
-      dough, description: children's play modeling clays, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.900819', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: children's
+      art and toys, prod_type: modeling clay, description: soft modeling compounds,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 6
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: children's art and toys, prod_type: '',
-    description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.898175', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: children's
+      art and toys, prod_type: '', description: Children's art supplies and toys which
+      can not be classified into a more refined category., last_edited_by: 1}
 - model: dashboard.puc
   pk: 7
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: fabric treatment and dye,
-    prod_type: fabric dye, description: products for dying fabrics, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.902288', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: fabric
+      treatment and dye, prod_type: fabric dye, description: products for dying fabrics
+      that require dilution in water prior to application, last_edited_by: 1}
 - model: dashboard.puc
   pk: 8
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: fabric treatment and dye,
-    prod_type: fabric paints and sealers, description: paints or sealers for treating
-      fabrics, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.903030', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: fabric
+      treatment and dye, prod_type: fabric paints and sealers, description: paints
+      or sealers for treating fabrics, last_edited_by: 1}
 - model: dashboard.puc
   pk: 9
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: fabric treatment and dye,
-    prod_type: '', description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.901480', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: fabric
+      treatment and dye, prod_type: '', description: Fabric treatments or dyes which
+      can not be assigned to a more refined category, last_edited_by: 1}
 - model: dashboard.puc
   pk: 10
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: fogger, prod_type: '', description: liquid
-      solutions for fogger machines, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.903655', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: fogger,
+    prod_type: '', description: liquid solutions for fogger machines, last_edited_by: 1}
 - model: dashboard.puc
   pk: 11
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: general arts and crafts supplies,
-    prod_type: arts and crafts adhesive, description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.905090', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: general
+      arts and crafts supplies, prod_type: arts and crafts adhesive, description: 'glue
+      sticks, glitter glues, fabric glues, craft glue, spray mounts, stencil sprays,
+      and other adhesives used for primarily craft purposes', last_edited_by: 1}
 - model: dashboard.puc
   pk: 12
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: general arts and crafts supplies,
-    prod_type: arts and crafts cleaner, description: 'solvent-based products for cleaning
-      paint, adhesives, etc. from hands or surfaces', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.905821', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: general
+      arts and crafts supplies, prod_type: arts and crafts cleaner, description: 'solvent-
+      or detergent-based products for removing craft related paints, adhesives, etc.
+      from hands or surfaces', last_edited_by: 1}
 - model: dashboard.puc
   pk: 13
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: general arts and crafts supplies,
-    prod_type: arts and crafts finish, description: shellacs or polyurethane coatings
-      for primarily craft purposes, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.906525', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: general
+      arts and crafts supplies, prod_type: arts and crafts finish, description: shellacs
+      or polyurethane coatings for primarily craft purposes, last_edited_by: 1}
 - model: dashboard.puc
   pk: 14
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: general arts and crafts supplies,
-    prod_type: arts and crafts paint, description: paints and colorants for primarily
-      craft purposes (including acrylic and enamel paints), last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.907170', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: general
+      arts and crafts supplies, prod_type: arts and crafts paint, description: 'paints
+      (including acrylic and enamel), colorants (materials that color solid objects),
+      and pigments primarily used for craft purposes', last_edited_by: 1}
 - model: dashboard.puc
   pk: 15
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: general arts and crafts supplies,
-    prod_type: craft kit, description: multi-component crafting kits where individual
-      products are not designated, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.907879', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: general
+      arts and crafts supplies, prod_type: craft kit, description: multi-component
+      crafting kits where individual products are not designated, last_edited_by: 1}
 - model: dashboard.puc
   pk: 16
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: general arts and crafts supplies,
-    prod_type: flocking, description: flocking and artificial snow, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.908554', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: general
+      arts and crafts supplies, prod_type: flocking, description: 'products used to
+      create textured or fiber covered surfaces, including artificial snow', last_edited_by: 1}
 - model: dashboard.puc
   pk: 17
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: general arts and crafts supplies,
-    prod_type: '', description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.904305', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: general
+      arts and crafts supplies, prod_type: '', description: arts and crafts supplies
+      which can not be assigned to a more refined category, last_edited_by: 1}
 - model: dashboard.puc
   pk: 18
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: home office, prod_type: '',
-    description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.909216', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: home
+      office, prod_type: '', description: home office supplies which can not be assigned
+      to a more refined category, last_edited_by: 1}
 - model: dashboard.puc
   pk: 19
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: pottery making, prod_type: '',
-    description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.911513', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: pottery
+      making, prod_type: '', description: products related to pottery making which
+      can not be assigned to a more refined category, last_edited_by: 1}
 - model: dashboard.puc
   pk: 20
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: '', prod_type: '', description: '',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.896377', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: '',
+    prod_type: '', description: General arts and crafts or office supplies which can
+      not be classified into a more refined category., last_edited_by: 1}
 - model: dashboard.puc
   pk: 21
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: gun cleaner, prod_type: '',
-    description: products for cleaning interior or exterior of firearms, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.082593', kind: FO, gen_cat: Sports equipment, prod_fam: gun cleaner,
+    prod_type: '', description: products for cleaning interior or exterior of firearms,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 22
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: home office, prod_type: pens
-      and markers, description: writing utensils containing liquid or gel ink, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.910074', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: home
+      office, prod_type: pens and markers, description: writing utensils containing
+      liquid or gel ink, last_edited_by: 1}
 - model: dashboard.puc
   pk: 23
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: home office, prod_type: white
-      out, description: correction fluids for ink or type, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.910852', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: home
+      office, prod_type: white out, description: fluids used to cover inked or typed
+      text on paper allowing for over laying of new text, last_edited_by: 1}
 - model: dashboard.puc
   pk: 24
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Arts and crafts/Office supplies, prod_fam: pottery making, prod_type: glaze,
-    description: liquid products for glazing craft pottery, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.912134', kind: FO, gen_cat: Arts and crafts/Office supplies, prod_fam: pottery
+      making, prod_type: glaze, description: liquid products for glazing craft pottery,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 25
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: air freshener, prod_type: '',
-    description: home air fresheners, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-05-02
+      10:44:12.532779', kind: FO, gen_cat: Cleaning products and household care, prod_fam: air
+      freshener, prod_type: '', description: 'home air fresheners, including candles
+      with a fragrance', last_edited_by: 1}
 - model: dashboard.puc
   pk: 26
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: bathroom, prod_type: bathroom
-      cleaner, description: 'bathtub, tile, and toilet surface cleaners', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.914871', kind: FO, gen_cat: Cleaning products and household care, prod_fam: bathroom,
+    prod_type: bathroom cleaner, description: 'bathtub, tile, and toilet surface cleaners',
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 27
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: bathroom, prod_type: '',
-    description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.914056', kind: FO, gen_cat: Cleaning products and household care, prod_fam: bathroom,
+    prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 28
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: carpet and floor, prod_type: carpet
-      cleaner, description: carpet cleaning products and machine solutions, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.916232', kind: FO, gen_cat: Cleaning products and household care, prod_fam: carpet
+      and floor, prod_type: carpet cleaner, description: 'carpet-cleaning products
+      that may be used directly (or require dilution), includes solutions that may
+      be used by hand or in mechanical carpet cleaners', last_edited_by: 1}
 - model: dashboard.puc
   pk: 29
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: carpet and floor, prod_type: carpet
-      deodorizer, description: carpet deodorizers, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.917033', kind: FO, gen_cat: Cleaning products and household care, prod_fam: carpet
+      and floor, prod_type: carpet deodorizer, description: products applied to carpets
+      to remove or mask odors, last_edited_by: 1}
 - model: dashboard.puc
   pk: 30
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: carpet and floor, prod_type: floor
-      cleaner, description: hard floor cleaners, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.917798', kind: FO, gen_cat: Cleaning products and household care, prod_fam: carpet
+      and floor, prod_type: floor cleaner, description: 'hard floor cleaners, including
+      pre-moistened wipes', last_edited_by: 1}
 - model: dashboard.puc
   pk: 31
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: carpet and floor, prod_type: floor
-      polish, description: hard floor shining and waxing products, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.918444', kind: FO, gen_cat: Cleaning products and household care, prod_fam: carpet
+      and floor, prod_type: floor polish, description: products that impart a shine
+      to solid floors, last_edited_by: 1}
 - model: dashboard.puc
   pk: 32
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: carpet and floor, prod_type: '',
-    description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.915612', kind: FO, gen_cat: Cleaning products and household care, prod_fam: carpet
+      and floor, prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 33
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: dishwasher and dishes,
-    prod_type: automatic dishwashing additive, description: 'rinse aids, spot removers,
-      and dishwasher cleaners', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.919738', kind: FO, gen_cat: Cleaning products and household care, prod_fam: dishwasher
+      and dishes, prod_type: automatic dishwashing additive, description: 'products
+      used in automatic dishwashers other than detergents (rinse aids, spot removers,
+      and dishwasher cleaners/scale or rust removers )', last_edited_by: 1}
 - model: dashboard.puc
   pk: 34
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: dishwasher and dishes,
-    prod_type: automatic dishwashing detergent, description: detergents for automatic
-      dishwashers, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-05-07
+      21:15:12.865354', kind: FO, gen_cat: Cleaning products and household care, prod_fam: dishwasher
+      and dishes, prod_type: automatic dishwashing detergent, description: detergents
+      for automatic dishwashers, last_edited_by: 1}
 - model: dashboard.puc
   pk: 35
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: dishwasher and dishes,
-    prod_type: dish soap, description: hand dish washing liquids and detergents, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.921040', kind: FO, gen_cat: Cleaning products and household care, prod_fam: dishwasher
+      and dishes, prod_type: dish soap, description: detergent based products used
+      during the hand washing of dishes, last_edited_by: 1}
 - model: dashboard.puc
   pk: 36
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: dishwasher and dishes,
-    prod_type: '', description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.919089', kind: FO, gen_cat: Cleaning products and household care, prod_fam: dishwasher
+      and dishes, prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 37
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: drain, prod_type: '',
-    description: drain openers or digesters, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.921676', kind: FO, gen_cat: Cleaning products and household care, prod_fam: drain
+      products, prod_type: '', description: 'products poured down, or placed in, drains
+      to control odors or clear blockages that work by chemical or biological processes',
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 38
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: general household cleaning,
-    prod_type: surface cleaner, description: hard surface and kitchen surface cleaners,
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.926111', kind: FO, gen_cat: Cleaning products and household care, prod_fam: general
+      household cleaning, prod_type: surface cleaner, description: 'products used
+      to clean hard surfaces in the home, including kitchen specific hard surface
+      cleaners', last_edited_by: 1}
 - model: dashboard.puc
   pk: 39
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: general household cleaning,
-    prod_type: '', description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.923175', kind: FO, gen_cat: Cleaning products and household care, prod_fam: general
+      household cleaning, prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 40
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: hand cleaner, prod_type: '',
-    description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.926758', kind: FO, gen_cat: Cleaning products and household care, prod_fam: hand
+      cleaner, prod_type: '', description: 'products that remove grease, oil, and
+      other hydrophobic  materials from hands, includes waterless products', last_edited_by: 1}
 - model: dashboard.puc
   pk: 41
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: laundry and fabric treatment,
-    prod_type: anti-static spray, description: anti-static sprays for fabrics, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.930701', kind: FO, gen_cat: Cleaning products and household care, prod_fam: laundry
+      and fabric treatment, prod_type: anti-static spray, description: anti-static
+      sprays for fabrics (spray formulation assumed), last_edited_by: 1}
 - model: dashboard.puc
   pk: 42
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: laundry and fabric treatment,
-    prod_type: '', description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.930005', kind: FO, gen_cat: Cleaning products and household care, prod_fam: laundry
+      and fabric treatment, prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 43
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: metal specific, prod_type: '',
-    description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.938356', kind: FO, gen_cat: Cleaning products and household care, prod_fam: metal
+      specific, prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 44
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: oven, prod_type: '',
-    description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.939799', kind: FO, gen_cat: Cleaning products and household care, prod_fam: oven,
+    prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 45
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: shoes, prod_type: '',
-    description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.941062', kind: FO, gen_cat: Cleaning products and household care, prod_fam: shoes,
+    prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 46
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: upholstery specific,
-    prod_type: '', description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.942322', kind: FO, gen_cat: Cleaning products and household care, prod_fam: upholstery
+      specific, prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 47
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: wood specific, prod_type: '',
-    description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.943854', kind: FO, gen_cat: Cleaning products and household care, prod_fam: wood
+      specific, prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 48
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: '', prod_type: '', description: '',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.912745', kind: FO, gen_cat: Cleaning products and household care, prod_fam: '',
+    prod_type: '', description: cleaning and household care products that can not
+      be placed in a more refined category, last_edited_by: 1}
 - model: dashboard.puc
   pk: 49
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: fireplace, prod_type: '',
-    description: miscellaneous fireplace and firepit products, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.922352', kind: FO, gen_cat: Cleaning products and household care, prod_fam: fireplace,
+    prod_type: '', description: 'products used to clean fireplaces, firepits, stoves,
+      and related objects (screens and grates) also includes chimney cleaners', last_edited_by: 1}
 - model: dashboard.puc
   pk: 50
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: general household cleaning,
-    prod_type: bleach, description: bleaches (including color-safe bleaches), last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.923932', kind: FO, gen_cat: Cleaning products and household care, prod_fam: general
+      household cleaning, prod_type: bleach, description: products that remove stains
+      or discoloration of fabric (including color-safe bleaches) used in laundry,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 51
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: general household cleaning,
-    prod_type: disinfectant, description: disinfecting liquids (including wipes),
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.924749', kind: FO, gen_cat: Cleaning products and household care, prod_fam: general
+      household cleaning, prod_type: disinfectant, description: products used to control
+      microbial pests on hard surfaces or laundry, last_edited_by: 1}
 - model: dashboard.puc
   pk: 52
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: general household cleaning,
-    prod_type: glass cleaner, description: glass and window cleaners, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 53
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: hand cleaner, prod_type: hand
-      cleaner, description: products marketed as hand cleaners (solvent-based), last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.925500', kind: FO, gen_cat: Cleaning products and household care, prod_fam: general
+      household cleaning, prod_type: glass cleaner, description: 'products used to
+      clean glass, mirrors, and windows', last_edited_by: 1}
 - model: dashboard.puc
   pk: 54
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: heavy duty cleaner, prod_type: '',
-    description: heavy duty or concentrated multipurpose cleaners, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.927399', kind: FO, gen_cat: Cleaning products and household care, prod_fam: heavy
+      duty cleaner, prod_type: '', description: 'heavy duty hard surface cleaning
+      products that may require dilution prior to use (i.e., may  be concentrated)',
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 55
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: houseplant care, prod_type: '',
-    description: 'houseplant and cut flower foods, fertilizers, or pesticides', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.928335', kind: FO, gen_cat: Cleaning products and household care, prod_fam: houseplant
+      care, prod_type: '', description: 'products used for houseplants (fertilizers,
+      pesticides, and leaf cleaners) and cut flowers (preservatives and desiccants)',
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 56
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: lamp oil/lighter fluid,
-    prod_type: '', description: 'lighters, lighter fluids, and other indoor fuels',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.929272', kind: FO, gen_cat: Cleaning products and household care, prod_fam: lamp
+      oil/lighter fluid, prod_type: '', description: 'lighters, lighter fluids, and
+      other indoor fuels', last_edited_by: 1}
 - model: dashboard.puc
   pk: 57
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: laundry and fabric treatment,
-    prod_type: dry cleaner, description: dry cleaning fluids or kits for home use,
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.931536', kind: FO, gen_cat: Cleaning products and household care, prod_fam: laundry
+      and fabric treatment, prod_type: dry cleaner, description: dry cleaning fluids
+      or kits for home use, last_edited_by: 1}
 - model: dashboard.puc
   pk: 58
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: laundry and fabric treatment,
-    prod_type: dryer sheets, description: dryer fabric softener sheets, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.932282', kind: FO, gen_cat: Cleaning products and household care, prod_fam: laundry
+      and fabric treatment, prod_type: dryer sheets, description: dryer fabric softener
+      sheets, last_edited_by: 1}
 - model: dashboard.puc
   pk: 59
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: laundry and fabric treatment,
-    prod_type: fabric deodorizer, description: spray fabric deodorizers, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.932930', kind: FO, gen_cat: Cleaning products and household care, prod_fam: laundry
+      and fabric treatment, prod_type: fabric deodorizer, description: fabric deodorizers
+      (spray formulation assumed), last_edited_by: 1}
 - model: dashboard.puc
   pk: 60
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: laundry and fabric treatment,
-    prod_type: fabric protectant, description: fabric protectants and wrinkle releasers,
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.933594', kind: FO, gen_cat: Cleaning products and household care, prod_fam: laundry
+      and fabric treatment, prod_type: fabric protectant, description: products used
+      to release wrinkles or to impart stain resistance to fabric, last_edited_by: 1}
 - model: dashboard.puc
   pk: 61
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: laundry and fabric treatment,
-    prod_type: fabric softener, description: fabric softeners (excluding dryer sheets),
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.934177', kind: FO, gen_cat: Cleaning products and household care, prod_fam: laundry
+      and fabric treatment, prod_type: fabric softener, description: products used
+      to improve tactile properties of fabrics that are added to the rinse water of
+      clothes washers  (excluding dryer sheets), last_edited_by: 1}
 - model: dashboard.puc
   pk: 62
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: laundry and fabric treatment,
-    prod_type: laundry detergent, description: laundry detergents and soaps, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.934803', kind: FO, gen_cat: Cleaning products and household care, prod_fam: laundry
+      and fabric treatment, prod_type: laundry detergent, description: products used
+      in washing machines to clean fabrics, last_edited_by: 1}
 - model: dashboard.puc
   pk: 63
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: laundry and fabric treatment,
-    prod_type: laundry fragrance, description: scent products to be added to wash,
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.935641', kind: FO, gen_cat: Cleaning products and household care, prod_fam: laundry
+      and fabric treatment, prod_type: laundry fragrance, description: products added
+      to clothes washers or dryers to scent clothing and other fabrics, last_edited_by: 1}
 - model: dashboard.puc
   pk: 64
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: laundry and fabric treatment,
-    prod_type: laundry stain remover, description: stain removers or laundry pre-treatment
-      products, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.936373', kind: FO, gen_cat: Cleaning products and household care, prod_fam: laundry
+      and fabric treatment, prod_type: laundry stain remover, description: stain removers
+      or laundry pre-treatment products, last_edited_by: 1}
 - model: dashboard.puc
   pk: 65
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: laundry and fabric treatment,
-    prod_type: laundry starch, description: fabric starches, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.937080', kind: FO, gen_cat: Cleaning products and household care, prod_fam: laundry
+      and fabric treatment, prod_type: laundry starch, description: products applied
+      to fabric prior to ironing to prevent wrinkles and add stiffness to fabrics,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 66
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: lime remover, prod_type: '',
-    description: products for removing lime or scale from surfaces, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.937719', kind: FO, gen_cat: Cleaning products and household care, prod_fam: lime
+      remover, prod_type: '', description: products used to remove lime or scale from
+      hard surfaces excludes dishwasher related products, last_edited_by: 1}
 - model: dashboard.puc
   pk: 67
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: metal specific, prod_type: metal
-      polish, description: cleaning products for metal surfaces, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.938992', kind: FO, gen_cat: Cleaning products and household care, prod_fam: metal
+      specific, prod_type: metal polish, description: products used to polish metal
+      surfaces, last_edited_by: 1}
 - model: dashboard.puc
   pk: 68
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: oven, prod_type: oven
-      cleaner, description: oven and grill cleaners, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.940460', kind: FO, gen_cat: Cleaning products and household care, prod_fam: oven,
+    prod_type: oven cleaner, description: products used to clean grills or ovens,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 69
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: shoes, prod_type: shoe
-      polish or protectant, description: 'shoe polishes, cleaners, and protectants',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.941676', kind: FO, gen_cat: Cleaning products and household care, prod_fam: shoes,
+    prod_type: shoe polish or protectant, description: 'products applied to footwear
+      to color, polish, clean, or add a protective surface', last_edited_by: 1}
 - model: dashboard.puc
   pk: 70
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: upholstery specific,
-    prod_type: upholstery cleaner, description: upholstery fabric cleaners, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.943013', kind: FO, gen_cat: Cleaning products and household care, prod_fam: upholstery
+      specific, prod_type: upholstery cleaner, description: 'upholstery fabric cleaning
+      products that may be used directly (or require dilution), includes solutions
+      that may be used by hand or in upholstery cleaning machines', last_edited_by: 1}
 - model: dashboard.puc
   pk: 71
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Cleaning products and household care, prod_fam: wood specific, prod_type: wood
-      polish, description: wood or furniture dusting or polishing products, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.944622', kind: FO, gen_cat: Cleaning products and household care, prod_fam: wood
+      specific, prod_type: wood polish, description: products used on wood surfaces
+      for the removal of dust and other finely  powdered material and to provide polish,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 72
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Electronics/small appliances, prod_fam: '', prod_type: '', description: '',
-    last_edited_by: 1}
-- model: dashboard.puc
-  pk: 73
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Electronics/small appliances, prod_fam: computers and accessories/supplies,
-    prod_type: printer ink, description: ink for inkjet printers, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 74
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Electronics/small appliances, prod_fam: computers and accessories/supplies,
-    prod_type: printer toner, description: laser printer toners, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 75
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Electronics/small appliances, prod_fam: computers and accessories/supplies,
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.945260', kind: FO, gen_cat: Electronics/small appliances, prod_fam: '',
     prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
+  pk: 73
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.946954', kind: FO, gen_cat: Electronics/small appliances, prod_fam: computers
+      and accessories/supplies, prod_type: printer ink, description: ink for inkjet
+      printers, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 74
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.947821', kind: FO, gen_cat: Electronics/small appliances, prod_fam: computers
+      and accessories/supplies, prod_type: printer toner, description: toners used
+      in laser printers, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 75
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.946088', kind: FO, gen_cat: Electronics/small appliances, prod_fam: computers
+      and accessories/supplies, prod_type: '', description: '', last_edited_by: 1}
+- model: dashboard.puc
   pk: 76
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Electronics/small appliances, prod_fam: electronics cleaner, prod_type: '',
-    description: miscellaneous products for cleaning home electronic equipment (including
-      surface cleaners or cleaners for interior parts), last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.948498', kind: FO, gen_cat: Electronics/small appliances, prod_fam: electronics
+      cleaner, prod_type: '', description: miscellaneous products for cleaning home
+      electronic equipment (including surface cleaners or cleaners for interior parts),
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 77
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: '', prod_type: '', description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.949109', kind: FO, gen_cat: Home maintenance, prod_fam: '', prod_type: '',
+    description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 78
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: adhesives and adhesive removers, prod_type: adhesive
-      remover, description: solvent products for removing adhesives from surfaces,
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.950458', kind: FO, gen_cat: Home maintenance, prod_fam: adhesives and
+      adhesive removers, prod_type: adhesive remover, description: solvent- or detergent-based
+      products for removing adhesives from surfaces, last_edited_by: 1}
 - model: dashboard.puc
   pk: 79
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: adhesives and adhesive removers, prod_type: multipurpose
-      adhesive, description: 'general purpose repair adhesives including all purpose
-      glues, super glue, and epoxies; not including wood glues', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 80
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: adhesives and adhesive removers, prod_type: 'multipurpose
-      adhesive, two-component', description: 'general purpose repair adhesives including
-      all purpose glues, super glue, and epoxies that are packaged as two-components;
-      not including wood glues', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.951410', kind: FO, gen_cat: Home maintenance, prod_fam: adhesives and
+      adhesive removers, prod_type: multipurpose adhesive, description: 'general purpose
+      repair adhesives including all purpose glues, super glue, and epoxies; not including
+      wood glues', last_edited_by: 1}
 - model: dashboard.puc
   pk: 81
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: adhesives and adhesive removers, prod_type: wood
-      adhesive, description: adhesives specifically characterized as wood glues, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.952181', kind: FO, gen_cat: Home maintenance, prod_fam: adhesives and
+      adhesive removers, prod_type: wood adhesive, description: adhesives specifically
+      designated for gluing wooden surfaces together, last_edited_by: 1}
 - model: dashboard.puc
   pk: 82
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: adhesives and adhesive removers, prod_type: '',
-    description: '', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 83
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: caulk/sealant, prod_type: 'caulk/sealant,
-      two-component', description: caulks and sealers for household use that are packaged
-      as two components, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.949782', kind: FO, gen_cat: Home maintenance, prod_fam: adhesives and
+      adhesive removers, prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 84
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: caulk/sealant, prod_type: '', description: 'caulks
-      and sealers for household use, including silicone products', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.952854', kind: FO, gen_cat: Home maintenance, prod_fam: caulk/sealant,
+    prod_type: '', description: liquid or gels designed to seal cracks or fill cracks
+      and depressions on hard surfaces, last_edited_by: 1}
 - model: dashboard.puc
   pk: 85
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: concrete, prod_type: '', description: products
-      for patching or cleaning concrete surfaces, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.953672', kind: FO, gen_cat: Home maintenance, prod_fam: concrete, prod_type: '',
+    description: products for patching concrete surfaces, last_edited_by: 1}
 - model: dashboard.puc
   pk: 86
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: corrosion protection, prod_type: '', description: products
-      for protecting metal surfaces from corrosion or removing corrosion, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.954441', kind: FO, gen_cat: Home maintenance, prod_fam: corrosion protection,
+    prod_type: '', description: products for protecting metal surfaces from corrosion
+      or removing corrosion from metal surfaces, last_edited_by: 1}
 - model: dashboard.puc
   pk: 87
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: degreaser, prod_type: '', description: products
-      for degreasing indoor surfaces, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.955077', kind: FO, gen_cat: Home maintenance, prod_fam: degreaser,
+    prod_type: '', description: products for removing grease and other hydrophobic
+      materials from hard surfaces, last_edited_by: 1}
 - model: dashboard.puc
   pk: 88
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: finish, prod_type: '', description: 'products
-      for permanently coating and protecting wood surfaces, including polyurethane
-      products', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.955719', kind: FO, gen_cat: Home maintenance, prod_fam: finish, prod_type: '',
+    description: general home maintenance finishes, last_edited_by: 1}
 - model: dashboard.puc
   pk: 89
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: insulation, prod_type: spray foam, description: spray
-      insulation and weatherstripping products, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.958033', kind: FO, gen_cat: Home maintenance, prod_fam: insulation,
+    prod_type: spray foam, description: spray products that form ridged or semi ridged
+      foams used to fill cracks and voids or to provide insulation, last_edited_by: 1}
 - model: dashboard.puc
   pk: 90
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: insulation, prod_type: '', description: '',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.957262', kind: FO, gen_cat: Home maintenance, prod_fam: insulation,
+    prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 91
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: lock deicer, prod_type: '', description: products
-      for deicing car or residential locks, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.958724', kind: FO, gen_cat: Home maintenance, prod_fam: lock deicer,
+    prod_type: '', description: products for deicing automotive or residential locks,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 92
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: lubricant, prod_type: '', description: household
-      maintenance lubricants, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.959422', kind: FO, gen_cat: Home maintenance, prod_fam: lubricant,
+    prod_type: '', description: household maintenance lubricants, last_edited_by: 1}
 - model: dashboard.puc
   pk: 93
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: paint/stain and related products, prod_type: '',
-    description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.960082', kind: FO, gen_cat: Home maintenance, prod_fam: paint/stain
+      and related products, prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 94
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: paint/stain and related products, prod_type: oil-based
-      paint, description: oil or solvent-based home improvement paints, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.960751', kind: FO, gen_cat: Home maintenance, prod_fam: paint/stain
+      and related products, prod_type: oil-based paint, description: oil or solvent-based
+      home improvement paints, last_edited_by: 1}
 - model: dashboard.puc
   pk: 95
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: paint/stain and related products, prod_type: paint,
-    description: home improvement paints, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.961386', kind: FO, gen_cat: Home maintenance, prod_fam: paint/stain
+      and related products, prod_type: paint, description: 'home improvement paints,
+      excluding or not specified as oil-, solvent-, or water-based paints', last_edited_by: 1}
 - model: dashboard.puc
   pk: 96
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: paint/stain and related products, prod_type: water-based
-      paint, description: water-based home improvement paints, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.966075', kind: FO, gen_cat: Home maintenance, prod_fam: paint/stain
+      and related products, prod_type: water-based paint, description: water-based
+      home improvement paints, last_edited_by: 1}
 - model: dashboard.puc
   pk: 97
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: paint/stain and related products, prod_type: paint
-      cleaner, description: paint removing products for clean-up, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.962040', kind: FO, gen_cat: Home maintenance, prod_fam: paint/stain
+      and related products, prod_type: paint cleaner, description: paint removing
+      products for clean-up, last_edited_by: 1}
 - model: dashboard.puc
   pk: 98
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: paint/stain and related products, prod_type: paint
-      texture, description: textured paints including ceiling texture, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.962712', kind: FO, gen_cat: Home maintenance, prod_fam: paint/stain
+      and related products, prod_type: paint texture, description: textured paints
+      including those used on ceilings, last_edited_by: 1}
 - model: dashboard.puc
   pk: 99
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: paint/stain and related products, prod_type: paint
-      thinner, description: paint or lacquer thinners, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.963368', kind: FO, gen_cat: Home maintenance, prod_fam: paint/stain
+      and related products, prod_type: paint thinner, description: paint or lacquer
+      thinners, last_edited_by: 1}
 - model: dashboard.puc
   pk: 100
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: paint/stain and related products, prod_type: primer,
-    description: home improvement primers, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.964031', kind: FO, gen_cat: Home maintenance, prod_fam: paint/stain
+      and related products, prod_type: primer, description: 'paints applied to hard
+      surfaces that are intended to be painted over and that improve adhesion, coverage,
+      or prevent the bleeding through of stains', last_edited_by: 1}
 - model: dashboard.puc
   pk: 101
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: paint/stain and related products, prod_type: stain,
-    description: 'wood stains, including deck stains', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.964719', kind: FO, gen_cat: Home maintenance, prod_fam: paint/stain
+      and related products, prod_type: stain, description: 'products used on wooden
+      surfaces, including decks, to impart transparent or semitransparent color',
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 102
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: paint/stain and related products, prod_type: stripper,
-    description: paint and finish strippers, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.965395', kind: FO, gen_cat: Home maintenance, prod_fam: paint/stain
+      and related products, prod_type: stripper, description: products applied to
+      hard surfaces to remove paints and finishes, last_edited_by: 1}
 - model: dashboard.puc
   pk: 103
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: patch and repair, prod_type: '', description: '',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.966713', kind: FO, gen_cat: Home maintenance, prod_fam: patch and repair,
+    prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 104
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: patch and repair, prod_type: patch and repair,
-    description: 'drywall, ceiling, and joint compounds, spackles, or fillers', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.968326', kind: FO, gen_cat: Home maintenance, prod_fam: patch and repair,
+    prod_type: wall patch and repair, description: products to fill gaps and cracks
+      in walls and ceilings covered in plaster or drywall, last_edited_by: 1}
 - model: dashboard.puc
   pk: 105
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: patch and repair, prod_type: putty or filler,
-    description: 'putty-type crack, hole, and wood fillers', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.967548', kind: FO, gen_cat: Home maintenance, prod_fam: patch and repair,
+    prod_type: putty or filler, description: products used to fill cracks and holes
+      in wooden and other surfaces, last_edited_by: 1}
 - model: dashboard.puc
   pk: 106
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: plumbing, prod_type: '', description: 'miscellaneous
-      plumbing repair products (putties, tapes, cements)', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.969168', kind: FO, gen_cat: Home maintenance, prod_fam: plumbing, prod_type: '',
+    description: 'miscellaneous plumbing repair products (putties, tapes, cements)',
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 107
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: refrigerant, prod_type: '', description: air
-      conditioner or other refrigerants, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.969972', kind: FO, gen_cat: Home maintenance, prod_fam: refrigerant,
+    prod_type: '', description: refrigerants used in air conditioners and refrigerators,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 108
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: roof, prod_type: '', description: 'products
-      for roof maintenance or repair, including cleaners, sealers, or coatings', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.970802', kind: FO, gen_cat: Home maintenance, prod_fam: roof, prod_type: '',
+    description: 'products for roof maintenance or repair, including cleaners, sealers,
+      or coatings (does not include flashing, shingles or underlayment)', last_edited_by: 1}
 - model: dashboard.puc
   pk: 109
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: septic system, prod_type: '', description: septic
-      system treatment products, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.971519', kind: FO, gen_cat: Home maintenance, prod_fam: septic system,
+    prod_type: '', description: septic system treatment products, last_edited_by: 1}
 - model: dashboard.puc
   pk: 110
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: surface sealers, prod_type: '', description: products
-      for coating and protecting household surfaces, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.972126', kind: FO, gen_cat: Home maintenance, prod_fam: surface sealers,
+    prod_type: '', description: 'products for coating and protecting household surfaces
+      other than glass, stone, or grout', last_edited_by: 1}
 - model: dashboard.puc
   pk: 111
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: surface sealers, prod_type: glass surface
-      sealer, description: products for coating and protecting glass household surfaces,
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.972707', kind: FO, gen_cat: Home maintenance, prod_fam: surface sealers,
+    prod_type: glass surface sealer, description: products for coating and protecting
+      glass household surfaces, last_edited_by: 1}
 - model: dashboard.puc
   pk: 112
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: surface sealers, prod_type: stone surface
-      sealer, description: products for coating and protecting stone household surfaces,
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.973306', kind: FO, gen_cat: Home maintenance, prod_fam: surface sealers,
+    prod_type: stone surface sealer, description: products for coating and protecting
+      stone household surfaces, last_edited_by: 1}
 - model: dashboard.puc
   pk: 113
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: tiling, prod_type: '', description: '', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 114
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: tiling, prod_type: grout sealer, description: products
-      for coating and protecting tile or grout, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 115
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: tiling, prod_type: mortar or grout, description: products
-      for attaching and grouting tiles, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 116
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Home maintenance, prod_fam: welding, prod_type: '', description: 'miscellaneous
-      welding products including gases, fluxes, and adhesives', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 117
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: '', prod_type: '', description: '', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 118
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: cleaner, prod_type: '', description: 'exterior
-      surface (e.g. deck, house, driveway) cleaners', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 119
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: grill/camping fuel, prod_type: '', description: 'grill,
-      lantern and camping stove fuels, including briquets', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 120
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: herbicide, prod_type: '', description: 'herbicides,
-      weed killers, and brush killers', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 121
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: lawn fertilizer, prod_type: '', description: 'fertilizers
-      for lawns, including in combination with pest/weed controllers', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 122
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: lawnmower, prod_type: '', description: '',
-    last_edited_by: 1}
-- model: dashboard.puc
-  pk: 123
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: lawnmower, prod_type: lawnmower fluids, description: oils
-      and other fluids for lawnmowers or other small yard care equipment, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 124
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: plants and garden, prod_type: '', description: '',
-    last_edited_by: 1}
-- model: dashboard.puc
-  pk: 125
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: plants and garden, prod_type: garden care,
-    description: miscellaneous garden care products not otherwise characterized (e.g.
-      rooting powders), last_edited_by: 1}
-- model: dashboard.puc
-  pk: 126
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: plants and garden, prod_type: garden fertilizer,
-    description: 'fertilizers for vegetable or flower gardens, including in combination
-      with pest/weed controllers', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 127
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: plants and garden, prod_type: mulch, description: 'mulches,
-      including those with weed controllers', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 128
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: plants and garden, prod_type: potting soil,
-    description: potting soil and vermiculite, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 129
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: plants and garden, prod_type: trees, description: miscellaneous
-      tree care products including sealers, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 130
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: pool, prod_type: '', description: '', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 131
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: pool, prod_type: pool chemicals, description: 'general
-      chemical products for pools, hot tubs, and spas', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 132
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: pool, prod_type: pool chemicals - algaecidal,
-    description: 'algaecidal products for pools, hot tubs, and spas', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 133
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: pool, prod_type: pool chemicals - chlorine-based,
-    description: 'chlorinating products for pools, hot tubs, and spas', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 134
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: pool, prod_type: pool chemicals - pH control,
-    description: 'pH control products for pools, hot tubs, and spas', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 135
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: pool, prod_type: pool chemicals - shock, description: 'shock
-      products for pools, hot tubs, and spas', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 136
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Landscape/Yard, prod_fam: surface deicer, prod_type: '', description: products
-      for deicing surfaces, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 137
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: '', prod_type: '', description: '', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 138
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: acne treatment, prod_type: acne spot treatment,
-    description: creams and wipes for spot-treating acne, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 139
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: acne treatment, prod_type: '', description: '',
-    last_edited_by: 1}
-- model: dashboard.puc
-  pk: 140
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: acne treatment, prod_type: face scrub, description: 'facial
-      cleansing products containing exfoliating particles, for acne treatment', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 141
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: acne treatment, prod_type: face wash, description: 'facial
-      cleansing products (excluding scrubs), for acne treatment', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 142
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: bite relief, prod_type: '', description: soothing
-      treatments for insect bites, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 143
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: body adhesive, prod_type: '', description: adhesive
-      products for attaching accessories to skin, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 144
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: body care set, prod_type: '', description: multicomponent
-      body care or bath set for which individual products are not designated, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 145
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: body hygiene, prod_type: '', description: '',
-    last_edited_by: 1}
-- model: dashboard.puc
-  pk: 146
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: body hygiene, prod_type: bar soap, description: bar
-      and other solid soaps, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 147
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: body hygiene, prod_type: body scrub, description: body
-      cleaners containing abrasives or exfoliants, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 148
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: body hygiene, prod_type: body wash, description: 'body
-      cleaners, washes, shower gels', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 149
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: body hygiene, prod_type: body wipes, description: body
-      wipes and towelettes (excluding diaper or baby wipes), last_edited_by: 1}
-- model: dashboard.puc
-  pk: 150
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: body hygiene, prod_type: hand sanitizer, description: antibacterial
-      products for hands, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 151
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: body hygiene, prod_type: hand soap, description: liquid
-      hand soaps, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 152
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: body hygiene, prod_type: hand wipes, description: wipes
-      and solution primarily for hands, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 153
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: body oil, prod_type: '', description: body oils
-      (not including baby or bath oils), last_edited_by: 1}
-- model: dashboard.puc
-  pk: 154
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: body powder, prod_type: '', description: talcum
-      and dusting powders for the body, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 155
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: child specific, prod_type: '', description: '',
-    last_edited_by: 1}
-- model: dashboard.puc
-  pk: 156
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: child specific, prod_type: baby lotion, description: baby
-      cream or lotion (excluding diaper creams), last_edited_by: 1}
-- model: dashboard.puc
-  pk: 157
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: child specific, prod_type: baby oil, description: skin
-      oils specifically marketed for babies, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 158
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: child specific, prod_type: baby powder, description: powders
-      specifically marketed for babies, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 159
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: child specific, prod_type: baby shampoo, description: shampoos
-      specifically marketed for babies, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 160
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: child specific, prod_type: baby wash, description: body
-      washes and cleaners specifically marketed for babies, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 161
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: child specific, prod_type: baby wipes, description: diaper
-      and other baby wipes, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 162
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: child specific, prod_type: bath paints/crayons,
-    description: bath paints or bath crayons, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 163
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: child specific, prod_type: diaper cream, description: diaper
-      creams and ointments, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 164
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: dental care, prod_type: '', description: '',
-    last_edited_by: 1}
-- model: dashboard.puc
-  pk: 165
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: dental care, prod_type: denture adhesive, description: denture
-      adhesives, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 166
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: dental care, prod_type: denture cleaner, description: denture
-      cleansers, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 167
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: dental care, prod_type: mouthwash, description: antiseptic
-      and dental mouthwashes and rinses, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 168
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: dental care, prod_type: teeth whitener, description: teeth
-      whitening products (excluding toothpastes), last_edited_by: 1}
-- model: dashboard.puc
-  pk: 169
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: dental care, prod_type: toothpaste, description: toothpastes
-      and dentrifices, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 170
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: deodorant, prod_type: '', description: deodorants
-      and antiperspirants, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 171
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: eye care and contacts, prod_type: contact care,
-    description: contact lense cleaners and solutions, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 172
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: eye care and contacts, prod_type: '', description: '',
-    last_edited_by: 1}
-- model: dashboard.puc
-  pk: 173
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: eye care and contacts, prod_type: eye cream,
-    description: creams and moisturizers for specific treatment of eye area, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 174
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: eye care and contacts, prod_type: eye drops,
-    description: products for lubricating eyes or treating redness, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 175
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: eye care and contacts, prod_type: eyelid spray,
-    description: sprays for moisturizing the eyelid, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 176
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: eye care and contacts, prod_type: eye products,
-    description: products for use around or in the eye that are not otherwise categorized,
-    last_edited_by: 1}
-- model: dashboard.puc
-  pk: 177
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: facial cleansing and moisturizing, prod_type: '',
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.974027', kind: FO, gen_cat: Home maintenance, prod_fam: tiling, prod_type: '',
     description: '', last_edited_by: 1}
 - model: dashboard.puc
-  pk: 178
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: facial cleansing and moisturizing, prod_type: face
-      cleansing wipes, description: textile wipes or pads treated with cleansing solution,
+  pk: 114
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.974731', kind: FO, gen_cat: Home maintenance, prod_fam: tiling, prod_type: grout
+      sealer, description: products for coating and protecting tile or grout, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 115
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.975393', kind: FO, gen_cat: Home maintenance, prod_fam: tiling, prod_type: mortar
+      or grout, description: products for mortaring bricks or blocks and attaching
+      or grouting interior tiles, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 116
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.976225', kind: FO, gen_cat: Home maintenance, prod_fam: welding, prod_type: '',
+    description: 'miscellaneous welding products including gases, fluxes, and adhesives',
     last_edited_by: 1}
+- model: dashboard.puc
+  pk: 117
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.976975', kind: FO, gen_cat: Landscape/Yard, prod_fam: '', prod_type: '',
+    description: '', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 118
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.977654', kind: FO, gen_cat: Landscape/Yard, prod_fam: cleaner, prod_type: '',
+    description: 'products used to clean hard surfaces outside of the home including
+      decks, driveways, and external walls includes products used as part of a mechanical
+      cleaning system (e.g., solutions for pressure sprayers)', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 119
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.978279', kind: FO, gen_cat: Landscape/Yard, prod_fam: grill/camping
+      fuel, prod_type: '', description: 'fuels used for outdoor heating, cooking,
+      or illumination', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 120
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.978966', kind: FO, gen_cat: Landscape/Yard, prod_fam: herbicide, prod_type: '',
+    description: products used to control or kill unwanted plants, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 121
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.980020', kind: FO, gen_cat: Landscape/Yard, prod_fam: lawn fertilizer,
+    prod_type: '', description: 'fertilizers for lawns, including in combination with
+      pest/weed controllers', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 122
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.980957', kind: FO, gen_cat: Landscape/Yard, prod_fam: lawnmower, prod_type: '',
+    description: '', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 123
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.981811', kind: FO, gen_cat: Landscape/Yard, prod_fam: lawnmower, prod_type: lawnmower
+      fluids, description: oils and other fluids for lawnmowers or other small yard
+      care equipment, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 124
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.982647', kind: FO, gen_cat: Landscape/Yard, prod_fam: plants and garden,
+    prod_type: '', description: '', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 125
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.983641', kind: FO, gen_cat: Landscape/Yard, prod_fam: plants and garden,
+    prod_type: garden care, description: miscellaneous garden care products not otherwise
+      characterized (e.g. rooting powders), last_edited_by: 1}
+- model: dashboard.puc
+  pk: 126
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.984493', kind: FO, gen_cat: Landscape/Yard, prod_fam: plants and garden,
+    prod_type: garden fertilizer, description: 'fertilizers for vegetable or flower
+      gardens, including in combination with pest/weed controllers', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 127
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.985317', kind: FO, gen_cat: Landscape/Yard, prod_fam: plants and garden,
+    prod_type: mulch, description: 'organic materials placed on soil surface or mixed
+      with soil to improve water retention, suppress weeds, or otherwise improve soils',
+    last_edited_by: 1}
+- model: dashboard.puc
+  pk: 128
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.986349', kind: FO, gen_cat: Landscape/Yard, prod_fam: plants and garden,
+    prod_type: potting soil, description: 'potting soil and mixes including plant
+      based materials, vermiculite, and hydrogels', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 129
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.987103', kind: FO, gen_cat: Landscape/Yard, prod_fam: plants and garden,
+    prod_type: tree care products, description: miscellaneous tree care products including
+      sealers (excluding fertilizers or pesticides), last_edited_by: 1}
+- model: dashboard.puc
+  pk: 131
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.987766', kind: FO, gen_cat: Landscape/Yard, prod_fam: pool chemicals,
+    prod_type: '', description: 'products not otherwise characterized for pools, hot
+      tubs, and spas', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 132
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.989261', kind: FO, gen_cat: Landscape/Yard, prod_fam: pool chemicals,
+    prod_type: pool algaecide, description: 'algaecidal products for pools, hot tubs,
+      and spas', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 133
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.990029', kind: FO, gen_cat: Landscape/Yard, prod_fam: pool chemicals,
+    prod_type: pool chlorine, description: 'chlorinating products for pools, hot tubs,
+      and spas', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 134
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.988433', kind: FO, gen_cat: Landscape/Yard, prod_fam: pool chemicals,
+    prod_type: pH control, description: 'pH control products for pools, hot tubs,
+      and spas', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 135
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.990662', kind: FO, gen_cat: Landscape/Yard, prod_fam: pool chemicals,
+    prod_type: shock, description: 'shock products for pools, hot tubs, and spas',
+    last_edited_by: 1}
+- model: dashboard.puc
+  pk: 136
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.991495', kind: FO, gen_cat: Landscape/Yard, prod_fam: surface deicer,
+    prod_type: '', description: products for deicing surfaces, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 137
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.992208', kind: FO, gen_cat: Personal care, prod_fam: '', prod_type: '',
+    description: '', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 138
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.993648', kind: FO, gen_cat: Personal care, prod_fam: acne treatment,
+    prod_type: acne spot treatment, description: creams and wipes for spot-treating
+      acne, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 139
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.992819', kind: FO, gen_cat: Personal care, prod_fam: acne treatment,
+    prod_type: '', description: '', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 140
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.994377', kind: FO, gen_cat: Personal care, prod_fam: acne treatment,
+    prod_type: face scrub, description: 'facial cleansing products containing exfoliating
+      particles, for acne treatment', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 141
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.995047', kind: FO, gen_cat: Personal care, prod_fam: acne treatment,
+    prod_type: face wash, description: 'facial cleansing products (excluding scrubs),
+      for acne treatment', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 142
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.995707', kind: FO, gen_cat: Personal care, prod_fam: bite relief, prod_type: '',
+    description: products applied to the skin for soothing insect bites, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 143
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.996345', kind: FO, gen_cat: Personal care, prod_fam: body adhesive,
+    prod_type: '', description: adhesive products for attaching clothing or accessories
+      to skin, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 144
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.997032', kind: FO, gen_cat: Personal care, prod_fam: body care set,
+    prod_type: '', description: multicomponent body care or bath set for which individual
+      products are not designated, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 145
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.997836', kind: FO, gen_cat: Personal care, prod_fam: body hygiene,
+    prod_type: '', description: '', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 146
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.998640', kind: FO, gen_cat: Personal care, prod_fam: body hygiene,
+    prod_type: bar soap, description: bar and other solid soaps, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 147
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:07.999279', kind: FO, gen_cat: Personal care, prod_fam: body hygiene,
+    prod_type: body scrub, description: body cleaners containing abrasives or exfoliants,
+    last_edited_by: 1}
+- model: dashboard.puc
+  pk: 148
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.000083', kind: FO, gen_cat: Personal care, prod_fam: body hygiene,
+    prod_type: body wash, description: 'body cleaners, washes, shower gels', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 149
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.000813', kind: FO, gen_cat: Personal care, prod_fam: body hygiene,
+    prod_type: body wipes, description: textile wipes and towelettes intended for
+      use on body areas outside of the hands and face (excluding diaper or baby wipes),
+    last_edited_by: 1}
+- model: dashboard.puc
+  pk: 150
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.001447', kind: FO, gen_cat: Personal care, prod_fam: body hygiene,
+    prod_type: hand sanitizer, description: antibacterial products for application
+      to hands, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 151
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.002070', kind: FO, gen_cat: Personal care, prod_fam: body hygiene,
+    prod_type: hand soap, description: liquid hand soaps, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 152
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.002737', kind: FO, gen_cat: Personal care, prod_fam: body hygiene,
+    prod_type: hand wipes, description: textile wipes and towelettes for hands, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 153
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.003447', kind: FO, gen_cat: Personal care, prod_fam: body oil, prod_type: '',
+    description: lipophilic products applied to skin (excluding baby oils), last_edited_by: 1}
+- model: dashboard.puc
+  pk: 154
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.004088', kind: FO, gen_cat: Personal care, prod_fam: body powder, prod_type: '',
+    description: talcum and dusting powders for the body (excluding baby powder),
+    last_edited_by: 1}
+- model: dashboard.puc
+  pk: 155
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.004720', kind: FO, gen_cat: Personal care, prod_fam: child specific,
+    prod_type: '', description: '', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 156
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.005355', kind: FO, gen_cat: Personal care, prod_fam: child specific,
+    prod_type: baby lotion, description: baby cream or lotion (excluding diaper creams),
+    last_edited_by: 1}
+- model: dashboard.puc
+  pk: 157
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.006161', kind: FO, gen_cat: Personal care, prod_fam: child specific,
+    prod_type: baby oil, description: lipophilic products applied to skin marketed
+      for use on infants, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 158
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.006868', kind: FO, gen_cat: Personal care, prod_fam: child specific,
+    prod_type: baby powder, description: 'powder products applied to skin to absorb
+      excess moisture and lubricate skin, marketed for use on infants', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 159
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.007495', kind: FO, gen_cat: Personal care, prod_fam: child specific,
+    prod_type: baby shampoo, description: hair cleaning products marketed for use
+      on infants, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 160
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.008116', kind: FO, gen_cat: Personal care, prod_fam: child specific,
+    prod_type: baby wash, description: body washes and cleaners specifically marketed
+      for use on infants, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 161
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.008815', kind: FO, gen_cat: Personal care, prod_fam: child specific,
+    prod_type: baby wipes, description: textile wipes and towelettes specifically
+      marketed for use on infants, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 162
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.009617', kind: FO, gen_cat: Personal care, prod_fam: child specific,
+    prod_type: bath paints/crayons, description: bath paints or bath crayons, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 163
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.010331', kind: FO, gen_cat: Personal care, prod_fam: child specific,
+    prod_type: diaper cream, description: diaper creams and ointments, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 164
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.010962', kind: FO, gen_cat: Personal care, prod_fam: dental care, prod_type: '',
+    description: '', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 165
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.011614', kind: FO, gen_cat: Personal care, prod_fam: dental care, prod_type: denture
+      adhesive, description: denture adhesives, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 166
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.012255', kind: FO, gen_cat: Personal care, prod_fam: dental care, prod_type: denture
+      cleaner, description: denture cleansers, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 167
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.012878', kind: FO, gen_cat: Personal care, prod_fam: dental care, prod_type: mouthwash,
+    description: antiseptic and dental mouthwashes and rinses, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 168
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.013506', kind: FO, gen_cat: Personal care, prod_fam: dental care, prod_type: teeth
+      whitener, description: teeth whitening products (excluding toothpastes), last_edited_by: 1}
+- model: dashboard.puc
+  pk: 169
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.014131', kind: FO, gen_cat: Personal care, prod_fam: dental care, prod_type: toothpaste,
+    description: toothpastes and dentrifices, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 170
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.014797', kind: FO, gen_cat: Personal care, prod_fam: deodorant, prod_type: '',
+    description: deodorants and antiperspirants, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 171
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.016249', kind: FO, gen_cat: Personal care, prod_fam: eye care and contacts,
+    prod_type: contact care, description: contact lens cleaners and solutions, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 172
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.015444', kind: FO, gen_cat: Personal care, prod_fam: eye care and contacts,
+    prod_type: '', description: products for use around or in the eye that are not
+      otherwise categorized, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 173
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.016990', kind: FO, gen_cat: Personal care, prod_fam: eye care and contacts,
+    prod_type: eye cream, description: products applied to skin located around the
+      eye to moisturize or improve skin qualities, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 174
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.017644', kind: FO, gen_cat: Personal care, prod_fam: eye care and contacts,
+    prod_type: eye drops, description: products applied to the eye for lubrication
+      or treating redness, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 175
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.018873', kind: FO, gen_cat: Personal care, prod_fam: eye care and contacts,
+    prod_type: eyelid spray, description: spray products applied to eyelids to treat
+      skin and eye lash problems, last_edited_by: 1}
+- model: dashboard.puc
+  pk: 177
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.019530', kind: FO, gen_cat: Personal care, prod_fam: facial cleansing
+      and moisturizing, prod_type: '', description: '', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 178
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.020246', kind: FO, gen_cat: Personal care, prod_fam: facial cleansing
+      and moisturizing, prod_type: face cleansing wipes, description: textile wipes
+      or pads treated with cleansing solution applied to the face to clean or improve
+      the characteristics of skin on the face, last_edited_by: 1}
 - model: dashboard.puc
   pk: 179
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: facial cleansing and moisturizing, prod_type: face
-      cream/moisturizer, description: 'moisturizers, lotions, and creams for primarily
-      treating the face (excluding eye-specific products)', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.020997', kind: FO, gen_cat: Personal care, prod_fam: facial cleansing
+      and moisturizing, prod_type: face cream/moisturizer, description: 'moisturizers,
+      lotions, and creams for treating the face (excluding eye-specific products)',
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 180
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: facial cleansing and moisturizing, prod_type: face
-      mask, description: leave-on masks or peels for treatment of the face, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.021838', kind: FO, gen_cat: Personal care, prod_fam: facial cleansing
+      and moisturizing, prod_type: face mask, description: leave-on masks or peels
+      for treatment of the face, last_edited_by: 1}
 - model: dashboard.puc
   pk: 181
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: facial cleansing and moisturizing, prod_type: face
-      scrub, description: facial cleansing products containing exfoliating particles
-      (excluding products for acne), last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.022512', kind: FO, gen_cat: Personal care, prod_fam: facial cleansing
+      and moisturizing, prod_type: face scrub, description: facial cleansing products
+      containing exfoliating particles (excluding products for acne), last_edited_by: 1}
 - model: dashboard.puc
   pk: 182
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: facial cleansing and moisturizing, prod_type: face
-      wash, description: facial cleansing products (excluding scrubs and products
-      for acne), last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.023143', kind: FO, gen_cat: Personal care, prod_fam: facial cleansing
+      and moisturizing, prod_type: face wash, description: facial cleansing products
+      (excluding scrubs and products for acne), last_edited_by: 1}
 - model: dashboard.puc
   pk: 183
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: foot care, prod_type: '', description: 'miscellaneous
-      products for application to feet, including scrubs, lotions, and deodorants',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.023791', kind: FO, gen_cat: Personal care, prod_fam: foot care, prod_type: '',
+    description: 'miscellaneous products for application to feet, including scrubs,
+      lotions, deodorants, and treatments for skin and nail problems', last_edited_by: 1}
 - model: dashboard.puc
   pk: 184
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: fragrance, prod_type: '', description: 'fragrances,
-      colognes, and perfumes', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.024596', kind: FO, gen_cat: Personal care, prod_fam: fragrance, prod_type: '',
+    description: 'fragrances, colognes, and perfumes', last_edited_by: 1}
 - model: dashboard.puc
   pk: 185
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: general moisturizing, prod_type: hand/body lotion,
-    description: lotions and creams primarily for hands and body, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.025995', kind: FO, gen_cat: Personal care, prod_fam: general moisturizing,
+    prod_type: hand/body lotion, description: products specifically marketed for application
+      to hands or body to moisturize or improve skin characteristics (excluding baby
+      lotion), last_edited_by: 1}
 - model: dashboard.puc
   pk: 186
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: general moisturizing, prod_type: '', description: '',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.025333', kind: FO, gen_cat: Personal care, prod_fam: general moisturizing,
+    prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 187
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: glitter, prod_type: '', description: powder
-      products containing reflective particles for face or body, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.026821', kind: FO, gen_cat: Personal care, prod_fam: glitter, prod_type: '',
+    description: products containing reflective particles applied to the face or body
+      for cosmetic purposes, last_edited_by: 1}
 - model: dashboard.puc
   pk: 188
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair coloring, prod_type: '', description: general
-      hair coloring products, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.027523', kind: FO, gen_cat: Personal care, prod_fam: hair coloring,
+    prod_type: '', description: general hair coloring products which can not be classified
+      into a more refined category, last_edited_by: 1}
 - model: dashboard.puc
   pk: 189
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair coloring, prod_type: hair bleach, description: products
-      for lightening or removing color from hair on the head, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.028092', kind: FO, gen_cat: Personal care, prod_fam: hair coloring,
+    prod_type: hair bleach, description: products for lightening or removing color
+      from hair on the head, last_edited_by: 1}
 - model: dashboard.puc
   pk: 190
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair coloring, prod_type: hair color - permanent,
-    description: hair colors and dyes characterized as permanent, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.028706', kind: FO, gen_cat: Personal care, prod_fam: hair coloring,
+    prod_type: hair color - permanent, description: hair colors and dyes characterized
+      as permanent, last_edited_by: 1}
 - model: dashboard.puc
   pk: 191
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair coloring, prod_type: hair color - professional,
-    description: hair colors and dyes characterized as for professional use, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.029328', kind: FO, gen_cat: Personal care, prod_fam: hair coloring,
+    prod_type: hair color - professional, description: hair colors and dyes characterized
+      as for professional use, last_edited_by: 1}
 - model: dashboard.puc
   pk: 192
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair coloring, prod_type: hair color - temporary,
-    description: hair colors and dyes characterized as temporary, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.029980', kind: FO, gen_cat: Personal care, prod_fam: hair coloring,
+    prod_type: hair color - temporary, description: hair colors and dyes characterized
+      as temporary, last_edited_by: 1}
 - model: dashboard.puc
   pk: 193
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair coloring, prod_type: hair color activator,
-    description: chemical activators for hair coloring products, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.030828', kind: FO, gen_cat: Personal care, prod_fam: hair coloring,
+    prod_type: hair color activator, description: chemical activators for hair coloring
+      products, last_edited_by: 1}
 - model: dashboard.puc
   pk: 194
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair coloring, prod_type: hair color developer,
-    description: chemical developers for hair coloring products, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.031505', kind: FO, gen_cat: Personal care, prod_fam: hair coloring,
+    prod_type: hair color developer, description: chemical developers for hair coloring
+      products, last_edited_by: 1}
 - model: dashboard.puc
   pk: 195
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair coloring, prod_type: hair color toner,
-    description: chemical toners for hair coloring products, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.032172', kind: FO, gen_cat: Personal care, prod_fam: hair coloring,
+    prod_type: hair color toner, description: chemical toners for hair coloring products,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 196
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair styling and care, prod_type: dry shampoo,
-    description: dry shampoos for removing hair oils, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.033540', kind: FO, gen_cat: Personal care, prod_fam: hair styling and
+      care, prod_type: dry shampoo, description: products for removing oil and dirt
+      from hair, last_edited_by: 1}
 - model: dashboard.puc
   pk: 197
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair styling and care, prod_type: '', description: '',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.032875', kind: FO, gen_cat: Personal care, prod_fam: hair styling and
+      care, prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 198
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair styling and care, prod_type: ethnic hair
-      care, description: 'products for ethnic hair care, including wrap set lotions
-      and pressing lotions (excluding relaxers)', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 199
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair styling and care, prod_type: hair conditioner
-      - rinse-out, description: rinse-out everyday hair conditioners (excluding combo
-      shampoo/conditioner products), last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.034167', kind: FO, gen_cat: Personal care, prod_fam: hair styling and
+      care, prod_type: ethnic hair care, description: 'products for ethnic hair care,
+      including wrap set lotions and pressing lotions (excluding relaxers)', last_edited_by: 1}
 - model: dashboard.puc
   pk: 200
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair styling and care, prod_type: hair conditioner
-      - leave-in, description: leave-in everyday hair conditioners and detanglers,
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.035491', kind: FO, gen_cat: Personal care, prod_fam: hair styling and
+      care, prod_type: hair conditioner - leave-in, description: leave-in everyday
+      hair conditioners and detanglers, last_edited_by: 1}
 - model: dashboard.puc
   pk: 201
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair styling and care, prod_type: hair conditioning
-      treatment, description: hair conditioning and moisturizing treatments for occasional
-      use, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.036141', kind: FO, gen_cat: Personal care, prod_fam: hair styling and
+      care, prod_type: hair conditioning treatment, description: hair conditioning
+      and moisturizing treatments for occasional use, last_edited_by: 1}
 - model: dashboard.puc
   pk: 202
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair styling and care, prod_type: hair conditioning
-      treatment - professional, description: hair conditioning and moisturizing treatments
-      for occasional use characterized as for professional use, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.036864', kind: FO, gen_cat: Personal care, prod_fam: hair styling and
+      care, prod_type: hair conditioning treatment - professional, description: hair
+      conditioning and moisturizing treatments characterized as for professional use,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 203
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair styling and care, prod_type: hair relaxer,
-    description: chemical hair relaxers, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.037693', kind: FO, gen_cat: Personal care, prod_fam: hair styling and
+      care, prod_type: hair relaxer, description: chemical hair relaxers, last_edited_by: 1}
 - model: dashboard.puc
   pk: 204
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair styling and care, prod_type: hair spray,
-    description: spray fixatives for hair, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.038414', kind: FO, gen_cat: Personal care, prod_fam: hair styling and
+      care, prod_type: hair spray, description: spray fixatives for hair, last_edited_by: 1}
 - model: dashboard.puc
   pk: 205
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair styling and care, prod_type: hair styling,
-    description: 'hair styling products for hold, shine, or texture', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 206
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair styling and care, prod_type: hair styling
-      - gel, description: 'hair styling products for hold, shine, or texture (gel
-      formulation indicated)', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 207
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair styling and care, prod_type: hair styling
-      - mousse, description: foaming hair styling products, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-05-06
+      09:18:30.370215', kind: FO, gen_cat: Personal care, prod_fam: hair styling and
+      care, prod_type: hair styling, description: 'products for imparting hold, shine,
+      or texture to hair', last_edited_by: 1}
 - model: dashboard.puc
   pk: 208
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair styling and care, prod_type: lice shampoo,
-    description: shampoos for the treatment of head lice, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.039725', kind: FO, gen_cat: Personal care, prod_fam: hair styling and
+      care, prod_type: lice shampoo, description: shampoos for the treatment of various
+      types of lice, last_edited_by: 1}
 - model: dashboard.puc
   pk: 209
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair styling and care, prod_type: scalp treatment,
-    description: 'products for treating the scalp, including products dandruff or
-      hair loss', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.040375', kind: FO, gen_cat: Personal care, prod_fam: hair styling and
+      care, prod_type: scalp treatment, description: 'products for treating the scalp,
+      including products for dandruff or hair loss (excluding dandruff shampoo)',
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 210
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair styling and care, prod_type: shampoo, description: 'shampoos,
-      including dual shampoo/conditioner products', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.041098', kind: FO, gen_cat: Personal care, prod_fam: hair styling and
+      care, prod_type: shampoo, description: 'shampoos, including dual shampoo/conditioner
+      products', last_edited_by: 1}
 - model: dashboard.puc
   pk: 211
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: hair styling and care, prod_type: shampoo -
-      dandruff, description: 'shampoos, including dual shampoo/conditioner products
-      for treatment of dandruff', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.041746', kind: FO, gen_cat: Personal care, prod_fam: hair styling and
+      care, prod_type: shampoo - dandruff, description: 'shampoos, including dual
+      shampoo/conditioner products for treatment of dandruff', last_edited_by: 1}
 - model: dashboard.puc
   pk: 212
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: liniment, prod_type: '', description: liniments
-      and ointments for treatment of muscle or joint pain, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.042502', kind: FO, gen_cat: Personal care, prod_fam: liniment, prod_type: '',
+    description: products for treatment of muscle or joint pain, last_edited_by: 1}
 - model: dashboard.puc
   pk: 213
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: make-up and related, prod_type: '', description: '',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.043196', kind: FO, gen_cat: Personal care, prod_fam: make-up and related,
+    prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 214
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: make-up and related, prod_type: blush/bronzer,
-    description: 'cheek blushes, bronzers, and rouges', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.043876', kind: FO, gen_cat: Personal care, prod_fam: make-up and related,
+    prod_type: blush/bronzer, description: 'cheek blushes, bronzers, and rouges',
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 215
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: make-up and related, prod_type: cosmetic tool
-      cleaner, description: 'products for cleaning makeup sponges, brushes, or other
-      cosmetic tools', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.044549', kind: FO, gen_cat: Personal care, prod_fam: make-up and related,
+    prod_type: cosmetic tool cleaner, description: products for cleaning brushes and
+      other devices used to apply make-up, last_edited_by: 1}
 - model: dashboard.puc
   pk: 216
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: make-up and related, prod_type: eye liner, description: eye
-      liners or brow coloring products, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.045346', kind: FO, gen_cat: Personal care, prod_fam: make-up and related,
+    prod_type: eye liner, description: eye liners or brow coloring products, last_edited_by: 1}
 - model: dashboard.puc
   pk: 217
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: make-up and related, prod_type: eye makeup,
-    description: miscellaneous cosmetic eye products including lash adhesives and
-      tints, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.046048', kind: FO, gen_cat: Personal care, prod_fam: make-up and related,
+    prod_type: eye makeup, description: 'miscellaneous cosmetic eye products including
+      lash adhesives and tints (excludes eye shadow, mascara, and eye liner)', last_edited_by: 1}
 - model: dashboard.puc
   pk: 218
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: make-up and related, prod_type: eye shadow,
-    description: products for coloring eye lids, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.046699', kind: FO, gen_cat: Personal care, prod_fam: make-up and related,
+    prod_type: eye shadow, description: products for coloring eye lids, last_edited_by: 1}
 - model: dashboard.puc
   pk: 219
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: make-up and related, prod_type: face powder,
-    description: pressed or loose powders for face, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.047383', kind: FO, gen_cat: Personal care, prod_fam: make-up and related,
+    prod_type: face powder, description: pressed or loose powders for face, last_edited_by: 1}
 - model: dashboard.puc
   pk: 220
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: make-up and related, prod_type: foundation/concealer,
-    description: liquid or cream foundation make-ups and concealers, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.048053', kind: FO, gen_cat: Personal care, prod_fam: make-up and related,
+    prod_type: foundation/concealer, description: foundation make-up and concealers,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 221
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: make-up and related, prod_type: lip balm, description: lip
-      products primarily for protection, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.048718', kind: FO, gen_cat: Personal care, prod_fam: make-up and related,
+    prod_type: lip balm, description: lip products primarily for protection, last_edited_by: 1}
 - model: dashboard.puc
   pk: 222
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: make-up and related, prod_type: lip color, description: 'colored
-      lip products, excluding glosses', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.049376', kind: FO, gen_cat: Personal care, prod_fam: make-up and related,
+    prod_type: lip color, description: 'colored lip products, excluding glosses',
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 223
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: make-up and related, prod_type: lip gloss, description: glossy
-      lip products, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.050233', kind: FO, gen_cat: Personal care, prod_fam: make-up and related,
+    prod_type: lip gloss, description: glossy lip products, last_edited_by: 1}
 - model: dashboard.puc
   pk: 224
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: make-up and related, prod_type: lip liner, description: pencils
-      for lining lips, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.050993', kind: FO, gen_cat: Personal care, prod_fam: make-up and related,
+    prod_type: lip liner, description: pencils for lining lips, last_edited_by: 1}
 - model: dashboard.puc
   pk: 225
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: make-up and related, prod_type: makeup primer,
-    description: products for priming face for make-up, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.051629', kind: FO, gen_cat: Personal care, prod_fam: make-up and related,
+    prod_type: makeup primer, description: products for priming face for make-up,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 226
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: make-up and related, prod_type: makeup remover,
-    description: products for removing face make-ups, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.052235', kind: FO, gen_cat: Personal care, prod_fam: make-up and related,
+    prod_type: makeup remover, description: products for removing face make-up, last_edited_by: 1}
 - model: dashboard.puc
   pk: 227
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: make-up and related, prod_type: makeup set,
-    description: multicomponent make-up set set for which individual products are
-      not designated, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.052858', kind: FO, gen_cat: Personal care, prod_fam: make-up and related,
+    prod_type: makeup set, description: multicomponent make-up set set for which individual
+      products are not designated, last_edited_by: 1}
 - model: dashboard.puc
   pk: 228
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: make-up and related, prod_type: mascara, description: eyelash
-      mascaras, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.053701', kind: FO, gen_cat: Personal care, prod_fam: make-up and related,
+    prod_type: mascara, description: eyelash mascaras, last_edited_by: 1}
 - model: dashboard.puc
   pk: 229
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: make-up and related, prod_type: toner, description: face
-      and skin toners and astringents, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.054445', kind: FO, gen_cat: Personal care, prod_fam: make-up and related,
+    prod_type: toner, description: face and skin toners and astringents excluding
+      eye related products, last_edited_by: 1}
 - model: dashboard.puc
   pk: 230
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: nails, prod_type: '', description: products
-      for nail or cuticle treatment or decoration, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.055905', kind: FO, gen_cat: Personal care, prod_fam: nails, prod_type: '',
+    description: products for nail or cuticle treatment or decoration, last_edited_by: 1}
 - model: dashboard.puc
   pk: 231
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: nails, prod_type: nail adhesive, description: adhesives
-      for reparing fingernails or attaching artificial nails, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.056759', kind: FO, gen_cat: Personal care, prod_fam: nails, prod_type: nail
+      adhesive, description: adhesives for reparing fingernails or attaching artificial
+      nails, last_edited_by: 1}
 - model: dashboard.puc
   pk: 232
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: nails, prod_type: nail polish, description: 'clear
-      or colored nail enamels, polishes, basecoats, topcoats, and other acrylic coatings',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.057478', kind: FO, gen_cat: Personal care, prod_fam: nails, prod_type: nail
+      polish, description: 'clear or colored nail enamels, polishes, basecoats, topcoats,
+      and other acrylic coatings', last_edited_by: 1}
 - model: dashboard.puc
   pk: 233
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: nails, prod_type: nail polish remover, description: products
-      for removing nail polish or artificial nails, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.058123', kind: FO, gen_cat: Personal care, prod_fam: nails, prod_type: nail
+      polish remover, description: products for removing nail polish or artificial
+      nails, last_edited_by: 1}
 - model: dashboard.puc
   pk: 234
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: self-tanner, prod_type: '', description: 'chemical
-      products for tanning, staining, or coloring the skin', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.058839', kind: FO, gen_cat: Personal care, prod_fam: self-tanner, prod_type: '',
+    description: 'chemical products for tanning, staining, or coloring the skin',
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 235
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: sexual wellness, prod_type: '', description: 'sexual
-      wellness products, including personal lubricants', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.059623', kind: FO, gen_cat: Personal care, prod_fam: sexual wellness,
+    prod_type: '', description: 'sexual wellness products, including personal lubricants',
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 236
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: shaving and hair removal, prod_type: '', description: '',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.060296', kind: FO, gen_cat: Personal care, prod_fam: shaving and hair
+      removal, prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 237
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: shaving and hair removal, prod_type: aftershave,
-    description: 'lotions, balms, liquids, and gels for post-shave applications (usually
-      fragranced)', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.060973', kind: FO, gen_cat: Personal care, prod_fam: shaving and hair
+      removal, prod_type: aftershave, description: 'products applied to the skin following
+      shaving to provide scent, or improve skin characteristics', last_edited_by: 1}
 - model: dashboard.puc
   pk: 238
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: shaving and hair removal, prod_type: clipper
-      lubricant/cleaner, description: cleaning and lubricating products for hair clippers,
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.061597', kind: FO, gen_cat: Personal care, prod_fam: shaving and hair
+      removal, prod_type: clipper lubricant/cleaner, description: cleaning and lubricating
+      products for hair clippers, last_edited_by: 1}
 - model: dashboard.puc
   pk: 239
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: shaving and hair removal, prod_type: depilatory,
-    description: chemical products for removal of body or facial hair, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.062193', kind: FO, gen_cat: Personal care, prod_fam: shaving and hair
+      removal, prod_type: depilatory, description: products for removal of body or
+      facial hair, last_edited_by: 1}
 - model: dashboard.puc
   pk: 240
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: shaving and hair removal, prod_type: shaving
-      cream, description: 'shaving creams, foams, balms and soaps', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.062858', kind: FO, gen_cat: Personal care, prod_fam: shaving and hair
+      removal, prod_type: shaving cream, description: 'shaving creams, foams, balms
+      and soaps', last_edited_by: 1}
 - model: dashboard.puc
   pk: 241
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: shaving and hair removal, prod_type: waxing,
-    description: wax products for removing hair from face or body, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.063491', kind: FO, gen_cat: Personal care, prod_fam: shaving and hair
+      removal, prod_type: waxing, description: products for removing hair by waxing,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 242
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: specialized bath products, prod_type: '', description: '',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.064120', kind: FO, gen_cat: Personal care, prod_fam: specialized bath
+      products, prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 243
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: specialized bath products, prod_type: bath oil,
-    description: bath oils or oil-filled beads, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.064778', kind: FO, gen_cat: Personal care, prod_fam: specialized bath
+      products, prod_type: bath oil, description: liquid or liquid-filled pods added
+      to bath water, last_edited_by: 1}
 - model: dashboard.puc
   pk: 244
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: specialized bath products, prod_type: bath salts,
-    description: 'bath salts, soaks, and fizzes', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.065510', kind: FO, gen_cat: Personal care, prod_fam: specialized bath
+      products, prod_type: bath salts, description: 'solid or powdered products added
+      to bathwater including bath salts, soaks,  and fizzes', last_edited_by: 1}
 - model: dashboard.puc
   pk: 245
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: specialized bath products, prod_type: bubble
-      bath, description: bubble baths, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.066244', kind: FO, gen_cat: Personal care, prod_fam: specialized bath
+      products, prod_type: bubble bath, description: 'products added to bath water
+      to create bubbles, may provide cleaning, fragrance, or improve skin characteristics
+      (including bubble bath marketed to babies or children)', last_edited_by: 1}
 - model: dashboard.puc
   pk: 246
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Personal care, prod_fam: sunscreen, prod_type: '', description: suncreens
-      and blocks, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.066928', kind: FO, gen_cat: Personal care, prod_fam: sunscreen, prod_type: '',
+    description: products applied to the skin to block harmful effects of sunlight,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 247
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pesticides, prod_fam: '', prod_type: '', description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.067728', kind: FO, gen_cat: Pesticides, prod_fam: '', prod_type: '',
+    description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 248
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pesticides, prod_fam: animal repellent, prod_type: '', description: chemical
-      animal repellents, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.068467', kind: FO, gen_cat: Pesticides, prod_fam: animal repellent,
+    prod_type: '', description: products used to repel animals from locations or objects
+      or to keep animals from chewing objects, last_edited_by: 1}
 - model: dashboard.puc
   pk: 249
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pesticides, prod_fam: fungicide, prod_type: '', description: fungicides
-      for garden or home use, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.069081', kind: FO, gen_cat: Pesticides, prod_fam: fungicide, prod_type: '',
+    description: products used to control fungi pests in the garden or home, last_edited_by: 1}
 - model: dashboard.puc
   pk: 250
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pesticides, prod_fam: insect repellent, prod_type: '', description: products
-      for repelling insects, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 251
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pesticides, prod_fam: insect repellent, prod_type: insect repellent -
-      exterior, description: 'products for repelling insects, exterior use indicated',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-05-02
+      10:44:34.825412', kind: FO, gen_cat: Pesticides, prod_fam: insect repellent,
+    prod_type: '', description: 'miscellaneous products for repelling insects, including
+      citronella type candles (excluding products to be applied to the skin)', last_edited_by: 1}
 - model: dashboard.puc
   pk: 252
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pesticides, prod_fam: insect repellent, prod_type: insect repellent -
-      skin, description: products for repelling insects from skin, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.070338', kind: FO, gen_cat: Pesticides, prod_fam: insect repellent,
+    prod_type: insect repellent - skin, description: products for repelling insects
+      from skin, last_edited_by: 1}
 - model: dashboard.puc
   pk: 253
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pesticides, prod_fam: insecticide, prod_type: '', description: 'insecticides,
-      including for home interiors, lawn and gardens', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.071165', kind: FO, gen_cat: Pesticides, prod_fam: insecticide, prod_type: '',
+    description: 'insecticides, for interior or exterior use', last_edited_by: 1}
 - model: dashboard.puc
   pk: 254
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pesticides, prod_fam: rodenticide, prod_type: '', description: rodenticides,
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.071928', kind: FO, gen_cat: Pesticides, prod_fam: rodenticide, prod_type: '',
+    description: rodenticides for interior or exterior use, last_edited_by: 1}
 - model: dashboard.puc
   pk: 255
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pet care, prod_fam: '', prod_type: '', description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.072576', kind: FO, gen_cat: Pet care, prod_fam: '', prod_type: '',
+    description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 256
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pet care, prod_fam: all pets, prod_type: '', description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.073182', kind: FO, gen_cat: Pet care, prod_fam: all pets, prod_type: '',
+    description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 257
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pet care, prod_fam: all pets, prod_type: other pet treatments, description: miscellaneous
-      pet treatments (excluding pesticides), last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.073788', kind: FO, gen_cat: Pet care, prod_fam: all pets, prod_type: other
+      pet treatments, description: miscellaneous pet treatments (excluding pesticides
+      and shampoos), last_edited_by: 1}
 - model: dashboard.puc
   pk: 258
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pet care, prod_fam: all pets, prod_type: pesticide - pet, description: pesticides
-      for application to  pets, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.074408', kind: FO, gen_cat: Pet care, prod_fam: all pets, prod_type: pesticide
+      - pet, description: 'pesticides orally administered, worn (e.g. collars), or
+      applied to the skin, fur, etc. of pets; including flea/tick collars, excluding
+      pesticidal shampoos', last_edited_by: 1}
 - model: dashboard.puc
   pk: 259
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pet care, prod_fam: all pets, prod_type: pet shampoo, description: pet
-      shampoos (including those contain pesticides), last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.075045', kind: FO, gen_cat: Pet care, prod_fam: all pets, prod_type: pet
+      shampoo, description: 'pet shampoos (including those containing pesticides,
+      such as flea/tick shampoos)', last_edited_by: 1}
 - model: dashboard.puc
   pk: 260
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pet care, prod_fam: all pets, prod_type: pet stain cleaner, description: carpet
-      and upholstery cleaners for pet stains, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.075691', kind: FO, gen_cat: Pet care, prod_fam: all pets, prod_type: pet
+      stain cleaner, description: carpet and upholstery cleaners for pet stains, last_edited_by: 1}
 - model: dashboard.puc
   pk: 261
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pet care, prod_fam: cats, prod_type: '', description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.076317', kind: FO, gen_cat: Pet care, prod_fam: cats, prod_type: '',
+    description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 262
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pet care, prod_fam: cats, prod_type: cat litter, description: cat litters,
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.077126', kind: FO, gen_cat: Pet care, prod_fam: cats, prod_type: cat
+      litter, description: solids used to capture and deodorize cat wastes, last_edited_by: 1}
 - model: dashboard.puc
   pk: 263
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pet care, prod_fam: fish, prod_type: '', description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.077860', kind: FO, gen_cat: Pet care, prod_fam: fish, prod_type: '',
+    description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 264
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Pet care, prod_fam: fish, prod_type: aquarium, description: miscellaneous
-      aquarium treatment products, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.078495', kind: FO, gen_cat: Pet care, prod_fam: fish, prod_type: aquarium,
+    description: miscellaneous aquarium products for the maintenance of aquatic pets,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 265
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Sports equipment, prod_fam: '', prod_type: '', description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.079117', kind: FO, gen_cat: Sports equipment, prod_fam: '', prod_type: '',
+    description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 266
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Sports equipment, prod_fam: bicycling, prod_type: '', description: '',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.079803', kind: FO, gen_cat: Sports equipment, prod_fam: bicycling,
+    prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 267
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Sports equipment, prod_fam: bicycling, prod_type: bicycle cleaner, description: washes
-      and rinses for cleaning bicycles, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.080636', kind: FO, gen_cat: Sports equipment, prod_fam: bicycling,
+    prod_type: bicycle cleaner, description: washes and rinses for cleaning bicycles,
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 268
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Sports equipment, prod_fam: fishing, prod_type: '', description: '',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.081341', kind: FO, gen_cat: Sports equipment, prod_fam: fishing, prod_type: '',
+    description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 269
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Sports equipment, prod_fam: fishing, prod_type: reel oil, description: lubricants
-      for fishing reels, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.081955', kind: FO, gen_cat: Sports equipment, prod_fam: fishing, prod_type: reel
+      oil, description: lubricants and cleaner/lubricants for fishing reels, last_edited_by: 1}
 - model: dashboard.puc
   pk: 270
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Sports equipment, prod_fam: skiing, prod_type: '', description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.083186', kind: FO, gen_cat: Sports equipment, prod_fam: skiing, prod_type: '',
+    description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 271
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Sports equipment, prod_fam: skiing, prod_type: wax, description: waxes
-      for treating skis or snowboards, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.083772', kind: FO, gen_cat: Sports equipment, prod_fam: skiing, prod_type: wax,
+    description: waxes for treating skis or snowboards, last_edited_by: 1}
 - model: dashboard.puc
   pk: 272
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: '', prod_type: '', description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.084370', kind: FO, gen_cat: Vehicle, prod_fam: '', prod_type: '', description: '',
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 273
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: auto body work, prod_type: '', description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.084985', kind: FO, gen_cat: Vehicle, prod_fam: auto body work, prod_type: '',
+    description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 274
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: auto body work, prod_type: auto paint, description: paints
-      and primers for auto body or engine, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.085612', kind: FO, gen_cat: Vehicle, prod_fam: auto body work, prod_type: auto
+      paint, description: paints and primers for auto body or engine, last_edited_by: 1}
 - model: dashboard.puc
   pk: 275
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: auto body work, prod_type: body repair, description: 'products
-      for repairing auto body exteriors, including bondo-type products and scratch
-      fillers', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.086216', kind: FO, gen_cat: Vehicle, prod_fam: auto body work, prod_type: body
+      repair, description: 'products for repairing auto body exteriors, including
+      bondo-type products and scratch fillers', last_edited_by: 1}
 - model: dashboard.puc
   pk: 276
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: auto body work, prod_type: detailing, description: 'products
-      for cleaning, polishing, or protecting car interior surfaces, apholstery, leather,
-      carpeting, tires, or rims', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.087069', kind: FO, gen_cat: Vehicle, prod_fam: auto body work, prod_type: detailing,
+    description: 'products for cleaning, polishing, or protecting car interior surfaces,
+      upholstery, leather, carpeting, tires, or rims', last_edited_by: 1}
 - model: dashboard.puc
   pk: 277
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: auto body work, prod_type: windows/windshield, description: products
-      for washing or protecting windshields or windows, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.087835', kind: FO, gen_cat: Vehicle, prod_fam: auto body work, prod_type: windows/windshield,
+    description: products for washing or protecting windshields or windows, last_edited_by: 1}
 - model: dashboard.puc
   pk: 278
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: boat care and maintenance, prod_type: '', description: '',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.088524', kind: FO, gen_cat: Vehicle, prod_fam: boat care and maintenance,
+    prod_type: '', description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 279
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: boat care and maintenance, prod_type: boat cleaner
-      - deck care, description: 'cleaners, washes, and polishes for cleaning marine
-      decking', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.089149', kind: FO, gen_cat: Vehicle, prod_fam: boat care and maintenance,
+    prod_type: boat cleaner - deck care, description: 'cleaners, washes, and polishes
+      for cleaning marine decking', last_edited_by: 1}
 - model: dashboard.puc
   pk: 280
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: boat care and maintenance, prod_type: boat cleaner
-      - general, description: 'other cleaners, washes, and polishes for exterior marine
-      applications', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.089827', kind: FO, gen_cat: Vehicle, prod_fam: boat care and maintenance,
+    prod_type: boat cleaner - general, description: 'other cleaners, washes, and polishes
+      for exterior marine applications', last_edited_by: 1}
 - model: dashboard.puc
   pk: 281
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: boat care and maintenance, prod_type: boat cleaner
-      - hull care, description: 'cleaners, washes, and polishes for cleaning marine
-      hulls applications', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.090653', kind: FO, gen_cat: Vehicle, prod_fam: boat care and maintenance,
+    prod_type: boat cleaner - hull care, description: 'cleaners, washes, and polishes
+      for cleaning marine hulls applications', last_edited_by: 1}
 - model: dashboard.puc
   pk: 282
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: boat care and maintenance, prod_type: boat engine
-      fluids, description: engine fluids for marine applications, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.091398', kind: FO, gen_cat: Vehicle, prod_fam: boat care and maintenance,
+    prod_type: boat engine fluids, description: 'antifreeze, fuel additives, engine
+      flushes, liquid gaskets, steering fluids, and  engine, transmission, and mechanical
+      lubricants', last_edited_by: 1}
 - model: dashboard.puc
   pk: 283
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: car interior, prod_type: auto air freshener, description: 'air
-      fresheners for car interiors, including products for vents', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.092757', kind: FO, gen_cat: Vehicle, prod_fam: car interior, prod_type: auto
+      air freshener, description: products for masking odors or adding fragrance to
+      car cabin air, last_edited_by: 1}
 - model: dashboard.puc
   pk: 284
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: car interior, prod_type: '', description: '', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.092093', kind: FO, gen_cat: Vehicle, prod_fam: car interior, prod_type: '',
+    description: '', last_edited_by: 1}
 - model: dashboard.puc
   pk: 285
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: care surface treatment, prod_type: '', description: '',
-    last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.093581', kind: FO, gen_cat: Vehicle, prod_fam: car surface treatment,
+    prod_type: '', description: treatments for the surfaces/body of vehicles that
+      can not be otherwise categorized, last_edited_by: 1}
 - model: dashboard.puc
   pk: 286
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: car surface treatment, prod_type: body cleaner, description: 'cleaners,
-      shampoos, and washes for auto body exterior (not including wax or combination
-      products)', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.094323', kind: FO, gen_cat: Vehicle, prod_fam: car surface treatment,
+    prod_type: body cleaner, description: 'cleaners, shampoos, and washes for auto
+      body exterior (not including wax products or combo wash/wax products)', last_edited_by: 1}
 - model: dashboard.puc
   pk: 287
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: car surface treatment, prod_type: body wax, description: auto
-      body waxes and coatings, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.095142', kind: FO, gen_cat: Vehicle, prod_fam: car surface treatment,
+    prod_type: body wax, description: 'auto body waxes and coatings, excluding combo
+      wash/wax products', last_edited_by: 1}
 - model: dashboard.puc
   pk: 288
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: car surface treatment, prod_type: combination product,
-    description: combination wash and wax products, last_edited_by: 1}
-- model: dashboard.puc
-  pk: 289
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: car surface treatment, prod_type: degreaser, description: 'auto,
-      engine and brake degreasers', last_edited_by: 1}
-- model: dashboard.puc
-  pk: 290
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: engine maintenance, prod_type: '', description: '',
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.095933', kind: FO, gen_cat: Vehicle, prod_fam: car surface treatment,
+    prod_type: combination product, description: combination wash and wax products,
     last_edited_by: 1}
 - model: dashboard.puc
+  pk: 289
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.096592', kind: FO, gen_cat: Vehicle, prod_fam: car surface treatment,
+    prod_type: degreaser, description: 'products for removing grease from auto bodies,
+      engines, and brakes', last_edited_by: 1}
+- model: dashboard.puc
+  pk: 290
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.097788', kind: FO, gen_cat: Vehicle, prod_fam: engine maintenance,
+    prod_type: '', description: '', last_edited_by: 1}
+- model: dashboard.puc
   pk: 291
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: engine maintenance, prod_type: antifreeze, description: antifreeze
-      and/or coolant solutions for motorized vehicles, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.098457', kind: FO, gen_cat: Vehicle, prod_fam: engine maintenance,
+    prod_type: antifreeze, description: antifreeze and/or coolant solutions for motorized
+      vehicles, last_edited_by: 1}
 - model: dashboard.puc
   pk: 292
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: engine maintenance, prod_type: auto fluids and additives,
-    description: 'power steering fluids, transmission fluids, brake fluids, fuel injector
-      cleaners, gas treatments, or leak stoppers', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.099269', kind: FO, gen_cat: Vehicle, prod_fam: engine maintenance,
+    prod_type: auto fluids and additives, description: 'power steering fluids, transmission
+      fluids, brake fluids, fuel injector cleaners, gas treatments, or leak stoppers',
+    last_edited_by: 1}
 - model: dashboard.puc
   pk: 293
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: engine maintenance, prod_type: auto lubricant, description: 'engine
-      lubricants and belt dressings, not including motor oils', last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.100028', kind: FO, gen_cat: Vehicle, prod_fam: engine maintenance,
+    prod_type: auto lubricant, description: 'engine lubricants and belt dressings,
+      not including motor oils', last_edited_by: 1}
 - model: dashboard.puc
   pk: 294
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: engine maintenance, prod_type: auto refrigerant, description: refrigerants
-      and freon products for auto applications, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.100678', kind: FO, gen_cat: Vehicle, prod_fam: engine maintenance,
+    prod_type: auto refrigerant, description: refrigerants and freon products for
+      auto applications, last_edited_by: 1}
 - model: dashboard.puc
   pk: 295
-  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: null, kind: FO,
-    gen_cat: Vehicle, prod_fam: engine maintenance, prod_type: motor oil, description: petroleum-based
-      or synthetic engine lubricants, last_edited_by: 1}
+  fields: {created_at: !!timestamp '2017-10-07 05:28:49', updated_at: !!timestamp '2019-04-08
+      07:01:08.101321', kind: FO, gen_cat: Vehicle, prod_fam: engine maintenance,
+    prod_type: motor oil, description: petroleum-based or synthetic engine lubricants,
+    last_edited_by: 1}
+- model: dashboard.puc
+  pk: 296
+  fields: {created_at: !!timestamp '2018-11-08 20:35:26.520661', updated_at: !!timestamp '2019-04-08
+      07:01:07.956443', kind: FO, gen_cat: Home maintenance, prod_fam: finish, prod_type: wood
+      finish, description: products for permanently coating and protecting wood surfaces,
+    last_edited_by: 1}
+- model: dashboard.puc
+  pk: 297
+  fields: {created_at: !!timestamp '2018-11-08 21:16:47.996094', updated_at: !!timestamp '2019-04-08
+      07:01:08.034823', kind: FO, gen_cat: Personal care, prod_fam: hair styling and
+      care, prod_type: hair conditioner, description: rinse-out everyday hair conditioners
+      (excluding combo shampoo/conditioner products), last_edited_by: 1}
+- model: dashboard.puc
+  pk: 298
+  fields: {created_at: !!timestamp '2018-12-11 15:01:34.095257', updated_at: !!timestamp '2019-04-08
+      07:01:08.018245', kind: FO, gen_cat: Personal care, prod_fam: eye care and contacts,
+    prod_type: eye products, description: skin treatments applied to the eyelids and
+      skin around the eye (excludes makeup and eye cream), last_edited_by: 1}
+- model: dashboard.puc
+  pk: 299
+  fields: {created_at: !!timestamp '2018-12-12 16:56:12.113746', updated_at: !!timestamp '2019-04-08
+      07:01:08.097173', kind: FO, gen_cat: Vehicle, prod_fam: car surface treatment,
+    prod_type: other, description: 'products for car surfaces other than paint/primer,
+      cleaners, waxes, and finishes', last_edited_by: 1}

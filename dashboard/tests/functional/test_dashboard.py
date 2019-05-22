@@ -43,10 +43,25 @@ class DashboardTest(TestCase):
         response_html = html.fromstring(response)
         extracted_doc_count = response_html.xpath(
             '/html/body/div[1]/div[1]/div[4]/div/div')[0].text
-        self.assertEqual('0%', extracted_doc_count)
+        self.assertEqual('100%', extracted_doc_count)
 
-        self.objects.doc.extracted = True
-        self.objects.doc.save()
+        # Add a Data Document with no related extracted record
+        dd = DataDocument.objects.create(title='New Document',
+                                            data_group=self.objects.dg,
+                                            document_type=self.objects.dt,
+                                            filename='new_example.pdf')
+        dd.save()
+        
+        response = self.client.get('/').content.decode('utf8')
+        response_html = html.fromstring(response)
+        extracted_doc_count = response_html.xpath(
+            '/html/body/div[1]/div[1]/div[4]/div/div')[0].text
+        self.assertEqual('50%', extracted_doc_count)
+
+        # Add an ExtractedText object
+        et = ExtractedText.objects.create(data_document_id = dd.id, 
+            extraction_script=self.objects.exscript)
+        et.save()
         response = self.client.get('/').content.decode('utf8')
         response_html = html.fromstring(response)
         extracted_doc_count = response_html.xpath(
@@ -55,7 +70,6 @@ class DashboardTest(TestCase):
 
     def test_PUC_download(self):
         puc = self.objects.puc
-        # import pdb; pdb.set_trace()
 
         allowedTag = PUCTag.objects.create(name='aerosol')
         PUCToTag.objects.create(tag=allowedTag,content_object=puc,assumed=False)
@@ -69,10 +83,10 @@ class DashboardTest(TestCase):
         csv_lines = response.content.decode('ascii').split('\r\n')
         # check header
         self.assertEqual(csv_lines[0], ('General category,Product family,Product type,'
-            'Allowed attributes,Assumed attributes,Description,PUC type,PUC level,Product count'))
+            'Allowed attributes,Assumed attributes,Description,PUC type,PUC level,Product count,Cumulative product count'))
         # check the PUC from loader
         row1 = csv_lines[1].split(',')
-        self.assertEqual(len(row1), 9)
+        self.assertEqual(len(row1), 10)
         self.assertEqual(row1[0], 'Test General Category')
         self.assertEqual(row1[1], 'Test Product Family')
         self.assertEqual(row1[2], 'Test Product Type')
@@ -82,6 +96,18 @@ class DashboardTest(TestCase):
         self.assertEqual(row1[6], 'FO')
         self.assertEqual(row1[7], '3')
         self.assertEqual(row1[8], '0')
+
+    def test_PUCTag_download(self):
+        '''check the PUCTag that would be downloaded from the loader
+        '''
+        pt = self.objects.pt
+        response = self.client.get('/dl_puctags/')
+        self.assertEqual(response.status_code, 200)
+        csv_lines = response.content.decode('ascii').split('\r\n')
+        self.assertEqual(csv_lines[0], ('Name,Definition'), "Check yo header.")
+        row1 = csv_lines[1].split(',')
+        self.assertEqual(row1[0], pt.name)
+        self.assertEqual(row1[1], pt.definition)
 
 class DashboardTestWithFixtures(TestCase):
     fixtures = fixtures_standard

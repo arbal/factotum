@@ -55,6 +55,9 @@ class ExtractedListPresenceToTag(TaggedItemBase, CommonInfo):
 
 class ExtractedListPresenceTag(TagBase, CommonInfo):
 
+    definition = models.CharField("Definition", max_length=255,
+                                        null=True, blank=True)
+
     class Meta:
 
         verbose_name = _("Extracted list presence keyword")

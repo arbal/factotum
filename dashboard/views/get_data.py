@@ -51,13 +51,10 @@ def stats_by_dtxsids(dtxs):
     "The number of products the chemical appears in, where a product is defined as a
     product entry in Factotum."
     """
-    # print('List of DTXSIDs provided:')
-    # print(dtxs)
-
 
     # The number of unique PUCs (product categories) the chemical is associated with
     pucs_n = DSSToxLookup.objects.filter(sid__in=dtxs).\
-        annotate(pucs_n=Count('curated_chemical__extracted_text__data_document__product__puc')).\
+        annotate(pucs_n=Count('curated_chemical__extracted_text__data_document__product__puc',distinct=True)).\
         values('sid','pucs_n').order_by()
 
     # "The number of data documents (e.g.  MSDS, SDS, ingredient list, product label)
@@ -65,9 +62,6 @@ def stats_by_dtxsids(dtxs):
     dds_n = RawChem.objects.filter(dsstox__sid__in=dtxs).values('dsstox__sid').\
         annotate(sid=F('dsstox__sid'), dds_n=Count('extracted_text__data_document')).\
         values('sid','dds_n').order_by()
-
-    #print('dds_n:')
-    #print(dds_n)
 
     # The number of data documents with associated weight fraction data
     # that the chemical appears in (weight fraction data may be reported or predicted data,
@@ -81,11 +75,6 @@ def stats_by_dtxsids(dtxs):
     dds_wf_n = DSSToxLookup.objects.filter(sid__in=dtxs).filter(curated_chemical__in=wf_ecs).\
         annotate(dds_wf_n=Count('curated_chemical__extracted_text_id', distinct=True)).\
         order_by().values('sid','dds_wf_n')
-
-
-
-
-
 
     # The number of products the chemical appears in, where a product is defined as a
     # product entry in Factotum.
@@ -134,7 +123,6 @@ def upload_dtxsid_csv(request):
     data = {}
     if "GET" == request.method:
         return render(request, "get_data/get_data.html", data)
-    # if not GET, then proceed
     try:
         csv_file = request.FILES["csv_file"]
         if not csv_file.name.endswith('.csv'):
@@ -148,10 +136,8 @@ def upload_dtxsid_csv(request):
         file_data = csv_file.read().decode("utf-8")
 
         lines = file_data.split("\n")
-        #loop over the lines
         dtxsids = []
         for line in lines:
-            #print(line)
             if DSSToxLookup.objects.filter(sid=str.strip(line)).count() > 0:
                 dtxsids.append(str.strip(line)) # only add DTXSIDs that appear in the database
 
@@ -162,7 +148,20 @@ def upload_dtxsid_csv(request):
     stats = stats_by_dtxsids(dtxsids)
     #stats  = {'pucs_n': 0, 'dds_n': 0, 'dds_wf_n': 0, 'products_n': 0}
     resp = download_chem_stats(stats)
-    #print(resp)
     return resp
 
+def download_PUCTags(request):
+    '''respond with a CSV of PUCTags, name and definition
+    '''
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="PUCTags.csv"'
+    writer = csv.writer(response)
+    cols = ['Name','Definition']
+    writer.writerow(cols)
+    tags = PUCTag.objects.all()
+    for tag in tags:
+        row = [ tag.name,
+                tag.definition]
+        writer.writerow(row)
 
+    return response

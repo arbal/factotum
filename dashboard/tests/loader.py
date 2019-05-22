@@ -118,7 +118,8 @@ def load_model_objects():
                                     script = script,
                                     rawchem_ptr = rc)
     
-    pt = PUCTag.objects.create(name="Test PUC Attribute")
+    pt = PUCTag.objects.create(name="Test PUC Attribute",
+                                definition="I'd really like to be defined.")
     pd = ProductDocument.objects.create(product=p, document=doc)
     ehp = ExtractedHabitsAndPractices.objects.create(extracted_text=extext,
                                                      product_surveyed='Test Product Surveyed',

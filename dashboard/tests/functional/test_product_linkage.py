@@ -54,9 +54,10 @@ class TestProductLinkage(TestCase):
         # DataGroup 19 is a Composition dg with unlinked products
         dg = DataGroup.objects.get(pk=19)
         response = self.client.get(f'/datagroup/19/')
-        self.assertEqual(response.context['bulk'], 75,
+        unlinked = dg.datadocument_set.filter(products__isnull=True).count()
+        self.assertEqual(response.context['bulk'], unlinked,
                 'Not all DataDocuments linked to Product, bulk_create needed')
-        response = self.client.post(f'/datagroup/19/',{'bulk':75})
+        response = self.client.post(f'/datagroup/19/',{'bulk':unlinked})
         self.assertEqual(response.context['bulk'], 0,
                 'Product linked to all DataDocuments, no bulk_create needed.')
         # pick documents and check the attributes of their now-related products

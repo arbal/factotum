@@ -193,7 +193,7 @@ class BulkPUCForm(BasePUCForm):
 
     def __init__(self, *args, **kwargs):
         super(BulkPUCForm, self).__init__(*args, **kwargs)
-        lbl = 'Select PUC for Attribute to Assign to Selected Products'
+        lbl = 'Select PUC'
         self.fields['puc'].label = lbl
         self.fields['puc'].widget.attrs['onchange'] = 'form.submit();'
 

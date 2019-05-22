@@ -51,7 +51,7 @@
       {% for product in products %}
         <tr>
             <td></td>
-            <td><a href="{% url "product_detail" product.id %}"> {{ product.title }}</a></td>
+            <td><a href="{% url "product_detail" product.id %}" target="_blank"> {{ product.title }}</a></td>
             <td>{{ product.brand_name }}</td>
             <td>{{ product.get_tag_list }}</td>
             <td>{{ product.pk }}</td>

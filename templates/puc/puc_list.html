@@ -12,6 +12,7 @@
         <th>Prod Fam</th>
         <th>Prod Type</th>
         <th>Product Count</th>
+        <th>View Detail</th>
         </thead>
         <tbody>
         {% for puc in pucs %}
@@ -20,6 +21,9 @@
                 <td>{{ puc.prod_fam }}</td>
                 <td>{{ puc.prod_type }}</td>
                 <td>{{ puc.num_products }}</td>
+                <td>&nbsp;<a class="btn btn-success btn-sm" role="button" title="View PUC Detail"
+                           href="{% url 'puc_detail' pk=puc.pk %}">
+                            <span class="oi oi-pencil"></span>&nbsp; </a>
             </tr>
         {% endfor %}
 

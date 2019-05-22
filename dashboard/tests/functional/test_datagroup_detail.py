@@ -18,8 +18,6 @@ class DataGroupDetailTest(TestCase):
         response = self.client.get(f'/datagroup/{pk}/')
         self.assertFalse(self.objects.doc.matched,
                     ('Document should start w/ matched False'))
-        self.assertFalse(self.objects.doc.extracted,
-                    ('Document should start w/ extracted False'))
         self.assertFalse(response.context['datagroup'].all_matched(),
                     ('UploadForm should be included in the page!'))
         self.assertFalse(response.context['extract_form'],
@@ -32,13 +30,7 @@ class DataGroupDetailTest(TestCase):
         self.assertIsInstance(response.context['extract_form'],
                                             ExtractionScriptForm,
                     ('ExtractForm should be included in the page!'))
-        self.objects.doc.extracted = True
-        self.objects.doc.save()
-        response = self.client.get(f'/datagroup/{pk}/')
-        self.assertTrue(response.context['datagroup'].all_matched(),
-                    ('UploadForm should not be included in the page!'))
-        self.assertFalse(response.context['extract_form'],
-                    ('ExtractForm should not be included in the page!'))
+
 
     def test_detail_template_fieldnames(self):
         pk = self.objects.dg.pk
@@ -129,14 +121,22 @@ class DataGroupDetailTest(TestCase):
                       'Note to limit upload to <600 should be on the page')
 
     def test_extracted_count(self):
-        response = self.client.get(f'/datagroup/{DataGroup.objects.first().id}/').content.decode('utf8')
-        self.assertIn('0 extracted', response,
-                      'Data Group should contain a count of 0 total extracted documents')
-        self.objects.doc.extracted = True
-        self.objects.doc.save()
-        response = self.client.get(f'/datagroup/{DataGroup.objects.first().id}/').content.decode('utf8')
+        dg_id = DataGroup.objects.first().id
+        response = self.client.get(f'/datagroup/{dg_id}/').content.decode('utf8')
         self.assertIn('1 extracted', response,
-                      'Data Group should contain a count of 1 total extracted documents')
+                      'Data Group should report a count of 1 total extracted documents')
+        # Add a Data Document with no related extracted record
+        dd = DataDocument.objects.create(title='New Document',
+                                            data_group=self.objects.dg,
+                                            document_type=self.objects.dt,
+                                            filename='new_example.pdf')
+        # Add an ExtractedText object
+        et = ExtractedText.objects.create(data_document_id = dd.id, 
+            extraction_script=self.objects.exscript)
+        et.save()
+        response = self.client.get(f'/datagroup/{dg_id}/').content.decode('utf8')
+        self.assertIn('2 extracted', response,
+                      'Data Group should contain a count of 2 total extracted documents')
 
     def test_delete_doc_button(self):
         url = f'/datagroup/{DataGroup.objects.first().id}/'

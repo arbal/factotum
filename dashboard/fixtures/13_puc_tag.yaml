@@ -1,85 +1,3701 @@
 - model: dashboard.puctag
   pk: 1
-  fields: {created_at: null, updated_at: null, name: aerosol, slug: aerosol}
+  fields: {created_at: !!timestamp '2018-10-25 08:07:37.976293', updated_at: !!timestamp '2018-11-06
+      21:47:56.846146', name: foam spray, slug: foam_spray, definition: null}
 - model: dashboard.puctag
   pk: 2
-  fields: {created_at: null, updated_at: null, name: liquid, slug: liquid}
+  fields: {created_at: !!timestamp '2018-10-25 08:12:32.659366', updated_at: !!timestamp '2018-10-25
+      08:12:32.659387', name: liquid, slug: liquid, definition: null}
 - model: dashboard.puctag
   pk: 3
-  fields: {created_at: null, updated_at: null, name: solid, slug: solid}
+  fields: {created_at: !!timestamp '2018-10-25 08:12:40.238436', updated_at: !!timestamp '2018-10-25
+      08:12:40.238464', name: aerosol, slug: aerosol, definition: null}
 - model: dashboard.puctag
   pk: 4
-  fields: {created_at: null, updated_at: null, name: gel, slug: gel}
+  fields: {created_at: !!timestamp '2018-10-25 08:12:50.267602', updated_at: !!timestamp '2018-10-25
+      08:12:50.267632', name: gas, slug: gas, definition: null}
 - model: dashboard.puctag
   pk: 5
-  fields: {created_at: null, updated_at: null, name: wipes, slug: wipes}
+  fields: {created_at: !!timestamp '2018-10-25 08:13:07.016415', updated_at: !!timestamp '2018-10-25
+      08:13:07.016442', name: gel, slug: gel, definition: null}
 - model: dashboard.puctag
   pk: 6
-  fields: {created_at: null, updated_at: null, name: powder, slug: powder}
-- model: dashboard.puctag
-  pk: 7
-  fields: {created_at: null, updated_at: null, name: impregnatedsheets, slug: impregnatedsheets}
+  fields: {created_at: !!timestamp '2018-10-25 08:13:12.656756', updated_at: !!timestamp '2018-10-25
+      08:13:12.656796', name: paste, slug: paste, definition: null}
 - model: dashboard.puctag
   pk: 8
-  fields: {created_at: null, updated_at: null, name: pumpspray, slug: pumpspray}
+  fields: {created_at: !!timestamp '2018-10-25 08:15:05.698916', updated_at: !!timestamp '2018-10-25
+      08:15:05.698943', name: powder, slug: powder, definition: null}
 - model: dashboard.puctag
   pk: 9
-  fields: {created_at: null, updated_at: null, name: paste, slug: paste}
+  fields: {created_at: !!timestamp '2018-10-25 08:15:11.035894', updated_at: !!timestamp '2018-10-25
+      08:15:11.035922', name: solid, slug: solid, definition: null}
 - model: dashboard.puctag
   pk: 10
-  fields: {created_at: null, updated_at: null, name: cartridge, slug: cartridge}
+  fields: {created_at: !!timestamp '2018-11-06 21:47:03.181864', updated_at: !!timestamp '2018-11-06
+      21:47:03.181888', name: hot melt, slug: hot_melt, definition: null}
 - model: dashboard.puctag
   pk: 11
-  fields: {created_at: null, updated_at: null, name: foamspray, slug: foamspray}
+  fields: {created_at: !!timestamp '2018-11-06 21:47:18.282096', updated_at: !!timestamp '2018-11-06
+      21:47:18.282122', name: foam, slug: foam, definition: null}
 - model: dashboard.puctag
   pk: 12
-  fields: {created_at: null, updated_at: null, name: gas, slug: gas}
+  fields: {created_at: !!timestamp '2018-11-06 21:48:09.961951', updated_at: !!timestamp '2018-11-06
+      21:48:09.961977', name: wipes, slug: wipes, definition: null}
 - model: dashboard.puctag
   pk: 13
-  fields: {created_at: null, updated_at: null, name: foam, slug: foam}
+  fields: {created_at: !!timestamp '2018-11-06 21:48:20.936279', updated_at: !!timestamp '2018-11-06
+      21:48:20.936304', name: cartridge, slug: cartridge, definition: null}
 - model: dashboard.puctag
   pk: 14
-  fields: {created_at: null, updated_at: null, name: trap, slug: trap}
+  fields: {created_at: !!timestamp '2018-11-06 21:48:44.169930', updated_at: !!timestamp '2018-11-06
+      21:48:44.169955', name: pump spray, slug: pump_spray, definition: null}
 - model: dashboard.puctag
   pk: 15
-  fields: {created_at: null, updated_at: null, name: powder|spray, slug: powderspray}
+  fields: {created_at: !!timestamp '2018-11-06 21:48:53.509222', updated_at: !!timestamp '2018-11-06
+      21:48:53.509246', name: hose spray, slug: hose_spray, definition: null}
 - model: dashboard.puctag
   pk: 16
-  fields: {created_at: null, updated_at: null, name: pods, slug: pods}
+  fields: {created_at: !!timestamp '2018-11-06 21:49:27.090507', updated_at: !!timestamp '2018-11-06
+      21:49:27.090534', name: exterior, slug: exterior, definition: null}
 - model: dashboard.puctag
   pk: 17
-  fields: {created_at: null, updated_at: null, name: hotmelt, slug: hotmelt}
+  fields: {created_at: !!timestamp '2018-11-06 21:49:33.744055', updated_at: !!timestamp '2018-11-06
+      21:49:33.744073', name: interior, slug: interior, definition: null}
 - model: dashboard.puctag
   pk: 18
-  fields: {created_at: null, updated_at: null, name: twocomponent, slug: twocomponent}
+  fields: {created_at: !!timestamp '2018-11-06 21:49:39.220737', updated_at: !!timestamp '2018-11-06
+      21:49:39.220763', name: child, slug: child, definition: null}
 - model: dashboard.puctag
   pk: 19
-  fields: {created_at: null, updated_at: null, name: hosespray, slug: hosespray}
-- model: dashboard.producttotag
-  pk: 9
-  fields: {created_at: ! '2018-10-19 09:39:20.581834', updated_at: ! '2018-10-19 09:39:20.581834',
-    content_object: 11, tag: 1}
-- model: dashboard.producttotag
-  pk: 12
-  fields: {created_at: ! '2018-10-19 11:34:24.753874', updated_at: ! '2018-10-19 11:34:24.753874',
-    content_object: 11, tag: 11}
+  fields: {created_at: !!timestamp '2018-11-06 21:49:53.664953', updated_at: !!timestamp '2018-11-06
+      21:49:53.664979', name: two-component, slug: two_component, definition: null}
+- model: dashboard.puctag
+  pk: 20
+  fields: {created_at: !!timestamp '2018-11-07 16:56:26.979522', updated_at: !!timestamp '2018-11-07
+      16:56:26.979550', name: impregnated sheets, slug: impregnated_sheets, definition: null}
+- model: dashboard.puctag
+  pk: 21
+  fields: {created_at: !!timestamp '2018-11-07 16:58:05.081941', updated_at: !!timestamp '2018-11-07
+      16:58:05.081967', name: in vehicle, slug: in_vehicle, definition: null}
+- model: dashboard.puctag
+  pk: 22
+  fields: {created_at: !!timestamp '2018-11-11 21:16:37.243394', updated_at: !!timestamp '2018-11-11
+      21:16:37.243433', name: trap, slug: trap, definition: null}
+- model: dashboard.puctag
+  pk: 23
+  fields: {created_at: !!timestamp '2018-11-14 20:45:46.495667', updated_at: !!timestamp '2018-11-14
+      20:45:46.495708', name: pods, slug: pods, definition: null}
+- model: dashboard.puctag
+  pk: 24
+  fields: {created_at: !!timestamp '2019-03-20 09:30:01.361869', updated_at: !!timestamp '2019-03-20
+      09:30:01.361897', name: granules, slug: granules, definition: null}
+- model: dashboard.puctag
+  pk: 25
+  fields: {created_at: !!timestamp '2019-05-02 10:38:50.557953', updated_at: !!timestamp '2019-05-02
+      10:38:50.558010', name: candle, slug: candle, definition: null}
+- model: dashboard.puctotag
+  pk: 1
+  fields: {created_at: !!timestamp '2018-10-25 08:15:39.331030', updated_at: !!timestamp '2018-10-25
+      08:15:39.331048', content_object: 62, tag: 8, assumed: false}
 - model: dashboard.puctotag
   pk: 2
-  fields: {created_at: !!timestamp '2018-10-18 14:43:28.627924', updated_at: !!timestamp '2018-10-18
-      14:43:28.627924', content_object: 1, tag: 1, assumed: false}
+  fields: {created_at: !!timestamp '2018-10-25 08:15:39.333216', updated_at: !!timestamp '2018-10-25
+      08:15:39.333232', content_object: 62, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 3
+  fields: {created_at: !!timestamp '2018-10-25 08:15:39.334905', updated_at: !!timestamp '2018-10-25
+      08:15:39.334922', content_object: 62, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 5
+  fields: {created_at: !!timestamp '2018-11-06 21:53:09.952482', updated_at: !!timestamp '2018-11-06
+      21:53:09.952500', content_object: 20, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 6
+  fields: {created_at: !!timestamp '2018-11-06 21:53:09.954622', updated_at: !!timestamp '2018-11-06
+      21:53:09.954641', content_object: 20, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 7
+  fields: {created_at: !!timestamp '2018-11-06 21:53:09.956623', updated_at: !!timestamp '2018-11-06
+      21:53:09.956642', content_object: 20, tag: 5, assumed: true}
 - model: dashboard.puctotag
   pk: 8
-  fields: {created_at: !!timestamp '2018-10-19 09:42:29.642749', updated_at: !!timestamp '2018-10-19
-      09:42:29.642749', content_object: 1, tag: 11, assumed: false}
+  fields: {created_at: !!timestamp '2018-11-06 21:53:09.958658', updated_at: !!timestamp '2018-11-06
+      21:53:09.958676', content_object: 20, tag: 6, assumed: true}
+- model: dashboard.puctotag
+  pk: 9
+  fields: {created_at: !!timestamp '2018-11-06 21:53:09.960930', updated_at: !!timestamp '2018-11-06
+      21:53:09.960949', content_object: 20, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 10
+  fields: {created_at: !!timestamp '2018-11-06 21:53:09.962717', updated_at: !!timestamp '2018-11-06
+      21:53:09.962735', content_object: 20, tag: 9, assumed: false}
 - model: dashboard.puctotag
   pk: 11
-  fields: {created_at: !!timestamp '2018-10-19 11:41:05.278630', updated_at: !!timestamp '2018-10-19
-      11:41:05.278630', content_object: 1, tag: 9, assumed: false}
+  fields: {created_at: !!timestamp '2018-11-06 21:53:09.964751', updated_at: !!timestamp '2018-11-06
+      21:53:09.964783', content_object: 20, tag: 10, assumed: false}
 - model: dashboard.puctotag
   pk: 12
-  fields: {created_at: !!timestamp '2018-10-19 11:41:05.349443', updated_at: !!timestamp '2019-02-24
-      23:12:24.260107', content_object: 1, tag: 4, assumed: true}
+  fields: {created_at: !!timestamp '2018-11-06 21:53:09.966600', updated_at: !!timestamp '2018-11-06
+      21:53:09.966633', content_object: 20, tag: 14, assumed: false}
 - model: dashboard.puctotag
   pk: 13
-  fields: {created_at: !!timestamp '2018-10-19 11:41:05.410278', updated_at: !!timestamp '2019-02-24
-      23:12:17.807135', content_object: 1, tag: 15, assumed: true}
+  fields: {created_at: !!timestamp '2018-11-06 21:53:09.968595', updated_at: !!timestamp '2018-11-06
+      21:53:09.968627', content_object: 20, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 14
+  fields: {created_at: !!timestamp '2018-11-06 21:53:53.052166', updated_at: !!timestamp '2018-11-06
+      21:53:53.052185', content_object: 1, tag: 2, assumed: true}
+- model: dashboard.puctotag
+  pk: 15
+  fields: {created_at: !!timestamp '2018-11-06 21:53:53.053988', updated_at: !!timestamp '2018-11-06
+      21:53:53.054005', content_object: 1, tag: 3, assumed: true}
+- model: dashboard.puctotag
+  pk: 16
+  fields: {created_at: !!timestamp '2018-11-06 21:53:53.055669', updated_at: !!timestamp '2018-11-06
+      21:53:53.055704', content_object: 1, tag: 5, assumed: true}
+- model: dashboard.puctotag
+  pk: 17
+  fields: {created_at: !!timestamp '2018-11-06 21:53:53.057564', updated_at: !!timestamp '2018-11-06
+      21:53:53.057603', content_object: 1, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 18
+  fields: {created_at: !!timestamp '2018-11-06 21:53:53.059531', updated_at: !!timestamp '2018-11-06
+      21:53:53.059548', content_object: 1, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 19
+  fields: {created_at: !!timestamp '2018-11-06 21:53:53.061357', updated_at: !!timestamp '2018-11-06
+      21:53:53.061375', content_object: 1, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 20
+  fields: {created_at: !!timestamp '2018-11-06 21:55:02.308957', updated_at: !!timestamp '2018-11-06
+      21:55:02.308975', content_object: 6, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 21
+  fields: {created_at: !!timestamp '2018-11-06 21:55:02.310849', updated_at: !!timestamp '2018-11-06
+      21:55:02.310866', content_object: 6, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 22
+  fields: {created_at: !!timestamp '2018-11-06 21:55:02.313166', updated_at: !!timestamp '2018-11-06
+      21:55:02.313183', content_object: 6, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 23
+  fields: {created_at: !!timestamp '2018-11-06 21:55:02.315381', updated_at: !!timestamp '2018-11-06
+      21:55:02.315404', content_object: 6, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 24
+  fields: {created_at: !!timestamp '2018-11-06 21:55:02.317470', updated_at: !!timestamp '2018-11-06
+      21:55:02.317487', content_object: 6, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 25
+  fields: {created_at: !!timestamp '2018-11-06 21:55:27.843916', updated_at: !!timestamp '2018-11-06
+      21:55:27.843935', content_object: 2, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 26
+  fields: {created_at: !!timestamp '2018-11-06 21:55:27.845726', updated_at: !!timestamp '2018-11-06
+      21:55:27.845744', content_object: 2, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 27
+  fields: {created_at: !!timestamp '2018-11-06 21:55:49.046858', updated_at: !!timestamp '2018-11-06
+      21:55:49.046876', content_object: 3, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 28
+  fields: {created_at: !!timestamp '2018-11-06 21:55:49.048885', updated_at: !!timestamp '2018-11-06
+      21:55:49.048918', content_object: 3, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 29
+  fields: {created_at: !!timestamp '2018-11-06 21:56:27.090924', updated_at: !!timestamp '2018-11-06
+      21:56:27.090941', content_object: 4, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 30
+  fields: {created_at: !!timestamp '2018-11-06 21:56:27.092924', updated_at: !!timestamp '2018-11-06
+      21:56:27.092957', content_object: 4, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 31
+  fields: {created_at: !!timestamp '2018-11-06 21:56:27.094981', updated_at: !!timestamp '2018-11-06
+      21:56:27.094999', content_object: 4, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 32
+  fields: {created_at: !!timestamp '2018-11-06 21:56:58.485364', updated_at: !!timestamp '2018-11-06
+      21:56:58.485381', content_object: 5, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 33
+  fields: {created_at: !!timestamp '2018-11-06 21:56:58.487315', updated_at: !!timestamp '2018-11-06
+      21:56:58.487332', content_object: 5, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 34
+  fields: {created_at: !!timestamp '2018-11-06 22:01:14.641526', updated_at: !!timestamp '2018-11-06
+      22:01:14.641544', content_object: 9, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 35
+  fields: {created_at: !!timestamp '2018-11-06 22:01:14.643767', updated_at: !!timestamp '2018-11-06
+      22:01:14.643784', content_object: 9, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 36
+  fields: {created_at: !!timestamp '2018-11-06 22:01:14.645557', updated_at: !!timestamp '2018-11-06
+      22:01:14.645575', content_object: 9, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 37
+  fields: {created_at: !!timestamp '2018-11-06 22:01:14.647433', updated_at: !!timestamp '2018-11-06
+      22:01:14.647451', content_object: 9, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 38
+  fields: {created_at: !!timestamp '2018-11-06 22:01:14.651668', updated_at: !!timestamp '2018-11-06
+      22:01:14.651686', content_object: 9, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 39
+  fields: {created_at: !!timestamp '2018-11-06 22:01:32.289048', updated_at: !!timestamp '2018-11-06
+      22:01:32.289071', content_object: 7, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 40
+  fields: {created_at: !!timestamp '2018-11-06 22:01:32.291282', updated_at: !!timestamp '2018-11-06
+      22:01:32.291303', content_object: 7, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 41
+  fields: {created_at: !!timestamp '2018-11-06 22:01:42.823824', updated_at: !!timestamp '2018-11-06
+      22:01:42.823842', content_object: 7, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 42
+  fields: {created_at: !!timestamp '2018-11-06 22:02:06.428906', updated_at: !!timestamp '2018-11-06
+      22:02:06.428939', content_object: 8, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 43
+  fields: {created_at: !!timestamp '2018-11-06 22:02:06.430779', updated_at: !!timestamp '2018-11-06
+      22:02:06.430797', content_object: 8, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 44
+  fields: {created_at: !!timestamp '2018-11-06 22:02:06.433732', updated_at: !!timestamp '2018-11-06
+      22:02:06.433749', content_object: 8, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 45
+  fields: {created_at: !!timestamp '2018-11-06 22:02:06.435746', updated_at: !!timestamp '2018-11-06
+      22:02:06.435763', content_object: 8, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 46
+  fields: {created_at: !!timestamp '2018-11-06 22:02:25.640652', updated_at: !!timestamp '2018-11-06
+      22:02:25.640672', content_object: 10, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 47
+  fields: {created_at: !!timestamp '2018-11-06 22:02:25.642686', updated_at: !!timestamp '2018-11-06
+      22:02:25.642702', content_object: 10, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 48
+  fields: {created_at: !!timestamp '2018-11-06 22:02:25.644807', updated_at: !!timestamp '2018-11-06
+      22:02:25.644825', content_object: 10, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 49
+  fields: {created_at: !!timestamp '2018-11-06 22:02:25.647321', updated_at: !!timestamp '2018-11-06
+      22:02:25.647337', content_object: 10, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 50
+  fields: {created_at: !!timestamp '2018-11-06 22:02:39.506936', updated_at: !!timestamp '2018-11-06
+      22:02:39.506955', content_object: 8, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 51
+  fields: {created_at: !!timestamp '2018-11-06 22:02:39.508629', updated_at: !!timestamp '2018-11-06
+      22:02:39.508646', content_object: 8, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 52
+  fields: {created_at: !!timestamp '2018-11-06 22:02:57.914778', updated_at: !!timestamp '2018-11-06
+      22:02:57.914797', content_object: 7, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 53
+  fields: {created_at: !!timestamp '2018-11-06 22:02:57.916541', updated_at: !!timestamp '2018-11-06
+      22:02:57.916559', content_object: 7, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 54
+  fields: {created_at: !!timestamp '2018-11-06 22:03:13.559010', updated_at: !!timestamp '2018-11-06
+      22:03:13.559027', content_object: 9, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 55
+  fields: {created_at: !!timestamp '2018-11-06 22:03:13.561148', updated_at: !!timestamp '2018-11-06
+      22:03:13.561165', content_object: 9, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 56
+  fields: {created_at: !!timestamp '2018-11-06 22:04:39.565764', updated_at: !!timestamp '2018-11-06
+      22:04:39.565781', content_object: 17, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 57
+  fields: {created_at: !!timestamp '2018-11-06 22:04:39.567646', updated_at: !!timestamp '2018-11-06
+      22:04:39.567680', content_object: 17, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 58
+  fields: {created_at: !!timestamp '2018-11-06 22:04:39.570044', updated_at: !!timestamp '2018-11-06
+      22:04:39.570061', content_object: 17, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 59
+  fields: {created_at: !!timestamp '2018-11-06 22:04:39.571851', updated_at: !!timestamp '2018-11-06
+      22:04:39.571868', content_object: 17, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 60
+  fields: {created_at: !!timestamp '2018-11-06 22:04:39.573594', updated_at: !!timestamp '2018-11-06
+      22:04:39.573610', content_object: 17, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 61
+  fields: {created_at: !!timestamp '2018-11-06 22:04:39.575326', updated_at: !!timestamp '2018-11-06
+      22:04:39.575342', content_object: 17, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 62
+  fields: {created_at: !!timestamp '2018-11-06 22:04:39.577081', updated_at: !!timestamp '2018-11-06
+      22:04:39.577097', content_object: 17, tag: 10, assumed: false}
+- model: dashboard.puctotag
+  pk: 63
+  fields: {created_at: !!timestamp '2018-11-06 22:04:39.579025', updated_at: !!timestamp '2018-11-06
+      22:04:39.579042', content_object: 17, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 64
+  fields: {created_at: !!timestamp '2018-11-06 22:04:39.581175', updated_at: !!timestamp '2018-11-06
+      22:04:39.581193', content_object: 17, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 65
+  fields: {created_at: !!timestamp '2018-11-06 22:05:44.662651', updated_at: !!timestamp '2018-11-06
+      22:05:44.662669', content_object: 11, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 66
+  fields: {created_at: !!timestamp '2018-11-06 22:05:44.664733', updated_at: !!timestamp '2018-11-06
+      22:05:44.664750', content_object: 11, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 67
+  fields: {created_at: !!timestamp '2018-11-06 22:05:44.666919', updated_at: !!timestamp '2018-11-06
+      22:05:44.666936', content_object: 11, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 68
+  fields: {created_at: !!timestamp '2018-11-06 22:05:44.668672', updated_at: !!timestamp '2018-11-06
+      22:05:44.668689', content_object: 11, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 69
+  fields: {created_at: !!timestamp '2018-11-06 22:05:44.670495', updated_at: !!timestamp '2018-11-06
+      22:05:44.670513', content_object: 11, tag: 10, assumed: false}
+- model: dashboard.puctotag
+  pk: 70
+  fields: {created_at: !!timestamp '2018-11-06 22:05:44.672337', updated_at: !!timestamp '2018-11-06
+      22:05:44.672354', content_object: 11, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 71
+  fields: {created_at: !!timestamp '2018-11-06 22:05:44.674210', updated_at: !!timestamp '2018-11-06
+      22:05:44.674226', content_object: 11, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 72
+  fields: {created_at: !!timestamp '2018-11-06 22:06:04.706961', updated_at: !!timestamp '2018-11-06
+      22:06:04.706980', content_object: 12, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 73
+  fields: {created_at: !!timestamp '2018-11-06 22:06:04.708930', updated_at: !!timestamp '2018-11-06
+      22:06:04.708971', content_object: 12, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 74
+  fields: {created_at: !!timestamp '2018-11-06 22:06:04.712349', updated_at: !!timestamp '2018-11-06
+      22:06:04.712367', content_object: 12, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 75
+  fields: {created_at: !!timestamp '2018-11-06 22:06:18.801486', updated_at: !!timestamp '2018-11-06
+      22:06:18.801505', content_object: 13, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 76
+  fields: {created_at: !!timestamp '2018-11-06 22:06:18.803409', updated_at: !!timestamp '2018-11-06
+      22:06:18.803443', content_object: 13, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 77
+  fields: {created_at: !!timestamp '2018-11-06 22:06:36.123903', updated_at: !!timestamp '2018-11-06
+      22:06:36.123921', content_object: 14, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 78
+  fields: {created_at: !!timestamp '2018-11-06 22:06:36.126115', updated_at: !!timestamp '2018-11-06
+      22:06:36.126132', content_object: 14, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 79
+  fields: {created_at: !!timestamp '2018-11-06 22:06:36.128557', updated_at: !!timestamp '2018-11-06
+      22:06:36.128573', content_object: 14, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 80
+  fields: {created_at: !!timestamp '2018-11-06 22:06:36.130412', updated_at: !!timestamp '2018-11-06
+      22:06:36.130429', content_object: 14, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 81
+  fields: {created_at: !!timestamp '2018-11-06 22:06:49.127620', updated_at: !!timestamp '2018-11-06
+      22:06:49.127637', content_object: 13, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 82
+  fields: {created_at: !!timestamp '2018-11-06 22:07:03.600434', updated_at: !!timestamp '2018-11-06
+      22:07:03.600451', content_object: 15, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 83
+  fields: {created_at: !!timestamp '2018-11-06 22:07:03.602710', updated_at: !!timestamp '2018-11-06
+      22:07:03.602727', content_object: 15, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 84
+  fields: {created_at: !!timestamp '2018-11-06 22:07:03.605947', updated_at: !!timestamp '2018-11-06
+      22:07:03.605964', content_object: 15, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 85
+  fields: {created_at: !!timestamp '2018-11-06 22:07:03.607700', updated_at: !!timestamp '2018-11-06
+      22:07:03.607717', content_object: 15, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 86
+  fields: {created_at: !!timestamp '2018-11-06 22:07:30.486313', updated_at: !!timestamp '2018-11-06
+      22:07:30.486331', content_object: 16, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 87
+  fields: {created_at: !!timestamp '2018-11-06 22:07:30.488321', updated_at: !!timestamp '2018-11-06
+      22:07:30.488338', content_object: 16, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 88
+  fields: {created_at: !!timestamp '2018-11-06 22:07:30.490141', updated_at: !!timestamp '2018-11-06
+      22:07:30.490159', content_object: 16, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 89
+  fields: {created_at: !!timestamp '2018-11-06 22:07:30.491976', updated_at: !!timestamp '2018-11-06
+      22:07:30.491994', content_object: 16, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 90
+  fields: {created_at: !!timestamp '2018-11-06 22:07:30.493842', updated_at: !!timestamp '2018-11-06
+      22:07:30.493859', content_object: 16, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 91
+  fields: {created_at: !!timestamp '2018-11-06 22:07:30.495654', updated_at: !!timestamp '2018-11-06
+      22:07:30.495673', content_object: 16, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 92
+  fields: {created_at: !!timestamp '2018-11-06 22:07:50.832760', updated_at: !!timestamp '2018-11-06
+      22:07:50.832778', content_object: 21, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 93
+  fields: {created_at: !!timestamp '2018-11-06 22:07:50.834545', updated_at: !!timestamp '2018-11-06
+      22:07:50.834562', content_object: 21, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 94
+  fields: {created_at: !!timestamp '2018-11-06 22:07:50.836357', updated_at: !!timestamp '2018-11-06
+      22:07:50.836374', content_object: 21, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 95
+  fields: {created_at: !!timestamp '2018-11-07 08:58:52.177603', updated_at: !!timestamp '2018-11-07
+      08:58:52.177620', content_object: 18, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 96
+  fields: {created_at: !!timestamp '2018-11-07 08:58:52.179734', updated_at: !!timestamp '2018-11-07
+      08:58:52.179750', content_object: 18, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 97
+  fields: {created_at: !!timestamp '2018-11-07 08:59:05.334392', updated_at: !!timestamp '2018-11-07
+      08:59:05.334417', content_object: 22, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 98
+  fields: {created_at: !!timestamp '2018-11-07 08:59:05.336215', updated_at: !!timestamp '2018-11-07
+      08:59:05.336232', content_object: 22, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 99
+  fields: {created_at: !!timestamp '2018-11-07 08:59:15.909589', updated_at: !!timestamp '2018-11-07
+      08:59:15.909607', content_object: 23, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 100
+  fields: {created_at: !!timestamp '2018-11-07 08:59:43.953309', updated_at: !!timestamp '2018-11-07
+      08:59:43.953344', content_object: 19, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 101
+  fields: {created_at: !!timestamp '2018-11-07 08:59:43.955633', updated_at: !!timestamp '2018-11-07
+      08:59:43.955651', content_object: 19, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 102
+  fields: {created_at: !!timestamp '2018-11-07 08:59:43.957990', updated_at: !!timestamp '2018-11-07
+      08:59:43.958007', content_object: 19, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 103
+  fields: {created_at: !!timestamp '2018-11-07 09:00:01.898335', updated_at: !!timestamp '2018-11-07
+      09:00:01.898353', content_object: 24, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 104
+  fields: {created_at: !!timestamp '2018-11-07 09:00:01.900594', updated_at: !!timestamp '2018-11-07
+      09:00:01.900611', content_object: 24, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 105
+  fields: {created_at: !!timestamp '2018-11-07 09:00:01.902992', updated_at: !!timestamp '2018-11-07
+      09:00:01.903008', content_object: 24, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 106
+  fields: {created_at: !!timestamp '2018-11-07 16:56:09.409388', updated_at: !!timestamp '2018-11-07
+      16:56:09.409413', content_object: 48, tag: 1, assumed: false}
+- model: dashboard.puctotag
+  pk: 107
+  fields: {created_at: !!timestamp '2018-11-07 16:56:09.411621', updated_at: !!timestamp '2018-11-07
+      16:56:09.411638', content_object: 48, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 108
+  fields: {created_at: !!timestamp '2018-11-07 16:56:09.415573', updated_at: !!timestamp '2018-11-07
+      16:56:09.415591', content_object: 48, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 109
+  fields: {created_at: !!timestamp '2018-11-07 16:56:09.417425', updated_at: !!timestamp '2018-11-07
+      16:56:09.417442', content_object: 48, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 110
+  fields: {created_at: !!timestamp '2018-11-07 16:56:09.419209', updated_at: !!timestamp '2018-11-07
+      16:56:09.419226', content_object: 48, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 112
+  fields: {created_at: !!timestamp '2018-11-07 16:56:09.422617', updated_at: !!timestamp '2018-11-07
+      16:56:09.422634', content_object: 48, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 113
+  fields: {created_at: !!timestamp '2018-11-07 16:56:09.424671', updated_at: !!timestamp '2018-11-07
+      16:56:09.424688', content_object: 48, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 114
+  fields: {created_at: !!timestamp '2018-11-07 16:56:09.426661', updated_at: !!timestamp '2018-11-07
+      16:56:09.426711', content_object: 48, tag: 12, assumed: false}
+- model: dashboard.puctotag
+  pk: 115
+  fields: {created_at: !!timestamp '2018-11-07 16:56:09.428506', updated_at: !!timestamp '2018-11-07
+      16:56:09.428524', content_object: 48, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 116
+  fields: {created_at: !!timestamp '2018-11-07 16:56:09.430262', updated_at: !!timestamp '2018-11-07
+      16:56:09.430279', content_object: 48, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 117
+  fields: {created_at: !!timestamp '2018-11-07 16:56:09.432076', updated_at: !!timestamp '2018-11-07
+      16:56:09.432094', content_object: 48, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 118
+  fields: {created_at: !!timestamp '2018-11-07 16:56:39.425727', updated_at: !!timestamp '2018-11-07
+      16:56:39.425745', content_object: 48, tag: 20, assumed: false}
+- model: dashboard.puctotag
+  pk: 119
+  fields: {created_at: !!timestamp '2018-11-07 16:57:09.534202', updated_at: !!timestamp '2018-11-07
+      16:57:09.534220', content_object: 25, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 120
+  fields: {created_at: !!timestamp '2018-11-07 16:57:09.536057', updated_at: !!timestamp '2018-11-07
+      16:57:09.536074', content_object: 25, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 121
+  fields: {created_at: !!timestamp '2018-11-07 16:57:09.540016', updated_at: !!timestamp '2018-11-07
+      16:57:09.540034', content_object: 25, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 122
+  fields: {created_at: !!timestamp '2018-11-07 16:57:09.541855', updated_at: !!timestamp '2018-11-07
+      16:57:09.541872', content_object: 25, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 123
+  fields: {created_at: !!timestamp '2018-11-07 16:57:09.543594', updated_at: !!timestamp '2018-11-07
+      16:57:09.543611', content_object: 25, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 124
+  fields: {created_at: !!timestamp '2018-11-07 16:58:22.322751', updated_at: !!timestamp '2018-11-07
+      16:58:22.322769', content_object: 25, tag: 21, assumed: false}
+- model: dashboard.puctotag
+  pk: 125
+  fields: {created_at: !!timestamp '2018-11-07 16:59:46.243371', updated_at: !!timestamp '2018-11-07
+      16:59:46.243389', content_object: 26, tag: 1, assumed: false}
+- model: dashboard.puctotag
+  pk: 126
+  fields: {created_at: !!timestamp '2018-11-07 16:59:46.245227', updated_at: !!timestamp '2018-11-07
+      16:59:46.245243', content_object: 26, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 127
+  fields: {created_at: !!timestamp '2018-11-07 16:59:46.247225', updated_at: !!timestamp '2018-11-07
+      16:59:46.247242', content_object: 26, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 128
+  fields: {created_at: !!timestamp '2018-11-07 16:59:46.249342', updated_at: !!timestamp '2018-11-07
+      16:59:46.249359', content_object: 26, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 129
+  fields: {created_at: !!timestamp '2018-11-07 16:59:46.251134', updated_at: !!timestamp '2018-11-07
+      16:59:46.251150', content_object: 26, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 130
+  fields: {created_at: !!timestamp '2018-11-07 16:59:46.253203', updated_at: !!timestamp '2018-11-07
+      16:59:46.253220', content_object: 26, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 131
+  fields: {created_at: !!timestamp '2018-11-07 17:00:16.804325', updated_at: !!timestamp '2018-11-07
+      17:00:16.804343', content_object: 28, tag: 1, assumed: false}
+- model: dashboard.puctotag
+  pk: 132
+  fields: {created_at: !!timestamp '2018-11-07 17:00:16.806146', updated_at: !!timestamp '2018-11-07
+      17:00:16.806162', content_object: 28, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 133
+  fields: {created_at: !!timestamp '2018-11-07 17:00:16.808188', updated_at: !!timestamp '2018-11-07
+      17:00:16.808205', content_object: 28, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 134
+  fields: {created_at: !!timestamp '2018-11-07 17:00:16.810372', updated_at: !!timestamp '2018-11-07
+      17:00:16.810388', content_object: 28, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 135
+  fields: {created_at: !!timestamp '2018-11-07 17:00:16.814901', updated_at: !!timestamp '2018-11-07
+      17:00:16.814918', content_object: 28, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 136
+  fields: {created_at: !!timestamp '2018-11-07 17:01:02.785729', updated_at: !!timestamp '2018-11-07
+      17:01:02.785747', content_object: 29, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 137
+  fields: {created_at: !!timestamp '2018-11-07 17:01:02.787560', updated_at: !!timestamp '2018-11-07
+      17:01:02.787577', content_object: 29, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 138
+  fields: {created_at: !!timestamp '2018-11-07 17:01:02.789655', updated_at: !!timestamp '2018-11-07
+      17:01:02.789672', content_object: 29, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 139
+  fields: {created_at: !!timestamp '2018-11-07 17:01:02.791697', updated_at: !!timestamp '2018-11-07
+      17:01:02.791714', content_object: 29, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 140
+  fields: {created_at: !!timestamp '2018-11-07 17:01:27.739337', updated_at: !!timestamp '2018-11-07
+      17:01:27.739371', content_object: 30, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 141
+  fields: {created_at: !!timestamp '2018-11-07 17:01:27.741117', updated_at: !!timestamp '2018-11-07
+      17:01:27.741134', content_object: 30, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 142
+  fields: {created_at: !!timestamp '2018-11-07 17:01:27.742873', updated_at: !!timestamp '2018-11-07
+      17:01:27.742889', content_object: 30, tag: 12, assumed: false}
+- model: dashboard.puctotag
+  pk: 143
+  fields: {created_at: !!timestamp '2018-11-07 17:01:27.745122', updated_at: !!timestamp '2018-11-07
+      17:01:27.745161', content_object: 30, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 144
+  fields: {created_at: !!timestamp '2018-11-07 17:01:39.350415', updated_at: !!timestamp '2018-11-07
+      17:01:39.350432', content_object: 31, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 145
+  fields: {created_at: !!timestamp '2018-11-07 17:01:39.352177', updated_at: !!timestamp '2018-11-07
+      17:01:39.352194', content_object: 31, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 146
+  fields: {created_at: !!timestamp '2018-11-07 17:01:54.898181', updated_at: !!timestamp '2018-11-07
+      17:01:54.898199', content_object: 33, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 147
+  fields: {created_at: !!timestamp '2018-11-07 17:01:54.900247', updated_at: !!timestamp '2018-11-07
+      17:01:54.900264', content_object: 33, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 149
+  fields: {created_at: !!timestamp '2018-11-07 17:02:07.471235', updated_at: !!timestamp '2018-11-07
+      17:02:07.471254', content_object: 34, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 150
+  fields: {created_at: !!timestamp '2018-11-07 17:02:07.473055', updated_at: !!timestamp '2018-11-07
+      17:02:07.473072', content_object: 34, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 152
+  fields: {created_at: !!timestamp '2018-11-07 17:02:18.864355', updated_at: !!timestamp '2018-11-07
+      17:02:18.864373', content_object: 35, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 153
+  fields: {created_at: !!timestamp '2018-11-07 17:02:42.244588', updated_at: !!timestamp '2018-11-07
+      17:02:42.244605', content_object: 37, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 154
+  fields: {created_at: !!timestamp '2018-11-07 17:02:42.246235', updated_at: !!timestamp '2018-11-07
+      17:02:42.246252', content_object: 37, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 156
+  fields: {created_at: !!timestamp '2018-11-07 17:02:55.599181', updated_at: !!timestamp '2018-11-07
+      17:02:55.599199', content_object: 49, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 157
+  fields: {created_at: !!timestamp '2018-11-07 17:02:55.601020', updated_at: !!timestamp '2018-11-07
+      17:02:55.601037', content_object: 49, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 158
+  fields: {created_at: !!timestamp '2018-11-07 17:02:55.602903', updated_at: !!timestamp '2018-11-07
+      17:02:55.602919', content_object: 49, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 159
+  fields: {created_at: !!timestamp '2018-11-07 17:02:55.604617', updated_at: !!timestamp '2018-11-07
+      17:02:55.604633', content_object: 49, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 160
+  fields: {created_at: !!timestamp '2018-11-07 17:02:55.606640', updated_at: !!timestamp '2018-11-07
+      17:02:55.606657', content_object: 49, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 161
+  fields: {created_at: !!timestamp '2018-11-07 17:03:11.318206', updated_at: !!timestamp '2018-11-07
+      17:03:11.318225', content_object: 50, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 162
+  fields: {created_at: !!timestamp '2018-11-07 17:03:11.319957', updated_at: !!timestamp '2018-11-07
+      17:03:11.319974', content_object: 50, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 163
+  fields: {created_at: !!timestamp '2018-11-07 17:03:37.562151', updated_at: !!timestamp '2018-11-07
+      17:03:37.562169', content_object: 51, tag: 1, assumed: false}
+- model: dashboard.puctotag
+  pk: 164
+  fields: {created_at: !!timestamp '2018-11-07 17:03:37.563957', updated_at: !!timestamp '2018-11-07
+      17:03:37.563974', content_object: 51, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 165
+  fields: {created_at: !!timestamp '2018-11-07 17:03:37.565748', updated_at: !!timestamp '2018-11-07
+      17:03:37.565765', content_object: 51, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 166
+  fields: {created_at: !!timestamp '2018-11-07 17:03:37.567453', updated_at: !!timestamp '2018-11-07
+      17:03:37.567469', content_object: 51, tag: 12, assumed: false}
+- model: dashboard.puctotag
+  pk: 167
+  fields: {created_at: !!timestamp '2018-11-07 17:03:37.569337', updated_at: !!timestamp '2018-11-07
+      17:03:37.569353', content_object: 51, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 168
+  fields: {created_at: !!timestamp '2018-11-07 17:04:02.818449', updated_at: !!timestamp '2018-11-07
+      17:04:02.818466', content_object: 52, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 169
+  fields: {created_at: !!timestamp '2018-11-07 17:04:02.820209', updated_at: !!timestamp '2018-11-07
+      17:04:02.820226', content_object: 52, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 170
+  fields: {created_at: !!timestamp '2018-11-07 17:04:02.823431', updated_at: !!timestamp '2018-11-07
+      17:04:02.823448', content_object: 52, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 171
+  fields: {created_at: !!timestamp '2018-11-07 17:04:02.825491', updated_at: !!timestamp '2018-11-07
+      17:04:02.825508', content_object: 52, tag: 12, assumed: false}
+- model: dashboard.puctotag
+  pk: 172
+  fields: {created_at: !!timestamp '2018-11-07 17:04:02.827245', updated_at: !!timestamp '2018-11-07
+      17:04:02.827262', content_object: 52, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 173
+  fields: {created_at: !!timestamp '2018-11-07 17:04:16.415972', updated_at: !!timestamp '2018-11-07
+      17:04:16.415990', content_object: 52, tag: 21, assumed: false}
+- model: dashboard.puctotag
+  pk: 174
+  fields: {created_at: !!timestamp '2018-11-08 20:07:59.726795', updated_at: !!timestamp '2018-11-08
+      20:07:59.726813', content_object: 38, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 175
+  fields: {created_at: !!timestamp '2018-11-08 20:07:59.728907', updated_at: !!timestamp '2018-11-08
+      20:07:59.728923', content_object: 38, tag: 1, assumed: false}
+- model: dashboard.puctotag
+  pk: 176
+  fields: {created_at: !!timestamp '2018-11-08 20:07:59.731016', updated_at: !!timestamp '2018-11-08
+      20:07:59.731031', content_object: 38, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 177
+  fields: {created_at: !!timestamp '2018-11-08 20:07:59.733013', updated_at: !!timestamp '2018-11-08
+      20:07:59.733028', content_object: 38, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 178
+  fields: {created_at: !!timestamp '2018-11-08 20:13:01.353857', updated_at: !!timestamp '2018-11-08
+      20:13:01.353874', content_object: 40, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 179
+  fields: {created_at: !!timestamp '2018-11-08 20:13:01.355960', updated_at: !!timestamp '2018-11-08
+      20:13:01.355976', content_object: 40, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 180
+  fields: {created_at: !!timestamp '2018-11-08 20:13:01.357960', updated_at: !!timestamp '2018-11-08
+      20:13:01.357976', content_object: 40, tag: 12, assumed: false}
+- model: dashboard.puctotag
+  pk: 181
+  fields: {created_at: !!timestamp '2018-11-08 20:13:01.359819', updated_at: !!timestamp '2018-11-08
+      20:13:01.359835', content_object: 40, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 182
+  fields: {created_at: !!timestamp '2018-11-08 20:13:22.065963', updated_at: !!timestamp '2018-11-08
+      20:13:22.065981', content_object: 54, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 183
+  fields: {created_at: !!timestamp '2018-11-08 20:13:22.068942', updated_at: !!timestamp '2018-11-08
+      20:13:22.068974', content_object: 54, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 184
+  fields: {created_at: !!timestamp '2018-11-08 20:13:46.547406', updated_at: !!timestamp '2018-11-08
+      20:13:46.547423', content_object: 55, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 185
+  fields: {created_at: !!timestamp '2018-11-08 20:13:46.549604', updated_at: !!timestamp '2018-11-08
+      20:13:46.549620', content_object: 55, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 186
+  fields: {created_at: !!timestamp '2018-11-08 20:13:46.551762', updated_at: !!timestamp '2018-11-08
+      20:13:46.551778', content_object: 55, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 187
+  fields: {created_at: !!timestamp '2018-11-08 20:14:10.673085', updated_at: !!timestamp '2018-11-08
+      20:14:10.673102', content_object: 56, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 188
+  fields: {created_at: !!timestamp '2018-11-08 20:15:08.589501', updated_at: !!timestamp '2018-11-08
+      20:15:08.589534', content_object: 57, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 189
+  fields: {created_at: !!timestamp '2018-11-08 20:15:31.492271', updated_at: !!timestamp '2018-11-08
+      20:15:31.492288', content_object: 58, tag: 20, assumed: false}
+- model: dashboard.puctotag
+  pk: 190
+  fields: {created_at: !!timestamp '2018-11-08 20:15:50.823479', updated_at: !!timestamp '2018-11-08
+      20:15:50.823496', content_object: 59, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 191
+  fields: {created_at: !!timestamp '2018-11-08 20:15:50.825633', updated_at: !!timestamp '2018-11-08
+      20:15:50.825649', content_object: 59, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 192
+  fields: {created_at: !!timestamp '2018-11-08 20:16:11.416438', updated_at: !!timestamp '2018-11-08
+      20:16:11.416470', content_object: 60, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 193
+  fields: {created_at: !!timestamp '2018-11-08 20:16:11.418632', updated_at: !!timestamp '2018-11-08
+      20:16:11.418649', content_object: 60, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 194
+  fields: {created_at: !!timestamp '2018-11-08 20:16:30.316784', updated_at: !!timestamp '2018-11-08
+      20:16:30.316801', content_object: 61, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 195
+  fields: {created_at: !!timestamp '2018-11-08 20:17:23.306610', updated_at: !!timestamp '2018-11-08
+      20:17:23.306627', content_object: 63, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 196
+  fields: {created_at: !!timestamp '2018-11-08 20:17:23.308824', updated_at: !!timestamp '2018-11-08
+      20:17:23.308841', content_object: 63, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 197
+  fields: {created_at: !!timestamp '2018-11-08 20:17:23.310906', updated_at: !!timestamp '2018-11-08
+      20:17:23.310921', content_object: 63, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 198
+  fields: {created_at: !!timestamp '2018-11-08 20:17:23.312842', updated_at: !!timestamp '2018-11-08
+      20:17:23.312858', content_object: 63, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 199
+  fields: {created_at: !!timestamp '2018-11-08 20:17:50.983766', updated_at: !!timestamp '2018-11-08
+      20:17:50.983783', content_object: 61, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 200
+  fields: {created_at: !!timestamp '2018-11-08 20:18:17.861369', updated_at: !!timestamp '2018-11-08
+      20:18:17.861386', content_object: 62, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 201
+  fields: {created_at: !!timestamp '2018-11-08 20:18:55.993829', updated_at: !!timestamp '2018-11-08
+      20:18:55.993846', content_object: 64, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 202
+  fields: {created_at: !!timestamp '2018-11-08 20:18:55.996055', updated_at: !!timestamp '2018-11-08
+      20:18:55.996071', content_object: 64, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 203
+  fields: {created_at: !!timestamp '2018-11-08 20:18:55.997945', updated_at: !!timestamp '2018-11-08
+      20:18:55.997961', content_object: 64, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 204
+  fields: {created_at: !!timestamp '2018-11-08 20:18:56.000172', updated_at: !!timestamp '2018-11-08
+      20:18:56.000189', content_object: 64, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 205
+  fields: {created_at: !!timestamp '2018-11-08 20:19:37.588756', updated_at: !!timestamp '2018-11-08
+      20:19:37.588772', content_object: 65, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 206
+  fields: {created_at: !!timestamp '2018-11-08 20:19:37.591223', updated_at: !!timestamp '2018-11-08
+      20:19:37.591238', content_object: 65, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 207
+  fields: {created_at: !!timestamp '2018-11-08 20:19:37.593263', updated_at: !!timestamp '2018-11-08
+      20:19:37.593279', content_object: 65, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 208
+  fields: {created_at: !!timestamp '2018-11-08 20:19:58.177312', updated_at: !!timestamp '2018-11-08
+      20:19:58.177329', content_object: 66, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 209
+  fields: {created_at: !!timestamp '2018-11-08 20:19:58.179943', updated_at: !!timestamp '2018-11-08
+      20:19:58.179959', content_object: 66, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 210
+  fields: {created_at: !!timestamp '2018-11-08 20:19:58.182167', updated_at: !!timestamp '2018-11-08
+      20:19:58.182183', content_object: 66, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 211
+  fields: {created_at: !!timestamp '2018-11-08 20:20:19.875615', updated_at: !!timestamp '2018-11-08
+      20:20:19.875632', content_object: 67, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 212
+  fields: {created_at: !!timestamp '2018-11-08 20:20:19.878632', updated_at: !!timestamp '2018-11-08
+      20:20:19.878648', content_object: 67, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 213
+  fields: {created_at: !!timestamp '2018-11-08 20:20:19.880623', updated_at: !!timestamp '2018-11-08
+      20:20:19.880639', content_object: 67, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 214
+  fields: {created_at: !!timestamp '2018-11-08 20:20:35.624855', updated_at: !!timestamp '2018-11-08
+      20:20:35.624872', content_object: 66, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 215
+  fields: {created_at: !!timestamp '2018-11-08 20:20:35.627322', updated_at: !!timestamp '2018-11-08
+      20:20:35.627338', content_object: 66, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 216
+  fields: {created_at: !!timestamp '2018-11-08 20:21:11.966377', updated_at: !!timestamp '2018-11-08
+      20:21:11.966427', content_object: 68, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 217
+  fields: {created_at: !!timestamp '2018-11-08 20:21:11.969322', updated_at: !!timestamp '2018-11-08
+      20:21:11.969345', content_object: 68, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 218
+  fields: {created_at: !!timestamp '2018-11-08 20:21:11.972161', updated_at: !!timestamp '2018-11-08
+      20:21:11.972187', content_object: 68, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 219
+  fields: {created_at: !!timestamp '2018-11-08 20:21:11.974920', updated_at: !!timestamp '2018-11-08
+      20:21:11.974943', content_object: 68, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 220
+  fields: {created_at: !!timestamp '2018-11-08 20:21:39.550597', updated_at: !!timestamp '2018-11-08
+      20:21:39.550613', content_object: 69, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 221
+  fields: {created_at: !!timestamp '2018-11-08 20:21:39.552731', updated_at: !!timestamp '2018-11-08
+      20:21:39.552747', content_object: 69, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 222
+  fields: {created_at: !!timestamp '2018-11-08 20:21:39.554701', updated_at: !!timestamp '2018-11-08
+      20:21:39.554717', content_object: 69, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 223
+  fields: {created_at: !!timestamp '2018-11-08 20:21:39.556635', updated_at: !!timestamp '2018-11-08
+      20:21:39.556651', content_object: 69, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 224
+  fields: {created_at: !!timestamp '2018-11-08 20:22:11.390953', updated_at: !!timestamp '2018-11-08
+      20:22:11.390970', content_object: 70, tag: 1, assumed: false}
+- model: dashboard.puctotag
+  pk: 225
+  fields: {created_at: !!timestamp '2018-11-08 20:22:11.393504', updated_at: !!timestamp '2018-11-08
+      20:22:11.393537', content_object: 70, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 226
+  fields: {created_at: !!timestamp '2018-11-08 20:22:11.395571', updated_at: !!timestamp '2018-11-08
+      20:22:11.395589', content_object: 70, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 227
+  fields: {created_at: !!timestamp '2018-11-08 20:22:11.397383', updated_at: !!timestamp '2018-11-08
+      20:22:11.397406', content_object: 70, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 228
+  fields: {created_at: !!timestamp '2018-11-08 20:22:40.935567', updated_at: !!timestamp '2018-11-08
+      20:22:40.935584', content_object: 71, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 229
+  fields: {created_at: !!timestamp '2018-11-08 20:22:40.937995', updated_at: !!timestamp '2018-11-08
+      20:22:40.938011', content_object: 71, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 230
+  fields: {created_at: !!timestamp '2018-11-08 20:22:40.939730', updated_at: !!timestamp '2018-11-08
+      20:22:40.939745', content_object: 71, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 231
+  fields: {created_at: !!timestamp '2018-11-08 20:22:40.941445', updated_at: !!timestamp '2018-11-08
+      20:22:40.941462', content_object: 71, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 232
+  fields: {created_at: !!timestamp '2018-11-08 20:23:13.108053', updated_at: !!timestamp '2018-11-08
+      20:23:13.108070', content_object: 73, tag: 13, assumed: false}
+- model: dashboard.puctotag
+  pk: 233
+  fields: {created_at: !!timestamp '2018-11-08 20:23:31.091849', updated_at: !!timestamp '2018-11-08
+      20:23:31.091866', content_object: 74, tag: 13, assumed: false}
+- model: dashboard.puctotag
+  pk: 234
+  fields: {created_at: !!timestamp '2018-11-08 20:23:47.680749', updated_at: !!timestamp '2018-11-08
+      20:23:47.680766', content_object: 76, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 235
+  fields: {created_at: !!timestamp '2018-11-08 20:23:47.682890', updated_at: !!timestamp '2018-11-08
+      20:23:47.682906', content_object: 76, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 236
+  fields: {created_at: !!timestamp '2018-11-08 20:24:12.142408', updated_at: !!timestamp '2018-11-08
+      20:24:12.142426', content_object: 78, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 237
+  fields: {created_at: !!timestamp '2018-11-08 20:24:12.144915', updated_at: !!timestamp '2018-11-08
+      20:24:12.144930', content_object: 78, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 238
+  fields: {created_at: !!timestamp '2018-11-08 20:24:12.146546', updated_at: !!timestamp '2018-11-08
+      20:24:12.146562', content_object: 78, tag: 12, assumed: false}
+- model: dashboard.puctotag
+  pk: 239
+  fields: {created_at: !!timestamp '2018-11-08 20:24:12.148269', updated_at: !!timestamp '2018-11-08
+      20:24:12.148285', content_object: 78, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 240
+  fields: {created_at: !!timestamp '2018-11-08 20:26:51.105902', updated_at: !!timestamp '2018-11-08
+      20:26:51.105937', content_object: 79, tag: 1, assumed: false}
+- model: dashboard.puctotag
+  pk: 241
+  fields: {created_at: !!timestamp '2018-11-08 20:26:51.108033', updated_at: !!timestamp '2018-11-08
+      20:26:51.108051', content_object: 79, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 242
+  fields: {created_at: !!timestamp '2018-11-08 20:26:51.110436', updated_at: !!timestamp '2018-11-08
+      20:26:51.110471', content_object: 79, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 243
+  fields: {created_at: !!timestamp '2018-11-08 20:26:51.112378', updated_at: !!timestamp '2018-11-08
+      20:26:51.112395', content_object: 79, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 244
+  fields: {created_at: !!timestamp '2018-11-08 20:26:51.114461', updated_at: !!timestamp '2018-11-08
+      20:26:51.114479', content_object: 79, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 245
+  fields: {created_at: !!timestamp '2018-11-08 20:26:51.116381', updated_at: !!timestamp '2018-11-08
+      20:26:51.116404', content_object: 79, tag: 19, assumed: false}
+- model: dashboard.puctotag
+  pk: 246
+  fields: {created_at: !!timestamp '2018-11-08 20:31:16.192507', updated_at: !!timestamp '2018-11-08
+      20:31:16.192523', content_object: 81, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 247
+  fields: {created_at: !!timestamp '2018-11-08 20:31:16.194161', updated_at: !!timestamp '2018-11-08
+      20:31:16.194176', content_object: 81, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 248
+  fields: {created_at: !!timestamp '2018-11-08 20:31:16.196171', updated_at: !!timestamp '2018-11-08
+      20:31:16.196187', content_object: 81, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 249
+  fields: {created_at: !!timestamp '2018-11-08 20:31:16.198224', updated_at: !!timestamp '2018-11-08
+      20:31:16.198239', content_object: 81, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 250
+  fields: {created_at: !!timestamp '2018-11-08 20:32:22.972503', updated_at: !!timestamp '2018-11-08
+      20:32:22.972520', content_object: 84, tag: 1, assumed: false}
+- model: dashboard.puctotag
+  pk: 251
+  fields: {created_at: !!timestamp '2018-11-08 20:32:22.974778', updated_at: !!timestamp '2018-11-08
+      20:32:22.974794', content_object: 84, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 252
+  fields: {created_at: !!timestamp '2018-11-08 20:32:22.976643', updated_at: !!timestamp '2018-11-08
+      20:32:22.976659', content_object: 84, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 253
+  fields: {created_at: !!timestamp '2018-11-08 20:32:22.978907', updated_at: !!timestamp '2018-11-08
+      20:32:22.978923', content_object: 84, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 254
+  fields: {created_at: !!timestamp '2018-11-08 20:32:22.981214', updated_at: !!timestamp '2018-11-08
+      20:32:22.981230', content_object: 84, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 255
+  fields: {created_at: !!timestamp '2018-11-08 20:32:22.983157', updated_at: !!timestamp '2018-11-08
+      20:32:22.983173', content_object: 84, tag: 19, assumed: false}
+- model: dashboard.puctotag
+  pk: 256
+  fields: {created_at: !!timestamp '2018-11-08 20:33:31.105739', updated_at: !!timestamp '2018-11-08
+      20:33:31.105757', content_object: 85, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 257
+  fields: {created_at: !!timestamp '2018-11-08 20:33:31.107833', updated_at: !!timestamp '2018-11-08
+      20:33:31.107850', content_object: 85, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 258
+  fields: {created_at: !!timestamp '2018-11-08 20:33:31.110012', updated_at: !!timestamp '2018-11-08
+      20:33:31.110028', content_object: 85, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 259
+  fields: {created_at: !!timestamp '2018-11-08 20:33:31.111761', updated_at: !!timestamp '2018-11-08
+      20:33:31.111777', content_object: 85, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 260
+  fields: {created_at: !!timestamp '2018-11-08 20:33:31.113810', updated_at: !!timestamp '2018-11-08
+      20:33:31.113826', content_object: 85, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 261
+  fields: {created_at: !!timestamp '2018-11-08 20:33:31.115541', updated_at: !!timestamp '2018-11-08
+      20:33:31.115557', content_object: 85, tag: 19, assumed: false}
+- model: dashboard.puctotag
+  pk: 262
+  fields: {created_at: !!timestamp '2018-11-08 20:33:51.073759', updated_at: !!timestamp '2018-11-08
+      20:33:51.073776', content_object: 86, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 263
+  fields: {created_at: !!timestamp '2018-11-08 20:33:51.075620', updated_at: !!timestamp '2018-11-08
+      20:33:51.075636', content_object: 86, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 264
+  fields: {created_at: !!timestamp '2018-11-08 20:33:51.077962', updated_at: !!timestamp '2018-11-08
+      20:33:51.077978', content_object: 86, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 265
+  fields: {created_at: !!timestamp '2018-11-08 20:33:51.079858', updated_at: !!timestamp '2018-11-08
+      20:33:51.079874', content_object: 86, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 266
+  fields: {created_at: !!timestamp '2018-11-08 20:34:27.976868', updated_at: !!timestamp '2018-11-08
+      20:34:27.976885', content_object: 87, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 267
+  fields: {created_at: !!timestamp '2018-11-08 20:34:27.978821', updated_at: !!timestamp '2018-11-08
+      20:34:27.978838', content_object: 87, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 268
+  fields: {created_at: !!timestamp '2018-11-08 20:34:27.980874', updated_at: !!timestamp '2018-11-08
+      20:34:27.980891', content_object: 87, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 269
+  fields: {created_at: !!timestamp '2018-11-08 20:34:27.983020', updated_at: !!timestamp '2018-11-08
+      20:34:27.983053', content_object: 87, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 270
+  fields: {created_at: !!timestamp '2018-11-08 20:34:27.985218', updated_at: !!timestamp '2018-11-08
+      20:34:27.985235', content_object: 87, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 271
+  fields: {created_at: !!timestamp '2018-11-08 20:35:26.528625', updated_at: !!timestamp '2018-11-08
+      20:35:26.528641', content_object: 296, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 272
+  fields: {created_at: !!timestamp '2018-11-08 20:35:26.530409', updated_at: !!timestamp '2018-11-08
+      20:35:26.530426', content_object: 296, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 273
+  fields: {created_at: !!timestamp '2018-11-08 20:35:26.532216', updated_at: !!timestamp '2018-11-08
+      20:35:26.532232', content_object: 296, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 274
+  fields: {created_at: !!timestamp '2018-11-08 20:35:26.534005', updated_at: !!timestamp '2018-11-08
+      20:35:26.534021', content_object: 296, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 275
+  fields: {created_at: !!timestamp '2018-11-08 20:36:03.128200', updated_at: !!timestamp '2018-11-08
+      20:36:03.128217', content_object: 89, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 276
+  fields: {created_at: !!timestamp '2018-11-08 20:36:03.130774', updated_at: !!timestamp '2018-11-08
+      20:36:03.130791', content_object: 89, tag: 1, assumed: false}
+- model: dashboard.puctotag
+  pk: 277
+  fields: {created_at: !!timestamp '2018-11-08 20:36:03.132936', updated_at: !!timestamp '2018-11-08
+      20:36:03.132952', content_object: 89, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 278
+  fields: {created_at: !!timestamp '2018-11-08 20:36:37.966571', updated_at: !!timestamp '2018-11-08
+      20:36:37.966587', content_object: 91, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 279
+  fields: {created_at: !!timestamp '2018-11-08 20:36:37.969004', updated_at: !!timestamp '2018-11-08
+      20:36:37.969020', content_object: 91, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 280
+  fields: {created_at: !!timestamp '2018-11-08 20:36:37.971246', updated_at: !!timestamp '2018-11-08
+      20:36:37.971262', content_object: 91, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 281
+  fields: {created_at: !!timestamp '2018-11-08 20:36:37.973133', updated_at: !!timestamp '2018-11-08
+      20:36:37.973149', content_object: 91, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 282
+  fields: {created_at: !!timestamp '2018-11-08 20:36:37.975158', updated_at: !!timestamp '2018-11-08
+      20:36:37.975174', content_object: 91, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 283
+  fields: {created_at: !!timestamp '2018-11-08 20:37:10.327486', updated_at: !!timestamp '2018-11-08
+      20:37:10.327504', content_object: 92, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 284
+  fields: {created_at: !!timestamp '2018-11-08 20:37:10.329891', updated_at: !!timestamp '2018-11-08
+      20:37:10.329906', content_object: 92, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 285
+  fields: {created_at: !!timestamp '2018-11-08 20:37:10.331632', updated_at: !!timestamp '2018-11-08
+      20:37:10.331648', content_object: 92, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 286
+  fields: {created_at: !!timestamp '2018-11-08 20:37:10.333711', updated_at: !!timestamp '2018-11-08
+      20:37:10.333727', content_object: 92, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 287
+  fields: {created_at: !!timestamp '2018-11-08 20:37:10.335388', updated_at: !!timestamp '2018-11-08
+      20:37:10.335411', content_object: 92, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 288
+  fields: {created_at: !!timestamp '2018-11-08 20:38:05.071963', updated_at: !!timestamp '2018-11-08
+      20:38:05.071980', content_object: 95, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 289
+  fields: {created_at: !!timestamp '2018-11-08 20:38:05.074166', updated_at: !!timestamp '2018-11-08
+      20:38:05.074182', content_object: 95, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 290
+  fields: {created_at: !!timestamp '2018-11-08 20:38:05.076166', updated_at: !!timestamp '2018-11-08
+      20:38:05.076182', content_object: 95, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 291
+  fields: {created_at: !!timestamp '2018-11-08 20:38:05.078115', updated_at: !!timestamp '2018-11-08
+      20:38:05.078131', content_object: 95, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 292
+  fields: {created_at: !!timestamp '2018-11-08 20:38:30.209808', updated_at: !!timestamp '2018-11-08
+      20:38:30.209825', content_object: 94, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 293
+  fields: {created_at: !!timestamp '2018-11-08 20:38:30.212004', updated_at: !!timestamp '2018-11-08
+      20:38:30.212019', content_object: 94, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 294
+  fields: {created_at: !!timestamp '2018-11-08 20:38:30.213846', updated_at: !!timestamp '2018-11-08
+      20:38:30.213862', content_object: 94, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 295
+  fields: {created_at: !!timestamp '2018-11-08 20:38:30.215707', updated_at: !!timestamp '2018-11-08
+      20:38:30.215724', content_object: 94, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 296
+  fields: {created_at: !!timestamp '2018-11-08 20:38:53.843120', updated_at: !!timestamp '2018-11-08
+      20:38:53.843136', content_object: 96, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 297
+  fields: {created_at: !!timestamp '2018-11-08 20:38:53.845628', updated_at: !!timestamp '2018-11-08
+      20:38:53.845644', content_object: 96, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 298
+  fields: {created_at: !!timestamp '2018-11-08 20:38:53.847601', updated_at: !!timestamp '2018-11-08
+      20:38:53.847633', content_object: 96, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 299
+  fields: {created_at: !!timestamp '2018-11-08 20:38:53.849474', updated_at: !!timestamp '2018-11-08
+      20:38:53.849490', content_object: 96, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 300
+  fields: {created_at: !!timestamp '2018-11-08 20:39:17.794594', updated_at: !!timestamp '2018-11-08
+      20:39:17.794610', content_object: 97, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 301
+  fields: {created_at: !!timestamp '2018-11-08 20:39:17.796900', updated_at: !!timestamp '2018-11-08
+      20:39:17.796917', content_object: 97, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 302
+  fields: {created_at: !!timestamp '2018-11-08 20:39:17.798952', updated_at: !!timestamp '2018-11-08
+      20:39:17.798968', content_object: 97, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 303
+  fields: {created_at: !!timestamp '2018-11-08 20:39:35.058836', updated_at: !!timestamp '2018-11-08
+      20:39:35.058853', content_object: 98, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 304
+  fields: {created_at: !!timestamp '2018-11-08 20:39:35.060908', updated_at: !!timestamp '2018-11-08
+      20:39:35.060924', content_object: 98, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 305
+  fields: {created_at: !!timestamp '2018-11-08 20:39:35.062636', updated_at: !!timestamp '2018-11-08
+      20:39:35.062652', content_object: 98, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 306
+  fields: {created_at: !!timestamp '2018-11-08 20:39:35.064903', updated_at: !!timestamp '2018-11-08
+      20:39:35.064920', content_object: 98, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 307
+  fields: {created_at: !!timestamp '2018-11-08 20:39:52.549146', updated_at: !!timestamp '2018-11-08
+      20:39:52.549164', content_object: 99, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 308
+  fields: {created_at: !!timestamp '2018-11-08 20:39:52.551330', updated_at: !!timestamp '2018-11-08
+      20:39:52.551348', content_object: 99, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 309
+  fields: {created_at: !!timestamp '2018-11-08 20:39:52.553199', updated_at: !!timestamp '2018-11-08
+      20:39:52.553216', content_object: 99, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 310
+  fields: {created_at: !!timestamp '2018-11-08 20:40:16.312818', updated_at: !!timestamp '2018-11-08
+      20:40:16.312835', content_object: 100, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 311
+  fields: {created_at: !!timestamp '2018-11-08 20:40:16.315040', updated_at: !!timestamp '2018-11-08
+      20:40:16.315056', content_object: 100, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 312
+  fields: {created_at: !!timestamp '2018-11-08 20:40:16.317119', updated_at: !!timestamp '2018-11-08
+      20:40:16.317135', content_object: 100, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 313
+  fields: {created_at: !!timestamp '2018-11-08 20:40:16.318855', updated_at: !!timestamp '2018-11-08
+      20:40:16.318870', content_object: 100, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 314
+  fields: {created_at: !!timestamp '2018-11-08 20:40:39.920507', updated_at: !!timestamp '2018-11-08
+      20:40:39.920523', content_object: 101, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 315
+  fields: {created_at: !!timestamp '2018-11-08 20:40:39.922507', updated_at: !!timestamp '2018-11-08
+      20:40:39.922524', content_object: 101, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 316
+  fields: {created_at: !!timestamp '2018-11-08 20:40:39.924301', updated_at: !!timestamp '2018-11-08
+      20:40:39.924317', content_object: 101, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 317
+  fields: {created_at: !!timestamp '2018-11-08 20:40:59.883745', updated_at: !!timestamp '2018-11-08
+      20:40:59.883761', content_object: 102, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 318
+  fields: {created_at: !!timestamp '2018-11-08 20:40:59.886175', updated_at: !!timestamp '2018-11-08
+      20:40:59.886192', content_object: 102, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 319
+  fields: {created_at: !!timestamp '2018-11-08 20:40:59.888317', updated_at: !!timestamp '2018-11-08
+      20:40:59.888333', content_object: 102, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 320
+  fields: {created_at: !!timestamp '2018-11-08 20:40:59.889966', updated_at: !!timestamp '2018-11-08
+      20:40:59.889982', content_object: 102, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 321
+  fields: {created_at: !!timestamp '2018-11-08 20:40:59.891654', updated_at: !!timestamp '2018-11-08
+      20:40:59.891670', content_object: 102, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 322
+  fields: {created_at: !!timestamp '2018-11-08 20:42:11.813394', updated_at: !!timestamp '2018-11-08
+      20:42:11.813435', content_object: 104, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 323
+  fields: {created_at: !!timestamp '2018-11-08 20:42:11.815508', updated_at: !!timestamp '2018-11-08
+      20:42:11.815524', content_object: 104, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 324
+  fields: {created_at: !!timestamp '2018-11-08 20:42:44.399109', updated_at: !!timestamp '2018-11-08
+      20:42:44.399126', content_object: 105, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 325
+  fields: {created_at: !!timestamp '2018-11-08 20:42:44.401469', updated_at: !!timestamp '2018-11-08
+      20:42:44.401484', content_object: 105, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 326
+  fields: {created_at: !!timestamp '2018-11-08 20:42:44.403577', updated_at: !!timestamp '2018-11-08
+      20:42:44.403593', content_object: 105, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 327
+  fields: {created_at: !!timestamp '2018-11-08 20:42:44.405302', updated_at: !!timestamp '2018-11-08
+      20:42:44.405317', content_object: 105, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 328
+  fields: {created_at: !!timestamp '2018-11-08 20:42:44.407466', updated_at: !!timestamp '2018-11-08
+      20:42:44.407483', content_object: 105, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 329
+  fields: {created_at: !!timestamp '2018-11-08 20:43:28.797690', updated_at: !!timestamp '2018-11-08
+      20:43:28.797712', content_object: 106, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 330
+  fields: {created_at: !!timestamp '2018-11-08 20:43:28.801161', updated_at: !!timestamp '2018-11-08
+      20:43:28.801190', content_object: 106, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 331
+  fields: {created_at: !!timestamp '2018-11-08 20:43:28.804296', updated_at: !!timestamp '2018-11-08
+      20:43:28.804326', content_object: 106, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 332
+  fields: {created_at: !!timestamp '2018-11-08 20:43:28.812236', updated_at: !!timestamp '2018-11-08
+      20:43:28.812256', content_object: 106, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 333
+  fields: {created_at: !!timestamp '2018-11-08 20:43:28.814397', updated_at: !!timestamp '2018-11-08
+      20:43:28.814448', content_object: 106, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 334
+  fields: {created_at: !!timestamp '2018-11-08 20:43:54.266188', updated_at: !!timestamp '2018-11-08
+      20:43:54.266204', content_object: 107, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 335
+  fields: {created_at: !!timestamp '2018-11-08 20:43:54.268569', updated_at: !!timestamp '2018-11-08
+      20:43:54.268586', content_object: 107, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 336
+  fields: {created_at: !!timestamp '2018-11-08 20:43:54.270723', updated_at: !!timestamp '2018-11-08
+      20:43:54.270739', content_object: 107, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 337
+  fields: {created_at: !!timestamp '2018-11-08 20:43:54.272475', updated_at: !!timestamp '2018-11-08
+      20:43:54.272490', content_object: 107, tag: 4, assumed: false}
+- model: dashboard.puctotag
+  pk: 338
+  fields: {created_at: !!timestamp '2018-11-08 20:44:44.267087', updated_at: !!timestamp '2018-11-08
+      20:44:44.267105', content_object: 108, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 339
+  fields: {created_at: !!timestamp '2018-11-08 20:44:44.269385', updated_at: !!timestamp '2018-11-08
+      20:44:44.269408', content_object: 108, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 340
+  fields: {created_at: !!timestamp '2018-11-08 20:45:00.047193', updated_at: !!timestamp '2018-11-08
+      20:45:00.047210', content_object: 109, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 341
+  fields: {created_at: !!timestamp '2018-11-08 20:45:00.049425', updated_at: !!timestamp '2018-11-08
+      20:45:00.049442', content_object: 109, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 342
+  fields: {created_at: !!timestamp '2018-11-08 20:45:00.051585', updated_at: !!timestamp '2018-11-08
+      20:45:00.051602', content_object: 109, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 343
+  fields: {created_at: !!timestamp '2018-11-08 20:45:27.195639', updated_at: !!timestamp '2018-11-08
+      20:45:27.195656', content_object: 111, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 344
+  fields: {created_at: !!timestamp '2018-11-08 20:45:27.197870', updated_at: !!timestamp '2018-11-08
+      20:45:27.197886', content_object: 111, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 345
+  fields: {created_at: !!timestamp '2018-11-08 20:45:27.199863', updated_at: !!timestamp '2018-11-08
+      20:45:27.199880', content_object: 111, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 346
+  fields: {created_at: !!timestamp '2018-11-08 20:45:27.201657', updated_at: !!timestamp '2018-11-08
+      20:45:27.201673', content_object: 111, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 347
+  fields: {created_at: !!timestamp '2018-11-08 20:45:49.950605', updated_at: !!timestamp '2018-11-08
+      20:45:49.950622', content_object: 112, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 348
+  fields: {created_at: !!timestamp '2018-11-08 20:45:49.953089', updated_at: !!timestamp '2018-11-08
+      20:45:49.953105', content_object: 112, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 349
+  fields: {created_at: !!timestamp '2018-11-08 20:45:49.955113', updated_at: !!timestamp '2018-11-08
+      20:45:49.955151', content_object: 112, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 350
+  fields: {created_at: !!timestamp '2018-11-08 20:45:49.957516', updated_at: !!timestamp '2018-11-08
+      20:45:49.957532', content_object: 112, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 351
+  fields: {created_at: !!timestamp '2018-11-08 20:45:49.959693', updated_at: !!timestamp '2018-11-08
+      20:45:49.959709', content_object: 112, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 352
+  fields: {created_at: !!timestamp '2018-11-08 20:46:21.949938', updated_at: !!timestamp '2018-11-08
+      20:46:21.949956', content_object: 114, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 353
+  fields: {created_at: !!timestamp '2018-11-08 20:46:21.952199', updated_at: !!timestamp '2018-11-08
+      20:46:21.952216', content_object: 114, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 354
+  fields: {created_at: !!timestamp '2018-11-08 20:46:21.954006', updated_at: !!timestamp '2018-11-08
+      20:46:21.954022', content_object: 114, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 355
+  fields: {created_at: !!timestamp '2018-11-08 20:46:21.955986', updated_at: !!timestamp '2018-11-08
+      20:46:21.956003', content_object: 114, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 356
+  fields: {created_at: !!timestamp '2018-11-08 20:46:21.957990', updated_at: !!timestamp '2018-11-08
+      20:46:21.958006', content_object: 114, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 357
+  fields: {created_at: !!timestamp '2018-11-08 20:46:21.959649', updated_at: !!timestamp '2018-11-08
+      20:46:21.959665', content_object: 114, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 358
+  fields: {created_at: !!timestamp '2018-11-08 20:46:21.961561', updated_at: !!timestamp '2018-11-08
+      20:46:21.961577', content_object: 114, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 359
+  fields: {created_at: !!timestamp '2018-11-08 20:46:38.183067', updated_at: !!timestamp '2018-11-08
+      20:46:38.183083', content_object: 115, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 360
+  fields: {created_at: !!timestamp '2018-11-08 20:46:38.185779', updated_at: !!timestamp '2018-11-08
+      20:46:38.185795', content_object: 115, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 361
+  fields: {created_at: !!timestamp '2018-11-08 20:46:38.187794', updated_at: !!timestamp '2018-11-08
+      20:46:38.187810', content_object: 115, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 362
+  fields: {created_at: !!timestamp '2018-11-08 20:46:38.189866', updated_at: !!timestamp '2018-11-08
+      20:46:38.189881', content_object: 115, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 363
+  fields: {created_at: !!timestamp '2018-11-08 20:46:56.711382', updated_at: !!timestamp '2018-11-08
+      20:46:56.711404', content_object: 116, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 364
+  fields: {created_at: !!timestamp '2018-11-08 20:46:56.713398', updated_at: !!timestamp '2018-11-08
+      20:46:56.713421', content_object: 116, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 365
+  fields: {created_at: !!timestamp '2018-11-08 20:46:56.715450', updated_at: !!timestamp '2018-11-08
+      20:46:56.715466', content_object: 116, tag: 4, assumed: false}
+- model: dashboard.puctotag
+  pk: 366
+  fields: {created_at: !!timestamp '2018-11-08 20:46:56.717289', updated_at: !!timestamp '2018-11-08
+      20:46:56.717304', content_object: 116, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 367
+  fields: {created_at: !!timestamp '2018-11-08 20:47:23.095356', updated_at: !!timestamp '2018-11-08
+      20:47:23.095373', content_object: 118, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 368
+  fields: {created_at: !!timestamp '2018-11-08 20:47:23.098023', updated_at: !!timestamp '2018-11-08
+      20:47:23.098039', content_object: 118, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 369
+  fields: {created_at: !!timestamp '2018-11-08 20:47:38.328667', updated_at: !!timestamp '2018-11-08
+      20:47:38.328683', content_object: 119, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 370
+  fields: {created_at: !!timestamp '2018-11-08 20:47:38.331123', updated_at: !!timestamp '2018-11-08
+      20:47:38.331139', content_object: 119, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 371
+  fields: {created_at: !!timestamp '2018-11-08 20:47:38.333434', updated_at: !!timestamp '2018-11-08
+      20:47:38.333454', content_object: 119, tag: 4, assumed: false}
+- model: dashboard.puctotag
+  pk: 372
+  fields: {created_at: !!timestamp '2018-11-08 20:48:15.765152', updated_at: !!timestamp '2018-11-08
+      20:48:15.765187', content_object: 120, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 373
+  fields: {created_at: !!timestamp '2018-11-08 20:48:15.767487', updated_at: !!timestamp '2018-11-08
+      20:48:15.767521', content_object: 120, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 374
+  fields: {created_at: !!timestamp '2018-11-08 20:48:15.769448', updated_at: !!timestamp '2018-11-08
+      20:48:15.769464', content_object: 120, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 375
+  fields: {created_at: !!timestamp '2018-11-08 20:48:15.771163', updated_at: !!timestamp '2018-11-08
+      20:48:15.771180', content_object: 120, tag: 15, assumed: false}
+- model: dashboard.puctotag
+  pk: 376
+  fields: {created_at: !!timestamp '2018-11-08 20:48:36.061434', updated_at: !!timestamp '2018-11-08
+      20:48:36.061471', content_object: 121, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 377
+  fields: {created_at: !!timestamp '2018-11-08 20:48:36.063498', updated_at: !!timestamp '2018-11-08
+      20:48:36.063515', content_object: 121, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 378
+  fields: {created_at: !!timestamp '2018-11-08 20:48:36.065335', updated_at: !!timestamp '2018-11-08
+      20:48:36.065352', content_object: 121, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 379
+  fields: {created_at: !!timestamp '2018-11-08 20:48:36.067036', updated_at: !!timestamp '2018-11-08
+      20:48:36.067053', content_object: 121, tag: 15, assumed: false}
+- model: dashboard.puctotag
+  pk: 380
+  fields: {created_at: !!timestamp '2018-11-08 20:48:50.378671', updated_at: !!timestamp '2018-11-08
+      20:48:50.378688', content_object: 123, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 381
+  fields: {created_at: !!timestamp '2018-11-08 20:49:24.701183', updated_at: !!timestamp '2018-11-08
+      20:49:24.701199', content_object: 125, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 382
+  fields: {created_at: !!timestamp '2018-11-08 20:49:24.703702', updated_at: !!timestamp '2018-11-08
+      20:49:24.703719', content_object: 125, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 383
+  fields: {created_at: !!timestamp '2018-11-08 20:49:43.615666', updated_at: !!timestamp '2018-11-08
+      20:49:43.615700', content_object: 126, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 384
+  fields: {created_at: !!timestamp '2018-11-08 20:49:43.618011', updated_at: !!timestamp '2018-11-08
+      20:49:43.618027', content_object: 126, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 385
+  fields: {created_at: !!timestamp '2018-11-08 20:49:43.619814', updated_at: !!timestamp '2018-11-08
+      20:49:43.619830', content_object: 126, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 386
+  fields: {created_at: !!timestamp '2018-11-08 20:49:43.621538', updated_at: !!timestamp '2018-11-08
+      20:49:43.621554', content_object: 126, tag: 15, assumed: false}
+- model: dashboard.puctotag
+  pk: 387
+  fields: {created_at: !!timestamp '2018-11-08 20:49:55.702707', updated_at: !!timestamp '2018-11-08
+      20:49:55.702723', content_object: 127, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 388
+  fields: {created_at: !!timestamp '2018-11-08 20:50:07.445539', updated_at: !!timestamp '2018-11-08
+      20:50:07.445556', content_object: 128, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 389
+  fields: {created_at: !!timestamp '2018-11-08 20:50:31.854307', updated_at: !!timestamp '2018-11-08
+      20:50:31.854324', content_object: 129, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 390
+  fields: {created_at: !!timestamp '2018-11-08 20:50:31.856493', updated_at: !!timestamp '2018-11-08
+      20:50:31.856509', content_object: 129, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 391
+  fields: {created_at: !!timestamp '2018-11-08 20:51:46.453192', updated_at: !!timestamp '2018-11-08
+      20:51:46.453209', content_object: 132, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 392
+  fields: {created_at: !!timestamp '2018-11-08 20:51:46.455563', updated_at: !!timestamp '2018-11-08
+      20:51:46.455579', content_object: 132, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 393
+  fields: {created_at: !!timestamp '2018-11-08 20:51:46.457462', updated_at: !!timestamp '2018-11-08
+      20:51:46.457478', content_object: 132, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 394
+  fields: {created_at: !!timestamp '2018-11-08 20:52:27.499595', updated_at: !!timestamp '2018-11-08
+      20:52:27.499634', content_object: 133, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 395
+  fields: {created_at: !!timestamp '2018-11-08 20:52:27.501801', updated_at: !!timestamp '2018-11-08
+      20:52:27.501818', content_object: 133, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 396
+  fields: {created_at: !!timestamp '2018-11-08 20:52:27.504015', updated_at: !!timestamp '2018-11-08
+      20:52:27.504031', content_object: 133, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 397
+  fields: {created_at: !!timestamp '2018-11-08 20:53:47.973326', updated_at: !!timestamp '2018-11-08
+      20:53:47.973348', content_object: 134, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 398
+  fields: {created_at: !!timestamp '2018-11-08 20:53:47.975789', updated_at: !!timestamp '2018-11-08
+      20:53:47.975810', content_object: 134, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 399
+  fields: {created_at: !!timestamp '2018-11-08 20:53:47.977935', updated_at: !!timestamp '2018-11-08
+      20:53:47.977956', content_object: 134, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 400
+  fields: {created_at: !!timestamp '2018-11-08 20:54:13.202193', updated_at: !!timestamp '2018-11-08
+      20:54:13.202226', content_object: 135, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 401
+  fields: {created_at: !!timestamp '2018-11-08 20:54:13.204427', updated_at: !!timestamp '2018-11-08
+      20:54:13.204444', content_object: 135, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 402
+  fields: {created_at: !!timestamp '2018-11-08 20:54:13.206861', updated_at: !!timestamp '2018-11-08
+      20:54:13.206877', content_object: 135, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 403
+  fields: {created_at: !!timestamp '2018-11-08 20:54:37.551804', updated_at: !!timestamp '2018-11-08
+      20:54:37.551821', content_object: 131, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 404
+  fields: {created_at: !!timestamp '2018-11-08 20:54:37.553908', updated_at: !!timestamp '2018-11-08
+      20:54:37.553923', content_object: 131, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 405
+  fields: {created_at: !!timestamp '2018-11-08 20:54:37.555966', updated_at: !!timestamp '2018-11-08
+      20:54:37.555982', content_object: 131, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 406
+  fields: {created_at: !!timestamp '2018-11-08 20:54:55.255880', updated_at: !!timestamp '2018-11-08
+      20:54:55.255897', content_object: 136, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 407
+  fields: {created_at: !!timestamp '2018-11-08 20:54:55.258078', updated_at: !!timestamp '2018-11-08
+      20:54:55.258094', content_object: 136, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 408
+  fields: {created_at: !!timestamp '2018-11-08 20:55:56.103446', updated_at: !!timestamp '2018-11-08
+      20:55:56.103465', content_object: 138, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 409
+  fields: {created_at: !!timestamp '2018-11-08 20:55:56.105809', updated_at: !!timestamp '2018-11-08
+      20:55:56.105825', content_object: 138, tag: 12, assumed: false}
+- model: dashboard.puctotag
+  pk: 410
+  fields: {created_at: !!timestamp '2018-11-08 20:55:56.107929', updated_at: !!timestamp '2018-11-08
+      20:55:56.107946', content_object: 138, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 411
+  fields: {created_at: !!timestamp '2018-11-08 20:55:56.109996', updated_at: !!timestamp '2018-11-08
+      20:55:56.110013', content_object: 138, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 412
+  fields: {created_at: !!timestamp '2018-11-08 20:57:15.324610', updated_at: !!timestamp '2018-11-08
+      20:57:15.324627', content_object: 140, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 413
+  fields: {created_at: !!timestamp '2018-11-08 20:57:15.326775', updated_at: !!timestamp '2018-11-08
+      20:57:15.326792', content_object: 140, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 414
+  fields: {created_at: !!timestamp '2018-11-08 20:57:26.038192', updated_at: !!timestamp '2018-11-08
+      20:57:26.038209', content_object: 141, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 415
+  fields: {created_at: !!timestamp '2018-11-08 20:57:26.040867', updated_at: !!timestamp '2018-11-08
+      20:57:26.040883', content_object: 141, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 416
+  fields: {created_at: !!timestamp '2018-11-08 20:57:26.042655', updated_at: !!timestamp '2018-11-08
+      20:57:26.042670', content_object: 141, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 417
+  fields: {created_at: !!timestamp '2018-11-08 20:57:56.856683', updated_at: !!timestamp '2018-11-08
+      20:57:56.856700', content_object: 142, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 418
+  fields: {created_at: !!timestamp '2018-11-08 20:57:56.859140', updated_at: !!timestamp '2018-11-08
+      20:57:56.859156', content_object: 142, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 419
+  fields: {created_at: !!timestamp '2018-11-08 20:57:56.861091', updated_at: !!timestamp '2018-11-08
+      20:57:56.861108', content_object: 142, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 420
+  fields: {created_at: !!timestamp '2018-11-08 20:57:56.862872', updated_at: !!timestamp '2018-11-08
+      20:57:56.862888', content_object: 142, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 421
+  fields: {created_at: !!timestamp '2018-11-08 20:58:18.257652', updated_at: !!timestamp '2018-11-08
+      20:58:18.257685', content_object: 143, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 422
+  fields: {created_at: !!timestamp '2018-11-08 20:58:18.259932', updated_at: !!timestamp '2018-11-08
+      20:58:18.259948', content_object: 143, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 423
+  fields: {created_at: !!timestamp '2018-11-08 20:58:18.261952', updated_at: !!timestamp '2018-11-08
+      20:58:18.261968', content_object: 143, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 424
+  fields: {created_at: !!timestamp '2018-11-08 20:58:52.724528', updated_at: !!timestamp '2018-11-08
+      20:58:52.724545', content_object: 144, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 425
+  fields: {created_at: !!timestamp '2018-11-08 20:58:52.726856', updated_at: !!timestamp '2018-11-08
+      20:58:52.726871', content_object: 144, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 426
+  fields: {created_at: !!timestamp '2018-11-08 20:58:52.728938', updated_at: !!timestamp '2018-11-08
+      20:58:52.728954', content_object: 144, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 427
+  fields: {created_at: !!timestamp '2018-11-08 20:58:52.731593', updated_at: !!timestamp '2018-11-08
+      20:58:52.731609', content_object: 144, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 428
+  fields: {created_at: !!timestamp '2018-11-08 20:58:52.733342', updated_at: !!timestamp '2018-11-08
+      20:58:52.733357', content_object: 144, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 429
+  fields: {created_at: !!timestamp '2018-11-08 20:58:52.735389', updated_at: !!timestamp '2018-11-08
+      20:58:52.735433', content_object: 144, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 430
+  fields: {created_at: !!timestamp '2018-11-08 21:00:10.112356', updated_at: !!timestamp '2018-11-08
+      21:00:10.112374', content_object: 146, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 431
+  fields: {created_at: !!timestamp '2018-11-08 21:00:28.494106', updated_at: !!timestamp '2018-11-08
+      21:00:28.494123', content_object: 147, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 432
+  fields: {created_at: !!timestamp '2018-11-08 21:00:28.496516', updated_at: !!timestamp '2018-11-08
+      21:00:28.496532', content_object: 147, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 433
+  fields: {created_at: !!timestamp '2018-11-08 21:00:28.498425', updated_at: !!timestamp '2018-11-08
+      21:00:28.498441', content_object: 147, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 434
+  fields: {created_at: !!timestamp '2018-11-08 21:00:28.500176', updated_at: !!timestamp '2018-11-08
+      21:00:28.500192', content_object: 147, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 435
+  fields: {created_at: !!timestamp '2018-11-08 21:00:47.198969', updated_at: !!timestamp '2018-11-08
+      21:00:47.198986', content_object: 148, tag: 1, assumed: false}
+- model: dashboard.puctotag
+  pk: 436
+  fields: {created_at: !!timestamp '2018-11-08 21:00:47.201481', updated_at: !!timestamp '2018-11-08
+      21:00:47.201497', content_object: 148, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 437
+  fields: {created_at: !!timestamp '2018-11-08 21:00:47.203576', updated_at: !!timestamp '2018-11-08
+      21:00:47.203593', content_object: 148, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 438
+  fields: {created_at: !!timestamp '2018-11-08 21:00:47.205449', updated_at: !!timestamp '2018-11-08
+      21:00:47.205466', content_object: 148, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 439
+  fields: {created_at: !!timestamp '2018-11-08 21:01:01.674658', updated_at: !!timestamp '2018-11-08
+      21:01:01.674675', content_object: 148, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 440
+  fields: {created_at: !!timestamp '2018-11-08 21:01:18.711965', updated_at: !!timestamp '2018-11-08
+      21:01:18.711983', content_object: 149, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 441
+  fields: {created_at: !!timestamp '2018-11-08 21:01:18.714245', updated_at: !!timestamp '2018-11-08
+      21:01:18.714263', content_object: 149, tag: 12, assumed: false}
+- model: dashboard.puctotag
+  pk: 442
+  fields: {created_at: !!timestamp '2018-11-08 21:01:34.664903', updated_at: !!timestamp '2018-11-08
+      21:01:34.664920', content_object: 150, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 443
+  fields: {created_at: !!timestamp '2018-11-08 21:01:34.666770', updated_at: !!timestamp '2018-11-08
+      21:01:34.666786', content_object: 150, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 444
+  fields: {created_at: !!timestamp '2018-11-08 21:01:34.668518', updated_at: !!timestamp '2018-11-08
+      21:01:34.668534', content_object: 150, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 445
+  fields: {created_at: !!timestamp '2018-11-08 21:01:55.089420', updated_at: !!timestamp '2018-11-08
+      21:01:55.089437', content_object: 151, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 446
+  fields: {created_at: !!timestamp '2018-11-08 21:01:55.091586', updated_at: !!timestamp '2018-11-08
+      21:01:55.091602', content_object: 151, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 447
+  fields: {created_at: !!timestamp '2018-11-08 21:01:55.093760', updated_at: !!timestamp '2018-11-08
+      21:01:55.093776', content_object: 151, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 448
+  fields: {created_at: !!timestamp '2018-11-08 21:02:08.559256', updated_at: !!timestamp '2018-11-08
+      21:02:08.559273', content_object: 152, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 449
+  fields: {created_at: !!timestamp '2018-11-08 21:02:08.561666', updated_at: !!timestamp '2018-11-08
+      21:02:08.561682', content_object: 152, tag: 12, assumed: false}
+- model: dashboard.puctotag
+  pk: 450
+  fields: {created_at: !!timestamp '2018-11-08 21:02:18.592426', updated_at: !!timestamp '2018-11-08
+      21:02:18.592442', content_object: 153, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 451
+  fields: {created_at: !!timestamp '2018-11-08 21:02:27.556940', updated_at: !!timestamp '2018-11-08
+      21:02:27.556958', content_object: 154, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 452
+  fields: {created_at: !!timestamp '2018-11-08 21:02:49.796091', updated_at: !!timestamp '2018-11-08
+      21:02:49.796108', content_object: 156, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 453
+  fields: {created_at: !!timestamp '2018-11-08 21:02:49.797812', updated_at: !!timestamp '2018-11-08
+      21:02:49.797828', content_object: 156, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 454
+  fields: {created_at: !!timestamp '2018-11-08 21:02:49.799980', updated_at: !!timestamp '2018-11-08
+      21:02:49.799997', content_object: 156, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 455
+  fields: {created_at: !!timestamp '2018-11-08 21:03:00.396207', updated_at: !!timestamp '2018-11-08
+      21:03:00.396224', content_object: 157, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 456
+  fields: {created_at: !!timestamp '2018-11-08 21:03:13.074035', updated_at: !!timestamp '2018-11-08
+      21:03:13.074052', content_object: 158, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 457
+  fields: {created_at: !!timestamp '2018-11-08 21:03:48.396303', updated_at: !!timestamp '2018-11-08
+      21:03:48.396320', content_object: 159, tag: 1, assumed: false}
+- model: dashboard.puctotag
+  pk: 458
+  fields: {created_at: !!timestamp '2018-11-08 21:03:48.398164', updated_at: !!timestamp '2018-11-08
+      21:03:48.398181', content_object: 159, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 459
+  fields: {created_at: !!timestamp '2018-11-08 21:03:48.400291', updated_at: !!timestamp '2018-11-08
+      21:03:48.400307', content_object: 159, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 460
+  fields: {created_at: !!timestamp '2018-11-08 21:03:57.895635', updated_at: !!timestamp '2018-11-08
+      21:03:57.895651', content_object: 160, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 461
+  fields: {created_at: !!timestamp '2018-11-08 21:04:05.540058', updated_at: !!timestamp '2018-11-08
+      21:04:05.540075', content_object: 161, tag: 12, assumed: false}
+- model: dashboard.puctotag
+  pk: 462
+  fields: {created_at: !!timestamp '2018-11-08 21:04:23.288064', updated_at: !!timestamp '2018-11-08
+      21:04:23.288081', content_object: 162, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 463
+  fields: {created_at: !!timestamp '2018-11-08 21:04:23.290287', updated_at: !!timestamp '2018-11-08
+      21:04:23.290304', content_object: 162, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 464
+  fields: {created_at: !!timestamp '2018-11-08 21:04:36.275769', updated_at: !!timestamp '2018-11-08
+      21:04:36.275785', content_object: 163, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 465
+  fields: {created_at: !!timestamp '2018-11-08 21:04:36.277795', updated_at: !!timestamp '2018-11-08
+      21:04:36.277811', content_object: 163, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 466
+  fields: {created_at: !!timestamp '2018-11-08 21:04:36.279764', updated_at: !!timestamp '2018-11-08
+      21:04:36.279779', content_object: 163, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 467
+  fields: {created_at: !!timestamp '2018-11-08 21:05:00.850535', updated_at: !!timestamp '2018-11-08
+      21:05:00.850553', content_object: 165, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 468
+  fields: {created_at: !!timestamp '2018-11-08 21:05:00.852536', updated_at: !!timestamp '2018-11-08
+      21:05:00.852553', content_object: 165, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 469
+  fields: {created_at: !!timestamp '2018-11-08 21:05:00.854499', updated_at: !!timestamp '2018-11-08
+      21:05:00.854515', content_object: 165, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 470
+  fields: {created_at: !!timestamp '2018-11-08 21:05:00.856542', updated_at: !!timestamp '2018-11-08
+      21:05:00.856560', content_object: 165, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 471
+  fields: {created_at: !!timestamp '2018-11-08 21:05:19.012181', updated_at: !!timestamp '2018-11-08
+      21:05:19.012224', content_object: 166, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 472
+  fields: {created_at: !!timestamp '2018-11-08 21:05:19.015111', updated_at: !!timestamp '2018-11-08
+      21:05:19.015137', content_object: 166, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 473
+  fields: {created_at: !!timestamp '2018-11-08 21:05:19.018244', updated_at: !!timestamp '2018-11-08
+      21:05:19.018270', content_object: 166, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 474
+  fields: {created_at: !!timestamp '2018-11-08 21:05:19.021106', updated_at: !!timestamp '2018-11-08
+      21:05:19.021132', content_object: 166, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 475
+  fields: {created_at: !!timestamp '2018-11-08 21:05:19.023777', updated_at: !!timestamp '2018-11-08
+      21:05:19.023802', content_object: 166, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 476
+  fields: {created_at: !!timestamp '2018-11-08 21:05:27.272273', updated_at: !!timestamp '2018-11-08
+      21:05:27.272290', content_object: 167, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 477
+  fields: {created_at: !!timestamp '2018-11-08 21:05:46.304905', updated_at: !!timestamp '2018-11-08
+      21:05:46.304923', content_object: 168, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 478
+  fields: {created_at: !!timestamp '2018-11-08 21:05:46.306994', updated_at: !!timestamp '2018-11-08
+      21:05:46.307010', content_object: 168, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 479
+  fields: {created_at: !!timestamp '2018-11-08 21:05:46.309214', updated_at: !!timestamp '2018-11-08
+      21:05:46.309231', content_object: 168, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 480
+  fields: {created_at: !!timestamp '2018-11-08 21:06:05.038160', updated_at: !!timestamp '2018-11-08
+      21:06:05.038177', content_object: 169, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 481
+  fields: {created_at: !!timestamp '2018-11-08 21:06:05.040064', updated_at: !!timestamp '2018-11-08
+      21:06:05.040079', content_object: 169, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 482
+  fields: {created_at: !!timestamp '2018-11-08 21:06:05.042589', updated_at: !!timestamp '2018-11-08
+      21:06:05.042605', content_object: 169, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 483
+  fields: {created_at: !!timestamp '2018-11-08 21:06:05.044630', updated_at: !!timestamp '2018-11-08
+      21:06:05.044647', content_object: 169, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 484
+  fields: {created_at: !!timestamp '2018-11-08 21:06:32.316047', updated_at: !!timestamp '2018-11-08
+      21:06:32.316064', content_object: 170, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 485
+  fields: {created_at: !!timestamp '2018-11-08 21:06:32.318064', updated_at: !!timestamp '2018-11-08
+      21:06:32.318080', content_object: 170, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 486
+  fields: {created_at: !!timestamp '2018-11-08 21:06:32.319987', updated_at: !!timestamp '2018-11-08
+      21:06:32.320002', content_object: 170, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 487
+  fields: {created_at: !!timestamp '2018-11-08 21:06:32.322071', updated_at: !!timestamp '2018-11-08
+      21:06:32.322089', content_object: 170, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 488
+  fields: {created_at: !!timestamp '2018-11-08 21:06:32.324381', updated_at: !!timestamp '2018-11-08
+      21:06:32.324397', content_object: 170, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 489
+  fields: {created_at: !!timestamp '2018-11-08 21:06:32.326311', updated_at: !!timestamp '2018-11-08
+      21:06:32.326328', content_object: 170, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 490
+  fields: {created_at: !!timestamp '2018-11-08 21:06:45.341467', updated_at: !!timestamp '2018-11-08
+      21:06:45.341484', content_object: 171, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 491
+  fields: {created_at: !!timestamp '2018-11-08 21:06:56.631806', updated_at: !!timestamp '2018-11-08
+      21:06:56.631823', content_object: 173, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 492
+  fields: {created_at: !!timestamp '2018-11-08 21:06:56.633860', updated_at: !!timestamp '2018-11-08
+      21:06:56.633876', content_object: 173, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 493
+  fields: {created_at: !!timestamp '2018-11-08 21:07:10.632842', updated_at: !!timestamp '2018-11-08
+      21:07:10.632858', content_object: 174, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 494
+  fields: {created_at: !!timestamp '2018-11-08 21:08:08.050075', updated_at: !!timestamp '2018-11-08
+      21:08:08.050092', content_object: 172, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 495
+  fields: {created_at: !!timestamp '2018-11-08 21:08:08.051925', updated_at: !!timestamp '2018-11-08
+      21:08:08.051941', content_object: 172, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 496
+  fields: {created_at: !!timestamp '2018-11-08 21:08:08.054004', updated_at: !!timestamp '2018-11-08
+      21:08:08.054020', content_object: 172, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 497
+  fields: {created_at: !!timestamp '2018-11-08 21:08:08.055867', updated_at: !!timestamp '2018-11-08
+      21:08:08.055882', content_object: 172, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 498
+  fields: {created_at: !!timestamp '2018-11-08 21:08:29.294530', updated_at: !!timestamp '2018-11-08
+      21:08:29.294549', content_object: 175, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 499
+  fields: {created_at: !!timestamp '2018-11-08 21:08:50.879114', updated_at: !!timestamp '2018-11-08
+      21:08:50.879132', content_object: 178, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 500
+  fields: {created_at: !!timestamp '2018-11-08 21:08:50.880957', updated_at: !!timestamp '2018-11-08
+      21:08:50.880974', content_object: 178, tag: 12, assumed: false}
+- model: dashboard.puctotag
+  pk: 501
+  fields: {created_at: !!timestamp '2018-11-08 21:09:10.493749', updated_at: !!timestamp '2018-11-08
+      21:09:10.493766', content_object: 179, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 502
+  fields: {created_at: !!timestamp '2018-11-08 21:09:10.495757', updated_at: !!timestamp '2018-11-08
+      21:09:10.495773', content_object: 179, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 503
+  fields: {created_at: !!timestamp '2018-11-08 21:09:10.497941', updated_at: !!timestamp '2018-11-08
+      21:09:10.497957', content_object: 179, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 504
+  fields: {created_at: !!timestamp '2018-11-08 21:09:22.280341', updated_at: !!timestamp '2018-11-08
+      21:09:22.280380', content_object: 180, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 505
+  fields: {created_at: !!timestamp '2018-11-08 21:09:22.282348', updated_at: !!timestamp '2018-11-08
+      21:09:22.282364', content_object: 180, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 506
+  fields: {created_at: !!timestamp '2018-11-08 21:09:22.284357', updated_at: !!timestamp '2018-11-08
+      21:09:22.284372', content_object: 180, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 507
+  fields: {created_at: !!timestamp '2018-11-08 21:09:32.623991', updated_at: !!timestamp '2018-11-08
+      21:09:32.624008', content_object: 181, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 508
+  fields: {created_at: !!timestamp '2018-11-08 21:09:32.626039', updated_at: !!timestamp '2018-11-08
+      21:09:32.626055', content_object: 181, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 509
+  fields: {created_at: !!timestamp '2018-11-08 21:09:44.263554', updated_at: !!timestamp '2018-11-08
+      21:09:44.263572', content_object: 182, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 510
+  fields: {created_at: !!timestamp '2018-11-08 21:09:44.265580', updated_at: !!timestamp '2018-11-08
+      21:09:44.265597', content_object: 182, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 511
+  fields: {created_at: !!timestamp '2018-11-08 21:09:44.267482', updated_at: !!timestamp '2018-11-08
+      21:09:44.267499', content_object: 182, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 512
+  fields: {created_at: !!timestamp '2018-11-08 21:10:02.599475', updated_at: !!timestamp '2018-11-08
+      21:10:02.599492', content_object: 183, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 513
+  fields: {created_at: !!timestamp '2018-11-08 21:10:02.601194', updated_at: !!timestamp '2018-11-08
+      21:10:02.601210', content_object: 183, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 514
+  fields: {created_at: !!timestamp '2018-11-08 21:10:02.602947', updated_at: !!timestamp '2018-11-08
+      21:10:02.602962', content_object: 183, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 515
+  fields: {created_at: !!timestamp '2018-11-08 21:10:22.460064', updated_at: !!timestamp '2018-11-08
+      21:10:22.460096', content_object: 184, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 516
+  fields: {created_at: !!timestamp '2018-11-08 21:10:22.461862', updated_at: !!timestamp '2018-11-08
+      21:10:22.461879', content_object: 184, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 517
+  fields: {created_at: !!timestamp '2018-11-08 21:10:22.463721', updated_at: !!timestamp '2018-11-08
+      21:10:22.463737', content_object: 184, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 518
+  fields: {created_at: !!timestamp '2018-11-08 21:10:22.465749', updated_at: !!timestamp '2018-11-08
+      21:10:22.465766', content_object: 184, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 519
+  fields: {created_at: !!timestamp '2018-11-08 21:10:22.467777', updated_at: !!timestamp '2018-11-08
+      21:10:22.467793', content_object: 184, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 520
+  fields: {created_at: !!timestamp '2018-11-08 21:10:22.469708', updated_at: !!timestamp '2018-11-08
+      21:10:22.469725', content_object: 184, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 521
+  fields: {created_at: !!timestamp '2018-11-08 21:11:32.605897', updated_at: !!timestamp '2018-11-08
+      21:11:32.605914', content_object: 185, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 522
+  fields: {created_at: !!timestamp '2018-11-08 21:11:32.607838', updated_at: !!timestamp '2018-11-08
+      21:11:32.607854', content_object: 185, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 523
+  fields: {created_at: !!timestamp '2018-11-08 21:12:04.064160', updated_at: !!timestamp '2018-11-08
+      21:12:04.064177', content_object: 187, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 524
+  fields: {created_at: !!timestamp '2018-11-08 21:12:04.066466', updated_at: !!timestamp '2018-11-08
+      21:12:04.066482', content_object: 187, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 525
+  fields: {created_at: !!timestamp '2018-11-08 21:12:04.068298', updated_at: !!timestamp '2018-11-08
+      21:12:04.068313', content_object: 187, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 526
+  fields: {created_at: !!timestamp '2018-11-08 21:12:49.989760', updated_at: !!timestamp '2018-11-08
+      21:12:49.989778', content_object: 189, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 527
+  fields: {created_at: !!timestamp '2018-11-08 21:12:49.991718', updated_at: !!timestamp '2018-11-08
+      21:12:49.991734', content_object: 189, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 528
+  fields: {created_at: !!timestamp '2018-11-08 21:12:49.993741', updated_at: !!timestamp '2018-11-08
+      21:12:49.993757', content_object: 189, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 529
+  fields: {created_at: !!timestamp '2018-11-08 21:12:49.995346', updated_at: !!timestamp '2018-11-08
+      21:12:49.995362', content_object: 189, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 530
+  fields: {created_at: !!timestamp '2018-11-08 21:12:49.997293', updated_at: !!timestamp '2018-11-08
+      21:12:49.997309', content_object: 189, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 531
+  fields: {created_at: !!timestamp '2018-11-08 21:13:10.077286', updated_at: !!timestamp '2018-11-08
+      21:13:10.077303', content_object: 190, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 532
+  fields: {created_at: !!timestamp '2018-11-08 21:13:10.079121', updated_at: !!timestamp '2018-11-08
+      21:13:10.079137', content_object: 190, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 533
+  fields: {created_at: !!timestamp '2018-11-08 21:13:10.081329', updated_at: !!timestamp '2018-11-08
+      21:13:10.081345', content_object: 190, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 534
+  fields: {created_at: !!timestamp '2018-11-08 21:13:10.083220', updated_at: !!timestamp '2018-11-08
+      21:13:10.083236', content_object: 190, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 535
+  fields: {created_at: !!timestamp '2018-11-08 21:13:10.084971', updated_at: !!timestamp '2018-11-08
+      21:13:10.084987', content_object: 190, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 536
+  fields: {created_at: !!timestamp '2018-11-08 21:13:30.929333', updated_at: !!timestamp '2018-11-08
+      21:13:30.929351', content_object: 191, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 537
+  fields: {created_at: !!timestamp '2018-11-08 21:13:30.931547', updated_at: !!timestamp '2018-11-08
+      21:13:30.931565', content_object: 191, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 538
+  fields: {created_at: !!timestamp '2018-11-08 21:13:30.933463', updated_at: !!timestamp '2018-11-08
+      21:13:30.933481', content_object: 191, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 539
+  fields: {created_at: !!timestamp '2018-11-08 21:13:30.935682', updated_at: !!timestamp '2018-11-08
+      21:13:30.935699', content_object: 191, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 540
+  fields: {created_at: !!timestamp '2018-11-08 21:13:30.937440', updated_at: !!timestamp '2018-11-08
+      21:13:30.937456', content_object: 191, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 541
+  fields: {created_at: !!timestamp '2018-11-08 21:13:58.546470', updated_at: !!timestamp '2018-11-08
+      21:13:58.546502', content_object: 192, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 542
+  fields: {created_at: !!timestamp '2018-11-08 21:13:58.548435', updated_at: !!timestamp '2018-11-08
+      21:13:58.548452', content_object: 192, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 543
+  fields: {created_at: !!timestamp '2018-11-08 21:13:58.550491', updated_at: !!timestamp '2018-11-08
+      21:13:58.550509', content_object: 192, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 544
+  fields: {created_at: !!timestamp '2018-11-08 21:13:58.552211', updated_at: !!timestamp '2018-11-08
+      21:13:58.552227', content_object: 192, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 545
+  fields: {created_at: !!timestamp '2018-11-08 21:13:58.554436', updated_at: !!timestamp '2018-11-08
+      21:13:58.554452', content_object: 192, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 546
+  fields: {created_at: !!timestamp '2018-11-08 21:14:18.871322', updated_at: !!timestamp '2018-11-08
+      21:14:18.871340', content_object: 193, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 547
+  fields: {created_at: !!timestamp '2018-11-08 21:14:18.873381', updated_at: !!timestamp '2018-11-08
+      21:14:18.873398', content_object: 193, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 548
+  fields: {created_at: !!timestamp '2018-11-08 21:14:18.875422', updated_at: !!timestamp '2018-11-08
+      21:14:18.875438', content_object: 193, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 549
+  fields: {created_at: !!timestamp '2018-11-08 21:14:28.208990', updated_at: !!timestamp '2018-11-08
+      21:14:28.209040', content_object: 194, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 550
+  fields: {created_at: !!timestamp '2018-11-08 21:14:28.210809', updated_at: !!timestamp '2018-11-08
+      21:14:28.210825', content_object: 194, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 551
+  fields: {created_at: !!timestamp '2018-11-08 21:14:28.213067', updated_at: !!timestamp '2018-11-08
+      21:14:28.213083', content_object: 194, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 552
+  fields: {created_at: !!timestamp '2018-11-08 21:14:42.165998', updated_at: !!timestamp '2018-11-08
+      21:14:42.166015', content_object: 195, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 553
+  fields: {created_at: !!timestamp '2018-11-08 21:14:42.167972', updated_at: !!timestamp '2018-11-08
+      21:14:42.167987', content_object: 195, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 554
+  fields: {created_at: !!timestamp '2018-11-08 21:14:42.169885', updated_at: !!timestamp '2018-11-08
+      21:14:42.169901', content_object: 195, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 555
+  fields: {created_at: !!timestamp '2018-11-08 21:14:42.171667', updated_at: !!timestamp '2018-11-08
+      21:14:42.171683', content_object: 195, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 556
+  fields: {created_at: !!timestamp '2018-11-08 21:15:08.434575', updated_at: !!timestamp '2018-11-08
+      21:15:08.434591', content_object: 196, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 557
+  fields: {created_at: !!timestamp '2018-11-08 21:15:39.495981', updated_at: !!timestamp '2018-11-08
+      21:15:39.495998', content_object: 198, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 558
+  fields: {created_at: !!timestamp '2018-11-08 21:15:39.497999', updated_at: !!timestamp '2018-11-08
+      21:15:39.498015', content_object: 198, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 559
+  fields: {created_at: !!timestamp '2018-11-08 21:15:39.499889', updated_at: !!timestamp '2018-11-08
+      21:15:39.499906', content_object: 198, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 560
+  fields: {created_at: !!timestamp '2018-11-08 21:15:39.501963', updated_at: !!timestamp '2018-11-08
+      21:15:39.501979', content_object: 198, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 561
+  fields: {created_at: !!timestamp '2018-11-08 21:15:39.503874', updated_at: !!timestamp '2018-11-08
+      21:15:39.503890', content_object: 198, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 562
+  fields: {created_at: !!timestamp '2018-11-08 21:16:48.003182', updated_at: !!timestamp '2018-11-08
+      21:16:48.003199', content_object: 297, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 563
+  fields: {created_at: !!timestamp '2018-11-08 21:16:48.005502', updated_at: !!timestamp '2018-11-08
+      21:16:48.005519', content_object: 297, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 564
+  fields: {created_at: !!timestamp '2018-11-08 21:16:48.008025', updated_at: !!timestamp '2018-11-08
+      21:16:48.008064', content_object: 297, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 565
+  fields: {created_at: !!timestamp '2018-11-08 21:16:48.010147', updated_at: !!timestamp '2018-11-08
+      21:16:48.010165', content_object: 297, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 566
+  fields: {created_at: !!timestamp '2018-11-08 21:17:10.026140', updated_at: !!timestamp '2018-11-08
+      21:17:10.026157', content_object: 200, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 567
+  fields: {created_at: !!timestamp '2018-11-08 21:17:10.027903', updated_at: !!timestamp '2018-11-08
+      21:17:10.027918', content_object: 200, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 568
+  fields: {created_at: !!timestamp '2018-11-08 21:17:10.030089', updated_at: !!timestamp '2018-11-08
+      21:17:10.030104', content_object: 200, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 569
+  fields: {created_at: !!timestamp '2018-11-08 21:17:10.032058', updated_at: !!timestamp '2018-11-08
+      21:17:10.032074', content_object: 200, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 570
+  fields: {created_at: !!timestamp '2018-11-08 21:17:10.033787', updated_at: !!timestamp '2018-11-08
+      21:17:10.033803', content_object: 200, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 571
+  fields: {created_at: !!timestamp '2018-11-08 21:18:01.306517', updated_at: !!timestamp '2018-11-08
+      21:18:01.306551', content_object: 201, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 572
+  fields: {created_at: !!timestamp '2018-11-08 21:18:01.308450', updated_at: !!timestamp '2018-11-08
+      21:18:01.308467', content_object: 201, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 573
+  fields: {created_at: !!timestamp '2018-11-08 21:18:01.310442', updated_at: !!timestamp '2018-11-08
+      21:18:01.310459', content_object: 201, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 574
+  fields: {created_at: !!timestamp '2018-11-08 21:18:01.312386', updated_at: !!timestamp '2018-11-08
+      21:18:01.312409', content_object: 201, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 575
+  fields: {created_at: !!timestamp '2018-11-08 21:18:18.819990', updated_at: !!timestamp '2018-11-08
+      21:18:18.820042', content_object: 202, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 576
+  fields: {created_at: !!timestamp '2018-11-08 21:18:18.822073', updated_at: !!timestamp '2018-11-08
+      21:18:18.822092', content_object: 202, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 577
+  fields: {created_at: !!timestamp '2018-11-08 21:18:18.824377', updated_at: !!timestamp '2018-11-08
+      21:18:18.824395', content_object: 202, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 578
+  fields: {created_at: !!timestamp '2018-11-08 21:18:18.826508', updated_at: !!timestamp '2018-11-08
+      21:18:18.826549', content_object: 202, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 579
+  fields: {created_at: !!timestamp '2018-11-08 21:18:31.195167', updated_at: !!timestamp '2018-11-08
+      21:18:31.195184', content_object: 203, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 580
+  fields: {created_at: !!timestamp '2018-11-08 21:18:31.197340', updated_at: !!timestamp '2018-11-08
+      21:18:31.197356', content_object: 203, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 581
+  fields: {created_at: !!timestamp '2018-11-08 21:18:31.199613', updated_at: !!timestamp '2018-11-08
+      21:18:31.199629', content_object: 203, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 582
+  fields: {created_at: !!timestamp '2018-11-08 21:18:52.208125', updated_at: !!timestamp '2018-11-08
+      21:18:52.208141', content_object: 204, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 583
+  fields: {created_at: !!timestamp '2018-11-08 21:18:52.209976', updated_at: !!timestamp '2018-11-08
+      21:18:52.209992', content_object: 204, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 584
+  fields: {created_at: !!timestamp '2018-11-08 21:18:52.212312', updated_at: !!timestamp '2018-11-08
+      21:18:52.212329', content_object: 204, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 585
+  fields: {created_at: !!timestamp '2018-11-08 21:19:55.515153', updated_at: !!timestamp '2018-11-08
+      21:19:55.515170', content_object: 205, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 586
+  fields: {created_at: !!timestamp '2018-11-08 21:19:55.517041', updated_at: !!timestamp '2018-11-08
+      21:19:55.517057', content_object: 205, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 587
+  fields: {created_at: !!timestamp '2018-11-08 21:19:55.519487', updated_at: !!timestamp '2018-11-08
+      21:19:55.519503', content_object: 205, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 588
+  fields: {created_at: !!timestamp '2018-11-08 21:19:55.521391', updated_at: !!timestamp '2018-11-08
+      21:19:55.521414', content_object: 205, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 589
+  fields: {created_at: !!timestamp '2018-11-08 21:19:55.523099', updated_at: !!timestamp '2018-11-08
+      21:19:55.523114', content_object: 205, tag: 11, assumed: false}
+- model: dashboard.puctotag
+  pk: 590
+  fields: {created_at: !!timestamp '2018-11-08 21:19:55.524899', updated_at: !!timestamp '2018-11-08
+      21:19:55.524914', content_object: 205, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 591
+  fields: {created_at: !!timestamp '2018-11-08 21:19:55.527078', updated_at: !!timestamp '2018-11-08
+      21:19:55.527094', content_object: 205, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 592
+  fields: {created_at: !!timestamp '2018-11-08 21:20:57.133234', updated_at: !!timestamp '2018-11-08
+      21:20:57.133251', content_object: 208, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 593
+  fields: {created_at: !!timestamp '2018-11-08 21:20:57.135623', updated_at: !!timestamp '2018-11-08
+      21:20:57.135658', content_object: 208, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 594
+  fields: {created_at: !!timestamp '2018-11-08 21:20:57.137677', updated_at: !!timestamp '2018-11-08
+      21:20:57.137710', content_object: 208, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 595
+  fields: {created_at: !!timestamp '2018-11-11 21:01:00.484370', updated_at: !!timestamp '2018-11-11
+      21:01:00.484387', content_object: 209, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 596
+  fields: {created_at: !!timestamp '2018-11-11 21:01:00.486913', updated_at: !!timestamp '2018-11-11
+      21:01:00.486929', content_object: 209, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 597
+  fields: {created_at: !!timestamp '2018-11-11 21:01:00.488888', updated_at: !!timestamp '2018-11-11
+      21:01:00.488904', content_object: 209, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 598
+  fields: {created_at: !!timestamp '2018-11-11 21:01:00.491370', updated_at: !!timestamp '2018-11-11
+      21:01:00.491433', content_object: 209, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 599
+  fields: {created_at: !!timestamp '2018-11-11 21:01:00.493270', updated_at: !!timestamp '2018-11-11
+      21:01:00.493286', content_object: 209, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 600
+  fields: {created_at: !!timestamp '2018-11-11 21:01:00.495067', updated_at: !!timestamp '2018-11-11
+      21:01:00.495083', content_object: 209, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 601
+  fields: {created_at: !!timestamp '2018-11-11 21:01:00.497064', updated_at: !!timestamp '2018-11-11
+      21:01:00.497080', content_object: 209, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 602
+  fields: {created_at: !!timestamp '2018-11-11 21:01:32.060040', updated_at: !!timestamp '2018-11-11
+      21:01:32.060074', content_object: 210, tag: 1, assumed: false}
+- model: dashboard.puctotag
+  pk: 603
+  fields: {created_at: !!timestamp '2018-11-11 21:01:32.062196', updated_at: !!timestamp '2018-11-11
+      21:01:32.062214', content_object: 210, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 604
+  fields: {created_at: !!timestamp '2018-11-11 21:01:32.064194', updated_at: !!timestamp '2018-11-11
+      21:01:32.064212', content_object: 210, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 605
+  fields: {created_at: !!timestamp '2018-11-11 21:01:32.066257', updated_at: !!timestamp '2018-11-11
+      21:01:32.066274', content_object: 210, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 606
+  fields: {created_at: !!timestamp '2018-11-11 21:01:32.068209', updated_at: !!timestamp '2018-11-11
+      21:01:32.068226', content_object: 210, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 607
+  fields: {created_at: !!timestamp '2018-11-11 21:01:32.070226', updated_at: !!timestamp '2018-11-11
+      21:01:32.070243', content_object: 210, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 608
+  fields: {created_at: !!timestamp '2018-11-11 21:01:50.104063', updated_at: !!timestamp '2018-11-11
+      21:01:50.104081', content_object: 211, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 609
+  fields: {created_at: !!timestamp '2018-11-11 21:01:50.105926', updated_at: !!timestamp '2018-11-11
+      21:01:50.105942', content_object: 211, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 610
+  fields: {created_at: !!timestamp '2018-11-11 21:01:50.107754', updated_at: !!timestamp '2018-11-11
+      21:01:50.107770', content_object: 211, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 611
+  fields: {created_at: !!timestamp '2018-11-11 21:01:50.109586', updated_at: !!timestamp '2018-11-11
+      21:01:50.109618', content_object: 211, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 612
+  fields: {created_at: !!timestamp '2018-11-11 21:01:50.111612', updated_at: !!timestamp '2018-11-11
+      21:01:50.111629', content_object: 211, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 613
+  fields: {created_at: !!timestamp '2018-11-11 21:01:50.113674', updated_at: !!timestamp '2018-11-11
+      21:01:50.113690', content_object: 211, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 614
+  fields: {created_at: !!timestamp '2018-11-11 21:02:09.128705', updated_at: !!timestamp '2018-11-11
+      21:02:09.128738', content_object: 212, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 615
+  fields: {created_at: !!timestamp '2018-11-11 21:02:09.130541', updated_at: !!timestamp '2018-11-11
+      21:02:09.130559', content_object: 212, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 616
+  fields: {created_at: !!timestamp '2018-11-11 21:02:09.132508', updated_at: !!timestamp '2018-11-11
+      21:02:09.132525', content_object: 212, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 617
+  fields: {created_at: !!timestamp '2018-11-11 21:02:09.134827', updated_at: !!timestamp '2018-11-11
+      21:02:09.134843', content_object: 212, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 618
+  fields: {created_at: !!timestamp '2018-11-11 21:02:09.136737', updated_at: !!timestamp '2018-11-11
+      21:02:09.136753', content_object: 212, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 619
+  fields: {created_at: !!timestamp '2018-11-11 21:02:28.353599', updated_at: !!timestamp '2018-11-11
+      21:02:28.353621', content_object: 214, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 620
+  fields: {created_at: !!timestamp '2018-11-11 21:02:28.355535', updated_at: !!timestamp '2018-11-11
+      21:02:28.355552', content_object: 214, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 621
+  fields: {created_at: !!timestamp '2018-11-11 21:02:28.357823', updated_at: !!timestamp '2018-11-11
+      21:02:28.357855', content_object: 214, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 622
+  fields: {created_at: !!timestamp '2018-11-11 21:02:55.176165', updated_at: !!timestamp '2018-11-11
+      21:02:55.176203', content_object: 215, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 623
+  fields: {created_at: !!timestamp '2018-11-11 21:02:55.178334', updated_at: !!timestamp '2018-11-11
+      21:02:55.178371', content_object: 215, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 624
+  fields: {created_at: !!timestamp '2018-11-11 21:02:55.180353', updated_at: !!timestamp '2018-11-11
+      21:02:55.180368', content_object: 215, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 625
+  fields: {created_at: !!timestamp '2018-11-11 21:02:55.182099', updated_at: !!timestamp '2018-11-11
+      21:02:55.182115', content_object: 215, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 626
+  fields: {created_at: !!timestamp '2018-11-11 21:02:55.184172', updated_at: !!timestamp '2018-11-11
+      21:02:55.184209', content_object: 215, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 627
+  fields: {created_at: !!timestamp '2018-11-11 21:03:05.923196', updated_at: !!timestamp '2018-11-11
+      21:03:05.923212', content_object: 216, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 628
+  fields: {created_at: !!timestamp '2018-11-11 21:03:05.925183', updated_at: !!timestamp '2018-11-11
+      21:03:05.925199', content_object: 216, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 629
+  fields: {created_at: !!timestamp '2018-11-11 21:03:05.927491', updated_at: !!timestamp '2018-11-11
+      21:03:05.927507', content_object: 216, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 630
+  fields: {created_at: !!timestamp '2018-11-11 21:03:05.930029', updated_at: !!timestamp '2018-11-11
+      21:03:05.930066', content_object: 216, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 631
+  fields: {created_at: !!timestamp '2018-11-11 21:03:18.711845', updated_at: !!timestamp '2018-11-11
+      21:03:18.711862', content_object: 217, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 632
+  fields: {created_at: !!timestamp '2018-11-11 21:03:18.713779', updated_at: !!timestamp '2018-11-11
+      21:03:18.713796', content_object: 217, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 633
+  fields: {created_at: !!timestamp '2018-11-11 21:03:18.716048', updated_at: !!timestamp '2018-11-11
+      21:03:18.716065', content_object: 217, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 634
+  fields: {created_at: !!timestamp '2018-11-11 21:03:18.718091', updated_at: !!timestamp '2018-11-11
+      21:03:18.718123', content_object: 217, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 635
+  fields: {created_at: !!timestamp '2018-11-11 21:03:36.266654', updated_at: !!timestamp '2018-11-11
+      21:03:36.266671', content_object: 218, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 636
+  fields: {created_at: !!timestamp '2018-11-11 21:03:36.268644', updated_at: !!timestamp '2018-11-11
+      21:03:36.268661', content_object: 218, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 637
+  fields: {created_at: !!timestamp '2018-11-11 21:03:36.273009', updated_at: !!timestamp '2018-11-11
+      21:03:36.273026', content_object: 218, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 638
+  fields: {created_at: !!timestamp '2018-11-11 21:03:36.275300', updated_at: !!timestamp '2018-11-11
+      21:03:36.275316', content_object: 218, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 639
+  fields: {created_at: !!timestamp '2018-11-11 21:03:36.277318', updated_at: !!timestamp '2018-11-11
+      21:03:36.277334', content_object: 218, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 640
+  fields: {created_at: !!timestamp '2018-11-11 21:03:47.487696', updated_at: !!timestamp '2018-11-11
+      21:03:47.487728', content_object: 219, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 641
+  fields: {created_at: !!timestamp '2018-11-11 21:03:47.489694', updated_at: !!timestamp '2018-11-11
+      21:03:47.489710', content_object: 219, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 642
+  fields: {created_at: !!timestamp '2018-11-11 21:03:59.381832', updated_at: !!timestamp '2018-11-11
+      21:03:59.381851', content_object: 220, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 643
+  fields: {created_at: !!timestamp '2018-11-11 21:03:59.384180', updated_at: !!timestamp '2018-11-11
+      21:03:59.384197', content_object: 220, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 644
+  fields: {created_at: !!timestamp '2018-11-11 21:03:59.386006', updated_at: !!timestamp '2018-11-11
+      21:03:59.386024', content_object: 220, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 645
+  fields: {created_at: !!timestamp '2018-11-11 21:03:59.388042', updated_at: !!timestamp '2018-11-11
+      21:03:59.388059', content_object: 220, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 646
+  fields: {created_at: !!timestamp '2018-11-11 21:04:18.676133', updated_at: !!timestamp '2018-11-11
+      21:04:18.676151', content_object: 221, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 647
+  fields: {created_at: !!timestamp '2018-11-11 21:04:18.678104', updated_at: !!timestamp '2018-11-11
+      21:04:18.678121', content_object: 221, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 648
+  fields: {created_at: !!timestamp '2018-11-11 21:04:18.680312', updated_at: !!timestamp '2018-11-11
+      21:04:18.680348', content_object: 221, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 649
+  fields: {created_at: !!timestamp '2018-11-11 21:05:07.544388', updated_at: !!timestamp '2018-11-11
+      21:05:07.544446', content_object: 222, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 650
+  fields: {created_at: !!timestamp '2018-11-11 21:05:07.546511', updated_at: !!timestamp '2018-11-11
+      21:05:07.546528', content_object: 222, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 651
+  fields: {created_at: !!timestamp '2018-11-11 21:05:07.548448', updated_at: !!timestamp '2018-11-11
+      21:05:07.548465', content_object: 222, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 652
+  fields: {created_at: !!timestamp '2018-11-11 21:05:19.491890', updated_at: !!timestamp '2018-11-11
+      21:05:19.491906', content_object: 223, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 653
+  fields: {created_at: !!timestamp '2018-11-11 21:05:19.494035', updated_at: !!timestamp '2018-11-11
+      21:05:19.494050', content_object: 223, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 654
+  fields: {created_at: !!timestamp '2018-11-11 21:05:19.496162', updated_at: !!timestamp '2018-11-11
+      21:05:19.496178', content_object: 223, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 655
+  fields: {created_at: !!timestamp '2018-11-11 21:05:31.043708', updated_at: !!timestamp '2018-11-11
+      21:05:31.043742', content_object: 224, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 656
+  fields: {created_at: !!timestamp '2018-11-11 21:05:31.046096', updated_at: !!timestamp '2018-11-11
+      21:05:31.046112', content_object: 224, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 657
+  fields: {created_at: !!timestamp '2018-11-11 21:05:54.681947', updated_at: !!timestamp '2018-11-11
+      21:05:54.681965', content_object: 225, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 658
+  fields: {created_at: !!timestamp '2018-11-11 21:05:54.683774', updated_at: !!timestamp '2018-11-11
+      21:05:54.683791', content_object: 225, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 659
+  fields: {created_at: !!timestamp '2018-11-11 21:05:54.685910', updated_at: !!timestamp '2018-11-11
+      21:05:54.685926', content_object: 225, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 660
+  fields: {created_at: !!timestamp '2018-11-11 21:05:54.688211', updated_at: !!timestamp '2018-11-11
+      21:05:54.688228', content_object: 225, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 661
+  fields: {created_at: !!timestamp '2018-11-11 21:05:54.690026', updated_at: !!timestamp '2018-11-11
+      21:05:54.690043', content_object: 225, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 662
+  fields: {created_at: !!timestamp '2018-11-11 21:05:54.692037', updated_at: !!timestamp '2018-11-11
+      21:05:54.692054', content_object: 225, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 663
+  fields: {created_at: !!timestamp '2018-11-11 21:06:31.056883', updated_at: !!timestamp '2018-11-11
+      21:06:31.056901', content_object: 226, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 664
+  fields: {created_at: !!timestamp '2018-11-11 21:06:31.058816', updated_at: !!timestamp '2018-11-11
+      21:06:31.058832', content_object: 226, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 665
+  fields: {created_at: !!timestamp '2018-11-11 21:06:31.061111', updated_at: !!timestamp '2018-11-11
+      21:06:31.061127', content_object: 226, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 666
+  fields: {created_at: !!timestamp '2018-11-11 21:06:31.063392', updated_at: !!timestamp '2018-11-11
+      21:06:31.063434', content_object: 226, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 667
+  fields: {created_at: !!timestamp '2018-11-11 21:06:31.065611', updated_at: !!timestamp '2018-11-11
+      21:06:31.065628', content_object: 226, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 668
+  fields: {created_at: !!timestamp '2018-11-11 21:06:31.067879', updated_at: !!timestamp '2018-11-11
+      21:06:31.067895', content_object: 226, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 669
+  fields: {created_at: !!timestamp '2018-11-11 21:06:56.998970', updated_at: !!timestamp '2018-11-11
+      21:06:56.998987', content_object: 227, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 670
+  fields: {created_at: !!timestamp '2018-11-11 21:06:57.000969', updated_at: !!timestamp '2018-11-11
+      21:06:57.000984', content_object: 227, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 671
+  fields: {created_at: !!timestamp '2018-11-11 21:06:57.002891', updated_at: !!timestamp '2018-11-11
+      21:06:57.002907', content_object: 227, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 672
+  fields: {created_at: !!timestamp '2018-11-11 21:06:57.005103', updated_at: !!timestamp '2018-11-11
+      21:06:57.005120', content_object: 227, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 673
+  fields: {created_at: !!timestamp '2018-11-11 21:06:57.007143', updated_at: !!timestamp '2018-11-11
+      21:06:57.007160', content_object: 227, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 674
+  fields: {created_at: !!timestamp '2018-11-11 21:06:57.008938', updated_at: !!timestamp '2018-11-11
+      21:06:57.008954', content_object: 227, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 675
+  fields: {created_at: !!timestamp '2018-11-11 21:06:57.011172', updated_at: !!timestamp '2018-11-11
+      21:06:57.011188', content_object: 227, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 676
+  fields: {created_at: !!timestamp '2018-11-11 21:07:18.386578', updated_at: !!timestamp '2018-11-11
+      21:07:18.386595', content_object: 228, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 677
+  fields: {created_at: !!timestamp '2018-11-11 21:07:18.388273', updated_at: !!timestamp '2018-11-11
+      21:07:18.388289', content_object: 228, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 678
+  fields: {created_at: !!timestamp '2018-11-11 21:07:18.390291', updated_at: !!timestamp '2018-11-11
+      21:07:18.390307', content_object: 228, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 679
+  fields: {created_at: !!timestamp '2018-11-11 21:07:41.263795', updated_at: !!timestamp '2018-11-11
+      21:07:41.263812', content_object: 229, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 680
+  fields: {created_at: !!timestamp '2018-11-11 21:07:41.265462', updated_at: !!timestamp '2018-11-11
+      21:07:41.265478', content_object: 229, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 681
+  fields: {created_at: !!timestamp '2018-11-11 21:07:41.267799', updated_at: !!timestamp '2018-11-11
+      21:07:41.267816', content_object: 229, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 682
+  fields: {created_at: !!timestamp '2018-11-11 21:07:41.269583', updated_at: !!timestamp '2018-11-11
+      21:07:41.269600', content_object: 229, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 683
+  fields: {created_at: !!timestamp '2018-11-11 21:08:21.563981', updated_at: !!timestamp '2018-11-11
+      21:08:21.564000', content_object: 231, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 684
+  fields: {created_at: !!timestamp '2018-11-11 21:08:21.565983', updated_at: !!timestamp '2018-11-11
+      21:08:21.565999', content_object: 231, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 685
+  fields: {created_at: !!timestamp '2018-11-11 21:08:33.323800', updated_at: !!timestamp '2018-11-11
+      21:08:33.323817', content_object: 232, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 686
+  fields: {created_at: !!timestamp '2018-11-11 21:08:33.325496', updated_at: !!timestamp '2018-11-11
+      21:08:33.325512', content_object: 232, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 687
+  fields: {created_at: !!timestamp '2018-11-11 21:08:33.327613', updated_at: !!timestamp '2018-11-11
+      21:08:33.327630', content_object: 232, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 688
+  fields: {created_at: !!timestamp '2018-11-11 21:08:33.329651', updated_at: !!timestamp '2018-11-11
+      21:08:33.329668', content_object: 232, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 689
+  fields: {created_at: !!timestamp '2018-11-11 21:08:46.882795', updated_at: !!timestamp '2018-11-11
+      21:08:46.882811', content_object: 233, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 690
+  fields: {created_at: !!timestamp '2018-11-11 21:08:46.884508', updated_at: !!timestamp '2018-11-11
+      21:08:46.884524', content_object: 233, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 691
+  fields: {created_at: !!timestamp '2018-11-11 21:08:46.886920', updated_at: !!timestamp '2018-11-11
+      21:08:46.886935', content_object: 233, tag: 12, assumed: false}
+- model: dashboard.puctotag
+  pk: 692
+  fields: {created_at: !!timestamp '2018-11-11 21:08:46.888644', updated_at: !!timestamp '2018-11-11
+      21:08:46.888660', content_object: 233, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 693
+  fields: {created_at: !!timestamp '2018-11-11 21:09:12.016607', updated_at: !!timestamp '2018-11-11
+      21:09:12.016623', content_object: 234, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 694
+  fields: {created_at: !!timestamp '2018-11-11 21:09:12.018435', updated_at: !!timestamp '2018-11-11
+      21:09:12.018453', content_object: 234, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 695
+  fields: {created_at: !!timestamp '2018-11-11 21:09:12.020328', updated_at: !!timestamp '2018-11-11
+      21:09:12.020345', content_object: 234, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 696
+  fields: {created_at: !!timestamp '2018-11-11 21:09:12.022414', updated_at: !!timestamp '2018-11-11
+      21:09:12.022431', content_object: 234, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 697
+  fields: {created_at: !!timestamp '2018-11-11 21:09:27.240203', updated_at: !!timestamp '2018-11-11
+      21:09:27.240222', content_object: 235, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 698
+  fields: {created_at: !!timestamp '2018-11-11 21:09:27.242087', updated_at: !!timestamp '2018-11-11
+      21:09:27.242104', content_object: 235, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 699
+  fields: {created_at: !!timestamp '2018-11-11 21:09:27.244339', updated_at: !!timestamp '2018-11-11
+      21:09:27.244356', content_object: 235, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 700
+  fields: {created_at: !!timestamp '2018-11-11 21:09:27.246321', updated_at: !!timestamp '2018-11-11
+      21:09:27.246338', content_object: 235, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 701
+  fields: {created_at: !!timestamp '2018-11-11 21:09:27.248986', updated_at: !!timestamp '2018-11-11
+      21:09:27.249021', content_object: 235, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 702
+  fields: {created_at: !!timestamp '2018-11-11 21:09:46.320856', updated_at: !!timestamp '2018-11-11
+      21:09:46.320872', content_object: 237, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 703
+  fields: {created_at: !!timestamp '2018-11-11 21:09:46.323015', updated_at: !!timestamp '2018-11-11
+      21:09:46.323031', content_object: 237, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 704
+  fields: {created_at: !!timestamp '2018-11-11 21:09:46.325093', updated_at: !!timestamp '2018-11-11
+      21:09:46.325126', content_object: 237, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 705
+  fields: {created_at: !!timestamp '2018-11-11 21:09:46.327229', updated_at: !!timestamp '2018-11-11
+      21:09:46.327245', content_object: 237, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 706
+  fields: {created_at: !!timestamp '2018-11-11 21:10:01.927987', updated_at: !!timestamp '2018-11-11
+      21:10:01.928005', content_object: 238, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 707
+  fields: {created_at: !!timestamp '2018-11-11 21:10:26.460905', updated_at: !!timestamp '2018-11-11
+      21:10:26.460921', content_object: 239, tag: 1, assumed: false}
+- model: dashboard.puctotag
+  pk: 708
+  fields: {created_at: !!timestamp '2018-11-11 21:10:26.462738', updated_at: !!timestamp '2018-11-11
+      21:10:26.462754', content_object: 239, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 709
+  fields: {created_at: !!timestamp '2018-11-11 21:10:26.465066', updated_at: !!timestamp '2018-11-11
+      21:10:26.465082', content_object: 239, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 710
+  fields: {created_at: !!timestamp '2018-11-11 21:10:26.467234', updated_at: !!timestamp '2018-11-11
+      21:10:26.467251', content_object: 239, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 711
+  fields: {created_at: !!timestamp '2018-11-11 21:10:55.268353', updated_at: !!timestamp '2018-11-11
+      21:10:55.268370', content_object: 240, tag: 1, assumed: false}
+- model: dashboard.puctotag
+  pk: 712
+  fields: {created_at: !!timestamp '2018-11-11 21:10:55.269962', updated_at: !!timestamp '2018-11-11
+      21:10:55.269978', content_object: 240, tag: 11, assumed: false}
+- model: dashboard.puctotag
+  pk: 713
+  fields: {created_at: !!timestamp '2018-11-11 21:10:55.271917', updated_at: !!timestamp '2018-11-11
+      21:10:55.271933', content_object: 240, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 714
+  fields: {created_at: !!timestamp '2018-11-11 21:10:55.273654', updated_at: !!timestamp '2018-11-11
+      21:10:55.273670', content_object: 240, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 715
+  fields: {created_at: !!timestamp '2018-11-11 21:11:11.685904', updated_at: !!timestamp '2018-11-11
+      21:11:11.685921', content_object: 241, tag: 10, assumed: false}
+- model: dashboard.puctotag
+  pk: 716
+  fields: {created_at: !!timestamp '2018-11-11 21:11:11.687570', updated_at: !!timestamp '2018-11-11
+      21:11:11.687586', content_object: 241, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 717
+  fields: {created_at: !!timestamp '2018-11-11 21:11:11.690022', updated_at: !!timestamp '2018-11-11
+      21:11:11.690039', content_object: 241, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 718
+  fields: {created_at: !!timestamp '2018-11-11 21:11:24.127942', updated_at: !!timestamp '2018-11-11
+      21:11:24.127959', content_object: 243, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 720
+  fields: {created_at: !!timestamp '2018-11-11 21:11:37.557430', updated_at: !!timestamp '2018-11-11
+      21:11:37.557447', content_object: 244, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 721
+  fields: {created_at: !!timestamp '2018-11-11 21:11:37.559174', updated_at: !!timestamp '2018-11-11
+      21:11:37.559190', content_object: 244, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 722
+  fields: {created_at: !!timestamp '2018-11-11 21:11:45.447271', updated_at: !!timestamp '2018-11-11
+      21:11:45.447287', content_object: 244, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 723
+  fields: {created_at: !!timestamp '2018-11-11 21:11:59.101437', updated_at: !!timestamp '2018-11-11
+      21:11:59.101472', content_object: 245, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 724
+  fields: {created_at: !!timestamp '2018-11-11 21:11:59.103489', updated_at: !!timestamp '2018-11-11
+      21:11:59.103508', content_object: 245, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 725
+  fields: {created_at: !!timestamp '2018-11-11 21:11:59.105803', updated_at: !!timestamp '2018-11-11
+      21:11:59.105820', content_object: 245, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 726
+  fields: {created_at: !!timestamp '2018-11-11 21:11:59.107911', updated_at: !!timestamp '2018-11-11
+      21:11:59.107928', content_object: 245, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 727
+  fields: {created_at: !!timestamp '2018-11-11 21:11:59.110405', updated_at: !!timestamp '2018-11-11
+      21:11:59.110440', content_object: 245, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 728
+  fields: {created_at: !!timestamp '2018-11-11 21:12:34.781863', updated_at: !!timestamp '2018-11-11
+      21:12:34.781879', content_object: 246, tag: 1, assumed: false}
+- model: dashboard.puctotag
+  pk: 729
+  fields: {created_at: !!timestamp '2018-11-11 21:12:34.783713', updated_at: !!timestamp '2018-11-11
+      21:12:34.783729', content_object: 246, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 730
+  fields: {created_at: !!timestamp '2018-11-11 21:12:34.785505', updated_at: !!timestamp '2018-11-11
+      21:12:34.785522', content_object: 246, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 731
+  fields: {created_at: !!timestamp '2018-11-11 21:12:34.787668', updated_at: !!timestamp '2018-11-11
+      21:12:34.787700', content_object: 246, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 732
+  fields: {created_at: !!timestamp '2018-11-11 21:12:34.789788', updated_at: !!timestamp '2018-11-11
+      21:12:34.789805', content_object: 246, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 733
+  fields: {created_at: !!timestamp '2018-11-11 21:12:34.791923', updated_at: !!timestamp '2018-11-11
+      21:12:34.791940', content_object: 246, tag: 12, assumed: false}
+- model: dashboard.puctotag
+  pk: 734
+  fields: {created_at: !!timestamp '2018-11-11 21:12:34.794037', updated_at: !!timestamp '2018-11-11
+      21:12:34.794054', content_object: 246, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 735
+  fields: {created_at: !!timestamp '2018-11-11 21:12:34.795938', updated_at: !!timestamp '2018-11-11
+      21:12:34.795954', content_object: 246, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 736
+  fields: {created_at: !!timestamp '2018-11-11 21:12:56.058814', updated_at: !!timestamp '2018-11-11
+      21:12:56.058831', content_object: 248, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 737
+  fields: {created_at: !!timestamp '2018-11-11 21:12:56.060913', updated_at: !!timestamp '2018-11-11
+      21:12:56.060929', content_object: 248, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 738
+  fields: {created_at: !!timestamp '2018-11-11 21:12:56.063092', updated_at: !!timestamp '2018-11-11
+      21:12:56.063108', content_object: 248, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 739
+  fields: {created_at: !!timestamp '2018-11-11 21:12:56.065239', updated_at: !!timestamp '2018-11-11
+      21:12:56.065255', content_object: 248, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 740
+  fields: {created_at: !!timestamp '2018-11-11 21:13:35.037367', updated_at: !!timestamp '2018-11-11
+      21:13:35.037383', content_object: 249, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 741
+  fields: {created_at: !!timestamp '2018-11-11 21:13:35.039242', updated_at: !!timestamp '2018-11-11
+      21:13:35.039257', content_object: 249, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 742
+  fields: {created_at: !!timestamp '2018-11-11 21:13:35.041536', updated_at: !!timestamp '2018-11-11
+      21:13:35.041568', content_object: 249, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 743
+  fields: {created_at: !!timestamp '2018-11-11 21:13:35.043627', updated_at: !!timestamp '2018-11-11
+      21:13:35.043643', content_object: 249, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 744
+  fields: {created_at: !!timestamp '2018-11-11 21:14:16.639876', updated_at: !!timestamp '2018-11-11
+      21:14:16.639893', content_object: 250, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 745
+  fields: {created_at: !!timestamp '2018-11-11 21:14:16.641578', updated_at: !!timestamp '2018-11-11
+      21:14:16.641594', content_object: 250, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 746
+  fields: {created_at: !!timestamp '2018-11-11 21:14:16.643882', updated_at: !!timestamp '2018-11-11
+      21:14:16.643897', content_object: 250, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 747
+  fields: {created_at: !!timestamp '2018-11-11 21:14:16.646176', updated_at: !!timestamp '2018-11-11
+      21:14:16.646192', content_object: 250, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 748
+  fields: {created_at: !!timestamp '2018-11-11 21:14:16.648248', updated_at: !!timestamp '2018-11-11
+      21:14:16.648263', content_object: 250, tag: 12, assumed: false}
+- model: dashboard.puctotag
+  pk: 749
+  fields: {created_at: !!timestamp '2018-11-11 21:14:16.650162', updated_at: !!timestamp '2018-11-11
+      21:14:16.650177', content_object: 250, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 750
+  fields: {created_at: !!timestamp '2018-11-11 21:14:16.652311', updated_at: !!timestamp '2018-11-11
+      21:14:16.652328', content_object: 250, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 751
+  fields: {created_at: !!timestamp '2018-11-11 21:15:26.804546', updated_at: !!timestamp '2018-11-11
+      21:15:26.804563', content_object: 250, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 752
+  fields: {created_at: !!timestamp '2018-11-11 21:15:26.806408', updated_at: !!timestamp '2018-11-11
+      21:15:26.806424', content_object: 250, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 753
+  fields: {created_at: !!timestamp '2018-11-11 21:15:26.808176', updated_at: !!timestamp '2018-11-11
+      21:15:26.808192', content_object: 250, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 754
+  fields: {created_at: !!timestamp '2018-11-11 21:15:57.036114', updated_at: !!timestamp '2018-11-11
+      21:15:57.036130', content_object: 252, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 755
+  fields: {created_at: !!timestamp '2018-11-11 21:15:57.037954', updated_at: !!timestamp '2018-11-11
+      21:15:57.037970', content_object: 252, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 756
+  fields: {created_at: !!timestamp '2018-11-11 21:15:57.039880', updated_at: !!timestamp '2018-11-11
+      21:15:57.039896', content_object: 252, tag: 12, assumed: false}
+- model: dashboard.puctotag
+  pk: 757
+  fields: {created_at: !!timestamp '2018-11-11 21:15:57.041939', updated_at: !!timestamp '2018-11-11
+      21:15:57.041955', content_object: 252, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 758
+  fields: {created_at: !!timestamp '2018-11-11 21:15:57.044293', updated_at: !!timestamp '2018-11-11
+      21:15:57.044310', content_object: 252, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 759
+  fields: {created_at: !!timestamp '2018-11-11 21:17:40.149826', updated_at: !!timestamp '2018-11-11
+      21:17:40.149842', content_object: 253, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 760
+  fields: {created_at: !!timestamp '2018-11-11 21:17:40.151935', updated_at: !!timestamp '2018-11-11
+      21:17:40.151951', content_object: 253, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 761
+  fields: {created_at: !!timestamp '2018-11-11 21:17:40.154157', updated_at: !!timestamp '2018-11-11
+      21:17:40.154173', content_object: 253, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 762
+  fields: {created_at: !!timestamp '2018-11-11 21:17:40.156202', updated_at: !!timestamp '2018-11-11
+      21:17:40.156217', content_object: 253, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 763
+  fields: {created_at: !!timestamp '2018-11-11 21:17:40.158191', updated_at: !!timestamp '2018-11-11
+      21:17:40.158207', content_object: 253, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 764
+  fields: {created_at: !!timestamp '2018-11-11 21:17:40.160391', updated_at: !!timestamp '2018-11-11
+      21:17:40.160417', content_object: 253, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 765
+  fields: {created_at: !!timestamp '2018-11-11 21:17:40.162300', updated_at: !!timestamp '2018-11-11
+      21:17:40.162316', content_object: 253, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 766
+  fields: {created_at: !!timestamp '2018-11-11 21:17:40.164178', updated_at: !!timestamp '2018-11-11
+      21:17:40.164193', content_object: 253, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 767
+  fields: {created_at: !!timestamp '2018-11-11 21:17:40.166044', updated_at: !!timestamp '2018-11-11
+      21:17:40.166060', content_object: 253, tag: 22, assumed: false}
+- model: dashboard.puctotag
+  pk: 768
+  fields: {created_at: !!timestamp '2018-11-11 21:18:31.321542', updated_at: !!timestamp '2018-11-11
+      21:18:31.321558', content_object: 254, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 769
+  fields: {created_at: !!timestamp '2018-11-11 21:18:31.323280', updated_at: !!timestamp '2018-11-11
+      21:18:31.323295', content_object: 254, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 770
+  fields: {created_at: !!timestamp '2018-11-11 21:18:31.325540', updated_at: !!timestamp '2018-11-11
+      21:18:31.325557', content_object: 254, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 771
+  fields: {created_at: !!timestamp '2018-11-11 21:18:31.327369', updated_at: !!timestamp '2018-11-11
+      21:18:31.327385', content_object: 254, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 772
+  fields: {created_at: !!timestamp '2018-11-11 21:18:31.329495', updated_at: !!timestamp '2018-11-11
+      21:18:31.329512', content_object: 254, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 773
+  fields: {created_at: !!timestamp '2018-11-11 21:18:31.331874', updated_at: !!timestamp '2018-11-11
+      21:18:31.331890', content_object: 254, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 774
+  fields: {created_at: !!timestamp '2018-11-11 21:18:31.334154', updated_at: !!timestamp '2018-11-11
+      21:18:31.334171', content_object: 254, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 775
+  fields: {created_at: !!timestamp '2018-11-11 21:18:31.336297', updated_at: !!timestamp '2018-11-11
+      21:18:31.336313', content_object: 254, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 776
+  fields: {created_at: !!timestamp '2018-11-11 21:18:31.338288', updated_at: !!timestamp '2018-11-11
+      21:18:31.338303', content_object: 254, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 777
+  fields: {created_at: !!timestamp '2018-11-11 21:18:31.340042', updated_at: !!timestamp '2018-11-11
+      21:18:31.340058', content_object: 254, tag: 22, assumed: false}
+- model: dashboard.puctotag
+  pk: 778
+  fields: {created_at: !!timestamp '2018-11-11 21:18:54.465066', updated_at: !!timestamp '2018-11-11
+      21:18:54.465083', content_object: 257, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 779
+  fields: {created_at: !!timestamp '2018-11-11 21:18:54.466901', updated_at: !!timestamp '2018-11-11
+      21:18:54.466916', content_object: 257, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 780
+  fields: {created_at: !!timestamp '2018-11-11 21:18:54.468609', updated_at: !!timestamp '2018-11-11
+      21:18:54.468625', content_object: 257, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 781
+  fields: {created_at: !!timestamp '2018-11-11 21:19:17.007829', updated_at: !!timestamp '2018-11-11
+      21:19:17.007846', content_object: 258, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 782
+  fields: {created_at: !!timestamp '2018-11-11 21:19:17.009531', updated_at: !!timestamp '2018-11-11
+      21:19:17.009546', content_object: 258, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 783
+  fields: {created_at: !!timestamp '2018-11-11 21:19:17.011479', updated_at: !!timestamp '2018-11-11
+      21:19:17.011495', content_object: 258, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 784
+  fields: {created_at: !!timestamp '2018-11-11 21:19:17.013766', updated_at: !!timestamp '2018-11-11
+      21:19:17.013781', content_object: 258, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 785
+  fields: {created_at: !!timestamp '2018-11-11 21:19:17.015609', updated_at: !!timestamp '2018-11-11
+      21:19:17.015626', content_object: 258, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 786
+  fields: {created_at: !!timestamp '2018-11-11 21:19:35.127095', updated_at: !!timestamp '2018-11-11
+      21:19:35.127111', content_object: 259, tag: 1, assumed: false}
+- model: dashboard.puctotag
+  pk: 787
+  fields: {created_at: !!timestamp '2018-11-11 21:19:35.129134', updated_at: !!timestamp '2018-11-11
+      21:19:35.129150', content_object: 259, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 788
+  fields: {created_at: !!timestamp '2018-11-11 21:19:35.131289', updated_at: !!timestamp '2018-11-11
+      21:19:35.131322', content_object: 259, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 789
+  fields: {created_at: !!timestamp '2018-11-11 21:20:03.430656', updated_at: !!timestamp '2018-11-11
+      21:20:03.430673', content_object: 260, tag: 1, assumed: false}
+- model: dashboard.puctotag
+  pk: 790
+  fields: {created_at: !!timestamp '2018-11-11 21:20:03.432600', updated_at: !!timestamp '2018-11-11
+      21:20:03.432616', content_object: 260, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 791
+  fields: {created_at: !!timestamp '2018-11-11 21:20:03.434690', updated_at: !!timestamp '2018-11-11
+      21:20:03.434706', content_object: 260, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 792
+  fields: {created_at: !!timestamp '2018-11-11 21:20:03.436723', updated_at: !!timestamp '2018-11-11
+      21:20:03.436739', content_object: 260, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 793
+  fields: {created_at: !!timestamp '2018-11-11 21:20:03.438832', updated_at: !!timestamp '2018-11-11
+      21:20:03.438848', content_object: 260, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 794
+  fields: {created_at: !!timestamp '2018-11-11 21:20:45.081702', updated_at: !!timestamp '2018-11-11
+      21:20:45.081718', content_object: 262, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 795
+  fields: {created_at: !!timestamp '2018-11-11 21:20:45.083715', updated_at: !!timestamp '2018-11-11
+      21:20:45.083731', content_object: 262, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 796
+  fields: {created_at: !!timestamp '2018-11-11 21:21:02.250837', updated_at: !!timestamp '2018-11-11
+      21:21:02.250853', content_object: 264, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 797
+  fields: {created_at: !!timestamp '2018-11-11 21:21:02.252602', updated_at: !!timestamp '2018-11-11
+      21:21:02.252619', content_object: 264, tag: 4, assumed: false}
+- model: dashboard.puctotag
+  pk: 798
+  fields: {created_at: !!timestamp '2018-11-11 21:21:02.254982', updated_at: !!timestamp '2018-11-11
+      21:21:02.254998', content_object: 264, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 799
+  fields: {created_at: !!timestamp '2018-11-11 21:21:02.256984', updated_at: !!timestamp '2018-11-11
+      21:21:02.257000', content_object: 264, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 800
+  fields: {created_at: !!timestamp '2018-11-11 21:21:02.258962', updated_at: !!timestamp '2018-11-11
+      21:21:02.258979', content_object: 264, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 801
+  fields: {created_at: !!timestamp '2018-11-11 21:21:21.131927', updated_at: !!timestamp '2018-11-11
+      21:21:21.131943', content_object: 267, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 802
+  fields: {created_at: !!timestamp '2018-11-11 21:21:21.134563', updated_at: !!timestamp '2018-11-11
+      21:21:21.134578', content_object: 267, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 803
+  fields: {created_at: !!timestamp '2018-11-11 21:21:21.137257', updated_at: !!timestamp '2018-11-11
+      21:21:21.137273', content_object: 267, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 804
+  fields: {created_at: !!timestamp '2018-11-11 21:21:21.139566', updated_at: !!timestamp '2018-11-11
+      21:21:21.139581', content_object: 267, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 805
+  fields: {created_at: !!timestamp '2018-11-11 21:21:50.890836', updated_at: !!timestamp '2018-11-11
+      21:21:50.890852', content_object: 269, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 806
+  fields: {created_at: !!timestamp '2018-11-11 21:21:50.892652', updated_at: !!timestamp '2018-11-11
+      21:21:50.892667', content_object: 269, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 807
+  fields: {created_at: !!timestamp '2018-11-11 21:21:50.894884', updated_at: !!timestamp '2018-11-11
+      21:21:50.894899', content_object: 269, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 808
+  fields: {created_at: !!timestamp '2018-11-11 21:21:50.897041', updated_at: !!timestamp '2018-11-11
+      21:21:50.897057', content_object: 269, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 809
+  fields: {created_at: !!timestamp '2018-11-11 21:22:07.846557', updated_at: !!timestamp '2018-11-11
+      21:22:07.846574', content_object: 271, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 810
+  fields: {created_at: !!timestamp '2018-11-11 21:22:07.848252', updated_at: !!timestamp '2018-11-11
+      21:22:07.848267', content_object: 271, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 811
+  fields: {created_at: !!timestamp '2018-11-11 21:22:07.850441', updated_at: !!timestamp '2018-11-11
+      21:22:07.850458', content_object: 271, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 812
+  fields: {created_at: !!timestamp '2018-11-11 21:22:07.852256', updated_at: !!timestamp '2018-11-11
+      21:22:07.852272', content_object: 271, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 813
+  fields: {created_at: !!timestamp '2018-11-11 21:22:21.133202', updated_at: !!timestamp '2018-11-11
+      21:22:21.133218', content_object: 274, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 814
+  fields: {created_at: !!timestamp '2018-11-11 21:22:21.134923', updated_at: !!timestamp '2018-11-11
+      21:22:21.134938', content_object: 274, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 815
+  fields: {created_at: !!timestamp '2018-11-11 21:22:32.408240', updated_at: !!timestamp '2018-11-11
+      21:22:32.408256', content_object: 275, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 816
+  fields: {created_at: !!timestamp '2018-11-11 21:22:32.409901', updated_at: !!timestamp '2018-11-11
+      21:22:32.409917', content_object: 275, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 817
+  fields: {created_at: !!timestamp '2018-11-11 21:22:32.411813', updated_at: !!timestamp '2018-11-11
+      21:22:32.411830', content_object: 275, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 818
+  fields: {created_at: !!timestamp '2018-11-11 21:22:47.267511', updated_at: !!timestamp '2018-11-11
+      21:22:47.267528', content_object: 276, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 819
+  fields: {created_at: !!timestamp '2018-11-11 21:22:47.269692', updated_at: !!timestamp '2018-11-11
+      21:22:47.269707', content_object: 276, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 820
+  fields: {created_at: !!timestamp '2018-11-11 21:22:47.271708', updated_at: !!timestamp '2018-11-11
+      21:22:47.271724', content_object: 276, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 821
+  fields: {created_at: !!timestamp '2018-11-11 21:22:47.273582', updated_at: !!timestamp '2018-11-11
+      21:22:47.273598', content_object: 276, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 822
+  fields: {created_at: !!timestamp '2018-11-11 21:22:58.261827', updated_at: !!timestamp '2018-11-11
+      21:22:58.261844', content_object: 277, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 823
+  fields: {created_at: !!timestamp '2018-11-11 21:22:58.263657', updated_at: !!timestamp '2018-11-11
+      21:22:58.263673', content_object: 277, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 824
+  fields: {created_at: !!timestamp '2018-11-11 21:22:58.265601', updated_at: !!timestamp '2018-11-11
+      21:22:58.265631', content_object: 277, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 825
+  fields: {created_at: !!timestamp '2018-11-11 21:23:17.224772', updated_at: !!timestamp '2018-11-11
+      21:23:17.224806', content_object: 279, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 826
+  fields: {created_at: !!timestamp '2018-11-11 21:23:17.226765', updated_at: !!timestamp '2018-11-11
+      21:23:17.226782', content_object: 279, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 827
+  fields: {created_at: !!timestamp '2018-11-11 21:23:17.228926', updated_at: !!timestamp '2018-11-11
+      21:23:17.228943', content_object: 279, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 828
+  fields: {created_at: !!timestamp '2018-11-11 21:23:35.031376', updated_at: !!timestamp '2018-11-11
+      21:23:35.031394', content_object: 280, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 829
+  fields: {created_at: !!timestamp '2018-11-11 21:23:35.033171', updated_at: !!timestamp '2018-11-11
+      21:23:35.033187', content_object: 280, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 830
+  fields: {created_at: !!timestamp '2018-11-11 21:23:35.034956', updated_at: !!timestamp '2018-11-11
+      21:23:35.034973', content_object: 280, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 831
+  fields: {created_at: !!timestamp '2018-11-11 21:23:35.036989', updated_at: !!timestamp '2018-11-11
+      21:23:35.037005', content_object: 280, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 832
+  fields: {created_at: !!timestamp '2018-11-11 21:23:35.038859', updated_at: !!timestamp '2018-11-11
+      21:23:35.038875', content_object: 280, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 833
+  fields: {created_at: !!timestamp '2018-11-11 21:23:51.668126', updated_at: !!timestamp '2018-11-11
+      21:23:51.668143', content_object: 281, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 834
+  fields: {created_at: !!timestamp '2018-11-11 21:23:51.670040', updated_at: !!timestamp '2018-11-11
+      21:23:51.670057', content_object: 281, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 835
+  fields: {created_at: !!timestamp '2018-11-11 21:23:51.671968', updated_at: !!timestamp '2018-11-11
+      21:23:51.671984', content_object: 281, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 836
+  fields: {created_at: !!timestamp '2018-11-11 21:23:51.674158', updated_at: !!timestamp '2018-11-11
+      21:23:51.674174', content_object: 281, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 837
+  fields: {created_at: !!timestamp '2018-11-11 21:23:51.676622', updated_at: !!timestamp '2018-11-11
+      21:23:51.676638', content_object: 281, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 838
+  fields: {created_at: !!timestamp '2018-11-11 21:24:01.942167', updated_at: !!timestamp '2018-11-11
+      21:24:01.942184', content_object: 282, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 839
+  fields: {created_at: !!timestamp '2018-11-11 21:24:42.658499', updated_at: !!timestamp '2018-11-11
+      21:24:42.658516', content_object: 283, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 840
+  fields: {created_at: !!timestamp '2018-11-11 21:24:42.660434', updated_at: !!timestamp '2018-11-11
+      21:24:42.660450', content_object: 283, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 841
+  fields: {created_at: !!timestamp '2018-11-11 21:24:42.662525', updated_at: !!timestamp '2018-11-11
+      21:24:42.662541', content_object: 283, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 842
+  fields: {created_at: !!timestamp '2018-11-11 21:24:42.664346', updated_at: !!timestamp '2018-11-11
+      21:24:42.664361', content_object: 283, tag: 9, assumed: false}
+- model: dashboard.puctotag
+  pk: 843
+  fields: {created_at: !!timestamp '2018-11-11 21:24:42.666613', updated_at: !!timestamp '2018-11-11
+      21:24:42.666646', content_object: 283, tag: 21, assumed: false}
+- model: dashboard.puctotag
+  pk: 844
+  fields: {created_at: !!timestamp '2018-11-11 21:25:03.740113', updated_at: !!timestamp '2018-11-11
+      21:25:03.740130', content_object: 286, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 845
+  fields: {created_at: !!timestamp '2018-11-11 21:25:03.742157', updated_at: !!timestamp '2018-11-11
+      21:25:03.742175', content_object: 286, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 846
+  fields: {created_at: !!timestamp '2018-11-11 21:25:03.744309', updated_at: !!timestamp '2018-11-11
+      21:25:03.744325', content_object: 286, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 847
+  fields: {created_at: !!timestamp '2018-11-11 21:25:14.071257', updated_at: !!timestamp '2018-11-11
+      21:25:14.071274', content_object: 287, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 848
+  fields: {created_at: !!timestamp '2018-11-11 21:25:14.073360', updated_at: !!timestamp '2018-11-11
+      21:25:14.073397', content_object: 287, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 849
+  fields: {created_at: !!timestamp '2018-11-11 21:25:23.784523', updated_at: !!timestamp '2018-11-11
+      21:25:23.784540', content_object: 288, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 850
+  fields: {created_at: !!timestamp '2018-11-11 21:25:23.786613', updated_at: !!timestamp '2018-11-11
+      21:25:23.786630', content_object: 288, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 851
+  fields: {created_at: !!timestamp '2018-11-11 21:25:34.634037', updated_at: !!timestamp '2018-11-11
+      21:25:34.634054', content_object: 289, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 852
+  fields: {created_at: !!timestamp '2018-11-11 21:25:34.636071', updated_at: !!timestamp '2018-11-11
+      21:25:34.636087', content_object: 289, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 853
+  fields: {created_at: !!timestamp '2018-11-11 21:26:42.028904', updated_at: !!timestamp '2018-11-11
+      21:26:42.028921', content_object: 285, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 854
+  fields: {created_at: !!timestamp '2018-11-11 21:26:42.030629', updated_at: !!timestamp '2018-11-11
+      21:26:42.030645', content_object: 285, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 855
+  fields: {created_at: !!timestamp '2018-11-11 21:26:42.032846', updated_at: !!timestamp '2018-11-11
+      21:26:42.032862', content_object: 285, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 856
+  fields: {created_at: !!timestamp '2018-11-11 21:26:42.035258', updated_at: !!timestamp '2018-11-11
+      21:26:42.035275', content_object: 285, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 857
+  fields: {created_at: !!timestamp '2018-11-11 21:27:03.251562', updated_at: !!timestamp '2018-11-11
+      21:27:03.251579', content_object: 291, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 858
+  fields: {created_at: !!timestamp '2018-11-11 21:27:15.202118', updated_at: !!timestamp '2018-11-11
+      21:27:15.202134', content_object: 292, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 859
+  fields: {created_at: !!timestamp '2018-11-11 21:27:15.203895', updated_at: !!timestamp '2018-11-11
+      21:27:15.203911', content_object: 292, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 860
+  fields: {created_at: !!timestamp '2018-11-11 21:27:24.237667', updated_at: !!timestamp '2018-11-11
+      21:27:24.237685', content_object: 293, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 861
+  fields: {created_at: !!timestamp '2018-11-11 21:27:24.239676', updated_at: !!timestamp '2018-11-11
+      21:27:24.239708', content_object: 293, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 862
+  fields: {created_at: !!timestamp '2018-11-11 21:27:40.293024', updated_at: !!timestamp '2018-11-11
+      21:27:40.293041', content_object: 294, tag: 4, assumed: false}
+- model: dashboard.puctotag
+  pk: 863
+  fields: {created_at: !!timestamp '2018-11-11 21:27:49.594248', updated_at: !!timestamp '2018-11-11
+      21:27:49.594265', content_object: 295, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 864
+  fields: {created_at: !!timestamp '2018-11-11 21:49:43.431731', updated_at: !!timestamp '2018-11-11
+      21:49:43.431748', content_object: 58, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 865
+  fields: {created_at: !!timestamp '2018-11-14 20:48:07.464187', updated_at: !!timestamp '2018-11-14
+      20:48:07.464204', content_object: 33, tag: 23, assumed: false}
+- model: dashboard.puctotag
+  pk: 866
+  fields: {created_at: !!timestamp '2018-11-14 20:48:19.582607', updated_at: !!timestamp '2018-11-14
+      20:48:19.582640', content_object: 34, tag: 23, assumed: false}
+- model: dashboard.puctotag
+  pk: 867
+  fields: {created_at: !!timestamp '2018-11-14 20:48:56.108343', updated_at: !!timestamp '2018-11-14
+      20:48:56.108360', content_object: 37, tag: 23, assumed: false}
+- model: dashboard.puctotag
+  pk: 868
+  fields: {created_at: !!timestamp '2018-11-14 20:49:06.311542', updated_at: !!timestamp '2018-11-14
+      20:49:06.311559', content_object: 62, tag: 23, assumed: false}
+- model: dashboard.puctotag
+  pk: 869
+  fields: {created_at: !!timestamp '2018-11-14 20:49:56.247842', updated_at: !!timestamp '2018-11-14
+      20:49:56.247859', content_object: 243, tag: 23, assumed: false}
+- model: dashboard.puctotag
+  pk: 870
+  fields: {created_at: !!timestamp '2018-11-28 16:03:34.443355', updated_at: !!timestamp '2018-11-28
+      16:03:34.443373', content_object: 220, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 871
+  fields: {created_at: !!timestamp '2018-11-29 10:46:53.662849', updated_at: !!timestamp '2018-11-29
+      10:46:53.662867', content_object: 222, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 872
+  fields: {created_at: !!timestamp '2018-12-10 15:13:32.889593', updated_at: !!timestamp '2018-12-10
+      15:13:32.889611', content_object: 41, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 873
+  fields: {created_at: !!timestamp '2018-12-10 15:13:32.892130', updated_at: !!timestamp '2018-12-10
+      15:13:32.892146', content_object: 41, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 874
+  fields: {created_at: !!timestamp '2018-12-10 15:37:33.213960', updated_at: !!timestamp '2018-12-10
+      15:37:33.213976', content_object: 88, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 875
+  fields: {created_at: !!timestamp '2018-12-10 15:37:33.216086', updated_at: !!timestamp '2018-12-10
+      15:37:33.216122', content_object: 88, tag: 17, assumed: false}
+- model: dashboard.puctotag
+  pk: 876
+  fields: {created_at: !!timestamp '2018-12-10 15:57:55.595814', updated_at: !!timestamp '2018-12-10
+      15:57:55.595832', content_object: 110, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 877
+  fields: {created_at: !!timestamp '2018-12-10 15:57:55.598141', updated_at: !!timestamp '2018-12-10
+      15:57:55.598157', content_object: 110, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 878
+  fields: {created_at: !!timestamp '2018-12-10 15:57:55.600191', updated_at: !!timestamp '2018-12-10
+      15:57:55.600207', content_object: 110, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 879
+  fields: {created_at: !!timestamp '2018-12-10 16:00:11.538762', updated_at: !!timestamp '2018-12-10
+      16:00:11.538780', content_object: 118, tag: 16, assumed: false}
+- model: dashboard.puctotag
+  pk: 880
+  fields: {created_at: !!timestamp '2018-12-11 15:01:34.102216', updated_at: !!timestamp '2018-12-11
+      15:01:34.102233', content_object: 298, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 881
+  fields: {created_at: !!timestamp '2018-12-11 15:01:34.103921', updated_at: !!timestamp '2018-12-11
+      15:01:34.103937', content_object: 298, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 882
+  fields: {created_at: !!timestamp '2018-12-11 15:01:34.105791', updated_at: !!timestamp '2018-12-11
+      15:01:34.105806', content_object: 298, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 883
+  fields: {created_at: !!timestamp '2018-12-11 15:12:37.239657', updated_at: !!timestamp '2018-12-11
+      15:12:37.239691', content_object: 187, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 884
+  fields: {created_at: !!timestamp '2018-12-11 15:14:12.199286', updated_at: !!timestamp '2018-12-11
+      15:14:12.199304', content_object: 188, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 885
+  fields: {created_at: !!timestamp '2018-12-11 15:14:12.200933', updated_at: !!timestamp '2018-12-11
+      15:14:12.200949', content_object: 188, tag: 5, assumed: false}
+- model: dashboard.puctotag
+  pk: 886
+  fields: {created_at: !!timestamp '2018-12-11 15:14:12.202781', updated_at: !!timestamp '2018-12-11
+      15:14:12.202796', content_object: 188, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 887
+  fields: {created_at: !!timestamp '2018-12-11 15:14:12.204488', updated_at: !!timestamp '2018-12-11
+      15:14:12.204505', content_object: 188, tag: 8, assumed: false}
+- model: dashboard.puctotag
+  pk: 888
+  fields: {created_at: !!timestamp '2018-12-11 15:14:12.206466', updated_at: !!timestamp '2018-12-11
+      15:14:12.206482', content_object: 188, tag: 18, assumed: false}
+- model: dashboard.puctotag
+  pk: 889
+  fields: {created_at: !!timestamp '2018-12-11 15:21:23.003200', updated_at: !!timestamp '2018-12-11
+      15:21:23.003218', content_object: 196, tag: 3, assumed: false}
+- model: dashboard.puctotag
+  pk: 890
+  fields: {created_at: !!timestamp '2018-12-12 16:56:12.120474', updated_at: !!timestamp '2018-12-12
+      16:56:12.120492', content_object: 299, tag: 2, assumed: false}
+- model: dashboard.puctotag
+  pk: 891
+  fields: {created_at: !!timestamp '2018-12-12 16:56:12.122681', updated_at: !!timestamp '2018-12-12
+      16:56:12.122730', content_object: 299, tag: 14, assumed: false}
+- model: dashboard.puctotag
+  pk: 892
+  fields: {created_at: !!timestamp '2018-12-12 16:56:12.124962', updated_at: !!timestamp '2018-12-12
+      16:56:12.124978', content_object: 299, tag: 6, assumed: false}
+- model: dashboard.puctotag
+  pk: 893
+  fields: {created_at: !!timestamp '2019-03-20 09:30:16.468205', updated_at: !!timestamp '2019-03-20
+      09:30:16.468223', content_object: 253, tag: 24, assumed: false}
+- model: dashboard.puctotag
+  pk: 894
+  fields: {created_at: !!timestamp '2019-03-20 09:30:24.646979', updated_at: !!timestamp '2019-03-20
+      09:30:24.647000', content_object: 254, tag: 24, assumed: false}
+- model: dashboard.puctotag
+  pk: 895
+  fields: {created_at: !!timestamp '2019-03-20 09:35:46.788260', updated_at: !!timestamp '2019-03-20
+      09:35:46.788278', content_object: 248, tag: 24, assumed: false}
+- model: dashboard.puctotag
+  pk: 896
+  fields: {created_at: !!timestamp '2019-03-20 09:36:22.690468', updated_at: !!timestamp '2019-03-20
+      09:36:22.690485', content_object: 121, tag: 24, assumed: false}
+- model: dashboard.puctotag
+  pk: 897
+  fields: {created_at: !!timestamp '2019-03-20 09:36:32.430288', updated_at: !!timestamp '2019-03-20
+      09:36:32.430305', content_object: 131, tag: 24, assumed: false}
+- model: dashboard.puctotag
+  pk: 898
+  fields: {created_at: !!timestamp '2019-03-20 09:36:41.558895', updated_at: !!timestamp '2019-03-20
+      09:36:41.558912', content_object: 126, tag: 24, assumed: false}
+- model: dashboard.puctotag
+  pk: 899
+  fields: {created_at: !!timestamp '2019-03-20 09:36:48.130420', updated_at: !!timestamp '2019-03-20
+      09:36:48.130438', content_object: 134, tag: 24, assumed: false}
+- model: dashboard.puctotag
+  pk: 900
+  fields: {created_at: !!timestamp '2019-03-20 09:36:55.343658', updated_at: !!timestamp '2019-03-20
+      09:36:55.343680', content_object: 132, tag: 24, assumed: false}
+- model: dashboard.puctotag
+  pk: 901
+  fields: {created_at: !!timestamp '2019-03-20 09:37:02.818528', updated_at: !!timestamp '2019-03-20
+      09:37:02.818546', content_object: 133, tag: 24, assumed: false}
+- model: dashboard.puctotag
+  pk: 902
+  fields: {created_at: !!timestamp '2019-03-20 09:37:09.448097', updated_at: !!timestamp '2019-03-20
+      09:37:09.448137', content_object: 135, tag: 24, assumed: false}
+- model: dashboard.puctotag
+  pk: 903
+  fields: {created_at: !!timestamp '2019-03-20 09:37:18.248104', updated_at: !!timestamp '2019-03-20
+      09:37:18.248121', content_object: 136, tag: 24, assumed: false}
+- model: dashboard.puctotag
+  pk: 904
+  fields: {created_at: !!timestamp '2019-05-02 10:43:14.253323', updated_at: !!timestamp '2019-05-02
+      10:43:14.253348', content_object: 25, tag: 25, assumed: false}
+- model: dashboard.puctotag
+  pk: 905
+  fields: {created_at: !!timestamp '2019-05-02 10:43:41.281330', updated_at: !!timestamp '2019-05-02
+      10:43:41.281357', content_object: 250, tag: 25, assumed: false}
+- model: dashboard.puctotag
+  pk: 906
+  fields: {created_at: !!timestamp '2019-05-07 21:15:12.873405', updated_at: !!timestamp '2019-05-07
+      21:15:12.873429', content_object: 34, tag: 5, assumed: false}
+
+- model: dashboard.producttotag
+  pk: 1
+  fields: {created_at: !!timestamp '2019-05-19 14:33:24.107828', updated_at: !!timestamp '2019-05-19
+      14:33:24.107828', content_object: 11, tag: 14}

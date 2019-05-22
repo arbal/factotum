@@ -7,21 +7,20 @@
 {% block content %}
 
 
-<h1><span class="oi oi-wrench" title="factotum" aria-hidden="true"></span>
-Link Product To PUC</h1>
+<h1><span class="oi oi-wrench" title="factotum" aria-hidden="true"></span>Link Product To PUC</h1>
 <br>
 <h2>
   {{ product.title }}
 </h2>
 <div class="">
   {% if product.puc_set.all %}
-  <h4>Currently assigned PUC: <button class="btn btn-secondary disabled" type="button" name="button">{{ product.puc_set.first }}</button> </h4>
+    Currently assigned PUC: <a href="{% url 'puc_detail' pk=product.puc_set.first.pk %}">{{ product.puc_set.first }}</a>
   {% endif %}
-
 </div>
 
-<div>
+<br>
 
+<div>
     <form action='' method="post" >
     {% csrf_token %}
       {% for dd in product.datadocument_set.all %}
@@ -32,9 +31,8 @@ Link Product To PUC</h1>
         </p>
       {% endfor %}
       {{ form.as_p }}
-    <input type="hidden" name="referer" value="{{ form.referer }}">
     <button type="submit" id="btn-assign-puc" class="btn btn-primary">Submit</button>
-    <a class="btn btn-secondary" href="{% url form.referer form.referer_pk %}">Cancel</a>
+    <a class="btn btn-secondary" href="{{ form.return_url }}">Cancel</a>
     </form>
 </div>
 

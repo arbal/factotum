@@ -3,7 +3,7 @@ function bubbleChart() {
         height = 500,
         maxRadius = 6,
         columnForColors = "General category",
-        columnForRadius = "Product count";
+        columnForRadius = "Cumulative product count";
 
     function chart(selection) {
         var data = selection.datum();

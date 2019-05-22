@@ -1,7 +1,9 @@
 from django.db import models
-from .common_info import CommonInfo
 from django.urls import reverse
 
+from .common_info import CommonInfo
+from .product_document import ProductDocument
+from .PUC import PUC
 
 class DSSToxLookup(CommonInfo):
 
@@ -15,5 +17,13 @@ class DSSToxLookup(CommonInfo):
     def get_absolute_url(self):
         return reverse('dsstox_lookup', kwargs={'pk': self.pk})
 
+    def save(self, *args, **kwargs):
+       self.sid = self.sid.replace(' ','') # ensure no spaces for url
+       super(DSSToxLookup, self).save(*args, **kwargs)
 
+    @property
+    def puc_count(self):
+        pdocs = ProductDocument.objects.from_chemical(self)
+        return PUC.objects.filter(products__in=pdocs.values('product')).count()
 
+ 

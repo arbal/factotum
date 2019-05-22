@@ -137,7 +137,7 @@
               <tbody>
               {% for doc in all_documents %}
                   <tr>
-                      {% if doc.matched and not doc.extracted %}
+                      {% if doc.matched and not doc.is_extracted %}
                           <td>{{ doc.pk }}</td>
                           <td>{{ doc.filename }}</td>
                       {% endif %}
@@ -223,16 +223,16 @@
           {% endif %}
             </td>
             <td align="center">
-          {% if doc.extracted and not datagroup.is_habits_and_practices %}
+          {% if doc.is_extracted and not datagroup.is_habits_and_practices %}
             <span class="oi oi-circle-check" style="color:green;"></span>
-              <p style="display:none;">{{doc.extracted}}</p>
+              <p style="display:none;">{{doc.is_extracted}}</p>
           {% elif datagroup.is_habits_and_practices %}
             <a class="btn btn-info btn-sm" role="button" title="Edit/Inspect Habits and practices"
              href='{% url 'habitsandpractices' doc.id %}'>Edit / Inspect Habits and practices</a>
-              <p style="display:none;">{{doc.extracted}}</p>
+              <p style="display:none;">{{doc.is_extracted}}</p>
           {% else %}
             <span class="oi oi-circle-x" style="color:red;">
-              <p style="display:none;">{{doc.extracted}}</p>
+              <p style="display:none;">{{doc.is_extracted}}</p>
             </span>
           {% endif %}
             </td>

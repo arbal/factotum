@@ -2,9 +2,106 @@
 {% load staticfiles %}
 {% load humanize %}
 
-{% block content %}
-    <h1 class="col-sm-12">
-        <span name="title">{{ substance }}</span>
-    </h1>
+{% block title %}DSSTox Chemical Detail{% endblock %}
 
+{% block content %}
+
+<h1>
+    <span class='pr-1'data-toggle="tooltip" 
+            data-placement="right"    
+            title="Chemical Name">{{ substance|title }}
+    </span>
+</h1>
+<h4>
+    <span class='pr-1'data-toggle="tooltip" 
+        data-placement="right"    
+        title="View in COMPTOX">
+        <a target="_blank"
+            href="https://comptox.epa.gov/dashboard/dsstoxdb/results?search={{ substance.sid }}">
+            {{ substance.sid }}
+        </a>
+    </span>
+</h4>
+<h4>
+    <span class='pr-1'data-toggle="tooltip" 
+            data-placement="right"    
+            title="CAS">{{ substance.true_cas|title }}
+    </span>
+</h4>
+<div class="p-3"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-5 p-0">
+                <div class="card">
+                        <div class="card-header text-center">
+                          <h5><b>PUCs</b></h5>
+                          <small class="card-text font-italic">
+                              General Category - Product Family - Product Type
+                          </small>
+                        </div>
+                        <div class="card-body p-0 list-group d-flex">
+                            {% for puc in pucs %}
+                            <a href="#" class="list-group-item
+                                                list-group-item-action
+                                                align-items-start">
+                                <small> {{ puc }} </small>
+                            </a>
+                            {% empty %}
+                            <li class="list-group-item">
+                                No PUCs are linked to this chemical
+                            </li>
+                            {% endfor %}
+                        </div>
+                      </div>
+        </div>
+        <div class="col-7 text-center pl-4 pr-0">
+            <!-- <h1>BUBBLE PLOT GOES HERE</h1> -->
+            <svg class="bg-light"viewBox="0 0 1000 420">
+                <a href="https://www.google.com"><circle r="60" cy="97" cx="447"
+                    stroke-width="2" stroke="#E4AF4C"
+                    fill="#F4D37D" fill-opacity="0.47"> /></a>
+                <a href="https://www.google.com"><circle r="60" cy="97" cx="547"
+                    stroke-width="2" stroke="#a020f0"
+                    fill="#a020f0" fill-opacity="0.47"> /></a>
+                <a href="https://www.google.com"><circle r="47" cy="217" cx="347"
+                    stroke-width="2" stroke="#a020f0"
+                    fill="#a020f0" fill-opacity="0.47"> /></a>
+                <a href="https://www.google.com"><circle r="47" cy="217" cx="647"
+                    stroke-width="2" stroke="#E4AF4C"
+                    fill="#F4D37D" fill-opacity="0.47"> /></a>
+                <a href="https://www.google.com">
+                    <circle r="60" cy="347" cx="547"
+                    stroke-width="2" stroke="#a020f0"
+                    fill="#a020f0" fill-opacity="0.47">
+                        <animate attributeName="r" 
+                                    dur="1s" 
+                                    repeatCount="indefinite" 
+                                    values="60;47;60"/>
+                    </circle>
+                </a>
+                <a href="https://www.google.com">
+                    <circle r="60" cy="347" cx="447"
+                    stroke-width="2" stroke="#E4AF4C"
+                    fill="#F4D37D" fill-opacity="0.47">
+                        <animate attributeName="r" 
+                                    dur="1s" 
+                                    repeatCount="indefinite" 
+                                    values="60;47;60"/>
+                    </circle>
+                    <text x="447" y="217">
+                        ¡bubbles!
+                        <animate attributeName="x" 
+                                    dur="3s" 
+                                    repeatCount="indefinite" 
+                                    values="387;540;387"/>
+                    </text>
+                </a>
+            </svg>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script src="{% static 'js/dsstox_detail.js' %}"></script>
 {% endblock %}

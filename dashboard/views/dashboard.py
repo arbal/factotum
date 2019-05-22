@@ -23,7 +23,7 @@ def index(request):
 
     stats['datadocument_count'] = DataDocument.objects.count()
     stats['datadocument_with_extracted_text_percent'] =\
-        DataDocument.objects.filter(extracted = True).count()/DataDocument.objects.count()*100
+        DataDocument.objects.filter(extractedtext__isnull=False).count() / DataDocument.objects.count()*100
     stats['datadocument_count_by_date'] = datadocument_count_by_date()
     stats['datadocument_count_by_month'] = datadocument_count_by_month()
     stats['product_count'] = Product.objects.count()
@@ -114,7 +114,7 @@ def download_PUCs(request):
     response['Content-Disposition'] = 'attachment; filename="PUCs.csv"'
     bubbles = request.GET.get('bubbles')
     writer = csv.writer(response)
-    cols = ['General category','Product family','Product type','Allowed attributes','Assumed attributes','Description','PUC type','PUC level','Product count']
+    cols = ['General category','Product family','Product type','Allowed attributes','Assumed attributes','Description','PUC type','PUC level','Product count','Cumulative product count']
     writer.writerow(cols)
     pucs = PUC.objects.filter(kind='FO') if bubbles else PUC.objects.all()
     for puc in pucs:
@@ -127,7 +127,8 @@ def download_PUCs(request):
                 puc.description, 
                 puc.kind,
                 puc.get_level(), 
-                puc.product_count
+                puc.product_count,
+                puc.cumulative_product_count
                 ]
         writer.writerow(row)
 

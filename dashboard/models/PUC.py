@@ -6,7 +6,10 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from .common_info import CommonInfo
+from django.apps import apps
 
+from dashboard.models import ProductDocument
+from django.db.models import Count, Sum
 
 class PUC(CommonInfo):
     KIND_CHOICES = (
@@ -84,12 +87,39 @@ class PUC(CommonInfo):
         return self.products.count()
 
     @property
+    def cumulative_product_count(self):
+        ProductToPUC = apps.get_model('dashboard','ProductToPUC')
+        if self.is_level_one:
+            return ProductToPUC.objects.filter(puc__gen_cat=self.gen_cat).count()
+        if self.is_level_two:
+            return ProductToPUC.objects.filter(puc__prod_fam=self.prod_fam).count()
+        if self.is_level_three:
+            return ProductToPUC.objects.filter(puc=self).count()
+
+    @property
+    def curated_chemical_count(self):
+        return ProductDocument.objects.filter(
+            product__in=self.products.all()).annotate(
+            doc_chem_count=Count('document__extractedtext__rawchem__dsstox')).aggregate(
+            chem_count=Sum('doc_chem_count'))['chem_count'] or 0
+
+    @property
+    def document_count(self):
+       return ProductDocument.objects.filter(
+            product__in=self.products.all()).distinct().count()
+
+    @property
     def admin_url(self):
         return reverse('admin:dashboard_puc_change', args=(self.pk,))
         
     def get_assumed_tags(self):
         '''Queryset of used to filter which PUCs a Product can have '''
         qs = PUCToTag.objects.filter(content_object=self, assumed=True)
+        return PUCTag.objects.filter(dashboard_puctotag_items__in=qs)
+
+    def get_allowed_tags(self):
+        '''Queryset of used to filter which PUCs a Product can have '''
+        qs = PUCToTag.objects.filter(content_object=self, assumed=False)
         return PUCTag.objects.filter(dashboard_puctotag_items__in=qs)
 
 
@@ -104,6 +134,8 @@ class PUCToTag(TaggedItemBase, CommonInfo):
 
 
 class PUCTag(TagBase, CommonInfo):
+
+    definition = models.TextField(null=True, blank=True,max_length=255)
 
     class Meta:
         verbose_name = _("PUC Attribute")

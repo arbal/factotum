@@ -63,15 +63,6 @@ class DataDocument(CommonInfo):
     data_group = models.ForeignKey('DataGroup', on_delete=models.CASCADE)
     products = models.ManyToManyField('Product', through='ProductDocument')
     matched = models.BooleanField(default=False)
-    #############################################################
-    #  T E C H N I C A L   D E B T 
-    # Storing this as a boolean field might not be a good idea. If someone 
-    # deletes an ExtractedText object in the admin panel or in the database,
-    # the bit will not flip, so the document will remain "extracted"
-    # even in the absence of an ExtractedText object
-    extracted = models.BooleanField(default=False)  
-    # The is_extracted method below should replace this attribute
-    #############################################################
     document_type = models.ForeignKey(
         'DocumentType',
         on_delete=models.PROTECT,

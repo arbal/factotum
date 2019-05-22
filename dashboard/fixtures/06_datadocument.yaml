@@ -10,7 +10,6 @@
     raw_category: ''
     data_group: 5
     matched: true
-    extracted: true
     document_type: 9
     organization: ''
     note: null
@@ -26,7 +25,6 @@
     raw_category: ''
     data_group: 6
     matched: true
-    extracted: true
     document_type: 2
     organization: ''
     note: null
@@ -42,7 +40,6 @@
     raw_category: ''
     data_group: 6
     matched: true
-    extracted: true
     document_type: 5
     organization: ''
     note: null
@@ -58,7 +55,6 @@
     raw_category: ''
     data_group: 8
     matched: true
-    extracted: true
     document_type: 12
     organization: ''
     note: null
@@ -74,7 +70,6 @@
     raw_category: ''
     data_group: 8
     matched: true
-    extracted: false
     document_type: null
     organization: ''
     note: null
@@ -90,7 +85,6 @@
     raw_category: ''
     data_group: 50
     matched: true
-    extracted: false
     document_type: 9
     organization: ''
     note: null
@@ -106,7 +100,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -122,7 +115,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -138,7 +130,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -154,7 +145,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -170,7 +160,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -186,7 +175,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -202,7 +190,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -219,7 +206,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -235,7 +221,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -251,7 +236,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -267,7 +251,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -284,7 +267,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -300,7 +282,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -316,7 +297,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -333,7 +313,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -349,7 +328,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -365,7 +343,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -381,7 +358,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -397,7 +373,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -413,7 +388,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -429,7 +403,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -445,7 +418,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -461,7 +433,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -478,7 +449,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -495,7 +465,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -511,7 +480,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -527,7 +495,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -543,7 +510,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -559,7 +525,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -576,7 +541,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -592,7 +556,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -608,7 +571,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -624,7 +586,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -641,7 +602,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -657,7 +617,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -673,7 +632,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -689,7 +647,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -705,7 +662,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -721,7 +677,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -737,7 +692,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -753,7 +707,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -769,7 +722,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -786,7 +738,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -802,7 +753,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -818,7 +768,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -834,7 +783,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -850,7 +798,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -866,7 +813,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -882,7 +828,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -898,7 +843,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -914,7 +858,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -930,7 +873,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -946,7 +888,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -962,7 +903,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -978,7 +918,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -994,7 +933,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1010,7 +948,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1026,7 +963,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1042,7 +978,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1058,7 +993,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1074,7 +1008,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1090,7 +1023,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1106,7 +1038,6 @@
     raw_category: ''
     data_group: 17
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1122,7 +1053,6 @@
     raw_category: ''
     data_group: 18
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1138,7 +1068,6 @@
     raw_category: ''
     data_group: 18
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1154,7 +1083,6 @@
     raw_category: ''
     data_group: 18
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1170,7 +1098,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1186,7 +1113,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1202,7 +1128,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1218,7 +1143,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1234,7 +1158,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1250,7 +1173,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1266,7 +1188,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1282,7 +1203,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1298,7 +1218,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1314,7 +1233,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1330,7 +1248,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1346,7 +1263,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1362,7 +1278,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1378,7 +1293,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1394,7 +1308,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1410,7 +1323,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1426,7 +1338,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1442,7 +1353,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1458,7 +1368,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1474,7 +1383,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1491,7 +1399,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1507,7 +1414,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1523,7 +1429,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1539,7 +1444,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1555,7 +1459,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1571,7 +1474,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1587,7 +1489,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1603,7 +1504,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1620,7 +1520,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1636,7 +1535,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1652,7 +1550,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1668,7 +1565,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1684,7 +1580,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1701,7 +1596,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1717,7 +1611,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1733,7 +1626,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1750,7 +1642,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1766,7 +1657,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1782,7 +1672,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1798,7 +1687,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1815,7 +1703,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1831,7 +1718,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1848,7 +1734,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1864,7 +1749,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1880,7 +1764,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1896,7 +1779,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1913,7 +1795,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1929,7 +1810,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1945,7 +1825,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1961,7 +1840,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1977,7 +1855,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -1993,7 +1870,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2009,7 +1885,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2026,7 +1901,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2042,7 +1916,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2058,7 +1931,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2074,7 +1946,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2090,7 +1961,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2106,7 +1976,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2122,7 +1991,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2138,7 +2006,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2154,7 +2021,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2170,7 +2036,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2186,7 +2051,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2202,7 +2066,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2218,7 +2081,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2234,7 +2096,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2250,7 +2111,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2266,7 +2126,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2283,7 +2142,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2299,7 +2157,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2315,7 +2172,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2331,7 +2187,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2347,7 +2202,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2363,7 +2217,6 @@
     raw_category: ''
     data_group: 19
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2379,7 +2232,6 @@
     raw_category: ''
     data_group: 20
     matched: true
-    extracted: false
     document_type: null
     organization: ''
     note: null
@@ -2395,7 +2247,6 @@
     raw_category: ''
     data_group: 22
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2411,7 +2262,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2428,7 +2278,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2444,7 +2293,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2461,7 +2309,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2477,7 +2324,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2493,7 +2339,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2509,7 +2354,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2525,7 +2369,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2541,7 +2384,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2557,7 +2399,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2573,7 +2414,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2589,7 +2429,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2605,7 +2444,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2621,7 +2459,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2637,7 +2474,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2653,7 +2489,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2669,7 +2504,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2685,7 +2519,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2701,7 +2534,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2717,7 +2549,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2733,7 +2564,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2749,7 +2579,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2765,7 +2594,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2781,7 +2609,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2797,7 +2624,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2813,7 +2639,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2829,7 +2654,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2846,7 +2670,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2862,7 +2685,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2878,7 +2700,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2894,7 +2715,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2911,7 +2731,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2928,7 +2747,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2944,7 +2762,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2960,7 +2777,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2976,7 +2792,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -2992,7 +2807,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3008,7 +2822,6 @@
     raw_category: ''
     data_group: 23
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3024,7 +2837,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3040,7 +2852,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3056,7 +2867,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3072,7 +2882,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3088,7 +2897,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3104,7 +2912,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3120,7 +2927,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3136,7 +2942,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3152,7 +2957,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3168,7 +2972,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3184,7 +2987,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3200,7 +3002,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3216,7 +3017,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3232,7 +3032,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3248,7 +3047,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3264,7 +3062,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3281,7 +3078,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3298,7 +3094,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3314,7 +3109,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3330,7 +3124,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3346,7 +3139,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3362,7 +3154,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3378,7 +3169,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3394,7 +3184,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3410,7 +3199,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3426,7 +3214,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3442,7 +3229,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3458,7 +3244,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3474,7 +3259,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3490,7 +3274,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3507,7 +3290,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3523,7 +3305,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3539,7 +3320,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: 3
     organization: ''
     note: null
@@ -3555,7 +3335,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3571,7 +3350,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3587,7 +3365,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: 4
     organization: ''
     note: null
@@ -3603,7 +3380,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3619,7 +3395,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3636,7 +3411,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3652,7 +3426,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: 5
     organization: ''
     note: null
@@ -3668,7 +3441,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3685,7 +3457,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3702,7 +3473,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3718,7 +3488,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3734,7 +3503,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3750,7 +3518,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3766,7 +3533,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3782,7 +3548,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3798,7 +3563,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: 4
     organization: ''
     note: null
@@ -3814,7 +3578,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: 4
     organization: ''
     note: null
@@ -3830,7 +3593,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3846,7 +3608,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: 3
     organization: ''
     note: null
@@ -3862,7 +3623,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3878,7 +3638,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: 4
     organization: ''
     note: null
@@ -3894,7 +3653,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3911,7 +3669,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3927,7 +3684,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3943,7 +3699,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: 3
     organization: ''
     note: null
@@ -3959,7 +3714,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3975,7 +3729,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -3991,7 +3744,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4007,7 +3759,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4023,7 +3774,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: 2
     organization: ''
     note: null
@@ -4039,7 +3789,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: 5
     organization: ''
     note: null
@@ -4055,7 +3804,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4071,7 +3819,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4088,7 +3835,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4104,7 +3850,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4120,7 +3865,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4136,7 +3880,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4152,7 +3895,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4168,7 +3910,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4184,7 +3925,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: 4
     organization: ''
     note: null
@@ -4201,7 +3941,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4217,7 +3956,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4233,7 +3971,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4249,7 +3986,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4265,7 +4001,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4281,7 +4016,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4297,7 +4031,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: false
     document_type: null
     organization: ''
     note: null
@@ -4313,7 +4046,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: 3
     organization: ''
     note: null
@@ -4329,7 +4061,6 @@
     raw_category: ''
     data_group: 24
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4345,7 +4076,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4361,7 +4091,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4377,7 +4106,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4394,7 +4122,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4410,7 +4137,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4426,7 +4152,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4442,7 +4167,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4458,7 +4182,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4474,7 +4197,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4491,7 +4213,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4507,7 +4228,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4523,7 +4243,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4540,7 +4259,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4556,7 +4274,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4572,7 +4289,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4589,7 +4305,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4605,7 +4320,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4621,7 +4335,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4637,7 +4350,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4654,7 +4366,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4670,7 +4381,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4686,7 +4396,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4702,7 +4411,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4718,7 +4426,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4734,7 +4441,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4750,7 +4456,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4766,7 +4471,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4782,7 +4486,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4798,7 +4501,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4814,7 +4516,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4830,7 +4531,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4846,7 +4546,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4863,7 +4562,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4879,7 +4577,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4896,7 +4593,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4912,7 +4608,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4928,7 +4623,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4944,7 +4638,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4960,7 +4653,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4976,7 +4668,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -4992,7 +4683,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5008,7 +4698,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5025,7 +4714,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5041,7 +4729,6 @@
     raw_category: ''
     data_group: 26
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5057,7 +4744,6 @@
     raw_category: ''
     data_group: 30
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5073,7 +4759,6 @@
     raw_category: ''
     data_group: 37
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5089,7 +4774,6 @@
     raw_category: ''
     data_group: 37
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5105,7 +4789,6 @@
     raw_category: ''
     data_group: 37
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5121,7 +4804,6 @@
     raw_category: ''
     data_group: 37
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5137,7 +4819,6 @@
     raw_category: ''
     data_group: 37
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5153,7 +4834,6 @@
     raw_category: ''
     data_group: 37
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5169,7 +4849,6 @@
     raw_category: ''
     data_group: 37
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5185,7 +4864,6 @@
     raw_category: ''
     data_group: 37
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5201,7 +4879,6 @@
     raw_category: ''
     data_group: 37
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5217,7 +4894,6 @@
     raw_category: ''
     data_group: 37
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5233,7 +4909,6 @@
     raw_category: ''
     data_group: 37
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5249,7 +4924,6 @@
     raw_category: ''
     data_group: 37
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5265,7 +4939,6 @@
     raw_category: ''
     data_group: 37
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5281,7 +4954,6 @@
     raw_category: ''
     data_group: 37
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5297,7 +4969,6 @@
     raw_category: ''
     data_group: 37
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5313,7 +4984,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5329,7 +4999,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5345,7 +5014,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5362,7 +5030,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5379,7 +5046,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5395,7 +5061,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5411,7 +5076,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5427,7 +5091,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5443,7 +5106,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5460,7 +5122,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5476,7 +5137,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5493,7 +5153,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5510,7 +5169,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5527,7 +5185,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5543,7 +5200,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5560,7 +5216,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5577,7 +5232,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5594,7 +5248,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5611,7 +5264,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5627,7 +5279,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5643,7 +5294,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5659,7 +5309,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5675,7 +5324,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5691,7 +5339,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5707,7 +5354,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5723,7 +5369,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5739,7 +5384,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5755,7 +5399,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5772,7 +5415,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5789,7 +5431,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5806,7 +5447,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5823,7 +5463,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5840,7 +5479,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5857,7 +5495,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5874,7 +5511,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5891,7 +5527,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5908,7 +5543,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5924,7 +5558,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5941,7 +5574,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5958,7 +5590,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5975,7 +5606,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -5991,7 +5621,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6008,7 +5637,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6025,7 +5653,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6042,7 +5669,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6059,7 +5685,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6076,7 +5701,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6092,7 +5716,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6108,7 +5731,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6125,7 +5747,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6141,7 +5762,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6157,7 +5777,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6173,7 +5792,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6190,7 +5808,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6207,7 +5824,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6223,7 +5839,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6239,7 +5854,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6255,7 +5869,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6272,7 +5885,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6289,7 +5901,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6306,7 +5917,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6323,7 +5933,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6340,7 +5949,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6356,7 +5964,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6372,7 +5979,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6389,7 +5995,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6406,7 +6011,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6422,7 +6026,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6438,7 +6041,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6455,7 +6057,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6472,7 +6073,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6489,7 +6089,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6505,7 +6104,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6522,7 +6120,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6538,7 +6135,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6555,7 +6151,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6572,7 +6167,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6588,7 +6182,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6605,7 +6198,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6622,7 +6214,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6639,7 +6230,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6656,7 +6246,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6673,7 +6262,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6690,7 +6278,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6707,7 +6294,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6724,7 +6310,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6741,7 +6326,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6758,7 +6342,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6775,7 +6358,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6791,7 +6373,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6808,7 +6389,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6825,7 +6405,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6842,7 +6421,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6859,7 +6437,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6876,7 +6453,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6893,7 +6469,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6910,7 +6485,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6927,7 +6501,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6944,7 +6517,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6961,7 +6533,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6977,7 +6548,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -6994,7 +6564,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7011,7 +6580,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7028,7 +6596,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7045,7 +6612,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7061,7 +6627,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7078,7 +6643,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7095,7 +6659,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7112,7 +6675,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7129,7 +6691,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7146,7 +6707,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7163,7 +6723,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7180,7 +6739,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7197,7 +6755,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7214,7 +6771,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7231,7 +6787,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7248,7 +6803,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7265,7 +6819,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7282,7 +6835,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7299,7 +6851,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7316,7 +6867,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7333,7 +6883,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7350,7 +6899,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7366,7 +6914,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7383,7 +6930,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7400,7 +6946,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7417,7 +6962,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7434,7 +6978,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7451,7 +6994,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7468,7 +7010,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7485,7 +7026,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7502,7 +7042,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7519,7 +7058,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7536,7 +7074,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7553,7 +7090,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7570,7 +7106,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7587,7 +7122,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7604,7 +7138,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7621,7 +7154,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7638,7 +7170,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7655,7 +7186,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7672,7 +7202,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7689,7 +7218,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7706,7 +7234,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7723,7 +7250,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7740,7 +7266,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7757,7 +7282,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7774,7 +7298,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7791,7 +7314,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7808,7 +7330,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7824,7 +7345,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7841,7 +7361,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7858,7 +7377,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7875,7 +7393,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7892,7 +7409,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7909,7 +7425,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7926,7 +7441,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7943,7 +7457,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7960,7 +7473,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7977,7 +7489,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -7994,7 +7505,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8011,7 +7521,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8028,7 +7537,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8045,7 +7553,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8062,7 +7569,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8079,7 +7585,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8096,7 +7601,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8112,7 +7616,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8128,7 +7631,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8145,7 +7647,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8162,7 +7663,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8179,7 +7679,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8195,7 +7694,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8212,7 +7710,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8229,7 +7726,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8246,7 +7742,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8263,7 +7758,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8280,7 +7774,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8297,7 +7790,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8314,7 +7806,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8331,7 +7822,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8348,7 +7838,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8365,7 +7854,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8382,7 +7870,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8399,7 +7886,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8416,7 +7902,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8432,7 +7917,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8448,7 +7932,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8464,7 +7947,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8481,7 +7963,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8498,7 +7979,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8514,7 +7994,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8531,7 +8010,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8548,7 +8026,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8565,7 +8042,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8582,7 +8058,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8599,7 +8074,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8616,7 +8090,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8633,7 +8106,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8650,7 +8122,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8667,7 +8138,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8684,7 +8154,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8701,7 +8170,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8718,7 +8186,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8735,7 +8202,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8752,7 +8218,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8769,7 +8234,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8786,7 +8250,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8803,7 +8266,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8820,7 +8282,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8837,7 +8298,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8854,7 +8314,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8871,7 +8330,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8887,7 +8345,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8903,7 +8360,6 @@
     raw_category: ''
     data_group: 47
     matched: true
-    extracted: true
     document_type: null
     organization: ''
     note: null
@@ -8919,7 +8375,6 @@
     raw_category: null
     data_group: 49
     matched: true
-    extracted: true
     document_type: 10
     organization: ''
     note: null
@@ -8935,7 +8390,6 @@
     raw_category: null
     data_group: 49
     matched: true
-    extracted: true
     document_type: 10
     organization: ''
     note: null
@@ -8951,7 +8405,6 @@
     raw_category: null
     data_group: 49
     matched: true
-    extracted: false
     document_type: 10
     organization: Chemical Warfare
     note: ''
@@ -8967,7 +8420,6 @@
     raw_category: null
     data_group: 51
     matched: true
-    extracted: true
     document_type: 10
     organization: ''
     note: null
@@ -8983,7 +8435,6 @@
     raw_category: null
     data_group: 51
     matched: true
-    extracted: true
     document_type: 10
     organization: ''
     note: null
@@ -9000,7 +8451,6 @@
     raw_category: null
     data_group: 51
     matched: true
-    extracted: true
     document_type: 15
     organization: EPA
     note: null
@@ -9017,7 +8467,6 @@
     raw_category: null
     data_group: 51
     matched: true
-    extracted: true
     document_type: 15
     organization: EPA
     note: null
@@ -9033,7 +8482,6 @@
     raw_category: purple haze
     data_group: 51
     matched: true
-    extracted: false
     document_type: 15
     organization: Jerry Garcia Foundation
     note: "Now to fit in on the Seattle scene\r\nYou had to show people something\
@@ -9053,7 +8501,6 @@
     raw_category: null
     data_group: 52
     matched: true
-    extracted: true
     document_type: 10
     organization: ''
     note: null
@@ -9069,7 +8516,6 @@
     raw_category: null
     data_group: 52
     matched: true
-    extracted: true
     document_type: 10
     organization: ''
     note: null
@@ -9085,7 +8531,6 @@
     raw_category: null
     data_group: 52
     matched: true
-    extracted: false
     document_type: 10
     organization: Chemical Warfare
     note: ''

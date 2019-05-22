@@ -30,7 +30,7 @@ class ProductToPUC(CommonInfo):
                                                     null=True, blank=True)
 
     def __str__(self):
-        return str(self.id)
+        return f'{self.product} --> {self.puc}'
 
     class Meta:
           unique_together = ("product", "puc", "classification_method")

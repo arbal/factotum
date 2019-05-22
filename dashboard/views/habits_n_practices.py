@@ -21,8 +21,8 @@ def habitsandpractices(request, pk,
                             instance=extext, prefix='habits')
     if request.method == 'POST' and 'save' in request.POST:
         if hp_formset.is_valid() and ext_form.is_valid():
-            if not doc.extracted:
-                doc.extracted = True
+            if not doc.is_extracted:
+                #doc.extracted = True
                 doc.save()
             hp_formset.save()
             ext_form.save()

@@ -51,7 +51,7 @@ class DataDocumentDetailTest(TestCase):
         response = self.client.get('/datadocument/167497/')
         self.assertContains(response, '/link_product_form/167497/')
         data = {'title'        : ['New Product'],
-                'upc'          : ['stub_1860'],
+                'upc'          : ['stub_9860'],
                 'document_type': [''],
                 'return_url'   : ['/datadocument/167497/']}
         response = self.client.post('/link_product_form/167497/', data=data)
@@ -90,13 +90,13 @@ class DataDocumentDetailTest(TestCase):
         group types 'CP' and 'HH'
         '''
         doc = DataDocument.objects.get(pk=354784)
-        self.assertFalse(doc.extracted, ("This document is matched "
+        self.assertFalse(doc.is_extracted, ("This document is matched "
                                                     "but not extracted"))
         data = {'hhe_report_number': ['47']}
         response = self.client.post('/extractedtext/edit/354784/', data=data,
                                                             follow=True)
         doc = DataDocument.objects.get(pk=354784)
-        self.assertTrue(doc.extracted, "This document is not extracted ")
+        self.assertTrue(doc.is_extracted, "This document should be extracted ")
         page = html.fromstring(response.content)
         hhe_no = page.xpath('//dd[contains(@class, "hh-report-no")]')[0].text
         self.assertIn('47', hhe_no)

@@ -47,3 +47,8 @@ div.search-result-main{
     border-width: .2rem;
     border: 1px solid #e9ecef;
 }
+
+.tooltip-inner {
+	min-width: 100px;
+	max-width: 100%; 
+}

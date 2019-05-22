@@ -126,14 +126,14 @@
                         <td align="center"><a href="{% url "data_document" doc.id %}"> {{ doc.title }}</a></td>
                         <td align="center">{{ doc.document_type }}</td>
                         <td align="center">
-                            {% if doc.extracted %}
+                            {% if doc.is_extracted %}
                                 <span class="oi oi-circle-check" style="color:green;"></span>
-                                <p style="display:none;">{{ doc.extracted }}</p>
+                                <p style="display:none;">{{ doc.is_extracted }}</p>
                             {% else %}
                                 <a class="btn btn-danger btn-sm" role="button" title="delete"
                                    href="{% url "data_document_delete" doc.id %}">
                                     <span class="oi oi-trash"></span>
-                                </a><p style="display:none;">{{ doc.extracted }}</p>
+                                </a><p style="display:none;">{{ doc.is_extracted }}</p>
                             {% endif %}
                         </td>
                         <td align="center">
