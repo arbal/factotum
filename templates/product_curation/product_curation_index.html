@@ -4,7 +4,7 @@
 {% block content %}
 
 
-<h1 class="col-sm-12"><span class="oi oi-wrench" title="factotum" aria-hidden="true"></span>
+<h1 class="col-sm-12"><span class="fa fa-wrench" title="factotum" aria-hidden="true"></span>
 Product Curation
 
 </h1>
@@ -28,13 +28,13 @@ Product Curation
             {% if data_group.unlinked %}
                 <a class="btn btn-warning btn-sm" role="button" title="Create Product" style="margin-bottom:2px;"
                 href="{% url "link_product_list" data_group.id %}">
-                <span class="oi oi-link-intact"></span> Create Products for {{ data_group.unlinked }} Document{% if data_group.unlinked > 1 %}s{% endif %}</a>
+                <span class="fa fa-link"></span> Create Products for {{ data_group.unlinked }} Document{% if data_group.unlinked > 1 %}s{% endif %}</a>
             {% else %}
                 <button class="btn btn-success btn-sm" disabled>All Documents Linked to Products</button>
             {% endif %}
           {% endfor %}
       <td>{% if data_source.no_category %}<a class="btn btn-danger btn-sm" role="button" title="Assign Product Categories"
-      href="{% url "category_assignment" data_source.pk %}"><span class="oi oi-link-intact"></span> {{ data_source.no_category }}</a>
+      href="{% url "category_assignment" data_source.pk %}"><span class="fa fa-link"></span> {{ data_source.no_category }}</a>
       {% endif %}</td>
     </tr>
   {% endfor %}

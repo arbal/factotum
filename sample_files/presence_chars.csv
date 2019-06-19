@@ -1,4 +1,4 @@
-data_document_id,data_document_filename,doc_date,raw_category,raw_cas,raw_chem_name,cat_code,description_cpcat,cpcat_code,cpcat_sourcetype
-254780,11177849.pdf,,list presence category,0000075-37-6,hydrofluorocarbon 152a,presence_cat_code,desc,This is more than 50 chars...ACToR Assays and Lists ACToR Assays and Lists ,free
-254780,11177849.pdf,2011,list presence category, 100784-20-1,"1H-Pyrazole-4-carboxylic acid, 3-chloro-5-[[[[(4,6-dimethoxy-2-pyrimidinyl)amino]carbonyl]amino]sulfonyl]-1-methyl-, methyl ester",presence_cat_code,pesticide active_ingredient,cpcat_code,Use Categories
-254781,11165872.pdf,,list presence category,0000064-17-5,sd alcohol 40-b (ethanol),presence_cat_code,desc,cpcat_code,free
+data_document_id,data_document_filename,doc_date,raw_category,raw_cas,raw_chem_name,cat_code,description_cpcat,cpcat_code,cpcat_sourcetype,report_funcuse
+254780,11177849.pdf,,list presence category,0000075-37-6,hydrofluorocarbon 152a,presence_cat_code,desc,This is more than 50 chars...ACToR Assays and Lists ACToR Assays and Lists ,free,adhesive
+254780,11177849.pdf,2011,list presence category, 100784-20-1,"1H-Pyrazole-4-carboxylic acid, 3-chloro-5-[[[[(4,6-dimethoxy-2-pyrimidinyl)amino]carbonyl]amino]sulfonyl]-1-methyl-, methyl ester",presence_cat_code,pesticide active_ingredient,cpcat_code,Use Categories,
+254781,11165872.pdf,,list presence category,0000064-17-5,sd alcohol 40-b (ethanol),presence_cat_code,desc,cpcat_code,free,abrasive

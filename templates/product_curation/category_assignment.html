@@ -2,7 +2,7 @@
 {% load humanize %}
 
 {% block content %}
-<h1 class="col-sm-12"><span class="oi oi-wrench" title="factotum" aria-hidden="true"></span>
+<h1 class="col-sm-12"><span class="fa fa-wrench" title="factotum" aria-hidden="true"></span>
 Link Product To PUC</h1>
 <br>
 <div class="row">
@@ -29,14 +29,14 @@ Link Product To PUC</h1>
         {% if product.msds%}
           <a class="btn btn-sm btn-info" role="button" href="/media/{{ product.msds.data_group.get_dg_folder }}/pdf/{{ product.msds.filename }}"
           title="Link to {{ product.msds.filename }} detail"
-          target = "_blank"><span class="oi oi-spreadsheet"></span> {{ product.msds.title }}</a>
+          target = "_blank"><span class="fa fa-file-pdf"></span> {{ product.msds.title }}</a>
         {% else %}
 
         {% endif %}
       </td>
       <td>
         <a class="btn btn-warning btn-sm" role="button" title="Category Assignment"
-         href="{% url "category_assignment_product_puc" datasource.id product.id %}"><span class="oi oi-link-intact"></span> Assign PUC</a>
+         href="{% url "category_assignment_product_puc" datasource.id product.id %}"><span class="fa fa-link"></span> Assign PUC</a>
       </td>
     </tr>
   {% endfor %}

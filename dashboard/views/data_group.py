@@ -3,6 +3,7 @@ import zipfile
 from djqscsv import render_to_csv_response
 from pathlib import Path
 
+from django.db.models import Exists, OuterRef, Subquery, Max
 from django.conf import settings
 from django.core.files import File
 from django.core.exceptions import ValidationError
@@ -10,17 +11,26 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from django.core.paginator import Paginator
 
-from dashboard.models import *
+from dashboard.models import (Product,
+                              ProductDocument,
+                              ExtractedText,
+                              Script,
+                              WeightFractionType,
+                              UnitType,
+                              ExtractedListPresence,
+                              ExtractedChemical,
+                              Ingredient,
+                              DataSource,
+                              DocumentType,
+                              GroupType,
+                              DataDocument,
+                              DataGroup)
 from dashboard.forms import (DataGroupForm,
-                                   ExtractionScriptForm,
-                                   CleanCompDataForm,
-                                   create_detail_formset,
-                                   include_extract_form,
-                                   include_clean_comp_data_form)
+                             ExtractionScriptForm,
+                             CleanCompDataForm,
+                             create_detail_formset)
 from dashboard.utils import get_extracted_models, clean_dict, update_fields
-from django.db.models import Max
 
 
 @login_required()
@@ -30,41 +40,43 @@ def data_group_list(request, template_name='data_group/datagroup_list.html'):
     data['object_list'] = datagroup
     return render(request, template_name, data)
 
+
 @login_required()
 def data_group_detail(request, pk,
                       template_name='data_group/datagroup_detail.html'):
-    dg = get_object_or_404(DataGroup, pk=pk, )
-    dg.doc_types = DocumentType.objects.compatible(dg)
-    docs = dg.datadocument_set.get_queryset()#this needs to be updated after matching...
-    prod_link = ProductDocument.objects.filter(document__in=docs)
-    page = request.GET.get('page')
-    paginator = Paginator(docs, 50) # TODO: make this dynamic someday in its own ticket
-    store = settings.MEDIA_URL + str(dg.fs_id)
-    ext = ExtractedText.objects.filter(data_document_id__in=docs).first()
-    context = { 'datagroup'      : dg,
-                'documents'      : paginator.page(1 if page is None else page),
-                'all_documents'  : docs, # this used for template download
-                'extract_fields' : dg.get_extracted_template_fieldnames(),
+    datagroup = get_object_or_404(DataGroup, pk=pk, )
+    document_product = Product.objects.filter(productdocument__document_id=OuterRef('pk')).order_by().values('title','id')
+    extracted_text = ExtractedText.objects.filter(pk=OuterRef('pk'))
+    documents = DataDocument.objects.filter(data_group=datagroup).\
+        annotate(extracted=Exists(extracted_text)).\
+        annotate(product_id=Subquery(document_product.values('id')[:1])).\
+        annotate(product_title=Subquery(document_product.values('title')[:1])) #[:500]
+    extract_form = ExtractionScriptForm(dg_type=datagroup.type) if datagroup.include_extract_form() else None
+    clean_comp_data_form = CleanCompDataForm() if datagroup.include_clean_comp_data_form() else None
+    product_count = ProductDocument.objects.filter(document__data_group=datagroup).count()
+    store = settings.MEDIA_URL + str(datagroup.fs_id)
+    context = { 'datagroup'      : datagroup,
+                'documents'      : documents,
+                'extract_form'   : extract_form,
+                'clean_comp_data_form'   : clean_comp_data_form,
+                'bulk_product_count': len(documents) - product_count,
                 'ext_err'        : {},
-                'clean_comp_err'        : {},
-                'extract_form'   : include_extract_form(dg),
-                'clean_comp_data_form'   : include_clean_comp_data_form(dg),
-                'bulk'           : len(docs) - len(prod_link),
+                'clean_comp_err' : {},
                 'msg'            : '',
                 }
     if request.method == 'POST' and 'upload' in request.POST:
         # match filename to pdf name
-        matched_files = [f for d in docs for f
+        matched_files = [f for d in documents for f
                 in request.FILES.getlist('multifiles') if f.name == d.filename]
         if not matched_files:
             context['msg'] = ('There are no matching records in the '
                                                         'selected directory.')
             return render(request, template_name, context)
-        zf = zipfile.ZipFile(dg.zip_file, 'a', zipfile.ZIP_DEFLATED)
+        zf = zipfile.ZipFile(datagroup.zip_file, 'a', zipfile.ZIP_DEFLATED)
         while matched_files:
             f = matched_files.pop(0)
             doc = DataDocument.objects.get(filename=f.name,
-                                            data_group=dg.pk)
+                                            data_group=datagroup.pk)
             if doc.matched:
                 continue
             doc.matched = True
@@ -74,30 +86,30 @@ def data_group_detail(request, pk,
             fs.save(afn, f)
             zf.write(store + '/pdf/' + afn, afn)
         zf.close()
-        form = include_extract_form(dg)
+        form = datagroup.include_extract_form()
         # update docs so it appears in the template table w/ "matched" docs
-        context['all_documents'] = dg.datadocument_set.get_queryset()
+        context['all_documents'] = datagroup.datadocument_set.get_queryset()
         context['extract_form'] = form
         context['msg'] = 'Matching records uploaded successfully.'
     if request.method == 'POST' and 'extract_button' in request.POST:
         extract_form = ExtractionScriptForm(request.POST,
-                                                request.FILES,dg_type=dg.type)
+                                                request.FILES,dg_type=datagroup.type)
         if extract_form.is_valid():
             csv_file = request.FILES.get('extract_file')
             script_pk = int(request.POST['script_selection'])
             script = Script.objects.get(pk=script_pk)
             info = [x.decode('ascii','ignore') for x in csv_file.readlines()]
             table = csv.DictReader(info)
-            missing =  list(set(dg.get_extracted_template_fieldnames())-
+            missing =  list(set(datagroup.get_extracted_template_fieldnames())-
                                                         set(table.fieldnames))
             if missing: #column names are NOT a match, send back to user
                 context['msg'] = ('The following columns need to be added or '
                                             f'renamed in the csv: {missing}')
                 return render(request, template_name, context)
             good_records = []
-            ext_parent, ext_child = get_extracted_models(dg.type)
+            ext_parent, ext_child = get_extracted_models(datagroup.type)
             for i, row in enumerate(csv.DictReader(info)):
-                d = docs.get(pk=int(row['data_document_id']))
+                d = documents.get(pk=int(row['data_document_id']))
                 d.raw_category = row.pop('raw_category')
                 wft = request.POST.get('weight_fraction_type', None)
                 if wft: # this signifies 'Composition' type
@@ -138,13 +150,14 @@ def data_group_detail(request, pk,
                     text.save()
                     record.save()
                 fs = FileSystemStorage(store)
-                fs.save(str(dg)+'_extracted.csv', csv_file)
+                fs.save(str(datagroup)+'_extracted.csv', csv_file)
                 context['msg'] = (f'{len(good_records)} extracted records '
                                                     'uploaded successfully.')
-                context['extract_form'] = include_extract_form(dg)
+                context['extract_form'] = datagroup.include_extract_form()
     if request.method == 'POST' and 'bulk' in request.POST:
+        prod_link = ProductDocument.objects.filter(document__in=documents)
         # get the set of documents that have not been matched
-        a = set(docs.values_list('pk',flat=True))
+        a = set(documents.values_list('pk',flat=True))
         b = set(prod_link.values_list('document_id',flat=True))
         # DataDocs to make products for...
         docs_needing_products = DataDocument.objects.filter(pk__in=list(a-b))
@@ -152,12 +165,10 @@ def data_group_detail(request, pk,
         for doc in docs_needing_products:
             # Try to name the new product from the ExtractedText record's prod_name
             try:
+                new_prod_title = None
                 ext = ExtractedText.objects.get(data_document_id=doc.id)
-                if ext:
-                    if ext.prod_name:
-                        new_prod_title = ext.prod_name
-                    else:
-                        new_prod_title = None
+                if ext.prod_name:
+                    new_prod_title = ext.prod_name
             except ExtractedText.DoesNotExist:
                 new_prod_title = None
             # If the ExtractedText record can't provide a title, use the DataDocument's title
@@ -182,7 +193,7 @@ def data_group_detail(request, pk,
             csv_file = request.FILES.get('clean_comp_data_file')
             info = [x.decode('ascii','ignore') for x in csv_file.readlines()]
             table = csv.DictReader(info)
-            missing =  list(set(dg.get_clean_comp_data_fieldnames())-
+            missing =  list(set(datagroup.get_clean_comp_data_fieldnames())-
                                                         set(table.fieldnames))
             if missing: #column names are NOT a match, send back to user
                 context['clean_comp_data_form'].collapsed = False
@@ -219,7 +230,7 @@ def data_group_detail(request, pk,
                     ingredient.save()
                 context['msg'] = (f'{len(good_records)} clean composition data records '
                                                     'uploaded successfully.')
-                context['clean_comp_data_form'] = include_clean_comp_data_form(dg)
+                context['clean_comp_data_form'] = datagroup.include_clean_comp_data_form()
         else:
             context['clean_comp_data_form'].collapsed = False
 
@@ -343,6 +354,7 @@ def data_group_update(request, pk, template_name='data_group/datagroup_form.html
                                             'header': header,
                                             'groups': groups})
 
+
 @login_required()
 def data_group_delete(request, pk, template_name='data_source/datasource_confirm_delete.html'):
     datagroup = get_object_or_404(DataGroup, pk=pk)
@@ -351,31 +363,6 @@ def data_group_delete(request, pk, template_name='data_source/datasource_confirm
         return redirect('data_group_list')
     return render(request, template_name, {'object': datagroup})
 
-@login_required
-def dg_pdfs_zip_view(request, pk):
-    dg = DataGroup.objects.get(pk=pk)
-    #print('opening zip file from %s' % dg.get_zip_url())
-    zip_file_name = f'{dg.fs_id}.zip'
-    zip_file = open(dg.get_zip_url(), 'rb')
-    response = HttpResponse(zip_file, content_type='application/zip')
-    response['Content-Disposition'] = 'attachment; filename=%s' % zip_file_name
-    return response
-
-@login_required
-def data_group_registered_records_csv(request, pk):
-    columnlist = ['filename','title','document_type','url','organization']
-    dg = DataGroup.objects.filter(pk=pk).first()
-    if dg:
-        columnlist.insert(0, "id")
-        qs = DataDocument.objects.filter(data_group_id=pk).values(*columnlist)
-        return render_to_csv_response(qs, filename=(dg.get_name_as_slug() +
-                                                    "_registered_records.csv"),
-                                  field_header_map={"id": "DataDocument_id"},
-                                  use_verbose_names=False)
-    else:
-        qs = DataDocument.objects.filter(data_group_id=0).values(*columnlist)
-        return render_to_csv_response(qs, filename="registered_records.csv",
-                                        use_verbose_names=False)
 
 @login_required()
 def habitsandpractices(request, pk,
@@ -406,20 +393,72 @@ def habitsandpractices(request, pk,
                       }
     return render(request, template_name, context)
 
+
 @login_required
-def dg_raw_extracted_records(request, pk):
+def download_raw_extracted_records(request, pk):
+    datagroup = DataGroup.objects.get(pk=pk)
+    et = ExtractedText.objects.filter(data_document__data_group = datagroup).first()
     columnlist = ['extracted_text_id','id','raw_cas','raw_chem_name','raw_min_comp','raw_central_comp','raw_max_comp','unit_type__title']
-    dg = DataGroup.objects.get(pk=pk)
-    et = ExtractedText.objects.filter(data_document__data_group = dg).first()
     if et:
-        dg_name = dg.get_name_as_slug()
-        qs = ExtractedChemical.objects.filter(extracted_text__data_document__data_group_id=pk).values(*columnlist)
-        #print('Writing %s records to csv' % len(qs) )
-        return render_to_csv_response(qs, filename=(dg_name +
-                                                    "_raw_extracted_records.csv"),
-                                  field_header_map={"id": "ExtractedChemical_id"},
-                                  use_verbose_names=False)
+        qs = ExtractedChemical.objects.filter(extracted_text__data_document__data_group=datagroup).values(*columnlist)
+        return render_to_csv_response(qs,
+                                      filename=(datagroup.get_name_as_slug() + "_raw_extracted_records.csv"),
+                                      field_header_map={"id": "ExtractedChemical_id"},
+                                      use_verbose_names=False)
     else:
         qs = ExtractedChemical.objects.filter(extracted_text__data_document__id=pk).values(*columnlist)
-        return render_to_csv_response(qs, filename='raw_extracted_records.csv' ,
-                                        use_verbose_names=False)
+        return render_to_csv_response(qs,
+                                      filename='raw_extracted_records.csv',
+                                      use_verbose_names=False)
+
+
+@login_required()
+def download_unextracted_datadocuments(request, pk):
+    datagroup = DataGroup.objects.get(pk=pk)
+    documents = DataDocument.objects.filter(data_group=datagroup, matched=True, extractedtext__isnull=True).\
+        values('pk','filename')
+    filename = datagroup.get_name_as_slug() + "_unextracted_documents.csv"
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=' + filename
+    writer = csv.writer(response)
+    writer.writerow(datagroup.get_extracted_template_fieldnames())
+    for document in documents:
+        writer.writerow([ document['pk'], document['filename'] ])
+    return response
+
+
+@login_required
+def download_datadocuments(request, pk):
+    datagroup = DataGroup.objects.get(pk=pk)
+    documents = DataDocument.objects.filter(data_group=datagroup)
+    filename = datagroup.get_name_as_slug() + "_documents.csv"
+    return render_to_csv_response(documents, filename=filename, append_datestamp=True)
+
+
+@login_required
+def download_datadocument_zip_file(request, pk):
+    datagroup = DataGroup.objects.get(pk=pk)
+    zip_file_name = f'{datagroup.fs_id}.zip'
+    zip_file = open(datagroup.get_zip_url(), 'rb')
+    response = HttpResponse(zip_file, content_type='application/zip')
+    response['Content-Disposition'] = 'attachment; filename=%s' % zip_file_name
+    return response
+
+
+@login_required
+def download_registered_datadocuments(request, pk):
+    datagroup = DataGroup.objects.filter(pk=pk).first()
+    columnlist = ['filename','title','document_type','url','organization']
+    if datagroup:
+        columnlist.insert(0, "id")
+        filename = datagroup.get_name_as_slug() + "_registered_documents.csv"
+        qs = DataDocument.objects.filter(data_group=datagroup).values(*columnlist)
+        return render_to_csv_response(qs,
+                                      filename=filename,
+                                      field_header_map={"id": "DataDocument_id"},
+                                      use_verbose_names=False)
+    else:
+        qs = DataDocument.objects.filter(data_group_id=0).values(*columnlist)
+        return render_to_csv_response(qs,
+                                      filename="registered_documents.csv",
+                                      use_verbose_names=False)

@@ -1,0 +1,43 @@
+# Python build stage
+# dep at
+#   /wheels -> /wheels
+FROM alpine:3.9 AS pybuild
+RUN apk add --no-cache \
+        g++ \
+        git \
+        libxml2-dev \
+        libxslt-dev \
+        linux-headers \
+        mariadb-dev \
+        python3-dev
+COPY ./requirements.txt /requirements.txt
+RUN pip3 install wheel
+WORKDIR /wheels
+RUN pip3 wheel -r /requirements.txt
+RUN pip3 wheel tblib
+
+# Dev
+FROM alpine:3.9 AS dev
+RUN apk add --no-cache \
+        chromium \
+        chromium-chromedriver \
+        g++ \
+        git \
+        libxml2-dev \
+        libxslt-dev \
+        linux-headers \
+        mariadb-client \
+        mariadb-dev \
+        python3-dev
+WORKDIR /wheels
+COPY --from=pybuild /wheels /wheels
+RUN pip3 install --no-cache-dir /wheels/*.whl \
+ && rm -rf /wheels
+RUN addgroup -g 1000 factotum && \
+    adduser -D -u 1000 -G factotum factotum
+USER 1000
+ENTRYPOINT ["python3", "/app/manage.py"]
+CMD ["runserver", "0.0.0.0:8000"]
+WORKDIR /app
+VOLUME /app
+EXPOSE 8000

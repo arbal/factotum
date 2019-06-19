@@ -12,7 +12,7 @@ class ExtractedFunctionalUse(CommonInfo, RawChem):
 
     @classmethod
     def detail_fields(cls):
-        return ['extracted_text','raw_cas','raw_chem_name','report_funcuse']
+        return ['extracted_text','raw_chem_name','raw_cas','report_funcuse']
 
     def get_extractedtext(self):
         return self.extracted_text

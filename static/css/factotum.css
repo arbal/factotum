@@ -52,3 +52,31 @@ div.search-result-main{
 	min-width: 100px;
 	max-width: 100%; 
 }
+
+.bubble-chart {
+    border-radius: 25px;
+    border: 2px solid;
+    background-color: #d9ffcc;
+}
+
+/* -----datadocument_detail----- */
+.scroll-div {
+    overflow-y: scroll;
+    overflow-x: hidden !important;  
+    padding-bottom: 247px;
+}
+
+/* make scrollbar transparent */
+/* works in chrome, but not in FireFox */
+#meta::-webkit-scrollbar, #cards::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+.card-text ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1em;
+}
+/* -----datadocument_detail----- */

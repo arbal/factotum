@@ -3,7 +3,9 @@
 {% load humanize %}
 
 {% block content %}
-    <h1 class="col-sm-12"><span class="oi oi-wrench" title="factotum" aria-hidden="true"></span>
+
+    <h1 class="col-sm-12 p-2"><span class="fa fa-wrench" title="factotum" aria-hidden="true"></span>
+
         Welcome to Factotum
 
     </h1>
@@ -84,12 +86,12 @@
     <div class="container">
         <div class="row">
             <h4>Products Linked to PUCs</h4>
-            <div class="btn-group ml-auto" role="group" aria-label="Basic example">
+            <div class="btn-group ml-auto p-1 mr-5" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-secondary" id="split">Split</button>
                 <button type="button" class="btn btn-secondary" id="combine">Combine</button>
             </div>
         </div>
-        <div class="chart-example" id="chart">
+        <div class="bubble-chart" id="chart">
             <svg></svg>
         </div>
     </div>
@@ -101,19 +103,6 @@
 {% block css %}
     <!-- NVD3 CSS -->
     <link rel="stylesheet" href="{% static "css/nv.d3.css" %}">
-    <style media="screen">
-        .chart-example {
-            border-radius: 25px;
-            border: 2px solid;
-            background-color: #d9ffcc;
-        }
-
-        .btn-group {
-            padding: 8px;
-            margin-right: 147px;
-        }
-
-    </style>
 {% endblock %}
 
 {% block js %}
@@ -176,7 +165,7 @@
             }
             // selection.datum() returns the bound datum for the first element in the selection and
             //  doesn't join the specified array of data with the selected elements
-            var chart = bubbleChart();
+            var chart = bubbleChart(1080, 500);
             d3.select('#chart').datum(data).call(chart);
         });
 

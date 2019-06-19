@@ -264,3 +264,10 @@
     updated_at: 2019-05-13 00:04:59.522290
     product: 1859
     document: 166266
+- model: dashboard.productdocument
+  pk: 1982
+  fields:
+    created_at: 2019-06-07 19:47:35.149866
+    updated_at: 2019-06-07 19:47:35.149866
+    product: 1871
+    document: 127870

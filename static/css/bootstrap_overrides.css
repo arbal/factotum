@@ -7,7 +7,10 @@ body {
   margin-bottom: 60px;
 }
 body > .container {
-  padding: 60px 15px 0;
+  position: relative;
+  top: 40px;
+  max-width: 100%;
+  padding-bottom: 40px;
 }
 code {
   font-size: 80%;
@@ -33,7 +36,7 @@ code {
 }
 
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */

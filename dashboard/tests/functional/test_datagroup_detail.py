@@ -24,12 +24,20 @@ class DataGroupDetailTest(TestCase):
                     ('ExtractForm should not be included in the page!'))
         self.objects.doc.matched = True
         self.objects.doc.save()
+        self.objects.doc.extractedtext.delete()
+        self.assertFalse(self.objects.dg.all_extracted())
         response = self.client.get(f'/datagroup/{pk}/')
         self.assertTrue(response.context['datagroup'].all_matched(), (
                     'UploadForm should not be included in the page!'))
         self.assertIsInstance(response.context['extract_form'],
                                             ExtractionScriptForm,
                     ('ExtractForm should be included in the page!'))
+        ExtractedText.objects.create(data_document=self.objects.doc,
+                                    extraction_script=self.objects.exscript)
+        self.assertTrue(self.objects.dg.all_extracted())
+        response = self.client.get(f'/datagroup/{pk}/')
+        self.assertFalse(response.context['extract_form'],
+                        'ExtractForm should NOT be included in the page!')
 
 
     def test_detail_template_fieldnames(self):
@@ -37,7 +45,7 @@ class DataGroupDetailTest(TestCase):
         self.assertEqual(str(self.objects.dg.group_type),'Composition',
         'Type of DataGroup needs to be "composition" for this test.')
         response = self.client.get(f'/datagroup/{pk}/')
-        self.assertEqual(response.context['extract_fields'],
+        self.assertEqual(self.objects.dg.get_extracted_template_fieldnames(),
                 ['data_document_id','data_document_filename',
                 'prod_name','doc_date','rev_num', 'raw_category',
                  'raw_cas', 'raw_chem_name',
@@ -50,7 +58,7 @@ class DataGroupDetailTest(TestCase):
         self.assertEqual(str(self.objects.dg.group_type),'Functional use',
             'Type of DataGroup needs to be "FU" for this test.')
         response = self.client.get(f'/datagroup/{pk}/')
-        self.assertEqual(response.context['extract_fields'],
+        self.assertEqual(self.objects.dg.get_extracted_template_fieldnames(),
                 ['data_document_id','data_document_filename',
                 'prod_name','doc_date','rev_num', 'raw_category',
                  'raw_cas', 'raw_chem_name','report_funcuse'],
@@ -60,6 +68,7 @@ class DataGroupDetailTest(TestCase):
         pk = self.objects.dg.pk
         self.objects.doc.matched = True
         self.objects.doc.save()
+        self.objects.extext.delete()
         response = self.client.get(f'/datagroup/{pk}/')
         self.assertIsInstance(response.context['extract_form'],
                                             ExtractionScriptForm,
@@ -72,7 +81,7 @@ class DataGroupDetailTest(TestCase):
 
     def test_bulk_create_products_form(self):
         response = self.client.get(f'/datagroup/{self.objects.dg.pk}/')
-        self.assertEqual(response.context['bulk'], 0,
+        self.assertEqual(response.context['bulk_product_count'], 0,
                 'Product linked to all DataDocuments, no bulk_create needed.')
         doc = DataDocument.objects.create(data_group=self.objects.dg)
         doc.matched = True
@@ -80,14 +89,14 @@ class DataGroupDetailTest(TestCase):
         doc.save()
         self.objects.doc.save()
         response = self.client.get(f'/datagroup/{self.objects.dg.pk}/')
-        self.assertEqual(response.context['bulk'], 1,
+        self.assertEqual(response.context['bulk_product_count'], 1,
                 'Not all DataDocuments linked to Product, bulk_create needed')
         self.assertIn('Bulk Create', response.content.decode(),
                             "Bulk create button should be present.")
         p = Product.objects.create(upc='stub_47',data_source=self.objects.ds)
         ProductDocument.objects.create(document=doc, product=p)
         response = self.client.get(f'/datagroup/{self.objects.dg.pk}/')
-        self.assertEqual(response.context['bulk'], 0,
+        self.assertEqual(response.context['bulk_product_count'], 0,
         'Product linked to all DataDocuments, no bulk_create needed.')
         self.objects.dg.group_type = GroupType.objects.create(
                                                 title='Habits and practices')
@@ -101,7 +110,7 @@ class DataGroupDetailTest(TestCase):
         # create a new DataDocument with no Product
         doc = DataDocument.objects.create(data_group=self.objects.dg)
         response = self.client.get(f'/datagroup/{self.objects.dg.pk}/')
-        self.assertEqual(response.context['bulk'], 1,
+        self.assertEqual(response.context['bulk_product_count'], 1,
                 'Not all DataDocuments linked to Product, bulk_create needed')
         new_stub_id = Product.objects.all().aggregate(Max('id'))["id__max"] + 1
         response = self.client.post(f'/datagroup/{self.objects.dg.pk}/',
@@ -141,13 +150,13 @@ class DataGroupDetailTest(TestCase):
     def test_delete_doc_button(self):
         url = f'/datagroup/{DataGroup.objects.first().id}/'
         response = self.client.get(url).content.decode('utf8')
-        span = '<span class="oi oi-trash"></span>'
+        span = '<span class="fa fa-trash">'
         self.assertIn(span, response,
                       'Trash button should be present if not matched.')
         self.objects.doc.matched = True
         self.objects.doc.save()
         response = self.client.get(url).content.decode('utf8')
-        span = '<span class="oi oi-circle-check" style="color:green;"></span>'
+        span = '<span class="fa fa-check-circle" style="color:green;"></span>'
         self.assertIn(span, response,
                       'Check should be present if matched.')
 
@@ -207,12 +216,11 @@ class DataGroupDetailTestWithFixtures(TestCase):
             ).order_by().values_list('data_group_id',flat=True).distinct()
 
         for dg_id in dg_ids:
-            #resp = self.client.get(f'/datagroup/%s/' % dg_id)
-            resp = self.client.get(f'/datagroup/raw_extracted_records/%s/' % dg_id)
+            resp = self.client.get(f'/datagroup/%s/download_raw_extracted_records/' % dg_id)
             self.assertEqual(resp.status_code, 200)
 
         # File downloaded must include [specified fields]
-        resp = self.client.get(f'/datagroup/raw_extracted_records/%s/' % dg_ids[0])
+        resp = self.client.get(f'/datagroup/%s/download_raw_extracted_records/' % dg_ids[0])
         field_list = 'ExtractedChemical_id,raw_cas,raw_chem_name,raw_min_comp,raw_central_comp,raw_max_comp,unit_type'
         content = list(i.decode('utf-8') for i in resp.streaming_content)
         self.assertIn(field_list, content[1])

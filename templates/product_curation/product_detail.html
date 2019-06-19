@@ -8,10 +8,10 @@
         <span name="title">{{ product.title }}</span>
         <div class="btn-group float-lg-right" role="group" aria-label="Manage Product">
             <a class="btn btn-success btn-sm" role="button" title="edit" href="{% url 'product_edit' pk=product.pk %}">
-                <span class="oi oi-pencil"></span> </a>
+                <span class="fa fa-fs fa-edit"></span> </a>
             <a class="btn btn-danger btn-sm" role="button" title="delete"
                href="{% url "product_delete" pk=product.pk %}">
-                <span class="oi oi-trash"></span> </a>
+                <span class="fa fa-fs fa-trash"></span> </a>
         </div>
     </h1>
     <h2>
@@ -26,10 +26,10 @@
                     {% if puc.id %}
                         <a class="btn btn-success btn-sm" role="button" title="Edit PUC Relationship"
                            href="{% url 'product_puc' pk=product.pk %}">
-                            <span class="oi oi-pencil"></span> </a>
+                            <span class="fa fa-fs fa-edit"></span> </a>
                         <a class="btn btn-danger btn-sm" role="button" title="Delete PUC Relationship"
                            href="{% url 'product_puc_delete' pk=product.pk %}">
-                            <span class="oi oi-trash"></span> </a>
+                            <span class="fa fa-fs fa-trash"></span> </a>
                     {% else %}
                         <a class="btn btn-success btn-sm" role="button" title="edit" id="button_assign_puc"
                            href="{% url 'product_puc' pk=product.pk %}">Assign PUC</a>
@@ -55,7 +55,17 @@
                 </h5>
                 <div class="flex border border-secondary border-2 border-top-0 border-left-0 rounded-bottom">
                     {% for assumed in assumed_tags %}
-                        <button type="button" class="flex-1 mb-1 ml-1 assumed btn btn-primary" disabled>{{ assumed.name }}</button>
+                        <button type="button" 
+                                class="flex-1 mb-1 ml-1 assumed btn btn-primary"
+                                data-tag-name="{{ assumed.name }}"
+                                {% if assumed.definition %}
+                                    title="{{ assumed.definition }}"
+                                {% else %}
+                                    title="No definition"
+                                {% endif %}
+                                disabled>
+                                {{ assumed.name }}
+                        </button>
                     {% endfor %}
                 </div>
                 </br>
@@ -68,7 +78,11 @@
                         {% if product.get_puc_tag_list|length > 1 %}
                             <button type="submit" 
                                     id="tag_submit" 
-                                    class="btn btn-sm btn-success rounded-0 ml-auto"><small>Submit</small></button>
+                                    class="btn btn-sm btn-success rounded-0 ml-auto">
+                                    <small>
+                                        Submit
+                                    </small>
+                                </button>
                         </h5>
                         {{ tagform }}
                     </form>
@@ -127,12 +141,12 @@
                         <td align="center">{{ doc.document_type }}</td>
                         <td align="center">
                             {% if doc.is_extracted %}
-                                <span class="oi oi-circle-check" style="color:green;"></span>
+                                <span class="fa fa-check-circle" style="color:green;"></span>
                                 <p style="display:none;">{{ doc.is_extracted }}</p>
                             {% else %}
                                 <a class="btn btn-danger btn-sm" role="button" title="delete"
                                    href="{% url "data_document_delete" doc.id %}">
-                                    <span class="oi oi-trash"></span>
+                                    <span class="fa fa-trash"></span>
                                 </a><p style="display:none;">{{ doc.is_extracted }}</p>
                             {% endif %}
                         </td>
@@ -140,7 +154,7 @@
                             <div class="btn-group">
                                 <a href="{{ doc.pdf_url }}" title="Link to {{ doc.get_abstract_filename }}"
                                    target="_blank">
-                                    <img src="{% static 'images/PDF_32.png' %}" height="32px" width="32px">
+                                   <span class="fa fa-fs fa-file-pdf"></span>
                                 </a>
                             </div>
                         </td>

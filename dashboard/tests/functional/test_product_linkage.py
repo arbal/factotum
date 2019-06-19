@@ -55,7 +55,7 @@ class TestProductLinkage(TestCase):
         dg = DataGroup.objects.get(pk=19)
         response = self.client.get(f'/datagroup/19/')
         unlinked = dg.datadocument_set.filter(products__isnull=True).count()
-        self.assertEqual(response.context['bulk'], unlinked,
+        self.assertEqual(response.context['bulk_product_count'], unlinked,
                 'Not all DataDocuments linked to Product, bulk_create needed')
         response = self.client.post(f'/datagroup/19/',{'bulk':unlinked})
         self.assertEqual(response.context['bulk'], 0,
@@ -85,7 +85,7 @@ class TestProductLinkage(TestCase):
         # delete the ProductDocument links and recreate them via the bulk request
         ProductDocument.objects.filter(document_id__in=doc_list).delete()
         response = self.client.get(f'/datagroup/6/')
-        self.assertEqual(response.context['bulk'], 2,
+        self.assertEqual(response.context['bulk_product_count'], 2,
                 'Not all DataDocuments linked to Product, bulk_create needed')
         response = self.client.post(f'/datagroup/6/',{'bulk':1})
         self.assertEqual(response.context['bulk'], 0,

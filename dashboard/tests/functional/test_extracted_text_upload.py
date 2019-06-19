@@ -123,7 +123,7 @@ class UploadExtractedFileTest(TestCase):
         self.assertEqual(len(ExtractedCPCat.objects.all()),0,
                         "Should be empty before upload.")
         usr = User.objects.get(username='Karyn')
-        # test for error to be propogated w/o a 1:1 match of ExtCPCat to DataDoc
+        # test for error to be propagated w/o a 1:1 match of ExtCPCat to DataDoc
         in_mem_sample_csv = make_upload_csv('sample_files/presence_cpcat.csv')
         req_data = {'script_selection': 5,
                     'extract_button': 'Submit',

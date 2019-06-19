@@ -57,7 +57,7 @@ class QATest(TestCase):
 
         # A button for each row that will take you to the script's QA page
         script_qa_link = response_html.xpath(
-            '//*[@id="extraction_script_table"]/tbody/tr[contains(.,"Test Extraction Script")]/td[4]/a/@href')[0]
+            '//*[@id="extraction_script_table"]/tbody/tr[contains(.,"Test Extraction Script")]/td[5]/a/@href')[0]
         self.assertIn(
             f'/qa/extractionscript/{str(self.objects.exscript.pk)}/', script_qa_link)
 
@@ -81,7 +81,8 @@ class QATest(TestCase):
             '/qa/extractionscript/').content.decode('utf8')
         response_html = html.fromstring(response)
         script_qa_status = response_html.xpath(
-            '//*[@id="extraction_script_table"]/tbody/tr[contains(.,"Test Extraction Script")]/td[4]/text()')[0]
+            '//*[@id="extraction_script_table"]/tbody/tr[contains(.,"Test Extraction Script")]/td[5]/text()')[0]
         str_qa_complete = 'QA Complete'
         self.assertIn(str_qa_complete, script_qa_status,
                       'The QA Status field should now say "QA Complete" instead of "Begin QA"')
+

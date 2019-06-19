@@ -4,16 +4,97 @@ from dateutil.relativedelta import relativedelta
 
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.db.models import Count, F, DateField, DateTimeField
+from django.db.models import Aggregate, Count, F, DateField, DateTimeField, Q
 from django.db.models.functions import Trunc
 from django.contrib.auth.decorators import login_required
 
 from dashboard.models import *
 
-from dashboard.models import *
-
 current_date = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d')
 chart_start_datetime = datetime.datetime(datetime.datetime.now().year - 1, min(12,datetime.datetime.now().month + 1), 1)
+
+
+class GroupConcat(Aggregate):
+    '''Allows Django to use the MySQL GROUP_CONCAT aggregation.
+
+    Arguments:
+        separator (str): the delimiter to use (default=',')
+
+    Example:
+        Pizza.objects.annotate(
+            topping_str=GroupConcat(
+                'toppings',
+                separator=', ',
+                distinct=True,
+            )
+        )
+    '''
+    function = 'GROUP_CONCAT'
+    template = '%(function)s(%(distinct)s%(expressions)s SEPARATOR \'%(separator)s\')'
+    allow_distinct = True
+    def __init__(self, expression, separator=',', **extra):
+        super().__init__(
+            expression,
+            separator=separator,
+            **extra
+        )
+
+
+class SimpleTree:
+    '''A simple tree data structure.
+    
+    Properties:
+        name (str): the node name
+        value (any): the root node value
+        leaves (list): a list of children SimpleTree objects
+    '''
+    def __init__(self, name=None, value=None, leaves=[]):
+        '''Initialize a SimpleTree instance.
+
+        Arguments:
+            name (str): the node name (default=None)
+            value (any): the root node value (default=None)
+            leaves (list): a list of children SimpleTree objects (default=[])
+        '''
+        self.name = name
+        self.value = value
+        self.leaves = leaves
+    def set(self, names, value, default=None):
+        '''Recursively add leaves to a SimpleTree object.
+
+        Arguments:
+            names (iter): an iterable of names to route the leaf under
+            value (any): the leaf value (default=default)
+            default (any): if a leaf doesn't exist upstream from the destination
+                           use this value as the upstream leaf value
+        '''
+        root = self
+        for name in names:
+            try:
+                leaf = next(l for l in root.leaves if l.name == name)
+            except StopIteration:
+                leaf = SimpleTree(name=name, value=default, leaves=[])
+                root.leaves.append(leaf)
+            root = leaf
+        root.value = value
+    def iter(self):
+        '''Return an iterator than traverses the tree downward.'''
+        yield self
+        for leaf in self.leaves:
+            yield from leaf.iter()
+    def find(self, names):
+        '''Breadth-first search
+
+        Arguments:
+            names (iter): an iterable containing the the names to look for
+
+        Returns:
+            a SimpleTree object
+        '''
+        root = self
+        for name in names:
+            root = next(l for l in root.leaves if l.name == name)
+        return root
 
 
 def index(request):
@@ -100,36 +181,74 @@ def product_with_puc_count_by_month():
                 product_stats.insert(i, {'product_count': '0', 'puc_assigned_month': chart_month})
     return product_stats
 
-
 def download_PUCs(request):
     '''This view gets called every time we call the index view and is used to
-    populate the bubble plot. It is also used to download all of the PUCs in 
-    csv form. The "bubbles" parameter in the request will either be "True" or 
-    "None", it's worth noting that if when making the call to here from the 
-    index page we were to use ?bubbles=False it would also give us the filtered
-    PUCs because the if expression is just checking whether that parameter is 
-    there.
+    populate the bubble plot. It is also used to download all of the PUCs in
+    csv form.
     '''
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="PUCs.csv"'
-    bubbles = request.GET.get('bubbles')
-    writer = csv.writer(response)
-    cols = ['General category','Product family','Product type','Allowed attributes','Assumed attributes','Description','PUC type','PUC level','Product count','Cumulative product count']
-    writer.writerow(cols)
-    pucs = PUC.objects.filter(kind='FO') if bubbles else PUC.objects.all()
+    bubbles = request.GET.get('bubbles', None)
+    dtxsid = request.GET.get('dtxsid', None)
+    pucs = PUC.objects.all()
+    if bubbles:
+        pucs = pucs.filter(kind='FO')
+    if dtxsid:
+        pucs = pucs.filter(products__datadocument__extractedtext__rawchem__dsstox__sid=dtxsid)
+    pucs = (pucs
+        .annotate(
+            allowed_attributes=GroupConcat(
+                'tags__name',
+                separator='; ',
+                distinct=True,
+            )
+        )
+        .annotate(
+            assumed_attributes=GroupConcat(
+                'tags__name',
+                separator='; ',
+                distinct=True,
+                filter=Q(puctotag__assumed=True),
+            )
+        )
+        .annotate(products_count=Count('products', distinct=True))
+    ).order_by('gen_cat', 'prod_fam', 'prod_type')
+
+    # Let's use a tree data structure to represent our PUC hierarchy
+    # so we can efficiently traverse it to find cumulative product count
+    puc_tree = SimpleTree(name='root', value=None, leaves=[])
     for puc in pucs:
-        row = [ puc.gen_cat,
-                puc.prod_fam, 
-                puc.prod_type, 
-                # list(puc.get_allowed_tags()),
-                '; '.join([str(allowedTag) for allowedTag in puc.puctotag_set.all()]),
-                '; '.join([str(assumedTag) for assumedTag in puc.puctotag_set.filter(assumed=True)]),
-                puc.description, 
-                puc.kind,
-                puc.get_level(), 
-                puc.product_count,
-                puc.cumulative_product_count
-                ]
-        writer.writerow(row)
+        names = (n for n in (puc.gen_cat, puc.prod_fam, puc.prod_type) if n)
+        puc_tree.set(names, puc)
+    # Write CSV
+    writer = csv.writer(response)
+    cols = (
+        'General category',
+        'Product family',
+        'Product type',
+        'Allowed attributes',
+        'Assumed attributes',
+        'Description',
+        'PUC type',
+        'PUC level',
+        'Product count',
+        'Cumulative product count',
+    )
+    writer.writerow(cols)
+    for puc_leaf in puc_tree.iter():
+        if puc_leaf.value:
+            row = (
+                puc_leaf.value.gen_cat,
+                puc_leaf.value.prod_fam,
+                puc_leaf.value.prod_type,
+                puc_leaf.value.allowed_attributes,
+                puc_leaf.value.assumed_attributes,
+                puc_leaf.value.description,
+                puc_leaf.value.kind,
+                sum(1 for n in (puc_leaf.value.gen_cat, puc_leaf.value.prod_fam, puc_leaf.value.prod_type) if n),
+                puc_leaf.value.products_count,
+                sum(l.value.products_count for l in puc_leaf.iter() if l.value),
+            )
+            writer.writerow(row)
 
     return response

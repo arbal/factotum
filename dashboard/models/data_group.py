@@ -192,19 +192,35 @@ class DataGroup(CommonInfo):
             return extract_fields + ['raw_min_comp','raw_max_comp', 'unit_type',
                                         'ingredient_rank', 'raw_central_comp']
         if self.type == 'CP':
-            for name in ['prod_name','rev_num','report_funcuse']:
+            for name in ['prod_name','rev_num']:
                 extract_fields.remove(name)
             return extract_fields + ['cat_code','description_cpcat',
                                     'cpcat_code','cpcat_sourcetype']
 
+
     def get_clean_comp_data_fieldnames(self):
         return ['id','lower_wf_analysis','central_wf_analysis', 'upper_wf_analysis']
+
 
     def clean_fields(self, exclude=None):
         super().clean_fields(exclude=exclude)
         if self.tracker.has_changed('group_type_id') and self.extracted_docs():
             msg = "The Group Type may not be changed once extracted documents have been associated with the group."
             raise ValidationError({'group_type': msg})
+
+
+    def include_extract_form(self):
+        if self.type in ['FU', 'CO', 'CP'] and self.all_matched() and not self.all_extracted():
+            return True
+        else:
+            return False
+
+
+    def include_clean_comp_data_form(self):
+        if self.type == 'CO' and self.extracted_docs() > 0:
+            return True
+        else:
+            return False
 
 
 @receiver(models.signals.post_delete, sender=DataGroup)
@@ -215,5 +231,4 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
     """
     dg_folder = instance.get_dg_folder()
     if os.path.isdir(dg_folder):
-        #print('deleting folder %s for data group %s'%(dg_folder, instance.pk))
         shutil.rmtree(dg_folder)

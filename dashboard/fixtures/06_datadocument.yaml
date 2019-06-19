@@ -8370,14 +8370,20 @@
     updated_at: 2018-10-18 05:20:14.698196
     filename: 0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf
     title: List of Chemicals 1
-    subtitle: null
+    subtitle: "A list of chemicals with a subtitle"
     url: https://www.epa.gov
     raw_category: null
     data_group: 49
     matched: true
     document_type: 10
     organization: ''
-    note: null
+    note: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
+    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
+    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
+    culpa qui officia deserunt mollit anim id est laborum."
 - model: dashboard.datadocument
   pk: 254781
   fields:

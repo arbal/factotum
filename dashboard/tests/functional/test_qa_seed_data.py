@@ -4,6 +4,7 @@ from dashboard import views
 from django.test import TestCase, override_settings, RequestFactory
 from dashboard.models import DataDocument, Script, ExtractedText, ExtractedChemical, QAGroup
 from django.db.models import Count
+from lxml import html
 
 
 @override_settings(ALLOWED_HOSTS=['testserver'])
@@ -48,6 +49,12 @@ class TestQaPage(TestCase):
         response = self.client.get(f'/qa/extractionscript/')
         self.assertIn(
             f"'/qa/extractionscript/15/\'> Continue QA".encode(), response.content)
+
+    def test_doc_fields(self):
+        ''' The subtitle and note field should appear on the page '''
+        response = self.client.get(f'/qa/extractedtext/254780/')
+        self.assertIn('Lorem ipsum dolor'.encode(), response.content)
+        self.assertIn('A list of chemicals with a subtitle'.encode(), response.content)
 
     def test_qa_script_without_ext_text(self):
         # Begin from the QA index page
@@ -275,3 +282,35 @@ class TestQaPage(TestCase):
             if response.status_code != 200:
                 print(et.data_document_id)
             self.assertEqual(response.status_code, 200)
+
+    def test_qa_summary(self):
+        es = Script.objects.get(pk=5)
+        extext = ExtractedText.objects.get(pk=7)
+        response = self.client.get(
+            f'/qa/extractionscript/{es.pk}/summary').content.decode('utf8')
+        response_html = html.fromstring(response)
+        extractedtext_count = response_html.xpath('string(//*[@id="extractedtext_count"])')
+        qa_complete_extractedtext_count = response_html.xpath('string(//*[@id="qa_complete_extractedtext_count"])')
+        qa_incomplete_extractedtext_count = response_html.xpath('string(//*[@id="qa_incomplete_extractedtext_count"])')
+        self.assertEqual(extractedtext_count, '2', "Two total documents should be associated with this script.")
+        self.assertEqual(qa_complete_extractedtext_count, '0', "0 documents should be approved.")
+        self.assertEqual(qa_incomplete_extractedtext_count, '2', "2 documents should be unapproved.")
+        qa_note_count = int(response_html.xpath('count(//*[@id="qa_notes"])'))
+        self.assertEqual(qa_note_count, 0, "There should be no QA Notes associated with this script.")
+
+        qa_note = QANotes.objects.create(extracted_text=extext,qa_notes='Test QA Note')
+        extext.qa_checked = True
+        extext.save()
+
+        response = self.client.get(f'/qa/extractionscript/{es.pk}/summary').content.decode('utf8')
+        response_html = html.fromstring(response)
+        extractedtext_count = response_html.xpath('string(//*[@id="extractedtext_count"])')
+        qa_complete_extractedtext_count = response_html.xpath('string(//*[@id="qa_complete_extractedtext_count"])')
+        qa_incomplete_extractedtext_count = response_html.xpath('string(//*[@id="qa_incomplete_extractedtext_count"])')
+        self.assertEqual(extractedtext_count, '2', "Two total documents should be associated with this script.")
+        self.assertEqual(qa_complete_extractedtext_count, '1', "1 document should now be approved.")
+        self.assertEqual(qa_incomplete_extractedtext_count, '1', "1 document should be unapproved.")
+        qa_note_count = int(response_html.xpath('count(//*[@id="qa_notes"])'))
+        self.assertEqual(qa_note_count, 1, "There should be 1 QA Note associated with this script.")
+
+

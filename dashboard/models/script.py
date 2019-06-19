@@ -3,8 +3,7 @@ from random import shuffle
 
 from django.db import models
 from django.urls import reverse
-from django.core.validators import (URLValidator, MaxValueValidator, 
-                                                    MinValueValidator)
+from django.core.validators import URLValidator, MaxValueValidator, MinValueValidator
 
 from .common_info import CommonInfo
 from .data_document import DataDocument
@@ -78,6 +77,21 @@ class Script(CommonInfo):
         Return true when the percent checked is above the threshold
         """
         return self.get_pct_checked_numeric() >= self.QA_COMPLETE_PERCENTAGE * 100
+
+    def get_or_create_qa_group(self):
+        from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
+        from .qa_group import QAGroup
+        try:
+            qa_group = QAGroup.objects.get(extraction_script=self,
+                                           qa_complete=False)
+        except MultipleObjectsReturned:
+            qa_group = QAGroup.objects.filter(extraction_script=self,
+                                              qa_complete=False).first()
+        except ObjectDoesNotExist:
+            qa_group = self.create_qa_group()
+            self.qa_begun = True
+            self.save()
+        return qa_group
 
     def create_qa_group(self, force_doc_id=None):
         """

@@ -7,7 +7,7 @@
 {% block content %}
 
 
-<h1><span class="oi oi-wrench" title="factotum" aria-hidden="true"></span>Link Product To PUC</h1>
+<h1><span class="fa fa-wrench" title="factotum" aria-hidden="true"></span>Link Product To PUC</h1>
 <br>
 <h2>
   {{ product.title }}
@@ -25,7 +25,7 @@
     {% csrf_token %}
       {% for dd in product.datadocument_set.all %}
         <p>
-          <span class="oi oi-file" title="pdf" ></span>
+          <span class="fa fa-file" title="pdf" ></span>
               <a href="{{ dd.pdf_url }}" title="Link to {{ dd.filename }}" target = "_blank">{{dd.filename}}
               </a>
         </p>

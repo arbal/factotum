@@ -10,7 +10,7 @@ class RawChem(models.Model):
         on_delete=models.CASCADE, null=False, blank = False)
 
     raw_cas = models.CharField("Raw CAS", max_length=100, null=True, blank=True)
-    raw_chem_name = models.CharField("Raw chemical name", max_length=500,
+    raw_chem_name = models.CharField("Raw chemical name", max_length=1300,
                                                         null=True, blank=True)
     temp_id = models.IntegerField(default=0, null=True, blank=True)
     temp_obj_name = models.CharField(max_length=255, null=True, blank=True)
@@ -70,14 +70,3 @@ class RawChem(models.Model):
         if whitespace(self.raw_chem_name):
             self.raw_chem_name = self.raw_chem_name.strip()
 
-    @staticmethod
-    def pre_save(sender, **kwargs):
-        instance = kwargs.get('instance')
-        previous_raw_cas = instance.tracker.previous('raw_cas')
-        previous_raw_chem_name = instance.tracker.previous('raw_chem_name')
-       
-        if instance.tracker.has_changed('raw_cas') or \
-        instance.tracker.has_changed('raw_chem_name'):
-            instance.dsstox = None
-
-pre_save.connect(RawChem.pre_save, sender=RawChem)

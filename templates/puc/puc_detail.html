@@ -27,7 +27,17 @@
         </h5>
             {% if puc.get_assumed_tags|length > 1 %}
                 {% for tag in puc.get_assumed_tags %}
-                    <button type="button" class="flex-1 mb-1 ml-1 btn btn-primary" disabled>{{ tag.name }}</button>
+                <button type="button" 
+                    class="flex-1 mb-1 ml-1 btn btn-primary"
+                    data-tag-name="{{ tag.name }}"
+                    {% if tag.definition %}
+                        title="{{ tag.definition }}"
+                    {% else %}
+                        title="No definition"
+                    {% endif %}
+                    disabled>
+                    {{ tag.name }}
+                </button>
                 {% endfor %}
             {% else %}
                 No assumed attributes are associated with this PUC
@@ -39,7 +49,17 @@
             </h5>
             {% if puc.get_allowed_tags|length > 1 %}
                 {% for tag in puc.get_allowed_tags %}
-                    <button type="button" class="flex-1 mb-1 ml-1 btn btn-primary" disabled>{{ tag.name }}</button>
+                <button type="button" 
+                    class="flex-1 mb-1 ml-1 btn btn-primary"
+                    data-tag-name="{{ tag.name }}"
+                    {% if tag.definition %}
+                        title="{{ tag.definition }}"
+                    {% else %}
+                        title="No definition"
+                    {% endif %}
+                    disabled>
+                    {{ tag.name }}
+                </button>
                 {% endfor %}
             {% else %}
                 No allowed attributes are associated with this PUC

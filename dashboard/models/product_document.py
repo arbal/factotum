@@ -12,7 +12,7 @@ class ProductDocumentManager(models.Manager):
 		"""Retrieve a queryset of ProductDocuments where the 'document' is
 		linked to an instance of DSSToxLookup, i.e. chemical.
 		"""
-		if not type(dsstox) == apps.get_model('dashboard.DSSToxLookup'):
+		if not type(dsstox)== apps.get_model('dashboard.DSSToxLookup'):
 			raise TypeError("'dsstox' argument is not a DSSToxLookup instance.")
 		return self.filter(
 			document__extractedtext__rawchem__in=dsstox.curated_chemical.all()

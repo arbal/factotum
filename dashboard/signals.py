@@ -26,6 +26,7 @@ def uncurate(sender, **kwargs):
     watched_keys = {'raw_cas','raw_chem_name'}
     if not instance.tracker.changed().keys().isdisjoint(watched_keys):
         instance.dsstox = None
+        instance.rid = None
 
 
 @receiver(post_delete, sender=DocumentTypeGroupTypeCompatibilty)

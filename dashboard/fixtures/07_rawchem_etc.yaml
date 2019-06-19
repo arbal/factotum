@@ -4542,7 +4542,8 @@
     temp_obj_name: ExtractedChemical, rid: null, dsstox: null}
 - model: dashboard.rawchem
   pk: 448
-  fields: {extracted_text: 180119, raw_cas: 7440-50-8, raw_chem_name: Copper, temp_id: 123071,
+  fields: {extracted_text: 180119, raw_cas: 7440-50-8, 
+  raw_chem_name: 'methionylglutaminylarginyltyrosylglutamylserylleucyl phenylalanylalanylglutaminylleucyllysylglutamylarginyl lysylglutamylglycylalanylphenylalanylvalylprolylphenyl alanylvalylthreonylleucylglycylaspartylprolylglycylisol eucylglutamylglutaminylserylleucyllysylisoleucylaspartyl threonylleucylisoleucylglutamylalanylglycylalanylaspartyl alanylleucylglutamylleucylglycylisoleucylprolylphenyl alanylserylaspartylprolylleucylalanylaspartylglycylprolyl threonylisoleucylglutaminylasparaginylalanylthreonylleucyl arginylalanylphenylalanylalanylalanylglycylvalylthreonyl prolylalanylglutaminylcysteinylphenylalanylglutamyl methionylleucylalanylleucylisoleucylarginylglutaminyllysyl histidylprolylthreonylisoleucylprolylisoleucylglycylleucyl leucylmethionyltyrosylalanylasparaginylleucylvalylphenyl alanylasparaginyllysylglycylisoleucylaspartylglutamylphenyl alanyltyrosylalanylglutaminylcysteinylglutamyllysylvalyl glycylvalylaspartylserylvalylleucylvalylalanylaspartylvalyl prolylvalylglutaminylglutamylserylalanylprolylphenylalanyl arginylglutaminylalanylalanylleucylarginylhistidylasparaginyl valylalanylprolylisoleucylphenylalanylisoleucylcysteinyl prolylprolylaspartylalanylaspartylaspartylaspartylleucyl leucylarginylglutaminylisoleucylalanylseryltyrosylglycyl arginylglycyltyrosylthreonyltyrosylleuc', temp_id: 123071,
     temp_obj_name: ExtractedChemical, rid: null, dsstox: null}
 - model: dashboard.rawchem
   pk: 449
@@ -6585,7 +6586,7 @@
   pk: 86
   fields: {created_at: ! '2018-06-06 07:33:20', updated_at: ! '2018-06-06 07:33:20',
     raw_min_comp: null, raw_max_comp: null, unit_type: 2, report_funcuse: null, weight_fraction_type: 1,
-    ingredient_rank: null, raw_central_comp: null}
+    ingredient_rank: 1, raw_central_comp: null}
 - model: dashboard.extractedchemical
   pk: 87
   fields: {created_at: ! '2018-06-06 07:33:21', updated_at: ! '2018-06-06 07:33:21',
@@ -8100,7 +8101,7 @@
   pk: 389
   fields: {created_at: ! '2018-06-06 11:18:39', updated_at: ! '2018-06-06 11:18:39',
     raw_min_comp: null, raw_max_comp: null, unit_type: 2, report_funcuse: null, weight_fraction_type: 1,
-    ingredient_rank: null, raw_central_comp: null}
+    ingredient_rank: 2, raw_central_comp: null}
 - model: dashboard.extractedchemical
   pk: 390
   fields: {created_at: ! '2018-06-06 11:19:13', updated_at: ! '2018-06-06 11:19:13',

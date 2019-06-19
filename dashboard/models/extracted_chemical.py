@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from .unit_type import UnitType
 from .weight_fraction_type import WeightFractionType
 from .raw_chem import RawChem
-
+from django.db.models import F
 
 def validate_ingredient_rank(value):
     if value < 1 or value > 999:
@@ -14,27 +14,32 @@ def validate_ingredient_rank(value):
 
 class ExtractedChemical(CommonInfo, RawChem):
 
-    raw_min_comp = models.CharField("Raw minimum composition", max_length=100,
+    raw_min_comp = models.CharField("Minimum", max_length=100,
                                     null=True, blank=True)
-    raw_max_comp = models.CharField("Raw maximum composition", max_length=100,
+    raw_max_comp = models.CharField("Maximum", max_length=100,
                                     null=True, blank=True)
     unit_type = models.ForeignKey(UnitType, on_delete=models.PROTECT)
-    report_funcuse = models.CharField("Reported functional use", max_length=100,
+    report_funcuse = models.CharField("Functional use", max_length=100,
                                       null=True, blank=True)
     weight_fraction_type = models.ForeignKey(WeightFractionType,
                                              on_delete=models.PROTECT, null=True, default='1')
     ingredient_rank = models.PositiveIntegerField("Ingredient rank", null=True, blank=True,
                                                   validators=[validate_ingredient_rank])
-    raw_central_comp = models.CharField("Raw central composition", max_length=100, null=True, blank=True)
+    raw_central_comp = models.CharField("Central", max_length=100, null=True, blank=True)
+
+    class Meta:
+        ordering = (F('ingredient_rank').asc(nulls_last=True), )
+
 
     def __str__(self):
         return str(self.raw_chem_name) if self.raw_chem_name else ''
 
     @classmethod
     def detail_fields(cls):
-        return ['extracted_text', 'raw_chem_name', 'raw_cas', 'raw_min_comp', 'raw_central_comp',
-                'raw_max_comp', 'unit_type', 'weight_fraction_type', 'report_funcuse',
-                'ingredient_rank', 'rawchem_ptr']
+        return ['extracted_text', 'raw_chem_name', 'raw_cas', 'raw_min_comp',
+                'raw_central_comp', 'raw_max_comp', 'unit_type',
+                'ingredient_rank', 'report_funcuse', 'weight_fraction_type',
+                'rawchem_ptr']
 
     def get_datadocument_url(self):
         return self.extracted_text.data_document.get_absolute_url()

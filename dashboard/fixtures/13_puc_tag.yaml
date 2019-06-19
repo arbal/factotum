@@ -9,7 +9,8 @@
 - model: dashboard.puctag
   pk: 3
   fields: {created_at: !!timestamp '2018-10-25 08:12:40.238436', updated_at: !!timestamp '2018-10-25
-      08:12:40.238464', name: aerosol, slug: aerosol, definition: null}
+      08:12:40.238464', name: aerosol, slug: aerosol, definition: 'a substance enclosed under pressure and able to be released as a fine
+      spray, typically by means of a propellant gas.'}
 - model: dashboard.puctag
   pk: 4
   fields: {created_at: !!timestamp '2018-10-25 08:12:50.267602', updated_at: !!timestamp '2018-10-25
@@ -21,7 +22,8 @@
 - model: dashboard.puctag
   pk: 6
   fields: {created_at: !!timestamp '2018-10-25 08:13:12.656756', updated_at: !!timestamp '2018-10-25
-      08:13:12.656796', name: paste, slug: paste, definition: null}
+      08:13:12.656796', name: paste, slug: paste, definition: 'a thick, wet substance used for sticking things together, or any soft,
+      wet mixture of powder and liquid.'}
 - model: dashboard.puctag
   pk: 8
   fields: {created_at: !!timestamp '2018-10-25 08:15:05.698916', updated_at: !!timestamp '2018-10-25
@@ -49,7 +51,9 @@
 - model: dashboard.puctag
   pk: 14
   fields: {created_at: !!timestamp '2018-11-06 21:48:44.169930', updated_at: !!timestamp '2018-11-06
-      21:48:44.169955', name: pump spray, slug: pump_spray, definition: null}
+      21:48:44.169955', name: pump spray, slug: pump_spray, definition: 'packaging system in which the product ingredients within the container
+      are not under pressure and in which the product is expelled only while a pumping
+      action is applied to a button, trigger, or other actuator.'}
 - model: dashboard.puctag
   pk: 15
   fields: {created_at: !!timestamp '2018-11-06 21:48:53.509222', updated_at: !!timestamp '2018-11-06
@@ -65,7 +69,8 @@
 - model: dashboard.puctag
   pk: 18
   fields: {created_at: !!timestamp '2018-11-06 21:49:39.220737', updated_at: !!timestamp '2018-11-06
-      21:49:39.220763', name: child, slug: child, definition: null}
+      21:49:39.220763', name: child, slug: child, definition: 'a person from the time of birth until he or she is an adult, or a
+      son or daughter of any age.'}
 - model: dashboard.puctag
   pk: 19
   fields: {created_at: !!timestamp '2018-11-06 21:49:53.664953', updated_at: !!timestamp '2018-11-06

@@ -39,8 +39,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         tags = self.browser.find_element_by_xpath('//*[@id="id_tags"][count(option) = 2]')
         self.assertTrue(tags,
                         'Listpresence records for this doc should begin with 2 associated keywords')
-        input = self.browser.find_element_by_xpath('//*[@id="id_tags"]/following-sibling::span[1]/descendant::input[1]')
-        input.send_keys('pesticide')
+        input_el = self.browser.find_element_by_xpath('//*[@id="id_tags"]/following-sibling::span[1]/descendant::input[1]')
+        input_el.send_keys('pesticide')
         wait.until(
             ec.text_to_be_present_in_element(
                     (By.XPATH, "//*[@id='select2-id_tags-results']/li[1]"),
@@ -48,7 +48,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             ) 
         option = self.browser.find_element_by_xpath("//*[@id='select2-id_tags-results']/li[1]")
         option.click()
-        btn_save = self.browser.find_element_by_xpath('/html/body/div[1]/div[4]/form/button')
+        btn_save = self.browser.find_element_by_xpath('//*[@id="cards"]/div[1]/form/button')
         btn_save.click()
         # Check in the ORM to see if the keyword has been associated with
         # the ExtractedListPresence records

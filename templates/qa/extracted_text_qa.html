@@ -42,6 +42,13 @@
       </form>
 
       <tr>
+        <th>Subtitle</th>
+        <td>
+          {{ doc.subtitle }}
+        </td>
+      </tr>
+
+      <tr>
         <th>Raw Category</th>
         <td>
           {{ doc.raw_category }}
@@ -52,6 +59,12 @@
         <th>URL</th>
         <td>
           {{ doc.url }}
+        </td>
+      </tr>
+      <tr>
+        <th>Note</th>
+        <td>
+          {{ doc.note }}
         </td>
       </tr>
       {% if doc.matched %}
@@ -81,7 +94,7 @@
             data-toggle="modal"
             data-target="#extextModal">
             Edit Extracted Text
-            <span class="oi oi-pencil">
+            <span class="fa fa-fs fa-edit">
             </span> 
             </a>
             </li>
@@ -138,7 +151,7 @@
             <div class="col-sm-6 text-center">
                 <form action="{% url 'save_qa_notes' doc.pk %}" method="POST" id="qa-notes-form">
                     {% csrf_token %}
-                    <b>{{ notesform.qa_notes.label_tag }}</b>&nbsp;<input type="submit" id="btn-save-notes" value="Save notes" class="btn btn-sm btn-primary">
+                    <b>{{ notesform.qa_notes.label_tag }}</b>&nbsp;<input type="submit" id="btn-save-notes" value="Save Note" class="btn btn-sm btn-primary">
                     <br>
                     {% if notesform.is_bound %}
                     {% if notesform.errors %}

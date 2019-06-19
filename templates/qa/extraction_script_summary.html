@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block title %}QA Summary For Extraction Script {{extractionscript.id}}: {{extractionscript.title}}{% endblock %}
+
+{% block content %}
+<h1>QA Summary: {{ extractionscript.title }}</h1>
+<br>
+<dl class="row">
+    <dt class="col-3">QA Group</dt>
+    <dd class="col-9">{{ qa_group }}</dd>
+    <dt class="col-3">Total Documents</dt>
+    <dd class="col-9" id="extractedtext_count">{{ extractionscript.extractedtext_count }}</dd>
+    <dt class="col-3">Total Approved Documents</dt>
+    <dd class="col-9" id="qa_complete_extractedtext_count">{{ extractionscript.qa_complete_extractedtext_count}}</dd>
+    <dt class="col-3">Total Remaining Documents</dt>
+    <dd class="col-9" id="qa_incomplete_extractedtext_count">{{ extractionscript.qa_incomplete_extractedtext_count }}</dd>
+</dl>
+
+
+<div class="row">
+    <div class="col-12 card-header">
+        <h4>QA Notes</h4>
+    </div>
+</div>
+{%  if qa_notes %}
+    <dl class="row" id="qa_notes">
+    {%  for qa_note in qa_notes %}
+        <dt class="col-3">Product</dt>
+        <dd class="col-9">{{ qa_note.extracted_text.prod_name }}</dd>
+        <dt class="col-3">QA Note</dt>
+        <dd class="col-9">{{ qa_note.qa_notes }}</dd>
+        <dt class="col-12 border-bottom"></dt>
+    {%  endfor %}
+    </dl>
+{%  else %}
+    No QA Notes exist for this Extraction Script
+{%  endif %}
+
+{% endblock %}

@@ -100,9 +100,9 @@ class RegisterRecordsTest(TestCase):
         self.assertEqual(len(docs), 2, "there should be two associated documents")
 
         # test whether the "Download Registered Records" link is like this example
-        # <a href="/datagroup/a9c7f5a7-5ad4-4f75-b877-a3747f0cc081/registered_records.csv" class="btn btn-secondary">
-        # <span class="oi oi-spreadsheet"></span>&nbsp;Download Registered Records CSV</a>
-        csv_href = f'/datagroup/{dg.pk}/registered_records.csv'
+
+        # <a href="/datagroup/a9c7f5a7-5ad4-4f75-b877-a3747f0cc081/download_registered_documents" class="btn btn-secondary">
+        csv_href = f'/datagroup/{dg.pk}/download_registered_documents/'
         self.assertIn(csv_href, str(resp._container),
                         "The data group detail page must contain the right download link")
 
@@ -118,7 +118,7 @@ class RegisterRecordsTest(TestCase):
 
         # Test whether the data document csv download works
         # URL on data group detail page: datagroup/docs_csv/{pk}/
-        dd_csv_href = f'/datagroup/docs_csv/{dg.pk}/'  # this is an interpreted django URL
+        dd_csv_href = f'/datagroup/{dg.pk}/download_documents/'  # this is an interpreted django URL
         resp_dd_csv = self.client.get(dd_csv_href)
         for csv_row in resp_dd_csv.streaming_content:
             if doc_fn in str(csv_row):
@@ -127,7 +127,7 @@ class RegisterRecordsTest(TestCase):
 
 
         # test whether the "Download All PDF Documents" link works
-        dg_zip_href = f'/datagroup/pdfs_zipped/{dg.pk}/' # this is the django-interpreted URL
+        dg_zip_href = f'/datagroup/{dg.pk}/download_document_zip/' # this is the django-interpreted URL
         self.assertIn(dg_zip_href, str(resp._container),
                         "The data group detail page must contain the right zip download link")
         resp_zip = self.client.get(dg_zip_href)

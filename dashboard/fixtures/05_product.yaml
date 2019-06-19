@@ -41193,3 +41193,25 @@
     thumb_image: null
     medium_image: null
     large_image: null
+- model: dashboard.product
+  pk: 1871
+  fields:
+    created_at: 2019-06-07 19:47:35.141961
+    updated_at: 2019-06-07 19:47:35.141961
+    data_source: 10
+    source_category: null
+    title: 'Nitrous oxide-propelled sweetened whipped cream'
+    manufacturer: 'ConAgra Foods'
+    upc: stub_1871
+    url: null
+    brand_name: 'Reddi-wip'
+    size: ''
+    model_number: null
+    color: ''
+    item_id: null
+    parent_item_id: null
+    short_description: null
+    long_description: null
+    thumb_image: null
+    medium_image: null
+    large_image: null

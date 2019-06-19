@@ -9,12 +9,12 @@
   <span name="title">{{ object.title }}</span>
   <div class="btn-group float-lg-right" role="group" aria-label="Datasource Modification">
     <a class="btn btn-info btn-sm" role="button" title="list" href="{% url "data_source_list" %}">
-      <span class="oi oi-list"></span> </a>
+      <span class="fa fa-list"></span> </a>
     <a class="btn btn-success btn-sm" role="button" title="edit" href="{% url "data_source_edit" object.id %}">
-      <span class="oi oi-pencil"></span> </a>
+      <span class="fa fa-fs fa-edit"></span> </a>
     <a class="btn btn-danger btn-sm" role="button" title="delete"
        href="{% url "data_source_delete" object.id %}">
-      <span class="oi oi-trash"></span> </a>
+      <span class="fa fa-fs fa-trash"></span> </a>
   </div>
 </h1>
 
@@ -52,7 +52,9 @@
 
 <h3 class="col-sm-12"><span>Data Groups</span>
   <a class="btn btn-primary btn-md float-lg-right" role="button" title="create"
-  href="{% url "data_group_new" object.id %}"><span class="oi "></span>New Data Group</a>
+  href="{% url "data_group_new" object.id %}">
+  <span class="fa fa-plus"></span>
+  New Data Group</a>
 </h3>
 <br>
 <table class="table table-striped table-bordered dataTable no-footer table-sm" id="groups">
@@ -76,7 +78,7 @@
         <td>{{ data_group.downloaded_at }}</td>
         <td>
             {% if data_group.download_script %}
-                <a href="{{ data_group.download_script.url }}" target="_blank" title="Link to {{ data_group.download_script }}"><span class="oi oi-globe"></span><p hidden>{{ data_group.download_script.url }}</p></a>
+                <a href="{{ data_group.download_script.url }}" target="_blank" title="Link to {{ data_group.download_script }}"><span class="fa fa-globe"></span><p hidden>{{ data_group.download_script.url }}</p></a>
             {% endif %}
 
         </td>
@@ -84,10 +86,10 @@
           <div class="btn-group">
             <a class="btn btn-success btn-sm" role="button" title="edit"
                href="{% url "data_group_edit" data_group.id %}">
-              <span class="oi oi-pencil"></span> </a>
+              <span class="fa fa-fs fa-edit"></span> </a>
             <a class="btn btn-danger btn-sm" role="button" title="delete"
                href="{% url "data_group_delete" data_group.id %}">
-              <span class="oi oi-trash"></span> </a>
+              <span class="fa fa-fs fa-trash"></span> </a>
           </div>
         </td>
       </tr>

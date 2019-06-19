@@ -1,56 +1,47 @@
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.core.exceptions import ObjectDoesNotExist
-from djqscsv import render_to_csv_response
 from django.contrib import messages
 
-from dashboard.forms import *
-from dashboard.forms import ExtractedListPresenceTagForm
-# if this goes to 0, tests will fail because of what num form we search for
-from factotum.settings import EXTRA
-from dashboard.models import *
+from dashboard.forms import ExtractedListPresenceTagForm, create_detail_formset, DataDocumentForm, DocumentTypeForm
+from dashboard.models import DataDocument, ExtractedListPresence, ExtractedText, Script
 
 
 @login_required()
 def data_document_detail(request, pk):
     template_name = 'data_document/data_document_detail.html'
     doc = get_object_or_404(DataDocument, pk=pk, )
-    code = doc.data_group.group_type.code
-    edit = 1 if doc.detail_page_editable else 0
-    # edit adds an extra record to the formset, but is also a switch in the
-    # template and to add the delete input, this will only work if we add one at
-    # a time...
-    ParentForm, ChildFormSet = create_detail_formset(
-        doc, extra=edit, can_delete=bool(edit))
-    context = {'doc': doc,
-               'edit': edit}
-    if code == 'CP':
-        # although keywords display as if at the datadocument level, they are
-        # attached to each list_presence record. To display, we're getting the
-        # tags associated with the first list_presence record, but on saving
-        # (in save_list_presence_tag_form()) we loop over the whole set
-        try:
-            list_presence = doc.extractedtext.rawchem.select_subclasses('extractedlistpresence').first()
-            list_presence_tag_form = ExtractedListPresenceTagForm(instance=list_presence)
-            context.update({'list_presence_tag_form': list_presence_tag_form})
-        except ObjectDoesNotExist:
-            pass
+    ParentForm, ChildFormSet = create_detail_formset(doc,
+                                extra=(1 if doc.detail_page_editable else 0))
+    context = {'doc': doc}
     if doc.is_extracted:
-        extracted_text = ExtractedText.objects.get_subclass(pk=doc.pk)
-        child_formset = ChildFormSet(instance=extracted_text)
-        if not edit:
-            for form in child_formset.forms:
-                for field in form.fields:
-                    form.fields[field].widget.attrs['disabled'] = True
-        context.update(
-            {'edit_text_form': ParentForm(instance=extracted_text),
-             'extracted_text': extracted_text,
-             'detail_formset': child_formset}
-        )
-
+        extracted_inst = ExtractedText.objects.get_subclass(pk=doc.pk)
+        objs = {'edit_text_form': ParentForm(instance=extracted_inst),
+                'extracted_text': extracted_inst,
+                'detail_formset': ChildFormSet(instance=extracted_inst)}
+        context.update(objs)
+        if doc.data_group.group_type.code == 'CP':
+            lp = ExtractedListPresence.objects.filter(
+                                            extracted_text=doc.extractedtext)
+            if lp.exists():
+                list_presence = lp.first()
+                tag_form = ExtractedListPresenceTagForm(instance=list_presence)
+                context.update({'list_presence_tag_form': tag_form})
     else:
         context['edit_text_form'] = ParentForm()
+    if request.method == 'POST':
+        card = request.POST.get('CARD', '')
+        child_formset = ChildFormSet(request.POST, instance=doc.extractedtext)
+        if child_formset.is_valid():
+            child_formset.save()
+            if not card: # grab pk of new chem if being added
+                form = child_formset[-1]
+                card = f'#chem-{form.instance.pk}'
+            url = reverse('data_document', args=[doc.pk])
+            url += card
+            return redirect(url)
+        context.update({'detail_formset': child_formset})
     return render(request, template_name, context)
 
 
@@ -93,15 +84,6 @@ def save_ext_form(request, pk):
         ext_text_form.save()
     return redirect(referer, pk=pk)
 
-@login_required()
-def save_list_presence_tag_form(request, pk):
-    referer = request.POST.get('referer', 'data_document')
-    extracted_text = get_object_or_404(ExtractedText, pk=pk)
-    for extracted_list_presence in extracted_text.rawchem.select_subclasses('extractedlistpresence'):
-        tag_form = ExtractedListPresenceTagForm(request.POST or None, instance=extracted_list_presence)
-        if tag_form.is_valid():
-            tag_form.save()
-    return redirect(referer, pk=pk)
 
 @login_required()
 def save_list_presence_tag_form(request, pk):
@@ -130,11 +112,6 @@ def data_document_delete(request, pk, template_name='data_source/datasource_conf
         return redirect('data_group_detail', pk=datagroup_id)
     return render(request, template_name, {'object': doc})
 
-@login_required
-def dg_dd_csv_view(request, pk):
-    qs = DataDocument.objects.filter(data_group_id=pk)
-    filename = DataGroup.objects.get(pk=pk).name
-    return render_to_csv_response(qs, filename=filename, append_datestamp=True)
 
 @login_required
 def data_document_edit(request, pk, template_name=('data_document/'
@@ -165,15 +142,5 @@ def extracted_text_edit(request, pk):
         doc.save()
         return redirect('data_document', pk=doc.pk)
     else:
-        extext.delete()
+        exttext.delete()
         return HttpResponse("Houston, we have a problem.")
-
-
-@login_required
-def extracted_child_edit(request, pk):
-    doc = get_object_or_404(DataDocument, pk=pk)
-    _, ChildFormSet = create_detail_formset(doc, extra=1, can_delete=True)
-    formset = ChildFormSet(request.POST, instance=doc.extractedtext)
-    if formset.is_valid():
-        formset.save()
-    return redirect('data_document', pk=doc.pk)

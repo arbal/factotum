@@ -151,3 +151,6 @@ slop/
 .vscode/
 elasticsearch-2.4.6/
 src/
+
+# docker
+/docker/compositions/elk/docker.settings_secret.py

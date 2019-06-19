@@ -80,8 +80,10 @@
                                               name='cancel'>Cancel</a>
         </form>
         <br>
-        <a id="reg" href="{% url 'registered_records.csv' 0 %}" class="btn btn-secondary">
-          <span class="oi oi-spreadsheet"></span>&nbsp;Registered Records CSV Template
+
+        <a id="reg" href="{% url 'download_registered_datadocuments' 0 %}" class="btn btn-secondary">
+
+          <span class="fa fa-file-csv"></span>&nbsp;Registered Records CSV Template
         </a>
       </div>
       <div class="col-md-3">
@@ -100,7 +102,7 @@
     <script src="{% static 'bootstrap_datepicker_plus/js/moment-with-locales.min.js' %}"></script>
     <script src="{% static 'bootstrap_datepicker_plus/js/bootstrap-datetimepicker.min.js' %}"></script>
     <script src="{% static 'bootstrap_datepicker_plus/js/datepicker-widget.js' %}"></script>
-    <script src="{% static 'js/data_group_create.js' %}"></script>
+    <script src="{% static 'js/dashboard/datagroup_create.js' %}"></script>
 {% endblock %}
 
 {% block css %}

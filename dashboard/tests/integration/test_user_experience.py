@@ -38,7 +38,7 @@ class TestIntegration(StaticLiveServerTestCase):
         btn = self.browser.find_element_by_name('cancel')
         self.assertEqual(btn.get_attribute("href"), list_url,
                          "User should go back to list view when clicking cancel")
-        self.browser.find_element_by_name('submit').click()
+        self.browser.find_element_by_name('submit').send_keys('\n')
         self.assertIn('/datasource/', self.browser.current_url,
                       "User should always return to detail page after submit")
         detail_url = self.live_server_url + f'/datasource/{ds.pk}'
@@ -48,7 +48,7 @@ class TestIntegration(StaticLiveServerTestCase):
         btn = self.browser.find_element_by_name('cancel')
         self.assertEqual(btn.get_attribute("href"), detail_url,
                          "User should go back to detail view when clicking cancel")
-        self.browser.find_element_by_name('submit').click()
+        self.browser.find_element_by_name('submit').send_keys('\n')
         self.assertIn('/datasource/', self.browser.current_url,
                       "User should always return to detail page after submit")
 
@@ -64,21 +64,21 @@ class TestIntegration(StaticLiveServerTestCase):
         dg = DataGroup.objects.first()
         ds_detail_url = f'{self.live_server_url}/datasource/{dg.data_source.pk}'
         self.browser.get(ds_detail_url)
-        self.browser.find_elements_by_xpath('//*[@title="edit"]')[1].click()
+        self.browser.find_elements_by_xpath('//*[@title="edit"]')[1].send_keys('\n')
         btn = self.browser.find_element_by_name('cancel')
         self.assertEqual(btn.get_attribute("href"), ds_detail_url,
                          "User should go back to detail view when clicking cancel")
 
         dg_detail_url = f'{self.live_server_url}/datagroup/{dg.pk}/'
         self.browser.get(dg_detail_url)
-        self.browser.find_element_by_xpath('//*[@title="edit"]').click()
+        self.browser.find_element_by_xpath('//*[@title="edit"]').send_keys('\n')
         btn = self.browser.find_element_by_name('cancel')
         self.assertEqual(btn.get_attribute("href"), dg_detail_url,
                          "User should go back to detail view when clicking cancel")
 
         edit_url = f'{self.live_server_url}/datagroup/edit/{dg.pk}/'
         self.browser.get(edit_url)
-        self.browser.find_element_by_name('cancel').click()
+        self.browser.find_element_by_name('cancel').send_keys('\n')
         self.assertIn('/datagroups/', self.browser.current_url,
                       "User should always return to detail page after submit")
 
@@ -114,7 +114,6 @@ class TestIntegration(StaticLiveServerTestCase):
             self.browser.find_element_by_xpath('//*[@id="id_rawchem-0-raw_cas"]')
         except NoSuchElementException:
             self.fail("Absence of raw_cas element raised exception")
-
         # The element should appear on the datadocument page
         dd_url = self.live_server_url + f'/datadocument/{doc.pk}/'
         self.browser.get(dd_url)

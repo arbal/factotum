@@ -267,53 +267,16 @@ class DocumentTypeForm(forms.ModelForm):
         })
 
 
-def include_extract_form(dg):
-    '''Returns the ExtractionScriptForm based on conditions of DataGroup
-    type as well as whether all records are matched, but not extracted
-    '''
-    if not dg.type in ['FU', 'CO', 'CP']:
-        return False
-    if dg.all_matched() and not dg.all_extracted():
-        return ExtractionScriptForm(dg_type=dg.type)
-    else:
-        return False
-
-
 class ExtractedChemicalFormSet(BaseInlineFormSet):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
 
 class ExtractedChemicalForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(ExtractedChemicalForm, self).__init__(*args, **kwargs)
-        # the non-field properties need to be explicitly added
-        if hasattr(self.instance, 'dsstox') and self.instance.dsstox is not None:
-            self.fields['true_cas'] = forms.CharField(max_length=200)
-            self.fields['true_cas'].initial = self.instance.dsstox.true_cas
-            self.fields['true_cas'].disabled = True
-            self.fields['true_chemname'] = forms.CharField(max_length=400)
-            self.fields['true_chemname'].initial = self.instance.dsstox.true_chemname
-            self.fields['true_chemname'].disabled = True
-            self.fields['SID'] = forms.CharField(max_length=50)
-            self.fields['SID'].initial = self.instance.dsstox.sid
-            self.fields['SID'].disabled = True
 
     class Meta:
         model = ExtractedChemical
-        fields = '__all__'
-
-
-def include_clean_comp_data_form(dg):
-    '''Returns the CleanCompDataForm based on conditions of DataGroup
-    type = Composition and at least 1 document extracted
-    '''
-    if not dg.type in ['CO']:
-        return False
-    if dg.extracted_docs() > 0:
-        return CleanCompDataForm()
-    else:
-        return False
+        exclude = ('extracted_text',)
 
 
 def create_detail_formset(document, extra=1, can_delete=False, exclude=[]):

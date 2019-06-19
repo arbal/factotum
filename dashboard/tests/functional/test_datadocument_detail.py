@@ -30,21 +30,30 @@ class DataDocumentDetailTest(TestCase):
                 #print(dd.id)
                 self.assertContains(resp, 'No Extracted Text exists for this Data Document')
             else:
-                self.assertContains(resp, '<h4>Extracted Text')
+                self.assertContains(resp, '<b>Extracted Text</b>')
+    
+    def test_curated_chemical(self):
+        '''
+        Confirm that the correct values appear on the page for 
+        RawChem records that have been matched to DSSToxLookup records
+        '''
+        ddid = 7
+        resp = self.client.get(f'/datadocument/%s/' % ddid)
+        self.assertIn('href=/dsstox/DTXSID2021781/', resp.content.decode('utf-8'))
 
     def test_script_links(self):
         doc = DataDocument.objects.first()
         #response = self.client.get(f'/datadocument/{doc.pk}/')
-        response = self.client.get(f'/datadocument/179486/')
+        response = self.client.get(f'/datadocument/156051/')
         self.assertIn('Download Script',response.content.decode('utf-8'))
         self.assertIn('Extraction Script',response.content.decode('utf-8'))
 
     def test_product_card_location(self):
         response = self.client.get('/datadocument/179486/')
         html = response.content.decode('utf-8')
-        e_idx = html.index('<h4>Extracted Text')
-        p_idx = html.index('<h4 class="d-inline">Products')
-        self.assertTrue(p_idx > e_idx, ('Product card should come after ' 
+        e_idx = html.index('id="extracted-text-title"')
+        p_idx = html.index('id="product-title"')
+        self.assertTrue(p_idx < e_idx, ('Product card should come before ' 
                                         'Extracted Text card'))
 
     def test_product_create_link(self):
@@ -95,10 +104,11 @@ class DataDocumentDetailTest(TestCase):
         data = {'hhe_report_number': ['47']}
         response = self.client.post('/extractedtext/edit/354784/', data=data,
                                                             follow=True)
-        doc = DataDocument.objects.get(pk=354784)
+        doc.refresh_from_db()
         self.assertTrue(doc.is_extracted, "This document should be extracted ")
         page = html.fromstring(response.content)
-        hhe_no = page.xpath('//dd[contains(@class, "hh-report-no")]')[0].text
+        
+        hhe_no = page.xpath('//*[@id="id_hhe_report_number"]')[0].text
         self.assertIn('47', hhe_no)
 
     def test_delete(self):
@@ -111,6 +121,15 @@ class DataDocumentDetailTest(TestCase):
         self.assertTrue(doc_exists(), "Document does not exist prior to delete attempt.")
         self.client.post(post_uri + str(pk) + "/")
         self.assertTrue(not doc_exists(), "Document still exists after delete attempt.")
+
+    def test_ingredient_rank(self):
+        response = self.client.get('/datadocument/254643/')
+        html = response.content.decode('utf-8')
+        first_idx = html.index('name="rawchem-0-ingredient_rank" value="1"')
+        second_idx = html.index('name="rawchem-1-ingredient_rank" value="2"')
+        self.assertTrue(second_idx > first_idx, ('Ingredient rank 1 comes before ' 
+                                        'Ingredient rank 2'))
+
 
 
 class TestDynamicDetailFormsets(TestCase):
@@ -161,27 +180,7 @@ class TestDynamicDetailFormsets(TestCase):
             childform_model = child_formset.__dict__.get('queryset').__dict__.get('model')
             self.assertEqual(dd_child_model, childform_model)
 
-    def test_curated_chemical(self):
-        ''''Confirm that if an ExtractedChemical record has been matched to DSSToxLookup, the 
-            DSSToxLookup fields are displayed in the card
-            This checks every data document.
-        '''
-        for et in ExtractedText.objects.all():
-            dd = et.data_document
-            ParentForm, ChildForm = create_detail_formset(dd)
-            child_formset = ChildForm(instance=et)
-            for form in child_formset.forms:
-                if dd.data_group.type in ['CO','UN']:
-                    ec = form.instance
-                    if ec.dsstox is not None:
-                        self.assertTrue( 'true_cas' in form.fields )
-                        self.assertTrue( 'SID' in form.fields )
-                    else:
-                        self.assertFalse( 'true_cas' in form.fields )
-                        self.assertFalse( 'SID' in form.fields )
-                else:
-                    self.assertFalse( 'true_cas' in form.fields )
-            
+      
     def test_num_forms(self):
         ''''Assure that the number of child forms is appropriate for the group type.
         '''

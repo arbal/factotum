@@ -50,6 +50,8 @@ class dotdict(dict):
 def load_browser():
     chrome_options = Options()
     chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--no-sandbox")
     if settings.TEST_BROWSER == 'firefox':
         return webdriver.Firefox()
     else:

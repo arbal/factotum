@@ -37,6 +37,23 @@ class TestProductDetail(TestCase):
                          'Product 11 should have the title "x"')
 
 
+    def test_hover_definition(self):
+        p = Product.objects.get(pk=11)
+        response = self.client.get(f'/product/{str(p.pk)}/')
+        lxml = html.fromstring(response.content.decode('utf8'))
+        for tag in p.get_puc_tags():
+            el = 'li'
+            elem = lxml.xpath(f'//li[@data-tag-name="{tag.name}"]')
+            if not elem:
+                elem = lxml.xpath(f'//button[@data-tag-name="{tag.name}"]')
+            self.assertTrue(len(elem) > 0, "This tag should be on the page.")
+            self.assertTrue(len(elem) == 1, "This tag has a duplicated name.")
+            if tag.definition:
+                self.assertEqual(elem[0].get('title'), tag.definition)
+            else:
+                self.assertEqual(elem[0].get('title'), "No definition")
+        
+
     def test_add_puc(self):
         p = Product.objects.get(pk=14)
         response = self.client.get(f'/product/{str(p.pk)}/').content.decode('utf8')

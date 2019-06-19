@@ -18,7 +18,7 @@ class ExtractedHHRec(CommonInfo, RawChem):
 
     @classmethod
     def detail_fields(cls):
-        return [ 'raw_cas' , 'raw_chem_name' , 'media' , 'num_measure',
+        return [ 'raw_chem_name' , 'raw_cas' , 'media' , 'num_measure',
                  'num_nondetect' , 'sampling_method' , 'analytical_method']
 
     def __str__(self):

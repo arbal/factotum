@@ -1,12 +1,13 @@
 {% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
 {% block title %}Data Groups{% endblock %}
 {% block content %}
-
     <h1>
         <span>Data Groups</span>
     </h1>
 
-    <table class="table table-sm table-bordered table-striped">
+    <table class="table table-striped table-bordered dataTable no-footer table-sm" id="groups">
         <thead class="table-primary">
         <th>Name</th>
         <th>Data Source</th>
@@ -23,7 +24,7 @@
                 </td>
                 <td><a class="btn btn-info btn-sm" role="button" title="details"
                     href="{% url "data_source_detail" data_group.data_source.id %}">{{ data_group.data_source }} 
-                     <span class="oi oi-info"></span> </a></td>
+                     <span class="fa fa-info-circle"></span> </a></td>
                 <td>{{ data_group.downloaded_by }}</td>
                 <td>{{ data_group.downloaded_at | date:"M d, Y" }}</td>
                 <td>
@@ -33,18 +34,22 @@
                         <div class="btn-group">
                         <a class="btn btn-info btn-sm" role="button" title="details"
                            href="{% url "data_group_detail" data_group.id %}">
-                            <span class="oi oi-info"></span> </a>
+                            <span class="fa fa-info-circle"></span> </a>
                         <a class="btn btn-success btn-sm" role="button" title="edit"
                            href="{% url "data_group_edit" data_group.id %}">
-                            <span class="oi oi-pencil"></span> </a>
+                            <span class="fa fa-fs fa-edit"></span> </a>
                         <a class="btn btn-danger btn-sm" role="button" title="delete"
                            href="{% url "data_group_delete" data_group.id %}">
-                            <span class="oi oi-trash"></span> </a>
+                            <span class="fa fa-fs fa-trash"></span> </a>
                         </div>
                     </td>
             </tr>
         {% endfor %}
-
         </tbody>
     </table>
 {% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/dashboard/datagroup_list.js' %}"></script>
+{% endblock %}
+

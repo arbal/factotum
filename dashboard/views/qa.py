@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Count, Q
-from django.http import HttpResponseRedirect
-from django.core.exceptions import ValidationError, MultipleObjectsReturned, ObjectDoesNotExist
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django.utils import timezone
 import json
@@ -11,7 +11,7 @@ import json
 from dashboard.forms import create_detail_formset, QANotesForm, DocumentTypeForm
 from dashboard.models import Script, DataGroup, DataDocument,\
     ExtractedCPCat, ExtractedText, ExtractedListPresence,\
-    QAGroup, QANotes, DocumentType
+    QANotes, DocumentType
 from factotum.settings import EXTRA
 from django import forms
 from django.utils.http import is_safe_url
@@ -71,8 +71,6 @@ def prep_cp_for_qa(extractedcpcat):
             lp.save()
     return
 
- 
-
 
 @login_required()
 def qa_extraction_script(request, pk,
@@ -80,39 +78,29 @@ def qa_extraction_script(request, pk,
     """
     The user reviews the extracted text and checks whether it was properly converted to data
     """
-    es = get_object_or_404(Script, pk=pk)
+    script = get_object_or_404(Script, pk=pk)
     # If the Script has no related ExtractedText objects, redirect back to the QA index
-    if ExtractedText.objects.filter(extraction_script = es).count() == 0 :
+    if ExtractedText.objects.filter(extraction_script = script).count() == 0 :
         return redirect('/qa/extractionscript/')
-    # Check whether QA has begun for the script
-    if es.qa_group.count() > 0:
-        # if the QA process has begun, there will already be one QA Group
-        # associated with the Script.
-        try:
-            # get the QA Group
-            qa_group = QAGroup.objects.get(extraction_script=es,
-                                           qa_complete=False)
-        except MultipleObjectsReturned:
-            qa_group = QAGroup.objects.filter(extraction_script=es,
-                                              qa_complete=False).first()
-        except ObjectDoesNotExist:
-            print('No QA Group was found matching Extraction Script %s' % es.pk)
-
-        texts = ExtractedText.objects.filter(qa_group=qa_group,
-                                             qa_checked=False)
-        return render(request, template_name, {'extractionscript': es,
-                                               'extractedtexts': texts,
-                                               'qagroup': qa_group})
-    else:
-        qa_group = es.create_qa_group()
-        es.qa_begun = True
-        es.save()
-    # Collect all the ExtractedText objects in the QA Group
-    texts = ExtractedText.objects.filter(qa_group=qa_group)
-
-    return render(request, template_name, {'extractionscript': es,
+    qa_group = script.get_or_create_qa_group()
+    texts = ExtractedText.objects.filter(qa_group=qa_group, qa_checked=False)
+    return render(request, template_name, {'extractionscript': script,
                                            'extractedtexts': texts,
                                            'qagroup': qa_group})
+
+
+@login_required()
+def qa_extraction_script_summary(request, pk,
+                         template_name='qa/extraction_script_summary.html'):
+    datadocument_count = Count('extractedtext__extraction_script')
+    qa_complete_extractedtext_count = Count('extractedtext', filter=Q(extractedtext__qa_checked=True))
+    script = Script.objects.filter(pk=pk).\
+        annotate(extractedtext_count=datadocument_count).\
+        annotate(qa_complete_extractedtext_count=qa_complete_extractedtext_count). \
+        annotate(qa_incomplete_extractedtext_count=datadocument_count - qa_complete_extractedtext_count).first()
+    qa_group = script.get_or_create_qa_group()
+    qa_notes = QANotes.objects.filter(extracted_text__in = script.extractedtext_set.all())
+    return render(request, template_name, {'extractionscript': script, 'qa_group': qa_group, 'qa_notes': qa_notes})
 
 
 def hide_dsstox_fields(formset):
@@ -278,9 +266,7 @@ def save_qa_notes(request, pk):
     '''
     This is an endpoint that serves the AJAX call
     '''
-
     if request.method == 'POST':
-        #print("Saving {request.POST.get('qa_note_text')} to the object")
         qa_note_text = request.POST.get('qa_note_text')
 
         response_data = {}
@@ -293,7 +279,7 @@ def save_qa_notes(request, pk):
 
         response_data['result'] = 'QA Note edits successfully saved'
         response_data['qa_note_text'] = qa.qa_notes
-        #print(response_data)
+
         return HttpResponse(
             json.dumps(response_data),
             content_type="application/json"

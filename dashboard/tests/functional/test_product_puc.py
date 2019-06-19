@@ -88,8 +88,9 @@ class TestProductPuc(TestCase):
             '//button[contains(@class, "assumed")]')
         self.assertEqual(
             len(assumed), 2, "There should be 2 assumed attributes")
-        self.assertEqual([ass.text for ass in assumed], ['aerosol', 'gel'],
-                         "Assumed attributes are incorrect.")
+        self.assertEqual([ass.text.split('\n')[1].strip() for ass in assumed],
+                            ['aerosol', 'gel'],
+                            "Assumed attributes are incorrect.")
 
     def test_bulk_product_puc_ui(self):
         product_response_url = reverse('bulk_product_puc')
