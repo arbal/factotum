@@ -1,9 +1,9 @@
-from django.test import TestCase
+from django.test import TestCase, tag
 from dashboard.tests.loader import load_model_objects
 from dashboard.models import QAGroup, ExtractedText
 
 
-
+@tag('loader')
 class ExtractedQaTest(TestCase):
 
     def setUp(self):

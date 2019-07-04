@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from dashboard.tests.loader import load_model_objects, fixtures_standard
 from dashboard.models import ExtractedText, QANotes
 
-
+@tag('loader')
 class ExtractedTest(TestCase):
 
     def setUp(self):

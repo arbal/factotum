@@ -2762,7 +2762,7 @@
     temp_obj_name: ExtractedChemical, rid: DTXRID003, dsstox: 13}
 - model: dashboard.rawchem
   pk: 4
-  fields: {extracted_text: 7, raw_cas: 84-74-2, raw_chem_name: dibutyl phthalate,
+  fields: {extracted_text: 7, raw_cas: 84-74-2, raw_chem_name: dibutyl_phthalate,
     temp_id: 5, temp_obj_name: ExtractedChemical, rid: DTXRID004, dsstox: 11}
 - model: dashboard.rawchem
   pk: 5

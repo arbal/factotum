@@ -12,7 +12,6 @@ QA Chemical Presence for Datagroup {{datagroup.name}}</h1>
 <table class="table table-sm table-bordered table-striped table-sortable" id='extracted_text_table'>
     <thead class="table-primary">
         <tr>
-            <th>Product Name</th>
             <th>Data Document</th>
             <th>Document Date</th>
             <th>QA Status</th>
@@ -21,8 +20,6 @@ QA Chemical Presence for Datagroup {{datagroup.name}}</h1>
     <tbody>
     {% for extractedcpcat in extractedcpcats %}
       <tr>
-        <td>{{ extractedcpcat.prod_name }}
-        </td>
         <td>
           <a href="{% url "data_document" extractedcpcat.data_document.id %}"> {{ extractedcpcat.data_document }}</a>
         </td>

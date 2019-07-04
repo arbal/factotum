@@ -47,7 +47,9 @@
 
 {% block content %}
     <h2 class="col-sm-12">
-        <span name="title">{{ header }}</span>
+        <span name="title">
+          Create New Data Group For Data Source "{{ datasource }}"
+        </span>
     </h2>
 
   {% if field_error %}
@@ -70,8 +72,21 @@
         <form method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             {% include 'core/bs4_form.html' with form=form colspan='col-6'%}
-            <button type="submit" class="btn btn-primary">Submit</button>
-            {# This template can be accessed from multiple places #}
+            {% if form.instance.pk %}
+            <div class="form-group col-6">
+                <label class="required" for="id_csv">
+                  Register Records CSV File:
+                </label>
+                <a href="/{{ media }}{{ form.instance.csv }}"
+                   target="_blank">
+                   {{ form.instance.csv_filename }}
+                   <i class="far fa-file" aria-hidden="true"></i>
+                </a>
+            </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary">
+              Submit
+            </button>
             <a class="btn btn-secondary" href={% if form.referer %}
                                               "{{ form.referer }}"
                                               {% else %}
@@ -80,16 +95,18 @@
                                               name='cancel'>Cancel</a>
         </form>
         <br>
-
-        <a id="reg" href="{% url 'download_registered_datadocuments' 0 %}" class="btn btn-secondary">
-
-          <span class="fa fa-file-csv"></span>&nbsp;Registered Records CSV Template
+        {% if not form.instance.pk %}
+        <a id="reg" 
+          href="{% url 'download_registered_datadocuments' 0 %}" 
+          class="btn btn-secondary">
+          <span class="fa fa-file-csv"></span>
+          &nbsp;Registered Records CSV Template
         </a>
+        {% endif %}
       </div>
       <div class="col-md-3">
       </div>
       <div class="col-md-3">
-
       </div>
     </div>
 

@@ -3,7 +3,8 @@ import zipfile
 from djqscsv import render_to_csv_response
 from pathlib import Path
 
-from django.db.models import Exists, OuterRef, Subquery, Max
+
+from django.db.models import Exists, F, OuterRef, Max
 from django.conf import settings
 from django.core.files import File
 from django.core.exceptions import ValidationError
@@ -12,6 +13,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 
+
+from factotum.settings import MEDIA_URL
 from dashboard.models import (Product,
                               ProductDocument,
                               ExtractedText,
@@ -45,21 +48,19 @@ def data_group_list(request, template_name='data_group/datagroup_list.html'):
 def data_group_detail(request, pk,
                       template_name='data_group/datagroup_detail.html'):
     datagroup = get_object_or_404(DataGroup, pk=pk, )
-    document_product = Product.objects.filter(productdocument__document_id=OuterRef('pk')).order_by().values('title','id')
     extracted_text = ExtractedText.objects.filter(pk=OuterRef('pk'))
     documents = DataDocument.objects.filter(data_group=datagroup).\
         annotate(extracted=Exists(extracted_text)).\
-        annotate(product_id=Subquery(document_product.values('id')[:1])).\
-        annotate(product_title=Subquery(document_product.values('title')[:1])) #[:500]
+        annotate(product_id=F('products__id')).\
+        annotate(product_title=F('products__title'))
     extract_form = ExtractionScriptForm(dg_type=datagroup.type) if datagroup.include_extract_form() else None
     clean_comp_data_form = CleanCompDataForm() if datagroup.include_clean_comp_data_form() else None
-    product_count = ProductDocument.objects.filter(document__data_group=datagroup).count()
     store = settings.MEDIA_URL + str(datagroup.fs_id)
     context = { 'datagroup'      : datagroup,
                 'documents'      : documents,
                 'extract_form'   : extract_form,
                 'clean_comp_data_form'   : clean_comp_data_form,
-                'bulk_product_count': len(documents) - product_count,
+                'bulk_product_count': documents.filter(product_id=None).count(),
                 'ext_err'        : {},
                 'clean_comp_err' : {},
                 'msg'            : '',
@@ -88,7 +89,7 @@ def data_group_detail(request, pk,
         zf.close()
         form = datagroup.include_extract_form()
         # update docs so it appears in the template table w/ "matched" docs
-        context['all_documents'] = datagroup.datadocument_set.get_queryset()
+        context['documents'] = datagroup.datadocument_set.all()
         context['extract_form'] = form
         context['msg'] = 'Matching records uploaded successfully.'
     if request.method == 'POST' and 'extract_button' in request.POST:
@@ -155,12 +156,7 @@ def data_group_detail(request, pk,
                                                     'uploaded successfully.')
                 context['extract_form'] = datagroup.include_extract_form()
     if request.method == 'POST' and 'bulk' in request.POST:
-        prod_link = ProductDocument.objects.filter(document__in=documents)
-        # get the set of documents that have not been matched
-        a = set(documents.values_list('pk',flat=True))
-        b = set(prod_link.values_list('document_id',flat=True))
-        # DataDocs to make products for...
-        docs_needing_products = DataDocument.objects.filter(pk__in=list(a-b))
+        docs_needing_products = documents.filter(product_id=None)
         stub = Product.objects.all().aggregate(Max('id'))["id__max"] + 1
         for doc in docs_needing_products:
             # Try to name the new product from the ExtractedText record's prod_name
@@ -233,7 +229,6 @@ def data_group_detail(request, pk,
                 context['clean_comp_data_form'] = datagroup.include_clean_comp_data_form()
         else:
             context['clean_comp_data_form'].collapsed = False
-
     return render(request, template_name, context)
 
 
@@ -242,10 +237,8 @@ def data_group_create(request, pk,
                         template_name='data_group/datagroup_form.html'):
     datasource = get_object_or_404(DataSource, pk=pk)
     group_key = DataGroup.objects.filter(data_source=datasource).count() + 1
-    default_name = '{} {}'.format(datasource.title, group_key)
-    header = 'Create New Data Group For Data Source "' + str(datasource) + '"'
     initial_values = {'downloaded_by' : request.user,
-                      'name'          : default_name,
+                      'name'          : f'{datasource} {group_key}',
                       'data_source'   : datasource}
     if request.method == 'POST':
         form = DataGroupForm(request.POST, request.FILES,
@@ -327,18 +320,16 @@ def data_group_create(request, pk,
         for group in groups:
             group.codes = DocumentType.objects.compatible(group)
         form = DataGroupForm(user=request.user, initial=initial_values)
-    context = {'form': form, 'header': header,
-                'datasource': datasource, 'groups' : groups}
+    context = {'form': form,
+                'datasource': datasource,
+                'groups' : groups}
     return render(request, template_name, context)
 
 
 @login_required()
 def data_group_update(request, pk, template_name='data_group/datagroup_form.html'):
-    # TODO: Resolve whether this form save ought to also update Datadocuments
-    #  in the case the "Register Records CSV file" is updated.
     datagroup = get_object_or_404(DataGroup, pk=pk)
     form = DataGroupForm(request.POST or None, instance=datagroup)
-    header = f'Update Data Group for Data Source "{datagroup.data_source}"'
     if form.is_valid():
         if form.has_changed():
             form.save()
@@ -351,7 +342,7 @@ def data_group_update(request, pk, template_name='data_group/datagroup_form.html
             group.codes = DocumentType.objects.compatible(group)
     return render(request, template_name, {'datagroup': datagroup,
                                             'form': form,
-                                            'header': header,
+                                            'media': MEDIA_URL,
                                             'groups': groups})
 
 

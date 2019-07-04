@@ -62,6 +62,9 @@ class ExtractedListPresenceToTagAdmin(admin.ModelAdmin):
     def tag(self, obj):
         return obj.tag    
 
+class ExtractedListPresenceTagAdmin(admin.ModelAdmin):
+    list_filter = ('kind',)  
+
 class PUCToTagAdmin(admin.ModelAdmin):
     list_display = ('content_object', 'tag', 'assumed')
     list_filter = ('tag',)
@@ -114,5 +117,5 @@ admin.site.register(ExtractedHHDoc, HHDocAdmin)
 admin.site.register(ExtractedHHRec)
 admin.site.register(PUCToTag, PUCToTagAdmin)
 admin.site.register(ExtractedListPresence)
-admin.site.register(ExtractedListPresenceTag)
+admin.site.register(ExtractedListPresenceTag, ExtractedListPresenceTagAdmin)
 admin.site.register(ExtractedListPresenceToTag, ExtractedListPresenceToTagAdmin)

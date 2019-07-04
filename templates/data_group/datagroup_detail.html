@@ -98,7 +98,7 @@
               {% if not datagroup.zip_url or datagroup.matched_docs == 0  %}disabled{% endif %}">
           <span class="fa fa-download"></span> Download All PDF Documents 
         </a>
-        {% if datagroup.group_type.code in "CO" %}
+        {% if datagroup.is_composition and datagroup.extracted_docs %}
 
             <a href="{% url 'download_raw_extracted_records' datagroup.pk  %}" class="btn btn-secondary">
 
@@ -109,12 +109,27 @@
             <a class="btn btn-secondary" data-toggle="collapse" id="btn_clean_comp_data_form" href="#clean_comp_data_form">
               <span class="fa fa-upload"></span>&nbsp;Upload Clean Composition Data
             </a>
-            <div id="clean_comp_data_form" class="col-md-12 border rounded {% if clean_comp_data_form.collapsed %}collapse{% endif %}">
-                <form method="post" enctype="multipart/form-data">
+            <div id="clean_comp_data_form" class="col-md-6 {% if clean_comp_data_form.collapsed %}collapse{% endif %}">
+                <form class="wealthy" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% include 'core/bs4_form.html' with form=clean_comp_data_form %}
                     <input type="submit" class="btn btn-primary" name="clean_comp_data_button" value="Submit" disabled>
+                    <div class="text-center d-inline float-right">
+                      <span class="text-muted">
+                        The uploaded csv must have the following column names in this order:
+                      </span>  
+                      <br>
+                        {% for col in datagroup.get_clean_comp_data_fieldnames %}
+                        <span class="btn-sm border-right border-secondary ml-1 rounded-0
+                          {% if forloop.first %}
+                            border-left
+                          {% endif %}">
+                            <b>{{ col }}</b>
+                        </span>
+                        {% endfor %}
+                    </div>
                 </form>
+                <hr>
             </div>
         {% endif %}
         <br><br>
@@ -122,8 +137,8 @@
             <a class="btn btn-secondary" data-toggle="collapse" id="btn_extract_text_form" href="#extract_form">
               <span class="fa fa-upload"></span>&nbsp;Upload Extracted Text
             </a>
-            <div id="extract_form" class="col-md-12 border rounded {% if extract_form.collapsed %}collapse{% endif %}">
-                <form method="post" enctype="multipart/form-data">
+            <div id="extract_form" class="col-md-6 {% if extract_form.collapsed %}collapse{% endif %}">
+                <form class="wealthy" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% include 'core/bs4_form.html' with form=extract_form %}
                     <input type="submit" class="btn btn-primary" name="extract_button" value="Submit" disabled>
@@ -132,6 +147,7 @@
 
                     </a>
                 </form>
+                <hr>
             </div>
         {% endif %}
 
@@ -162,7 +178,7 @@
       {% if bulk_product_count and datagroup.all_matched and datagroup.is_composition %}
       <form class="float-right" method="post">
         {% csrf_token %}
-        <input type="submit" class="btn btn-primary" name="bulk" value="Bulk Create {{ bulk }} Products">
+        <input type="submit" class="btn btn-primary" name="bulk" value="Bulk Create {{ bulk_product_count }} Products">
       </form>
       {% endif %}
       <p>
@@ -193,11 +209,14 @@
           {% if doc.matched %}
             <td>
               <a href="{{ doc.get_absolute_url }}"
-                 title="Link to document detail">{{ doc.title }}</a>
-
+                 title="Link to document detail">
+                 {{ doc.title }}
+              </a>
               <a href="/media/{{ datagroup.fs_id }}/pdf/{{ doc.get_abstract_filename }}"
-
-                 title="Link to {{ doc.get_abstract_filename }}" target="_blank"><span class="fa fa-file-o"></span></a>
+                 title="Link to {{ doc.get_abstract_filename }}" 
+                 target="_blank">
+                 <i class="far fa-file" aria-hidden="true"></i>
+              </a>
             </td>
           {% else %}
             <td>{{ doc.title }}</td>

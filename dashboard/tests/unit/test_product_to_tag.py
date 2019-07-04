@@ -1,8 +1,9 @@
-from django.test import TestCase
+from django.test import TestCase, tag
 
 from dashboard.models import PUCTag, ProductToTag, PUCToTag
 from dashboard.tests.loader import load_model_objects
 
+@tag('loader')
 class ProductToTagTest(TestCase):
 
     def setUp(self):

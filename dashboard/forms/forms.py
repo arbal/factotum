@@ -25,7 +25,11 @@ class DataGroupForm(forms.ModelForm):
         qs = Script.objects.filter(script_type='DL')
         self.user = kwargs.pop('user', None)
         super(DataGroupForm, self).__init__(*args, **kwargs)
-        self.fields['csv'].widget.attrs.update({'accept': '.csv'})
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            self.fields.pop('csv')
+        else:
+            self.fields['csv'].widget.attrs.update({'accept': '.csv'})
         self.fields['download_script'].queryset = qs
 
 

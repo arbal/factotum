@@ -3,7 +3,7 @@
 {% load humanize %}
 {% load widget_tweaks %}
 
-{% block title %}Data Doc {{ doc.id }}: {{ doc.title }}{% endblock %}
+{% block title %}Data Document {{ doc.id }}: {{ doc.title }}{% endblock %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/dashboard/datadocument_detail.css' %}">
 {% endblock %}
@@ -11,8 +11,11 @@
 
 <div class="row"><!-- DataDocument title -->
     <div class="col-lg-10 border-bottom"
+         data-toggle="tooltip"
+         data-placement="bottom" 
+         title="{{ doc.title }}"
          id="title">
-        <h1>{{ doc.title|truncatechars:56 }}</h1>
+        <h1>{{ doc.title|truncatechars:45 }}</h1>
         {% if doc.subtitle %}
                 <h4 class="text-secondary">
                     {{ doc.subtitle|truncatechars:90 }}
@@ -25,7 +28,7 @@
              aria-label="Data Document Modification">
             <a class="btn btn-sm btn-info"
                role="button"
-               title="link to document"
+               title="View data document"
                href="{{ doc.pdf_url }}">
                 <span class="fa fa-fs fa-file"></span>
             </a>
@@ -72,7 +75,7 @@
             </h5>
             <a class="btn btn-info btn-sm float-right"
                 role="button"
-                title="go to Download Script"
+                title="Download Script"
                 href={{ doc.data_group.download_script.url }}>
                 <i class="fas fa-scroll"></i>
             </a>
@@ -165,7 +168,7 @@
                     {% if extracted_text.extraction_script.url %}
                     <a class="btn btn-secondary"
                        role="button"
-                       title="Link to Extraction Script"
+                       title="Extraction script"
                        href={{ extracted_text.extraction_script.url }}>
                        <i class="fab fa-github"></i>
                     </a>
@@ -445,10 +448,17 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#chem-{{ form.instance.pk }}">
                         <p class="m-0"
-                            title="{{ form.raw_chem_name.value }}">
-                            {{ form.raw_chem_name.value|truncatechars:18 }}
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            title="
+                                {{ form.instance.rendered_chemname|truncatechars:18 }}
+                             ">
+                             {{ form.instance.rendered_chemname|truncatechars:18 }}
+                            
                         </p>
-                        <small class="m-0">{{ form.raw_cas.value }}</small>
+                        <small class="m-0">
+                            {{ form.instance.rendered_cas|truncatechars:18 }}
+                        </small>
                     </a>
                 </li>
                 {% endif %}

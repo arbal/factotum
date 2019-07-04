@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 from dashboard.models import DataGroup, DataDocument, GroupType, DocumentType
 from django.test import RequestFactory, TestCase, Client
-from dashboard.tests.loader import load_model_objects
 from django.core.exceptions import ValidationError
 from django.urls import resolve
 

@@ -70,3 +70,30 @@ class RawChem(models.Model):
         if whitespace(self.raw_chem_name):
             self.raw_chem_name = self.raw_chem_name.strip()
 
+    @property
+    def true_cas(self):
+        if hasattr(self, 'dsstox') and self.dsstox is not None:
+            return self.dsstox.true_cas
+        else:
+            return None
+
+    @property
+    def true_chemname(self):
+        if hasattr(self, 'dsstox') and self.dsstox is not None:
+            return self.dsstox.true_chemname
+        else:
+            return None
+
+    @property
+    def rendered_chemname(self):
+        if hasattr(self, 'dsstox') and self.dsstox is not None:
+            return self.dsstox.true_chemname
+        else:
+            return self.raw_chem_name
+
+    @property
+    def rendered_cas(self):
+        if hasattr(self, 'dsstox') and self.dsstox is not None:
+            return self.dsstox.true_cas
+        else:
+            return self.raw_cas

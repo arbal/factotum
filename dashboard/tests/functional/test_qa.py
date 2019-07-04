@@ -1,10 +1,10 @@
 import time
-from django.test import TestCase
+from django.test import TestCase, tag
 from dashboard.tests.loader import load_model_objects
 from dashboard.models import DataDocument, Script, ExtractedText
 from lxml import html
 
-
+@tag('loader')
 class QATest(TestCase):
 
     def setUp(self):

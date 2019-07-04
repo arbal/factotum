@@ -61,6 +61,8 @@
     <thead class="table-primary">
     <th>Name</th>
     <th>Type</th>
+    <th>Registered</th>
+    <th>Extracted</th>
     <th>Downloaded by</th>
     <th>Downloaded at</th>
     <th>Script</th>
@@ -74,6 +76,8 @@
            href="{% url "data_group_detail" data_group.id %}">
            {{ data_group.name }}</a></td>
         <td>{{ data_group.group_type }}</td>
+        <td>{{ data_group.registered_docs }}</td>
+        <td>{{ data_group.extracted_docs }}</td>
         <td>{{ data_group.downloaded_by }}</td>
         <td>{{ data_group.downloaded_at }}</td>
         <td>

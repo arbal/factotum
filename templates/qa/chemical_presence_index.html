@@ -11,7 +11,8 @@ QA Chemical Presence</h1>
     <thead class="table-primary">
         <tr>
         <th>Data Group</th>
-        <th>Documents</th>
+        <th>URL</th>
+        <th>Document Count</th>
         <th>Percent QA Checked</th>
         <th></th>
         </tr>
@@ -19,15 +20,14 @@ QA Chemical Presence</h1>
     <tbody>
     {% for datagroup in datagroups %}
       <tr>
+        <td><a href="{% url 'data_group_detail' datagroup.id %}" id="{{datagroup.id}}">{{ datagroup.name }}</a></td>
         <td>
             {% if datagroup.url %}
-            <a href="{{ datagroup.url }}" title="Link to {{ datagroup.name }}" id="{{datagroup.id}}">{{ datagroup.name }}</a>
-            {% else %}
-            {{ datagroup.name }}
+                <a href="{{ datagroup.url }}" target="_blank"><span class="fa fa-external-link-alt"></span></a>
             {% endif %}
         </td>
         <td>{{ datagroup.datadocument_count }}</td>
-        {% widthratio extraction_script.qa_complete_extractedtext_count extraction_script.datadocument_count 100 as pct_complete %}%
+        {% widthratio datagroup.approved_count datagroup.datadocument_count 100 as pct_complete %}
         <td>{{  pct_complete|default:"0" }}%</td>
         <td>
          {% if datagroup.datadocument_count > 0 %}

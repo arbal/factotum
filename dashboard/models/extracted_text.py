@@ -65,8 +65,6 @@ class ExtractedText(CommonInfo):
         else:
             return reverse('qa_extractionscript_index')
 
-    def get_extracted_records(self):
-        return self.rawchem.all()
 
     def one_to_one_check(self, odict):
         '''

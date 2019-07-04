@@ -7,7 +7,7 @@
                 <small class="text-muted">
                         <a  title="go to substance"
                         href={% url 'dsstox_lookup' form.instance.dsstox.sid %}>
-                    True Name: {{ form.instance.dsstox.true_chemname }}
+                    True Name: {{ form.instance.dsstox.true_chemname|truncatechars:45 }}
                     </a>
                 </small>
         </div>
@@ -21,8 +21,10 @@
     <div class="card-body shadow rounded">
         <div class="card-title border-bottom">
             <h3 class="d-inline"
-                title="raw chemical name">
-                {{ form.raw_chem_name.value }}
+                title="{{ form.raw_chem_name.value }}"
+                data-toggle="tooltip"
+                data-placement="bottom">
+                {{ form.raw_chem_name.value|truncatechars:45 }}
             </h3>
             {% if doc.detail_page_editable %}
             <div class="btn-group btn-group-sm float-right">
@@ -52,7 +54,10 @@
                 {% if form.instance.dsstox %}
                 
                     <h4 class="float-right">
-                        {{ form.instance.dsstox.sid }}
+                        <a href="https://comptox.epa.gov/dashboard/dsstoxdb/results?search={{ form.instance.dsstox.sid }}"
+                            target='_blank'>
+                            {{ form.instance.dsstox.sid }}
+                        </a>
                     </h4>
 
                 {% endif %}

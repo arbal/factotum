@@ -31,7 +31,9 @@ def qa_extractionscript_index(request, template_name='qa/extraction_script_index
 @login_required()
 def qa_chemicalpresence_index(request, template_name='qa/chemical_presence_index.html'):
     datagroups = DataGroup.objects.filter(group_type__code='CP').\
-        annotate(datadocument_count=Count('datadocument'))
+        annotate(datadocument_count=Count('datadocument')).\
+        annotate(approved_count=Count('datadocument__extractedtext', 
+        filter=Q(datadocument__extractedtext__qa_checked=True)))
 
     return render(request, template_name, {'datagroups': datagroups})
 

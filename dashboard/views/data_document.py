@@ -1,11 +1,11 @@
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404, reverse
-from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 
 from dashboard.forms import ExtractedListPresenceTagForm, create_detail_formset, DataDocumentForm, DocumentTypeForm
-from dashboard.models import DataDocument, ExtractedListPresence, ExtractedText, Script
+from dashboard.models import DataDocument, ExtractedListPresence, ExtractedText, Script, ExtractedListPresenceToTag
+
 
 
 @login_required()
@@ -133,14 +133,22 @@ def extracted_text_edit(request, pk):
     model = ParentForm.Meta.model
     script = Script.objects.get(title__icontains='Manual (dummy)', script_type='EX')
     try:
-        exttext = model.objects.get_subclass(data_document_id=pk)
+        extracted_text = model.objects.get_subclass(data_document_id=pk)
     except ExtractedText.DoesNotExist:
-        exttext = model(data_document_id=pk, extraction_script=script)
-    form = ParentForm(request.POST, instance=exttext)
+        extracted_text = model(data_document_id=pk, extraction_script=script)
+    form = ParentForm(request.POST, instance=extracted_text)
     if form.is_valid():
         form.save()
         doc.save()
         return redirect('data_document', pk=doc.pk)
     else:
-        exttext.delete()
+        extracted_text.delete()
         return HttpResponse("Houston, we have a problem.")
+
+@login_required
+def list_presence_tag_curation(request, template_name='data_document/list_presence_tag.html'):
+    documents = DataDocument.objects.filter(data_group__group_type__code='CP').\
+        exclude(extractedtext__rawchem__in=ExtractedListPresenceToTag.objects.values('content_object_id'))
+    return render(request, template_name, {'documents': documents})
+
+

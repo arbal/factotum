@@ -1,11 +1,11 @@
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.utils import timezone
 from django.contrib.auth.models import User
 from dashboard.tests.loader import load_model_objects
 from dashboard.models import ExtractedFunctionalUse
 
 
-# model test
+@tag('loader')
 class FunctionalUseTest(TestCase):
 
     def setUp(self):

@@ -54,7 +54,7 @@ function bubbleChart(width, height, showLegend=true) {
             .style("width", "400px")
             .text("");
 
-        var scaleRadius = d3v4.scaleSqrt().domain([d3v4.min(data, function(d) {
+        var scaleRadius = d3v4.scaleLinear().domain([d3v4.min(data, function(d) {
             return +d[columnForRadius];
         }), d3v4.max(data, function(d) {
             return +d[columnForRadius];
@@ -186,6 +186,9 @@ function bubbleChart(width, height, showLegend=true) {
                   .duration(347)
                   .attr('stroke-width',0)
                 return tooltip.style("visibility", "hidden");
+            })
+            .on("click", function(d) {
+                location.href = d['url'];
             });
     }
 

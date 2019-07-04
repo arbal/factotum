@@ -1,6 +1,6 @@
 import csv
 from django.utils import timezone
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.db.utils import IntegrityError
 from django.db.models import Count
 from dashboard.models import *
@@ -46,7 +46,7 @@ def create_data_documents_with_txt(data_group, source_type, pdf_txt):
             dds.append(dd)
         return dds
 
-
+@tag('loader')
 class ModelsTest(TestCase):
 
     def setUp(self):
@@ -189,6 +189,12 @@ class ModelsTest(TestCase):
         title = next(f for f in Taxonomy._meta.fields if f.name == 'title')
         self.assertTrue(title.max_length == 250, ("'title' field should have "
                                                         "max length of 250"))
+
+    def test_LP_keyword_fields(self):
+        fields = [fld.name for fld in ExtractedListPresenceTag._meta.fields]
+        for fld in ['name','slug','definition','kind']:
+            self.assertIn(fld, fields, 
+                        f'{fld} should be in ExtractedListPresenceTag model.')
 
 class PUCModelTest(TestCase):
 

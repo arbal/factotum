@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.urls import reverse
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+from django.core.validators import URLValidator
 
 
 def validate_nonzero(value):
@@ -28,7 +29,7 @@ class DataSource(CommonInfo):
     )
 
     title = models.CharField(max_length=50)
-    url = models.CharField(max_length=150, blank=True)
+    url = models.CharField(max_length=150, blank=True, validators=[URLValidator()])
     estimated_records = models.PositiveIntegerField(default=47,
                                                 validators=[validate_nonzero])
     state = models.CharField(max_length=2,

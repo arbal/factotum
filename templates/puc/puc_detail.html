@@ -5,26 +5,24 @@
 
 {% block content %}
     <h1>
-        <span name="title">{{ puc.gen_cat }}</span>
+        <span id="puc_gen_cat">{{ puc.gen_cat }}</span>
     </h1>
     <h2>
-        <span name="title">{{ puc.prod_fam }}</span>
-        {% if puc.prod_type %}
-            <span name="title">/ {{ puc.prod_fam }}</span>
-        {% endif %}
+        <span id="puc_prod_fam">{{ puc.prod_fam }}</span>
+        <span id="puc_prod_type">{% if puc.prod_type %}/ {{ puc.prod_type }}{% endif %}</span>
     </h2>
-    <div class="row">
-        <div class="col-lg-12">
-            Kind: {{ puc.get_kind_display }}<br><br>
-            {{ puc.description }}
-        </div>
-    </div>
     <br>
+
+    <dl class="row">
+        <dt class="col-1">Kind</dt>
+        <dd class="col-11" id="puc_kind">{{ puc.get_kind_display }}</dd>
+        <dt class="col-1">Description</dt>
+        <dd class="col-11" id="puc_description"> {{ puc.description }}</dd>
+    </dl>
+
     <div class="row">
-        <div class="col-lg-6" id="assumed_attributes">
-        <h5 class="">
-            <span>Assumed Attributes</span>
-        </h5>
+        <div class="col-auto" id="assumed_attributes">
+        <h4>Assumed Attributes</h4>
             {% if puc.get_assumed_tags|length > 1 %}
                 {% for tag in puc.get_assumed_tags %}
                 <button type="button" 
@@ -43,10 +41,8 @@
                 No assumed attributes are associated with this PUC
             {% endif %}
         </div>
-        <div class="col-lg-6" id="allowed_attributes">
-            <h5 class="">
-                <span>Allowed Attributes</span>
-            </h5>
+        <div class="col-6" id="allowed_attributes">
+            <h4>Allowed Attributes</h4>
             {% if puc.get_allowed_tags|length > 1 %}
                 {% for tag in puc.get_allowed_tags %}
                 <button type="button" 
@@ -66,9 +62,9 @@
             {% endif %}
         </div>
     </div>
-    <br>
+
     <div class="row">
-        <div class="col-lg-6" id="puc_stats">
+        <div class="col-6" id="puc_stats">
             {{ puc.product_count }} Products<br>
             {{ puc.cumulative_product_count }} Cumulative Products<br>
             {{ puc.curated_chemical_count }} Curated Chemicals<br>

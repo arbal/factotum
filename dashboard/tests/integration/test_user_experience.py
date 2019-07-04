@@ -1,6 +1,8 @@
 from dashboard.tests.loader import *
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from dashboard.models import *
+from django.test import tag
+
 
 def log_karyn_in(object):
     '''
@@ -15,7 +17,7 @@ def log_karyn_in(object):
     password_input.send_keys('specialP@55word')
     object.browser.find_element_by_class_name('btn').click()
 
-
+@tag('loader')
 class TestIntegration(StaticLiveServerTestCase):
 
     def setUp(self):

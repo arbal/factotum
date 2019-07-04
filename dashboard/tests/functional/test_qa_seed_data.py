@@ -146,7 +146,7 @@ class TestQaPage(TestCase):
         '''
 
         resp = self.client.get('/qa/extractedtext/7/')
-        self.assertContains(resp, 'value="dibutyl phthalate"', status_code=200)
+        self.assertContains(resp, 'value="dibutyl_phthalate"', status_code=200)
 
         post_context = {
             'csrfmiddlewaretoken': ['BvtzIX6JjC5XkPWmAOduJllMTMdRLoVWeJtneuBVe5Bc3Js35EVsJunvII6vNFAy'],

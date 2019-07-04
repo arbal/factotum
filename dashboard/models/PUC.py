@@ -111,6 +111,10 @@ class PUC(CommonInfo):
     @property
     def admin_url(self):
         return reverse('admin:dashboard_puc_change', args=(self.pk,))
+
+    @property
+    def url(self):
+        return reverse('puc_detail', args=(self.pk,))
         
     def get_assumed_tags(self):
         '''Queryset of used to filter which PUCs a Product can have '''

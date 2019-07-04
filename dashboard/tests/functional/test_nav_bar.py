@@ -1,12 +1,12 @@
 from django.urls import resolve
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.test.client import Client
 from django.http import HttpRequest
 from dashboard.tests.loader import load_model_objects
 from dashboard import views
 from lxml import html
 
-
+@tag('loader')
 class NavBarTest(TestCase):
     '''this group of tests checks to see that the URL resolves to the
     appropriate view function.

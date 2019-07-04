@@ -161,3 +161,8 @@ class TestGetData(TestCase):
         self.assertContains(response, 'Download PUCs')
         self.assertContains(response, 'Download PUC Attributes')
 
+    def test_download_list_presence_keywords(self):
+        response = self.client.get('/dl_lpkeywords/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'abrasive')
+        self.assertContains(response, 'Velit neque aliquam etincidunt.')

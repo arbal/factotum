@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.utils import timezone
 from .document_type import DocumentType
 from django.core.exceptions import ValidationError
+from django.core.validators import URLValidator
 
 
 class DataDocument(CommonInfo):
@@ -58,7 +59,7 @@ class DataDocument(CommonInfo):
     filename = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
     subtitle = models.CharField(null=True, blank=True, max_length=250, default=None)
-    url = models.CharField(null=True, blank=True, max_length=275)
+    url = models.CharField(null=True, blank=True, max_length=275, validators=[URLValidator()])
     raw_category = models.CharField(null=True, blank=True, max_length=100)
     data_group = models.ForeignKey('DataGroup', on_delete=models.CASCADE)
     products = models.ManyToManyField('Product', through='ProductDocument')

@@ -134,7 +134,7 @@
     downloaded_by: 1, downloaded_at: ! '2018-01-11 00:00:00', download_script: 1,
     data_source: 28, fs_id: 1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842, csv: 1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842/register_records_matching.csv,
     zip_file: media/1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842/1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842.zip,
-    group_type: 6, url: www.chemicals_in_the_wild.com}
+    group_type: 6, url: 'http://www.chemicals_in_the_wild.com'}
 - model: dashboard.datagroup
   pk: 50
   fields: {created_at: ! '2018-09-22 07:00:37.681930', updated_at: ! '2018-09-20 12:16:49.053559',
@@ -156,4 +156,4 @@
     downloaded_by: 1, downloaded_at: ! '2018-01-11 00:00:00', download_script: 1,
     data_source: 28, fs_id: 1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842, csv: 1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842/register_records_matching.csv,
     zip_file: media/1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842/1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842.zip,
-    group_type: 6, url: www.chemicals_in_captivity.com}
+    group_type: 6, url: 'http://www.chemicals_in_captivity.com'}

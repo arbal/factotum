@@ -1,8 +1,9 @@
-from django.test import TestCase
+from django.test import TestCase, tag
 from dashboard.tests.loader import load_model_objects
 from dashboard.models import ProductToPUC, Product
 from dashboard.views.product_curation import ProductForm
 
+@tag('loader')
 class UberPUCTest(TestCase):
 
     def setUp(self):
@@ -30,6 +31,7 @@ class UberPUCTest(TestCase):
         _str = 'Test Product Type'
         self.assertEqual(_str, str(uber_puc))
 
+@tag('loader')
 class Product_Form_Test(TestCase):
 
     def setUp(self):

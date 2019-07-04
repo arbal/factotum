@@ -1,12 +1,12 @@
 from django.urls import resolve
-from django.test import TestCase
+from django.test import TestCase, tag
 
 from dashboard import views
 from dashboard.forms import create_detail_formset
 from dashboard.tests.loader import load_model_objects
 
 
-
+@tag('loader')
 class HabitViewTest(TestCase):
     multi_db = True
     def setUp(self):
