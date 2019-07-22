@@ -7,14 +7,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0024_auto_20180120_1328'),
-    ]
+    dependencies = [("dashboard", "0024_auto_20180120_1328")]
 
     operations = [
         migrations.AddField(
-            model_name='extractionscript',
-            name='qa_begun',
+            model_name="extractionscript",
+            name="qa_begun",
             field=models.BooleanField(default=False),
-        ),
+        )
     ]

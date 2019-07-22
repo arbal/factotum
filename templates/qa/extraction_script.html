@@ -6,8 +6,10 @@
 
 
 {% block content %}
-<h1 class="col-sm-12"><span class="fa fa-check-square" title="factotum" ></span>
-{{ extractionscript.title }}</h1>
+<h1 class="col-sm-12"  id="script-{{extractionscript.id}}">
+  <span class="fa fa-check-square" title="factotum" ></span>
+  {{ extractionscript.title }}
+</h1>
 <h3 class="col-sm-12"><span class="" title="factotum" ></span>
     QA Group: {{ qagroup }}</h3>
 <br>

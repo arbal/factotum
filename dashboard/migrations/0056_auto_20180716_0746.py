@@ -7,14 +7,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0055_auto_20180712_1051'),
-    ]
+    dependencies = [("dashboard", "0055_auto_20180712_1051")]
 
     operations = [
         migrations.AlterField(
-            model_name='extractedchemical',
-            name='raw_cas',
-            field=models.CharField(blank=True, max_length=100, null=True, verbose_name='Raw CAS'),
-        ),
+            model_name="extractedchemical",
+            name="raw_cas",
+            field=models.CharField(
+                blank=True, max_length=100, null=True, verbose_name="Raw CAS"
+            ),
+        )
     ]

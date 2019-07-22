@@ -7,42 +7,79 @@ import taggit.managers
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0103_auto_20190411_1538'),
-    ]
+    dependencies = [("dashboard", "0103_auto_20190411_1538")]
 
     operations = [
         migrations.CreateModel(
-            name='ExtractedListPresenceTag',
+            name="ExtractedListPresenceTag",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('name', models.CharField(max_length=100, unique=True, verbose_name='Name')),
-                ('slug', models.SlugField(max_length=100, unique=True, verbose_name='Slug')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True, null=True)),
+                ("updated_at", models.DateTimeField(auto_now=True, null=True)),
+                (
+                    "name",
+                    models.CharField(max_length=100, unique=True, verbose_name="Name"),
+                ),
+                (
+                    "slug",
+                    models.SlugField(max_length=100, unique=True, verbose_name="Slug"),
+                ),
             ],
             options={
-                'verbose_name': 'ExtractedListPresence Keyword',
-                'verbose_name_plural': 'ExtractedListPresence Keywords',
-                'ordering': ('name',),
+                "verbose_name": "ExtractedListPresence Keyword",
+                "verbose_name_plural": "ExtractedListPresence Keywords",
+                "ordering": ("name",),
             },
         ),
         migrations.CreateModel(
-            name='ExtractedListPresenceToTag',
+            name="ExtractedListPresenceToTag",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('content_object', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.ExtractedListPresence')),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='dashboard_extractedlistpresencetotag_items', to='dashboard.ExtractedListPresenceTag')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True, null=True)),
+                ("updated_at", models.DateTimeField(auto_now=True, null=True)),
+                (
+                    "content_object",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="dashboard.ExtractedListPresence",
+                    ),
+                ),
+                (
+                    "tag",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="dashboard_extractedlistpresencetotag_items",
+                        to="dashboard.ExtractedListPresenceTag",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.AddField(
-            model_name='extractedlistpresence',
-            name='tags',
-            field=taggit.managers.TaggableManager(blank=True, help_text='A set of keywords applicable to this Extracted List Presence', through='dashboard.ExtractedListPresenceToTag', to='dashboard.ExtractedListPresenceTag', verbose_name='Tags'),
+            model_name="extractedlistpresence",
+            name="tags",
+            field=taggit.managers.TaggableManager(
+                blank=True,
+                help_text="A set of keywords applicable to this Extracted List Presence",
+                through="dashboard.ExtractedListPresenceToTag",
+                to="dashboard.ExtractedListPresenceTag",
+                verbose_name="Tags",
+            ),
         ),
     ]

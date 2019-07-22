@@ -187,4 +187,7 @@
 
 {% block js %}
     <script src="{% static 'js/dashboard/qa_extracted_text.js' %}"></script>
+    <script type="text/javascript">
+        toggleDetailEdit( {{unsaved}} );
+      </script>
 {% endblock %}

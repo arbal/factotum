@@ -6,15 +6,17 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0083_add_dsstox_lookup'),
-    ]
+    dependencies = [("dashboard", "0083_add_dsstox_lookup")]
 
     operations = [
         migrations.AlterField(
-            model_name='dsstoxsubstance',
-            name='rawchem_ptr',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='old_curated_chemical', to='dashboard.RawChem'),
+            model_name="dsstoxsubstance",
+            name="rawchem_ptr",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="old_curated_chemical",
+                to="dashboard.RawChem",
+            ),
         ),
         migrations.RunSQL(
             """
@@ -25,6 +27,6 @@ class Migration(migrations.Migration):
             on dss.sid = sub.sid 
             SET dsstox_id = dss.id
             """,
-        reverse_sql="UPDATE dashboard_rawchem SET dsstox_id = NULL"
-        )
+            reverse_sql="UPDATE dashboard_rawchem SET dsstox_id = NULL",
+        ),
     ]

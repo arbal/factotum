@@ -6,14 +6,12 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0097_script_confidence'),
-    ]
+    dependencies = [("dashboard", "0097_script_confidence")]
 
     operations = [
         migrations.AddField(
-            model_name='extractedlistpresence',
-            name='qa_flag',
+            model_name="extractedlistpresence",
+            name="qa_flag",
             field=models.BooleanField(default=False),
-        ),
+        )
     ]

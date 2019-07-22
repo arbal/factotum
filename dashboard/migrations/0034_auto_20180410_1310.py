@@ -9,39 +9,63 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0033_product_manufacturer'),
-    ]
+    dependencies = [("dashboard", "0033_product_manufacturer")]
 
     operations = [
         migrations.AlterField(
-            model_name='datagroup',
-            name='download_script',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, to='dashboard.Script'),
+            model_name="datagroup",
+            name="download_script",
+            field=models.ForeignKey(
+                blank=True,
+                default=None,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="dashboard.Script",
+            ),
         ),
         migrations.AlterField(
-            model_name='datagroup',
-            name='downloaded_by',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.SET_DEFAULT, to=settings.AUTH_USER_MODEL),
+            model_name="datagroup",
+            name="downloaded_by",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.SET_DEFAULT,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='datasource',
-            name='type',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='dashboard.SourceType'),
+            model_name="datasource",
+            name="type",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT, to="dashboard.SourceType"
+            ),
         ),
         migrations.AlterField(
-            model_name='product',
-            name='puc_assigned_script',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='dashboard.Script'),
+            model_name="product",
+            name="puc_assigned_script",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="dashboard.Script",
+            ),
         ),
         migrations.AlterField(
-            model_name='product',
-            name='puc_assigned_usr',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL),
+            model_name="product",
+            name="puc_assigned_usr",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='productcategory',
-            name='last_edited_by',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="productcategory",
+            name="last_edited_by",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

@@ -6,22 +6,34 @@ import taggit.managers
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0109_strip_whitespace'),
-    ]
+    dependencies = [("dashboard", "0109_strip_whitespace")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='extractedlistpresencetag',
-            options={'ordering': ('name',), 'verbose_name': 'Extracted list presence keyword', 'verbose_name_plural': 'Extracted list presence keywords'},
+            name="extractedlistpresencetag",
+            options={
+                "ordering": ("name",),
+                "verbose_name": "Extracted list presence keyword",
+                "verbose_name_plural": "Extracted list presence keywords",
+            },
         ),
         migrations.AlterModelOptions(
-            name='extractedlistpresencetotag',
-            options={'ordering': ('content_object',), 'verbose_name': 'Extracted list presence to keyword', 'verbose_name_plural': 'Extracted list presence to keywords'},
+            name="extractedlistpresencetotag",
+            options={
+                "ordering": ("content_object",),
+                "verbose_name": "Extracted list presence to keyword",
+                "verbose_name_plural": "Extracted list presence to keywords",
+            },
         ),
         migrations.AlterField(
-            model_name='extractedlistpresence',
-            name='tags',
-            field=taggit.managers.TaggableManager(blank=True, help_text='A comma-separated list of tags.', through='dashboard.ExtractedListPresenceToTag', to='dashboard.ExtractedListPresenceTag', verbose_name='Tags'),
+            model_name="extractedlistpresence",
+            name="tags",
+            field=taggit.managers.TaggableManager(
+                blank=True,
+                help_text="A comma-separated list of tags.",
+                through="dashboard.ExtractedListPresenceToTag",
+                to="dashboard.ExtractedListPresenceTag",
+                verbose_name="Tags",
+            ),
         ),
     ]

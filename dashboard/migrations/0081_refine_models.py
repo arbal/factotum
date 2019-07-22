@@ -6,29 +6,52 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0080_convert_fks_to_1to1'),
-    ]
+    dependencies = [("dashboard", "0080_convert_fks_to_1to1")]
 
     operations = [
         migrations.AlterField(
-            model_name='dsstoxsubstance',
-            name='rawchem_ptr_temp',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='curated_chemical', to='dashboard.RawChem'),
+            model_name="dsstoxsubstance",
+            name="rawchem_ptr_temp",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="curated_chemical",
+                to="dashboard.RawChem",
+            ),
         ),
         migrations.AlterField(
-            model_name='extractedchemical',
-            name='rawchem_ptr_temp',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='extracted_chemical', serialize=False, to='dashboard.RawChem'),
+            model_name="extractedchemical",
+            name="rawchem_ptr_temp",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                parent_link=True,
+                primary_key=True,
+                related_name="extracted_chemical",
+                serialize=False,
+                to="dashboard.RawChem",
+            ),
         ),
         migrations.AlterField(
-            model_name='extractedfunctionaluse',
-            name='rawchem_ptr_temp',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='extracted_functionaluse', serialize=False, to='dashboard.RawChem'),
+            model_name="extractedfunctionaluse",
+            name="rawchem_ptr_temp",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                parent_link=True,
+                primary_key=True,
+                related_name="extracted_functionaluse",
+                serialize=False,
+                to="dashboard.RawChem",
+            ),
         ),
         migrations.AlterField(
-            model_name='extractedlistpresence',
-            name='rawchem_ptr_temp',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='extracted_listpresence', serialize=False, to='dashboard.RawChem'),
+            model_name="extractedlistpresence",
+            name="rawchem_ptr_temp",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                parent_link=True,
+                primary_key=True,
+                related_name="extracted_listpresence",
+                serialize=False,
+                to="dashboard.RawChem",
+            ),
         ),
     ]

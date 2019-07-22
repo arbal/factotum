@@ -1,12 +1,12 @@
 HAYSTACK_CONNECTIONS = {
-    'default': {
+    "default": {
         # ...
-        'URL': 'http://localhost:9202/',
+        "URL": "http://localhost:9202/",
         # ...
     },
-    'test_index': {
+    "test_index": {
         # ...
-        'URL': 'http://localhost:9202/',
+        "URL": "http://localhost:9202/",
         # ...
     },
 }

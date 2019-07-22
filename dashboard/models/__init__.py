@@ -14,12 +14,15 @@ from .extracted_cpcat import ExtractedCPCat
 from .extracted_chemical import ExtractedChemical
 from .extracted_functional_use import ExtractedFunctionalUse
 from .extracted_habits_and_practices import ExtractedHabitsAndPractices
-from .extracted_list_presence import ExtractedListPresence, ExtractedListPresenceTag, ExtractedListPresenceToTag
+from .extracted_list_presence import (
+    ExtractedListPresence,
+    ExtractedListPresenceTag,
+    ExtractedListPresenceToTag,
+)
 from .extracted_hhdoc import ExtractedHHDoc
 from .extracted_hhrec import ExtractedHHRec
-from .script import Script
+from .script import Script, QAGroup
 from .dsstox_lookup import DSSToxLookup
-from .qa_group import QAGroup
 from .unit_type import UnitType
 from .weight_fraction_type import WeightFractionType
 from .PUC import PUC, PUCToTag, PUCTag

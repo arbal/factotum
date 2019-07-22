@@ -7,14 +7,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0032_merge_20180326_1741'),
-    ]
+    dependencies = [("dashboard", "0032_merge_20180326_1741")]
 
     operations = [
         migrations.AddField(
-            model_name='product',
-            name='manufacturer',
-            field=models.CharField(blank=True, db_index=True, default='', max_length=250, null=True),
-        ),
+            model_name="product",
+            name="manufacturer",
+            field=models.CharField(
+                blank=True, db_index=True, default="", max_length=250, null=True
+            ),
+        )
     ]

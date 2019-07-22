@@ -8,18 +8,22 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0018_merge_20180117_1425'),
-    ]
+    dependencies = [("dashboard", "0018_merge_20180117_1425")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='productcategory',
-            options={'verbose_name_plural': 'Product categories'},
+            name="productcategory",
+            options={"verbose_name_plural": "Product categories"},
         ),
         migrations.AlterField(
-            model_name='product',
-            name='prod_cat',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='category', to='dashboard.ProductCategory'),
+            model_name="product",
+            name="prod_cat",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="category",
+                to="dashboard.ProductCategory",
+            ),
         ),
     ]

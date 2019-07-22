@@ -8,25 +8,23 @@ from django.db import migrations
 def move_puc_to_linker(apps, schema_editor):
 
     # We refer to the models this way in order to retrieve the models as they were at that time in the migration tree
-    product = apps.get_model('dashboard', 'Product')
-    product_to_puc = apps.get_model('dashboard', 'ProductToPUC')
+    product = apps.get_model("dashboard", "Product")
+    product_to_puc = apps.get_model("dashboard", "ProductToPUC")
 
     for p in product.objects.all():
         # we only create a record in product_to_puc if the prod_cat is not null
         if p.prod_cat is not None:
-            product_to_puc(product=p,
-                           PUC=p.prod_cat,
-                           puc_assigned_usr=p.puc_assigned_usr,
-                           puc_assigned_script=p.puc_assigned_script,
-                           puc_assigned_time=p.puc_assigned_time).save()
+            product_to_puc(
+                product=p,
+                PUC=p.prod_cat,
+                puc_assigned_usr=p.puc_assigned_usr,
+                puc_assigned_script=p.puc_assigned_script,
+                puc_assigned_time=p.puc_assigned_time,
+            ).save()
 
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0042_producttopuc'),
-    ]
+    dependencies = [("dashboard", "0042_producttopuc")]
 
-    operations = [
-        migrations.RunPython(move_puc_to_linker),
-    ]
+    operations = [migrations.RunPython(move_puc_to_linker)]

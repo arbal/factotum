@@ -7,109 +7,139 @@ import taggit.managers
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0067_auto_20181019_1406'),
-    ]
+    dependencies = [("dashboard", "0067_auto_20181019_1406")]
 
     operations = [
         migrations.CreateModel(
-            name='ProductToTag',
+            name="ProductToTag",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True, null=True)),
+                ("updated_at", models.DateTimeField(auto_now=True, null=True)),
+            ],
+            options={"abstract": False},
+        ),
+        migrations.CreateModel(
+            name="PUCTag",
+            fields=[
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True, null=True)),
+                ("updated_at", models.DateTimeField(auto_now=True, null=True)),
+                (
+                    "name",
+                    models.CharField(max_length=100, unique=True, verbose_name="Name"),
+                ),
+                (
+                    "slug",
+                    models.SlugField(max_length=100, unique=True, verbose_name="Slug"),
+                ),
             ],
             options={
-                'abstract': False,
+                "verbose_name": "PUC Tag",
+                "verbose_name_plural": "PUC Tags",
+                "ordering": ("name",),
             },
         ),
         migrations.CreateModel(
-            name='PUCTag',
+            name="PUCToTag",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('name', models.CharField(max_length=100, unique=True, verbose_name='Name')),
-                ('slug', models.SlugField(max_length=100, unique=True, verbose_name='Slug')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True, null=True)),
+                ("updated_at", models.DateTimeField(auto_now=True, null=True)),
             ],
-            options={
-                'verbose_name': 'PUC Tag',
-                'verbose_name_plural': 'PUC Tags',
-                'ordering': ('name',),
-            },
+            options={"abstract": False},
         ),
-        migrations.CreateModel(
-            name='PUCToTag',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-            ],
-            options={
-                'abstract': False,
-            },
-        ),
+        migrations.RemoveField(model_name="productattribute", name="products"),
+        migrations.RemoveField(model_name="producttoattribute", name="product"),
         migrations.RemoveField(
-            model_name='productattribute',
-            name='products',
-        ),
-        migrations.RemoveField(
-            model_name='producttoattribute',
-            name='product',
-        ),
-        migrations.RemoveField(
-            model_name='producttoattribute',
-            name='product_attribute',
+            model_name="producttoattribute", name="product_attribute"
         ),
         migrations.AlterModelOptions(
-            name='puc',
-            options={'ordering': ['gen_cat', 'prod_fam', 'prod_type'], 'verbose_name_plural': 'PUCs'},
+            name="puc",
+            options={
+                "ordering": ["gen_cat", "prod_fam", "prod_type"],
+                "verbose_name_plural": "PUCs",
+            },
         ),
-        migrations.RemoveField(
-            model_name='product',
-            name='attributes',
-        ),
-        migrations.RemoveField(
-            model_name='puc',
-            name='attribute',
-        ),
-        migrations.DeleteModel(
-            name='ProductAttribute',
-        ),
-        migrations.DeleteModel(
-            name='ProductToAttribute',
-        ),
-        migrations.DeleteModel(
-            name='PUCAttribute',
+        migrations.RemoveField(model_name="product", name="attributes"),
+        migrations.RemoveField(model_name="puc", name="attribute"),
+        migrations.DeleteModel(name="ProductAttribute"),
+        migrations.DeleteModel(name="ProductToAttribute"),
+        migrations.DeleteModel(name="PUCAttribute"),
+        migrations.AddField(
+            model_name="puctotag",
+            name="content_object",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT, to="dashboard.PUC"
+            ),
         ),
         migrations.AddField(
-            model_name='puctotag',
-            name='content_object',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='dashboard.PUC'),
+            model_name="puctotag",
+            name="tag",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="dashboard_puctotag_items",
+                to="dashboard.PUCTag",
+            ),
         ),
         migrations.AddField(
-            model_name='puctotag',
-            name='tag',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='dashboard_puctotag_items', to='dashboard.PUCTag'),
+            model_name="producttotag",
+            name="content_object",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT, to="dashboard.Product"
+            ),
         ),
         migrations.AddField(
-            model_name='producttotag',
-            name='content_object',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='dashboard.Product'),
+            model_name="producttotag",
+            name="tag",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="dashboard_producttotag_items",
+                to="dashboard.PUCTag",
+            ),
         ),
         migrations.AddField(
-            model_name='producttotag',
-            name='tag',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='dashboard_producttotag_items', to='dashboard.PUCTag'),
+            model_name="product",
+            name="tags",
+            field=taggit.managers.TaggableManager(
+                help_text="A set of tags.",
+                through="dashboard.ProductToTag",
+                to="dashboard.PUCTag",
+                verbose_name="Tags",
+            ),
         ),
         migrations.AddField(
-            model_name='product',
-            name='tags',
-            field=taggit.managers.TaggableManager(help_text='A set of tags.', through='dashboard.ProductToTag', to='dashboard.PUCTag', verbose_name='Tags'),
-        ),
-        migrations.AddField(
-            model_name='puc',
-            name='tags',
-            field=taggit.managers.TaggableManager(help_text='A set of tags.', through='dashboard.PUCToTag', to='dashboard.PUCTag', verbose_name='Tags'),
+            model_name="puc",
+            name="tags",
+            field=taggit.managers.TaggableManager(
+                help_text="A set of tags.",
+                through="dashboard.PUCToTag",
+                to="dashboard.PUCTag",
+                verbose_name="Tags",
+            ),
         ),
     ]

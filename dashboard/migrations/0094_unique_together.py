@@ -5,13 +5,11 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0093_gender_choice_field'),
-    ]
+    dependencies = [("dashboard", "0093_gender_choice_field")]
 
     operations = [
         migrations.AlterUniqueTogether(
-            name='producttopuc',
-            unique_together={('product', 'puc', 'classification_method')},
-        ),
+            name="producttopuc",
+            unique_together={("product", "puc", "classification_method")},
+        )
     ]

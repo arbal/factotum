@@ -11,14 +11,18 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('dashboard', '0004_datagroup_updated_at'),
+        ("dashboard", "0004_datagroup_updated_at"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='datagroup',
-            name='downloaded_by',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="datagroup",
+            name="downloaded_by",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+            ),
             preserve_default=False,
-        ),
+        )
     ]

@@ -7,27 +7,12 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0027_auto_20180307_1222'),
-    ]
+    dependencies = [("dashboard", "0027_auto_20180307_1222")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='extractedchemical',
-            name='extracted_text',
-        ),
-        migrations.RemoveField(
-            model_name='extractedtext',
-            name='data_document',
-        ),
-        migrations.RemoveField(
-            model_name='extractedtext',
-            name='extraction_script',
-        ),
-        migrations.DeleteModel(
-            name='ExtractedChemical',
-        ),
-        migrations.DeleteModel(
-            name='ExtractedText',
-        ),
+        migrations.RemoveField(model_name="extractedchemical", name="extracted_text"),
+        migrations.RemoveField(model_name="extractedtext", name="data_document"),
+        migrations.RemoveField(model_name="extractedtext", name="extraction_script"),
+        migrations.DeleteModel(name="ExtractedChemical"),
+        migrations.DeleteModel(name="ExtractedText"),
     ]

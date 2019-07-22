@@ -6,29 +6,48 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0091_dd_note_field'),
-    ]
+    dependencies = [("dashboard", "0091_dd_note_field")]
 
     operations = [
         migrations.AddField(
-            model_name='puctotag',
-            name='assumed',
+            model_name="puctotag",
+            name="assumed",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='extractedchemical',
-            name='rawchem_ptr',
-            field=models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='dashboard.RawChem'),
+            model_name="extractedchemical",
+            name="rawchem_ptr",
+            field=models.OneToOneField(
+                auto_created=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                parent_link=True,
+                primary_key=True,
+                serialize=False,
+                to="dashboard.RawChem",
+            ),
         ),
         migrations.AlterField(
-            model_name='extractedfunctionaluse',
-            name='rawchem_ptr',
-            field=models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='dashboard.RawChem'),
+            model_name="extractedfunctionaluse",
+            name="rawchem_ptr",
+            field=models.OneToOneField(
+                auto_created=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                parent_link=True,
+                primary_key=True,
+                serialize=False,
+                to="dashboard.RawChem",
+            ),
         ),
         migrations.AlterField(
-            model_name='extractedlistpresence',
-            name='rawchem_ptr',
-            field=models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='dashboard.RawChem'),
+            model_name="extractedlistpresence",
+            name="rawchem_ptr",
+            field=models.OneToOneField(
+                auto_created=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                parent_link=True,
+                primary_key=True,
+                serialize=False,
+                to="dashboard.RawChem",
+            ),
         ),
     ]

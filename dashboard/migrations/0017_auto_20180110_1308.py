@@ -9,32 +9,47 @@ import django.utils.timezone
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0016_remove_productdocument_upc'),
-    ]
+    dependencies = [("dashboard", "0016_remove_productdocument_upc")]
 
     operations = [
         migrations.CreateModel(
-            name='ProductCategory',
+            name="ProductCategory",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('gen_cat', models.CharField(max_length=50)),
-                ('prod_fam', models.CharField(blank=True, max_length=50, null=True)),
-                ('prod_type', models.CharField(blank=True, max_length=100, null=True)),
-                ('description', models.TextField()),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('updated_at', models.DateTimeField(blank=True, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("gen_cat", models.CharField(max_length=50)),
+                ("prod_fam", models.CharField(blank=True, max_length=50, null=True)),
+                ("prod_type", models.CharField(blank=True, max_length=100, null=True)),
+                ("description", models.TextField()),
+                ("created_at", models.DateTimeField(default=django.utils.timezone.now)),
+                ("updated_at", models.DateTimeField(blank=True, null=True)),
             ],
         ),
         migrations.AlterField(
-            model_name='product',
-            name='data_source',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='source', to='dashboard.DataSource'),
+            model_name="product",
+            name="data_source",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="source",
+                to="dashboard.DataSource",
+            ),
         ),
         migrations.AddField(
-            model_name='product',
-            name='prod_cat',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='category', to='dashboard.ProductCategory'),
+            model_name="product",
+            name="prod_cat",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="category",
+                to="dashboard.ProductCategory",
+            ),
             preserve_default=False,
         ),
     ]

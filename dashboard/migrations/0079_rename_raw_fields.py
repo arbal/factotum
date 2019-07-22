@@ -5,39 +5,35 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0078_add_temp_fks'),
-    ]
+    dependencies = [("dashboard", "0078_add_temp_fks")]
 
     operations = [
         migrations.RenameField(
-            model_name='extractedchemical',
-            old_name='raw_cas',
-            new_name='raw_cas_old',
+            model_name="extractedchemical", old_name="raw_cas", new_name="raw_cas_old"
         ),
         migrations.RenameField(
-            model_name='extractedchemical',
-            old_name='raw_chem_name',
-            new_name='raw_chem_name_old',
+            model_name="extractedchemical",
+            old_name="raw_chem_name",
+            new_name="raw_chem_name_old",
         ),
         migrations.RenameField(
-            model_name='extractedfunctionaluse',
-            old_name='raw_cas',
-            new_name='raw_cas_old',
+            model_name="extractedfunctionaluse",
+            old_name="raw_cas",
+            new_name="raw_cas_old",
         ),
         migrations.RenameField(
-            model_name='extractedfunctionaluse',
-            old_name='raw_chem_name',
-            new_name='raw_chem_name_old',
+            model_name="extractedfunctionaluse",
+            old_name="raw_chem_name",
+            new_name="raw_chem_name_old",
         ),
         migrations.RenameField(
-            model_name='extractedlistpresence',
-            old_name='raw_cas',
-            new_name='raw_cas_old',
+            model_name="extractedlistpresence",
+            old_name="raw_cas",
+            new_name="raw_cas_old",
         ),
         migrations.RenameField(
-            model_name='extractedlistpresence',
-            old_name='raw_chem_name',
-            new_name='raw_chem_name_old',
+            model_name="extractedlistpresence",
+            old_name="raw_chem_name",
+            new_name="raw_chem_name_old",
         ),
     ]

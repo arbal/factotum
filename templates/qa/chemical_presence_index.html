@@ -33,7 +33,9 @@ QA Chemical Presence</h1>
          {% if datagroup.datadocument_count > 0 %}
           <a class="btn btn-info btn-sm" role="button" title="QA on {{ datagroup.name }}"
            href='{% url "qa_chemical_presence_group" datagroup.id %}'> View Chemical Presence Lists
-         </a>
+          </a>
+          {% else %}
+            <i>No DataDocuments exist in this Datagroup</i>
          {% endif %}
         </td>
       </tr>

@@ -1,9 +1,10 @@
   $(document).ready(function () {
     var table = $('#docs').DataTable({
-      "serverSide": false,
-      "paging": true,
-      "searching": false,
-      "ordering": true
+        "pageLength": 50,
+        "serverSide": false,
+        "paging": true,
+        "searching": false,
+        "ordering": true
     });
 
     // make submit button active when file selected

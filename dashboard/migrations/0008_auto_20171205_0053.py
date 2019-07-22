@@ -7,20 +7,16 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0007_auto_20171121_1317'),
-    ]
+    dependencies = [("dashboard", "0007_auto_20171121_1317")]
 
     operations = [
         migrations.AddField(
-            model_name='datagroup',
-            name='csv',
-            field=models.FileField(default=1, upload_to='csv/'),
+            model_name="datagroup",
+            name="csv",
+            field=models.FileField(default=1, upload_to="csv/"),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='datagroup',
-            name='downloaded_at',
-            field=models.DateTimeField(),
+            model_name="datagroup", name="downloaded_at", field=models.DateTimeField()
         ),
     ]

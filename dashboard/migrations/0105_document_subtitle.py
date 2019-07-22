@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0104_auto_20190422_0933'),
-    ]
+    dependencies = [("dashboard", "0104_auto_20190422_0933")]
 
     operations = [
         migrations.AddField(
-            model_name='datadocument',
-            name='subtitle',
+            model_name="datadocument",
+            name="subtitle",
             field=models.CharField(blank=True, default=None, max_length=250, null=True),
-        ),
+        )
     ]

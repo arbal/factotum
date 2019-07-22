@@ -11,146 +11,163 @@ from dashboard.utils import get_extracted_models
 
 
 class DataGroupForm(forms.ModelForm):
-    required_css_class = 'required'  # adds to label tag
+    required_css_class = "required"  # adds to label tag
 
     class Meta:
         model = DataGroup
-        fields = ['name', 'description', 'url', 'group_type', 'downloaded_by',
-                  'downloaded_at', 'download_script', 'data_source', 'csv']
-        widgets = {'downloaded_at': DatePickerInput()}
-        labels = {'csv': _('Register Records CSV File'),
-                  'url': _('URL'), }
+        fields = [
+            "name",
+            "description",
+            "url",
+            "group_type",
+            "downloaded_by",
+            "downloaded_at",
+            "download_script",
+            "data_source",
+            "csv",
+        ]
+        widgets = {"downloaded_at": DatePickerInput()}
+        labels = {"csv": _("Register Records CSV File"), "url": _("URL")}
 
     def __init__(self, *args, **kwargs):
-        qs = Script.objects.filter(script_type='DL')
-        self.user = kwargs.pop('user', None)
+        qs = Script.objects.filter(script_type="DL")
+        self.user = kwargs.pop("user", None)
         super(DataGroupForm, self).__init__(*args, **kwargs)
-        instance = getattr(self, 'instance', None)
+        instance = getattr(self, "instance", None)
         if instance and instance.pk:
-            self.fields.pop('csv')
+            self.fields.pop("csv")
         else:
-            self.fields['csv'].widget.attrs.update({'accept': '.csv'})
-        self.fields['download_script'].queryset = qs
+            self.fields["csv"].widget.attrs.update({"accept": ".csv"})
+        self.fields["download_script"].queryset = qs
 
 
 class ExtractionScriptForm(forms.Form):
-    required_css_class = 'required'  # adds to label tag
+    required_css_class = "required"  # adds to label tag
     script_selection = forms.ModelChoiceField(
-        queryset=Script.objects.filter(script_type='EX'),
-        label="Extraction Script")
+        queryset=Script.objects.filter(script_type="EX"), label="Extraction Script"
+    )
     weight_fraction_type = forms.ModelChoiceField(
         queryset=WeightFractionType.objects.all(),
         label="Weight Fraction Type",
-        initial="1")
+        initial="1",
+    )
     extract_file = forms.FileField(label="Extracted Text CSV File")
 
     def __init__(self, *args, **kwargs):
-        self.dg_type = kwargs.pop('dg_type', 0)
-        self.user = kwargs.pop('user', None)
+        self.dg_type = kwargs.pop("dg_type", 0)
+        self.user = kwargs.pop("user", None)
         super(ExtractionScriptForm, self).__init__(*args, **kwargs)
-        self.fields['weight_fraction_type'].widget.attrs.update(
-            {'style': 'height:2.75rem; !important'})
-        self.fields['script_selection'].widget.attrs.update(
-            {'style': 'height:2.75rem; !important'})
-        self.fields['extract_file'].widget.attrs.update({'accept': '.csv'})
-        if self.dg_type in ['FU', 'CP']:
-            del self.fields['weight_fraction_type']
+        self.fields["weight_fraction_type"].widget.attrs.update(
+            {"style": "height:2.75rem; !important"}
+        )
+        self.fields["script_selection"].widget.attrs.update(
+            {"style": "height:2.75rem; !important"}
+        )
+        self.fields["extract_file"].widget.attrs.update({"accept": ".csv"})
+        if self.dg_type in ["FU", "CP"]:
+            del self.fields["weight_fraction_type"]
         self.collapsed = True
 
 
 class CleanCompDataForm(forms.Form):
-    required_css_class = 'required'  # adds to label tag
+    required_css_class = "required"  # adds to label tag
     script_selection = forms.ModelChoiceField(
-        queryset=Script.objects.filter(script_type='DC'),
+        queryset=Script.objects.filter(script_type="DC"),
         label="Data Cleaning Script",
-        required=True)
-    clean_comp_data_file = forms.FileField(label="Clean Composition Data CSV File",
-                                           required=True)
+        required=True,
+    )
+    clean_comp_data_file = forms.FileField(
+        label="Clean Composition Data CSV File", required=True
+    )
 
     def __init__(self, *args, **kwargs):
         super(CleanCompDataForm, self).__init__(*args, **kwargs)
-        self.fields['script_selection'].widget.attrs.update(
-            {'style': 'height:2.75rem; !important'})
-        self.fields['clean_comp_data_file'].widget.attrs.update(
-            {'accept': '.csv'})
+        self.fields["script_selection"].widget.attrs.update(
+            {"style": "height:2.75rem; !important"}
+        )
+        self.fields["clean_comp_data_file"].widget.attrs.update({"accept": ".csv"})
         self.collapsed = True
 
 
 class DataSourceForm(forms.ModelForm):
-    required_css_class = 'required'
+    required_css_class = "required"
 
     class Meta:
         model = DataSource
-        fields = ['title', 'url', 'estimated_records', 'state', 'priority',
-                  'description']
+        fields = [
+            "title",
+            "url",
+            "estimated_records",
+            "state",
+            "priority",
+            "description",
+        ]
 
 
 class PriorityForm(forms.ModelForm):
     class Meta:
         model = DataSource
-        fields = ['priority']
+        fields = ["priority"]
 
     def __init__(self, *args, **kwargs):
         super(PriorityForm, self).__init__(*args, **kwargs)
-        self.fields['priority'].label = ''
-        self.fields['priority'].widget.attrs.update({
-            'onchange': 'form.submit();'
-        })
+        self.fields["priority"].label = ""
+        self.fields["priority"].widget.attrs.update({"onchange": "form.submit();"})
 
 
 class QANotesForm(forms.ModelForm):
     class Meta:
         model = QANotes
-        fields = ['qa_notes']
-        widgets = {
-            'qa_notes': forms.Textarea(attrs={
-                'id': 'qa-notes-textarea', 
-            }),
-        }
-        labels = {
-            'qa_notes': _('QA Notes (required if approving edited records)'),
-        }
+        fields = ["qa_notes"]
+        widgets = {"qa_notes": forms.Textarea(attrs={"id": "qa-notes-textarea"})}
+        labels = {"qa_notes": _("QA Notes (required if approving edited records)")}
 
 
 class ExtractedTextQAForm(forms.ModelForm):
-    required_css_class = 'required'  # adds to label tag
+    required_css_class = "required"  # adds to label tag
 
     class Meta:
         model = ExtractedText
-        fields = ['prod_name', 'data_document', 'qa_checked']
+        fields = ["prod_name", "data_document", "qa_checked"]
 
 
 class ProductLinkForm(forms.ModelForm):
-    required_css_class = 'required'  # adds to label tag
+    required_css_class = "required"  # adds to label tag
     document_type = forms.ModelChoiceField(
-        queryset=DocumentType.objects.all(),
-        label="Data Document Type",
-        required=False)
+        queryset=DocumentType.objects.all(), label="Data Document Type", required=False
+    )
 
     return_url = forms.CharField()
 
     class Meta:
         model = Product
-        fields = ['title', 'manufacturer',
-                  'brand_name', 'upc', 'size', 'color']
+        fields = ["title", "manufacturer", "brand_name", "upc", "size", "color"]
 
     def __init__(self, *args, **kwargs):
         super(ProductLinkForm, self).__init__(*args, **kwargs)
-        self.fields['return_url'].widget = forms.HiddenInput()
+        self.fields["return_url"].widget = forms.HiddenInput()
 
 
 class ProductForm(forms.ModelForm):
-    required_css_class = 'required'  # adds to label tag
+    required_css_class = "required"  # adds to label tag
 
     class Meta:
         model = Product
-        fields = ['title', 'manufacturer', 'brand_name', 'size', 'color',
-                  'model_number', 'short_description', 'long_description']
+        fields = [
+            "title",
+            "manufacturer",
+            "brand_name",
+            "size",
+            "color",
+            "model_number",
+            "short_description",
+            "long_description",
+        ]
 
 
 class ProductViewForm(ProductForm):
     class Meta(ProductForm.Meta):
-        exclude = ('title', 'long_description',)
+        exclude = ("title", "long_description")
 
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
@@ -161,114 +178,125 @@ class ProductViewForm(ProductForm):
 class BasePUCForm(forms.ModelForm):
     puc = forms.ModelChoiceField(
         queryset=PUC.objects.all(),
-        label='Category',
+        label="Category",
         widget=autocomplete.ModelSelect2(
-            url='puc-autocomplete',
-            attrs={'data-minimum-input-length': 3, })
+            url="puc-autocomplete", attrs={"data-minimum-input-length": 3}
+        ),
     )
 
 
 class ProductPUCForm(BasePUCForm):
     class Meta:
         model = ProductToPUC
-        fields = ['puc']
+        fields = ["puc"]
 
 
 class HabitsPUCForm(BasePUCForm):
     class Meta:
         model = ExtractedHabitsAndPracticesToPUC
-        fields = ['puc']
+        fields = ["puc"]
 
 
 class BulkProductPUCForm(forms.ModelForm):
-    id_pks = forms.CharField(label='Product Titles',
-                             widget=forms.HiddenInput(),
-                             required=True)
+    id_pks = forms.CharField(
+        label="Product Titles", widget=forms.HiddenInput(), required=True
+    )
 
     class Meta:
         model = ProductToPUC
-        fields = ['puc', 'id_pks']
+        fields = ["puc", "id_pks"]
 
 
 class BulkPUCForm(BasePUCForm):
     class Meta:
         model = ProductToPUC
-        fields = ['puc']
+        fields = ["puc"]
 
     def __init__(self, *args, **kwargs):
         super(BulkPUCForm, self).__init__(*args, **kwargs)
-        lbl = 'Select PUC'
-        self.fields['puc'].label = lbl
-        self.fields['puc'].widget.attrs['onchange'] = 'form.submit();'
+        lbl = "Select PUC"
+        self.fields["puc"].label = lbl
+        self.fields["puc"].widget.attrs["onchange"] = "form.submit();"
 
 
 class BulkProductTagForm(forms.ModelForm):
-    required_css_class = 'required'  # adds to label tag
-    tag = forms.ModelChoiceField(queryset=PUCTag.objects.none(),
-                                 label='Attribute')
-    id_pks = forms.CharField(label='Product Titles',
-                             widget=forms.HiddenInput())
+    required_css_class = "required"  # adds to label tag
+    tag = forms.ModelChoiceField(queryset=PUCTag.objects.none(), label="Attribute")
+    id_pks = forms.CharField(label="Product Titles", widget=forms.HiddenInput())
 
     class Meta:
         model = ProductToPUC
-        fields = ['tag', 'id_pks']
+        fields = ["tag", "id_pks"]
 
     def __init__(self, *args, **kwargs):
         super(BulkProductTagForm, self).__init__(*args, **kwargs)
-        lbl = 'Select Attribute to Assign to Selected Products'
-        self.fields['tag'].label = lbl
+        lbl = "Select Attribute to Assign to Selected Products"
+        self.fields["tag"].label = lbl
 
 
 class ExtractedTextForm(forms.ModelForm):
     class Meta:
         model = ExtractedText
-        fields = ['prod_name', 'doc_date', 'rev_num']
+        fields = ["prod_name", "doc_date", "rev_num"]
 
         widgets = {
-            'data_document': forms.HiddenInput(),
-            'extraction_script': forms.HiddenInput(),
+            "data_document": forms.HiddenInput(),
+            "extraction_script": forms.HiddenInput(),
         }
 
-class ExtractedCPCatForm(ExtractedTextForm):
 
+class ExtractedCPCatForm(ExtractedTextForm):
     class Meta:
         model = ExtractedCPCat
-        fields = ['doc_date', 'cat_code', 'description_cpcat', 'cpcat_code', 'cpcat_sourcetype']
+        fields = [
+            "doc_date",
+            "cat_code",
+            "description_cpcat",
+            "cpcat_code",
+            "cpcat_sourcetype",
+        ]
 
 
 class ExtractedCPCatEditForm(ExtractedCPCatForm):
-
     class Meta(ExtractedCPCatForm.Meta):
-        fields = ExtractedCPCatForm.Meta.fields + \
-            ['prod_name', 'doc_date', 'rev_num', 'cpcat_code']
+        fields = ExtractedCPCatForm.Meta.fields + [
+            "prod_name",
+            "doc_date",
+            "rev_num",
+            "cpcat_code",
+        ]
 
 
 class ExtractedHHDocForm(ExtractedTextForm):
-
     class Meta:
         model = ExtractedHHDoc
-        fields = ['hhe_report_number', 'study_location', 'naics_code', 'sampling_date', 'population_gender',
-                  'population_age', 'population_other', 'occupation', 'facility']
+        fields = [
+            "hhe_report_number",
+            "study_location",
+            "naics_code",
+            "sampling_date",
+            "population_gender",
+            "population_age",
+            "population_other",
+            "occupation",
+            "facility",
+        ]
 
 
 class ExtractedHHDocEditForm(ExtractedHHDocForm):
-
     class Meta(ExtractedHHDocForm.Meta):
-        fields = ExtractedHHDocForm.Meta.fields + \
-            ['prod_name', 'doc_date', 'rev_num']
+        fields = ExtractedHHDocForm.Meta.fields + ["prod_name", "doc_date", "rev_num"]
 
 
 class DocumentTypeForm(forms.ModelForm):
     class Meta:
         model = DataDocument
-        fields = ['document_type']
+        fields = ["document_type"]
 
     def __init__(self, *args, **kwargs):
         super(DocumentTypeForm, self).__init__(*args, **kwargs)
-        self.fields['document_type'].label = ''
-        self.fields['document_type'].widget.attrs.update({
-            'onchange': 'form.submit();'
-        })
+        self.fields["document_type"].label = ""
+        self.fields["document_type"].widget.attrs.update({"onchange": "form.submit();"})
 
 
 class ExtractedChemicalFormSet(BaseInlineFormSet):
@@ -277,14 +305,13 @@ class ExtractedChemicalFormSet(BaseInlineFormSet):
 
 
 class ExtractedChemicalForm(forms.ModelForm):
-
     class Meta:
         model = ExtractedChemical
-        exclude = ('extracted_text',)
+        exclude = ("extracted_text",)
 
 
 def create_detail_formset(document, extra=1, can_delete=False, exclude=[]):
-    '''Returns the pair of formsets that will be needed based on group_type.
+    """Returns the pair of formsets that will be needed based on group_type.
     .                       ('CO'),('CP'),('FU'),('HP'),('HH')
     Parameters
         ----------
@@ -298,32 +325,39 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[]):
             which fields to leave out of the form
     .
 
-    '''
+    """
     group_type = document.data_group.type
     parent, child = get_extracted_models(group_type)
-    extracted = hasattr(document, 'extractedtext')
+    extracted = hasattr(document, "extractedtext")
 
-    def make_formset(parent_model, model,
-                     formset=BaseInlineFormSet,
-                     form=forms.ModelForm,
-                     exclude=exclude):
+    def make_formset(
+        parent_model,
+        model,
+        formset=BaseInlineFormSet,
+        form=forms.ModelForm,
+        exclude=exclude,
+    ):
         formset_fields = model.detail_fields()
         if exclude:
-            formset_fields = [in_field for in_field in formset_fields if not in_field in exclude]
-        return forms.inlineformset_factory(parent_model=parent_model,
-                                           model=model,
-                                           fields=formset_fields,
-                                           formset=formset,  # this specifies a custom formset
-                                           form=form,
-                                           extra=extra,
-                                           can_delete=can_delete)
+            formset_fields = [
+                in_field for in_field in formset_fields if not in_field in exclude
+            ]
+        return forms.inlineformset_factory(
+            parent_model=parent_model,
+            model=model,
+            fields=formset_fields,
+            formset=formset,  # this specifies a custom formset
+            form=form,
+            extra=extra,
+            can_delete=can_delete,
+        )
 
     def one():  # for chemicals or unknown
         ChemicalFormSet = make_formset(
             parent_model=parent,
             model=child,
             formset=ExtractedChemicalFormSet,
-            form=ExtractedChemicalForm
+            form=ExtractedChemicalForm,
         )
         return (ExtractedTextForm, ChemicalFormSet)
 
@@ -339,36 +373,27 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[]):
         ListPresenceFormSet = make_formset(parent, child)
         ParentForm = ExtractedCPCatForm if extracted else ExtractedCPCatEditForm
 
-
         return (ParentForm, ListPresenceFormSet)
 
     def five():  # for extracted_hh_rec
         HHFormSet = make_formset(parent, child)
         ParentForm = ExtractedHHDocForm if extracted else ExtractedHHDocEditForm
         return (ParentForm, HHFormSet)
-    dg_types = {
-        'CO': one,
-        'UN': one,
-        'FU': two,
-        'HP': three,
-        'CP': four,
-        'HH': five,
-    }
+
+    dg_types = {"CO": one, "UN": one, "FU": two, "HP": three, "CP": four, "HH": five}
     func = dg_types.get(group_type, lambda: None)
     return func()
 
+
 class DataDocumentForm(forms.ModelForm):
-    required_css_class = 'required'
+    required_css_class = "required"
 
     class Meta:
         model = DataDocument
-        fields = ['title', 'subtitle', 'document_type', 'note', 'url']
+        fields = ["title", "subtitle", "document_type", "note", "url"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['document_type'].queryset = (
-            DocumentType
-            .objects
-            .compatible(self.instance)
+        self.fields["document_type"].queryset = DocumentType.objects.compatible(
+            self.instance
         )
-

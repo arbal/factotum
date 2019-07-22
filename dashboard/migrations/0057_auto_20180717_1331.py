@@ -7,29 +7,43 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0056_auto_20180716_0746'),
-    ]
+    dependencies = [("dashboard", "0056_auto_20180716_0746")]
 
     operations = [
         migrations.AlterField(
-            model_name='extractedtext',
-            name='extraction_script',
-            field=models.ForeignKey(limit_choices_to={'script_type': 'EX'}, on_delete=django.db.models.deletion.CASCADE, to='dashboard.Script'),
+            model_name="extractedtext",
+            name="extraction_script",
+            field=models.ForeignKey(
+                limit_choices_to={"script_type": "EX"},
+                on_delete=django.db.models.deletion.CASCADE,
+                to="dashboard.Script",
+            ),
         ),
         migrations.AlterField(
-            model_name='qagroup',
-            name='extraction_script',
-            field=models.ForeignKey(limit_choices_to={'script_type': 'EX'}, on_delete=django.db.models.deletion.CASCADE, to='dashboard.Script'),
+            model_name="qagroup",
+            name="extraction_script",
+            field=models.ForeignKey(
+                limit_choices_to={"script_type": "EX"},
+                on_delete=django.db.models.deletion.CASCADE,
+                to="dashboard.Script",
+            ),
         ),
         migrations.AlterField(
-            model_name='taxonomy',
-            name='last_edited_by',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.SET_DEFAULT, to=settings.AUTH_USER_MODEL),
+            model_name="taxonomy",
+            name="last_edited_by",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.SET_DEFAULT,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='taxonomysource',
-            name='last_edited_by',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.SET_DEFAULT, to=settings.AUTH_USER_MODEL),
+            model_name="taxonomysource",
+            name="last_edited_by",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.SET_DEFAULT,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

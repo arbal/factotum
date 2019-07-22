@@ -8,21 +8,32 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0045_auto_20180531_1245'),
-    ]
+    dependencies = [("dashboard", "0045_auto_20180531_1245")]
 
     operations = [
         migrations.CreateModel(
-            name='PUCAttribute',
+            name="PUCAttribute",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
             ],
         ),
         migrations.AddField(
-            model_name='puc',
-            name='attribute',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='dashboard.PUCAttribute'),
+            model_name="puc",
+            name="attribute",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="dashboard.PUCAttribute",
+            ),
         ),
     ]

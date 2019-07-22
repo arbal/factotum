@@ -11,61 +11,120 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('dashboard', '0054_auto_20180703_1424'),
+        ("dashboard", "0054_auto_20180703_1424"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Taxonomy',
+            name="Taxonomy",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('title', models.CharField(max_length=100)),
-                ('description', models.TextField(blank=True, null=True)),
-                ('category_code', models.CharField(blank=True, max_length=40, null=True)),
-                ('last_edited_by', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('parent', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='dashboard.Taxonomy')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True, null=True)),
+                ("updated_at", models.DateTimeField(auto_now=True, null=True)),
+                ("title", models.CharField(max_length=100)),
+                ("description", models.TextField(blank=True, null=True)),
+                (
+                    "category_code",
+                    models.CharField(blank=True, max_length=40, null=True),
+                ),
+                (
+                    "last_edited_by",
+                    models.ForeignKey(
+                        default=1,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "parent",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="dashboard.Taxonomy",
+                    ),
+                ),
             ],
-            options={
-                'verbose_name_plural': 'Taxonomies',
-            },
+            options={"verbose_name_plural": "Taxonomies"},
         ),
         migrations.CreateModel(
-            name='TaxonomySource',
+            name="TaxonomySource",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('title', models.CharField(max_length=100)),
-                ('description', models.TextField(blank=True, null=True)),
-                ('last_edited_by', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True, null=True)),
+                ("updated_at", models.DateTimeField(auto_now=True, null=True)),
+                ("title", models.CharField(max_length=100)),
+                ("description", models.TextField(blank=True, null=True)),
+                (
+                    "last_edited_by",
+                    models.ForeignKey(
+                        default=1,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
-            options={
-                'verbose_name_plural': 'Taxonomy Sources',
-            },
+            options={"verbose_name_plural": "Taxonomy Sources"},
         ),
         migrations.CreateModel(
-            name='TaxonomyToPUC',
+            name="TaxonomyToPUC",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('PUC', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.PUC')),
-                ('taxonomy', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.Taxonomy')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True, null=True)),
+                ("updated_at", models.DateTimeField(auto_now=True, null=True)),
+                (
+                    "PUC",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="dashboard.PUC"
+                    ),
+                ),
+                (
+                    "taxonomy",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="dashboard.Taxonomy",
+                    ),
+                ),
             ],
-            options={
-                'verbose_name_plural': "Taxonomies to PUC's",
-            },
+            options={"verbose_name_plural": "Taxonomies to PUC's"},
         ),
         migrations.AddField(
-            model_name='taxonomy',
-            name='product_category',
-            field=models.ManyToManyField(through='dashboard.TaxonomyToPUC', to='dashboard.PUC'),
+            model_name="taxonomy",
+            name="product_category",
+            field=models.ManyToManyField(
+                through="dashboard.TaxonomyToPUC", to="dashboard.PUC"
+            ),
         ),
         migrations.AddField(
-            model_name='taxonomy',
-            name='source',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.TaxonomySource'),
+            model_name="taxonomy",
+            name="source",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="dashboard.TaxonomySource",
+            ),
         ),
     ]

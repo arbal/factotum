@@ -7,34 +7,19 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0043_auto_20180518_1246'),
-    ]
+    dependencies = [("dashboard", "0043_auto_20180518_1246")]
 
     operations = [
-        migrations.RenameModel(
-            old_name='ProductCategory',
-            new_name='PUC',
-        ),
-        migrations.RemoveField(
-            model_name='product',
-            name='prod_cat',
-        ),
-        migrations.RemoveField(
-            model_name='product',
-            name='puc_assigned_script',
-        ),
-        migrations.RemoveField(
-            model_name='product',
-            name='puc_assigned_time',
-        ),
-        migrations.RemoveField(
-            model_name='product',
-            name='puc_assigned_usr',
-        ),
+        migrations.RenameModel(old_name="ProductCategory", new_name="PUC"),
+        migrations.RemoveField(model_name="product", name="prod_cat"),
+        migrations.RemoveField(model_name="product", name="puc_assigned_script"),
+        migrations.RemoveField(model_name="product", name="puc_assigned_time"),
+        migrations.RemoveField(model_name="product", name="puc_assigned_usr"),
         migrations.AddField(
-            model_name='puc',
-            name='products',
-            field=models.ManyToManyField(through='dashboard.ProductToPUC', to='dashboard.Product'),
+            model_name="puc",
+            name="products",
+            field=models.ManyToManyField(
+                through="dashboard.ProductToPUC", to="dashboard.Product"
+            ),
         ),
     ]

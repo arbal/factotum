@@ -7,14 +7,12 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0021_merge_20180119_1347'),
-    ]
+    dependencies = [("dashboard", "0021_merge_20180119_1347")]
 
     operations = [
         migrations.RenameField(
-            model_name='datagroup',
-            old_name='extraction_script',
-            new_name='download_script',
-        ),
+            model_name="datagroup",
+            old_name="extraction_script",
+            new_name="download_script",
+        )
     ]

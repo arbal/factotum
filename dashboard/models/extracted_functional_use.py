@@ -2,17 +2,19 @@ from django.db import models
 from .common_info import CommonInfo
 from .raw_chem import RawChem
 
+
 class ExtractedFunctionalUse(CommonInfo, RawChem):
 
-    report_funcuse = models.CharField("Reported functional use",
-                                        max_length=100, null=True, blank=True)
+    report_funcuse = models.CharField(
+        "Reported functional use", max_length=100, null=True, blank=True
+    )
 
     def __str__(self):
         return self.raw_chem_name
 
     @classmethod
     def detail_fields(cls):
-        return ['extracted_text','raw_chem_name','raw_cas','report_funcuse']
+        return ["extracted_text", "raw_chem_name", "raw_cas", "report_funcuse"]
 
     def get_extractedtext(self):
         return self.extracted_text

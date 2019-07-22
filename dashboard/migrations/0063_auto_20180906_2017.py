@@ -2,9 +2,10 @@
 
 from django.db import migrations
 
+
 def update_created_at_field(apps, schema_editor):
 
-    document = apps.get_model('dashboard', 'DataDocument')
+    document = apps.get_model("dashboard", "DataDocument")
 
     for doc in document.objects.all():
         if doc.uploaded_at and doc.created_at:
@@ -12,12 +13,13 @@ def update_created_at_field(apps, schema_editor):
                 doc.created_at = doc.uploaded_at
                 doc.save()
 
+
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0062_add_datagroup_url'),
-    ]
+    dependencies = [("dashboard", "0062_add_datagroup_url")]
 
     operations = [
-        migrations.RunPython(update_created_at_field, reverse_code=migrations.RunPython.noop),
+        migrations.RunPython(
+            update_created_at_field, reverse_code=migrations.RunPython.noop
+        )
     ]

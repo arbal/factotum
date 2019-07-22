@@ -4,15 +4,22 @@ from django.utils import six
 from django.forms.utils import flatatt
 from django.utils.safestring import mark_safe
 
+
 class FilteredLabelWidget(LabelWidget):
     # overriding django-taggit-label function to display subset of tags
     def tag_list(self, tags):
         # must set form_instance in form __init__()
         puc = self.form_instance.instance.get_uber_puc() or None
-        qs = self.model.objects.filter(content_object=puc,assumed=False)
+        qs = self.model.objects.filter(content_object=puc, assumed=False)
         filtered = [unassumed.tag for unassumed in qs]
-        return [(tag.name, 'selected taggit-tag' if tag.name in tags else 'taggit-tag', tag.definition  )
-                for tag in filtered]
+        return [
+            (
+                tag.name,
+                "selected taggit-tag" if tag.name in tags else "taggit-tag",
+                tag.definition,
+            )
+            for tag in filtered
+        ]
 
     # swiped and modified from taggit-labels on github
     def render(self, name, value, attrs={}, **kwargs):
@@ -44,8 +51,9 @@ class FilteredLabelWidget(LabelWidget):
 
         tag_li = "".join(
             [
-                u"<li data-tag-name='{0}' title='{2}' class='{1}'>{0}</li>"
-                .format(tag[0], tag[1], tag[2] if tag[2] else "No definition")
+                u"<li data-tag-name='{0}' title='{2}' class='{1}'>{0}</li>".format(
+                    tag[0], tag[1], tag[2] if tag[2] else "No definition"
+                )
                 for tag in selected_tags
             ]
         )

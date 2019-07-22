@@ -5,6 +5,4 @@ from haystack.forms import FacetedSearchForm
 from haystack.views import FacetedSearchView
 from . import views
 
-urlpatterns = [
-    url(r'^api/(?P<slug>[-\w]+)/$', views.index, name='index'),
-    ]
+urlpatterns = [url(r"^api/(?P<slug>[-\w]+)/$", views.index, name="index")]

@@ -7,14 +7,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0012_datasource_priority'),
-    ]
+    dependencies = [("dashboard", "0012_datasource_priority")]
 
     operations = [
         migrations.AlterField(
-            model_name='datasource',
-            name='url',
+            model_name="datasource",
+            name="url",
             field=models.CharField(blank=True, max_length=150),
-        ),
+        )
     ]

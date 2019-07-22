@@ -9,43 +9,68 @@ import django.utils.timezone
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0014_merge_20171230_0930'),
-    ]
+    dependencies = [("dashboard", "0014_merge_20171230_0930")]
 
     operations = [
         migrations.CreateModel(
-            name='ProductDocument',
+            name="ProductDocument",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('upc', models.CharField(db_index=True, max_length=40, unique=True)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('updated_at', models.DateTimeField(blank=True, null=True)),
-                ('document', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.DataDocument')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("upc", models.CharField(db_index=True, max_length=40, unique=True)),
+                ("created_at", models.DateTimeField(default=django.utils.timezone.now)),
+                ("updated_at", models.DateTimeField(blank=True, null=True)),
+                (
+                    "document",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="dashboard.DataDocument",
+                    ),
+                ),
             ],
         ),
         migrations.AlterModelOptions(
-            name='sourcecategory',
-            options={'verbose_name_plural': 'Source categories'},
+            name="sourcecategory", options={"verbose_name_plural": "Source categories"}
         ),
         migrations.AlterField(
-            model_name='product',
-            name='source_category',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='dashboard.SourceCategory'),
+            model_name="product",
+            name="source_category",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="dashboard.SourceCategory",
+            ),
         ),
         migrations.AddField(
-            model_name='productdocument',
-            name='product',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='dashboard.Product'),
+            model_name="productdocument",
+            name="product",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="dashboard.Product",
+            ),
         ),
         migrations.AddField(
-            model_name='datadocument',
-            name='products',
-            field=models.ManyToManyField(through='dashboard.ProductDocument', to='dashboard.Product'),
+            model_name="datadocument",
+            name="products",
+            field=models.ManyToManyField(
+                through="dashboard.ProductDocument", to="dashboard.Product"
+            ),
         ),
         migrations.AddField(
-            model_name='product',
-            name='documents',
-            field=models.ManyToManyField(through='dashboard.ProductDocument', to='dashboard.DataDocument'),
+            model_name="product",
+            name="documents",
+            field=models.ManyToManyField(
+                through="dashboard.ProductDocument", to="dashboard.DataDocument"
+            ),
         ),
     ]

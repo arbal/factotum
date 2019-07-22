@@ -11,50 +11,73 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('dashboard', '0053_auto_20180703_1002'),
+        ("dashboard", "0053_auto_20180703_1002"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='QANotes',
+            name="QANotes",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('qa_notes', models.CharField(blank=True, max_length=255, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True, null=True)),
+                ("updated_at", models.DateTimeField(auto_now=True, null=True)),
+                ("qa_notes", models.CharField(blank=True, max_length=255, null=True)),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.AddField(
-            model_name='extractedtext',
-            name='qa_approved_by',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='QA approved by'),
+            model_name="extractedtext",
+            name="qa_approved_by",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="QA approved by",
+            ),
         ),
         migrations.AddField(
-            model_name='extractedtext',
-            name='qa_approved_date',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='QA approval date'),
+            model_name="extractedtext",
+            name="qa_approved_date",
+            field=models.DateTimeField(
+                blank=True, null=True, verbose_name="QA approval date"
+            ),
         ),
         migrations.AddField(
-            model_name='extractedtext',
-            name='qa_edited',
-            field=models.BooleanField(default=False, verbose_name='QA edited'),
+            model_name="extractedtext",
+            name="qa_edited",
+            field=models.BooleanField(default=False, verbose_name="QA edited"),
         ),
         migrations.AlterField(
-            model_name='extractedtext',
-            name='qa_checked',
-            field=models.BooleanField(default=False, verbose_name='QA approved'),
+            model_name="extractedtext",
+            name="qa_checked",
+            field=models.BooleanField(default=False, verbose_name="QA approved"),
         ),
         migrations.AlterField(
-            model_name='extractedtext',
-            name='qa_group',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='dashboard.QAGroup', verbose_name='QA group'),
+            model_name="extractedtext",
+            name="qa_group",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="dashboard.QAGroup",
+                verbose_name="QA group",
+            ),
         ),
         migrations.AddField(
-            model_name='qanotes',
-            name='extracted_text',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.ExtractedText'),
+            model_name="qanotes",
+            name="extracted_text",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="dashboard.ExtractedText",
+            ),
         ),
     ]

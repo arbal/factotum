@@ -5,24 +5,26 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0100_extractedchemical_names'),
-    ]
+    dependencies = [("dashboard", "0100_extractedchemical_names")]
 
     operations = [
         migrations.AlterField(
-            model_name='dsstoxlookup',
-            name='sid',
-            field=models.CharField(max_length=50, unique=True, verbose_name='DTXSID'),
+            model_name="dsstoxlookup",
+            name="sid",
+            field=models.CharField(max_length=50, unique=True, verbose_name="DTXSID"),
         ),
         migrations.AlterField(
-            model_name='dsstoxlookup',
-            name='true_cas',
-            field=models.CharField(blank=True, max_length=50, null=True, verbose_name='True CAS'),
+            model_name="dsstoxlookup",
+            name="true_cas",
+            field=models.CharField(
+                blank=True, max_length=50, null=True, verbose_name="True CAS"
+            ),
         ),
         migrations.AlterField(
-            model_name='dsstoxlookup',
-            name='true_chemname',
-            field=models.CharField(blank=True, max_length=500, null=True, verbose_name='True chemical name'),
+            model_name="dsstoxlookup",
+            name="true_chemname",
+            field=models.CharField(
+                blank=True, max_length=500, null=True, verbose_name="True chemical name"
+            ),
         ),
     ]

@@ -5,14 +5,20 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0116_reported_func_use'),
-    ]
+    dependencies = [("dashboard", "0116_reported_func_use")]
 
     operations = [
         migrations.AddField(
-            model_name='extractedlistpresencetag',
-            name='kind',
-            field=models.CharField(choices=[('GU', 'General use'), ('PH', 'Pharmaceutical'), ('LP', 'List presence')], default='GU', max_length=2),
-        ),
+            model_name="extractedlistpresencetag",
+            name="kind",
+            field=models.CharField(
+                choices=[
+                    ("GU", "General use"),
+                    ("PH", "Pharmaceutical"),
+                    ("LP", "List presence"),
+                ],
+                default="GU",
+                max_length=2,
+            ),
+        )
     ]

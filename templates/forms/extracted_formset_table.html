@@ -1,3 +1,4 @@
+{% load bs_tags %}
 
 
 <form method="post"  >
@@ -43,9 +44,15 @@
                     {{ hidden }}
                     {% endfor %}
                 {% endif %}
-                {{ field.errors.as_ul }}
                 {{ field.label|capfirst }}
-                {{ field }}
+                {% if field.errors %}
+                    {{ field|add_class:"is-invalid" }}
+                    <small  class="text-danger">
+                        {{ field.errors.as_text }}
+                      </small>    
+                {% else %}
+                    {{ field }}
+                {% endif %}
                 </td>
 
                 {% if forloop.counter|divisibleby:4 %} <!-- if it is after form 4, 8, 12, etc -->

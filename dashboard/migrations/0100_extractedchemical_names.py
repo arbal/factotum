@@ -6,19 +6,29 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0099_qagroup_script'),
-    ]
+    dependencies = [("dashboard", "0099_qagroup_script")]
 
     operations = [
         migrations.AlterField(
-            model_name='extractedchemical',
-            name='ingredient_rank',
-            field=models.PositiveIntegerField(blank=True, null=True, validators=[dashboard.models.extracted_chemical.validate_ingredient_rank], verbose_name='Ingredient rank'),
+            model_name="extractedchemical",
+            name="ingredient_rank",
+            field=models.PositiveIntegerField(
+                blank=True,
+                null=True,
+                validators=[
+                    dashboard.models.extracted_chemical.validate_ingredient_rank
+                ],
+                verbose_name="Ingredient rank",
+            ),
         ),
         migrations.AlterField(
-            model_name='extractedchemical',
-            name='raw_central_comp',
-            field=models.CharField(blank=True, max_length=100, null=True, verbose_name='Raw central composition'),
+            model_name="extractedchemical",
+            name="raw_central_comp",
+            field=models.CharField(
+                blank=True,
+                max_length=100,
+                null=True,
+                verbose_name="Raw central composition",
+            ),
         ),
     ]

@@ -12,10 +12,10 @@ class SourceCategory(CommonInfo):
     path = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return self.data_source.title + ', ' + self.path
+        return self.data_source.title + ", " + self.path
 
     def get_absolute_url(self):
-        return reverse('source_category_edit', kwargs={'pk': self.pk})
+        return reverse("source_category_edit", kwargs={"pk": self.pk})
 
     class Meta:
-        verbose_name_plural = 'Source categories'
+        verbose_name_plural = "Source categories"

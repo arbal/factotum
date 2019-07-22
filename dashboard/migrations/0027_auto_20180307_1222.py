@@ -11,23 +11,33 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('dashboard', '0026_auto_20180305_1234'),
+        ("dashboard", "0026_auto_20180305_1234"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='product',
-            name='puc_assigned_script',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='dashboard.Script'),
+            model_name="product",
+            name="puc_assigned_script",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="dashboard.Script",
+            ),
         ),
         migrations.AddField(
-            model_name='product',
-            name='puc_assigned_time',
+            model_name="product",
+            name="puc_assigned_time",
             field=models.DateTimeField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='product',
-            name='puc_assigned_usr',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="product",
+            name="puc_assigned_usr",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

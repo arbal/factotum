@@ -9,49 +9,95 @@ import django.utils.timezone
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0012_datasource_priority'),
-    ]
+    dependencies = [("dashboard", "0012_datasource_priority")]
 
     operations = [
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=400)),
-                ('upc', models.CharField(db_index=True, max_length=40, unique=True)),
-                ('url', models.CharField(blank=True, max_length=255, null=True)),
-                ('brand_name', models.CharField(blank=True, db_index=True, max_length=200, null=True)),
-                ('size', models.CharField(blank=True, max_length=100, null=True)),
-                ('color', models.CharField(blank=True, max_length=100, null=True)),
-                ('item_id', models.IntegerField(blank=True, null=True)),
-                ('parent_item_id', models.IntegerField(blank=True, null=True)),
-                ('short_description', models.TextField(blank=True, null=True)),
-                ('long_description', models.TextField(blank=True, null=True)),
-                ('thumb_image', models.CharField(blank=True, max_length=255, null=True)),
-                ('medium_image', models.CharField(blank=True, max_length=255, null=True)),
-                ('large_image', models.CharField(blank=True, max_length=255, null=True)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('updated_at', models.DateTimeField(blank=True, null=True)),
-                ('data_source', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.DataSource')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=400)),
+                ("upc", models.CharField(db_index=True, max_length=40, unique=True)),
+                ("url", models.CharField(blank=True, max_length=255, null=True)),
+                (
+                    "brand_name",
+                    models.CharField(
+                        blank=True, db_index=True, max_length=200, null=True
+                    ),
+                ),
+                ("size", models.CharField(blank=True, max_length=100, null=True)),
+                ("color", models.CharField(blank=True, max_length=100, null=True)),
+                ("item_id", models.IntegerField(blank=True, null=True)),
+                ("parent_item_id", models.IntegerField(blank=True, null=True)),
+                ("short_description", models.TextField(blank=True, null=True)),
+                ("long_description", models.TextField(blank=True, null=True)),
+                (
+                    "thumb_image",
+                    models.CharField(blank=True, max_length=255, null=True),
+                ),
+                (
+                    "medium_image",
+                    models.CharField(blank=True, max_length=255, null=True),
+                ),
+                (
+                    "large_image",
+                    models.CharField(blank=True, max_length=255, null=True),
+                ),
+                ("created_at", models.DateTimeField(default=django.utils.timezone.now)),
+                ("updated_at", models.DateTimeField(blank=True, null=True)),
+                (
+                    "data_source",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="dashboard.DataSource",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='SourceCategory',
+            name="SourceCategory",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200)),
-                ('source_id', models.CharField(blank=True, max_length=255, null=True)),
-                ('source_parent_id', models.CharField(blank=True, max_length=255, null=True)),
-                ('path', models.CharField(blank=True, max_length=255, null=True)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('updated_at', models.DateTimeField(blank=True, null=True)),
-                ('data_source', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.DataSource')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200)),
+                ("source_id", models.CharField(blank=True, max_length=255, null=True)),
+                (
+                    "source_parent_id",
+                    models.CharField(blank=True, max_length=255, null=True),
+                ),
+                ("path", models.CharField(blank=True, max_length=255, null=True)),
+                ("created_at", models.DateTimeField(default=django.utils.timezone.now)),
+                ("updated_at", models.DateTimeField(blank=True, null=True)),
+                (
+                    "data_source",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="dashboard.DataSource",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='product',
-            name='source_category',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.SourceCategory'),
+            model_name="product",
+            name="source_category",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="dashboard.SourceCategory",
+            ),
         ),
     ]

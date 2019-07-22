@@ -9,74 +9,155 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0039_auto_20180430_1240'),
-    ]
+    dependencies = [("dashboard", "0039_auto_20180430_1240")]
 
     operations = [
         migrations.CreateModel(
-            name='DSSToxSubstanceToIngredient',
+            name="DSSToxSubstanceToIngredient",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('dsstox_substance', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.DSSToxSubstance')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True, null=True)),
+                ("updated_at", models.DateTimeField(auto_now=True, null=True)),
+                (
+                    "dsstox_substance",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="dashboard.DSSToxSubstance",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.CreateModel(
-            name='Ingredient',
+            name="Ingredient",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('lower_wf_analysis', models.DecimalField(blank=True, decimal_places=15, max_digits=16, null=True, validators=[dashboard.models.ingredient.validate_wf_analysis])),
-                ('central_wf_analysis', models.DecimalField(blank=True, decimal_places=15, max_digits=16, null=True, validators=[dashboard.models.ingredient.validate_wf_analysis])),
-                ('upper_wf_analysis', models.DecimalField(blank=True, decimal_places=15, max_digits=16, null=True, validators=[dashboard.models.ingredient.validate_wf_analysis])),
-                ('dsstox_substances', models.ManyToManyField(through='dashboard.DSSToxSubstanceToIngredient', to='dashboard.DSSToxSubstance')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True, null=True)),
+                ("updated_at", models.DateTimeField(auto_now=True, null=True)),
+                (
+                    "lower_wf_analysis",
+                    models.DecimalField(
+                        blank=True,
+                        decimal_places=15,
+                        max_digits=16,
+                        null=True,
+                        validators=[dashboard.models.ingredient.validate_wf_analysis],
+                    ),
+                ),
+                (
+                    "central_wf_analysis",
+                    models.DecimalField(
+                        blank=True,
+                        decimal_places=15,
+                        max_digits=16,
+                        null=True,
+                        validators=[dashboard.models.ingredient.validate_wf_analysis],
+                    ),
+                ),
+                (
+                    "upper_wf_analysis",
+                    models.DecimalField(
+                        blank=True,
+                        decimal_places=15,
+                        max_digits=16,
+                        null=True,
+                        validators=[dashboard.models.ingredient.validate_wf_analysis],
+                    ),
+                ),
+                (
+                    "dsstox_substances",
+                    models.ManyToManyField(
+                        through="dashboard.DSSToxSubstanceToIngredient",
+                        to="dashboard.DSSToxSubstance",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.CreateModel(
-            name='ProductToIngredient',
+            name="ProductToIngredient",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('ingredient', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.Ingredient')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.Product')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True, null=True)),
+                ("updated_at", models.DateTimeField(auto_now=True, null=True)),
+                (
+                    "ingredient",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="dashboard.Ingredient",
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="dashboard.Product",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.AddField(
-            model_name='ingredient',
-            name='products',
-            field=models.ManyToManyField(through='dashboard.ProductToIngredient', to='dashboard.Product'),
+            model_name="ingredient",
+            name="products",
+            field=models.ManyToManyField(
+                through="dashboard.ProductToIngredient", to="dashboard.Product"
+            ),
         ),
         migrations.AddField(
-            model_name='ingredient',
-            name='weight_fraction_type',
-            field=models.ForeignKey(default='1', null=True, on_delete=django.db.models.deletion.PROTECT, to='dashboard.WeightFractionType'),
+            model_name="ingredient",
+            name="weight_fraction_type",
+            field=models.ForeignKey(
+                default="1",
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="dashboard.WeightFractionType",
+            ),
         ),
         migrations.AddField(
-            model_name='dsstoxsubstancetoingredient',
-            name='ingredient',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.Ingredient'),
+            model_name="dsstoxsubstancetoingredient",
+            name="ingredient",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="dashboard.Ingredient"
+            ),
         ),
         migrations.AddField(
-            model_name='dsstoxsubstance',
-            name='ingredients',
-            field=models.ManyToManyField(through='dashboard.DSSToxSubstanceToIngredient', to='dashboard.DSSToxSubstance'),
+            model_name="dsstoxsubstance",
+            name="ingredients",
+            field=models.ManyToManyField(
+                through="dashboard.DSSToxSubstanceToIngredient",
+                to="dashboard.DSSToxSubstance",
+            ),
         ),
         migrations.AddField(
-            model_name='product',
-            name='ingredients',
-            field=models.ManyToManyField(through='dashboard.ProductToIngredient', to='dashboard.Ingredient'),
+            model_name="product",
+            name="ingredients",
+            field=models.ManyToManyField(
+                through="dashboard.ProductToIngredient", to="dashboard.Ingredient"
+            ),
         ),
     ]

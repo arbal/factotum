@@ -20,22 +20,22 @@ QA Extraction Scripts</h1>
         <td>
             {% if extraction_script.url %}
                 <a href="{{ extraction_script.url }}"
-                   title="Link to {{ extraction_script.title }}" id="{{extraction_script.id}}">
+                   title="Link to {{ extraction_script.title }}" id="script-{{extraction_script.id}}">
                     {{ extraction_script.title }}
                 </a>
             {% else %}
                  {{ extraction_script.title }}
             {% endif %}
         </td>
-        <td>{{ extraction_script.datadocument_count }}</td>
-        <td>{% widthratio extraction_script.qa_complete_extractedtext_count extraction_script.datadocument_count 100 %}%</td>
+        <td id="docs-{{extraction_script.id}}">{{ extraction_script.datadocument_count }}</td>
+        <td id="pct-{{extraction_script.id}}">{{ extraction_script.percent_complete }}{{' '}}%</td>
         <td>
             <a href="{% url 'qa_extraction_script_summary' extraction_script.id %}"
                title="Link to {{ extraction_script.title }} Summary" id="{{extraction_script.id}}">
                 <span class="fa fa-tasks"></span>
             </a>
         </td>
-        <td>
+        <td id="qa-{{extraction_script.id}}">
          {% if extraction_script.datadocument_count > 0 %}
             {% if not extraction_script.qa_button_text == "QA Complete" %}
               <a class="btn btn-info btn-sm" role="button" 

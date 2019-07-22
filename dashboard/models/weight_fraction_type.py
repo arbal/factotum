@@ -10,4 +10,4 @@ class WeightFractionType(CommonInfo):
         return self.title
 
     class Meta:
-        ordering = ('id',)
+        ordering = ("id",)

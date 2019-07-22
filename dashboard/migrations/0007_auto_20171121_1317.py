@@ -7,14 +7,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0006_auto_20171121_1022'),
-    ]
+    dependencies = [("dashboard", "0006_auto_20171121_1022")]
 
     operations = [
         migrations.AlterField(
-            model_name='datagroup',
-            name='extraction_script',
+            model_name="datagroup",
+            name="extraction_script",
             field=models.CharField(blank=True, max_length=250, null=True),
-        ),
+        )
     ]

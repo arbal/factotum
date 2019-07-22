@@ -11,13 +11,13 @@
 - model: dashboard.extractedtext
   pk: 254781
   fields: {created_at: ! '2018-09-27 22:49:26.999437', updated_at: ! '2018-09-27 22:49:26.999467',
-    prod_name: CPCAT Example Product 2, doc_date: '2018-09-27', rev_num: null, extraction_script: 11,
+    prod_name: CPCAT Example Product 2, doc_date: '2018-09-27', rev_num: null, extraction_script: 18,
     qa_checked: false, qa_edited: false, qa_approved_date: null, qa_approved_by: null,
     qa_group: null}
 - model: dashboard.extractedtext
   pk: 254780
   fields: {created_at: ! '2018-09-27 22:49:26.971596', updated_at: ! '2018-09-27 22:49:26.971623',
-    prod_name: CPCAT Example Product 1, doc_date: '2018-09-27', rev_num: null, extraction_script: 11,
+    prod_name: CPCAT Example Product 1, doc_date: '2018-09-27', rev_num: null, extraction_script: 18,
     qa_checked: false, qa_edited: false, qa_approved_date: null, qa_approved_by: null,
     qa_group: null}
 - model: dashboard.extractedtext

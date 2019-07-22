@@ -4,14 +4,10 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('dashboard', '0102_auto_20190411_1349'),
-    ]
+    dependencies = [("dashboard", "0102_auto_20190411_1349")]
 
     operations = [
         migrations.AlterField(
-            model_name='taxonomy',
-            name='title',
-            field=models.CharField(max_length=250),
-        ),
+            model_name="taxonomy", name="title", field=models.CharField(max_length=250)
+        )
     ]

@@ -6,19 +6,20 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0075_auto_20181210_1044'),
-    ]
+    dependencies = [("dashboard", "0075_auto_20181210_1044")]
 
     operations = [
         migrations.AlterField(
-            model_name='qanotes',
-            name='extracted_text',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='dashboard.ExtractedText'),
+            model_name="qanotes",
+            name="extracted_text",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="dashboard.ExtractedText",
+            ),
         ),
         migrations.AlterField(
-            model_name='qanotes',
-            name='qa_notes',
+            model_name="qanotes",
+            name="qa_notes",
             field=models.TextField(blank=True, null=True),
         ),
     ]

@@ -9,24 +9,41 @@ import django.utils.timezone
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0034_auto_20180410_1310'),
-    ]
+    dependencies = [("dashboard", "0034_auto_20180410_1310")]
 
     operations = [
         migrations.CreateModel(
-            name='QAGroup',
+            name="QAGroup",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('qa_complete', models.BooleanField(default=False)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('updated_at', models.DateTimeField(blank=True, null=True)),
-                ('extraction_script', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.Script')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("qa_complete", models.BooleanField(default=False)),
+                ("created_at", models.DateTimeField(default=django.utils.timezone.now)),
+                ("updated_at", models.DateTimeField(blank=True, null=True)),
+                (
+                    "extraction_script",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="dashboard.Script",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='extractedtext',
-            name='qa_group',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='dashboard.QAGroup'),
+            model_name="extractedtext",
+            name="qa_group",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="dashboard.QAGroup",
+            ),
         ),
     ]

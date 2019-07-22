@@ -6,61 +6,42 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0059_remove_extractedtext_record_type'),
-    ]
+    dependencies = [("dashboard", "0059_remove_extractedtext_record_type")]
 
     operations = [
         migrations.RemoveField(
-            model_name='dsstoxsubstancetoingredient',
-            name='dsstox_substance',
+            model_name="dsstoxsubstancetoingredient", name="dsstox_substance"
         ),
         migrations.RemoveField(
-            model_name='dsstoxsubstancetoingredient',
-            name='ingredient',
+            model_name="dsstoxsubstancetoingredient", name="ingredient"
         ),
-        migrations.RemoveField(
-            model_name='producttoingredient',
-            name='ingredient',
-        ),
-        migrations.RemoveField(
-            model_name='producttoingredient',
-            name='product',
-        ),
-        migrations.RemoveField(
-            model_name='dsstoxsubstance',
-            name='ingredients',
-        ),
-        migrations.RemoveField(
-            model_name='ingredient',
-            name='dsstox_substances',
-        ),
-        migrations.RemoveField(
-            model_name='ingredient',
-            name='products',
-        ),
-        migrations.RemoveField(
-            model_name='ingredient',
-            name='weight_fraction_type',
-        ),
-        migrations.RemoveField(
-            model_name='product',
-            name='ingredients',
+        migrations.RemoveField(model_name="producttoingredient", name="ingredient"),
+        migrations.RemoveField(model_name="producttoingredient", name="product"),
+        migrations.RemoveField(model_name="dsstoxsubstance", name="ingredients"),
+        migrations.RemoveField(model_name="ingredient", name="dsstox_substances"),
+        migrations.RemoveField(model_name="ingredient", name="products"),
+        migrations.RemoveField(model_name="ingredient", name="weight_fraction_type"),
+        migrations.RemoveField(model_name="product", name="ingredients"),
+        migrations.AddField(
+            model_name="ingredient",
+            name="extracted_chemical",
+            field=models.OneToOneField(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="dashboard.ExtractedChemical",
+            ),
         ),
         migrations.AddField(
-            model_name='ingredient',
-            name='extracted_chemical',
-            field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='dashboard.ExtractedChemical'),
+            model_name="ingredient",
+            name="script",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="dashboard.Script",
+            ),
         ),
-        migrations.AddField(
-            model_name='ingredient',
-            name='script',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='dashboard.Script'),
-        ),
-        migrations.DeleteModel(
-            name='DSSToxSubstanceToIngredient',
-        ),
-        migrations.DeleteModel(
-            name='ProductToIngredient',
-        ),
+        migrations.DeleteModel(name="DSSToxSubstanceToIngredient"),
+        migrations.DeleteModel(name="ProductToIngredient"),
     ]

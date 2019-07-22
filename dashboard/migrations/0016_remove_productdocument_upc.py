@@ -7,13 +7,6 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0015_auto_20171230_1017'),
-    ]
+    dependencies = [("dashboard", "0015_auto_20171230_1017")]
 
-    operations = [
-        migrations.RemoveField(
-            model_name='productdocument',
-            name='upc',
-        ),
-    ]
+    operations = [migrations.RemoveField(model_name="productdocument", name="upc")]

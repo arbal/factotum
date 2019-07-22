@@ -11,26 +11,72 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('dashboard', '0041_datadocument_source_type'),
+        ("dashboard", "0041_datadocument_source_type"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ProductToPUC',
+            name="ProductToPUC",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('puc_assigned_time', models.DateTimeField(blank=True, null=True)),
-                ('classification_method', models.CharField(choices=[('MA', 'Manual'), ('AU', 'Automatic')], default='MA', max_length=2)),
-                ('classification_confidence', models.DecimalField(blank=True, decimal_places=3, max_digits=6, default=1, null=True)),
-                ('PUC', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.ProductCategory')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.Product')),
-                ('puc_assigned_script', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='dashboard.Script')),
-                ('puc_assigned_usr', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True, null=True)),
+                ("updated_at", models.DateTimeField(auto_now=True, null=True)),
+                ("puc_assigned_time", models.DateTimeField(blank=True, null=True)),
+                (
+                    "classification_method",
+                    models.CharField(
+                        choices=[("MA", "Manual"), ("AU", "Automatic")],
+                        default="MA",
+                        max_length=2,
+                    ),
+                ),
+                (
+                    "classification_confidence",
+                    models.DecimalField(
+                        blank=True, decimal_places=3, max_digits=6, default=1, null=True
+                    ),
+                ),
+                (
+                    "PUC",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="dashboard.ProductCategory",
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="dashboard.Product",
+                    ),
+                ),
+                (
+                    "puc_assigned_script",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="dashboard.Script",
+                    ),
+                ),
+                (
+                    "puc_assigned_usr",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-        ),
+            options={"abstract": False},
+        )
     ]

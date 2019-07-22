@@ -5,14 +5,21 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0069_auto_20181022_1325'),
-    ]
+    dependencies = [("dashboard", "0069_auto_20181022_1325")]
 
     operations = [
         migrations.AlterField(
-            model_name='producttopuc',
-            name='classification_method',
-            field=models.CharField(choices=[('MA', 'Manual'), ('AU', 'Automatic'), ('RU', 'Rule Based'), ('MB', 'Manual Batch')], default='MA', max_length=2),
-        ),
+            model_name="producttopuc",
+            name="classification_method",
+            field=models.CharField(
+                choices=[
+                    ("MA", "Manual"),
+                    ("AU", "Automatic"),
+                    ("RU", "Rule Based"),
+                    ("MB", "Manual Batch"),
+                ],
+                default="MA",
+                max_length=2,
+            ),
+        )
     ]

@@ -8,19 +8,19 @@ import django.utils.timezone
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0005_datagroup_downloaded_by'),
-    ]
+    dependencies = [("dashboard", "0005_datagroup_downloaded_by")]
 
     operations = [
         migrations.AlterField(
-            model_name='datagroup',
-            name='extraction_script',
+            model_name="datagroup",
+            name="extraction_script",
             field=models.CharField(max_length=250),
         ),
         migrations.AlterField(
-            model_name='datagroup',
-            name='updated_at',
-            field=models.DateTimeField(blank=True, default=django.utils.timezone.now, null=True),
+            model_name="datagroup",
+            name="updated_at",
+            field=models.DateTimeField(
+                blank=True, default=django.utils.timezone.now, null=True
+            ),
         ),
     ]

@@ -7,26 +7,33 @@ from .common_info import CommonInfo
 from .data_source import DataSource
 from .source_category import SourceCategory
 
+
 class Product(CommonInfo):
-    data_source = models.ForeignKey(DataSource, related_name='source',
-                                    on_delete=models.CASCADE)
-    documents = models.ManyToManyField(through='dashboard.ProductDocument',
-                                       to='dashboard.DataDocument')
-    tags = TaggableManager(through='dashboard.ProductToTag',
-                           to='dashboard.PUCTag',
-                           help_text=('A set of PUC Tags applicable '
-                                                            'to this Product'))
-    source_category = models.ForeignKey(SourceCategory,
-                                                on_delete=models.CASCADE,
-                                                null=True, blank=True)
+    data_source = models.ForeignKey(
+        DataSource, related_name="source", on_delete=models.CASCADE
+    )
+    documents = models.ManyToManyField(
+        through="dashboard.ProductDocument", to="dashboard.DataDocument"
+    )
+    tags = TaggableManager(
+        through="dashboard.ProductToTag",
+        to="dashboard.PUCTag",
+        help_text=("A set of PUC Tags applicable " "to this Product"),
+    )
+    source_category = models.ForeignKey(
+        SourceCategory, on_delete=models.CASCADE, null=True, blank=True
+    )
     title = models.CharField(max_length=255)
-    manufacturer = models.CharField(db_index=True, max_length=250,
-                            null=True, blank=True, default = '')
-    upc = models.CharField(db_index=True, max_length=60, null=False,
-                            blank=False, unique=True)
+    manufacturer = models.CharField(
+        db_index=True, max_length=250, null=True, blank=True, default=""
+    )
+    upc = models.CharField(
+        db_index=True, max_length=60, null=False, blank=False, unique=True
+    )
     url = models.CharField(max_length=500, null=True, blank=True)
-    brand_name = models.CharField(db_index=True, max_length=200, null=True,
-                            blank=True, default = '')
+    brand_name = models.CharField(
+        db_index=True, max_length=200, null=True, blank=True, default=""
+    )
     size = models.CharField(max_length=100, null=True, blank=True)
     model_number = models.CharField(max_length=200, null=True, blank=True)
     color = models.CharField(max_length=100, null=True, blank=True)
@@ -42,18 +49,18 @@ class Product(CommonInfo):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('product_detail', kwargs={'pk': self.pk})
+        return reverse("product_detail", kwargs={"pk": self.pk})
 
     def get_uber_product_to_puc(self):
         pucs = self.producttopuc_set
-        if pucs.filter(classification_method='MA').exists():
-            return pucs.filter(classification_method='MA').first()
-        elif pucs.filter(classification_method='MB').exists():
-            return pucs.filter(classification_method='MB').first()
-        elif pucs.filter(classification_method='RU').exists():
-            return pucs.filter(classification_method='RU').first()
-        elif pucs.filter(classification_method='AU').exists():
-            return pucs.filter(classification_method='AU').first()
+        if pucs.filter(classification_method="MA").exists():
+            return pucs.filter(classification_method="MA").first()
+        elif pucs.filter(classification_method="MB").exists():
+            return pucs.filter(classification_method="MB").first()
+        elif pucs.filter(classification_method="RU").exists():
+            return pucs.filter(classification_method="RU").first()
+        elif pucs.filter(classification_method="AU").exists():
+            return pucs.filter(classification_method="AU").first()
         else:
             return None
 
@@ -77,4 +84,4 @@ class Product(CommonInfo):
         return self.get_uber_product_to_puc().puc.tags.all()
 
     class Meta:
-          ordering = ['-created_at']
+        ordering = ["-created_at"]

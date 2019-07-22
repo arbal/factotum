@@ -7,21 +7,20 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0037_auto_20180420_1624'),
-    ]
+    dependencies = [("dashboard", "0037_auto_20180420_1624")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='product',
-            options={'ordering': ['-created_at']},
+            name="product", options={"ordering": ["-created_at"]}
         ),
         migrations.AlterModelOptions(
-            name='productcategory',
-            options={'ordering': ['gen_cat', 'prod_fam', 'prod_type'], 'verbose_name_plural': 'Product categories'},
+            name="productcategory",
+            options={
+                "ordering": ["gen_cat", "prod_fam", "prod_type"],
+                "verbose_name_plural": "Product categories",
+            },
         ),
         migrations.AlterModelOptions(
-            name='weightfractiontype',
-            options={'ordering': ('id',)},
+            name="weightfractiontype", options={"ordering": ("id",)}
         ),
     ]

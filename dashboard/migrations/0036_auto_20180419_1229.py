@@ -10,54 +10,71 @@ import django.utils.timezone
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0035_auto_20180411_0919'),
-    ]
+    dependencies = [("dashboard", "0035_auto_20180411_0919")]
 
     operations = [
         migrations.CreateModel(
-            name='UnitType',
+            name="UnitType",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=50)),
-                ('description', models.TextField(blank=True, null=True)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('updated_at', models.DateTimeField(blank=True, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=50)),
+                ("description", models.TextField(blank=True, null=True)),
+                ("created_at", models.DateTimeField(default=django.utils.timezone.now)),
+                ("updated_at", models.DateTimeField(blank=True, null=True)),
             ],
-            options={
-                'ordering': ('title',),
-            },
+            options={"ordering": ("title",)},
         ),
         migrations.CreateModel(
-            name='WeightFractionType',
+            name="WeightFractionType",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=50)),
-                ('description', models.TextField(blank=True, null=True)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('updated_at', models.DateTimeField(blank=True, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=50)),
+                ("description", models.TextField(blank=True, null=True)),
+                ("created_at", models.DateTimeField(default=django.utils.timezone.now)),
+                ("updated_at", models.DateTimeField(blank=True, null=True)),
             ],
-            options={
-                'ordering': ('title',),
-            },
+            options={"ordering": ("title",)},
         ),
         migrations.AlterModelOptions(
-            name='datadocument',
-            options={'ordering': ['-id']},
+            name="datadocument", options={"ordering": ["-id"]}
         ),
         migrations.AddField(
-            model_name='extractedchemical',
-            name='ingredient_rank',
-            field=models.PositiveIntegerField(blank=True, null=True, validators=[dashboard.models.extracted_chemical.validate_ingredient_rank]),
+            model_name="extractedchemical",
+            name="ingredient_rank",
+            field=models.PositiveIntegerField(
+                blank=True,
+                null=True,
+                validators=[
+                    dashboard.models.extracted_chemical.validate_ingredient_rank
+                ],
+            ),
         ),
         migrations.AddField(
-            model_name='extractedchemical',
-            name='raw_central_comp',
+            model_name="extractedchemical",
+            name="raw_central_comp",
             field=models.CharField(blank=True, max_length=100, null=True),
         ),
         migrations.AlterField(
-            model_name='extractedchemical',
-            name='units',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='dashboard.UnitType'),
+            model_name="extractedchemical",
+            name="units",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT, to="dashboard.UnitType"
+            ),
         ),
     ]

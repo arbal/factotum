@@ -10,8 +10,8 @@ class ProductTagForm(ModelForm):
 
     class Meta:
         model = Product
-        fields = ['tags']
+        fields = ["tags"]
 
     def __init__(self, *args, **kwargs):
         super(ProductTagForm, self).__init__(*args, **kwargs)
-        self.fields['tags'].widget.form_instance = self
+        self.fields["tags"].widget.form_instance = self

@@ -5,14 +5,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0086_puc_name_change'),
-    ]
+    dependencies = [("dashboard", "0086_puc_name_change")]
 
     operations = [
         migrations.AlterField(
-            model_name='extractedcpcat',
-            name='cpcat_code',
-            field=models.CharField(blank=True, max_length=50, null=True, verbose_name='CPCat Code'),
-        ),
+            model_name="extractedcpcat",
+            name="cpcat_code",
+            field=models.CharField(
+                blank=True, max_length=50, null=True, verbose_name="CPCat Code"
+            ),
+        )
     ]

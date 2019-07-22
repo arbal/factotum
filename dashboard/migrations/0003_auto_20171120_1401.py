@@ -9,29 +9,49 @@ import django.utils.timezone
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0002_datasource_estimated_records'),
-    ]
+    dependencies = [("dashboard", "0002_datasource_estimated_records")]
 
     operations = [
         migrations.CreateModel(
-            name='DataGroup',
+            name="DataGroup",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
-                ('description', models.TextField(blank=True, null=True)),
-                ('downloaded_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('extraction_script', models.CharField(max_length=50)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
+                ("description", models.TextField(blank=True, null=True)),
+                (
+                    "downloaded_at",
+                    models.DateTimeField(default=django.utils.timezone.now),
+                ),
+                ("extraction_script", models.CharField(max_length=50)),
             ],
         ),
         migrations.AddField(
-            model_name='datasource',
-            name='state',
-            field=models.CharField(choices=[('AT', 'Awaiting Triage'), ('IP', 'In Progress'), ('CO', 'Complete'), ('ST', 'Stale')], default='AT', max_length=2),
+            model_name="datasource",
+            name="state",
+            field=models.CharField(
+                choices=[
+                    ("AT", "Awaiting Triage"),
+                    ("IP", "In Progress"),
+                    ("CO", "Complete"),
+                    ("ST", "Stale"),
+                ],
+                default="AT",
+                max_length=2,
+            ),
         ),
         migrations.AddField(
-            model_name='datagroup',
-            name='data_source',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.DataSource'),
+            model_name="datagroup",
+            name="data_source",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="dashboard.DataSource"
+            ),
         ),
     ]

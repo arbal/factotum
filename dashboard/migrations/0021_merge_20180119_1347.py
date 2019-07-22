@@ -8,9 +8,8 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('dashboard', '0020_productcategory_last_edited_by'),
-        ('dashboard', '0020_extracted_text_chem'),
+        ("dashboard", "0020_productcategory_last_edited_by"),
+        ("dashboard", "0020_extracted_text_chem"),
     ]
 
-    operations = [
-    ]
+    operations = []

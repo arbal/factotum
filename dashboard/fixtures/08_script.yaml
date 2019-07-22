@@ -1,85 +1,180 @@
 - model: dashboard.script
   pk: 1
-  fields: {created_at: !!timestamp '2018-05-11 07:00:37.838615', updated_at: !!timestamp '2018-05-11
-      07:00:37.875755', title: Georgia Pacific (download), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_GeorgiaPacific.ipynb',
-    qa_begun: false, script_type: DL, confidence: 1}
+  fields:
+    created_at: 2018-05-11 07:00:37.838615
+    updated_at: 2018-05-11 07:00:37.875755
+    title: Georgia Pacific (download)
+    url: https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_GeorgiaPacific.ipynb
+    qa_begun: false
+    script_type: DL
+    confidence: 1
 - model: dashboard.script
   pk: 2
-  fields: {created_at: !!timestamp '2018-05-11 07:00:37.838615', updated_at: !!timestamp '2018-05-11
-      07:00:37.875755', title: Sun INDS (download), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_Sun_INDS.ipynb',
-    qa_begun: false, script_type: DL, confidence: 1}
+  fields:
+    created_at: 2018-05-11 07:00:37.838615
+    updated_at: 2018-05-11 07:00:37.875755
+    title: Sun INDS (download)
+    url: https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_Sun_INDS.ipynb
+    qa_begun: false
+    script_type: DL
+    confidence: 1
 - model: dashboard.script
   pk: 3
-  fields: {created_at: !!timestamp '2018-05-11 07:00:37.838615', updated_at: !!timestamp '2018-05-11
-      07:00:37.875755', title: Sun MSDS (download), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_Sun_NA_MSDS.ipynb',
-    qa_begun: false, script_type: DL, confidence: 1}
+  fields:
+    created_at: 2018-05-11 07:00:37.838615
+    updated_at: 2018-05-11 07:00:37.875755
+    title: Sun MSDS (download)
+    url: https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_Sun_NA_MSDS.ipynb
+    qa_begun: false
+    script_type: DL
+    confidence: 1
 - model: dashboard.script
   pk: 4
-  fields: {created_at: !!timestamp '2018-05-11 07:00:37.838615', updated_at: !!timestamp '2018-05-11
-      07:00:37.875755', title: Sun OSHA GHS (download), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_Sun_OSHA_GHS.ipynb',
-    qa_begun: false, script_type: DL, confidence: 1}
+  fields:
+    created_at: 2018-05-11 07:00:37.838615
+    updated_at: 2018-05-11 07:00:37.875755
+    title: Sun OSHA GHS (download)
+    url: https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_Sun_OSHA_GHS.ipynb
+    qa_begun: false
+    script_type: DL
+    confidence: 1
 - model: dashboard.script
   pk: 5
-  fields: {created_at: !!timestamp '2018-05-11 07:00:37.838615', updated_at: !!timestamp '2019-03-08
-      17:36:36.328980', title: Georgia Pacific (extract), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/extract_GeorgiaPacific.ipynb',
-    qa_begun: false, script_type: EX, confidence: 1}
+  fields:
+    created_at: 2018-05-11 07:00:37.838615
+    updated_at: 2019-03-08 17:36:36.328980
+    title: Georgia Pacific (extract)
+    url: https://github.com/HumanExposure/data_mgmt_scripts/blob/master/extract_GeorgiaPacific.ipynb
+    qa_begun: false
+    script_type: EX
+    confidence: 1
 - model: dashboard.script
   pk: 6
-  fields: {created_at: !!timestamp '2018-05-11 07:00:37.838615', updated_at: !!timestamp '2019-03-12
-      11:15:37.909466', title: Sun INDS (extract), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/pdf2text_extract_Sun_INDS.ipynb',
-    qa_begun: true, script_type: EX, confidence: 1}
+  fields:
+    created_at: 2018-05-11 07:00:37.838615
+    updated_at: 2019-03-12 11:15:37.909466
+    title: Sun INDS (extract)
+    url: https://github.com/HumanExposure/data_mgmt_scripts/blob/master/pdf2text_extract_Sun_INDS.ipynb
+    qa_begun: true
+    script_type: EX
+    confidence: 1
 - model: dashboard.script
   pk: 7
-  fields: {created_at: !!timestamp '2018-05-11 07:00:37.838615', updated_at: !!timestamp '2018-05-11
-      07:00:37.875755', title: Sun OSHA GHS (extract), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/pdf2text_extract_Sun_OSHA_GHS.ipynb',
-    qa_begun: false, script_type: EX, confidence: 1}
+  fields:
+    created_at: 2018-05-11 07:00:37.838615
+    updated_at: 2018-05-11 07:00:37.875755
+    title: Sun OSHA GHS (extract)
+    url: https://github.com/HumanExposure/data_mgmt_scripts/blob/master/pdf2text_extract_Sun_OSHA_GHS.ipynb
+    qa_begun: false
+    script_type: EX
+    confidence: 1
 - model: dashboard.script
   pk: 8
-  fields: {created_at: !!timestamp '2018-05-11 07:00:37.838615', updated_at: !!timestamp '2018-05-11
-      07:00:37.875755', title: Home Depot (download), url: 'https://github.com/HumanExposure/data_mgmt_scripts/tree/master/HomeDepotCode/Download',
-    qa_begun: false, script_type: DL, confidence: 1}
+  fields:
+    created_at: 2018-05-11 07:00:37.838615
+    updated_at: 2018-05-11 07:00:37.875755
+    title: Home Depot (download)
+    url: https://github.com/HumanExposure/data_mgmt_scripts/tree/master/HomeDepotCode/Download
+    qa_begun: false
+    script_type: DL
+    confidence: 1
 - model: dashboard.script
   pk: 9
-  fields: {created_at: !!timestamp '2018-05-11 07:00:37.838615', updated_at: !!timestamp '2019-03-15
-      13:40:39.057697', title: Home Depot (extraction), url: 'https://github.com/HumanExposure/data_mgmt_scripts/tree/master/HomeDepotCode/Extraction',
-    qa_begun: false, script_type: EX, confidence: 47}
+  fields:
+    created_at: 2018-05-11 07:00:37.838615
+    updated_at: 2019-03-15 13:40:39.057697
+    title: Home Depot (extraction)
+    url: https://github.com/HumanExposure/data_mgmt_scripts/tree/master/HomeDepotCode/Extraction
+    qa_begun: false
+    script_type: EX
+    confidence: 47
 - model: dashboard.script
   pk: 10
-  fields: {created_at: !!timestamp '2018-05-11 07:00:37.838615', updated_at: !!timestamp '2018-05-11
-      07:00:37.875755', title: Unilever MSDS (download), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/Unilever_Code/Unilever.R',
-    qa_begun: false, script_type: DL, confidence: 1}
+  fields:
+    created_at: 2018-05-11 07:00:37.838615
+    updated_at: 2018-05-11 07:00:37.875755
+    title: Unilever MSDS (download)
+    url: https://github.com/HumanExposure/data_mgmt_scripts/blob/master/Unilever_Code/Unilever.R
+    qa_begun: false
+    script_type: DL
+    confidence: 1
 - model: dashboard.script
   pk: 11
-  fields: {created_at: !!timestamp '2018-05-11 07:00:37.838615', updated_at: !!timestamp '2019-03-12
-      01:11:21.760498', title: Unilever MSDS (extract), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/Unilever_Code/Unilever.py',
-    qa_begun: false, script_type: EX, confidence: 1}
+  fields:
+    created_at: 2018-05-11 07:00:37.838615
+    updated_at: 2019-03-12 01:11:21.760498
+    title: Unilever MSDS (extract)
+    url: https://github.com/HumanExposure/data_mgmt_scripts/blob/master/Unilever_Code/Unilever.py
+    qa_begun: false
+    script_type: EX
+    confidence: 1
 - model: dashboard.script
   pk: 12
-  fields: {created_at: !!timestamp '2018-06-05 14:56:29.918859', updated_at: !!timestamp '2018-06-05
-      14:56:29.918885', title: Walmart MSDS (Extract), url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/pdf_extraction/extract_pdfs.py',
-    qa_begun: false, script_type: EX, confidence: 1}
+  fields:
+    created_at: 2018-06-05 14:56:29.918859
+    updated_at: 2018-06-05 14:56:29.918885
+    title: Walmart MSDS (Extract)
+    url: https://github.com/HumanExposure/data_mgmt_scripts/blob/master/pdf_extraction/extract_pdfs.py
+    qa_begun: false
+    script_type: EX
+    confidence: 1
 - model: dashboard.script
   pk: 13
-  fields: {created_at: !!timestamp '2018-07-31 11:28:13.705077', updated_at: !!timestamp '2018-07-31
-      11:28:13.705115', title: Manual (dummy), url: null, qa_begun: false, script_type: EX,
-    confidence: 1}
+  fields:
+    created_at: 2018-07-31 11:28:13.705077
+    updated_at: 2018-07-31 11:28:13.705115
+    title: Manual (dummy)
+    url: null
+    qa_begun: false
+    script_type: EX
+    confidence: 1
 - model: dashboard.script
   pk: 14
-  fields: {created_at: !!timestamp '2018-09-11 07:00:37.838615', updated_at: !!timestamp '2019-03-14
-      11:27:12.698272', title: Functional Use Download Script, url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_GeorgiaPacific.ipynb',
-    qa_begun: false, script_type: DL, confidence: 1}
+  fields:
+    created_at: 2018-09-11 07:00:37.838615
+    updated_at: 2019-03-14 11:27:12.698272
+    title: Functional Use Download Script
+    url: https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_GeorgiaPacific.ipynb
+    qa_begun: false
+    script_type: DL
+    confidence: 1
 - model: dashboard.script
   pk: 15
-  fields: {created_at: !!timestamp '2018-09-11 07:00:37.838615', updated_at: !!timestamp '2019-03-14
-      10:14:28.201361', title: Functional Use Extraction Script, url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_GeorgiaPacific.ipynb',
-    qa_begun: false, script_type: EX, confidence: 1}
+  fields:
+    created_at: 2018-09-11 07:00:37.838615
+    updated_at: 2019-03-14 10:14:28.201361
+    title: Functional Use Extraction Script
+    url: https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_GeorgiaPacific.ipynb
+    qa_begun: false
+    script_type: EX
+    confidence: 1
 - model: dashboard.script
   pk: 16
-  fields: {created_at: !!timestamp '2018-11-11 07:00:37.838615', updated_at: !!timestamp '2018-09-11
-      07:00:37.875755', title: Data Cleaning Script 1, url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_GeorgiaPacific.ipynb',
-    qa_begun: false, script_type: DC, confidence: 1}
+  fields:
+    created_at: 2018-11-11 07:00:37.838615
+    updated_at: 2018-09-11 07:00:37.875755
+    title: Data Cleaning Script 1
+    url: https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_GeorgiaPacific.ipynb
+    qa_begun: false
+    script_type: DC
+    confidence: 1
 - model: dashboard.script
   pk: 17
-  fields: {created_at: !!timestamp '2018-11-11 07:00:37.838615', updated_at: !!timestamp '2018-09-11
-      07:00:37.875755', title: Data Cleaning Script 2, url: 'https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_GeorgiaPacific.ipynb',
-    qa_begun: false, script_type: DC, confidence: 1}
+  fields:
+    created_at: 2018-11-11 07:00:37.838615
+    updated_at: 2018-09-11 07:00:37.875755
+    title: Data Cleaning Script 2
+    url: https://github.com/HumanExposure/data_mgmt_scripts/blob/master/download_GeorgiaPacific.ipynb
+    qa_begun: false
+    script_type: DC
+    confidence: 1
+- model: dashboard.script
+  pk: 18
+  fields:
+    created_at: 2019-07-02 13:38:42.306584
+    updated_at: 2019-07-02 13:38:42.306607
+    title: Chemical Presence Script
+    url: null
+    qa_begun: false
+    script_type: EX
+    confidence: 1

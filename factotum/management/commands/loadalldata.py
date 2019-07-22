@@ -6,7 +6,8 @@ import os
 
 
 class Command(BaseCommand):
-    help = 'Loads all the YAML fixtures included in this app'
+    help = "Loads all the YAML fixtures included in this app"
+
     def fixture_dirs(self):
         dirs = []
         fixture_dirs = settings.FIXTURE_DIRS
@@ -14,17 +15,19 @@ class Command(BaseCommand):
             raise ImproperlyConfigured("settings.FIXTURE_DIRS contains duplicates.")
         for app_config in apps.get_app_configs():
             app_label = app_config.label
-            app_dir = os.path.join(app_config.path, 'fixtures')
+            app_dir = os.path.join(app_config.path, "fixtures")
             if app_dir in fixture_dirs:
                 raise ImproperlyConfigured(
                     "'%s' is a default fixture directory for the '%s' app "
-                    "and cannot be listed in settings.FIXTURE_DIRS." % (app_dir, app_label)
+                    "and cannot be listed in settings.FIXTURE_DIRS."
+                    % (app_dir, app_label)
                 )
             if os.path.isdir(app_dir):
                 dirs.append(app_dir)
         dirs.extend(fixture_dirs)
-        dirs.append('')
+        dirs.append("")
         return [os.path.realpath(d) for d in dirs]
+
     def handle(self, *args, **options):
         fix_dirs = self.fixture_dirs()
         fx_list = []
@@ -34,4 +37,4 @@ class Command(BaseCommand):
             for fn in d:
                 if fn[-4:] == "yaml":
                     fx_list.append(fn[:-5])
-        management.call_command('loaddata', *fx_list, **options)
+        management.call_command("loaddata", *fx_list, **options)

@@ -10,6 +10,6 @@ class PUCAutocomplete(autocomplete.Select2QuerySetView):
             cats = Q(gen_cat__icontains=self.q)
             fams = Q(prod_fam__icontains=self.q)
             types = Q(prod_type__icontains=self.q)
-            qs = qs.filter( cats | fams | types )
+            qs = qs.filter(cats | fams | types)
 
         return qs

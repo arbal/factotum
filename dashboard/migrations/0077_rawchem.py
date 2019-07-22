@@ -5,19 +5,41 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0076_auto_20181212_1132'),
-    ]
+    dependencies = [("dashboard", "0076_auto_20181212_1132")]
 
     operations = [
         migrations.CreateModel(
-            name='RawChem',
+            name="RawChem",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('raw_cas', models.CharField(blank=True, max_length=100, null=True, verbose_name='Raw CAS')),
-                ('raw_chem_name', models.CharField(blank=True, max_length=500, null=True, verbose_name='Raw chemical name')),
-                ('temp_id', models.IntegerField(blank=True, default=0, null=True)),
-                ('temp_obj_name', models.CharField(blank=True, max_length=255, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "raw_cas",
+                    models.CharField(
+                        blank=True, max_length=100, null=True, verbose_name="Raw CAS"
+                    ),
+                ),
+                (
+                    "raw_chem_name",
+                    models.CharField(
+                        blank=True,
+                        max_length=500,
+                        null=True,
+                        verbose_name="Raw chemical name",
+                    ),
+                ),
+                ("temp_id", models.IntegerField(blank=True, default=0, null=True)),
+                (
+                    "temp_obj_name",
+                    models.CharField(blank=True, max_length=255, null=True),
+                ),
             ],
-        ),
+        )
     ]

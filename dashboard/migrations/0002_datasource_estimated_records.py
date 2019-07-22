@@ -7,14 +7,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0001_initial'),
-    ]
+    dependencies = [("dashboard", "0001_initial")]
 
     operations = [
         migrations.AddField(
-            model_name='datasource',
-            name='estimated_records',
+            model_name="datasource",
+            name="estimated_records",
             field=models.PositiveIntegerField(default=0),
-        ),
+        )
     ]

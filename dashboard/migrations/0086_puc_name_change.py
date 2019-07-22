@@ -6,23 +6,28 @@ import taggit.managers
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0085_remove_dsstoxsubstance'),
-    ]
+    dependencies = [("dashboard", "0085_remove_dsstoxsubstance")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='puctag',
-            options={'ordering': ('name',), 'verbose_name': 'PUC Attribute', 'verbose_name_plural': 'PUC Attributes'},
+            name="puctag",
+            options={
+                "ordering": ("name",),
+                "verbose_name": "PUC Attribute",
+                "verbose_name_plural": "PUC Attributes",
+            },
         ),
         migrations.RenameField(
-            model_name='producttopuc',
-            old_name='PUC',
-            new_name='puc',
+            model_name="producttopuc", old_name="PUC", new_name="puc"
         ),
         migrations.AlterField(
-            model_name='puc',
-            name='tags',
-            field=taggit.managers.TaggableManager(help_text='A set of PUC Attributes applicable to this PUC', through='dashboard.PUCToTag', to='dashboard.PUCTag', verbose_name='Tags'),
+            model_name="puc",
+            name="tags",
+            field=taggit.managers.TaggableManager(
+                help_text="A set of PUC Attributes applicable to this PUC",
+                through="dashboard.PUCToTag",
+                to="dashboard.PUCTag",
+                verbose_name="Tags",
+            ),
         ),
     ]

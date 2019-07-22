@@ -5,14 +5,12 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0060_auto_20180809_1059'),
-    ]
+    dependencies = [("dashboard", "0060_auto_20180809_1059")]
 
     operations = [
         migrations.RenameField(
-            model_name='datadocument',
-            old_name='product_category',
-            new_name='raw_category',
-        ),
+            model_name="datadocument",
+            old_name="product_category",
+            new_name="raw_category",
+        )
     ]

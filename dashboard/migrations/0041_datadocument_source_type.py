@@ -8,15 +8,17 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0040_auto_20180503_1040'),
-    ]
+    dependencies = [("dashboard", "0040_auto_20180503_1040")]
 
     operations = [
         migrations.AddField(
-            model_name='datadocument',
-            name='source_type',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.PROTECT, to='dashboard.SourceType'),
+            model_name="datadocument",
+            name="source_type",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="dashboard.SourceType",
+            ),
             preserve_default=False,
-        ),
+        )
     ]

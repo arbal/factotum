@@ -6,14 +6,12 @@ import uuid
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0064_remove_datadocument_uploaded_at'),
-    ]
+    dependencies = [("dashboard", "0064_remove_datadocument_uploaded_at")]
 
     operations = [
         migrations.AddField(
-            model_name='datagroup',
-            name='fs_id',
+            model_name="datagroup",
+            name="fs_id",
             field=models.UUIDField(default=uuid.uuid4, editable=False),
-        ),
+        )
     ]

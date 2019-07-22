@@ -6,35 +6,51 @@ from django.db import migrations, models
 
 
 def populate_category_field(apps, schema_editor):
-    '''
+    """
     populate the category field with the appropriate choice based upon the date.
-    '''
-    parting_day = datetime(2019,1,1)
-    PUC = apps.get_model('dashboard', 'PUC')
+    """
+    parting_day = datetime(2019, 1, 1)
+    PUC = apps.get_model("dashboard", "PUC")
     for puc in PUC.objects.all():
         if puc.created_at < parting_day:
-            puc.kind = 'FO'
+            puc.kind = "FO"
         else:
-            puc.kind = 'OC'    
+            puc.kind = "OC"
         puc.save()
+
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0095_dd_url_and_raw_category_bigger'),
-    ]
+    dependencies = [("dashboard", "0095_dd_url_and_raw_category_bigger")]
 
     operations = [
         migrations.AddField(
-            model_name='puc',
-            name='kind',
-            field=models.CharField(blank=True, choices=[('UN', 'unknown'), ('FO', 'formulations'), ('AR', 'articles'), ('OC', 'occupational')], default='UN', max_length=2),
+            model_name="puc",
+            name="kind",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("UN", "unknown"),
+                    ("FO", "formulations"),
+                    ("AR", "articles"),
+                    ("OC", "occupational"),
+                ],
+                default="UN",
+                max_length=2,
+            ),
         ),
         migrations.AlterField(
-            model_name='puc',
-            name='tags',
-            field=taggit.managers.TaggableManager(blank=True, help_text='A set of PUC Attributes applicable to this PUC', through='dashboard.PUCToTag', to='dashboard.PUCTag', verbose_name='Tags'),
+            model_name="puc",
+            name="tags",
+            field=taggit.managers.TaggableManager(
+                blank=True,
+                help_text="A set of PUC Attributes applicable to this PUC",
+                through="dashboard.PUCToTag",
+                to="dashboard.PUCTag",
+                verbose_name="Tags",
+            ),
         ),
-        migrations.RunPython(populate_category_field,
-                                reverse_code=migrations.RunPython.noop),
+        migrations.RunPython(
+            populate_category_field, reverse_code=migrations.RunPython.noop
+        ),
     ]

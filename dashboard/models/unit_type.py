@@ -10,4 +10,4 @@ class UnitType(CommonInfo):
         return self.title
 
     class Meta:
-        ordering = ('title',)
+        ordering = ("title",)

@@ -8,19 +8,20 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0036_auto_20180419_1229'),
-    ]
+    dependencies = [("dashboard", "0036_auto_20180419_1229")]
 
     operations = [
         migrations.RenameField(
-            model_name='extractedchemical',
-            old_name='units',
-            new_name='unit_type',
+            model_name="extractedchemical", old_name="units", new_name="unit_type"
         ),
         migrations.AddField(
-            model_name='extractedchemical',
-            name='weight_fraction_type',
-            field=models.ForeignKey(default='1', null=True, on_delete=django.db.models.deletion.PROTECT, to='dashboard.WeightFractionType'),
+            model_name="extractedchemical",
+            name="weight_fraction_type",
+            field=models.ForeignKey(
+                default="1",
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="dashboard.WeightFractionType",
+            ),
         ),
     ]

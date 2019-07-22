@@ -8,57 +8,137 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0052_datadocument_organization'),
-    ]
+    dependencies = [("dashboard", "0052_datadocument_organization")]
 
     operations = [
         migrations.CreateModel(
-            name='ExtractedHabitsAndPractices',
+            name="ExtractedHabitsAndPractices",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('product_surveyed', models.CharField(max_length=50, verbose_name='Product Surveyed')),
-                ('mass', models.DecimalField(blank=True, decimal_places=5, max_digits=12, null=True, verbose_name='Mass')),
-                ('mass_unit', models.CharField(blank=True, max_length=40, verbose_name='Units for Mass')),
-                ('frequency', models.DecimalField(blank=True, decimal_places=5, max_digits=12, null=True, verbose_name='Frequency')),
-                ('frequency_unit', models.CharField(blank=True, max_length=40, verbose_name='Units for Frequency')),
-                ('duration', models.DecimalField(blank=True, decimal_places=5, max_digits=12, null=True, verbose_name='Duration')),
-                ('duration_unit', models.CharField(blank=True, max_length=40, verbose_name='Units for Duration')),
-                ('prevalence', models.CharField(blank=True, max_length=200, verbose_name='Prevalence')),
-                ('notes', models.TextField(blank=True, verbose_name='Notes')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True, null=True)),
+                ("updated_at", models.DateTimeField(auto_now=True, null=True)),
+                (
+                    "product_surveyed",
+                    models.CharField(max_length=50, verbose_name="Product Surveyed"),
+                ),
+                (
+                    "mass",
+                    models.DecimalField(
+                        blank=True,
+                        decimal_places=5,
+                        max_digits=12,
+                        null=True,
+                        verbose_name="Mass",
+                    ),
+                ),
+                (
+                    "mass_unit",
+                    models.CharField(
+                        blank=True, max_length=40, verbose_name="Units for Mass"
+                    ),
+                ),
+                (
+                    "frequency",
+                    models.DecimalField(
+                        blank=True,
+                        decimal_places=5,
+                        max_digits=12,
+                        null=True,
+                        verbose_name="Frequency",
+                    ),
+                ),
+                (
+                    "frequency_unit",
+                    models.CharField(
+                        blank=True, max_length=40, verbose_name="Units for Frequency"
+                    ),
+                ),
+                (
+                    "duration",
+                    models.DecimalField(
+                        blank=True,
+                        decimal_places=5,
+                        max_digits=12,
+                        null=True,
+                        verbose_name="Duration",
+                    ),
+                ),
+                (
+                    "duration_unit",
+                    models.CharField(
+                        blank=True, max_length=40, verbose_name="Units for Duration"
+                    ),
+                ),
+                (
+                    "prevalence",
+                    models.CharField(
+                        blank=True, max_length=200, verbose_name="Prevalence"
+                    ),
+                ),
+                ("notes", models.TextField(blank=True, verbose_name="Notes")),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.CreateModel(
-            name='ExtractedHabitsAndPracticesToPUC',
+            name="ExtractedHabitsAndPracticesToPUC",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('PUC', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.PUC')),
-                ('extracted_habits_and_practices', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.ExtractedHabitsAndPractices')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True, null=True)),
+                ("updated_at", models.DateTimeField(auto_now=True, null=True)),
+                (
+                    "PUC",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="dashboard.PUC"
+                    ),
+                ),
+                (
+                    "extracted_habits_and_practices",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="dashboard.ExtractedHabitsAndPractices",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.AddField(
-            model_name='extractedhabitsandpractices',
-            name='PUCs',
-            field=models.ManyToManyField(through='dashboard.ExtractedHabitsAndPracticesToPUC', to='dashboard.PUC'),
+            model_name="extractedhabitsandpractices",
+            name="PUCs",
+            field=models.ManyToManyField(
+                through="dashboard.ExtractedHabitsAndPracticesToPUC", to="dashboard.PUC"
+            ),
         ),
         migrations.AddField(
-            model_name='extractedhabitsandpractices',
-            name='extracted_text',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='practices', to='dashboard.ExtractedText'),
+            model_name="extractedhabitsandpractices",
+            name="extracted_text",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="practices",
+                to="dashboard.ExtractedText",
+            ),
         ),
         migrations.AddField(
-            model_name='puc',
-            name='extracted_habits_and_practices',
-            field=models.ManyToManyField(through='dashboard.ExtractedHabitsAndPracticesToPUC', to='dashboard.ExtractedHabitsAndPractices'),
+            model_name="puc",
+            name="extracted_habits_and_practices",
+            field=models.ManyToManyField(
+                through="dashboard.ExtractedHabitsAndPracticesToPUC",
+                to="dashboard.ExtractedHabitsAndPractices",
+            ),
         ),
     ]

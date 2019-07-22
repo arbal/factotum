@@ -1,8 +1,10 @@
+black==19.3b0
 certifi
 Django>=2.2,<2.3
 django-autocomplete-light==3.3.2
 django-bootstrap-datepicker-plus==3.0.5
 django-debug-toolbar==1.11
+django-extensions>=2.1.6
 django-haystack>=2.7.0
 django-haystack-elasticsearch>=0.1.0
 django-model-utils>=3.1
@@ -14,14 +16,16 @@ elasticsearch-dsl>=2.0.0,<3.0.0
 elasticsearch>=2.0.0,<3.0.0
 elasticsearch6>=6.0.0,<7.0.0
 fuzzywuzzy>=0.17.0
+gitpython>=2.1.11
+ipython>=7.5.0
 lxml>=4.2.2
 mysqlclient==1.4.2.post1
+pyflakes==2.1.1
 pytz==2018.9
 pyyaml>=4.2b1
 requests==2.20.0
 urllib3==1.24.2
 selenium>=3.14.0
 wincertstore==0.2
-django-extensions>=2.1.6
 
 -e git+https://github.com/bennylope/django-taggit-labels.git@7afef34125653e958dc5dba0280904a0714aa808#egg=django_taggit_labels

@@ -6,13 +6,18 @@ import django.db.models.expressions
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0114_long_rawchemname'),
-    ]
+    dependencies = [("dashboard", "0114_long_rawchemname")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='extractedchemical',
-            options={'ordering': (django.db.models.expressions.OrderBy(django.db.models.expressions.F('ingredient_rank'), nulls_last=True),)},
-        ),
+            name="extractedchemical",
+            options={
+                "ordering": (
+                    django.db.models.expressions.OrderBy(
+                        django.db.models.expressions.F("ingredient_rank"),
+                        nulls_last=True,
+                    ),
+                )
+            },
+        )
     ]

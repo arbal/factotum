@@ -5,14 +5,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0112_remove_datadocument_extracted'),
-    ]
+    dependencies = [("dashboard", "0112_remove_datadocument_extracted")]
 
     operations = [
         migrations.AddField(
-            model_name='extractedlistpresencetag',
-            name='definition',
-            field=models.CharField(blank=True, max_length=255, null=True, verbose_name='Definition'),
-        ),
+            model_name="extractedlistpresencetag",
+            name="definition",
+            field=models.CharField(
+                blank=True, max_length=255, null=True, verbose_name="Definition"
+            ),
+        )
     ]

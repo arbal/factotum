@@ -7,29 +7,25 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0030_dsstoxsubstance'),
-    ]
+    dependencies = [("dashboard", "0030_dsstoxsubstance")]
 
     operations = [
         migrations.RenameField(
-            model_name='extractedchemical',
-            old_name='cas',
-            new_name='raw_cas',
+            model_name="extractedchemical", old_name="cas", new_name="raw_cas"
         ),
         migrations.RenameField(
-            model_name='extractedchemical',
-            old_name='chem_name',
-            new_name='raw_chem_name',
+            model_name="extractedchemical",
+            old_name="chem_name",
+            new_name="raw_chem_name",
         ),
         migrations.AlterField(
-            model_name='dsstoxsubstance',
-            name='created_at',
+            model_name="dsstoxsubstance",
+            name="created_at",
             field=models.DateTimeField(auto_now_add=True),
         ),
         migrations.AlterField(
-            model_name='dsstoxsubstance',
-            name='updated_at',
+            model_name="dsstoxsubstance",
+            name="updated_at",
             field=models.DateTimeField(auto_now=True, null=True),
         ),
     ]

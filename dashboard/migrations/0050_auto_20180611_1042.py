@@ -8,14 +8,18 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0049_auto_20180608_0957'),
-    ]
+    dependencies = [("dashboard", "0049_auto_20180608_0957")]
 
     operations = [
         migrations.AlterField(
-            model_name='datagroup',
-            name='group_type',
-            field=models.ForeignKey(blank=True, default=1, null=True, on_delete=django.db.models.deletion.SET_DEFAULT, to='dashboard.GroupType'),
-        ),
+            model_name="datagroup",
+            name="group_type",
+            field=models.ForeignKey(
+                blank=True,
+                default=1,
+                null=True,
+                on_delete=django.db.models.deletion.SET_DEFAULT,
+                to="dashboard.GroupType",
+            ),
+        )
     ]

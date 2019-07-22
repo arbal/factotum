@@ -6,14 +6,20 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0096_puc_kind'),
-    ]
+    dependencies = [("dashboard", "0096_puc_kind")]
 
     operations = [
         migrations.AddField(
-            model_name='script',
-            name='confidence',
-            field=models.PositiveSmallIntegerField(blank=True, default=1, validators=[django.core.validators.MaxValueValidator(100), django.core.validators.MinValueValidator(1)], verbose_name='Confidence'),
-        ),
+            model_name="script",
+            name="confidence",
+            field=models.PositiveSmallIntegerField(
+                blank=True,
+                default=1,
+                validators=[
+                    django.core.validators.MaxValueValidator(100),
+                    django.core.validators.MinValueValidator(1),
+                ],
+                verbose_name="Confidence",
+            ),
+        )
     ]

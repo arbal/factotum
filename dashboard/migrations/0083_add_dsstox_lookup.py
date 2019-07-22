@@ -6,39 +6,52 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0082_rename_rawchem_ptr'),
-    ]
+    dependencies = [("dashboard", "0082_rename_rawchem_ptr")]
 
     operations = [
         migrations.CreateModel(
-            name='DSSToxLookup',
+            name="DSSToxLookup",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('sid', models.CharField(max_length=50, unique=True)),
-                ('true_cas', models.CharField(blank=True, max_length=50, null=True)),
-                ('true_chemname', models.CharField(blank=True, max_length=500, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True, null=True)),
+                ("updated_at", models.DateTimeField(auto_now=True, null=True)),
+                ("sid", models.CharField(max_length=50, unique=True)),
+                ("true_cas", models.CharField(blank=True, max_length=50, null=True)),
+                (
+                    "true_chemname",
+                    models.CharField(blank=True, max_length=500, null=True),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.AddField(
-            model_name='rawchem',
-            name='rid',
+            model_name="rawchem",
+            name="rid",
             field=models.CharField(blank=True, max_length=50, null=True),
         ),
         migrations.AddField(
-            model_name='rawchem',
-            name='dsstox',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='curated_chemical', to='dashboard.DSSToxLookup'),
+            model_name="rawchem",
+            name="dsstox",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="curated_chemical",
+                to="dashboard.DSSToxLookup",
+            ),
         ),
-        # Generate the new lookup table by selecting unique combinations of 
+        # Generate the new lookup table by selecting unique combinations of
         # sid, true_cas, and true_chemname from dashboard_dsstoxsubstance
         migrations.RunSQL(
-        """
+            """
         INSERT INTO dashboard_dsstoxlookup (sid, true_cas, true_chemname, created_at)
         SELECT
         DISTINCT sid, true_cas, true_chemname , NOW() as created_at
@@ -47,6 +60,6 @@ class Migration(migrations.Migration):
         FROM dashboard_dsstoxsubstance) distinct_lookup
         GROUP BY SID HAVING COUNT(*) > 1)
         """,
-        reverse_sql="DELETE FROM dashboard_dsstoxlookup"
-        )
+            reverse_sql="DELETE FROM dashboard_dsstoxlookup",
+        ),
     ]

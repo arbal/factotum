@@ -8,14 +8,18 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0029_auto_20180313_1104'),
-    ]
+    dependencies = [("dashboard", "0029_auto_20180313_1104")]
 
     operations = [
         migrations.AlterField(
-            model_name='datagroup',
-            name='download_script',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.CASCADE, to='dashboard.Script'),
-        ),
+            model_name="datagroup",
+            name="download_script",
+            field=models.ForeignKey(
+                blank=True,
+                default=None,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="dashboard.Script",
+            ),
+        )
     ]

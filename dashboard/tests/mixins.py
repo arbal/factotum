@@ -1,31 +1,35 @@
 class DashboardFormFieldTestMixin(object):
-    '''This class mixes in some useful methods for testing dashboard form fields.
+    """This class mixes in some useful methods for testing dashboard form fields.
     It expects a form to be set in self.
-    '''
+    """
+
     def field_exists(self, field):
-        '''Checks if a field exists in a Django ModelForm.
+        """Checks if a field exists in a Django ModelForm.
         Arguments:
             ``field``
                 a string representing the field name
-        '''
-        self.assertTrue(field in self.form._meta.fields,
-                        f'"{self.form.__name__}"" does not include field "{field}"')
+        """
+        self.assertTrue(
+            field in self.form._meta.fields,
+            f'"{self.form.__name__}"" does not include field "{field}"',
+        )
 
     def fields_exclusive(self, fields):
-        '''Checks if a Django ModelForm contains only certain fields
+        """Checks if a Django ModelForm contains only certain fields
         Arguments:
             ``fields``
                 an iterable of strings representing the field names
-        '''
+        """
         s = set(self.form._meta.fields)
         for f in fields:
             self.field_exists(f)
             s.discard(f)
-        self.assertTrue(not len(s),
-                        f'"{self.form.__name__}"" includes extra fields "{s}"')
+        self.assertTrue(
+            not len(s), f'"{self.form.__name__}"" includes extra fields "{s}"'
+        )
 
     def post_field(self, post_uri, field, data, pk=None):
-        '''Checks if a Django ModelForm can correctly POST all its fields.
+        """Checks if a Django ModelForm can correctly POST all its fields.
         Arguments
             ``post_uri``
                 a string representing the relative root POST uri
@@ -37,7 +41,7 @@ class DashboardFormFieldTestMixin(object):
             ``pk = None``
                 A specific Model pk to test against. Otherwise,
                 an arbitrary object will be chosen.
-        '''
+        """
         # ensure trailing slash
         if post_uri[-1] != "/":
             post_uri += "/"
@@ -64,12 +68,16 @@ class DashboardFormFieldTestMixin(object):
             # don't include nulls
             if (value is not None) or (value is None and key == field):
                 post_data[key] = value
-        self.assertTrue(post_data[field] != data,
-                        f'Bad attempt to update "{type(obj).__name__}" with identical data on field "{field}"')
+        self.assertTrue(
+            post_data[field] != data,
+            f'Bad attempt to update "{type(obj).__name__}" with identical data on field "{field}"',
+        )
         post_data[field] = data
-        response = self.client.post(post_uri + str(obj.pk) + '/', post_data)
+        response = self.client.post(post_uri + str(obj.pk) + "/", post_data)
         obj.refresh_from_db()
-        self.assertTrue(obj.__dict__[dict_field] == data,
-                        f'POST error with object "{type(obj).__name__}" '
-                        f'on field "{field}" ' 
-                        f'at "{post_uri}"')
+        self.assertTrue(
+            obj.__dict__[dict_field] == data,
+            f'POST error with object "{type(obj).__name__}" '
+            f'on field "{field}" '
+            f'at "{post_uri}"',
+        )

@@ -5,14 +5,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0113_extractedlistpresencetagdefinition'),
-    ]
+    dependencies = [("dashboard", "0113_extractedlistpresencetagdefinition")]
 
     operations = [
         migrations.AlterField(
-            model_name='rawchem',
-            name='raw_chem_name',
-            field=models.CharField(blank=True, max_length=1300, null=True, verbose_name='Raw chemical name'),
-        ),
+            model_name="rawchem",
+            name="raw_chem_name",
+            field=models.CharField(
+                blank=True, max_length=1300, null=True, verbose_name="Raw chemical name"
+            ),
+        )
     ]

@@ -6,14 +6,17 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0098_add_cpcat_qa_flag'),
-    ]
+    dependencies = [("dashboard", "0098_add_cpcat_qa_flag")]
 
     operations = [
         migrations.AlterField(
-            model_name='qagroup',
-            name='extraction_script',
-            field=models.ForeignKey(limit_choices_to={'script_type': 'EX'}, on_delete=django.db.models.deletion.CASCADE, related_name='qa_group', to='dashboard.Script'),
-        ),
+            model_name="qagroup",
+            name="extraction_script",
+            field=models.ForeignKey(
+                limit_choices_to={"script_type": "EX"},
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="qa_group",
+                to="dashboard.Script",
+            ),
+        )
     ]

@@ -1,5 +1,5 @@
     $(document).ready(function () {
-        toggleDetailEdit(false);
+        //toggleDetailEdit(unsaved);
     });
 
     function toggleDetailEdit(enable = true) {

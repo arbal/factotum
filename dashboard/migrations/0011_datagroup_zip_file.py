@@ -7,15 +7,13 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0010_auto_20171215_1311'),
-    ]
+    dependencies = [("dashboard", "0010_auto_20171215_1311")]
 
     operations = [
         migrations.AddField(
-            model_name='datagroup',
-            name='zip_file',
+            model_name="datagroup",
+            name="zip_file",
             field=models.CharField(default=47, max_length=100),
             preserve_default=False,
-        ),
+        )
     ]

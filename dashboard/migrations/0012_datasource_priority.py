@@ -7,14 +7,16 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0011_datagroup_zip_file'),
-    ]
+    dependencies = [("dashboard", "0011_datagroup_zip_file")]
 
     operations = [
         migrations.AddField(
-            model_name='datasource',
-            name='priority',
-            field=models.CharField(choices=[('HI', 'High'), ('MD', 'Medium'), ('LO', 'Low')], default='HI', max_length=2),
-        ),
+            model_name="datasource",
+            name="priority",
+            field=models.CharField(
+                choices=[("HI", "High"), ("MD", "Medium"), ("LO", "Low")],
+                default="HI",
+                max_length=2,
+            ),
+        )
     ]

@@ -4,34 +4,45 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('dashboard', '0115_sort_ingredient_rank'),
-    ]
+    dependencies = [("dashboard", "0115_sort_ingredient_rank")]
 
     operations = [
         migrations.AddField(
-            model_name='extractedlistpresence',
-            name='report_funcuse',
-            field=models.CharField(blank=True, max_length=100, null=True, verbose_name='Reported functional use'),
+            model_name="extractedlistpresence",
+            name="report_funcuse",
+            field=models.CharField(
+                blank=True,
+                max_length=100,
+                null=True,
+                verbose_name="Reported functional use",
+            ),
         ),
         migrations.AlterField(
-            model_name='extractedchemical',
-            name='raw_central_comp',
-            field=models.CharField(blank=True, max_length=100, null=True, verbose_name='Central'),
+            model_name="extractedchemical",
+            name="raw_central_comp",
+            field=models.CharField(
+                blank=True, max_length=100, null=True, verbose_name="Central"
+            ),
         ),
         migrations.AlterField(
-            model_name='extractedchemical',
-            name='raw_max_comp',
-            field=models.CharField(blank=True, max_length=100, null=True, verbose_name='Maximum'),
+            model_name="extractedchemical",
+            name="raw_max_comp",
+            field=models.CharField(
+                blank=True, max_length=100, null=True, verbose_name="Maximum"
+            ),
         ),
         migrations.AlterField(
-            model_name='extractedchemical',
-            name='raw_min_comp',
-            field=models.CharField(blank=True, max_length=100, null=True, verbose_name='Minimum'),
+            model_name="extractedchemical",
+            name="raw_min_comp",
+            field=models.CharField(
+                blank=True, max_length=100, null=True, verbose_name="Minimum"
+            ),
         ),
         migrations.AlterField(
-            model_name='extractedchemical',
-            name='report_funcuse',
-            field=models.CharField(blank=True, max_length=100, null=True, verbose_name='Functional use'),
+            model_name="extractedchemical",
+            name="report_funcuse",
+            field=models.CharField(
+                blank=True, max_length=100, null=True, verbose_name="Functional use"
+            ),
         ),
     ]

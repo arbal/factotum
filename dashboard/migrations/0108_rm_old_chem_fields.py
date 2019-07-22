@@ -4,53 +4,47 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('dashboard', '0107_uq_datadoctypes'),
-    ]
+    dependencies = [("dashboard", "0107_uq_datadoctypes")]
 
     operations = [
+        migrations.RemoveField(model_name="extractedchemical", name="raw_cas_old"),
         migrations.RemoveField(
-            model_name='extractedchemical',
-            name='raw_cas_old',
+            model_name="extractedchemical", name="raw_chem_name_old"
         ),
+        migrations.RemoveField(model_name="extractedfunctionaluse", name="raw_cas_old"),
         migrations.RemoveField(
-            model_name='extractedchemical',
-            name='raw_chem_name_old',
+            model_name="extractedfunctionaluse", name="raw_chem_name_old"
         ),
+        migrations.RemoveField(model_name="extractedlistpresence", name="raw_cas_old"),
         migrations.RemoveField(
-            model_name='extractedfunctionaluse',
-            name='raw_cas_old',
-        ),
-        migrations.RemoveField(
-            model_name='extractedfunctionaluse',
-            name='raw_chem_name_old',
-        ),
-        migrations.RemoveField(
-            model_name='extractedlistpresence',
-            name='raw_cas_old',
-        ),
-        migrations.RemoveField(
-            model_name='extractedlistpresence',
-            name='raw_chem_name_old',
+            model_name="extractedlistpresence", name="raw_chem_name_old"
         ),
         migrations.AlterField(
-            model_name='extractedcpcat',
-            name='cat_code',
-            field=models.CharField(blank=True, max_length=100, null=True, verbose_name='Cat code'),
+            model_name="extractedcpcat",
+            name="cat_code",
+            field=models.CharField(
+                blank=True, max_length=100, null=True, verbose_name="Cat code"
+            ),
         ),
         migrations.AlterField(
-            model_name='extractedcpcat',
-            name='cpcat_code',
-            field=models.CharField(blank=True, max_length=50, null=True, verbose_name='ACToR snaid'),
+            model_name="extractedcpcat",
+            name="cpcat_code",
+            field=models.CharField(
+                blank=True, max_length=50, null=True, verbose_name="ACToR snaid"
+            ),
         ),
         migrations.AlterField(
-            model_name='extractedcpcat',
-            name='cpcat_sourcetype',
-            field=models.CharField(blank=True, max_length=50, null=True, verbose_name='CPCat source'),
+            model_name="extractedcpcat",
+            name="cpcat_sourcetype",
+            field=models.CharField(
+                blank=True, max_length=50, null=True, verbose_name="CPCat source"
+            ),
         ),
         migrations.AlterField(
-            model_name='extractedcpcat',
-            name='description_cpcat',
-            field=models.CharField(blank=True, max_length=200, null=True, verbose_name='CPCat cassette'),
+            model_name="extractedcpcat",
+            name="description_cpcat",
+            field=models.CharField(
+                blank=True, max_length=200, null=True, verbose_name="CPCat cassette"
+            ),
         ),
     ]

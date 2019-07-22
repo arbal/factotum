@@ -1,88 +1,110 @@
-import time
-from django.test import TestCase, tag
-from dashboard.tests.loader import load_model_objects
-from dashboard.models import DataDocument, Script, ExtractedText
 from lxml import html
 
-@tag('loader')
+from django.test import TestCase, tag
+
+from dashboard.tests.loader import fixtures_standard
+from dashboard.models import Script, ExtractedText
+
+
+@tag("loader")
 class QATest(TestCase):
+    fixtures = fixtures_standard
 
     def setUp(self):
-        self.objects = load_model_objects()
-        self.client.login(username='Karyn', password='specialP@55word')
+        self.client.login(username="Karyn", password="specialP@55word")
 
     def test_qa_scoreboard(self):
-        response = self.client.get(
-            '/qa/extractionscript/').content.decode('utf8')
+        scripts = Script.objects.filter(script_type="EX").exclude(extractedtext=None)
+        response = self.client.get("/qa/extractionscript/").content.decode("utf8")
         response_html = html.fromstring(response)
 
-        row_count = len(response_html.xpath(
-            '//table[@id="extraction_script_table"]/tbody/tr'))
-        scriptcount = Script.objects.filter(script_type='EX').count()
-        self.assertEqual(scriptcount, row_count, ('The seed data contains 1 '
-                                                  'Script object with the script_type'
-                                                  'EX, which should appear in this table'))
+        row_count = len(
+            response_html.xpath('//table[@id="extraction_script_table"]/tbody/tr')
+        )
+        self.assertNotEqual(
+            scripts.count(), row_count, ("Scripts w/ CP type texts should be excluded.")
+        )
 
-        script_url = response_html.xpath(
-            '//*[@id="extraction_script_table"]/tbody/tr[' + str(row_count) + ']/td[1]/a/@href')[0]
-        self.assertEqual(script_url, 'http://www.epa.gov/',
-                         'The URL on the page should be the external link to the script.')
+        script = scripts.first()
+        href = response_html.xpath(f'//*[@id="script-{script.pk}"]/@href')[0]
+        self.assertEqual(
+            script.url, href, "There should be an external link to the script."
+        )
+        td = response_html.xpath(f'//*[@id="docs-{script.pk}"]').pop()  # soda?
+        model_doc_count = ExtractedText.objects.filter(extraction_script=script).count()
 
-        displayed_doc_count = response_html.xpath(
-            '//*[@id="extraction_script_table"]/tbody/tr[' + str(row_count) + ']/td[2]')[0].text
-        model_doc_count = DataDocument.objects.filter(
-            extractedtext__extraction_script=self.objects.exscript.pk).count()
+        self.assertEqual(
+            int(td.text),
+            model_doc_count,
+            (
+                "The displayed number of datadocuments should match "
+                "the number whose related extracted text objects used"
+                " the extraction script"
+            ),
+        )
 
-        self.assertEqual(displayed_doc_count, str(model_doc_count),
-                         ('The displayed number of datadocuments should match '
-                          'the number whose related extracted text objects used '
-                          ' the extraction script'))
-
-        displayed_pct_checked = response_html.xpath(
-            '//*[@id="extraction_script_table"]/tbody/tr[' + str(row_count) + ']/td[3]')[0].text
-        model_pct_checked = self.objects.exscript.get_pct_checked()
-        self.assertEqual(displayed_pct_checked, model_pct_checked,
-                         ('The displayed percentage should match what is derived from the model'))
-
-        es = self.objects.exscript
-        self.assertEqual(es.get_qa_complete_extractedtext_count(), 0,
-                         ('The ExtractionScript object should return 0 qa_checked ExtractedText objects'))
+        td = response_html.xpath(f'//*[@id="pct-{script.pk}"]').pop()
+        self.assertEqual(
+            td.text,
+            script.get_pct_checked(),
+            ("The displayed percentage should match " "what is derived from the model"),
+        )
+        self.assertEqual(
+            script.get_qa_complete_extractedtext_count(),
+            0,
+            (
+                "The ExtractionScript object should return 0 "
+                "qa_checked ExtractedText objects"
+            ),
+        )
 
         # Set qa_checked property to True for one of the ExtractedText objects
-        self.assertEqual(self.objects.extext.qa_checked, False)
-        self.objects.extext.qa_checked = True
-        self.objects.extext.save()
-        self.assertEqual(es.get_qa_complete_extractedtext_count(), 1,
-                         ('The ExtractionScript object should now return 1 qa_checked ExtractedText object'))
+        et = script.extractedtext_set.first()
+        self.assertFalse(et.qa_checked)
+        et.qa_checked = True
+        et.save()
+        self.assertEqual(
+            script.get_qa_complete_extractedtext_count(),
+            1,
+            (
+                "The ExtractionScript object should now return "
+                "1 qa_checked ExtractedText object"
+            ),
+        )
 
         # A button for each row that will take you to the script's QA page
-        script_qa_link = response_html.xpath(
-            '//*[@id="extraction_script_table"]/tbody/tr[contains(.,"Test Extraction Script")]/td[5]/a/@href')[0]
+        script_qa_link = response_html.xpath(f'//*[@id="qa-{script.pk}"]/a/@href').pop()
+        self.assertIn(f"/qa/extractionscript/{script.pk}/", script_qa_link)
+
+        # Before clicking link, the script's qa_done property should be false
+        self.assertFalse(script.qa_begun, "The property should be False")
+
+        # Link should open a page where the h1 text matches title of the Script
+        response = self.client.get(script_qa_link)
+        response_html = html.fromstring(response.content.decode("utf8"))
+        h1 = response_html.xpath(f'//*[@id="script-{script.pk}"]').pop()
         self.assertIn(
-            f'/qa/extractionscript/{str(self.objects.exscript.pk)}/', script_qa_link)
+            script.title,
+            h1.text_content(),
+            "The <h1> text should equal the .title of the Script",
+        )
 
-        # Before clicking the link, the script's qa_done property should be false
-        self.assertEqual(es.qa_begun, False,
-                         'The qa_begun property of the Script should be False')
-
-        # The link should open a page where the h1 text matches the title of the Script
-        response = self.client.get(script_qa_link).content.decode('utf8')
-        response_html = html.fromstring(response)
-        self.assertIn(es.title, response_html.xpath('/html/body/div/h1/text()')[0],
-                      'The <h1> text should equal the .title of the Script')
-
-        # Opening the ExtractionScript's QA page should set its qa_begun property to True
-        es.refresh_from_db()
-        self.assertEqual(es.qa_begun, True,
-                         'The qa_begun property of the ExtractionScript should now be True')
+        # Opening ExtractionScript QA page should set qa_begun property to True
+        script.refresh_from_db()
+        self.assertTrue(
+            script.qa_begun,
+            ("The qa_begun property of the " "ExtractionScript should now be True"),
+        )
 
         # Go back to the QA index page to confirm that the QA is complete
-        response = self.client.get(
-            '/qa/extractionscript/').content.decode('utf8')
+        response = self.client.get("/qa/extractionscript/").content.decode("utf8")
         response_html = html.fromstring(response)
-        script_qa_status = response_html.xpath(
-            '//*[@id="extraction_script_table"]/tbody/tr[contains(.,"Test Extraction Script")]/td[5]/text()')[0]
-        str_qa_complete = 'QA Complete'
-        self.assertIn(str_qa_complete, script_qa_status,
-                      'The QA Status field should now say "QA Complete" instead of "Begin QA"')
-
+        status = response_html.xpath(f'//*[@id="qa-{ script.pk }"]').pop()
+        self.assertIn(
+            "QA Complete",
+            status.text,
+            (
+                "The QA Status field should now say "
+                '"QA Complete" instead of "Begin QA"'
+            ),
+        )

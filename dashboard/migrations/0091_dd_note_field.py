@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0090_extractedhh_doc_and_rec'),
-    ]
+    dependencies = [("dashboard", "0090_extractedhh_doc_and_rec")]
 
     operations = [
         migrations.AddField(
-            model_name='datadocument',
-            name='note',
+            model_name="datadocument",
+            name="note",
             field=models.TextField(blank=True, null=True),
-        ),
+        )
     ]

@@ -5,13 +5,6 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0111_PUC_tag_downloadable'),
-    ]
+    dependencies = [("dashboard", "0111_PUC_tag_downloadable")]
 
-    operations = [
-        migrations.RemoveField(
-            model_name='datadocument',
-            name='extracted',
-        ),
-    ]
+    operations = [migrations.RemoveField(model_name="datadocument", name="extracted")]
