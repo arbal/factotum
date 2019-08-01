@@ -1,6 +1,9 @@
+from six import text_type
+
 from django.db import models
-from .common_info import CommonInfo
 from django.core.exceptions import ValidationError
+
+from .common_info import CommonInfo
 from .extracted_text import ExtractedText
 
 
@@ -61,3 +64,42 @@ class ExtractedHabitsAndPractices(CommonInfo):
     @property
     def data_document(self):
         return self.extracted_text.data_document
+
+    def __get_label(self, field):
+        return text_type(self._meta.get_field(field).verbose_name)
+
+    @property
+    def product_surveyed_label(self):
+        return self.__get_label("product_surveyed")
+
+    @property
+    def mass_label(self):
+        return self.__get_label("mass")
+
+    @property
+    def mass_unit_label(self):
+        return self.__get_label("mass_unit")
+
+    @property
+    def frequency_label(self):
+        return self.__get_label("frequency")
+
+    @property
+    def frequency_unit_label(self):
+        return self.__get_label("frequency_unit")
+
+    @property
+    def duration_label(self):
+        return self.__get_label("duration")
+
+    @property
+    def duration_unit_label(self):
+        return self.__get_label("duration_unit")
+
+    @property
+    def prevalence_label(self):
+        return self.__get_label("prevalence")
+
+    @property
+    def notes_label(self):
+        return self.__get_label("notes")

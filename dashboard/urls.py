@@ -223,6 +223,10 @@ urlpatterns = [
         views.chemical_delete,
         name="chemical_delete",
     ),
+    path(
+        "chemical/<int:doc>/create/", views.ChemCreateView.as_view(), name="chem-create"
+    ),
+    path("chemical/<pk>/edit/", views.ChemUpdateView.as_view(), name="chem-update"),
 ]
 
 if settings.DEBUG is True:

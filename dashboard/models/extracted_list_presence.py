@@ -1,10 +1,12 @@
+from six import text_type
 from taggit.models import TaggedItemBase, TagBase
 from taggit.managers import TaggableManager
-from django.utils.translation import ugettext_lazy as _
 
 from django.db import models
-from .common_info import CommonInfo
+from django.utils.translation import ugettext_lazy as _
+
 from .raw_chem import RawChem
+from .common_info import CommonInfo
 
 
 class ExtractedListPresence(CommonInfo, RawChem):
@@ -35,6 +37,13 @@ class ExtractedListPresence(CommonInfo, RawChem):
     @property
     def data_document(self):
         return self.extracted_text.data_document
+
+    def __get_label(self, field):
+        return text_type(self._meta.get_field(field).verbose_name)
+
+    @property
+    def report_funcuse_label(self):
+        return self.__get_label("report_funcuse")
 
 
 class ExtractedListPresenceToTag(TaggedItemBase, CommonInfo):

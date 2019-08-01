@@ -1,12 +1,21 @@
-from urllib import parse
-
-from django.urls import resolve
 from django.utils import safestring
 from django.shortcuts import redirect
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Max
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from dashboard.models import *
+from dashboard.models import (
+    DataSource,
+    Product,
+    ProductToPUC,
+    DataGroup,
+    DataDocument,
+    DocumentType,
+    ProductDocument,
+    PUC,
+    PUCTag,
+    PUCToTag,
+    ProductToTag,
+)
 from dashboard.forms import (
     ProductPUCForm,
     ProductLinkForm,
@@ -17,7 +26,6 @@ from dashboard.forms import (
     ProductForm,
 )
 from django.core.paginator import Paginator
-from django.db.models import Max
 from django.urls import reverse
 
 
@@ -332,6 +340,7 @@ def product_update(
 @login_required()
 def product_delete(request, pk):
     p = Product.objects.get(pk=pk)
+    print(p)
     p.delete()
     return redirect("product_curation")
 

@@ -1,7 +1,8 @@
-from dashboard.tests.loader import *
+from dashboard.tests.loader import load_browser, load_model_objects
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from dashboard.models import *
+from dashboard.models import DataSource, DataGroup, PUCToTag, ProductToPUC
 from django.test import tag
+from selenium.common.exceptions import NoSuchElementException
 
 
 def log_karyn_in(object):
@@ -143,12 +144,13 @@ class TestIntegration(StaticLiveServerTestCase):
             self.browser.find_element_by_xpath('//*[@id="id_rawchem-0-raw_cas"]')
         except NoSuchElementException:
             self.fail("Absence of raw_cas element raised exception")
-        # The element should appear on the datadocument page
-        dd_url = self.live_server_url + f"/datadocument/{doc.pk}/"
+        # The element should appear in the chemical update page
+        dd_url = (
+            self.live_server_url
+            + f"/chemical/{doc.extractedtext.rawchem.first().pk}/edit/"
+        )
         self.browser.get(dd_url)
         try:
-            self.browser.find_element_by_xpath(
-                '//*[@id="id_rawchem-0-weight_fraction_type"]'
-            )
+            self.browser.find_element_by_xpath('//*[@id="id_weight_fraction_type"]')
         except NoSuchElementException:
             self.fail("Absence of weight_fraction_type element raised exception")

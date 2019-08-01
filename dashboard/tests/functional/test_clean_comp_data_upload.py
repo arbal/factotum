@@ -41,6 +41,18 @@ class UploadExtractedFileTest(TestCase):
         )
         return csv_string
 
+    def generate_clean_comp_data_bug(self):
+        csv_string = (
+            "id,lower_wf_analysis,central_wf_analysis,upper_wf_analysis"
+            "\n"
+            "73,1.7777,,1.0"
+            "\n"
+            "8,,.23,.88"
+            "\n"
+            "999,.44,.23,"
+        )
+        return csv_string
+
     def generate_invalid_headers_clean_comp_data_csv_string(self):
         csv_string = (
             "id,bad_header1,bad_header2" "\n" "73,1.7777,.99999999" "\n" "8,.44,.23"

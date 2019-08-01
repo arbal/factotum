@@ -1,0 +1,52 @@
+<div class="col-lg-7 scroll-div bg-light shadow rounded" id="cards" data-spy="scroll" data-target="#chem-scrollspy"
+    data-offset="10">
+    {% for chemical in doc.extractedtext.practices.all %}
+    <div class="card mt-2 big-bottom" id="chem-{{ chemical.pk }}">
+        <div class="card-body shadow rounded">
+            <div class="card-title border-bottom">
+                <h3 class="d-inline" title="{{ chemical.product_surveyed }}" data-toggle="tooltip"
+                    data-placement="bottom">
+                    {{ chemical.product_surveyed|truncatechars:45 }}
+                </h3>
+            </div>
+            <!-- card dl -->
+            <div class="card-text">
+                <ul>
+                    <li>
+                        <b>{{ chemical.mass_label }}</b>
+                        <p>{{ chemical.mass }}</p>
+                    </li>
+                    <li>
+                        <b>{{ chemical.mass_unit_label }}</b>
+                        <p>{{ chemical.mass_unit }}</p>
+                    </li>
+                    <li>
+                        <b>{{ chemical.frequency_label }}</b>
+                        <p>{{ chemical.frequency }}</p>
+                    </li>
+                    <li>
+                        <b>{{ chemical.frequency_unit_label }}</b>
+                        <p>{{ chemical.frequency_unit }}</p>
+                    </li>
+                    <li>
+                        <b>{{ chemical.duration_label }}</b>
+                        <p>{{ chemical.duration }}</p>
+                    </li>
+                    <li>
+                        <b>{{ chemical.duration_unit_label }}</b>
+                        <p>{{ chemical.duration_unit }}</p>
+                    </li>
+                    <li>
+                        <b>{{ chemical.prevalence_label }}</b>
+                        <p>{{ chemical.prevalence }}</p>
+                    </li>
+                    <li>
+                        <b>{{ chemical.notes_label }}</b>
+                        <p>{{ chemical.notes }}</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

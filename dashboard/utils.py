@@ -1,4 +1,13 @@
-from dashboard.models import *
+from .models import (
+    ExtractedText,
+    ExtractedCPCat,
+    ExtractedHHDoc,
+    ExtractedChemical,
+    ExtractedFunctionalUse,
+    ExtractedListPresence,
+    ExtractedHabitsAndPractices,
+    ExtractedHHRec,
+)
 
 
 def get_extracted_models(t):

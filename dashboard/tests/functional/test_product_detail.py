@@ -1,10 +1,8 @@
 from lxml import html
-
 from django.test import TestCase, override_settings
-
-from dashboard.models import *
-from dashboard.tests.loader import *
-from dashboard.views.product_curation import ProductForm, ProductTagForm
+from dashboard.models import Product, ProductToPUC
+from dashboard.tests.loader import fixtures_standard
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
@@ -16,14 +14,13 @@ class TestProductDetail(TestCase):
 
     def test_product_delete(self):
         self.assertTrue(Product.objects.get(pk=11), "Product 11 should exist")
-        response = self.client.get(f"/product/delete/11/")
-        self.assertFalse(
-            Product.objects.filter(pk=11), "Product 11 should have been deleted"
-        )
+        self.client.get(f"/product/delete/11/")
+        with self.assertRaises(ObjectDoesNotExist):
+            Product.objects.get(pk=11)
 
     def test_product_update(self):
         p = Product.objects.get(pk=11)
-        response = self.client.post(
+        self.client.post(
             f"/product/edit/11/",
             {
                 "title": "x",
@@ -44,7 +41,6 @@ class TestProductDetail(TestCase):
         response = self.client.get(f"/product/{str(p.pk)}/")
         lxml = html.fromstring(response.content.decode("utf8"))
         for tag in p.get_puc_tags():
-            el = "li"
             elem = lxml.xpath(f'//li[@data-tag-name="{tag.name}"]')
             if not elem:
                 elem = lxml.xpath(f'//button[@data-tag-name="{tag.name}"]')

@@ -158,10 +158,15 @@ class DataDocumentDetailTest(TestCase):
         self.assertTrue(not doc_exists(), "Document still exists after delete attempt.")
 
     def test_ingredient_rank(self):
-        response = self.client.get("/datadocument/254643/")
+        doc = DataDocument.objects.get(pk=254643)
+        qs = doc.extractedtext.rawchem.select_subclasses()
+        one = qs.first()
+        two = qs.last()
+        self.assertTrue(two.ingredient_rank > one.ingredient_rank)
+        response = self.client.get(f"/datadocument/{doc.pk}/")
         html = response.content.decode("utf-8")
-        first_idx = html.index('name="rawchem-0-ingredient_rank" value="1"')
-        second_idx = html.index('name="rawchem-1-ingredient_rank" value="2"')
+        first_idx = html.index(f'id="chem-{one.pk}"')
+        second_idx = html.index(f'id="chem-{two.pk}"')
         self.assertTrue(
             second_idx > first_idx,
             ("Ingredient rank 1 comes before " "Ingredient rank 2"),
@@ -268,38 +273,6 @@ class TestDynamicDetailFormsets(TestCase):
             )
             self.assertEqual(dd_child_model, childform_model)
 
-    def test_num_forms(self):
-        """'Assure that the number of child forms is appropriate for the group type.
-        """
-        for code, model in datadocument_models.items():
-            if DataDocument.objects.filter(
-                data_group__group_type__code=code, extractedtext__isnull=False
-            ):
-
-                doc = DataDocument.objects.filter(
-                    data_group__group_type__code=code, extractedtext__isnull=False
-                ).first()
-                response = self.client.get(
-                    reverse("data_document", kwargs={"pk": doc.pk})
-                )
-                num_forms = response.context["detail_formset"].total_form_count()
-                children = model.objects.filter(
-                    extracted_text=doc.extractedtext
-                ).count()
-
-                if doc.detail_page_editable:
-                    error = (
-                        f"{model.__module__} should have one more forms"
-                        " than instances"
-                    )
-                    self.assertEqual(num_forms, children + 1, error)
-                else:
-                    error = (
-                        f"{model.__module__} should have the same number"
-                        " of forms as instances"
-                    )
-                    self.assertEqual(num_forms, children, error)
-
     def test_listpresence_tags_form(self):
         """'Assure that the list presence keywords appear for correct doc types and tags save
         """
@@ -367,17 +340,8 @@ class TestDynamicDetailFormsets(TestCase):
             code=F("data_group__group_type__code")
         ).annotate(list_presence_id=Min("extractedtext__rawchem"))
         for document in documents:
+            doc_url = reverse("data_document", kwargs={"pk": document.pk})
             if document.code != "CP" or document.list_presence_id in list_presence_ids:
-                self.assertNotContains(
-                    response,
-                    'href="'
-                    + reverse("data_document", kwargs={"pk": document.pk})
-                    + '"',
-                )
+                self.assertNotContains(response, f'href="{doc_url}"')
             elif document.list_presence_id not in list_presence_ids:
-                self.assertContains(
-                    response,
-                    'href="'
-                    + reverse("data_document", kwargs={"pk": document.pk})
-                    + '"',
-                )
+                self.assertContains(response, f'href="{doc_url}"')

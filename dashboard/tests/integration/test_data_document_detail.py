@@ -1,7 +1,16 @@
-from dashboard.tests.loader import *
+from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from dashboard.models import *
+from dashboard.models import (
+    RawChem,
+    ExtractedListPresenceToTag,
+    DataDocument,
+    ExtractedText,
+)
 from django.urls import reverse
+
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 
 
 def log_karyn_in(object):
@@ -113,9 +122,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             )
 
             # Wait for the modal div to disappear
-            edit_modal = wait.until(
-                ec.invisibility_of_element((By.XPATH, '//*[@id="extextModal"]'))
-            )
+            wait.until(ec.invisibility_of_element((By.XPATH, '//*[@id="extextModal"]')))
             # Click the Add button again to reopen the editor
             add_button = self.browser.find_element_by_xpath(
                 '//*[@id="btn-add-or-edit-extracted-text"]'
@@ -123,7 +130,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             add_button.click()
             # Once again, check that the controls on the modal form are clickable
             # before trying to interact with them
-            cancel_button = wait.until(
+            wait.until(
                 ec.element_to_be_clickable(
                     (By.XPATH, "//*[@id='extracted-text-modal-cancel']")
                 )

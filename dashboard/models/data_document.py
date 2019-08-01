@@ -1,7 +1,6 @@
 from django.db import models
 from .common_info import CommonInfo
 from django.urls import reverse
-from django.utils import timezone
 from .document_type import DocumentType
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
@@ -106,7 +105,6 @@ class DataDocument(CommonInfo):
             self.document_type
             and self.document_type not in DocumentType.objects.compatible(self)
         ):
-
             raise ValidationError(
                 ("The document type must be allowed by " "the parent data group.")
             )

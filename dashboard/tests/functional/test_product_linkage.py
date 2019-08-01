@@ -1,7 +1,15 @@
 from django.test import TestCase, override_settings
-from dashboard.tests.loader import *
-from dashboard.views.product_curation import ProductLinkForm
+from dashboard.tests.loader import fixtures_standard
+from dashboard.forms import ProductLinkForm
 from lxml import html
+from django.core.exceptions import ObjectDoesNotExist
+from dashboard.models import (
+    DataDocument,
+    DataGroup,
+    ExtractedText,
+    Product,
+    ProductDocument,
+)
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
@@ -24,7 +32,7 @@ class TestProductLinkage(TestCase):
             None,
             "DataDocument 155324 must have a document_type_id of NULL for test to function",
         )
-        response = self.client.post(
+        self.client.post(
             f"/link_product_form/155324/",
             {
                 "title": "x",
@@ -135,9 +143,23 @@ class TestProductLinkage(TestCase):
         # check the titles of the newly-created products
         # they should be based on the document title
         doc = docs.first()
-        prod = Product.objects.filter(documents__in=[doc]).first()
+        product = Product.objects.filter(documents__in=[doc]).first()
         self.assertEqual(
             "%s stub" % doc.title,
-            prod.title,
+            product.title,
             "Product and DataDocument titles should be the same.",
         )
+
+    def test_delete_orphan_products(self):
+        # get a product associated with 2 datadocuments
+        product = Product.objects.get(pk=1850)
+        datadocuments = DataDocument.objects.filter(product=product)
+
+        DataDocument.objects.filter(id__in=datadocuments.values("id")).first().delete()
+        # product should still exist, as it's not yet an orphan
+        product.refresh_from_db()
+
+        DataDocument.objects.filter(id__in=datadocuments.values("id")).first().delete()
+        # product should no longer exist, as it's now an orphan
+        with self.assertRaises(ObjectDoesNotExist):
+            product.refresh_from_db()

@@ -1,6 +1,9 @@
+import os
 from django.db import models
 from django.dispatch import receiver
-from django.db.models.signals import post_delete, pre_save
+from django.db.models.signals import post_delete, pre_save, pre_delete
+import shutil
+
 from dashboard.models import (
     ProductToPUC,
     ProductToTag,
@@ -10,12 +13,14 @@ from dashboard.models import (
     ExtractedListPresence,
     ExtractedFunctionalUse,
     DataDocument,
-    DocumentType,
+    DataGroup,
     DocumentTypeGroupTypeCompatibilty,
+    Product,
+    ProductDocument,
 )
 
 # When dissociating a product from a PUC, delete it's (PUC-dependent) tags
-@receiver(post_delete, sender=ProductToPUC)
+@receiver(pre_delete, sender=ProductToPUC)
 def delete_product_puc_tags(sender, **kwargs):
     instance = kwargs["instance"]
     ProductToTag.objects.filter(content_object=instance.product).delete()
@@ -57,3 +62,24 @@ def rm_invalid_doctypes(sender, **kwargs):
             document_type=doc_type, data_group__group_type=group_type
         ).update(document_type=None)
     )
+
+
+@receiver(models.signals.post_delete, sender=DataGroup)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    """
+    Deletes datagroup directory from filesystem
+    when datagroup instance is deleted.
+    """
+    dg_folder = instance.get_dg_folder()
+    if os.path.isdir(dg_folder):
+        shutil.rmtree(dg_folder)
+
+
+@receiver(models.signals.post_delete, sender=ProductDocument)
+def auto_delete_orphaned_products_on_delete(sender, instance, **kwargs):
+    """
+    Deletes orphaned products on ProductDocument delete
+    """
+    Product.objects.exclude(
+        id__in=ProductDocument.objects.all().values("product_id")
+    ).delete()

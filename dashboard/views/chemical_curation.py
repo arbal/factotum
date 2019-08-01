@@ -155,9 +155,7 @@ def download_raw_chems_dg(request, pk):
 @login_required()
 def chemical_delete(request, doc_pk, chem_pk):
     doc = DataDocument.objects.get(pk=doc_pk)
-    Chemical = get_extracted_models(doc.data_group.group_type.code)[1]
+    _, Chemical = get_extracted_models(doc.data_group.group_type.code)
     chem = Chemical.objects.get(pk=chem_pk)
     chem.delete()
-    url = reverse("data_document", args=[doc.pk])
-    url += f"#chem-{chem.pk}"
-    return redirect(url)
+    return redirect(doc)

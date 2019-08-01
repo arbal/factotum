@@ -1,16 +1,30 @@
 from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth.models import User
-from dashboard.models import *
+from dashboard.models import (
+    ExtractedText,
+    ExtractedChemical,
+    ExtractedHabitsAndPractices,
+    ExtractedListPresence,
+    ExtractedHHRec,
+    ExtractedFunctionalUse,
+    DataGroup,
+    DataSource,
+    Script,
+    GroupType,
+    DataDocument,
+    DocumentType,
+    Ingredient,
+    PUCTag,
+    Product,
+    PUC,
+    ProductDocument,
+    UnitType,
+    WeightFractionType,
+)
 
 from selenium import webdriver
-from selenium.webdriver.support.select import Select
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import NoSuchElementException
 
 fixtures_standard = [
     "00_superuser",

@@ -1,12 +1,10 @@
 import os
-import shutil
 import uuid
 from factotum import settings
-from pathlib import Path, PurePath
+from pathlib import PurePath
 
 from django.db import models
 from django.urls import reverse
-from django.dispatch import receiver
 from model_utils import FieldTracker
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
@@ -121,7 +119,6 @@ class DataGroup(CommonInfo):
 
     def get_dg_folder(self):
         uuid_dir = f"{settings.MEDIA_ROOT}{str(self.fs_id)}"
-        name_dir = f"{settings.MEDIA_ROOT}{self.get_name_as_slug()}"
 
         # this needs to handle missing csv files
         if bool(self.csv.name):
@@ -242,14 +239,3 @@ class DataGroup(CommonInfo):
         """Used in the datagroup_form.html template to display only the filename
         """
         return self.csv.name.split("/")[-1]
-
-
-@receiver(models.signals.post_delete, sender=DataGroup)
-def auto_delete_file_on_delete(sender, instance, **kwargs):
-    """
-    Deletes datagroup directory from filesystem
-    when datagroup instance is deleted.
-    """
-    dg_folder = instance.get_dg_folder()
-    if os.path.isdir(dg_folder):
-        shutil.rmtree(dg_folder)

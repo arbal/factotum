@@ -1,6 +1,10 @@
 from django.test import TestCase
+from django.urls import resolve
+
 from dashboard.tests.loader import fixtures_standard
-from dashboard.models import RawChem, DSSToxLookup
+from dashboard.models import RawChem, DSSToxLookup, DataDocument, ExtractedChemical
+from dashboard.forms import ExtractedFunctionalUseForm
+from ...views import ChemCreateView, ChemUpdateView
 
 
 class ChemicalCurationTests(TestCase):
@@ -65,3 +69,28 @@ class ChemicalCurationTests(TestCase):
             DSSToxLookup.objects.filter(true_chemname=true_chemname).count(),
             "Now a matching true_chemname should exist",
         )
+
+    def test_chem_create_url_resolves_view(self):
+        doc = DataDocument.objects.first()
+        view = resolve(f"/chemical/{doc.pk}/create/")
+        self.assertEquals(view.func.view_class, ChemCreateView)
+
+    def test_chem_update_url_resolves_view(self):
+        chem = ExtractedChemical.objects.first()
+        view = resolve(f"/chemical/{chem.pk}/edit/")
+        self.assertEquals(view.func.view_class, ChemUpdateView)
+
+    def test_chemical_create_and_edit(self):
+        doc = DataDocument.objects.filter(
+            extractedtext__isnull=False, data_group__group_type__code="CP"
+        ).first()
+        initial_chem_count = doc.extractedtext.rawchem.count()
+        data = {"raw_chem_name": "New Name", "raw_cas": "New Raw CAS"}
+        response = self.client.post(f"/chemical/{doc.pk}/create/", data)
+        self.assertEqual(doc.extractedtext.rawchem.count(), initial_chem_count + 1)
+        qs = doc.extractedtext.rawchem.filter(raw_chem_name="New Name")
+        self.assertTrue(qs.count() == 1)
+        chem = doc.extractedtext.rawchem.select_subclasses().first()
+        response = self.client.post(f"/chemical/{chem.pk}/edit/", data)
+        qs = doc.extractedtext.rawchem.filter(raw_chem_name="New Name")
+        self.assertTrue(qs.count() == 2)

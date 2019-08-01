@@ -307,7 +307,43 @@ class ExtractedChemicalFormSet(BaseInlineFormSet):
 class ExtractedChemicalForm(forms.ModelForm):
     class Meta:
         model = ExtractedChemical
-        exclude = ("extracted_text",)
+        fields = [
+            "raw_chem_name",
+            "raw_cas",
+            "raw_min_comp",
+            "raw_central_comp",
+            "raw_max_comp",
+            "unit_type",
+            "ingredient_rank",
+            "report_funcuse",
+            "weight_fraction_type",
+        ]
+
+
+class ExtractedFunctionalUseForm(forms.ModelForm):
+    class Meta:
+        model = ExtractedFunctionalUse
+        fields = ["raw_chem_name", "raw_cas", "report_funcuse"]
+
+
+class ExtractedListPresenceForm(forms.ModelForm):
+    class Meta:
+        model = ExtractedListPresence
+        fields = ["raw_chem_name", "raw_cas", "report_funcuse"]
+
+
+class ExtractedHHRecForm(forms.ModelForm):
+    class Meta:
+        model = ExtractedHHRec
+        fields = [
+            "raw_chem_name",
+            "raw_cas",
+            "media",
+            "num_measure",
+            "num_nondetect",
+            "sampling_method",
+            "analytical_method",
+        ]
 
 
 def create_detail_formset(document, extra=1, can_delete=False, exclude=[]):

@@ -1,13 +1,14 @@
-from django.test import Client
-from dashboard.tests.loader import *
+from dashboard.tests.loader import fixtures_standard
+from django.contrib.auth.models import User
 from dashboard import views
 from django.test import TestCase, override_settings, RequestFactory
 from dashboard.models import (
-    DataDocument,
+    RawChem,
     Script,
     ExtractedText,
-    ExtractedChemical,
     QAGroup,
+    QANotes,
+    ExtractedListPresence,
 )
 from django.db.models import Count
 from lxml import html
@@ -29,7 +30,7 @@ class TestQaPage(TestCase):
             Script.objects.get(pk=5).qa_begun,
             "The Script should have qa_begun of False at the beginning",
         )
-        response = self.client.get("/qa/extractionscript/5/")
+        self.client.get("/qa/extractionscript/5/")
         self.assertTrue(
             Script.objects.get(pk=5).qa_begun, "qa_begun should now be true"
         )
@@ -155,10 +156,9 @@ class TestQaPage(TestCase):
 
     def test_approval(self):
         # Open the Script page to create a QA Group
-        response = self.client.get("/qa/extractionscript/5", follow=True)
+        self.client.get("/qa/extractionscript/5", follow=True)
         # Follow the first approval link
-        response = self.client.get("/qa/extractedtext/7", follow=True)
-        # print(response.context['extracted_text'])
+        self.client.get("/qa/extractedtext/7", follow=True)
 
     def test_detail_edits(self):
         """
@@ -340,7 +340,7 @@ class TestQaPage(TestCase):
             qa_note_count, 0, "There should be no QA Notes associated with this script."
         )
 
-        qa_note = QANotes.objects.create(extracted_text=extext, qa_notes="Test QA Note")
+        QANotes.objects.create(extracted_text=extext, qa_notes="Test QA Note")
         extext.qa_checked = True
         extext.save()
 

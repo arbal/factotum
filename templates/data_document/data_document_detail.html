@@ -9,39 +9,45 @@
 {% endblock %}
 {% block content %}
 
-<div class="row"><!-- DataDocument title -->
+<div class="row">
+    <!-- DataDocument title -->
     <div class="col-lg-10 border-bottom"
          data-toggle="tooltip"
-         data-placement="bottom" 
+         data-placement="bottom"
          title="{{ doc.title }}"
          id="title">
         <h1>{{ doc.title|truncatechars:45 }}</h1>
         {% if doc.subtitle %}
-                <h4 class="text-secondary">
-                    {{ doc.subtitle|truncatechars:90 }}
-                </h4>
+        <h4 class="text-secondary">
+            {{ doc.subtitle|truncatechars:90 }}
+        </h4>
         {% endif %}
     </div>
     <div class="col-lg-2 d-flex border-bottom">
         <div class="btn-group my-auto"
              role="group"
              aria-label="Data Document Modification">
-            <a class="btn btn-sm btn-info"
+            <a class="btn btn-sm btn-outline-secondary hover"
                role="button"
                title="View data document"
-               href="{{ doc.pdf_url }}">
+               data-toggle="tooltip"
+               href="{{ doc.pdf_url }}"
+               name="info">
                 <span class="fa fa-fs fa-file"></span>
             </a>
-            <a class="btn btn-success btn-sm" 
-               role="button"
+            <a class="btn btn-outline-secondary btn-sm hover"
                title="edit"
-               href="{% url 'data_document_edit' doc.id %}">
+               data-toggle="tooltip"
+               href="{% url 'data_document_edit' doc.id %}"
+               name="success">
                 <span class="fa fa-fs fa-edit"></span>
             </a>
-            <a class="btn btn-danger btn-sm"
+            <a class="btn btn-outline-secondary btn-sm hover"
                role="button"
                title="delete"
-               href="{% url 'data_document_delete' doc.id %}">
+               data-toggle="tooltip"
+               href="{% url 'data_document_delete' doc.id %}"
+               name="danger">
                 <span class="fa fa-fs fa-trash"></span>
             </a>
 
@@ -53,7 +59,7 @@
     <div class="col-lg-3 bg-light pt-2 scroll-div border-bottom"
          id="meta">
         <a href="{% url 'data_source_detail' doc.data_group.data_source.id %}">
-           <h5>{{ doc.data_group.data_source }}</h5>
+            <h5>{{ doc.data_group.data_source }}</h5>
         </a>
         <a href="{% url 'data_group_detail' doc.data_group.id %}">
             <h5>{{ doc.data_group }}</h5>
@@ -63,177 +69,182 @@
             <h5 title="group type : document type">
                 {{ doc.data_group.group_type }}
                 {% if doc.document_type %}
-                    :
-                    {{ doc.document_type }}
+                :
+                {{ doc.document_type }}
                 {% endif %}
-            </h5>           
+            </h5>
         </div>
         {% if doc.data_group.download_script %}
-            <h5 class="d-inline"
-                title="Download Script">
-                {{ doc.data_group.download_script }}
-            </h5>
-            <a class="btn btn-secondary btn-sm float-right"
-                role="button"
-                title="Download Script"
-                href={{ doc.data_group.download_script.url }}>
-                <i class="fab fa-github"></i>
-            </a>
+        <h5 class="d-inline"
+            title="Download Script">
+            {{ doc.data_group.download_script }}
+        </h5>
+        <a class="btn btn-outline-secondary btn-sm float-right hover"
+           title="Download Script"
+           href={{ doc.data_group.download_script.url }}
+           name="secondary">
+            <i class="fab fa-github"></i>
+        </a>
         {% endif %}
-        <div class="pt-2"><!-- doc.note -->
-        {% if doc.note %}
+        <div class="pt-2">
+            <!-- doc.note -->
+            {% if doc.note %}
             {% if doc.note|length > 112 %}
             <span id="press">
                 {{ doc.note|truncatechars:112 }}
             </span>
-            <span id="tone" style="display:none">
+            <span id="tone"
+                  style="display:none">
                 {{ doc.note }}
             </span>
-            <a class="small"
-               href="#"
-               id="preferably"
-               onclick="textFlip('preferably','press', 'tone')">
+            <a class="small" href="#" id="preferably" onclick="textFlip('preferably','press', 'tone')">
                 more
             </a>
             {% else %}
-                {{ doc.note }}
+            {{ doc.note }}
             {% endif %}
-        {% endif %}
+            {% endif %}
         </div>
         {% if not doc.data_group.is_habits_and_practices %}
         <hr>
-        <div><!-- Products -->
+        <div>
+            <!-- Products -->
             <h5 id="product-title">
                 <b>Linked Products</b>
-                <a class="btn btn-sm btn-secondary float-right d-inline shadow"
+                <a class="btn btn-sm btn-outline-secondary float-right d-inline shadow hover"
                    href="{% url 'link_product_form' doc.pk %}"
                    title="create"
-                   role="button">
+                   role="button"
+                   data-toggle="tooltip"
+                   name="success">
                     <small>ADD PRODUCT&nbsp</small>
                     <i class="fas fa-plus"></i>
                 </a>
             </h5>
             {% if doc.products.count %}
-                <div id="trim">
-                    {% for product in doc.products.all|slice:":3" %}
-                        <a href="{% url "product_detail" product.pk %}">
-                            {{ product|truncatechars:35 }}
-                        </a><br>
-                    {% endfor %}
-                </div>
-                <div id="full" style="display: none">
-                    {% for product in doc.products.all %}
-                        <a href="{% url "product_detail" product.pk %}">
-                            {{ product|truncatechars:35 }}
-                        </a><br>
-                    {% endfor %}
-                </div>
-                {% if doc.products.all|length > 3 %}
-                    <a class="small"
-                    href="#"
-                    id="add"
-                    onclick="textFlip('add','trim','full')">
-                        more
-                    </a>
-                {% endif %}
+            <div id="trim">
+                {% for product in doc.products.all|slice:":3" %}
+                <a href="{% url "product_detail" product.pk %}">
+                    {{ product|truncatechars:35 }}
+                </a><br>
+                {% endfor %}
+            </div>
+            <div id="full"
+                 style="display: none">
+                {% for product in doc.products.all %}
+                <a href="{% url "product_detail" product.pk %}">
+                    {{ product|truncatechars:35 }}
+                </a><br>
+                {% endfor %}
+            </div>
+            {% if doc.products.all|length > 3 %}
+            <a class="small"
+               href="#"
+               id="add"
+               onclick="textFlip('add','trim','full')">
+                more
+            </a>
+            {% endif %}
             {% endif %}
         </div>
         {% endif %}
         <hr>
-        <div><!-- Extracted Text -->
+        <div>
+            <!-- Extracted Text -->
             <div class="d-flex justify-content-between">
                 <h5 class="d-inline mr-2"
                     id="extracted-text-title">
                     <b>Extracted Text</b>
                 </h5>
                 {% if doc.is_extracted %}
-                    {% if not extracted_text.qa_checked %}
-                    <div class="d-inline">
-                        <a class="btn btn-sm border"
-                            role="button"
-                            title="Go to QA"
-                            href={% url "extracted_text_qa" extracted_text.pk %}>
+                {% if not extracted_text.qa_checked %}
+                <div class="d-inline">
+                    <a class="btn btn-sm btn-outline-secondary"
+                       title="Go to QA"
+                       href={% url "extracted_text_qa" doc.pk %}
+                       data-toggle="tooltip">
                         <small class="m-0"><b>QA'd</b></small>
                         <i class="far fa-square"></i></a>
-                    </div>
-                    {% else %}
-                    <div class="d-inline border rounded border btn btn-sm"
-                        title="QA completed">
-                        <small><b>QA'd</b></small>
-                        <i class="far fa-check-square"></i>
-                    </div>
-                    {% endif %}
+                </div>
+                {% else %}
+                <div class="d-inline border rounded border btn btn-sm"
+                     title="QA completed"
+                     data-toggle="tooltip">
+                    <small><b>QA'd</b></small>
+                    <i class="far fa-check-square"></i>
+                </div>
                 {% endif %}
-                <div class="btn-group btn-group-sm float-right">
+                {% endif %}
+                <div class="btn-group btn-group-sm shadow float-right">
                     {% if extracted_text.extraction_script.url %}
-                    <a class="btn btn-secondary"
+                    <a class="btn btn-outline-secondary hover"
                        role="button"
                        title="Extraction script"
-                       href={{ extracted_text.extraction_script.url }}>
-                       <i class="fab fa-github"></i>
+                       data-toggle="tooltip"
+                       href={{ doc.extractedtext.extraction_script.url }}
+                       name="secondary">
+                        <i class="fab fa-github"></i>
                     </a>
                     {% endif %}
-                    <a class="btn btn-success"
-                       title="edit"
-                       href=""
-                       id="btn-add-or-edit-extracted-text"
-                       role="button"
-                       data-toggle="modal"
-                       data-target="#extextModal">
+                    <button class="btn btn-outline-secondary hover"
+                            title="edit"
+                            id="btn-add-or-edit-extracted-text"
+                            data-toggle="modal"
+                            data-target="#extextModal"
+                            name="success">
                         {% if doc.is_extracted %}
                         <span class="fa fa-fs fa-edit"></span>
                         {% else %}
                         <span class="fa fa-fs fa-plus"></span>
                         {% endif %}
-                    </a>
+                    </button>
                 </div>
             </div>
             {% if doc.is_extracted %}
-                <div class="mt-2">
+            <div class="mt-2">
                 {% for field in edit_text_form.visible_fields %}
-                    <dl class="mb-0">
-                        <dt>
-                            <u>
-                                {{ field.label }}
-                            </u>
-                        </dt>
-                        <dd class="pl-4 mb-0"
-                            id={{ field.id_for_label }}>
-                            {% if field.value %}
-                                {{field.value}}
-                            {% else %}
-                            <small class="pl-3 pr-3">
-                                <i class="text-muted">
-                                    ...No value
-                                </i>
-                            </small>
-                            {%  endif %}
-                        </dd>
-                    </dl>
+                <dl class="mb-0">
+                    <dt>
+                        <u>
+                            {{ field.label }}
+                        </u>
+                    </dt>
+                    <dd class="pl-4 mb-0"
+                        id={{ field.id_for_label }}>
+                        {% if field.value %}
+                        {{field.value}}
+                        {% else %}
+                        <small class="pl-3 pr-3">
+                            <i class="text-muted">
+                                ...No value
+                            </i>
+                        </small>
+                        {%  endif %}
+                    </dd>
+                </dl>
                 {% endfor %}
-                </div>
+            </div>
             {% else %}
             <div>
                 No Extracted Text exists for this Data Document
             </div>
             {% endif %}
             <!-- Modal -->
-            <div class="modal fade" 
+            <div class="modal fade"
                  id="extextModal"
                  tabindex="-1"
                  role="dialog"
                  aria-labelledby="extextModalLabel"
                  aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" 
+                <div class="modal-dialog modal-dialog-centered"
                      role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title"
-                                id="extextModalLabel">
+                            <h5 class="modal-title" id="extextModalLabel">
                                 {% if doc.is_extracted %}
-                                    Edit
+                                Edit
                                 {% else %}
-                                    Add
+                                Add
                                 {% endif %}
                                 Extracted Text
                             </h5>
@@ -244,7 +255,8 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="{% url 'extracted_text_edit' doc.id %}" method="post">
+                        <form action="{% url 'extracted_text_edit' doc.id %}"
+                              method="post">
                             {% csrf_token %}
                             <div class="modal-body">
                                 <div class="form-group">
@@ -252,15 +264,13 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button id="extracted-text-modal-cancel" 
+                                <button id="extracted-text-modal-cancel"
                                         type="button"
                                         class="btn btn-secondary"
                                         data-dismiss="modal">
                                     Cancel
                                 </button>
-                                <button id="extracted-text-modal-save"
-                                        type="submit"
-                                        value="Note"
+                                <button id="extracted-text-modal-save" type="submit" value="Note"
                                         class="btn btn-primary">
                                     Save
                                 </button>
@@ -272,200 +282,48 @@
         </div>
     </div>
     <!-- chemical card panel -->
-    <div class="col-lg-7 scroll-div bg-light shadow rounded"
-         id="cards"
-         data-spy="scroll" 
-         data-target="#chem-scrollspy"
-         data-offset="10">
-
-
-         {% if list_presence_tag_form %}
-         <div class="card card-body col-10 mt-2 mx-auto">
-         <form class="form-inline" action="{% url 'save_list_presence_tag_form' doc.id %}" method="post">
-             {% csrf_token %}
-                 {{ list_presence_tag_form }}
-               <button class="btn btn-primary" type="submit">Save</button>
-         </form>
-         </div>
-         {% endif %}
-
-
-        <form action="{% url 'data_document' doc.pk %}" method="post">
-        {{ detail_formset.management_form }}
-        {% csrf_token %}
-        {% for form in detail_formset %}
-            <!-- card -->
-            {% if doc.detail_page_editable %}
-                {% if not forloop.last %}
-                <!-- the last div will always be the add button when editable -->
-                {% include 'data_document/chemical_card.html' %}
-                <!-- edit modal -->
-                <div class="modal fade" 
-                    id="chem-edit-{{ forloop.counter }}" 
-                    tabindex="-1" 
-                    role="dialog" 
-                    aria-labelledby="extextModalLabel"
-
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="extextModalLabel">
-                                    Edit 
-                                    <span class="rounded bg-warning p-2">
-                                        {{ form.instance }}
-                                    </span>
-                                </h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    {% include 'core/bs4_form.html' with form=form colspan='col-12'%}
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button id="extracted-chem-modal-cancel"
-                                        type="button"
-                                        class="btn btn-secondary"
-                                        data-dismiss="modal">
-                                    Cancel
-                                </button>
-                                <button id="extracted-chem-modal-save"
-                                        type="submit"
-                                        name="CARD"
-                                        value="#chem-{{ form.instance.pk }}"
-                                        class="btn btn-primary">
-                                    Save
-                                </button>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                {% elif doc.detail_page_editable %}
-                <!-- add chemical -->
-                <div class="card bg-success m-4 border border-secondary">
-                    
-                        <a class="btn btn-success"
-                            title="Add chemical"
-                            href=""
-                            role="button"
-                            data-toggle="modal"
-                            data-target="#chem-edit-{{ forloop.counter }}">
-                            <div class="card-body shadow rounded p-0 text-center">
-                                <span class="fa fa-fs fa-plus"></span>
-                            </div>
-                        </a>
-                </div>
-                <!-- add modal -->
-                <div class="modal fade" 
-                    id="chem-edit-{{ forloop.counter }}" 
-                    tabindex="-1" 
-                    role="dialog" 
-                    aria-labelledby="extextModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="extextModalLabel"> Add a new chemical</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    {% include 'core/bs4_form.html' with form=form colspan='col-12'%}
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button id="add-chem-modal-cancel" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <button id="add-chem-modal-save" type="submit" value="New" class="btn btn-primary">Save</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-            {% else %}
-                {% include 'data_document/chemical_card.html' %}
-            {% endif %}
-        {% endfor %}
-        </form>
-        <!-- delete modal -->
-        {% for form in detail_formset %}
-            {% if form.instance.pk %}
-            <div class="modal fade" 
-                id="chem-delete-{{ form.instance.pk }}"
-                tabindex="-1"
-                role="dialog"
-                aria-labelledby="extextModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" 
-                        role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button"
-                                    class="close"
-                                    data-dismiss="modal"
-                                    aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action="{% url 'chemical_delete' doc.pk form.instance.pk %}" 
-                            method="post">
-                            {% csrf_token %}
-                            <div class="modal-body">
-                                Are you sure you want to delete "{{ form.instance }}" ?
-                            </div>
-                            <div class="modal-footer">
-                                <button id="chemical-modal-cancel" 
-                                        type="button"
-                                        class="btn btn-secondary"
-                                        data-dismiss="modal">
-                                    Cancel
-                                </button>
-                                <button id="chemical-modal-save"
-                                        type="submit"
-                                        class="btn btn-primary">
-                                    Delete
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-        {% endfor %}
-    </div>
-    <!-- scrollspy -->
-    <div class="col-lg-2 position-relative bg-white shadow scroll-div">
+    {% if doc.data_group.is_habits_and_practices %}
+    {% include 'data_document/hnp_cards.html' %}
+    {% else %}
+    {% include 'data_document/chemical_cards.html' %}
+    {% endif %}
+    <div class="col-lg-2 position-relative bg-white shadow scroll-div" id="scroll-nav">
         <nav class="pt-2" id="chem-scrollspy">
             <ul class="nav nav-pills nav-stacked flex-column">
-                {% for form in detail_formset %}
-                {% if form.instance.pk %}
+                {% if doc.data_group.is_habits_and_practices %}
+                {% for chemical in doc.extractedtext.practices.all %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#chem-{{ form.instance.pk }}">
+                    <a class="nav-link" href="#chem-{{ chemical.pk }}">
                         <p class="m-0"
-                            data-toggle="tooltip"
-                            data-placement="left"
-                            title="
-                                {{ form.instance.rendered_chemname|truncatechars:18 }}
-                             ">
-                             {{ form.instance.rendered_chemname|truncatechars:18 }}
-                            
+                           data-toggle="tooltip"
+                           data-placement="left"
+                           title="{{ chemical.product_surveyed|truncatechars:18 }}">
+                            {{ chemical.product_surveyed|truncatechars:18 }}
+                        </p>
+                    </a>
+                </li>
+                {% endfor %}
+                {% else %}
+                {% for chemical in chemicals %}
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="#chem-{{ chemical.pk }}">
+                        <p class="m-0"
+                           data-toggle="tooltip"
+                           data-placement="left"
+                           title="{{ chemical.rendered_chemname|truncatechars:18 }}">
+                            {{ chemical.rendered_chemname|truncatechars:18 }}
                         </p>
                         <small class="m-0">
-                            {{ form.instance.rendered_cas|truncatechars:18 }}
+                            {{ chemical.rendered_cas|truncatechars:18 }}
                         </small>
                     </a>
                 </li>
-                {% endif %}
                 {% endfor %}
+                {% endif %}
             </ul>
         </nav>
-    </div>
+    </div><!-- scrollspy -->
 </div><!-- 3 column panel -->
 {{ list_presence_tag_form.media }}
 
@@ -473,17 +331,28 @@
 
 {% block js %}
 <script src="{% static 'js/dashboard/toggle_text.js' %}"></script>
-<script src="{% static 'js/dashboard/datadocument_detail.js' %}"></script>
-{% if detail_formset.total_error_count %}
-{% for err in detail_formset.errors %}
-    {% if err %}
-        <script type="text/javascript">
-            $(function() {
-                $('#chem-edit-{{ forloop.counter }}').modal('show');
-            });
-        </script>
-    {% endif %}
-{% endfor %}
+<script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail.js' %}"></script>
+<script src="{% static 'js/jquery.form.js' %}"></script>
+<script type="text/javascript">
+    $('#chemical-add-modal').on('show.bs.modal', function (event) {
+        var modal = $(this)
+        $.ajax({
+            url: "{% url 'chem-create' doc.pk %}",
+            context: document.body
+        }).done(function (response) {
+            modal.html(response);
+        });
+    });
 
-{% endif %}
+    $('#chemical-update-modal').on('show.bs.modal', function (event) {
+        var modal = $(this)
+        var chem_pk = event.relatedTarget.value
+        $.ajax({
+            url: "{% url 'chem-update' pk=47 %}".replace(/47/, chem_pk.toString()),
+            context: document.body
+        }).done(function (response) {
+            modal.html(response);
+        });
+    });
+</script>
 {% endblock %}

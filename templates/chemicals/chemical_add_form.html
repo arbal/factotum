@@ -1,0 +1,29 @@
+{% load widget_tweaks %}
+<div class="modal-dialog" role="document">
+    <form action="{% url 'chem-create' doc.pk %}" method="post" id="chem-create" class="form">
+        {% csrf_token %}
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Chemical</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% include 'core/bs4_form.html' with form=form %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary" id="saveChem" value="Save changes" />
+            </div>
+        </div><!-- /.modal-content -->
+    </form>
+</div><!-- /.modal-dialog -->
+<script>
+    var form_options = {
+        target: '#chemical-add-modal',
+        success: function (response) {}
+    };
+    $('#chem-create').ajaxForm(form_options);
+</script>

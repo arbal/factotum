@@ -95,17 +95,25 @@ class DataGroupFormTest(TestCase):
 
         # DG 52 does not have extracted docs, so group_type should be disabled, and a forced update should fail
         dg = DataGroup.objects.get(pk=52)
-        response = self.client.get(f'/datagroup/edit/{str(dg.pk)}/').content.decode('utf8')
+        response = self.client.get(f"/datagroup/edit/{str(dg.pk)}/").content.decode(
+            "utf8"
+        )
         response_html = html.fromstring(response)
-        self.assertTrue(response_html.xpath('//*[@id="id_group_type"][@disabled]'),
-                      'The group_type select box should be disabled')
-        response = self.client.post(f'/datagroup/edit/{dg.pk}/',
-                                    {'name': dg.name,
-                                    'group_type_id': 2,})
+        self.assertTrue(
+            response_html.xpath('//*[@id="id_group_type"][@disabled]'),
+            "The group_type select box should be disabled",
+        )
+        response = self.client.post(
+            f"/datagroup/edit/{dg.pk}/", {"name": dg.name, "group_type_id": 2}
+        )
 
-        response_html = html.fromstring(response.content.decode('utf8'))
-        self.assertTrue(response_html.xpath('//*[@id="id_group_type"]/following::div[@class="invalid-feedback"]'),
-                      'Changing the group_type should raise a ValidationError')
+        response_html = html.fromstring(response.content.decode("utf8"))
+        self.assertTrue(
+            response_html.xpath(
+                '//*[@id="id_group_type"]/following::div[@class="invalid-feedback"]'
+            ),
+            "Changing the group_type should raise a ValidationError",
+        )
 
     def test_register_records_header(self):
         ds_pk = DataSource.objects.first().pk

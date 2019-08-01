@@ -1,6 +1,9 @@
+from six import text_type
+
 from django.db import models
-from .common_info import CommonInfo
+
 from .raw_chem import RawChem
+from .common_info import CommonInfo
 
 
 class ExtractedFunctionalUse(CommonInfo, RawChem):
@@ -22,3 +25,10 @@ class ExtractedFunctionalUse(CommonInfo, RawChem):
     @property
     def data_document(self):
         return self.extracted_text.data_document
+
+    def __get_label(self, field):
+        return text_type(self._meta.get_field(field).verbose_name)
+
+    @property
+    def report_funcuse_label(self):
+        return self.__get_label("report_funcuse")

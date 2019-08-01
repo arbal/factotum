@@ -1,8 +1,8 @@
 from django.test import TestCase, override_settings
-from dashboard.tests.loader import *
+from dashboard.tests.loader import fixtures_standard
 from lxml import html
 from django.urls import reverse
-from dashboard.models import PUC, PUCTag, PUCToTag, Product
+from dashboard.models import PUC, PUCTag, PUCToTag, Product, ProductToPUC
 from django.db.utils import IntegrityError
 
 
@@ -84,7 +84,7 @@ class TestProductPuc(TestCase):
             ),
             "The tag cartridge should not exist for this product",
         )
-        response = self.client.post(
+        self.client.post(
             puc_response_url,
             {
                 "gen_cat": "Arts and crafts/Office supplies",
@@ -102,9 +102,7 @@ class TestProductPuc(TestCase):
             ),
             "The tag cartridge should now exist for this product",
         )
-        response = self.client.post(
-            product_response_url, {"tags": "powder|spray, cartridge"}
-        )
+        self.client.post(product_response_url, {"tags": "powder|spray, cartridge"})
         product_response = self.client.get(product_response_url)
         product_response_html = html.fromstring(product_response.content.decode("utf8"))
         self.assertNotIn(
@@ -157,9 +155,7 @@ class TestProductPuc(TestCase):
 
     def test_bulk_product_puc_post(self):
         product_response_url = reverse("bulk_product_puc")
-        response = self.client.post(
-            product_response_url, {"puc": "1", "id_pks": "11,150,151,152"}
-        )
+        self.client.post(product_response_url, {"puc": "1", "id_pks": "11,150,151,152"})
         # Note that product 11 already has PUC 1 linked to it in the seed data. Including it in this
         # test set is a test against the edge case wherein a product with a manually assigned PUC
         # somehow makes it into the batch assignment process. This should generate a new 'MB' ProductToPuc
@@ -197,7 +193,7 @@ class TestProductPuc(TestCase):
             "Product 11 should also be assigned to PUC 1 with a classification method of MA",
         )
 
-        response = self.client.post("/product_puc/11/", {"puc": "6"})
+        self.client.post("/product_puc/11/", {"puc": "6"})
         p2p.refresh_from_db()
         self.assertEqual(p2p.puc.id, 6, "Product 11 should now be assigned to PUC 6")
         self.assertNotEqual(
@@ -276,7 +272,6 @@ class TestProductPuc(TestCase):
         texts = [x.text for x in select]
         for attr in assumed_attrs:
             self.assertNotIn(attr, texts, "assumed attributes shouldn't be here")
-        # import pdb; pdb.set_trace()
 
     def test_cumulative_count(self):
         """
