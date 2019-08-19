@@ -5,6 +5,8 @@ from django.http import HttpRequest
 from django.test import RequestFactory, TestCase, Client
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.contrib.messages.middleware import MessageMiddleware
+from django.contrib.sessions.middleware import SessionMiddleware
 
 from dashboard import views
 from dashboard.models import *
@@ -17,7 +19,7 @@ def make_upload_csv(filename):
     sample_csv_bytes = sample_csv.encode(encoding="UTF-8", errors="strict")
     in_mem_sample_csv = InMemoryUploadedFile(
         file=io.BytesIO(sample_csv_bytes),
-        field_name="extract_file",
+        field_name="extfile-bulkformsetfileupload",
         name="test.csv",
         content_type="text/csv",
         size=len(sample_csv),
@@ -39,6 +41,11 @@ class UploadExtractedFileTest(TestCase):
     ]
 
     def setUp(self):
+        self.mng_data = {
+            "extfile-TOTAL_FORMS": "0",
+            "extfile-INITIAL_FORMS": "0",
+            "extfile-MAX_NUM_FORMS": "",
+        }
         self.c = Client()
         self.factory = RequestFactory()
         self.c.login(username="Karyn", password="specialP@55word")
@@ -62,7 +69,7 @@ class UploadExtractedFileTest(TestCase):
         sample_csv_bytes = csv_string.encode(encoding="UTF-8", errors="strict")
         in_mem_sample_csv = InMemoryUploadedFile(
             io.BytesIO(sample_csv_bytes),
-            field_name="extract_file",
+            field_name="extfile-bulkformsetfileupload",
             name="British_Petroleum_(Air)_1_extract_template.csv",
             content_type="text/csv",
             size=len(csv_string),
@@ -89,7 +96,7 @@ class UploadExtractedFileTest(TestCase):
         sample_csv_bytes = csv_string.encode(encoding="UTF-8", errors="strict")
         in_mem_sample_csv = InMemoryUploadedFile(
             io.BytesIO(sample_csv_bytes),
-            field_name="extract_file",
+            field_name="extfile-bulkformsetfileupload",
             name="British_Petroleum_(Air)_1_extract_template.csv",
             content_type="text/csv",
             size=len(csv_string),
@@ -99,23 +106,30 @@ class UploadExtractedFileTest(TestCase):
 
     def test_chem_upload(self):
         req_data = {
-            "script_selection": 5,
-            "weight_fraction_type": 1,
-            "extract_button": "Submit",
+            "extfile-extraction_script": 5,
+            "extfile-weight_fraction_type": 1,
+            "extfile-submit": "Submit",
         }
-
+        req_data.update(self.mng_data)
         req = self.factory.post(path="/datagroup/6/", data=req_data)
+        middleware = SessionMiddleware()
+        middleware.process_request(req)
+        req.session.save()
+        middleware = MessageMiddleware()
+        middleware.process_request(req)
+        req.session.save()
         req.user = User.objects.get(username="Karyn")
-        req.FILES["extract_file"] = self.generate_invalid_chem_csv()
+        req.FILES["extfile-bulkformsetfileupload"] = self.generate_invalid_chem_csv()
         # get error in response
-        resp = views.data_group_detail(request=req, pk=6)
-        # print(resp.content)
-        self.assertContains(resp, "must be 1:1")
         text_count = ExtractedText.objects.all().count()
-        # print(text_count)
-        self.assertTrue(text_count < 2, "Shouldn't be 2 extracted texts uploaded")
+        resp = views.data_group_detail(request=req, pk=6)
+        self.assertContains(resp, "must be 1:1")
+        post_text_count = ExtractedText.objects.all().count()
+        self.assertEquals(
+            text_count, post_text_count, "Shouldn't have extracted texts uploaded"
+        )
         # Now get the success response
-        req.FILES["extract_file"] = self.generate_valid_chem_csv()
+        req.FILES["extfile-bulkformsetfileupload"] = self.generate_valid_chem_csv()
         doc_count = DataDocument.objects.filter(
             raw_category="aerosol hairspray"
         ).count()
@@ -145,9 +159,16 @@ class UploadExtractedFileTest(TestCase):
         usr = User.objects.get(username="Karyn")
         # test for error to be propagated w/o a 1:1 match of ExtCPCat to DataDoc
         in_mem_sample_csv = make_upload_csv("sample_files/presence_cpcat.csv")
-        req_data = {"script_selection": 5, "extract_button": "Submit"}
+        req_data = {"extfile-extraction_script": 5, "extfile-submit": "Submit"}
+        req_data.update(self.mng_data)
         req = self.factory.post("/datagroup/49/", data=req_data)
-        req.FILES["extract_file"] = in_mem_sample_csv
+        req.FILES["extfile-bulkformsetfileupload"] = in_mem_sample_csv
+        middleware = SessionMiddleware()
+        middleware.process_request(req)
+        req.session.save()
+        middleware = MessageMiddleware()
+        middleware.process_request(req)
+        req.session.save()
         req.user = usr
         resp = views.data_group_detail(request=req, pk=49)
         self.assertContains(resp, "must be 1:1")
@@ -158,7 +179,7 @@ class UploadExtractedFileTest(TestCase):
         )
         # test for error to propogate w/ too many chars in a field
         in_mem_sample_csv = make_upload_csv("sample_files/presence_chars.csv")
-        req.FILES["extract_file"] = in_mem_sample_csv
+        req.FILES["extfile-bulkformsetfileupload"] = in_mem_sample_csv
         resp = views.data_group_detail(request=req, pk=49)
         self.assertContains(resp, "Ensure this value has at most 50 characters")
         self.assertEqual(
@@ -168,7 +189,7 @@ class UploadExtractedFileTest(TestCase):
         )
         # test that upload works successfully...
         in_mem_sample_csv = make_upload_csv("sample_files/presence_good.csv")
-        req.FILES["extract_file"] = in_mem_sample_csv
+        req.FILES["extfile-bulkformsetfileupload"] = in_mem_sample_csv
         resp = views.data_group_detail(request=req, pk=49)
         self.assertContains(resp, "3 extracted records uploaded successfully.")
 
@@ -210,16 +231,22 @@ class UploadExtractedFileTest(TestCase):
         sample_csv_bytes = sample_csv.encode(encoding="UTF-8", errors="strict")
         in_mem_sample_csv = InMemoryUploadedFile(
             io.BytesIO(sample_csv_bytes),
-            field_name="extract_file",
+            field_name="extfile-bulkformsetfileupload",
             name="Functional_use_extract_template.csv",
             content_type="text/csv",
             size=len(sample_csv),
             charset="utf-8",
         )
-        req_data = {"script_selection": 5, "extract_button": "Submit"}
-
+        req_data = {"extfile-extraction_script": 5, "extfile-submit": "Submit"}
+        req_data.update(self.mng_data)
         req = self.factory.post("/datagroup/50/", data=req_data)
-        req.FILES["extract_file"] = in_mem_sample_csv
+        req.FILES["extfile-bulkformsetfileupload"] = in_mem_sample_csv
+        middleware = SessionMiddleware()
+        middleware.process_request(req)
+        req.session.save()
+        middleware = MessageMiddleware()
+        middleware.process_request(req)
+        req.session.save()
         req.user = User.objects.get(username="Karyn")
         self.assertEqual(
             len(ExtractedFunctionalUse.objects.filter(extracted_text_id=dd_id)),
@@ -228,7 +255,7 @@ class UploadExtractedFileTest(TestCase):
         )
         # Now get the response
         resp = views.data_group_detail(request=req, pk=50)
-        self.assertContains(resp, "1 extracted records uploaded successfully.")
+        self.assertContains(resp, "1 extracted record uploaded successfully.")
 
         doc_count = DataDocument.objects.filter(raw_category="raw PUC").count()
         self.assertTrue(

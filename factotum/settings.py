@@ -72,11 +72,11 @@ MIDDLEWARE = [
     "django.contrib.humanize",
     "factotum",
     "debug_toolbar",
-    "haystack",
-    "haystack_elasticsearch",
     "taggit",
     "taggit_labels",
     "django_extensions",
+    "elastic.apps.ElasticConfig",
+    "bulkformsets.apps.BulkFormSetsConfig",
 ]
 
 MIDDLEWARE = [
@@ -153,8 +153,6 @@ LOGIN_URL = "login"
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
-HAYSTACK_CONN = "default"
-
 TAGGIT_CASE_INSENSITIVE = True
 
 EXTRA = 1
@@ -168,3 +166,5 @@ MESSAGE_TAGS = {
     messages.WARNING: "alert-warning",
     messages.ERROR: "alert-danger",
 }
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"

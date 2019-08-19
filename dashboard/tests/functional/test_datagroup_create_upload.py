@@ -6,6 +6,8 @@ from django.test import RequestFactory, TestCase, Client
 from django.contrib.auth.models import User
 from django.utils.datastructures import MultiValueDict
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
+from django.contrib.messages.middleware import MessageMiddleware
+from django.contrib.sessions.middleware import SessionMiddleware
 
 from factotum import settings
 from dashboard import views
@@ -20,7 +22,7 @@ class RegisterRecordsTest(TestCase):
         self.factory = RequestFactory()
         self.client.login(username="Karyn", password="specialP@55word")
         media_root = settings.MEDIA_ROOT
-        shutil.rmtree(media_root)
+        shutil.rmtree(media_root, ignore_errors=True)
 
     def tearDown(self):
         # clean up the file system by deleting the data group object
@@ -55,6 +57,12 @@ class RegisterRecordsTest(TestCase):
         request = self.factory.post(path="/datagroup/new/", data=form_data)
         request.FILES["csv"] = sample_csv
         request.user = User.objects.get(username="Karyn")
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        middleware = MessageMiddleware()
+        middleware.process_request(request)
+        request.session.save()
         request.session = {}
         request.session["datasource_title"] = "Walmart"
         request.session["datasource_pk"] = 10
@@ -79,6 +87,12 @@ class RegisterRecordsTest(TestCase):
         )
         request = self.factory.post(path="/datagroup/new", data=form_data)
         request.FILES["csv"] = sample_csv
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        middleware = MessageMiddleware()
+        middleware.process_request(request)
+        request.session.save()
         request.user = User.objects.get(username="Karyn")
         request.session = {}
         request.session["datasource_title"] = "Walmart"
@@ -148,26 +162,21 @@ class RegisterRecordsTest(TestCase):
             "the document file name should appear in the data documents csv",
         )
 
-        # test whether the "Download All PDF Documents" link works
-        dg_zip_href = (
-            f"/datagroup/{dg.pk}/download_document_zip/"
-        )  # this is the django-interpreted URL
-        self.assertIn(
-            dg_zip_href,
-            str(resp._container),
-            "The data group detail page must contain the right zip download link",
-        )
-        resp_zip = self.client.get(dg_zip_href)
-
         # test uploading one pdf that matches a registered record
         doc = DataDocument.objects.filter(data_group_id=dg.pk).first()
         pdf = TemporaryUploadedFile(
             name=doc.filename, content_type="application/pdf", size=47, charset=None
         )
         request = self.factory.post(
-            path="/datagroup/%s" % dg.pk, data={"upload": "Submit"}
+            path="/datagroup/%s" % dg.pk, data={"uploaddocs-submit": "Submit"}
         )
-        request.FILES["multifiles"] = pdf
+        request.FILES["uploaddocs-documents"] = pdf
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        middleware = MessageMiddleware()
+        middleware.process_request(request)
+        request.session.save()
         request.user = User.objects.get(username="Karyn")
         resp = views.data_group_detail(request=request, pk=dg.pk)
         pdf_path = f"{settings.MEDIA_ROOT}{dg.fs_id}/pdf/{doc.get_abstract_filename()}"
@@ -202,6 +211,12 @@ class RegisterRecordsTest(TestCase):
         }
         request = self.factory.post(path="/datagroup/new/", data=form_data)
         request.FILES["csv"] = sample_csv
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        middleware = MessageMiddleware()
+        middleware.process_request(request)
+        request.session.save()
         request.user = User.objects.get(username="Karyn")
         request.session = {}
         request.session["datasource_title"] = "Walmart"
@@ -236,6 +251,12 @@ class RegisterRecordsTest(TestCase):
         }
         request = self.factory.post(path="/datagroup/new/", data=form_data)
         request.FILES["csv"] = sample_csv
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        middleware = MessageMiddleware()
+        middleware.process_request(request)
+        request.session.save()
         request.user = User.objects.get(username="Karyn")
         request.session = {"datasource_title": "Walmart", "datasource_pk": 10}
         resp = views.data_group_create(request=request, pk=10)

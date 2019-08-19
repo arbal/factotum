@@ -1,0 +1,170 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% load proper_paginate %}
+
+{% block title %}
+"{{ decoded_q }}" | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3 mt-2">
+        <div class="card mt-5">
+            <div class="card-header">
+                Filter
+            </div>
+            <div class="card-body">
+                <form id="filter-form">
+                    {% if model == 'datadocument' %}
+                    {% if result.facets.datadocument_grouptype %}
+                    <h5 class="card-title">Group type</h5>
+                    {% for facet in result.facets.datadocument_grouptype %}
+                    <div class="custom-control custom-checkbox">
+                        <input name="{{ facet.key }}" type="checkbox" class="custom-control-input" id="datadocument_grouptype-{{ forloop.counter0 }}" autocomplete="off">
+                        <label class="custom-control-label" for="datadocument_grouptype-{{ forloop.counter0 }}">
+                            {{ facet.key }}
+                            <small class="text-muted">{{ facet.count }}</small>
+                        </label>
+                    </div>
+                    {% endfor %}
+                    <button id="filterButton" type="button" class="btn btn-primary btn-block mt-4">Apply</button>
+                    {% else %}
+                    <p class="text-muted">None available</p>
+                    {% endif %}
+                    {% elif model == 'product' %}
+                    {% if result.facets.product_brandname %}
+                    <h5 class="card-title pt">Product brand</h5>
+                    {% for facet in result.facets.product_brandname %}
+                    <div class="custom-control custom-checkbox">
+                        <input name="{{ facet.key }}" type="checkbox" class="custom-control-input" id="product_brandname-{{ forloop.counter0 }}" autocomplete="off">
+                        <label class="custom-control-label" for="product_brandname-{{ forloop.counter0 }}">
+                            {{ facet.key }}
+                            <small class="text-muted">{{ facet.count }}</small>
+                        </label>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% if result.facets.product_manufacturer %}
+                    <h5 class="card-title pt-4">Product manufacturer</h5>
+                    {% for facet in result.facets.product_manufacturer %}
+                    <div class="custom-control custom-checkbox">
+                        <input name="{{ facet.key }}" type="checkbox" class="custom-control-input" id="product_manufacturer-{{ forloop.counter0 }}" autocomplete="off">
+                        <label class="custom-control-label" for="product_manufacturer-{{ forloop.counter0 }}">
+                            {{ facet.key }}
+                            <small class="text-muted">{{ facet.count }}</small>
+                        </label>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% if result.facets.puc_gencatfacet %}
+                    <h5 class="card-title pt-4">Category</h5>
+                    {% for facet in result.facets.puc_gencatfacet %}
+                    <div class="custom-control custom-checkbox">
+                        <input name="{{ facet.key }}" type="checkbox" class="custom-control-input" id="puc_gencatfacet-{{ forloop.counter0 }}" autocomplete="off">
+                        <label class="custom-control-label" for="puc_gencatfacet-{{ forloop.counter0 }}">
+                            {{ facet.key }}
+                            <small class="text-muted">{{ facet.count }}</small>
+                        </label>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% if result.facets.product_manufacturer or result.facets.product_brandname or result.facets.puc_gencatfacet %}
+                    <button id="filterButton" type="button" class="btn btn-primary btn-block mt-4">Apply</button>
+                    {% else %}
+                    <p class="text-muted">None available</p>
+                    {% endif %}
+                    {% else %}
+                    <p class="text-muted">None available</p>
+                    {% endif %}
+                    {% if faceted %}
+                    <button id="clearfilterButton" type="button" class="btn btn-outline-secondary btn-block mt-2">Clear filters</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link
+                        {% if model == 'product' %}        
+                        active
+                        {% endif %}" 
+                    href="{% url 'search-model' 'product' %}?q={{ encoded_q }}">
+                    Products
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link
+                    {% if model == 'datadocument' %}        
+                    active
+                    {% endif %}" 
+                 href="{% url 'search-model' 'datadocument' %}?q={{ encoded_q }}">Documents</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link
+                    {% if model == 'puc' %}        
+                    active
+                    {% endif %}" 
+                 href="{% url 'search-model' 'puc' %}?q={{ encoded_q }}">PUCs</a>
+            </li>
+        </ul>
+        <small class="text-muted pb-4" id="total-took">
+            {{ result.total }}
+                {% if model %}
+                    {{ model }}s
+                {% else %}
+                    records
+                {% endif %}
+            returned in {{ result.took }} seconds.
+        </small>
+        {% if not model %}
+            {% include 'search/tops.html' %}
+        {% elif model == 'product' %}
+            {% include 'search/product.html' %}
+        {% elif model == 'datadocument' %}
+            {% include 'search/datadocument.html' %}
+        {% elif model == 'puc' %}
+            {% include 'search/puc.html' %}
+        {% endif %}
+        {% if result.total %}
+        <nav class="float-right" aria-label="Paginated navigation">
+            <ul class="pagination">
+                {% if result.hits.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="javascript:addParam('page=1');">&laquo; first</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="javascript:addParam('page={{ result.hits.previous_page_number }}');">previous</a>
+                </li>
+                    {% endif %}
+                <li class="page-item">
+                    <span class="current page-item page-link" >
+                        Page {{ result.hits.number }} of {{ result.hits.paginator.num_pages }}
+                    </span>
+                </li>
+            
+                    {% if result.hits.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="javascript:addParam('page={{ result.hits.next_page_number }}');">next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="javascript:addParam('page={{ result.hits.paginator.num_pages }}');">last &raquo;</a>
+                    </li>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+	<script src="{% static 'js/dashboard/search_results.js' %}"></script>
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static "css/dashboard/search.css" %}">
+{% endblock %}

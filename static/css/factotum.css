@@ -81,3 +81,17 @@ div.search-result-main{
     grid-gap: 1em;
 }
 /* -----datadocument_detail----- */
+/* -----edit buttons----- */
+.hover-danger:hover {
+    background: #d9534f;
+    color: #f7f7f7;
+}
+.hover-info:hover {
+    background: #5bc0de;
+    color: #f7f7f7;
+}
+.hover-success:hover {
+    background: #5cb85c;
+    color: #f7f7f7;
+}
+/* -----edit buttons----- */

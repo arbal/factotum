@@ -63,3 +63,12 @@ class DSSToxDetail(TestCase):
             sum(1 for line in response) - 2,
             f"DSSTox pk={dss.pk} should have {dss.puc_count} " "PUCs in the CSV",
         )
+
+    def test_cp_keyword_set(self):
+        dss = DSSToxLookup.objects.get(sid="DTXSID9020584")
+        response = self.client.get(f"/dsstox/{dss.sid}/")
+        self.assertGreater(
+            len(response.context["tagDict"]),
+            0,
+            f"DSSTox pk={dss.pk} should return CP keyword sets in the context",
+        )

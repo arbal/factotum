@@ -27,27 +27,24 @@
         <div class="btn-group my-auto"
              role="group"
              aria-label="Data Document Modification">
-            <a class="btn btn-sm btn-outline-secondary hover"
+            <a class="btn btn-sm btn-outline-secondary hover-info"
                role="button"
                title="View data document"
                data-toggle="tooltip"
-               href="{{ doc.pdf_url }}"
-               name="info">
+               href="{{ doc.pdf_url }}">
                 <span class="fa fa-fs fa-file"></span>
             </a>
-            <a class="btn btn-outline-secondary btn-sm hover"
+            <a class="btn btn-outline-secondary btn-sm hover-success"
                title="edit"
                data-toggle="tooltip"
-               href="{% url 'data_document_edit' doc.id %}"
-               name="success">
+               href="{% url 'data_document_edit' doc.id %}">
                 <span class="fa fa-fs fa-edit"></span>
             </a>
-            <a class="btn btn-outline-secondary btn-sm hover"
+            <a class="btn btn-outline-secondary btn-sm hover-danger"
                role="button"
                title="delete"
                data-toggle="tooltip"
-               href="{% url 'data_document_delete' doc.id %}"
-               name="danger">
+               href="{% url 'data_document_delete' doc.id %}">
                 <span class="fa fa-fs fa-trash"></span>
             </a>
 
@@ -79,7 +76,7 @@
             title="Download Script">
             {{ doc.data_group.download_script }}
         </h5>
-        <a class="btn btn-outline-secondary btn-sm float-right hover"
+        <a class="btn btn-outline-secondary btn-sm float-right"
            title="Download Script"
            href={{ doc.data_group.download_script.url }}
            name="secondary">
@@ -111,12 +108,12 @@
             <!-- Products -->
             <h5 id="product-title">
                 <b>Linked Products</b>
-                <a class="btn btn-sm btn-outline-secondary float-right d-inline shadow hover"
+                <a class="btn btn-sm btn-outline-secondary float-right d-inline shadow hover-success"
                    href="{% url 'link_product_form' doc.pk %}"
                    title="create"
                    role="button"
-                   data-toggle="tooltip"
-                   name="success">
+                   data-toggle="tooltip">
+
                     <small>ADD PRODUCT&nbsp</small>
                     <i class="fas fa-plus"></i>
                 </a>
@@ -177,21 +174,19 @@
                 {% endif %}
                 <div class="btn-group btn-group-sm shadow float-right">
                     {% if extracted_text.extraction_script.url %}
-                    <a class="btn btn-outline-secondary hover"
+                    <a class="btn btn-outline-secondary"
                        role="button"
                        title="Extraction script"
                        data-toggle="tooltip"
-                       href={{ doc.extractedtext.extraction_script.url }}
-                       name="secondary">
+                       href={{ doc.extractedtext.extraction_script.url }}>
                         <i class="fab fa-github"></i>
                     </a>
                     {% endif %}
-                    <button class="btn btn-outline-secondary hover"
+                    <button class="btn btn-outline-secondary hover-success"
                             title="edit"
                             id="btn-add-or-edit-extracted-text"
                             data-toggle="modal"
-                            data-target="#extextModal"
-                            name="success">
+                            data-target="#extextModal">
                         {% if doc.is_extracted %}
                         <span class="fa fa-fs fa-edit"></span>
                         {% else %}

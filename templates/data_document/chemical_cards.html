@@ -50,21 +50,20 @@
                 </h3>
                 {% if doc.detail_page_editable %}
                 <div class="btn-group btn-group-sm float-right">
-                    <button class="btn btn-outline-secondary hover"
+                    <button class="btn btn-outline-secondary hover-success"
+
                             title="edit"
                             href="{% url 'chem-update' chemical.pk %}"
                             data-toggle="modal"
                             data-target="#chemical-update-modal"
-                            value={{ chemical.pk }}
-                            name="success">
+                            value={{ chemical.pk }}>
                         <span class="fa fa-fs fa-edit"></span>
                     </button>
-                    <button class="btn btn-outline-secondary hover"
+                    <button class="btn btn-outline-secondary hover-danger"
                             title="delete"
                             role="button"
                             data-toggle="modal"
-                            data-target="#chem-delete-{{ chemical.pk }}"
-                            name="danger">
+                            data-target="#chem-delete-{{ chemical.pk }}">
                         <span class="fa fa-fs fa-trash"></span>
                     </button>
                 </div>
@@ -181,11 +180,10 @@
     {% if doc.is_extracted and doc.detail_page_editable %}
     <!-- add chemical -->
     <div class="card m-4 p-0">
-        <button class="btn m-0 p-0 btn-outline-secondary hover"
+        <button class="btn m-0 p-0 btn-outline-secondary hover-success"
                 href="{% url 'chem-create' doc.pk %}"
                 data-toggle="modal"
-                data-target="#chemical-add-modal"
-                name='success'>
+                data-target="#chemical-add-modal">
             <div class="card-body shadow rounded p-0 m-0 text-center"
                  data-toggle="tooltip"
                  title="Add chemical">

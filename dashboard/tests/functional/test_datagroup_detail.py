@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.db.models import Count, Max
 
 from dashboard.forms import *
+from dashboard.forms.data_group import ExtractFileFormSet
 
 from dashboard.models import *
 
@@ -22,12 +23,12 @@ class DataGroupDetailTest(TestCase):
         self.assertFalse(
             self.objects.doc.matched, ("Document should start w/ matched False")
         )
-        self.assertFalse(
-            response.context["datagroup"].all_matched(),
+        self.assertTrue(
+            response.context["uploaddocs_form"],
             ("UploadForm should be included in the page!"),
         )
         self.assertFalse(
-            response.context["extract_form"],
+            response.context["extfile_form"],
             ("ExtractForm should not be included in the page!"),
         )
         self.objects.doc.matched = True
@@ -35,13 +36,13 @@ class DataGroupDetailTest(TestCase):
         self.objects.doc.extractedtext.delete()
         self.assertFalse(self.objects.dg.all_extracted())
         response = self.client.get(f"/datagroup/{pk}/")
-        self.assertTrue(
-            response.context["datagroup"].all_matched(),
+        self.assertFalse(
+            response.context["uploaddocs_form"],
             ("UploadForm should not be included in the page!"),
         )
         self.assertIsInstance(
-            response.context["extract_form"],
-            ExtractionScriptForm,
+            response.context["extfile_form"],
+            ExtractFileFormSet,
             ("ExtractForm should be included in the page!"),
         )
         ExtractedText.objects.create(
@@ -50,7 +51,7 @@ class DataGroupDetailTest(TestCase):
         self.assertTrue(self.objects.dg.all_extracted())
         response = self.client.get(f"/datagroup/{pk}/")
         self.assertFalse(
-            response.context["extract_form"],
+            response.context["extfile_form"],
             "ExtractForm should NOT be included in the page!",
         )
 
@@ -114,23 +115,22 @@ class DataGroupDetailTest(TestCase):
         self.objects.extext.delete()
         response = self.client.get(f"/datagroup/{pk}/")
         self.assertIsInstance(
-            response.context["extract_form"],
-            ExtractionScriptForm,
+            response.context["extfile_form"],
+            ExtractFileFormSet,
             ("ExtractForm should be included in the page!"),
         )
         self.objects.gt.code = "UN"
         self.objects.gt.save()
         response = self.client.get(f"/datagroup/{pk}/")
         self.assertFalse(
-            response.context["extract_form"],
+            response.context["extfile_form"],
             ("ExtractForm should not be included in the page!"),
         )
 
     def test_bulk_create_products_form(self):
         response = self.client.get(f"/datagroup/{self.objects.dg.pk}/")
-        self.assertEqual(
-            response.context["bulk_product_count"],
-            0,
+        self.assertIsNone(
+            response.context["bulkassignprod_form"],
             "Product linked to all DataDocuments, no bulk_create needed.",
         )
         doc = DataDocument.objects.create(data_group=self.objects.dg)
@@ -140,7 +140,7 @@ class DataGroupDetailTest(TestCase):
         self.objects.doc.save()
         response = self.client.get(f"/datagroup/{self.objects.dg.pk}/")
         self.assertEqual(
-            response.context["bulk_product_count"],
+            response.context["bulkassignprod_form"].count,
             1,
             "Not all DataDocuments linked to Product, bulk_create needed",
         )
@@ -152,9 +152,8 @@ class DataGroupDetailTest(TestCase):
         p = Product.objects.create(upc="stub_47", data_source=self.objects.ds)
         ProductDocument.objects.create(document=doc, product=p)
         response = self.client.get(f"/datagroup/{self.objects.dg.pk}/")
-        self.assertEqual(
-            response.context["bulk_product_count"],
-            0,
+        self.assertIsNone(
+            response.context["bulkassignprod_form"],
             "Product linked to all DataDocuments, no bulk_create needed.",
         )
         self.objects.dg.group_type = GroupType.objects.create(
@@ -173,15 +172,16 @@ class DataGroupDetailTest(TestCase):
         doc = DataDocument.objects.create(data_group=self.objects.dg)
         response = self.client.get(f"/datagroup/{self.objects.dg.pk}/")
         self.assertEqual(
-            response.context["bulk_product_count"],
+            response.context["bulkassignprod_form"].count,
             1,
             "Not all DataDocuments linked to Product, bulk_create needed",
         )
         new_stub_id = Product.objects.all().aggregate(Max("id"))["id__max"] + 1
-        response = self.client.post(f"/datagroup/{self.objects.dg.pk}/", {"bulk": 1})
-        self.assertEqual(
-            response.context["bulk"],
-            0,
+        response = self.client.post(
+            f"/datagroup/{self.objects.dg.pk}/", {"bulkassignprod-submit": "Submit"}
+        )
+        self.assertIsNone(
+            response.context["bulkassignprod_form"],
             "Products linked to all DataDocuments, no bulk_create needed.",
         )
         product = ProductDocument.objects.get(document=doc).product
@@ -200,16 +200,16 @@ class DataGroupDetailTest(TestCase):
             f"/datagroup/{DataGroup.objects.first().id}/"
         ).content.decode("utf8")
         self.assertIn(
-            "Please limit upload to <600 documents at one time",
+            "Please limit upload to &lt;600 documents at one time",
             response,
-            "Note to limit upload to <600 should be on the page",
+            "Note to limit upload to &lt;600 should be on the page",
         )
 
     def test_extracted_count(self):
         dg_id = DataGroup.objects.first().id
         response = self.client.get(f"/datagroup/{dg_id}/").content.decode("utf8")
         self.assertIn(
-            "1 extracted",
+            '"numextracted": 1',
             response,
             "Data Group should report a count of 1 total extracted documents",
         )
@@ -227,34 +227,38 @@ class DataGroupDetailTest(TestCase):
         et.save()
         response = self.client.get(f"/datagroup/{dg_id}/").content.decode("utf8")
         self.assertIn(
-            "2 extracted",
+            '"numextracted": 2',
             response,
             "Data Group should contain a count of 2 total extracted documents",
         )
 
     def test_delete_doc_button(self):
-        url = f"/datagroup/{DataGroup.objects.first().id}/"
+        url = f"/datagroup/{DataGroup.objects.first().id}/documents_table/"
         response = self.client.get(url).content.decode("utf8")
-        span = '<span class="fa fa-trash">'
-        self.assertIn(span, response, "Trash button should be present if not matched.")
+        matched = '"matched": false'
+        self.assertIn(matched, response, "Document should not have a match.")
         self.objects.doc.matched = True
         self.objects.doc.save()
         response = self.client.get(url).content.decode("utf8")
-        span = '<span class="fa fa-check-circle" style="color:green;"></span>'
-        self.assertIn(span, response, "Check should be present if matched.")
+        matched = '"matched": true'
+        self.assertIn(matched, response, "Document should have a match.")
 
     def test_detail_table_headers(self):
         pk = self.objects.dg.pk
         response = self.client.get(f"/datagroup/{pk}/").content.decode("utf8")
         self.assertIn(
-            "<th>Product</th>", response, "Data Group should have Product column."
+            '<th class="text-center">Product</th>',
+            response,
+            "Data Group should have Product column.",
         )
         fu = GroupType.objects.create(title="Functional use")
         self.objects.dg.group_type = fu
         self.objects.dg.save()
         response = self.client.get(f"/datagroup/{pk}/").content.decode("utf8")
         self.assertNotIn(
-            "<th>Product</th>", response, "Data Group should have Product column."
+            '<th class="text-center">Product</th>',
+            response,
+            "Data Group should have Product column.",
         )
 
     def test_detail_datasource_link(self):
@@ -305,12 +309,12 @@ class DataGroupDetailTestWithFixtures(TestCase):
             .data_group
         )
         resp = self.client.get(f"/datagroup/%s/" % dg_co.id)
-        self.assertIn(b"Download Raw", resp.content)
+        self.assertIn(b"Raw composition records", resp.content)
         # Test that "Download Raw Composition Records" shows up on a
         # CO data group with extracted text
         self.assertContains(
             resp,
-            "Download Raw Composition Records",
+            "download_raw_extracted_records",
             msg_prefix="a flute with no holes is not a flute",
         )
 
@@ -324,7 +328,7 @@ class DataGroupDetailTestWithFixtures(TestCase):
         resp = self.client.get(f"/datagroup/{dg.pk}/")
         self.assertNotContains(
             resp,
-            "Download Raw Composition Records",
+            "download_raw_extracted_records",
             msg_prefix="a donut with no holes is a danish",
         )
 
@@ -379,6 +383,6 @@ class DataGroupDetailTestWithFixtures(TestCase):
         ).count()
         response = self.client.get("/datagroup/%i/" % dg.id)
         response_html = html.fromstring(response.content)
-        path = "//input[@name='bulk']"
-        returned_count = int(response_html.xpath(path)[0].value.split(" ")[2])
+        path = "//button[@name='bulkassignprod-submit']"
+        returned_count = int(response_html.xpath(path)[0].text.strip().split(" ")[2])
         self.assertEqual(expected_cnt, returned_count, "Bulk product count incorrect.")

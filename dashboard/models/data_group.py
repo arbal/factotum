@@ -3,6 +3,7 @@ import uuid
 from factotum import settings
 from pathlib import PurePath
 
+from django.apps import apps
 from django.db import models
 from django.urls import reverse
 from model_utils import FieldTracker
@@ -11,11 +12,6 @@ from django.core.validators import URLValidator
 
 from .common_info import CommonInfo
 from .group_type import GroupType
-from .extracted_text import ExtractedText
-from .extracted_cpcat import ExtractedCPCat
-from .extracted_chemical import ExtractedChemical
-from .extracted_functional_use import ExtractedFunctionalUse
-from .extracted_list_presence import ExtractedListPresence
 
 
 # could be used for dynamically creating filename on instantiation
@@ -31,13 +27,6 @@ def csv_upload_path(instance, filename):
     # potential space errors in name
     name = "{0}/{1}".format(instance.fs_id, filename)
     return name
-
-
-extract_models = {
-    "CO": (ExtractedText, ExtractedChemical),
-    "FU": (ExtractedText, ExtractedFunctionalUse),
-    "CP": (ExtractedCPCat, ExtractedListPresence),
-}
 
 
 class DataGroup(CommonInfo):
@@ -87,8 +76,18 @@ class DataGroup(CommonInfo):
         return self.type == "HH"
 
     def get_extract_models(self):
-        """returns a tuple with parent/child extract models"""
-        return extract_models.get(self.type)
+        """Returns the parent model class and the associated child model"""
+        if self.type in ("CO", "UN"):
+            m = ("ExtractedText", "ExtractedChemical")
+        elif self.type == "FU":
+            m = ("ExtractedText", "ExtractedFunctionalUse")
+        elif self.type == "CP":
+            m = ("ExtractedCPCat", "ExtractedListPresence")
+        elif self.type == "HP":
+            m = ("ExtractedText", "ExtractedHabitsAndPractices")
+        elif self.type == "HH":
+            m = ("ExtractedHHDoc", "ExtractedHHRec")
+        return (apps.get_model("dashboard", m[0]), apps.get_model("dashboard", m[1]))
 
     def save(self, *args, **kwargs):
         super(DataGroup, self).save(*args, **kwargs)
@@ -97,10 +96,10 @@ class DataGroup(CommonInfo):
         return self.datadocument_set.filter(matched=True).count()
 
     def all_matched(self):
-        return all(self.datadocument_set.values_list("matched", flat=True))
+        return not self.datadocument_set.filter(matched=False).exists()
 
     def all_extracted(self):
-        return not (self.datadocument_set.filter(extractedtext__isnull=True).exists())
+        return not self.datadocument_set.filter(extractedtext__isnull=True).exists()
 
     def registered_docs(self):
         return self.datadocument_set.count()
@@ -234,6 +233,14 @@ class DataGroup(CommonInfo):
             return True
         else:
             return False
+
+    def include_bulk_assign_form(self):
+        return (
+            self.datadocument_set.filter(products=None).exists() and self.is_composition
+        )
+
+    def include_upload_docs_form(self):
+        return self.datadocument_set.filter(matched=False).exists()
 
     def csv_filename(self):
         """Used in the datagroup_form.html template to display only the filename

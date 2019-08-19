@@ -93,7 +93,7 @@ class TestIntegration(StaticLiveServerTestCase):
 
         dg_detail_url = f"{self.live_server_url}/datagroup/{dg.pk}/"
         self.browser.get(dg_detail_url)
-        self.browser.find_element_by_xpath('//*[@title="edit"]').send_keys("\n")
+        self.browser.find_element_by_xpath('//*[@title="Edit"]').send_keys("\n")
         btn = self.browser.find_element_by_name("cancel")
         self.assertEqual(
             btn.get_attribute("href"),

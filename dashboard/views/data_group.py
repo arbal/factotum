@@ -1,277 +1,172 @@
 import csv
-import zipfile
 from djqscsv import render_to_csv_response
 from pathlib import Path
+import zipfile
 
-from django.db.models import Exists, F, OuterRef, Max
+from django.db.models import CharField, Exists, F, OuterRef, Value as V
+from django.db.models.functions import StrIndex, Substr
 from django.conf import settings
-from django.core.files import File
-from django.core.exceptions import ValidationError
-from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.core.files import File
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.utils.html import format_html
 
-from factotum.settings import MEDIA_URL
+from dashboard.forms import DataGroupForm, create_detail_formset
+from dashboard.forms.data_group import (
+    BulkAssignProdForm,
+    CleanCompFormSet,
+    ExtractFileFormSet,
+    UploadDocsForm,
+)
 from dashboard.models import (
-    Product,
-    ProductDocument,
     ExtractedText,
     Script,
-    WeightFractionType,
-    UnitType,
-    ExtractedListPresence,
     ExtractedChemical,
-    Ingredient,
     DataSource,
     DocumentType,
     GroupType,
     DataDocument,
     DataGroup,
 )
-from dashboard.forms import (
-    DataGroupForm,
-    ExtractionScriptForm,
-    CleanCompDataForm,
-    create_detail_formset,
-)
-from dashboard.utils import get_extracted_models, clean_dict, update_fields
+from dashboard.utils import gather_errors
+from factotum.settings import MEDIA_URL
 
 
 @login_required()
-def data_group_list(request, template_name="data_group/datagroup_list.html"):
-    datagroup = DataGroup.objects.all()
-    data = {}
-    data["object_list"] = datagroup
+def data_group_list(request, code=None, template_name="data_group/datagroup_list.html"):
+    if code:
+        group = get_object_or_404(GroupType, code=code)
+        datagroup = DataGroup.objects.filter(group_type=group)
+    else:
+        datagroup = DataGroup.objects.all()
+    data = {"object_list": datagroup}
     return render(request, template_name, data)
 
 
 @login_required()
 def data_group_detail(request, pk, template_name="data_group/datagroup_detail.html"):
-    datagroup = get_object_or_404(DataGroup, pk=pk)
-    extracted_text = ExtractedText.objects.filter(pk=OuterRef("pk"))
-    documents = (
-        DataDocument.objects.filter(data_group=datagroup)
-        .annotate(extracted=Exists(extracted_text))
-        .annotate(product_id=F("products__id"))
-        .annotate(product_title=F("products__title"))
-    )
-    extract_form = (
-        ExtractionScriptForm(dg_type=datagroup.type)
-        if datagroup.include_extract_form()
-        else None
-    )
-    clean_comp_data_form = (
-        CleanCompDataForm() if datagroup.include_clean_comp_data_form() else None
-    )
-    store = settings.MEDIA_URL + str(datagroup.fs_id)
+    dg = get_object_or_404(DataGroup, pk=pk)
     context = {
-        "datagroup": datagroup,
-        "documents": documents,
-        "extract_form": extract_form,
-        "clean_comp_data_form": clean_comp_data_form,
-        "bulk_product_count": documents.filter(product_id=None).count(),
-        "ext_err": {},
-        "clean_comp_err": {},
-        "msg": "",
+        "datagroup": dg,
+        "uploaddocs_form": None,
+        "extfile_form": None,
+        "cleancomp_form": None,
+        "bulkassignprod_form": None,
     }
-    if request.method == "POST" and "upload" in request.POST:
-        # match filename to pdf name
-        matched_files = [
-            f
-            for d in documents
-            for f in request.FILES.getlist("multifiles")
-            if f.name == d.filename
-        ]
-        if not matched_files:
-            context["msg"] = (
-                "There are no matching records in the " "selected directory."
-            )
-            return render(request, template_name, context)
-        zf = zipfile.ZipFile(datagroup.zip_file, "a", zipfile.ZIP_DEFLATED)
-        while matched_files:
-            f = matched_files.pop(0)
-            doc = DataDocument.objects.get(filename=f.name, data_group=datagroup.pk)
-            if doc.matched:
-                continue
-            doc.matched = True
-            doc.save()
-            fs = FileSystemStorage(store + "/pdf")
-            afn = doc.get_abstract_filename()
-            fs.save(afn, f)
-            zf.write(store + "/pdf/" + afn, afn)
-        zf.close()
-        form = datagroup.include_extract_form()
-        # update docs so it appears in the template table w/ "matched" docs
-        context["documents"] = datagroup.datadocument_set.all()
-        context["extract_form"] = form
-        context["msg"] = "Matching records uploaded successfully."
-    if request.method == "POST" and "extract_button" in request.POST:
-        extract_form = ExtractionScriptForm(
-            request.POST, request.FILES, dg_type=datagroup.type
-        )
-        if extract_form.is_valid():
-            csv_file = request.FILES.get("extract_file")
-            script_pk = int(request.POST["script_selection"])
-            script = Script.objects.get(pk=script_pk)
-            info = [x.decode("ascii", "ignore") for x in csv_file.readlines()]
-            table = csv.DictReader(info)
-            missing = list(
-                set(datagroup.get_extracted_template_fieldnames())
-                - set(table.fieldnames)
-            )
-            if missing:  # column names are NOT a match, send back to user
-                context["msg"] = (
-                    "The following columns need to be added or "
-                    f"renamed in the csv: {missing}"
-                )
-                return render(request, template_name, context)
-            good_records = []
-            ext_parent, ext_child = get_extracted_models(datagroup.type)
-            for i, row in enumerate(csv.DictReader(info)):
-                d = documents.get(pk=int(row["data_document_id"]))
-                d.raw_category = row.pop("raw_category")
-                wft = request.POST.get("weight_fraction_type", None)
-                if wft:  # this signifies 'Composition' type
-                    w = "weight_fraction_type"
-                    row[w] = WeightFractionType.objects.get(pk=int(wft))
-                    if row["unit_type"]:
-                        unit_type_id = int(row["unit_type"])
-                        row["unit_type"] = UnitType.objects.get(pk=unit_type_id)
-                    else:
-                        del row["unit_type"]
-                    rank = row["ingredient_rank"]
-                    row["ingredient_rank"] = None if rank == "" else rank
-                ext, created = ext_parent.objects.get_or_create(
-                    data_document=d, extraction_script=script
-                )
-                if not created and ext.one_to_one_check(row):
-                    # check that there is a 1:1 relation ExtParent and DataDoc
-                    col = "cat_code" if hasattr(ext, "cat_code") else "prod_name"
-                    err_msg = ['must be 1:1 with "data_document_id".']
-                    context["ext_err"][i + 1] = {col: err_msg}
-                if created:
-                    update_fields(row, ext)
-                row["extracted_text"] = ext
-                if ext_child == ExtractedListPresence:
-                    row["extracted_cpcat"] = ext.extractedtext_ptr
-                row = clean_dict(row, ext_child)
-                try:
-                    ext.full_clean()
-                    ext.save()
-                    record = ext_child(**row)
-                    record.full_clean()
-                    good_records.append((d, ext, record))
-                except ValidationError as e:
-                    context["ext_err"][i + 1] = e.message_dict
-            if context["ext_err"]:  # if errors, send back with errors
-                [e[1].delete() for e in good_records]  # delete any created exts
-                return render(request, template_name, context)
-            if not context["ext_err"]:  # no saving until all errors are removed
-                for doc, text, record in good_records:
-                    # doc.extracted = True
-                    doc.save()
-                    text.save()
-                    record.save()
-                fs = FileSystemStorage(store)
-                fs.save(str(datagroup) + "_extracted.csv", csv_file)
-                context["msg"] = (
-                    f"{len(good_records)} extracted records " "uploaded successfully."
-                )
-                context["extract_form"] = datagroup.include_extract_form()
-    if request.method == "POST" and "bulk" in request.POST:
-        docs_needing_products = documents.filter(product_id=None)
-        stub = Product.objects.all().aggregate(Max("id"))["id__max"] + 1
-        for doc in docs_needing_products:
-            # Try to name the new product from the ExtractedText record's prod_name
-            try:
-                new_prod_title = None
-                ext = ExtractedText.objects.get(data_document_id=doc.id)
-                if ext.prod_name:
-                    new_prod_title = ext.prod_name
-            except ExtractedText.DoesNotExist:
-                new_prod_title = None
-            # If the ExtractedText record can't provide a title, use the DataDocument's title
-            if not new_prod_title:
-                if doc.title:
-                    new_prod_title = "%s stub" % doc.title
-                else:
-                    new_prod_title = "unknown"
-            product = Product.objects.create(
-                title=new_prod_title,
-                upc=f"stub_{stub}",
-                data_source_id=doc.data_group.data_source_id,
-            )
-            ProductDocument.objects.create(product=product, document=doc)
-            stub += 1
-        context["bulk"] = 0
-    if request.method == "POST" and "clean_comp_data_button" in request.POST:
-        clean_comp_data_form = CleanCompDataForm(request.POST, request.FILES)
-        if clean_comp_data_form.is_valid():
-            script_pk = int(request.POST["script_selection"])
-            script = Script.objects.get(pk=script_pk)
-            csv_file = request.FILES.get("clean_comp_data_file")
-            info = [x.decode("ascii", "ignore") for x in csv_file.readlines()]
-            table = csv.DictReader(info)
-            missing = list(
-                set(datagroup.get_clean_comp_data_fieldnames()) - set(table.fieldnames)
-            )
-            if missing:  # column names are NOT a match, send back to user
-                context["clean_comp_data_form"].collapsed = False
-                context["msg"] = (
-                    "The following columns need to be added or "
-                    f"renamed in the csv: {missing}"
-                )
-                return render(request, template_name, context)
-
-            good_records = []
-            for i, row in enumerate(csv.DictReader(info)):
-                try:
-                    extracted_chemical = ExtractedChemical.objects.get(
-                        rawchem_ptr=int(row["id"])
-                    )
-                except ExtractedChemical.DoesNotExist as e:
-                    extracted_chemical = None
-                    context["clean_comp_err"][i + 1] = {
-                        "id": [
-                            "No ExtractedChemical matches rawchem_ptr_id " + row["id"]
-                        ]
-                    }
-                    print("No ExtractedChemical matches rawchem_ptr_id %s" % row["id"])
-                try:
-                    ingredient = Ingredient.objects.get(
-                        rawchem_ptr=extracted_chemical.rawchem_ptr
-                    )
-                except Ingredient.DoesNotExist as e:
-                    ingredient = Ingredient(rawchem_ptr=extracted_chemical.rawchem_ptr)
-                if row["lower_wf_analysis"] != '':
-                    ingredient.lower_wf_analysis = row["lower_wf_analysis"]
-                if row["central_wf_analysis"] != '':
-                    ingredient.central_wf_analysis = row["central_wf_analysis"]
-                if row["upper_wf_analysis"] != '':
-                    ingredient.upper_wf_analysis = row["upper_wf_analysis"]
-                ingredient.script = script
-                try:
-                    ingredient.full_clean()
-                except ValidationError as e:
-                    context["clean_comp_err"][i + 1] = e.message_dict
-                good_records.append(ingredient)
-            if context["clean_comp_err"]:  # if errors, send back with errors
-                context["clean_comp_data_form"].collapsed = False
-                return render(request, template_name, context)
-            if not context["clean_comp_err"]:  # no saving until all errors are removed
-                for ingredient in good_records:
-                    ingredient.save()
-                context["msg"] = (
-                    f"{len(good_records)} clean composition data records "
-                    "uploaded successfully."
-                )
-                context[
-                    "clean_comp_data_form"
-                ] = datagroup.include_clean_comp_data_form()
+    # TODO: Lots of boilerplate code here.
+    if dg.include_upload_docs_form():
+        if "uploaddocs-submit" in request.POST:
+            form = UploadDocsForm(dg, request.POST, request.FILES)
+            context["uploaddocs_form"] = UploadDocsForm(dg, request.POST, request.FILES)
+            if form.is_valid():
+                num_saved = form.save()
+                s = "s" if num_saved > 1 else ""
+                msg = f"{num_saved} document{s} uploaded successfully."
+                messages.success(request, msg)
+                form = UploadDocsForm(dg) if dg.include_upload_docs_form() else None
+                context["uploaddocs_form"] = form
+            else:
+                errors = gather_errors(form)
+                for e in errors:
+                    messages.error(request, e)
         else:
-            context["clean_comp_data_form"].collapsed = False
+            context["uploaddocs_form"] = UploadDocsForm(dg)
+
+    if dg.include_extract_form():
+        if "extfile-submit" in request.POST:
+            formset = ExtractFileFormSet(dg, request.POST, request.FILES)
+            context["extfile_form"] = ExtractFileFormSet(dg, request.POST)
+            if formset.is_valid():
+                num_saved = formset.save()
+                s = "s" if num_saved > 1 else ""
+                msg = f"{num_saved} extracted record{s} uploaded successfully."
+                messages.success(request, msg)
+                formset = ExtractFileFormSet(dg) if dg.include_extract_form() else None
+                context["extfile_form"] = formset
+            else:
+                errors = gather_errors(formset)
+                for e in errors:
+                    messages.error(request, e)
+        else:
+            context["extfile_form"] = ExtractFileFormSet(dg)
+
+    if dg.include_clean_comp_data_form():
+        if "cleancomp-submit" in request.POST:
+            formset = CleanCompFormSet(dg, request.POST, request.FILES)
+            context["cleancomp_form"] = CleanCompFormSet(dg, request.POST)
+            if formset.is_valid():
+                num_saved = formset.save()
+                s = "s" if num_saved > 1 else ""
+                msg = f"{num_saved} clean composition data record{s} uploaded successfully."
+                messages.success(request, msg)
+            else:
+                for idx, row in enumerate(formset.errors, 1):
+                    if row:
+                        msg = format_html(f"<h5>Row {idx}</h5>{row.as_ul()}")
+                        messages.error(request, msg)
+                if hasattr(formset, "non_form_errors"):
+                    for error in formset.non_form_errors().as_data():
+                        messages.error(request, error.message)
+        else:
+            context["cleancomp_form"] = CleanCompFormSet(dg)
+
+    if dg.include_bulk_assign_form():
+        if "bulkassignprod-submit" in request.POST:
+            form = BulkAssignProdForm(dg, request.POST, request.FILES)
+            if form.is_valid():
+                num_saved = form.save()
+                s = "s" if num_saved > 1 else ""
+                msg = f"{num_saved} product{s} created successfully."
+                messages.success(request, msg)
+            else:
+                errors = gather_errors(form)
+                for e in errors:
+                    messages.error(request, e)
+        else:
+            context["bulkassignprod_form"] = BulkAssignProdForm(dg)
+    tabledata = {
+        "fsid": dg.fs_id,
+        "boolComp": dg.is_composition,
+        "boolHab": dg.is_habits_and_practices,
+        "numregistered": dg.registered_docs(),
+        "nummatched": dg.matched_docs(),
+        "numextracted": dg.extracted_docs(),
+    }
+    context.update({"tabledata": tabledata})
     return render(request, template_name, context)
+
+
+@login_required()
+def data_group_documents_table(request, pk):
+    dg = get_object_or_404(DataGroup, pk=pk)
+    docs = (
+        DataDocument.objects.filter(data_group=dg)
+        .annotate(extracted=Exists(ExtractedText.objects.filter(pk=OuterRef("pk"))))
+        .annotate(
+            fileext=Substr(
+                "filename", (StrIndex("filename", V("."))), output_field=CharField()
+            )
+        )
+        .annotate(product_title=F("products__title"))
+        .annotate(product_id=F("products__id"))
+    )
+    if dg.is_habits_and_practices:
+        doc_vals = docs.values("id", "title", "matched", "fileext")
+    elif dg.is_composition:
+        doc_vals = docs.values(
+            "id",
+            "title",
+            "matched",
+            "fileext",
+            "extracted",
+            "product_id",
+            "product_title",
+        )
+    else:
+        doc_vals = docs.values("id", "title", "matched", "fileext", "extracted")
+    return JsonResponse({"data": list(doc_vals)})
 
 
 @login_required()

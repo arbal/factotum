@@ -1,4 +1,4 @@
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -25,11 +25,21 @@ urlpatterns = [
         name="data_group_new",
     ),
     path("datagroups/", views.data_group_list, name="data_group_list"),
+    re_path(
+        r"datagroups/(?P<code>[A-Z]{2})/$",
+        views.data_group_list,
+        name="data_group_list",
+    ),
     path("datagroup/<int:pk>/", views.data_group_detail, name="data_group_detail"),
     path(
         "datagroup/<int:pk>/download_documents/",
         views.download_datadocuments,
         name="download_datadocuments",
+    ),
+    path(
+        "datagroup/<int:pk>/documents_table/",
+        views.data_group_documents_table,
+        name="documents_table",
     ),
     path(
         "datagroup/<int:pk>/download_document_zip/",
@@ -159,8 +169,6 @@ urlpatterns = [
         views.ListPresenceTagAutocomplete.as_view(),
         name="list_presence_tags_autocomplete",
     ),
-    path("search/", include("haystack.urls")),
-    path("find/", views.search.FacetedSearchView.as_view(), name="haystack_search"),
     path("p_json/", views.product_ajax, name="p_ajax_url"),
     path("pucs/", views.puc_list, name="puc_list"),
     path("puc/<int:pk>/", views.puc_detail, name="puc_detail"),
@@ -217,7 +225,6 @@ urlpatterns = [
         views.approve_extracted_text,
         name="approve_extracted_text",
     ),
-    path("search/es_chemicals/", views.search_chemicals, name="search_chemicals"),
     path(
         "chemical/delete/<int:doc_pk>/<int:chem_pk>/",
         views.chemical_delete,
@@ -227,6 +234,8 @@ urlpatterns = [
         "chemical/<int:doc>/create/", views.ChemCreateView.as_view(), name="chem-create"
     ),
     path("chemical/<pk>/edit/", views.ChemUpdateView.as_view(), name="chem-update"),
+    path("search/<str:model>/", views.search_model, name="search-model"),
+
 ]
 
 if settings.DEBUG is True:

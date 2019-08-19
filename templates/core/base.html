@@ -12,18 +12,14 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- FontAwesome CSS-->
-
     <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
     <script defer src="{% static 'fontawesome/js/all.js' %}"></script> <!--load all styles -->
-
     <!-- DataTables -->
-    <link rel="stylesheet" href="{% static "DataTables/datatables.min.css" %}">
+    <link rel="stylesheet" href="{% static 'DataTables/datatables.min.css' %}">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static "css/factotum.css" %}">
-
-    <link rel="stylesheet" href="{% static "css/bootstrap_overrides.css" %}">
-    <link rel="stylesheet" href="{% static "css/datatables_overrides.css" %}">
-
+    <link rel="stylesheet" href="{% static 'css/factotum.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap_overrides.css' %}">
+    <link rel="stylesheet" href="{% static 'css/datatables_overrides.css' %}">
 
     <title>{% block title %}factotum{% endblock %}</title>
 
@@ -139,20 +135,21 @@
                         </a>
                     </div>
                 </li>
-                <li class="nav-item
+                {% block nav %}{% endblock %}
+            </ul>
+            <ul class="nav navbar-nav navbar-right ml-auto">
+                <li class="nav-item ml-5
                     {% if 'search' in request.resolver_match.url_name %}
                         active
                     {% endif %}">
-    <!-- TODO: the input form should contain the search query string -->
-                    <form class="search-form-container"
-                        action="/search/es_chemicals/"
-                        method="get" >
+                    <!-- TODO: the input form should contain the search query string -->
+                    <form class="search-form-container" id="factotum-search-form" action="javascript:void(0);">
                         <div class="icon-addon addon-lg">
                             <input type="text"
-                            {% if q %}
-                                value="{{q}}"
+                            {% if decoded_q %}
+                                value="{{ decoded_q }}"
                             {% else %}
-                                placeholder="Search by chemical"
+                                placeholder="Search"
                             {% endif %}
                             class="form-control"
                             name="q"
@@ -161,9 +158,6 @@
                         </div>
                     </form>
                 </li>
-                {% block nav %}{% endblock %}
-            </ul>
-            <ul class="nav navbar-nav navbar-right ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle"
                     href="#"
@@ -196,25 +190,7 @@
                         </a>
                     </div>
                 </li>
-                <li class="nav-item 
-                    {% if 'find' in request.resolver_match.url_name %}
-                        active
-                    {% endif %}">
-    <!-- TODO: the input form should contain the search query string -->
-                    <form   class="search-form-container" 
-                            action="/find/" 
-                            method="get">
-                        <div class="icon-addon addon-lg">
-                            <input  type="text" 
-                                    placeholder="Search" 
-                                    class="form-control" 
-                                    name="q" 
-                                    id="q" 
-                                    autocomplete="off">
-                            <div id="selction-ajax"></div>
-                        </div>
-                    </form>
-                </li>
+
                 {% endif %}
             </ul>
         </div>
@@ -242,7 +218,7 @@
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'DataTables/datatables.min.js' %}"></script>
-    <script src="{% static 'js/facet_search.js' %}"></script>
+    <script src="{% static 'js/dashboard/search.js' %}"></script>
     {% block js %}{% endblock %}
     {% block css %}{% endblock %}
 

@@ -4,283 +4,367 @@
 {% block title %}Data Group Detail: {{ datagroup.name }}{% endblock %}
 
 {% block errors %}
-  {% if msg %}
-    <div class="bg-warning text-white text-center">
-      {{ msg }}
-    </div>
-  {% endif %}
-
-  {% if ext_err %}
-    <div class="bg-danger text-white">
-      {% for fn, message in ext_err.items %}
-        {% for col, msg in message.items %}
-          <p style="margin:0;padding:0;">Error {% if fn == 'every' %}in header
-                                                {% else %}on line {{ fn }}
-                                               {% endif %}:
-              {% if not col == '__all__' %}Column "{{ col }}"{% endif %}
-            {{ msg.0 }} </p>
-        {% endfor %}
-      {% endfor %}
-    </div>
-    <br>
-  {% endif %}
- {% if clean_comp_err %}
-    <div class="bg-danger text-white">
-      {% for fn, message in clean_comp_err.items %}
-        {% for col, msg in message.items %}
-          <p style="margin:0;padding:0;">Error {% if fn == 'every' %}in header
-                                                {% else %}on line {{ fn }}
-                                               {% endif %}:
-              {% if not col == '__all__' %}Column "{{ col }}"{% endif %}
-            {{ msg.0 }} </p>
-        {% endfor %}
-      {% endfor %}
-    </div>
-    <br>
-  {% endif %}
+{% if errors %}
+<div class="bg-danger text-white">
+  <ul>
+    {% for error in errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
 {% endblock %}
 
 {% block content %}
-    <h1 class="col-sm-12">
-        <span name="title">{{ datagroup.name }}</span>
-        <div class="btn-group float-lg-right" role="group" aria-label="Data Group Modification">
-            <a class="btn btn-info btn-sm" role="button" title="list" href="{% url "data_group_list" %}">
-                <span class="fa fa-fw fa-list"></span> </a>
-            <a class="btn btn-success btn-sm" role="button" title="edit"
-               href="{% url "data_group_edit" datagroup.id %}">
-                <span class="fa fa-fw fa-edit"></span> </a>
-            <a class="btn btn-danger btn-sm" role="button" title="delete"
-               href="{% url "data_group_delete" datagroup.id %}">
-                <span class="fa fa-trash"></span> </a>
-        </div>
-    </h1>
-    <dl class="row col-sm-12">
-        <dt class="col-sm-3">Data Source</dt>
-        <dd class="col-sm-9">
-            <a href="{% url "data_source_detail" datagroup.data_source.id %}" title="Return to Data Source">
-                {{ datagroup.data_source }}</a>
-        </dd>
-        <dt class="col-sm-3">Description</dt>
-        <dd class="col-sm-9">{{ datagroup.description }}</dd>
-        <dt class="col-sm-3">URL</dt>
-        <dd class="col-sm-9">{{ datagroup.url }}</dd>
-        <dt class="col-sm-3">Group Type</dt>
-        <dd class="col-sm-9">{{ datagroup.group_type }}</dd>
-        <dt class="col-sm-3">Group Type Code</dt>
-        <dd class="col-sm-9">{{ datagroup.group_type.code }}</dd>
-        <dt class="col-sm-3">Downloaded by</dt>
-        <dd class="col-sm-9">{{ datagroup.downloaded_by }}</dd>
-        <dt class="col-sm-3">Date Downloaded</dt>
-        <dd class="col-sm-9">{{ datagroup.downloaded_at }}</dd>
-        <dt class="col-sm-3">
-            <abbr title="Script source repository">Scraper Script URL</abbr>
-        </dt>
-        <dd class="col-sm-9">
-            <a href="{{ datagroup.download_script.url }}" target="_blank">
-                {{ datagroup.download_script }}
-            </a>
-        </dd>
-
-        {% if datagroup.updated_at %}
-            <dt class="col-sm-3">Last updated</dt>
-            <dd class="col-sm-9">{{ datagroup.updated_at }}</dd>
-        {% endif %}
-    </dl>
-
-    <div class="col-sm-12">
-
-        <a href="{% url 'download_registered_datadocuments' datagroup.pk  %}" class="btn btn-secondary">
-
-            <span class="fa fa-file-csv
-            {% if datagroup.registered_docs == 0 %}disabled{% endif %}">
-        </span>&nbsp;Download Registered Records CSV</a>
-        <a href = "{%url 'download_datadocument_zip_file' datagroup.pk %}" class="btn btn-secondary
-              {% if not datagroup.zip_url or datagroup.matched_docs == 0  %}disabled{% endif %}">
-          <span class="fa fa-download"></span> Download All PDF Documents 
+<div class="row">
+  <div class="col-md-12">
+    <h5 class="text-muted" style="display: inline;">
+      <a href="{% url 'data_source_detail' datagroup.data_source.id %}" title="Data source">
+        {{ datagroup.data_source }}</a> /</h5>
+    <div class="btn-group float-md-right">
+        <a class="btn btn-sm btn-outline-secondary hover-info" title="List" href="{% url 'data_group_list' %}">
+          <span class="fa fa-fw fa-list"></span>
         </a>
-        {% if datagroup.is_composition and datagroup.extracted_docs %}
-
-            <a href="{% url 'download_raw_extracted_records' datagroup.pk  %}" class="btn btn-secondary">
-
-                <span class="fa fa-file-csv"></span>&nbsp;Download Raw Composition Records</a>
-        {% endif %}
-        {% if clean_comp_data_form %}
-            <br><br>
-            <a class="btn btn-secondary" data-toggle="collapse" id="btn_clean_comp_data_form" href="#clean_comp_data_form">
-              <span class="fa fa-upload"></span>&nbsp;Upload Clean Composition Data
-            </a>
-            <div id="clean_comp_data_form" class="col-md-6 {% if clean_comp_data_form.collapsed %}collapse{% endif %}">
-                <form class="wealthy" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% include 'core/bs4_form.html' with form=clean_comp_data_form %}
-                    <input type="submit" class="btn btn-primary" name="clean_comp_data_button" value="Submit" disabled>
-                    <div class="text-center d-inline float-right">
-                      <span class="text-muted">
-                        The uploaded csv must have the following column names in this order:
-                      </span>  
-                      <br>
-                        {% for col in datagroup.get_clean_comp_data_fieldnames %}
-                        <span class="btn-sm border-right border-secondary ml-1 rounded-0
-                          {% if forloop.first %}
-                            border-left
-                          {% endif %}">
-                            <b>{{ col }}</b>
-                        </span>
-                        {% endfor %}
-                    </div>
-                </form>
-                <hr>
-            </div>
-        {% endif %}
-        <br><br>
-        {% if extract_form %}
-            <a class="btn btn-secondary" data-toggle="collapse" id="btn_extract_text_form" href="#extract_form">
-              <span class="fa fa-upload"></span>&nbsp;Upload Extracted Text
-            </a>
-            <div id="extract_form" class="col-md-6 {% if extract_form.collapsed %}collapse{% endif %}">
-                <form class="wealthy" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% include 'core/bs4_form.html' with form=extract_form %}
-                    <input type="submit" class="btn btn-primary" name="extract_button" value="Submit" disabled>
-                    <a href="{% url "download_unextracted_datadocuments" datagroup.id %}" class="btn btn-secondary">
-                       <span class="fa fa-file-csv"></span>&nbsp;Download Extracted Text CSV Template
-
-                    </a>
-                </form>
-                <hr>
-            </div>
-        {% endif %}
-
-        {% if not datagroup.all_matched %}
-            <a class="btn btn-secondary" data-toggle="collapse" href="#upload_form">
-                <span class="fa fa-upload"></span>&nbsp;Upload Data Group PDFs
-            </a>
-            <p class="text-muted">Please limit upload to <600 documents at one time</p>
-            <div id="upload_form" class="col-md-12 border rounded collapse">
-                <form enctype="multipart/form-data" action="" method="post">
-                    {% csrf_token %}
-                    <div class="form-group col-md-9">
-                        <label class="required" for="id_extract_file">Data Group PDF Directory:</label>
-                        <input type="file" id="files" class="btn btn-light form-control" name="multifiles" webkitdirectory multiple>
-                    </div>
-                    <input type="submit" class="btn btn-primary" name="upload" value="Submit">
-                </form>
-            </div>
-        {% endif %}
-
-
-
-    {% if documents %}
-    <br>
-    <br>
-    <h4>{{ datagroup.registered_docs }} documents registered, {{ datagroup.matched_docs }} matched, {{  datagroup.extracted_docs }} extracted</h4>
-    <div class="inline-block">
-      {% if bulk_product_count and datagroup.all_matched and datagroup.is_composition %}
-      <form class="float-right" method="post">
-        {% csrf_token %}
-        <input type="submit" class="btn btn-primary" name="bulk" value="Bulk Create {{ bulk_product_count }} Products">
-      </form>
-      {% endif %}
-      <p>
-
-        <a class="btn btn-secondary" href="{%  url 'download_datadocuments' datagroup.id %}">
-          <span class="fa fa-file-csv"></span>
-          &nbsp;Export all records in {{ datagroup.name }} to csv</a>
-      </p>
+      <a class="btn btn-sm btn-outline-secondary hover-success" title="Edit" href="{% url 'data_group_edit' datagroup.id %}">
+        <span class="fa fa-fw fa-edit"></span>
+      </a>
+      <a class="btn btn-sm btn-outline-secondary hover-danger" title="Delete" href="{% url 'data_group_delete' datagroup.id %}">
+        <span class="fa fa-trash"></span>
+      </a>
     </div>
-
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10">
+    <h1>{{ datagroup.name }}</h1>
+  </div>
+</div>
+<div class="row pb-4">
+  <div class="col-md-12">
+    <div class="btn-group">
+      {% if datagroup.group_type.code %}
+      <a class="btn btn-sm btn-outline-dark" href="{% url 'data_group_list' datagroup.group_type.code %}">
+        <span class="fa fa-folder mr-2"></span>{{ datagroup.group_type }} ({{ datagroup.group_type.code }})
+      </a>
+      {% else %}
+      <button type="button" class="btn btn-sm btn-outline-dark" data-toggle="tooltip" data-placement="bottom" title="No group type" disabled>
+        <span class="fa fa-folder mr-2"></span>Unknown group type
+      </button>
+      {% endif %}
+      {% if datagroup.url %}
+      <a class="btn btn-sm btn-outline-dark" href="{{ datagroup.url }}" target="_blank">
+        <span class="fa fa-globe mr-2"></span>Data group URL
+      </a>
+      {% else %}
+      <button type="button" class="btn btn-sm btn-outline-dark" data-toggle="tooltip" data-placement="bottom" title="No data group URL found" disabled>
+        <span class="fa fa-globe mr-2"></span>Data group URL
+      </button>
+      {% endif %}
+      {% if datagroup.download_script.url %}
+      <a class="btn btn-sm btn-outline-dark" href="{{ datagroup.download_script.url }}" target="_blank">
+        <span class="fab fa-github mr-2"></span>Scraper script
+      </a>
+      {% else %}
+      <button type="button" class="btn btn-sm btn-outline-dark" data-toggle="tooltip" data-placement="bottom" title="No GitHub URL found" disabled>
+        <span class="fab fa-github mr-2"></span>Scraper script
+      </button>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div class="row pb-2">
+  <div class="col-md-12">
+    {% if datagroup.description %}
+    <p class="lead text-secondary">{{ datagroup.description }}</p>
+    {% else %}
+    <p class="lead text-secondary">No description given.</p>
+    {% endif %}
+  </div>
+</div>
+<div class="row pb-2">
+  <div class="col-md-12">
+    <div class="card-group">
+      <div class="card" id="download-card">
+        <div class="card-header">
+          <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+              <div class="nav-link font-weight-bold ml-4 pl-4" style="border-color: transparent"><span class="fa fa-info-circle mr-2"></span>Information</div>
+            </li>
+          </ul>
         </div>
-      <table class="table table-striped table-bordered dataTable no-footer table-sm" id="docs">
-        <thead class="table-primary">
-            <th>Title</th>
-            <th>Matched</th>
-            {% if datagroup.is_habits_and_practices %}
-                <th>Edit</th>
+        <div class="card-body bg-light">
+          <p><strong>Downloaded by</strong><br>{{ datagroup.downloaded_by }}</p>
+          <p><strong>Date downloaded</strong><br>{{ datagroup.downloaded_at }}</p>
+          <p><strong>Last updated</strong><br>{{ datagroup.updated_at }}</p>
+        </div>
+      </div>
+      <div class="card" style="flex-grow: 2.5">
+        <div class="card-header">
+          <ul class="nav nav-tabs card-header-tabs" role="tablist">
+            <li class="nav-item">
+              <div class="nav-link font-weight-bold" style="border-color: transparent"><span class="fa fa-upload mr-2"></span>Upload</div>
+            </li>
+            {% if cleancomp_form %}
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#cleancomp_form" role="tab" href="#cleancomp_form">Clean composition</a>
+            </li>
+            {% elif datagroup.type == 'CO' %}
+            <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="No extracted text found">
+              <a class="nav-link disabled">Clean composition</a>
+            </li>
+            {% endif %}
+            {% if extfile_form %}
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#extfile_form" role="tab" href="#extfile_form">Extracted text</a>
+            </li>
+            {% elif datagroup.type == 'FU' or datagroup.type == 'CO' or datagroup.type == 'CP' %}
+            {% if not datagroup.all_matched %}
+            <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Missing documents">
+              <a class="nav-link disabled">Extracted text</a>
+            </li>
             {% else %}
-                <th>Extracted</th>
+            <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="No documents needing extraction found">
+              <a class="nav-link disabled">Extracted text</a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% if uploaddocs_form %}
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#uploaddocs_form" role="tab" href="#uploaddocs_form">Documents</a>
+            </li>
+            {% else %}
+            <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="No unmatched documents found">
+              <a class="nav-link disabled">Documents</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+        <div class="card-body">
+          <div class="tab-content">
+            <div class="tab-pane show active">
+              <div class="text-center text-secondary">
+                {% if cleancomp_form or extfile_form or uploaddocs_form %}
+                Select an upload action.
+                {% else %}
+                No upload actions available.
+                {% endif %}
+              </div>
+            </div>
+            <div class="tab-pane fade" id="cleancomp_form">
+              <h5 class="card-title">Upload clean composition data</h5>
+              <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ cleancomp_form.management_form }}
+                <div class="form-group row pl-3 pr-3">
+                  <select class="custom-select" name="cleancomp-script" required>
+                    <option value="" selected>Choose a script...</option>
+                    {% for v, n in cleancomp_form.header_form.fields.script.choices %}
+                    {% if v %}
+                    <option value="{{ v }}">{{ n }}</option>
+                    {% endif %}
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group row pl-3 pr-3">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="cleancomp-bulkformsetfileupload" accept="text/csv, .csv" required>
+                    <label class="custom-file-label" for="cleancomp-bulkformsetfileupload">
+                        Choose file...
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group row pl-3 pr-3">
+                  <button class="btn btn-primary" name="cleancomp-submit" type="submit">Submit</button>
+                </div>
+              </form>
+              <div class="text-muted small text-center">
+                  <span class="fa fa-info-circle mr-2"></span>The CSV file must include these headers:<br><span class="text-monospace">{{ datagroup.get_clean_comp_data_fieldnames|join:", " }}</span>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="extfile_form">
+              <h5 class="card-title">Upload extracted text data</h5>
+              <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ extfile_form.management_form }}
+                {% if extfile_form.header_form.extraction_script %}
+                <div class="form-group row pl-3 pr-3">
+                  <select class="custom-select" name="extfile-extraction_script" required>
+                    <option selected>Choose an extraction script...</option>
+                    {% for v, n in extfile_form.header_form.fields.extraction_script.choices %}
+                    {% if v %}
+                    <option value="{{ v }}">{{ n }}</option>
+                    {% endif %}
+                    {% endfor %}
+                  </select>
+                </div>
+                {% endif %}
+                {% if extfile_form.header_form.weight_fraction_type %}
+                <div class="form-group row pl-3 pr-3">
+                  <select class="custom-select" name="extfile-weight_fraction_type" required>
+                    <option selected>Choose a weight fraction type...</option>
+                    {% for v, n in extfile_form.header_form.fields.weight_fraction_type.choices %}
+                    {% if v %}
+                    <option value="{{ v }}">{{ n }}</option>
+                    {% endif %}
+                    {% endfor %}
+                  </select>
+                </div>
+                {% endif %}
+                <div class="form-group row pl-3 pr-3">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="extfile-bulkformsetfileupload" accept="text/csv, .csv" required>
+                    <label class="custom-file-label" for="extfile-bulkformsetfileupload">
+                        Choose file...
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group row pl-3 pr-3">
+                  <button class="btn btn-primary mr-2" name="extfile-submit" type="submit">Submit</button>
+                  <a href="{% url 'download_unextracted_datadocuments' datagroup.id %}" class="btn btn-outline-secondary" download>
+                    <span class="fa fa-file-csv mr-2"></span>Download extracted text CSV template
+                  </a>
+                </div>
+              </form>
+            </div>
+            <div class="tab-pane fade" id="uploaddocs_form">
+              <h5 class="card-title">Upload document files</h5>
+              <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ uploaddocs_form.management_form }}
+                <div class="form-group row pl-3 pr-3">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="uploaddocs-documents" webkitdirectory directory multiple required>
+                    <label class="custom-file-label" for="uploaddocs-documents">
+                        Choose folder...
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group row pl-3 pr-3">
+                  <button class="btn btn-primary" name="uploaddocs-submit" type="submit">Submit</button>
+                </div>
+              </form>
+              <div class="text-muted small text-center">
+                <span class="fa fa-info-circle mr-2"></span>Please limit upload to &lt;600 documents at one time.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card" id="download-card">
+        <div class="card-header">
+          <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+              <div class="nav-link font-weight-bold ml-4 pl-4" style="border-color: transparent"><span class="fa fa-download mr-2"></span>Download</div>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body bg-light m-0 p-0">
+          <div class="btn-group-vertical btn-block" role="group">
+            {% if datagroup.registered_docs %}
+            <a href="{% url 'download_registered_datadocuments' datagroup.pk  %}" class="btn btn-light text-left" download>
+              <span class="fa fa-file-csv mr-2"></span>Registered records
+            </a>
+            {% else %}
+            <button class="btn btn-light text-left disabled" data-toggle="tooltip" data-placement="right" title="No registered records found">
+              <span class="fa fa-file-csv mr-2"></span>Registered records
+            </button>
             {% endif %}
             {% if datagroup.is_composition %}
-                <th>Product</th>
-            {% endif %}
-        </thead>
-        <tbody>
-        {% for doc in documents %}
-          <tr>
-          {% if doc.matched %}
-            <td>
-              <a href="{{ doc.get_absolute_url }}"
-                 title="Link to document detail">
-                 {{ doc.title }}
-              </a>
-              <a href="/media/{{ datagroup.fs_id }}/pdf/{{ doc.get_abstract_filename }}"
-                 title="Link to {{ doc.get_abstract_filename }}" 
-                 target="_blank">
-                 <i class="far fa-file" aria-hidden="true"></i>
-              </a>
-            </td>
-          {% else %}
-            <td>{{ doc.title }}</td>
-          {% endif %}
-            <td align="center">
-          {% if doc.matched %}
-            <span class="fa fa-check-circle" style="color:green;"></span>
-            <p style="display:none;">{{doc.matched}}</p>
-          {% else %}
-          <a class="btn btn-danger btn-sm" role="button" title="delete"
-             href="{% url "data_document_delete" doc.id %}">
-              <span class="fa fa-trash"></span> </a>
-              <p style="display:none;">{{doc.matched}}</p>
-          {% endif %}
-            </td>
-            <td align="center">
-
-          {% if doc.extracted and not datagroup.is_habits_and_practices %}
-
-            <span class="fa fa-check-circle" style="color:green;"></span>
-              <p style="display:none;">{{doc.extracted}}</p>
-          {% elif datagroup.is_habits_and_practices %}
-            <a class="btn btn-info btn-sm" role="button" title="Edit/Inspect Habits and practices"
-             href='{% url 'habitsandpractices' doc.id %}'>Edit / Inspect Habits and practices</a>
-              <p style="display:none;">{{doc.extracted}}</p>
-          {% else %}
-            <span class="fa fa-times-circle" style="color:red;">
-
-              <p style="display:none;">{{doc.extracted}}</p>
-
-            </span>
-          {% endif %}
-            </td>
-
-          {% if datagroup.is_composition %}
-          <td>
-            {% if doc.product_id %}
-                <a title="Go to Product Detail" href="{% url 'product_detail' doc.product_id %}">
-                    {{doc.product_title}}</a>
+            {% if datagroup.extracted_docs %}
+            <a href="{% url 'download_raw_extracted_records' datagroup.pk  %}" class="btn btn-light text-left" download>
+              <span class="fa fa-file-csv mr-2"></span>Raw composition records
+            </a>
             {% else %}
-
-                <span class="fa fa-times-circle" style="color:red;"></span>
-
+            <button class="btn btn-light text-left disabled" data-toggle="tooltip" data-placement="right" title="No composition records found">
+              <span class="fa fa-file-csv mr-2"></span>Raw composition records
+            </button>
             {% endif %}
-          </td>
-          {% endif %}
-
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-    {% endif %}
-    <br>
-    <div class=".col-md-4">
-        <ul class="list-group pre-scrollable" style="max-height: 30vh">
-        {% for docfile in doclist %}
-          <li class="list-group-item"><a href="/media/{{ datagroup.id }}/{{ docfile }}">{{ docfile }}</a></li>
-        {% endfor %}
-        </ul>
+            {% endif %}
+            {% if datagroup.registered_docs %}
+            <a href="{%  url 'download_datadocuments' datagroup.pk %}" class="btn btn-light text-left" download>
+              <span class="fa fa-file-csv mr-2"></span>Document records
+            </a>
+            {% else %}
+            <button class="btn btn-light text-left disabled" data-toggle="tooltip" data-placement="right" title="No documents found">
+              <span class="fa fa-file-csv mr-2"></span>Document records
+            </button>
+            {% endif %}
+            {% if datagroup.zip_url and datagroup.matched_docs %}
+            <a href="{%url 'download_datadocument_zip_file' datagroup.pk %}" class="btn btn-light text-left" download>
+              <span class="fa fa-archive mr-2"></span>Document files
+            </a>
+            {% else %}
+            <button class="btn btn-light text-left disabled" data-toggle="tooltip" data-placement="right" title="No document files found">
+              <span class="fa fa-archive mr-2"></span>Document files
+            </button>
+            {% endif %}
+          </div>
+        </div>
+      </div>
     </div>
-
-<input type="hidden" id="dg_name" name="variable" value="{{ datagroup.get_name_as_slug }}">
-
+  </div>
+</div>
+<div class="row pb-5">
+  <div class="col-md-12">
+  </div>
+</div>
+{% if tabledata.numregistered %}
+<div class="row pb-5">
+  <div class="col-md-2 text-right">
+    <svg width="50" height="50" id="matcheddonut"></svg>
+  </div>
+  <div class="col-md-4 mt-1">
+    <p class="lead"><span class="font-weight-normal">{{ tabledata.nummatched }}</span><span class="text-black-50">/{{ tabledata.numregistered }}</span> matched documents</p>
+  </div>
+  <div class="col-md-2 text-right">
+    <svg width="50" height="50" id="extracteddonut"></svg>
+  </div>
+  <div class="col-md-4 mt-1">
+    <p class="lead"><span class="font-weight-normal">{{ tabledata.numextracted }}</span><span class="text-black-50">/{{ tabledata.numregistered }}</span> extracted documents</p>
+  </div>
+</div>
+<form method="POST" id="bulkassignprod_form">
+  {% csrf_token %}
+</form>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table" id="docs">
+      {% if bulkassignprod_form %}
+        <button class="btn btn-sm btn-outline-primary float-md-right" name="bulkassignprod-submit" form="bulkassignprod_form" type="submit">
+          Bulk Create {{ bulkassignprod_form.count }} Products
+        </button>
+      {% endif %}
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th class="text-center">Matched</th>
+          {% if datagroup.is_habits_and_practices %}
+          <th class="text-center">Edit</th>
+          {% else %}
+          <th class="text-center">Extracted</th>
+          {% endif %}
+          {% if datagroup.is_composition %}
+          <th class="text-center">Product</th>
+          {% endif %}
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>
+{% endif %}
 {% endblock %}
+
 {% block js %}
-  <script src="{% static 'js/dashboard/datagroup_detail.js' %}"></script>
+<script src="{% static 'js/d3.min.js' %}"></script>
+<script src="{% static 'js/dashboard/bootstrap-filepicker.js' %}"></script>
+{{ tabledata|json_script:"tabledata" }}
+<script src="{% static 'js/dashboard/datagroup_detail.js' %}"></script>
+{% endblock %}
+
+{% block css %}
+<style>
+  #download-card .btn {
+    border-radius: 0;
+  }
+</style>
 {% endblock %}

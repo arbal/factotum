@@ -22,14 +22,3 @@ $("#chem-scrollspy").ready(function () {
   }
 });
 
-// add color to elements on hover...
-$('.hover').mouseover(function () {
-  console.log(this.name)
-  $(this).removeClass("btn-outline-secondary");
-  $(this).addClass("btn-" + this.name);
-})
-
-$('.hover').mouseout(function () {
-  $(this).removeClass("btn-" + this.name);
-  $(this).addClass("btn-outline-secondary");
-})

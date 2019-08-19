@@ -86,15 +86,16 @@ class TestProductLinkage(TestCase):
         response = self.client.get(f"/datagroup/19/")
         unlinked = dg.datadocument_set.filter(products__isnull=True).count()
         self.assertEqual(
-            response.context["bulk_product_count"],
+            response.context["bulkassignprod_form"].count,
             unlinked,
-            "Not all DataDocuments linked to Product, bulk_create needed",
+            "Not all DataDocuments linked to Product, bulkassignprod_form needed",
         )
-        response = self.client.post(f"/datagroup/19/", {"bulk": unlinked})
-        self.assertEqual(
-            response.context["bulk"],
-            0,
-            "Product linked to all DataDocuments, no bulk_create needed.",
+        response = self.client.post(
+            "/datagroup/19/", {"bulkassignprod-submit": unlinked}
+        )
+        self.assertIsNone(
+            response.context["bulkassignprod_form"],
+            "Product linked to all DataDocuments, no bulkassignprod_form needed.",
         )
         # pick documents and check the attributes of their now-related products
         # 1: check a case where the ExtractedText record had a prod_name to offer
@@ -105,7 +106,7 @@ class TestProductLinkage(TestCase):
         self.assertEqual(
             product.title,
             et.prod_name,
-            "Title should be taken from ExtractedText.prod_name in bulk_create",
+            "Title should be taken from ExtractedText.prod_name in bulkassignprod_form",
         )
         # 2: check a case where ExtractedText.prod_name is None
         et = ets.filter(prod_name__isnull=True).first()
@@ -115,7 +116,7 @@ class TestProductLinkage(TestCase):
             product.title,
             "%s stub" % doc.title,
             (
-                "Title should be taken from the DataDocument.title in bulk_create,"
+                "Title should be taken from the DataDocument.title in bulkassignprod_form,"
                 'with "stub" appended'
             ),
         )
@@ -130,15 +131,16 @@ class TestProductLinkage(TestCase):
         ProductDocument.objects.filter(document_id__in=doc_list).delete()
         response = self.client.get(f"/datagroup/6/")
         self.assertEqual(
-            response.context["bulk_product_count"],
+            response.context["bulkassignprod_form"].count,
             2,
-            "Not all DataDocuments linked to Product, bulk_create needed",
+            "Not all DataDocuments linked to Product, bulkassignprod_form needed",
         )
-        response = self.client.post(f"/datagroup/6/", {"bulk": 1})
-        self.assertEqual(
-            response.context["bulk"],
-            0,
-            "Product linked to all DataDocuments, no bulk_create needed.",
+        response = self.client.post(
+            f"/datagroup/6/", {"bulkassignprod-submit": "Submit"}
+        )
+        self.assertIsNone(
+            response.context["bulkassignprod_form"],
+            "Product linked to all DataDocuments, no bulkassignprod_form needed.",
         )
         # check the titles of the newly-created products
         # they should be based on the document title

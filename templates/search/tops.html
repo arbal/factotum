@@ -1,0 +1,42 @@
+{{ datadocument }}
+<hr>
+{{ product }}
+<hr>
+<hr>
+{{ puc }}
+<hr>
+{{ chemical }}
+{% for hit in result.hits %}
+<div class="row pt-2">
+    <div class="col-sm">
+        <h5>
+            <a href="{% url 'product_detail' hit.id %}">
+                <span
+                    class="pr-1"
+                    data-toggle="tooltip" 
+                    data-placement="right"
+                    title="{{ hit.title }}"
+                >
+                {{ hit.source.product_title }}
+                </span>
+            </a>
+        </h5>
+        <table class="table">
+            <tbody>
+            {% for key, value in  hit.source.items %}
+            {% if key in hit.highlights.keys and not key in 'product_title' %}
+                <tr>
+                    <td>
+                        {{ key }}
+                    </td>
+                    <td>
+                        {{ value }}
+                    </td>
+                </tr>
+            {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endfor %}

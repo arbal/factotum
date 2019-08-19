@@ -1,0 +1,33 @@
+<!-- {{ result }} -->
+{% for hit in result.hits %}
+<div class="row pt-3 pb-3 border-bottom border-top">
+    <div class="col-sm">
+        <h5>
+            <a href="{% url 'product_detail' hit.id %}">
+                <span
+                    class="pr-1"
+                    data-toggle="tooltip" 
+                    data-placement="top"
+                    title="{{ hit.source.product_title }}"
+                >
+                {{ hit.source.product_title }}
+                </span>
+            </a>
+        </h5>
+        {% for key, value in hit.highlights.items %}
+        {% if key != 'Title' %}
+        <div class="row">
+            <div class="col-lg-3 border-right">
+                <small class="text-muted">{{ key }}:</small>
+            </div>
+            <div class="col-lg-9">
+                {% autoescape off %}
+                <small class="text-muted">{{ value|join:'... ' }}</small>
+                {% endautoescape %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}

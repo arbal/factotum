@@ -72,7 +72,8 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
     """
     dg_folder = instance.get_dg_folder()
     if os.path.isdir(dg_folder):
-        shutil.rmtree(dg_folder)
+        shutil.rmtree(dg_folder, ignore_errors=True)
+
 
 
 @receiver(models.signals.post_delete, sender=ProductDocument)

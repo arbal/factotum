@@ -82,5 +82,7 @@ python manage.py dumpdata dashboard.extractedhabitsandpractices --format=yaml > 
 python manage.py dumpdata dashboard.extractedhabitsandpracticestopuc --format=yaml > ./dashboard/fixtures/11_habits_and_practices_to_puc.yaml
 python manage.py dumpdata dashboard.producttopuc --format=yaml > ./dashboard/fixtures/12_product_to_puc.yaml
 python manage.py dumpdata dashboard.puctag dashboard.producttotag dashboard.puctotag --format=yaml > ./dashboard/fixtures/13_puc_tag.yaml
+python manage.py dumpdata dashboard.extractedlistpresencetag --format=yaml > ./dashboard/fixtures/14_list_presence_tag.yaml
+python manage.py dumpdata dashboard.extractedlistpresencetotag --format=yaml > ./dashboard/fixtures/15_list_presence_to_tag.yaml
 
 """

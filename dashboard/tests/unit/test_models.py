@@ -91,16 +91,14 @@ class ModelsTest(TestCase):
         # show page after upload from CSV
         docs = create_data_documents(self.objects.dg, self.objects.st, self.pdfs)
         self.assertEqual(len(docs), 2, ("Only 2 records should be created!"))
-        dg_response = self.client.get(f"/datagroup/{str(self.objects.dg.pk)}/")
+        dg_response = self.client.get(
+            f"/datagroup/{str(self.objects.dg.pk)}/documents_table/"
+        )
         self.assertIn(b"NUTRA", dg_response.content)
         self.assertEqual(len(self.pdfs), 2)
         # Confirm that the two data documents in the csv file are matches to
         # the pdfs via their file names
         self.assertEqual(self.objects.dg.matched_docs(), 2)
-        # Test a link to an uploaded pdf
-        fn = docs[0].get_abstract_filename()
-        u = "{0}/pdf/{1}".format(self.objects.dg.fs_id, fn).encode("utf-8")
-        self.assertIn(u, dg_response.content, ("link to PDF should be in HTML!"))
         # DownloadScript
         self.assertEqual(str(self.objects.script), "Test Download Script")
         # ExtractedText
@@ -174,16 +172,14 @@ class ModelsTest(TestCase):
             self.objects.dg, self.objects.st, self.pdf_txt
         )
         self.assertEqual(len(docs), 2, ("Only 2 records should be created!"))
-        dg_response = self.client.get(f"/datagroup/{str(self.objects.dg.pk)}/")
+        dg_response = self.client.get(
+            f"/datagroup/{str(self.objects.dg.pk)}/documents_table/"
+        )
         self.assertIn(b"NUTRA", dg_response.content)
         self.assertEqual(len(self.pdf_txt), 2)
         # Confirm that the two data documents in the csv file are matches to
         # the pdfs via their file names
         self.assertEqual(self.objects.dg.matched_docs(), 2)
-        # Test a link to an uploaded text file
-        fn = docs[1].get_abstract_filename()
-        u = "{0}/pdf/{1}".format(self.objects.dg.fs_id, fn).encode("utf-8")
-        self.assertIn(u, dg_response.content, ("link to PDF should be in HTML!"))
 
     def test_script_fields(self):
         fields = ["title", "url", "qa_begun", "script_type", "confidence"]

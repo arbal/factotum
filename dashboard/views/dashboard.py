@@ -4,101 +4,21 @@ from dateutil.relativedelta import relativedelta
 
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.db.models import Aggregate, Count, F, DateField, DateTimeField, Q
+from django.db.models import Count, F, DateField, DateTimeField, Q
 from django.db.models.functions import Trunc
-from django.contrib.auth.decorators import login_required
 
-from dashboard.models import *
-
-current_date = datetime.datetime.strftime(datetime.datetime.now(), "%Y-%m-%d")
-chart_start_datetime = datetime.datetime(
-    datetime.datetime.now().year - 1, min(12, datetime.datetime.now().month + 1), 1
+from dashboard.models import (
+    DataGroup,
+    DataSource,
+    Product,
+    DSSToxLookup,
+    RawChem,
+    DataDocument,
+    ProductToPUC,
+    PUC,
+    ExtractedListPresenceTag,
 )
-
-
-class GroupConcat(Aggregate):
-    """Allows Django to use the MySQL GROUP_CONCAT aggregation.
-
-    Arguments:
-        separator (str): the delimiter to use (default=',')
-
-    Example:
-        Pizza.objects.annotate(
-            topping_str=GroupConcat(
-                'toppings',
-                separator=', ',
-                distinct=True,
-            )
-        )
-    """
-
-    function = "GROUP_CONCAT"
-    template = "%(function)s(%(distinct)s%(expressions)s SEPARATOR '%(separator)s')"
-    allow_distinct = True
-
-    def __init__(self, expression, separator=",", **extra):
-        super().__init__(expression, separator=separator, **extra)
-
-
-class SimpleTree:
-    """A simple tree data structure.
-    
-    Properties:
-        name (str): the node name
-        value (any): the root node value
-        leaves (list): a list of children SimpleTree objects
-    """
-
-    def __init__(self, name=None, value=None, leaves=[]):
-        """Initialize a SimpleTree instance.
-
-        Arguments:
-            name (str): the node name (default=None)
-            value (any): the root node value (default=None)
-            leaves (list): a list of children SimpleTree objects (default=[])
-        """
-        self.name = name
-        self.value = value
-        self.leaves = leaves
-
-    def set(self, names, value, default=None):
-        """Recursively add leaves to a SimpleTree object.
-
-        Arguments:
-            names (iter): an iterable of names to route the leaf under
-            value (any): the leaf value (default=default)
-            default (any): if a leaf doesn't exist upstream from the destination
-                           use this value as the upstream leaf value
-        """
-        root = self
-        for name in names:
-            try:
-                leaf = next(l for l in root.leaves if l.name == name)
-            except StopIteration:
-                leaf = SimpleTree(name=name, value=default, leaves=[])
-                root.leaves.append(leaf)
-            root = leaf
-        root.value = value
-
-    def iter(self):
-        """Return an iterator than traverses the tree downward."""
-        yield self
-        for leaf in self.leaves:
-            yield from leaf.iter()
-
-    def find(self, names):
-        """Breadth-first search
-
-        Arguments:
-            names (iter): an iterable containing the the names to look for
-
-        Returns:
-            a SimpleTree object
-        """
-        root = self
-        for name in names:
-            root = next(l for l in root.leaves if l.name == name)
-        return root
+from dashboard.utils import GroupConcat, SimpleTree
 
 
 def index(request):
@@ -126,7 +46,9 @@ def index(request):
 
 def datadocument_count_by_date():
     # Datasets to populate linechart with document-upload statistics
-    # Number of datadocuments, both overall and by type, that have been uploaded as of each date
+    # Number of datadocuments, both overall and by type, that have been uploaded
+    # as of each date
+    current_date = datetime.datetime.strftime(datetime.datetime.now(), "%Y-%m-%d")
     select_upload_date = {"upload_date": """date(dashboard_datadocument.created_at)"""}
     document_stats = {}
     document_stats["all"] = list(
@@ -167,6 +89,9 @@ def datadocument_count_by_date():
 
 def datadocument_count_by_month():
     # GROUP BY issue solved with https://stackoverflow.com/questions/8746014/django-group-by-date-day-month-year
+    chart_start_datetime = datetime.datetime(
+        datetime.datetime.now().year - 1, min(12, datetime.datetime.now().month + 1), 1
+    )
     document_stats = list(
         DataDocument.objects.filter(created_at__gte=chart_start_datetime)
         .annotate(
@@ -192,7 +117,9 @@ def datadocument_count_by_month():
 
 def product_with_puc_count_by_month():
     # GROUP BY issue solved with https://stackoverflow.com/questions/8746014/django-group-by-date-day-month-year
-
+    chart_start_datetime = datetime.datetime(
+        datetime.datetime.now().year - 1, min(12, datetime.datetime.now().month + 1), 1
+    )
     product_stats = list(
         ProductToPUC.objects.filter(created_at__gte=chart_start_datetime)
         .annotate(

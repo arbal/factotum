@@ -21,7 +21,6 @@
     <span class='pr-1' data-toggle="tooltip" data-placement="right" title="CAS">{{ substance.true_cas|title }}
     </span>
 </h4>
-<div class="p-3"></div>
 <div class="container">
     <div class="row">
         <div class="col-5 p-0">
@@ -70,7 +69,23 @@
         </div>
     </div>
 </div>
-
+{% if tagDict|length > 0 %}
+    &nbsp;<h6 class="text-left">CP keyword sets (and number of CP documents containing chemical connected to the set)</h6>
+    {% for tags, count in tagDict.items %}
+        <div class="pb-2 d-flex flex-row">
+            <div class="pb-2 d-flex flex-column">
+                <div class="p-2 m-1 border border-secondary rounded bg-light">
+                {% for tag in tags %}
+                    <span class="btn-sm border border-secondary bg-white">{{ tag }}</span>
+                {% endfor %}
+                <span class="dot dot-dg-HP float-right text-center ml-2"><small><b>{{ count }}</b></small></span>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    &nbsp;<h6 class="text-left">No CP keyword sets associated with this chemical</h6>
+{% endif %}
 {% endblock %}
 {% block js %}
 <script src="{% static 'js/d3_rick.min.js' %}"></script>

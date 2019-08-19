@@ -29,10 +29,10 @@ class ExtractedListPresence(CommonInfo, RawChem):
         return str(self.raw_chem_name) if self.raw_chem_name else ""
 
     def get_datadocument_url(self):
-        return self.extracted_cpcat.data_document.get_absolute_url()
+        return self.extracted_text.data_document.get_absolute_url()
 
     def get_extractedtext(self):
-        return self.extracted_cpcat.extractedtext_ptr
+        return self.extracted_text
 
     @property
     def data_document(self):

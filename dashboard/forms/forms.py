@@ -69,26 +69,6 @@ class ExtractionScriptForm(forms.Form):
         self.collapsed = True
 
 
-class CleanCompDataForm(forms.Form):
-    required_css_class = "required"  # adds to label tag
-    script_selection = forms.ModelChoiceField(
-        queryset=Script.objects.filter(script_type="DC"),
-        label="Data Cleaning Script",
-        required=True,
-    )
-    clean_comp_data_file = forms.FileField(
-        label="Clean Composition Data CSV File", required=True
-    )
-
-    def __init__(self, *args, **kwargs):
-        super(CleanCompDataForm, self).__init__(*args, **kwargs)
-        self.fields["script_selection"].widget.attrs.update(
-            {"style": "height:2.75rem; !important"}
-        )
-        self.fields["clean_comp_data_file"].widget.attrs.update({"accept": ".csv"})
-        self.collapsed = True
-
-
 class DataSourceForm(forms.ModelForm):
     required_css_class = "required"
 

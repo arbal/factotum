@@ -4,6 +4,8 @@ from django.urls import resolve
 from django.http import HttpRequest
 from django.test import RequestFactory, TestCase, Client
 from django.contrib.auth.models import User
+from django.contrib.messages.middleware import MessageMiddleware
+from django.contrib.sessions.middleware import SessionMiddleware
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from dashboard import views
@@ -15,6 +17,11 @@ class UploadExtractedFileTest(TestCase):
     fixtures = fixtures_standard
 
     def setUp(self):
+        self.mng_data = {
+            "cleancomp-TOTAL_FORMS": "0",
+            "cleancomp-INITIAL_FORMS": "0",
+            "cleancomp-MAX_NUM_FORMS": "",
+        }
         self.c = Client()
         self.factory = RequestFactory()
         self.c.login(username="Karyn", password="specialP@55word")
@@ -64,15 +71,22 @@ class UploadExtractedFileTest(TestCase):
         sample_csv_bytes = sample_csv.encode(encoding="UTF-8", errors="strict")
         in_mem_sample_csv = InMemoryUploadedFile(
             io.BytesIO(sample_csv_bytes),
-            field_name="clean_comp_data_file",
+            field_name="cleancomp-bulkformsetfileupload",
             name="clean_comp_data.csv",
             content_type="text/csv",
             size=len(sample_csv),
             charset="utf-8",
         )
-        req_data = {"script_selection": 17, "clean_comp_data_button": "Submit"}
+        req_data = {"cleancomp-script": 17, "cleancomp-submit": "Submit"}
+        req_data.update(self.mng_data)
         req = self.factory.post(path="/datagroup/6/", data=req_data)
-        req.FILES["clean_comp_data_file"] = in_mem_sample_csv
+        req.FILES["cleancomp-bulkformsetfileupload"] = in_mem_sample_csv
+        middleware = SessionMiddleware()
+        middleware.process_request(req)
+        req.session.save()
+        middleware = MessageMiddleware()
+        middleware.process_request(req)
+        req.session.save()
         req.user = User.objects.get(username="Karyn")
         resp = views.data_group_detail(request=req, pk=6)
         self.assertContains(
@@ -88,35 +102,47 @@ class UploadExtractedFileTest(TestCase):
         sample_csv_bytes = sample_csv.encode(encoding="UTF-8", errors="strict")
         in_mem_sample_csv = InMemoryUploadedFile(
             io.BytesIO(sample_csv_bytes),
-            field_name="clean_comp_data_file",
+            field_name="cleancomp-bulkformsetfileupload",
             name="clean_comp_data.csv",
             content_type="text/csv",
             size=len(sample_csv),
             charset="utf-8",
         )
-        req_data = {"script_selection": 17, "clean_comp_data_button": "Submit"}
+        req_data = {"cleancomp-script": 17, "cleancomp-submit": "Submit"}
+        req_data.update(self.mng_data)
         req = self.factory.post(path="/datagroup/6/", data=req_data)
-        req.FILES["clean_comp_data_file"] = in_mem_sample_csv
+        req.FILES["cleancomp-bulkformsetfileupload"] = in_mem_sample_csv
+        middleware = SessionMiddleware()
+        middleware.process_request(req)
+        req.session.save()
+        middleware = MessageMiddleware()
+        middleware.process_request(req)
+        req.session.save()
         req.user = User.objects.get(username="Karyn")
         resp = views.data_group_detail(request=req, pk=6)
-        self.assertContains(
-            resp, "The following columns need to be added or renamed in the csv"
-        )
+        self.assertContains(resp, "The following CSV headers are missing")
 
     def test_invalid_clean_comp_data_upload(self):
         sample_csv = self.generate_invalid_clean_comp_data_csv_string()
         sample_csv_bytes = sample_csv.encode(encoding="UTF-8", errors="strict")
         in_mem_sample_csv = InMemoryUploadedFile(
             io.BytesIO(sample_csv_bytes),
-            field_name="clean_comp_data_file",
+            field_name="cleancomp-bulkformsetfileupload",
             name="clean_comp_data.csv",
             content_type="text/csv",
             size=len(sample_csv),
             charset="utf-8",
         )
-        req_data = {"script_selection": 17, "clean_comp_data_button": "Submit"}
+        req_data = {"cleancomp-script": 17, "cleancomp-submit": "Submit"}
+        req_data.update(self.mng_data)
         req = self.factory.post(path="/datagroup/6/", data=req_data)
-        req.FILES["clean_comp_data_file"] = in_mem_sample_csv
+        middleware = SessionMiddleware()
+        middleware.process_request(req)
+        req.session.save()
+        middleware = MessageMiddleware()
+        middleware.process_request(req)
+        req.session.save()
+        req.FILES["cleancomp-bulkformsetfileupload"] = in_mem_sample_csv
         req.user = User.objects.get(username="Karyn")
 
 
