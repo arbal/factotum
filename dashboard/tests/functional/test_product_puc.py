@@ -2,8 +2,10 @@ from django.test import TestCase, override_settings
 from dashboard.tests.loader import fixtures_standard
 from lxml import html
 from django.urls import reverse
-from dashboard.models import PUC, PUCTag, PUCToTag, Product, ProductToPUC
+from dashboard.models import PUC, PUCTag, PUCToTag, Product, ProductToPUC, ProductDocument
 from django.db.utils import IntegrityError
+from django.db.models import Count, Sum
+from dashboard.models.raw_chem import RawChem
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
@@ -296,3 +298,11 @@ class TestProductPuc(TestCase):
             "The parent PUC has a cumulative_product_count \
                                 greater than or equal to the child",
         )
+
+    def test_curated_chemical_count(self):
+        puc = PUC.objects.get(pk=185)
+        docs = ProductDocument.objects.filter(product__in=puc.products.all())
+        chems = (RawChem.objects.filter(extracted_text__data_document__in=docs.values_list('document',flat=True))
+                .annotate(chems=Count('dsstox',distinct=True))
+                .aggregate(chem_count=Sum("chems")))
+        self.assertEqual(chems['chem_count'],1,"There should be 1 record for this puc")

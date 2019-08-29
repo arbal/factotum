@@ -2,7 +2,6 @@ import csv
 from djqscsv import render_to_csv_response
 from pathlib import Path
 import zipfile
-
 from django.db.models import CharField, Exists, F, OuterRef, Value as V
 from django.db.models.functions import StrIndex, Substr
 from django.conf import settings
@@ -11,7 +10,6 @@ from django.contrib import messages
 from django.core.files import File
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.html import format_html
 
 from dashboard.forms import DataGroupForm, create_detail_formset
 from dashboard.forms.data_group import (
@@ -48,8 +46,17 @@ def data_group_list(request, code=None, template_name="data_group/datagroup_list
 @login_required()
 def data_group_detail(request, pk, template_name="data_group/datagroup_detail.html"):
     dg = get_object_or_404(DataGroup, pk=pk)
+    tabledata = {
+        "fsid": dg.fs_id,
+        "boolComp": dg.is_composition,
+        "boolHab": dg.is_habits_and_practices,
+        "numregistered": dg.registered_docs(),
+        "nummatched": dg.matched_docs(),
+        "numextracted": dg.extracted_docs(),
+    }
     context = {
         "datagroup": dg,
+        "tabledata": tabledata,
         "uploaddocs_form": None,
         "extfile_form": None,
         "cleancomp_form": None,
@@ -62,11 +69,12 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
             context["uploaddocs_form"] = UploadDocsForm(dg, request.POST, request.FILES)
             if form.is_valid():
                 num_saved = form.save()
-                s = "s" if num_saved > 1 else ""
-                msg = f"{num_saved} document{s} uploaded successfully."
+                if num_saved > 1:
+                    o_str = "documents"
+                else:
+                    o_str = "document"
+                msg = "%d %s uploaded successfully." % (num_saved, o_str)
                 messages.success(request, msg)
-                form = UploadDocsForm(dg) if dg.include_upload_docs_form() else None
-                context["uploaddocs_form"] = form
             else:
                 errors = gather_errors(form)
                 for e in errors:
@@ -76,17 +84,18 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
 
     if dg.include_extract_form():
         if "extfile-submit" in request.POST:
-            formset = ExtractFileFormSet(dg, request.POST, request.FILES)
+            form = ExtractFileFormSet(dg, request.POST, request.FILES)
             context["extfile_form"] = ExtractFileFormSet(dg, request.POST)
-            if formset.is_valid():
-                num_saved = formset.save()
-                s = "s" if num_saved > 1 else ""
-                msg = f"{num_saved} extracted record{s} uploaded successfully."
+            if form.is_valid():
+                num_saved = form.save()
+                if num_saved > 1:
+                    o_str = "extracted records"
+                else:
+                    o_str = "extracted record"
+                msg = "%d %s uploaded successfully." % (num_saved, o_str)
                 messages.success(request, msg)
-                formset = ExtractFileFormSet(dg) if dg.include_extract_form() else None
-                context["extfile_form"] = formset
             else:
-                errors = gather_errors(formset)
+                errors = gather_errors(form)
                 for e in errors:
                     messages.error(request, e)
         else:
@@ -94,21 +103,20 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
 
     if dg.include_clean_comp_data_form():
         if "cleancomp-submit" in request.POST:
-            formset = CleanCompFormSet(dg, request.POST, request.FILES)
+            form = CleanCompFormSet(dg, request.POST, request.FILES)
             context["cleancomp_form"] = CleanCompFormSet(dg, request.POST)
-            if formset.is_valid():
-                num_saved = formset.save()
-                s = "s" if num_saved > 1 else ""
-                msg = f"{num_saved} clean composition data record{s} uploaded successfully."
+            if form.is_valid():
+                num_saved = form.save()
+                if num_saved > 1:
+                    o_str = "clean composition data records"
+                else:
+                    o_str = "clean composition data record"
+                msg = "%d %s uploaded successfully." % (num_saved, o_str)
                 messages.success(request, msg)
             else:
-                for idx, row in enumerate(formset.errors, 1):
-                    if row:
-                        msg = format_html(f"<h5>Row {idx}</h5>{row.as_ul()}")
-                        messages.error(request, msg)
-                if hasattr(formset, "non_form_errors"):
-                    for error in formset.non_form_errors().as_data():
-                        messages.error(request, error.message)
+                errors = gather_errors(form)
+                for e in errors:
+                    messages.error(request, e)
         else:
             context["cleancomp_form"] = CleanCompFormSet(dg)
 
@@ -117,8 +125,11 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
             form = BulkAssignProdForm(dg, request.POST, request.FILES)
             if form.is_valid():
                 num_saved = form.save()
-                s = "s" if num_saved > 1 else ""
-                msg = f"{num_saved} product{s} created successfully."
+                if num_saved > 1:
+                    o_str = "products"
+                else:
+                    o_str = "product"
+                msg = "%d %s created successfully." % (num_saved, o_str)
                 messages.success(request, msg)
             else:
                 errors = gather_errors(form)
@@ -126,15 +137,7 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
                     messages.error(request, e)
         else:
             context["bulkassignprod_form"] = BulkAssignProdForm(dg)
-    tabledata = {
-        "fsid": dg.fs_id,
-        "boolComp": dg.is_composition,
-        "boolHab": dg.is_habits_and_practices,
-        "numregistered": dg.registered_docs(),
-        "nummatched": dg.matched_docs(),
-        "numextracted": dg.extracted_docs(),
-    }
-    context.update({"tabledata": tabledata})
+
     return render(request, template_name, context)
 
 

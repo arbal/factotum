@@ -3,23 +3,22 @@ version: '3.5'
 
 volumes:
   sqldata:
-  es2data:
   esdata:
   lsdata:
-  lslastrun:
   kibanadata:
   kibanaoptdata:
+  factotumwsstatic:
 
 
 services:
   mysql:
-    image: mariadb:10.3
+    image: mysql:5.7.23
     restart: unless-stopped
     environment:
-      MYSQL_USER: "${SQL_USER}"
-      MYSQL_PASSWORD: "${SQL_PASSWORD}"
-      MYSQL_DATABASE: "${SQL_DATABASE}"
-      MYSQL_ROOT_PASSWORD: "${SQL_ROOT_PASSWORD}"
+      MYSQL_USER: "${SQL_USER:-factotum}"
+      MYSQL_PASSWORD: "${SECRET_KEY}"
+      MYSQL_DATABASE: "${SQL_DATABASE:-factotum}"
+      MYSQL_ROOT_PASSWORD: "${SECRET_KEY}"
     ports:
       - 3306:3306
     volumes: 
@@ -29,87 +28,35 @@ services:
     command: >
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_unicode_ci
-      --innodb_buffer_pool_size=${SQL_CONF_INNODB_BUFFER_POOL_SIZE}
-      --innodb_log_buffer_size=${SQL_CONF_INNODB_LOG_BUFFER_SIZE}
-      --query_cache_size=${SQL_CONF_QUERY_CACHE_SIZE}
-      --max_connections=${SQL_CONF_MAX_CONNECTIONS}
-      --key_buffer_size=${SQL_CONF_KEY_BUFFER_SIZE}
-      --innodb_ft_cache_size=${SQL_CONF_INNODB_FT_CACHE_SIZE}
-      --innodb_ft_total_cache_size=${SQL_CONF_INNODB_FT_TOTAL_CACHE_SIZE}
-      --thread_stack=${SQL_CONF_THREAD_STACK}
-      --sort_buffer_size=${SQL_CONF_SORT_BUFFER_SIZE}
-      --read_buffer_size=${SQL_CONF_READ_BUFFER_SIZE}
-      --read_rnd_buffer_size=${SQL_CONF_READ_RND_BUFFER_SIZE}
-      --max_heap_table_size=${SQL_CONF_MAX_HEAP_TABLE_SIZE}
-      --tmp_table_size=${SQL_CONF_TMP_TABLE_SIZE}
-      --bulk_insert_buffer_size=${SQL_CONF_BULK_INSERT_BUFFER_SIZE}
-      --join_buffer_size=${SQL_CONF_JOIN_BUFFER_SIZE}
-      --net_buffer_length=${SQL_CONF_NET_BUFFER_LENGTH}
-      --innodb_sort_buffer_size=${SQL_CONF_INNODB_SORT_BUFFER_SIZE}
-      --binlog_cache_size=${SQL_CONF_BINLOG_CACHE_SIZE}
-      --binlog_stmt_cache_size=${SQL_CONF_BINLOG_STMT_CACHE_SIZE}
-
-  mysqltest:
-    image: mariadb:10.3
-    restart: unless-stopped
-    environment:
-      MYSQL_DATABASE: "${SQL_DATABASE}"
-      MYSQL_ROOT_PASSWORD: "${SQL_ROOT_PASSWORD}"
-    ports:
-      - 3307:3306
-    volumes:
-      - type: "${SQL_TEST_VOL_TYPE}"
-        target: /var/lib/mysql
-    command: >
-      --character-set-server=utf8mb4
-      --collation-server=utf8mb4_unicode_ci
-      --innodb_use_native_aio=off
-      --innodb_data_file_path=ibdata1:10M:autoextend:max:15360M
-      --innodb_flush_method=O_DIRECT
-      --innodb_write_io_threads=64
-      --innodb_read_io_threads=64
-      --sync_frm=0
-      --innodb_flush_log_at_trx_commit=0
-      --innodb_doublewrite=0
-      --innodb_checksum_algorithm=NONE
-      --innodb_log_file_size=256M
-      --innodb_buffer_pool_size=256M
-
-  elasticsearch2:
-    image: elasticsearch:2
-    restart: unless-stopped
-    environment:
-      ES_HEAP_SIZE: "${ES_MEMORY_LIMIT}"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    ports:
-      - 9202:9202
-      - 9302:9302
-    volumes:
-      - type: volume
-        source: es2data
-        target: /usr/share/elasticsearch/data
-    command: >
-      -Des.index.number_of_shards=1
-      -Des.index.number_of_replicas=0
-      -Des.node.local=true
-      -Des.bootstrap.memory_lock=true
-      -Des.xpack.monitoring.enabled=false
-      -Des.http.port=9202
+      --wait-timeout=${SQL_CONF_WAIT_TIMEOUT:-28800}
+      --interactive-timeout=${SQL_CONF_INTERACTIVE_TIMEOUT:-28800}
+      --innodb_buffer_pool_size=${SQL_CONF_INNODB_BUFFER_POOL_SIZE:-128M}
+      --innodb_log_buffer_size=${SQL_CONF_INNODB_LOG_BUFFER_SIZE:-1M}
+      --max_connections=${SQL_CONF_MAX_CONNECTIONS:-151}
+      --key_buffer_size=${SQL_CONF_KEY_BUFFER_SIZE:-8388608}
+      --innodb_ft_cache_size=${SQL_CONF_INNODB_FT_CACHE_SIZE:-8000000}
+      --innodb_ft_total_cache_size=${SQL_CONF_INNODB_FT_TOTAL_CACHE_SIZE:-640000000}
+      --thread_stack=${SQL_CONF_THREAD_STACK:-262144}
+      --sort_buffer_size=${SQL_CONF_SORT_BUFFER_SIZE:-262144}
+      --read_buffer_size=${SQL_CONF_READ_BUFFER_SIZE:-131072}
+      --read_rnd_buffer_size=${SQL_CONF_READ_RND_BUFFER_SIZE:-262144}
+      --max_heap_table_size=${SQL_CONF_MAX_HEAP_TABLE_SIZE:-16777216}
+      --tmp_table_size=${SQL_CONF_TMP_TABLE_SIZE:-16777216}
+      --bulk_insert_buffer_size=${SQL_CONF_BULK_INSERT_BUFFER_SIZE:-8388608}
+      --join_buffer_size=${SQL_CONF_JOIN_BUFFER_SIZE:-262144}
+      --net_buffer_length=${SQL_CONF_NET_BUFFER_LENGTH:-16384}
+      --innodb_sort_buffer_size=${SQL_CONF_INNODB_SORT_BUFFER_SIZE:-1M}
+      --binlog_cache_size=${SQL_CONF_BINLOG_CACHE_SIZE:-32K}
+      --binlog_stmt_cache_size=${SQL_CONF_BINLOG_STMT_CACHE_SIZE:-32K}
 
   elasticsearch:
-    build:
-      context: "${FACTOTUM_ELASTIC_DIR}"
-      dockerfile: "${FACTOTUM_DIR}/docker/dockerfiles/Dockerfile.elasticsearch"
-    image: factotum-elasticsearch
+    image: elasticsearch:6.7.2
     restart: unless-stopped
     environment:
       discovery.type: single-node
       bootstrap.memory_lock: "true"
       xpack.monitoring.enabled: "false"
-      ES_JAVA_OPTS: "-Xms${ES_MEMORY_LIMIT} -Xmx${ES_MEMORY_LIMIT}"
+      ES_JAVA_OPTS: "-Xms${ES_MEMORY_LIMIT:-1g} -Xmx${ES_MEMORY_LIMIT:-1g}"
     ulimits:
       memlock:
         soft: -1
@@ -142,83 +89,53 @@ services:
 
   logstash:
     build:
-      context: "${FACTOTUM_ELASTIC_DIR}"
-      dockerfile: "${FACTOTUM_DIR}/docker/dockerfiles/Dockerfile.logstash"
+      context: .
+      dockerfile: ../../dockerfiles/Dockerfile.logstash
+      args:
+        MYSQL_CONNECTOR_VERSION: ${MYSQL_CONNECTOR_VERSION:-8.0.17}
+        BRANCH: ${FACTOTUM_ELASTIC_BRANCH:-dev}
     image: factotum-logstash
     restart: "no"
     environment:
       ELASTICSEARCH_HOST: elasticsearch:9200
-      SQL_DATABASE: "${SQL_DATABASE}"
-      SQL_USER: "${SQL_USER}"
-      SQL_PASSWORD: "${SQL_PASSWORD}"
+      SQL_DATABASE: "${SQL_DATABASE:-factotum}"
+      SQL_USER: "${SQL_USER:-factotum}"
+      SQL_PASSWORD: "${SECRET_KEY}"
       SQL_HOST: mysql
       SQL_PORT: 3306
-
-      QUERIES_DIR: /usr/share/logstash/queries
-      LASTRUN_DIR: /usr/share/logstash/lastrun
-      JDBC_DRIVER_LIBRARY: "/opt/mysql-connector.jar"
       XPACK_MONITORING_ENABLED: "false"
-      LS_JAVA_OPTS: "-Xms${LS_MEMORY_LIMIT} -Xmx${LS_MEMORY_LIMIT}"
+      LS_JAVA_OPTS: "-Xms${LS_MEMORY_LIMIT:-1g} -Xmx${LS_MEMORY_LIMIT:-1g}"
     volumes:
       - type: volume
         source: lsdata
         target: /usr/share/logstash/data
-      - type: volume
-        source: lslastrun
-        target: /usr/share/logstash/lastrun
     depends_on:
       - elasticsearch
       - mysql
-
-  factotum:
-    build:
-      context: "${FACTOTUM_DIR}"
-      dockerfile: "${FACTOTUM_DIR}/docker/dockerfiles/Dockerfile.factotum"
-      target: dev
-    image: factotum
-    restart: unless-stopped
-    environment:
-      DJANGO_SECRET_KEY: "${DJANGO_SECRET_KEY}"
-      SQL_DATABASE: "${SQL_DATABASE}"
-      SQL_USER: "${SQL_USER}"
-      SQL_PASSWORD: "${SQL_PASSWORD}"
-      SQL_HOST: mysql
-      SQL_ROOT_PASSWORD: "${SQL_ROOT_PASSWORD}"
-      SQL_TEST_HOST: mysqltest
-      ES_HOST: elasticsearch2
-      ES_PORT: 9202
-    ports:
-      - 8000:8000
-    volumes:
-      - type: bind
-        source: "${FACTOTUM_DIR}"
-        target: /app
-    depends_on:
-      - mysql
-      - mysqltest
-      - elasticsearch2
-      - elasticsearch
 
   factotum-ws:
     build:
-      context: "${FACTOTUM_WS_DIR}"
-      dockerfile: "${FACTOTUM_DIR}/docker/dockerfiles/Dockerfile.factotum_ws"
-      target: dev
+      context: .
+      dockerfile: ../../dockerfiles/Dockerfile.factotum_ws
+      args:
+        BUILD_TYPE: ${FACTOTUM_WS_BUILD_TYPE:-prod}
+        BRANCH: ${FACTOTUM_WS_BRANCH:-dev}
     image: factotum-ws
     restart: unless-stopped
     environment:
+      FLASK_SECRET_KEY: ${SECRET_KEY}
       FLASK_ENV: development
-      FLASK_SECRET_KEY: "${FLASK_SECRET_KEY}"
-      FLASK_SQL_HOST: mysql
-      FLASK_SQL_USER: "${SQL_USER}"
-      FLASK_SQL_PASSWORD: "${SQL_PASSWORD}"
-      FLASK_SQL_DATABASE: "${SQL_DATABASE}"
-      FLASK_APPLICATION_ROOT: /app
+      FLASK_DEBUG: "true"
+      SQL_HOST: mysql
+      SQL_USER: "${SQL_USER:-factotum}"
+      SQL_PASSWORD: "${SECRET_KEY}"
+      SQL_DATABASE: "${SQL_DATABASE:-factotum}"
+      GUNICORN_CMD_ARGS: ${FACTOTUM_WS_GUNICORN_CMD_ARGS:---bind=0.0.0.0:5000 --workers=3 --forwarded-allow-ips="*"}
     ports:
       - 5000:5000
     volumes:
-      - type: bind
-        source: "${FACTOTUM_WS_DIR}"
-        target: /app
+      - type: volume
+        source: factotumwsstatic
+        target: /app/static
     depends_on:
       - mysql

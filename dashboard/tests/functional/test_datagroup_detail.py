@@ -149,7 +149,7 @@ class DataGroupDetailTest(TestCase):
             response.content.decode(),
             "Bulk create button should be present.",
         )
-        p = Product.objects.create(upc="stub_47", data_source=self.objects.ds)
+        p = Product.objects.create(upc="stub_47")
         ProductDocument.objects.create(document=doc, product=p)
         response = self.client.get(f"/datagroup/{self.objects.dg.pk}/")
         self.assertIsNone(

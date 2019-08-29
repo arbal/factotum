@@ -104,11 +104,9 @@ def link_product_list(
 
 
 @login_required()
-def link_product_form(
-    request, pk, template_name=("product_curation/" "link_product_form.html")
-):
+def link_product_form(request, pk):
+    template_name = "product_curation/link_product_form.html"
     doc = DataDocument.objects.get(pk=pk)
-    ds_id = doc.data_group.data_source_id
     initial = {
         "upc": (
             "stub_" + str(Product.objects.all().aggregate(Max("id"))["id__max"] + 1)
@@ -125,9 +123,7 @@ def link_product_form(
         if form.is_valid():
             upc = form["upc"].value()
             title = form["title"].value()
-            product, created = Product.objects.get_or_create(
-                upc=upc, data_source_id=ds_id
-            )
+            product, created = Product.objects.get_or_create(upc=upc)
             if created:
                 product.title = title
                 product.manufacturer = form["manufacturer"].value()
@@ -340,7 +336,6 @@ def product_update(
 @login_required()
 def product_delete(request, pk):
     p = Product.objects.get(pk=pk)
-    print(p)
     p.delete()
     return redirect("product_curation")
 

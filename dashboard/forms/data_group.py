@@ -1,3 +1,4 @@
+import sys
 import uuid
 import zipfile
 
@@ -18,8 +19,8 @@ class DGFormSet(BaseBulkFormSet):
     can_order = False
     can_delete = False
     min_num = 1
-    max_num = 600
-    absolute_max = 1600
+    max_num = sys.maxsize
+    absolute_max = sys.maxsize
     validate_min = True
     validate_max = True
 
@@ -189,20 +190,12 @@ class CleanCompFormSet(DGFormSet):
             Ingredient,
             fields=fields,
             translations={"id": "rawchem_ptr"},
+            required=fields,
             formfieldkwargs={
                 "script": {"queryset": Script.objects.filter(script_type="DC")}
             },
         )
         super().__init__(*args, **kwargs)
-
-    def clean(self):
-        csv_headers = set(self.data.bulk.fieldnames)
-        required_fields = set(self.dg.get_clean_comp_data_fieldnames())
-        missing_fields = required_fields - csv_headers
-        if missing_fields:
-            raise forms.ValidationError(
-                "The following CSV headers are missing: " + ", ".join(missing_fields)
-            )
 
     def save(self):
         rawchem_ptr_map = {
@@ -212,10 +205,8 @@ class CleanCompFormSet(DGFormSet):
             for f in self.forms
         }
         # The upd_fieldnames are the fields we are upating, so we'll
-        # again add our header fields, but also remove the id
+        # remove the id
         upd_fieldnames = set(self.dg.get_clean_comp_data_fieldnames())
-        for f in self.header_fields:
-            upd_fieldnames.add(f)
         upd_fieldnames.remove("id")
         with transaction.atomic():
             # Updates
@@ -226,14 +217,13 @@ class CleanCompFormSet(DGFormSet):
                 )
             ]
             for obj in ing_upd:
-                params = dict(rawchem_ptr_map[obj.rawchem_ptr_id])
-                params.pop("rawchem_ptr")
+                params = rawchem_ptr_map[obj.pk]
                 for key, value in params.items():
                     if key in upd_fieldnames:
                         setattr(obj, key, value)
             Ingredient.objects.bulk_update(ing_upd, list(upd_fieldnames))
             # Creates
-            upd_rawchem_ptr = set(i.rawchem_ptr_id for i in ing_upd)
+            upd_rawchem_ptr = set(i.rawchem_ptr for i in ing_upd)
             ing_new = []
             for f in self.forms:
                 rawchem_ptr = f.cleaned_data["id"].pk
@@ -254,7 +244,7 @@ class BulkAssignProdForm(forms.Form):
 
     def save(self):
         docs = DataDocument.objects.filter(data_group=self.dg, products=None).values(
-            "pk", "title", "extractedtext__prod_name", "data_group__data_source_id"
+            "pk", "title", "extractedtext__prod_name"
         )
         tmp_uuid = str(uuid.uuid4())
         prods = []
@@ -269,8 +259,7 @@ class BulkAssignProdForm(forms.Form):
                 title = doc["title"] + " stub"
             else:
                 title = "unknown"
-            data_source_id = doc["data_group__data_source_id"]
-            prods.append(Product(title=title, data_source_id=data_source_id, upc=upc))
+            prods.append(Product(title=title, upc=upc))
         with transaction.atomic():
             Product.objects.bulk_create(prods)
             created_prods = Product.objects.select_for_update().filter(

@@ -83,9 +83,6 @@ class ExtractedListPresenceTagAdmin(admin.ModelAdmin):
     list_filter = ("kind",)
 
 
-class ExtractedListPresenceTagAdmin(admin.ModelAdmin):
-    list_filter = ('kind',)  
-
 class PUCToTagAdmin(admin.ModelAdmin):
     list_display = ("content_object", "tag", "assumed")
     list_filter = ("tag",)

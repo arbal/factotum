@@ -169,6 +169,8 @@ urlpatterns = [
         views.ListPresenceTagAutocomplete.as_view(),
         name="list_presence_tags_autocomplete",
     ),
+    path("search/", include("haystack.urls")),
+    path("find/", views.search.FacetedSearchView.as_view(), name="haystack_search"),
     path("p_json/", views.product_ajax, name="p_ajax_url"),
     path("pucs/", views.puc_list, name="puc_list"),
     path("puc/<int:pk>/", views.puc_detail, name="puc_detail"),
@@ -180,7 +182,7 @@ urlpatterns = [
         views.download_raw_chems_dg,
         name="download_raw_chems_dg",
     ),
-    path("dsstox/<str:sid>/", views.dsstox_lookup_detail, name="dsstox_lookup"),
+    path("chemical/<str:sid>/", views.dsstox_lookup_detail, name="dsstox_lookup"),
     path(
         "habitsandpractices/<int:pk>/",
         views.habitsandpractices,
@@ -192,6 +194,7 @@ urlpatterns = [
         name="link_habitsandpractices",
     ),
     path("get_data/", views.get_data, name="get_data"),
+    path("bulk_documents/", views.BulkDocuments.as_view(), name="bulk_documents"),
     path("dl_chem_summary/", views.download_chem_stats, name="download_chem_stats"),
     path("upload/dtxsid_csv/", views.upload_dtxsid_csv, name="upload_dtxsid_csv"),
     path(
@@ -234,8 +237,12 @@ urlpatterns = [
         "chemical/<int:doc>/create/", views.ChemCreateView.as_view(), name="chem-create"
     ),
     path("chemical/<pk>/edit/", views.ChemUpdateView.as_view(), name="chem-update"),
+    path(
+        "list_presence_tag/delete/<int:doc_pk>/<int:chem_pk>/<int:tag_pk>/",
+        views.list_presence_tag_delete,
+        name="list_presence_tag_delete",
+    ),
     path("search/<str:model>/", views.search_model, name="search-model"),
-
 ]
 
 if settings.DEBUG is True:

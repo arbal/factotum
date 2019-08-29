@@ -154,3 +154,4 @@ src/
 
 # docker
 /docker/compositions/elk/docker.settings_secret.py
+/mysql.cnf

@@ -23,6 +23,7 @@ from dashboard.models import (
     ExtractedText,
     Script,
     ExtractedListPresenceToTag,
+    ExtractedListPresenceTag,
     ExtractedChemical,
     ExtractedFunctionalUse,
     RawChem,
@@ -40,7 +41,7 @@ def data_document_detail(request, pk):
     lp = ExtractedListPresence.objects.filter(
         extracted_text=ext if ext else None
     ).first()
-    tag_form = ExtractedListPresenceTagForm(instance=lp)
+    tag_form = ExtractedListPresenceTagForm()
     context = {
         "doc": doc,
         "extracted_text": ext,
@@ -155,9 +156,10 @@ def save_list_presence_tag_form(request, pk):
     referer = request.POST.get("referer", "data_document")
     extracted_text = get_object_or_404(ExtractedText, pk=pk)
     tag_form = None
-    for extracted_list_presence in extracted_text.rawchem.select_subclasses(
-        "extractedlistpresence"
-    ):
+    values = request.POST.get("chems")
+    chems = [int(chem) for chem in values.split(",")]
+    selected = extracted_text.rawchem.filter(pk__in=chems).select_subclasses()
+    for extracted_list_presence in selected:
         tag_form = ExtractedListPresenceTagForm(
             request.POST or None, instance=extracted_list_presence
         )
@@ -229,3 +231,14 @@ def list_presence_tag_curation(request):
     return render(
         request, "data_document/list_presence_tag.html", {"documents": documents}
     )
+
+
+@login_required
+def list_presence_tag_delete(request, doc_pk, chem_pk, tag_pk):
+    elp = ExtractedListPresence.objects.get(pk=chem_pk)
+    tag = ExtractedListPresenceTag.objects.get(pk=tag_pk)
+    ExtractedListPresenceToTag.objects.get(content_object=elp, tag=tag).delete()
+    card = f"#chem-{chem_pk}"
+    url = reverse("data_document", args=[doc_pk])
+    url += card
+    return redirect(url)

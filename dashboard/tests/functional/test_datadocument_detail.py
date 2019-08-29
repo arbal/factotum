@@ -45,7 +45,7 @@ class DataDocumentDetailTest(TestCase):
         """
         ddid = 7
         resp = self.client.get(f"/datadocument/%s/" % ddid)
-        self.assertIn("href=/dsstox/DTXSID2021781/", resp.content.decode("utf-8"))
+        self.assertIn("href=/chemical/DTXSID2021781/", resp.content.decode("utf-8"))
         # Any curated chemicals should also be linked to COMPTOX
         self.assertIn(
             "https://comptox.epa.gov/dashboard/dsstoxdb/results?search=DTXSID2021781",
@@ -300,7 +300,12 @@ class TestDynamicDetailFormsets(TestCase):
                         path=reverse(
                             "save_list_presence_tag_form", kwargs={"pk": doc.pk}
                         ),
-                        data={"tags": "after_shave,agrochemical,flavor,slimicide"},
+                        data={
+                            "tags": "after_shave,agrochemical,flavor,slimicide",
+                            "chems": doc.extractedtext.rawchem.values_list(
+                                "pk", flat=True
+                            ),
+                        },
                     )
                     # Total number of tags should not have changed
                     self.assertEqual(

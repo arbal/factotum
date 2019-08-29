@@ -109,6 +109,10 @@
                             href="{% url 'bulk_product_tag' %}">
                             Bulk Assign Products to Attributes
                         </a>
+                        <a  class="dropdown-item"
+                            href="{% url 'bulk_documents' %}">
+                            Bulk Document Processing
+                        </a>
                     </div>
                 </li>
                 {% to_list 'qa_extractionscript_index' 'qa_chemicalpresence_index' as qa_list %}

@@ -235,9 +235,7 @@ class DataGroup(CommonInfo):
             return False
 
     def include_bulk_assign_form(self):
-        return (
-            self.datadocument_set.filter(products=None).exists() and self.is_composition
-        )
+        return self.datadocument_set.filter(products=None).exists()
 
     def include_upload_docs_form(self):
         return self.datadocument_set.filter(matched=False).exists()

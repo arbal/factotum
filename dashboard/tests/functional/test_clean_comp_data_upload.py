@@ -120,7 +120,7 @@ class UploadExtractedFileTest(TestCase):
         req.session.save()
         req.user = User.objects.get(username="Karyn")
         resp = views.data_group_detail(request=req, pk=6)
-        self.assertContains(resp, "The following CSV headers are missing")
+        self.assertContains(resp, "This field is required")
 
     def test_invalid_clean_comp_data_upload(self):
         sample_csv = self.generate_invalid_clean_comp_data_csv_string()

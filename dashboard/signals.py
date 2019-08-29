@@ -75,7 +75,6 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
         shutil.rmtree(dg_folder, ignore_errors=True)
 
 
-
 @receiver(models.signals.post_delete, sender=ProductDocument)
 def auto_delete_orphaned_products_on_delete(sender, instance, **kwargs):
     """

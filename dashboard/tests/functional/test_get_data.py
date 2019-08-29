@@ -6,10 +6,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from dashboard.models import PUC, Product, ProductToPUC, ProductDocument, DSSToxLookup
 from dashboard.views.get_data import *
-from django.test import TestCase
-from django.test.client import Client
 
-from dashboard.views.get_data import *
 from dashboard.tests.loader import fixtures_standard
 
 
@@ -54,7 +51,7 @@ class TestGetData(TestCase):
 
         ds = dd.data_group.data_source
         p = Product.objects.create(
-            data_source=ds, title="Test Product", upc="Test UPC for ProductToPUC"
+            title="Test Product", upc="Test UPC for ProductToPUC"
         )
         pd = ProductDocument.objects.create(document=dd, product=p)
         dd.refresh_from_db()
@@ -166,7 +163,7 @@ class TestGetData(TestCase):
 
         ds = dd.data_group.data_source
         p = Product.objects.create(
-            data_source=ds, title="Test Product", upc="Test UPC for ProductToPUC"
+            title="Test Product", upc="Test UPC for ProductToPUC"
         )
         pd = ProductDocument.objects.create(document=dd, product=p)
         pd.save()

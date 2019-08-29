@@ -16,7 +16,7 @@ class ExtractedListPresenceTagForm(autocomplete.FutureModelForm):
         self.fields["tags"].widget.attrs.update(
             {"class": "mr-2 ml-2", "style": "width:60%", "data-minimum-input-length": 3}
         )
-        self.fields["tags"].label = "List Presence Keywords"
+        self.fields["tags"].label = ""
         self.fields["tags"].help_text = ""
 
     def clean(self):
@@ -24,6 +24,8 @@ class ExtractedListPresenceTagForm(autocomplete.FutureModelForm):
             "name", flat=True
         )
         self.invalid_tags = []
+        existing_tags = list(self.instance.tags.values_list("name", flat=True))
+        self.cleaned_data["tags"] += existing_tags
         for tag in self.cleaned_data["tags"]:
             if tag in valid_tag_list:
                 pass

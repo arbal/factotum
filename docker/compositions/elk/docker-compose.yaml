@@ -2,50 +2,21 @@ version: '3.5'
 
 
 volumes:
-  es2data:
   esdata:
   lsdata:
-  lslastrun:
   kibanadata:
   kibanaoptdata:
 
 
 services:
-  elasticsearch2:
-    image: elasticsearch:2
-    restart: unless-stopped
-    environment:
-      ES_HEAP_SIZE: "${ES_MEMORY_LIMIT}"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    ports:
-      - 9202:9202
-      - 9302:9302
-    volumes:
-      - type: volume
-        source: es2data
-        target: /usr/share/elasticsearch/data
-    command: >
-      -Des.index.number_of_shards=1
-      -Des.index.number_of_replicas=0
-      -Des.node.local=true
-      -Des.bootstrap.memory_lock=true
-      -Des.xpack.monitoring.enabled=false
-      -Des.http.port=9202
-
   elasticsearch:
-    build:
-      context: "${FACTOTUM_ELASTIC_DIR}"
-      dockerfile: "${FACTOTUM_DIR}/docker/dockerfiles/Dockerfile.elasticsearch"
-    image: factotum-elasticsearch
+    image: elasticsearch:6.7.2
     restart: unless-stopped
     environment:
       discovery.type: single-node
       bootstrap.memory_lock: "true"
       xpack.monitoring.enabled: "false"
-      ES_JAVA_OPTS: "-Xms${ES_MEMORY_LIMIT} -Xmx${ES_MEMORY_LIMIT}"
+      ES_JAVA_OPTS: "-Xms${ES_MEMORY_LIMIT:-1g} -Xmx${ES_MEMORY_LIMIT:-1g}"
     ulimits:
       memlock:
         soft: -1
@@ -78,8 +49,11 @@ services:
 
   logstash:
     build:
-      context: "${FACTOTUM_ELASTIC_DIR}"
-      dockerfile: "${FACTOTUM_DIR}/docker/dockerfiles/Dockerfile.logstash"
+      context: .
+      dockerfile: ../../dockerfiles/Dockerfile.logstash
+      args:
+        MYSQL_CONNECTOR_VERSION: ${MYSQL_CONNECTOR_VERSION:-8.0.17}
+        BRANCH: ${FACTOTUM_ELASTIC_BRANCH:-dev}
     image: factotum-logstash
     restart: "no"
     environment:
@@ -87,19 +61,13 @@ services:
       SQL_DATABASE: "${SQL_DATABASE}"
       SQL_USER: "${SQL_USER}"
       SQL_PASSWORD: "${SQL_PASSWORD}"
-      SQL_HOST: host.docker.internal
-      SQL_PORT: 3306
-      QUERIES_DIR: /usr/share/logstash/queries
-      LASTRUN_DIR: /usr/share/logstash/lastrun
-      JDBC_DRIVER_LIBRARY: "/opt/mysql-connector.jar"
+      SQL_HOST: "${SQL_HOST:-host.docker.internal}"
+      SQL_PORT: "${SQL_PORT:-3306}"
       XPACK_MONITORING_ENABLED: "false"
-      LS_JAVA_OPTS: "-Xms${LS_MEMORY_LIMIT} -Xmx${LS_MEMORY_LIMIT}"
+      LS_JAVA_OPTS: "-Xms${LS_MEMORY_LIMIT:-1g} -Xmx${LS_MEMORY_LIMIT:-1g}"
     volumes:
       - type: volume
         source: lsdata
         target: /usr/share/logstash/data
-      - type: volume
-        source: lslastrun
-        target: /usr/share/logstash/lastrun
     depends_on:
       - elasticsearch

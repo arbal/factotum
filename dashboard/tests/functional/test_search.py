@@ -113,7 +113,10 @@ class TestSearch(TestCase):
         expected_total = "66 products returned"
         self.assertIn(expected_total, total_took)
 
-        qs = self._get_query_str("Homax Tough As Tile One Part, Brush-On Kit", {"product_brandname": ["Rust-Oleum"]})
+        qs = self._get_query_str(
+            "Homax Tough As Tile One Part, Brush-On Kit",
+            {"product_brandname": ["Rust-Oleum"]},
+        )
         response = self.client.get("/search/product/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
         total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')

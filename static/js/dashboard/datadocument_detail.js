@@ -6,8 +6,8 @@ $(document).ready(function () {
   $('.scroll-div').css('max-height', scroll_height);
 });
 
-// add click event to bring active element into focus when many chems
-$('[id^=chem-] div').click(function (e) {
+$('[id^=chem-click-]').click(function (e) {
+  // add click event to bring active element into focus when many chems
   $("#scroll-nav").animate({
     scrollTop: $(".active p").offset().top - $("#scroll-nav").offset().top + $("#scroll-nav")
       .scrollTop() - 47
@@ -22,3 +22,13 @@ $("#chem-scrollspy").ready(function () {
   }
 });
 
+// add color to elements on hover...
+$('.hover').mouseover(function () {
+  $(this).removeClass("btn-outline-secondary");
+  $(this).addClass("btn-" + this.name);
+})
+
+$('.hover').mouseout(function () {
+  $(this).removeClass("btn-" + this.name);
+  $(this).addClass("btn-outline-secondary");
+})

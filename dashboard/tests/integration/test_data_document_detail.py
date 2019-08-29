@@ -1,12 +1,6 @@
 from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from dashboard.models import (
-    RawChem,
-    ExtractedListPresenceToTag,
-    DataDocument,
-    ExtractedText,
-)
-from django.urls import reverse
+from dashboard.models import DataDocument, ExtractedText
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -44,17 +38,29 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         """
         doc = DataDocument.objects.get(pk=254781)
         wait = WebDriverWait(self.browser, 10)
-        self.browser.get(
-            self.live_server_url + reverse("data_document", kwargs={"pk": doc.pk})
+        self.browser.get(self.live_server_url + doc.get_absolute_url())
+        card = self.browser.find_element_by_id(
+            f"chem-click-{doc.extractedtext.rawchem.first().pk}"
         )
-        # We should start with 2 tags for this document
-        tags = self.browser.find_element_by_xpath(
-            '//*[@id="id_tags"][count(option) = 2]'
-        )
+        count_span = self.browser.find_element_by_id("selected")
         self.assertTrue(
-            tags,
-            "Listpresence records for this doc should begin with 2 associated keywords",
+            count_span.text == "0", "User should see number of selected cards."
         )
+        tags = card.find_elements_by_class_name("tag-btn")
+        # We should start with 2 tags for this document
+        self.assertEqual(
+            [t.text for t in tags],
+            ["flavor", "slimicide"],
+            "Tags should be labelled in card.",
+        )
+        save_button = self.browser.find_element_by_id("keyword-save")
+        self.assertFalse(save_button.is_enabled())
+        card.click()
+        self.assertTrue(save_button.is_enabled())
+        self.assertTrue(
+            count_span.text == "1", "User should see number of selected cards."
+        )
+
         input_el = self.browser.find_element_by_xpath(
             '//*[@id="id_tags"]/following-sibling::span[1]/descendant::input[1]'
         )
@@ -68,23 +74,13 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             "//*[@id='select2-id_tags-results']/li[1]"
         )
         option.click()
-        btn_save = self.browser.find_element_by_xpath(
-            '//*[@id="cards"]/div[1]/form/button'
-        )
-        btn_save.click()
-        # Check in the ORM to see if the keyword has been associated with
-        # the ExtractedListPresence records
-        elp_id = RawChem.objects.filter(extracted_text_id=254781).first().id
-        elp_keyword_count = ExtractedListPresenceToTag.objects.filter(
-            content_object_id=elp_id
-        ).count()
-        self.assertEqual(elp_keyword_count, 3)
-        tags = self.browser.find_element_by_xpath(
-            '//*[@id="id_tags"][count(option) = 3]'
-        )
-        self.assertTrue(
-            tags,
-            "Listpresence records for this doc should now have 3 associated keywords",
+        save_button.click()
+        card = self.browser.find_element_by_id("chem-click-759")
+        tags = card.find_elements_by_class_name("tag-btn")
+        self.assertEqual(
+            [t.text for t in tags],
+            ["flavor", "pesticide", "slimicide"],
+            "Tags should be labelled in card.",
         )
 
     def test_datadoc_add_extracted(self):

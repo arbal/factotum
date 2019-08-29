@@ -112,7 +112,7 @@ def load_model_objects():
     doc = DataDocument.objects.create(
         title="test document", data_group=dg, document_type=dt, filename="example.pdf"
     )
-    p = Product.objects.create(data_source=ds, upc="Test UPC for ProductToPUC")
+    p = Product.objects.create(upc="Test UPC for ProductToPUC")
 
     puc = PUC.objects.create(
         gen_cat="Test General Category",

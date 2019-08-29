@@ -1,0 +1,47 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% block title %}Download Bulk Documents{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row pb-3">
+        <div class="col-12">
+            <h1>Bulk Document Processing</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Upload document ids to download</h3>
+                    <form action="{% url "bulk_documents" %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ formset.management_form }}
+                        <div class="form-group">
+                            <label for="form-bulkformsetfileupload">
+                                Upload a csv of data document IDs with the header &ldquo;id&rdquo;.
+                                The pdfs for those documents will be returned in a zip archive.
+                            </label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="form-bulkformsetfileupload" accept="text/csv, .csv" required>
+                                <label class="custom-file-label" for="form-bulkformsetfileupload">
+                                    Choose file...
+                                </label>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">
+                            <span class="fa fa-upload mr-2"></span>Upload
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+{% block js %}
+<script src="{% static 'js/dashboard/bootstrap-filepicker.js' %}"></script>
+{% endblock %}

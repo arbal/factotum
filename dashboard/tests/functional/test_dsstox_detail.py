@@ -15,7 +15,7 @@ class DSSToxDetail(TestCase):
 
     def test_dsstox_detail(self):
         dss = next(dss for dss in DSSToxLookup.objects.all() if dss.puc_count > 0)
-        response = self.client.get(f"/dsstox/{dss.sid}/")
+        response = self.client.get(dss.get_absolute_url())
         self.assertEqual(
             dss.puc_count,
             len(response.context["pucs"]),
@@ -34,7 +34,7 @@ class DSSToxDetail(TestCase):
         puc = PUC.objects.filter(products__in=pdocs.values("product")).first()
         self.assertContains(response, str(puc))
         dss = next(dss for dss in DSSToxLookup.objects.all() if dss.puc_count < 1)
-        response = self.client.get(f"/dsstox/{dss.sid}/")
+        response = self.client.get(dss.get_absolute_url())
         self.assertEqual(
             dss.puc_count,
             len(response.context["pucs"]),
@@ -48,7 +48,7 @@ class DSSToxDetail(TestCase):
         ep_prods = ProductDocument.objects.from_chemical(dss).values_list("product_id")
         ProductToPUC.objects.filter(product_id__in=ep_prods).update(puc_id=210)
 
-        response = self.client.get(f"/dsstox/{dss.sid}/")
+        response = self.client.get(dss.get_absolute_url())
         self.assertEqual(
             1,
             len(response.context["pucs"]),
@@ -66,7 +66,7 @@ class DSSToxDetail(TestCase):
 
     def test_cp_keyword_set(self):
         dss = DSSToxLookup.objects.get(sid="DTXSID9020584")
-        response = self.client.get(f"/dsstox/{dss.sid}/")
+        response = self.client.get(dss.get_absolute_url())
         self.assertGreater(
             len(response.context["tagDict"]),
             0,

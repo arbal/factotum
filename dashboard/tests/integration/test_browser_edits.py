@@ -364,7 +364,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
     def test_dtxsid_bubble_plot(self):
         dss = next(dss for dss in DSSToxLookup.objects.all() if dss.puc_count > 0)
-        self.browser.get(self.live_server_url + f"/dsstox/{dss.sid}/")
+        self.browser.get(self.live_server_url + dss.get_absolute_url())
         import time
 
         time.sleep(3)

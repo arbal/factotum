@@ -1,26 +1,25 @@
 FROM logstash:6.7.2
 
-ENV MYSQL_CONNECTOR_VERSION="5.1.47"
+ARG MYSQL_CONNECTOR_VERSION
+ARG BRANCH
 
+ENV JDBC_DRIVER_LIBRARY="" \
+    LASTRUN_DIR="/usr/share/logstash/lastrun" \
+    QUERIES_DIR="/usr/share/logstash/queries"
 
-RUN rm /usr/share/logstash/pipeline/logstash.conf
+ADD https://repo1.maven.org/maven2/mysql/mysql-connector-java/"${MYSQL_CONNECTOR_VERSION}"/mysql-connector-java-"${MYSQL_CONNECTOR_VERSION}".jar /usr/share/logstash/logstash-core/lib/jars/mysql-connector.jar
+ADD https://github.com/HumanExposure/factotum_elastic/archive/"${BRANCH}".tar.gz /tmp/factotum_elastic.tar.gz
 
 USER root
-RUN mkdir /usr/share/logstash/lastrun \
-&& chown logstash:logstash /usr/share/logstash/lastrun \
-&& yum install -y \
-
-    iproute \
-    sudo \
- && yum clean all \
- && echo 'logstash ALL=(ALL) NOPASSWD: ALL' | EDITOR='tee -a' visudo \
- && sed -i '2 i if [ -z "$(getent hosts host.docker.internal | cut -d'\'' '\'' -f1)" ]; then' /usr/local/bin/docker-entrypoint \
- && sed -i '3 i \ \ echo -e "\`/sbin/ip route | awk '\''/default/ { print $3 }'\''\`\\thost.docker.internal" | sudo tee -a /etc/hosts > /dev/null' /usr/local/bin/docker-entrypoint \
- && sed -i '4 i fi' /usr/local/bin/docker-entrypoint
-
-ADD --chown=logstash "https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_CONNECTOR_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar" /opt/mysql-connector.jar
-ADD --chown=logstash ./pipelines/* /usr/share/logstash/pipeline/
-ADD --chown=logstash ./queries /usr/share/logstash/queries
+RUN chown logstash /tmp/factotum_elastic.tar.gz \
+ && chown logstash /usr/share/logstash/logstash-core/lib/jars/mysql-connector.jar \
+ && chmod 664 /usr/share/logstash/logstash-core/lib/jars/mysql-connector.jar
 
 USER logstash
-
+RUN mkdir "${LASTRUN_DIR}" \
+ && tar xzf /tmp/factotum_elastic.tar.gz -C /tmp \
+ && mv /tmp/factotum_elastic-"${BRANCH}"/pipelines/* /usr/share/logstash/pipeline \
+ && mv /tmp/factotum_elastic-"${BRANCH}"/queries "${QUERIES_DIR}" \
+ && rm /tmp/factotum_elastic.tar.gz \
+ && rm -rf /tmp/factotum_elastic-"${BRANCH}" \
+ && rm /usr/share/logstash/pipeline/logstash.conf

@@ -9,9 +9,6 @@ from .source_category import SourceCategory
 
 
 class Product(CommonInfo):
-    data_source = models.ForeignKey(
-        DataSource, related_name="source", on_delete=models.CASCADE
-    )
     documents = models.ManyToManyField(
         through="dashboard.ProductDocument", to="dashboard.DataDocument"
     )

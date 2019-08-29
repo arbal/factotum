@@ -1,26 +1,14 @@
 <div class="col-lg-7 scroll-div bg-light shadow rounded"
-     id="cards"
-     data-spy="scroll"
-     data-target="#chem-scrollspy"
-     data-offset="10">
-    {% if list_presence_tag_form %}
-    <div class="card card-body col-10 mt-2 mx-auto">
-        <form class="form-inline"
-              action="{% url 'save_list_presence_tag_form' doc.id %}"
-              method="post">
-            {% csrf_token %}
-            {{ list_presence_tag_form }}
-            <button class="btn btn-primary"
-                    type="submit">
-                Save
-            </button>
-        </form>
-    </div>
-    {% elif not chemicals %}
+    id="cards"
+    data-spy="scroll"
+    data-target="#chem-scrollspy"
+    data-offset="120">
+    {% if not chemicals %}
     <div class="card mt-2 text-center">
         There are no chemicals associated with this document.
     </div>
-    {% endif %} {% for chemical in chemicals %}
+    {% endif %}
+    {% for chemical in chemicals %}
     <div class="card mt-2 big-bottom"
          id="chem-{{ chemical.pk }}">
         {% if chemical.dsstox %}
@@ -40,7 +28,9 @@
             </div>
         </div>
         {% endif %}
-        <div class="card-body shadow rounded">
+        <div class="card-body shadow rounded"
+             id="chem-click-{{ chemical.pk }}"
+             data-chem-id="{{ chemical.pk }}">
             <div class="card-title border-bottom">
                 <h3 class="d-inline"
                     title="{{ chemical.raw_chem_name.value }}"
@@ -84,7 +74,9 @@
             </div>
             <!-- card -->
             <div class="card-text">
-                <ul> {% if doc.data_group.is_composition %} <li>
+                {% if doc.data_group.is_composition %} 
+                <ul> 
+                    <li>
                         <b>{{ chemical.raw_min_comp_label }}</b>
                         <p>{{ chemical.raw_min_comp }}</p>
                     </li>
@@ -111,7 +103,10 @@
                     <li>
                         <b>{{ chemical.weight_fraction_type_label }}</b>
                         <p>{{ chemical.weight_fraction_type }}</p>
-                    </li> {% elif doc.data_group.is_hh %} <li>
+                    </li> 
+                {% elif doc.data_group.is_hh %}
+                <ul> 
+                    <li>
                         <b>{{ chemical.media_label }}</b>
                         <p>{{ chemical.media }}</p>
                     </li>
@@ -130,18 +125,26 @@
                     <li>
                         <b>{{ chemical.analytical_method_label }}</b>
                         <p>{{ chemical.analytical_method }}</p>
-                    </li> {% else %} <li>
+                    </li>
+                </ul>
+                {% else %}
+                <div class="row">
+                    <div class="col-md-9">
                         <b>{{ chemical.report_funcuse_label }}</b>
                         <p>{{ chemical.report_funcuse }}</p>
-                    </li> {% endif %}
-                </ul>
+                    </div>
+                    {% if doc.data_group.is_chemical_presence %}
+                        {% include 'data_document/lp_tag_buttons.html' %}
+                    {% endif %}
+                </div>
+                {% endif %}
             </div>
         </div>
         <div class="modal fade"
-             id="chem-delete-{{ chemical.pk }}"
-             tabindex="-1" role="dialog"
-             aria-labelledby="extextModalLabel"
-             aria-hidden="true">
+            id="chem-delete-{{ chemical.pk }}"
+            tabindex="-1" role="dialog"
+            aria-labelledby="extextModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered"
                  role="document">
                 <div class="modal-content">

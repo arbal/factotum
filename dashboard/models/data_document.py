@@ -96,7 +96,7 @@ class DataDocument(CommonInfo):
     def pdf_url(self):
         dg = self.data_group
         fn = self.get_abstract_filename()
-        return f"/media/{dg.fs_id}/pdf/{fn}"
+        return f"./media/{dg.fs_id}/pdf/{fn}"
 
     def clean(self):
         # the document_type must be one of the children types

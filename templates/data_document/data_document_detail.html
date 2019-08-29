@@ -102,6 +102,44 @@
             {% endif %}
             {% endif %}
         </div>
+        {% if list_presence_tag_form %}
+        <hr>
+        <div class="">
+            <form class="form-inline p-0"
+                action="{% url 'save_list_presence_tag_form' doc.id %}"
+                method="post">
+                {% csrf_token %}
+                <h5 class="">
+                    <b>List Presence Keywords</b>
+                <div class="btn-group float-right ml-3"
+                    role="group"
+                    aria-label="Data Document Modification">
+                    <a class="btn btn-sm btn-outline-secondary hover"
+                        role="button"
+                        id="select-all-chems"
+                        title="Select All Chemicals"
+                        data-toggle="tooltip"
+                        name="info">
+                        <i id="select-all" class="fas fa-object-group"></i>
+                        <i id="select-none" class="far fa-object-ungroup d-none"></i>
+                    </a>
+                    <button class="btn btn-sm btn-outline-secondary hover"
+                            id="keyword-save"
+                            title="save"
+                            data-toggle="tooltip"
+                            type="submit"
+                            name="success"
+                            disabled>
+                        <i class="far fa-save"></i>
+                    </button>
+                </div>
+            </h5>
+                {{ list_presence_tag_form }}
+                <input type="hidden" name="chems" value="" id="id_chems">
+            </form>
+            <p class="text-center text-muted"><span id="selected">0</span> of {{ chemicals|length }} Chemicals Selected</p>
+        </div>
+        {% endif %}
         {% if not doc.data_group.is_habits_and_practices %}
         <hr>
         <div>
@@ -327,6 +365,9 @@
 {% block js %}
 <script src="{% static 'js/dashboard/toggle_text.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail.js' %}"></script>
+{% if doc.data_group.is_chemical_presence %}
+<script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail_CP.js' %}"></script>
+{% endif %}
 <script src="{% static 'js/jquery.form.js' %}"></script>
 <script type="text/javascript">
     $('#chemical-add-modal').on('show.bs.modal', function (event) {

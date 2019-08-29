@@ -1,0 +1,67 @@
+<div class="col-md-3">
+    <div class="d-flex flex-column bd-highlight mb-3">
+        {% for tag in chemical.tags.all %}
+        <div class="btn-group ml-auto" 
+            role="group">
+            <button
+                type="button" 
+                class="btn btn-sm tag-btn btn-outline-dark mb-1"
+                disabled>
+                {{ tag }}
+            </button>
+            <button type="button"
+                title="delete keyword"
+                data-toggle="modal"
+                data-target="#tag-delete-{{ chemical.pk }}-{{ tag.pk }}"
+                class="btn btn-sm btn-outline-secondary hover mb-1"
+                name="danger">
+                <span class="fa fa-fs fa-trash"></span>
+            </button>
+        </div>
+        <div class="modal fade"
+            id="tag-delete-{{ chemical.pk }}-{{ tag.pk }}"
+            tabindex="-1" role="dialog"
+            aria-labelledby="extextModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered"
+                role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{% url 'list_presence_tag_delete' doc.pk chemical.pk tag.pk %}"
+                            method="post">
+                        {% csrf_token %}
+                        <div
+                            class="modal-body">
+                            Are you sure you want to delete 
+                            <button type="button"
+                                    class="btn btn-primary"
+                                    disabled> 
+                                {{ tag }} 
+                            </button>
+                            from "{{ chemical }}" ?
+                        </div>
+                        <div class="modal-footer">
+                            <button id="chemical-modal-cancel"
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-dismiss="modal"> Cancel </button>
+                            <button id="chemical-modal-save"
+                                    type="submit"
+                                    class="btn btn-primary">
+                                Delete
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

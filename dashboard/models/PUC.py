@@ -10,7 +10,7 @@ from django.apps import apps
 
 from dashboard.models import ProductDocument
 from django.db.models import Count, Sum
-
+from .raw_chem import RawChem
 
 class PUC(CommonInfo):
     KIND_CHOICES = (
@@ -100,13 +100,12 @@ class PUC(CommonInfo):
 
     @property
     def curated_chemical_count(self):
-        return (
-            ProductDocument.objects.filter(product__in=self.products.all())
-            .annotate(doc_chem_count=Count("document__extractedtext__rawchem__dsstox"))
-            .aggregate(chem_count=Sum("doc_chem_count"))["chem_count"]
-            or 0
-        )
-
+        docs = ProductDocument.objects.filter(product__in=self.products.all())
+        chems = (RawChem.objects.filter(extracted_text__data_document__in=docs.values_list('document',flat=True))
+                .annotate(chems=Count('dsstox',distinct=True))
+                .aggregate(chem_count=Sum("chems")))
+        return (chems['chem_count'] or 0)
+        
     @property
     def document_count(self):
         return (
