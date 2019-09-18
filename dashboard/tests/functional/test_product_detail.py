@@ -138,3 +138,30 @@ class TestProductDetail(TestCase):
         self.assertEqual(
             count, 2, ("Both prod_fam and prod_type should" "not be specified.")
         )
+
+    def _get_icon_span(self, html, doc):
+        return html.xpath("//a[contains(@href, '%s')]/span" % doc)[0].values()[0]
+
+    def test_icons(self):
+        response = self.client.get("/product/1872/")
+        response_html = html.fromstring(response.content.decode("utf8"))
+        icon_span = self._get_icon_span(response_html, "173396.doc")
+        self.assertEqual("fa fa-fs fa-file-word", icon_span)
+        icon_span = self._get_icon_span(response_html, "173824.jpg")
+        self.assertEqual("fa fa-fs fa-file-image", icon_span)
+        icon_span = self._get_icon_span(response_html, "174238.docx")
+        self.assertEqual("fa fa-fs fa-file-word", icon_span)
+        icon_span = self._get_icon_span(response_html, "176163.misc")
+        self.assertEqual("fa fa-fs fa-file", icon_span)
+        icon_span = self._get_icon_span(response_html, "176257.tiff")
+        self.assertEqual("fa fa-fs fa-file-image", icon_span)
+        icon_span = self._get_icon_span(response_html, "177774.xlsx")
+        self.assertEqual("fa fa-fs fa-file-excel", icon_span)
+        icon_span = self._get_icon_span(response_html, "177852.csv")
+        self.assertEqual("fa fa-fs fa-file-csv", icon_span)
+        icon_span = self._get_icon_span(response_html, "178456.xls")
+        self.assertEqual("fa fa-fs fa-file-excel", icon_span)
+        icon_span = self._get_icon_span(response_html, "178496.txt")
+        self.assertEqual("fa fa-fs fa-file-alt", icon_span)
+        icon_span = self._get_icon_span(response_html, "172462.pdf")
+        self.assertEqual("fa fa-fs fa-file-pdf", icon_span)

@@ -43,6 +43,7 @@ fixtures_standard = [
     "13_puc_tag",
     "14_list_presence_tag",
     "15_list_presence_to_tag",
+    "16_ingredient",
 ]
 
 datadocument_models = {

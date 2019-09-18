@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.http import HttpResponse
-from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView
@@ -27,6 +26,7 @@ from dashboard.models import (
     ExtractedChemical,
     ExtractedFunctionalUse,
     RawChem,
+    Ingredient,
 )
 
 
@@ -38,6 +38,9 @@ def data_document_detail(request, pk):
     Parent, Child = get_extracted_models(doc.data_group.group_type.code)
     ext = Parent.objects.filter(pk=doc.pk).first()
     chemicals = Child.objects.filter(extracted_text__data_document=doc)
+    ingredients = Ingredient.objects.filter(
+        rawchem_ptr_id__in=chemicals.values_list("pk", flat=True)
+    )
     lp = ExtractedListPresence.objects.filter(
         extracted_text=ext if ext else None
     ).first()
@@ -46,6 +49,7 @@ def data_document_detail(request, pk):
         "doc": doc,
         "extracted_text": ext,
         "chemicals": chemicals,
+        "ingredients": ingredients,
         "edit_text_form": ParentForm(instance=ext),  # empty form if ext is None
         "list_presence_tag_form": tag_form if lp else None,
     }

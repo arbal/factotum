@@ -59,7 +59,7 @@ class DataDocument(CommonInfo):
     title = models.CharField(max_length=255)
     subtitle = models.CharField(null=True, blank=True, max_length=250, default=None)
     url = models.CharField(
-        null=True, blank=True, max_length=275, validators=[URLValidator()]
+        null=True, blank=True, max_length=375, validators=[URLValidator()]
     )
     raw_category = models.CharField(null=True, blank=True, max_length=1000)
     data_group = models.ForeignKey("DataGroup", on_delete=models.CASCADE)
@@ -96,7 +96,7 @@ class DataDocument(CommonInfo):
     def pdf_url(self):
         dg = self.data_group
         fn = self.get_abstract_filename()
-        return f"./media/{dg.fs_id}/pdf/{fn}"
+        return f"/media/{dg.fs_id}/pdf/{fn}"
 
     def clean(self):
         # the document_type must be one of the children types

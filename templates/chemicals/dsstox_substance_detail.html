@@ -31,29 +31,112 @@
                         General Category - Product Family - Product Type
                     </small>
                 </div>
-                <div class="card-body p-0 list-group d-flex">
-                    {% for puc in pucs %}
-                    <a href="/puc/{{puc.id}}" class="list-group-item
-                                                list-group-item-action
-                                                align-items-start
-                                                puc-link"
-                                                id="puc-link-{{puc.id}}"
-                                                style="float: left;">
-                        <small> {{ puc }} </small>
-                        <div class="puc-legend" 
-                             style="height: 20px; 
-                             width: 20px; 
-                             background-color: #ffffff; 
-                             float: right; 
-                             border-radius: 10%;">
+                <div class="accordion" id="puc-accordion">
+                    {% for leaf in pucs.leaves %}
+                    <div class="card">
+                        <!-- Level 1 -->
+                        <div class="card-header-sm bg-light">
+                            <div class="text-left">
+                                <button class="handle mr-2 btn btn-light shadow-none"
+                                        data-toggle="collapse" 
+                                        data-target="#puc-{{ leaf.value.pk }}">
+                                    <i class="fas fa-chevron-circle-right icon-secondary"></i>
+                                    <i class="fas fa-chevron-circle-down icon-secondary d-none"></i>
+                                </button>
+                                <b>{{ leaf }}</b>
+                                <a href="{{ leaf.value.url }}" 
+                                class="ml-2" 
+                                title="PUC detail" 
+                                data-toggle="tooltip" 
+                                data-placement="top">
+                                <i class="fas fa-info-circle icon-secondary"></i>
+                                </a>
+                                <span class="dot m-2 float-right text-center puc-link"
+                                    data-gen-cat="{{ leaf }}">
+                                    <small><b>{{ leaf.n_children }}</b></small>
+                                </span>
+                            </div>
                         </div>
-                    </a>
+                        <div id="puc-{{ leaf.value.pk }}" 
+                            class="collapse">
+                            <div class="card-body p-0 puc-link"
+                                data-gen-cat="{{ leaf }}">
+                            {% if leaf.leaves %}
+                            <div class="accordion ml-3" id="accordion-{{ leaf.value.pk }}">
+                                {% for leaflet in leaf.leaves %}
+                                <div class="card">
+                                    <!-- Level 2 -->
+                                    <div class="card-header-sm bg-light">
+                                        <div class="text-left">
+                                            {% if leaflet.n_children %}
+                                            <button class="handle mr-2 btn btn-light shadow-none"
+                                                data-toggle="collapse" 
+                                                data-target="#accordion-{{ leaflet.value.pk }}">
+                                                <i class="fas fa-chevron-circle-right icon-secondary"></i>
+                                                <i class="fas fa-chevron-circle-down icon-secondary d-none"></i>
+                                            </button>
+                                            {% else %}
+                                            <button class="hidden btn" disabled>
+                                                <i class="fas fa-chevron-circle-right"></i>
+                                            </button>
+                                            <span class="m-1"></span>
+                                            {% endif %}
+                                            <b>{{ leaflet }}</b>
+                                            <a href="{{ leaflet.value.url }}" 
+                                            class="ml-2" 
+                                            title="PUC detail" 
+                                            data-toggle="tooltip" 
+                                            data-placement="top">
+                                                <i class="fas fa-info-circle icon-secondary"></i>
+                                            </a>
+                                            {% if leaflet.n_children %}
+                                            <span class="dot m-2 float-right text-center puc-link"
+                                                data-gen-cat="{{ leaf }}">
+                                                <small><b>{{ leaflet.n_children }}</b></small>
+                                            </span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div id="accordion-{{ leaflet.value.pk }}" 
+                                        class="collapse">
+                                        <div class="card-body p-0 puc-link"
+                                            data-gen-cat="{{ leaf }}">
+                                            {% if leaflet.leaves %}
+                                            <div class="ml-3" id="accordion-{{ leaflet.value.pk }}">
+                                                {% for needle in leaflet.leaves %}
+                                                <div class="card">
+                                                    <div class="card-header-sm bg-light">
+                                                        <div class="text-left p-2 ml-2">
+                                                            <span class="m-4"></span>
+                                                            <b>{{ needle }}</b>
+                                                            <a href="{{ needle.value.url }}" 
+                                                                class="ml-2" 
+                                                                title="PUC detail" 
+                                                                data-toggle="tooltip" 
+                                                                data-placement="top">
+                                                                <i class="fas fa-info-circle icon-secondary"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    </div>
                     {% empty %}
                     <li class="list-group-item">
                         No PUCs are linked to this chemical
                     </li>
                     {% endfor %}
-                </div>
+                </div>  
             </div>
         </div>
         <div class="col-7 pl-4 pr-0">

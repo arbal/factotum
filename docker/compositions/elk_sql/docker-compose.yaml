@@ -49,7 +49,7 @@ services:
       --binlog_stmt_cache_size=${SQL_CONF_BINLOG_STMT_CACHE_SIZE:-32K}
 
   elasticsearch:
-    image: elasticsearch:6.7.2
+    image: elasticsearch:7.3.1
     restart: unless-stopped
     environment:
       discovery.type: single-node
@@ -69,7 +69,7 @@ services:
         target: /usr/share/elasticsearch/data
 
   kibana:
-    image: kibana:6.7.2
+    image: kibana:7.3.1
     restart: unless-stopped
     environment:
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200

@@ -1,6 +1,7 @@
 {% extends 'core/base.html' %}
 {% load staticfiles %}
 {% load humanize %}
+{% load dashboard_extras %}
 {% block title %}Product {{ product.id }}: {{ product.title }}{% endblock %}
 
 {% block content %}
@@ -156,7 +157,7 @@
                                 <div class="btn-group">
                                     <a href="{{ doc.pdf_url }}" title="Link to {{ doc.get_abstract_filename }}"
                                         target="_blank">
-                                        <span class="fa fa-fs fa-file-pdf"></span>
+                                        <span class="fa fa-fs {{ doc.pdf_url|fileicon }}"></span>
                                     </a>
                                 </div>
                             </td>

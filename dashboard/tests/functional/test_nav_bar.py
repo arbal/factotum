@@ -1,7 +1,6 @@
 from django.urls import resolve
 from django.test import TestCase, tag
 from django.test.client import Client
-from django.http import HttpRequest
 from dashboard.tests.loader import load_model_objects
 from dashboard import views
 from lxml import html
@@ -49,7 +48,7 @@ class NavBarTest(TestCase):
         response = self.client.get("/")
         self.assertContains(response, "Get Data")
         response = self.client.get("/get_data/")
-        self.assertContains(response, "Summary metrics by chemical")
+        self.assertContains(response, "Summary Metrics by Chemical")
 
     def test_data_curation(self):
         self.client.login(username="Karyn", password="specialP@55word")

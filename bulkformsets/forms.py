@@ -7,6 +7,7 @@ from django.forms import (
     formset_factory,
     formsets,
 )
+from django.forms.models import modelformset_factory
 from django.utils.functional import cached_property
 
 from .utils import BulkMuxDict
@@ -32,11 +33,12 @@ class InitBulkFormSet:
             self.serializer_args = kwargs.pop("serializer_args")
         if "serializer_kwargs" in kwargs:
             self.serializer_kwargs = kwargs.pop("serializer_kwargs")
-            self.serializer_kwargs["max_num"] = self.max_num
         if "filefield_kwargs" in kwargs:
             self.filefield_kwargs = kwargs.pop("filefield_kwargs")
         if "label" not in self.filefield_kwargs:
             self.filefield_kwargs["label"] = "File"
+        # We always populate seializer_kwargs with max_num
+        self.serializer_kwargs["max_num"] = self.max_num
         # Get the dict of passed in args matched with what the real FormSet expects
         inp = inspect.getcallargs(super().__init__, *args, **kwargs)
         # If there is already an attribute set in self, load it into the inputs.

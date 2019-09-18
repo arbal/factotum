@@ -1316,15 +1316,15 @@ nv.utils.calcTicksX = function(numTicks, data) {
         var stream_len = data[i] && data[i].values ? data[i].values.length : 0;
         numValues = stream_len > numValues ? stream_len : numValues;
     }
-    nv.log("Requested number of ticks: ", numTicks);
-    nv.log("Calculated max values to be: ", numValues);
+    // nv.log("Requested number of ticks: ", numTicks);
+    // nv.log("Calculated max values to be: ", numValues);
     // make sure we don't have more ticks than values to avoid duplicates
     numTicks = numTicks > numValues ? numTicks = numValues - 1 : numTicks;
     // make sure we have at least one tick
     numTicks = numTicks < 1 ? 1 : numTicks;
     // make sure it's an integer
     numTicks = Math.floor(numTicks);
-    nv.log("Calculating tick count as: ", numTicks);
+    // nv.log("Calculating tick count as: ", numTicks);
     return numTicks;
 };
 

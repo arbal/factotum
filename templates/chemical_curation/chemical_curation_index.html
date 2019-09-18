@@ -18,20 +18,23 @@
 
 {% block content %}
     <h1 class="mb-5"><span class="fas fa-flask" title="factotum" aria-hidden="true"></span> Chemical Curation</h1>
-    <div class="row">
-        <form id='frm_dwownload_rawchem_by_data_group'}">
+
+    <div class="row mb-2">
+        <div class="col-6"><h4><label for="{{ form.data_group.id_for_label }}">{{ dg_picker_form.data_group.label }}: </label></h4></div>
+        <div class="col-6">
+        <form id="frm_dwownload_rawchem_by_data_group">
             {% csrf_token %}
-            <label for="{{ form.data_group.id_for_label }}">{{ dg_picker_form.data_group.label }}: </label>
-            <br/>
             {{ dg_picker_form.data_group }}
         </form>
     </div>
+    </div>
+
     <hr>
+
     <div class="row mb-2">
-        <div class="col-3">Upload curated CSV Chemicals
-        </div>
-        <div class="col-9">
-            <div class="text-info mb-4">The uploaded csv must have the following column names in this order:
+        <div class="col-6"><h4>Upload Curated Chemical .csv File: </h4></div>
+        <div class="col-6">
+            <div class="text-info mb-4">The uploaded .csv file must have the following column names in this order:
                 <br>
                 <code class="m-2">external_id, rid, sid, true_chemical_name, true_cas</code>
             </div>
@@ -39,23 +42,22 @@
             <form action="{% url "chemical_curation" %}" method="POST"
                   enctype="multipart/form-data" class="form-horizontal">
                 {% csrf_token %}
-                <div class="form-group">
-                    <div class="col-md-8">
-                        <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
-                    </div>
+                <div class="input-group">
+                    <label class="input-group-btn">
+                        <span class="btn btn-primary">
+                            Choose File &hellip; <input type="file" style="display: none;" name="csv_file" id="csv_file" required>
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" readonly><br>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
-                        <button class="btn btn-primary"> Upload</button>
-                    </div>
+                        <button class="btn btn-primary pl-2 pr-2" type="submit"><span class="fa fa-upload mr-2"></span>Upload</button>
                 </div>
             </form>
         </div>
     </div>
-
-
-
 {% endblock %}
+
 {% block js %}
     <script src="{% static 'js/dashboard/chemical_curation.js' %}"></script>
 {% endblock %}

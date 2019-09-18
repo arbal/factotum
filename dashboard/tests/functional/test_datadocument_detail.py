@@ -4,11 +4,20 @@ from django.urls import reverse
 from django.test import TestCase, override_settings
 from django.core.exceptions import ObjectDoesNotExist
 
-from dashboard.models import *
-from dashboard.forms import *
+from dashboard.models import (
+    ExtractedText,
+    ExtractedCPCat,
+    ExtractedHHDoc,
+    ExtractedListPresenceToTag,
+    ExtractedListPresenceTag,
+    DataDocument,
+    Product,
+)
+from dashboard.forms import create_detail_formset
 from factotum.settings import EXTRA
-from dashboard.tests.loader import *
+from dashboard.tests.loader import fixtures_standard, datadocument_models
 from django.db.models import F, Min
+from dashboard.utils import get_extracted_models
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
@@ -28,7 +37,7 @@ class DataDocumentDetailTest(TestCase):
                 resp.status_code, 200, "The page must return a 200 status code"
             )
             try:
-                extracted_text = ExtractedText.objects.get(data_document=dd)
+                ExtractedText.objects.get(data_document=dd)
             except ExtractedText.DoesNotExist:
                 # print(dd.id)
                 self.assertContains(
@@ -64,11 +73,12 @@ class DataDocumentDetailTest(TestCase):
         )
 
     def test_script_links(self):
-        doc = DataDocument.objects.first()
+        DataDocument.objects.first()
         # response = self.client.get(f'/datadocument/{doc.pk}/')
         response = self.client.get(f"/datadocument/156051/")
         self.assertIn("Download Script", response.content.decode("utf-8"))
         self.assertIn("Extraction Script", response.content.decode("utf-8"))
+        self.assertIn("Cleaning Script", response.content.decode("utf-8"))
         comptox = "https://comptox.epa.gov/dashboard/dsstoxdb/results?search="
         self.assertContains(response, comptox)
 
@@ -188,6 +198,17 @@ class DataDocumentDetailTest(TestCase):
         trunc_title = doc.title[: trunc_length - 1] + "…"
         html_title = response_html.xpath('//*[@id="title"]/h1')[0].text
         self.assertEqual(trunc_title, html_title, "DataDocument title not truncated.")
+    
+    def test_subtitle_ellipsis(self):
+        id = 354783
+        doc = DataDocument.objects.get(id=id)
+        subtitle = doc.subtitle 
+        subtitle45 = subtitle[:45]
+        response = self.client.get("/datadocument/%i/" % id)
+        # Confirm that the displayed subtitle is truncated and ... is appended
+        self.assertContains(response, "This subtitle is more than 90 c…")
+
+
 
     def test_chemname_ellipsis(self):
         """Check that DataDocument chemical names get truncated"""
@@ -231,6 +252,33 @@ class DataDocumentDetailTest(TestCase):
             html_side_rc_name,
             "Long DataDocument chemical names not truncated in sidebar.",
         )
+
+    def _get_icon_span(self, doc):
+        response = self.client.get("/datadocument/" + doc.split(".")[0] + "/")
+        h = html.fromstring(response.content.decode("utf8"))
+        return h.xpath("//a[contains(@href, '%s')]/span" % doc)[0].values()[0]
+
+    def test_icons(self):
+        icon_span = self._get_icon_span("173396.doc")
+        self.assertEqual("fa fa-fs fa-file-word", icon_span)
+        icon_span = self._get_icon_span("173824.jpg")
+        self.assertEqual("fa fa-fs fa-file-image", icon_span)
+        icon_span = self._get_icon_span("174238.docx")
+        self.assertEqual("fa fa-fs fa-file-word", icon_span)
+        icon_span = self._get_icon_span("176163.misc")
+        self.assertEqual("fa fa-fs fa-file", icon_span)
+        icon_span = self._get_icon_span("176257.tiff")
+        self.assertEqual("fa fa-fs fa-file-image", icon_span)
+        icon_span = self._get_icon_span("177774.xlsx")
+        self.assertEqual("fa fa-fs fa-file-excel", icon_span)
+        icon_span = self._get_icon_span("177852.csv")
+        self.assertEqual("fa fa-fs fa-file-csv", icon_span)
+        icon_span = self._get_icon_span("178456.xls")
+        self.assertEqual("fa fa-fs fa-file-excel", icon_span)
+        icon_span = self._get_icon_span("178496.txt")
+        self.assertEqual("fa fa-fs fa-file-alt", icon_span)
+        icon_span = self._get_icon_span("172462.pdf")
+        self.assertEqual("fa fa-fs fa-file-pdf", icon_span)
 
 
 class TestDynamicDetailFormsets(TestCase):
@@ -296,7 +344,7 @@ class TestDynamicDetailFormsets(TestCase):
                     # seed data contains 2 tags for the 50 objects in this document
                     elp2t_count = ExtractedListPresenceToTag.objects.count()
                     # This post should preseve the 2 existing tags and add 2 more
-                    req = self.client.post(
+                    self.client.post(
                         path=reverse(
                             "save_list_presence_tag_form", kwargs={"pk": doc.pk}
                         ),

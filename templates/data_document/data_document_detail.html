@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load humanize %}
 {% load widget_tweaks %}
+{% load dashboard_extras %}
 
 {% block title %}Data Document {{ doc.id }}: {{ doc.title }}{% endblock %}
 {% block css %}
@@ -13,8 +14,9 @@
     <!-- DataDocument title -->
     <div class="col-lg-10 border-bottom"
          data-toggle="tooltip"
+         data-html="true"
          data-placement="bottom"
-         title="{{ doc.title }}"
+         title="{{ doc.title }}{% if doc.subtitle %}<br>{{ doc.subtitle }}{% endif %}"
          id="title">
         <h1>{{ doc.title|truncatechars:45 }}</h1>
         {% if doc.subtitle %}
@@ -32,8 +34,18 @@
                title="View data document"
                data-toggle="tooltip"
                href="{{ doc.pdf_url }}">
-                <span class="fa fa-fs fa-file"></span>
+                <span class="fa fa-fs {{ doc.pdf_url|fileicon }}"></span>
             </a>
+            {% if ingredients %}
+            {% with ingredient=ingredients.first %}
+            <a class="btn btn-outline-secondary btn-sm hover-info"
+               title="Cleaning Script"
+               data-toggle="tooltip"               
+               href="{{ ingredient.script.url }}">
+                <span class="fas fa-broom"></span>
+            </a>
+            {% endwith %}
+            {% endif %}
             <a class="btn btn-outline-secondary btn-sm hover-success"
                title="edit"
                data-toggle="tooltip"
@@ -344,7 +356,8 @@
                         <p class="m-0"
                            data-toggle="tooltip"
                            data-placement="left"
-                           title="{{ chemical.rendered_chemname|truncatechars:18 }}">
+                           title="{{ chemical.rendered_chemname }}"
+                           data-boundary="viewport">
                             {{ chemical.rendered_chemname|truncatechars:18 }}
                         </p>
                         <small class="m-0">

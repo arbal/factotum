@@ -21,7 +21,7 @@
     </dl>
 
     <div class="row">
-        <div class="col-auto" id="assumed_attributes">
+        <div class="col-4" id="assumed_attributes">
         <h4>Assumed Attributes</h4>
             {% if puc.get_assumed_tags|length > 1 %}
                 {% for tag in puc.get_assumed_tags %}
@@ -41,7 +41,7 @@
                 No assumed attributes are associated with this PUC
             {% endif %}
         </div>
-        <div class="col-6" id="allowed_attributes">
+        <div class="col-8" id="allowed_attributes">
             <h4>Allowed Attributes</h4>
             {% if puc.get_allowed_tags|length > 1 %}
                 {% for tag in puc.get_allowed_tags %}
@@ -62,17 +62,48 @@
             {% endif %}
         </div>
     </div>
+<br><br>
+    <div class="row">
+    <div class="col-4" id="puc_stats">
+        <h4>Additional Statistics</h4>
+            <dl class="row">
+                <dt class="col-6">Products</dt>
+                <dd class="col-6">{{ puc.product_count }}</dd>
+                <dt class="col-6">Cumulative Products</dt>
+                <dd class="col-6">{{ puc.cumulative_product_count }}</dd>
+                <dt class="col-6">Curated Chemicals</dt>
+                <dd class="col-6">{{ puc.curated_chemical_count }}</dd>
+                <dt class="col-6">Documents</dt>
+                <dd class="col-6">{{ puc.document_count }} </dd>
+            </dl>
+    </div>
+         <div class="col-8" id="taxonomies">
+        <h4>Linkages to Other Taxonomies</h4>
+            {% if linked_taxonomies|length > 1 %}
+            <dl class="row">
+                {% for taxonomy in linked_taxonomies %}
+            <dt class="col-4">
+                    <button class="btn btn-clear text-left" data-toggle="tooltip" data-placement="right" title="" data-original-title="{{ taxonomy.source_description }}">{{ taxonomy.source_title }}:</button></dt>
+                    <dd class="col-8"><button class="btn btn-clear text-left" data-toggle="tooltip" data-placement="right" title="" data-original-title="{{ taxonomy.description }}">{{ taxonomy.title }}</button></dd>
+                {% endfor %}
+            </dl>
+            {% else %}
+                <span>No taxonomies are linked to this PUC</span>
+            {% endif %}
+    </div>
+</div>
+
 
     <div class="row">
-        <div class="col-6" id="puc_stats">
-            {{ puc.product_count }} Products<br>
-            {{ puc.cumulative_product_count }} Cumulative Products<br>
-            {{ puc.curated_chemical_count }} Curated Chemicals<br>
-            {{ puc.document_count }} Documents
-        <br><br><br>
         {% if referer %}
             <a class="btn btn-secondary" href="{{ referer }}">Back</a>
         {%  endif %}
-        </div>
     </div>
+
+
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/dashboard/puc_detail.js' %}"></script>
 {% endblock %}

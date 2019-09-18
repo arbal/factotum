@@ -9,8 +9,9 @@ from .common_info import CommonInfo
 from django.apps import apps
 
 from dashboard.models import ProductDocument
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, F
 from .raw_chem import RawChem
+
 
 class PUC(CommonInfo):
     KIND_CHOICES = (
@@ -64,17 +65,17 @@ class PUC(CommonInfo):
 
     @property
     def is_level_one(self):  # gen_cat only
-        return self.prod_fam is "" and self.prod_type is ""
+        return self.prod_fam == "" and self.prod_type == ""
 
     @property
     def is_level_two(self):  # no prod_type
-        return not self.prod_fam is "" and self.prod_type is ""
+        return not self.prod_fam == "" and self.prod_type == ""
 
     @property
     def is_level_three(self):  # most granular PUC
-        return not self.prod_fam is "" and not self.prod_type is ""
+        return not self.prod_fam == "" and not self.prod_type == ""
 
-    def get_the_kids(self):
+    def get_children(self):
         if self.is_level_one:
             return PUC.objects.filter(gen_cat=self.gen_cat)
         if self.is_level_two:
@@ -101,11 +102,18 @@ class PUC(CommonInfo):
     @property
     def curated_chemical_count(self):
         docs = ProductDocument.objects.filter(product__in=self.products.all())
-        chems = (RawChem.objects.filter(extracted_text__data_document__in=docs.values_list('document',flat=True))
-                .annotate(chems=Count('dsstox',distinct=True))
-                .aggregate(chem_count=Sum("chems")))
-        return (chems['chem_count'] or 0)
-        
+        return (
+            RawChem.objects.filter(
+                extracted_text__data_document__in=docs.values_list(
+                    "document", flat=True
+                ),
+                dsstox__isnull=False,
+            )
+            .values("dsstox")
+            .distinct()
+            .count()
+        )
+
     @property
     def document_count(self):
         return (
@@ -123,14 +131,23 @@ class PUC(CommonInfo):
         return reverse("puc_detail", args=(self.pk,))
 
     def get_assumed_tags(self):
-        """Queryset of used to filter which PUCs a Product can have """
+        """Queryset of PUC tags a Product is assumed to have """
         qs = PUCToTag.objects.filter(content_object=self, assumed=True)
         return PUCTag.objects.filter(dashboard_puctotag_items__in=qs)
 
     def get_allowed_tags(self):
-        """Queryset of used to filter which PUCs a Product can have """
+        """Queryset of PUC tags a Product is allowed to have """
         qs = PUCToTag.objects.filter(content_object=self, assumed=False)
         return PUCTag.objects.filter(dashboard_puctotag_items__in=qs)
+
+    def get_linked_taxonomies(self):
+        from dashboard.models import Taxonomy
+
+        return (
+            Taxonomy.objects.filter(product_category=self)
+            .annotate(source_title=F("source__title"))
+            .annotate(source_description=F("source__description"))
+        )
 
 
 class PUCToTag(TaggedItemBase, CommonInfo):

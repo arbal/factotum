@@ -10,8 +10,8 @@ django-queryset-csv>=1.0.0
 django-taggit<1
 django-widget-tweaks>=1.4.1
 docutils>=0.12
-elasticsearch>=6.0.0,<7.0.0
-elasticsearch-dsl>=6.0.0,<7.0.0
+elasticsearch>=7.0.0,<8.0.0
+elasticsearch-dsl>=7.0.0,<8.0.0
 fuzzywuzzy>=0.17.0
 gitpython>=2.1.11
 ipython>=7.5.0

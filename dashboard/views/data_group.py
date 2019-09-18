@@ -57,6 +57,12 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
     context = {
         "datagroup": dg,
         "tabledata": tabledata,
+        "clean_comp_data_fieldnames": ", ".join(
+            [
+                "ExtractedChemical_id" if x == "id" else x
+                for x in dg.get_clean_comp_data_fieldnames()
+            ]
+        ),
         "uploaddocs_form": None,
         "extfile_form": None,
         "cleancomp_form": None,

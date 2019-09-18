@@ -148,3 +148,4 @@ class BulkFormSetTest(SimpleTestCase):
         self.assertTrue(SampleFormBulkFormSet.__name__ == "SampleFormBulkFormSet")
         s = SampleFormBulkFormSet(d, f)
         self.assertTrue(type(s.data) == BulkMuxDict)
+        self.assertTrue("max_num" in s.serializer_kwargs)

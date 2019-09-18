@@ -49,7 +49,7 @@ class TestZipPDFs(TestCase):
         }
         # mk fake files
         for d in DataDocument.objects.filter(pk__in=[122079, 121831, 121722, 121698]):
-            p = Path(d.pdf_url())
+            p = Path(f".{d.pdf_url()}")
             p.parent.mkdir(parents=True, exist_ok=True)
             p.touch()
 

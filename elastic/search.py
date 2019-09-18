@@ -221,11 +221,15 @@ def run_query(
     for h in response["hits"]["hits"]:
         results_hits_object = {
             "id": h["_source"][id_field],
-            "num_rawchem": h["inner_hits"]["rawchem_id"]["hits"]["total"],
-            "num_truechem": h["inner_hits"]["truechem_dtxsid"]["hits"]["total"],
-            "num_datadocument": h["inner_hits"]["datadocument_id"]["hits"]["total"],
-            "num_product": h["inner_hits"]["product_id"]["hits"]["total"],
-            "num_puc": h["inner_hits"]["puc_id"]["hits"]["total"],
+            "num_rawchem": h["inner_hits"]["rawchem_id"]["hits"]["total"]["value"],
+            "num_truechem": h["inner_hits"]["truechem_dtxsid"]["hits"]["total"][
+                "value"
+            ],
+            "num_datadocument": h["inner_hits"]["datadocument_id"]["hits"]["total"][
+                "value"
+            ],
+            "num_product": h["inner_hits"]["product_id"]["hits"]["total"]["value"],
+            "num_puc": h["inner_hits"]["puc_id"]["hits"]["total"]["value"],
             "highlights": h["highlight"],
             "source": h["_source"],
         }
@@ -245,7 +249,7 @@ def run_query(
         results_facets[facet] = results_facets_list
     # replace hits with paginator
     if page is not None:
-        length = response["hits"]["total"]
+        length = response["hits"]["total"]["value"]
         espaginator = ElasticPaginator(
             length, q, model, facets, fuzzy, connection="default"
         )
@@ -254,5 +258,5 @@ def run_query(
         "hits": results_hits,
         "facets": results_facets,
         "took": response["took"] / 1000,
-        "total": response["hits"]["total"],
+        "total": response["hits"]["total"]["value"],
     }

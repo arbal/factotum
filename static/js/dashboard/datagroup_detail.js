@@ -1,11 +1,18 @@
 // Load hover buttons
+var ICON_MAP = new Map([
+    [".csv", "fa-file-csv"],
+    [".pdf", "fa-file-pdf"],
+    [".txt", "fa-file-alt"],
+    [".doc", "fa-file-word"],
+    [".docx", "fa-file-word"],
+    [".xls", "fa-file-excel"],
+    [".xlsx", "fa-file-excel"],
+    [".jpg", "fa-file-image"],
+    [".tiff", "fa-file-image"],
+]);
 function renderDataTable(boolComp, boolHab, fsid) {
     function renderTitle(data, type, row, meta) {
-        if (row.fileext == ".pdf") {
-            var icon = "fa-file-pdf";
-        } else {
-            var icon = "fa-file";
-        }
+        var icon = ICON_MAP.has(row.fileext) ? ICON_MAP.get(row.fileext) : "fa-file";
         if (row.matched) {
             return [
                 "<a ",
@@ -33,7 +40,7 @@ function renderDataTable(boolComp, boolHab, fsid) {
             return [
                 "<div class='text-center'>",
                 "<a class='btn btn-sm btn-outline-secondary hover-danger' title='Delete' ",
-                "href ='datadocument/delete/" + row.id + "/'",
+                "href ='/datadocument/delete/" + row.id + "/'",
                 ">",
                 "<span class='fa fa-trash'></span>",
                 "</a>",

@@ -249,20 +249,20 @@ class PUCModelTest(TestCase):
                 fld, model_fields, f'"{fld}"" field should be in PUCTag model.'
             )
 
-    def test_get_the_kids(self):
+    def test_get_children(self):
         """Level 1 and 2 PUCs should accumulate lower level PUCs.
         """
         puc = PUC.objects.get(pk=20)  # PUC w/ only gen_cat value
         self.assertGreater(
-            len(puc.get_the_kids()), 1, ("PUC should have more" "than one child PUCs")
+            len(puc.get_children()), 1, ("PUC should have more than one child PUCs")
         )
         puc = PUC.objects.get(pk=6)  # PUC w/ gen_cat and prod_fam value
         self.assertGreater(
-            len(puc.get_the_kids()), 1, ("PUC should have more" "than one child PUCs")
+            len(puc.get_children()), 1, ("PUC should have more than one child PUCs")
         )
         puc = PUC.objects.get(pk=126)  # PUC w/ ALL values
         self.assertEqual(
-            len(puc.get_the_kids()), 1, ("PUC should only have " "itself associated")
+            len(puc.get_children()), 1, ("PUC should only have itself associated")
         )
 
     def test_puc_category_defaults(self):

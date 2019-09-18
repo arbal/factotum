@@ -30,3 +30,12 @@ class DSSToxLookup(CommonInfo):
     def puc_count(self):
         pdocs = ProductDocument.objects.from_chemical(self)
         return PUC.objects.filter(products__in=pdocs.values("product")).count()
+
+    @property
+    def cumulative_puc_count(self):
+        pdocs = ProductDocument.objects.from_chemical(self)
+        pucs = PUC.objects.filter(products__in=pdocs.values("product"))
+        titles = []
+        for puc in pucs:
+            titles += list(f for f in (puc.gen_cat, puc.prod_fam, puc.prod_type) if f)
+        return len(set(titles))

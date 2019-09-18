@@ -1,4 +1,3 @@
-from dal import autocomplete
 from bootstrap_datepicker_plus import DatePickerInput
 
 from django import forms
@@ -6,7 +5,27 @@ from django.forms import BaseInlineFormSet
 
 from django.utils.translation import ugettext_lazy as _
 
-from dashboard.models import *
+from dashboard.models import (
+    DataDocument,
+    DataGroup,
+    DataSource,
+    DocumentType,
+    ExtractedChemical,
+    ExtractedCPCat,
+    ExtractedHHDoc,
+    ExtractedText,
+    Script,
+    WeightFractionType,
+    QANotes,
+    Product,
+    ProductToPUC,
+    PUCTag,
+    ExtractedFunctionalUse,
+    ExtractedListPresence,
+    ExtractedHHRec,
+)
+
+
 from dashboard.utils import get_extracted_models
 
 
@@ -155,28 +174,6 @@ class ProductViewForm(ProductForm):
             self.fields[f].disabled = True
 
 
-class BasePUCForm(forms.ModelForm):
-    puc = forms.ModelChoiceField(
-        queryset=PUC.objects.all(),
-        label="Category",
-        widget=autocomplete.ModelSelect2(
-            url="puc-autocomplete", attrs={"data-minimum-input-length": 3}
-        ),
-    )
-
-
-class ProductPUCForm(BasePUCForm):
-    class Meta:
-        model = ProductToPUC
-        fields = ["puc"]
-
-
-class HabitsPUCForm(BasePUCForm):
-    class Meta:
-        model = ExtractedHabitsAndPracticesToPUC
-        fields = ["puc"]
-
-
 class BulkProductPUCForm(forms.ModelForm):
     id_pks = forms.CharField(
         label="Product Titles", widget=forms.HiddenInput(), required=True
@@ -185,18 +182,6 @@ class BulkProductPUCForm(forms.ModelForm):
     class Meta:
         model = ProductToPUC
         fields = ["puc", "id_pks"]
-
-
-class BulkPUCForm(BasePUCForm):
-    class Meta:
-        model = ProductToPUC
-        fields = ["puc"]
-
-    def __init__(self, *args, **kwargs):
-        super(BulkPUCForm, self).__init__(*args, **kwargs)
-        lbl = "Select PUC"
-        self.fields["puc"].label = lbl
-        self.fields["puc"].widget.attrs["onchange"] = "form.submit();"
 
 
 class BulkProductTagForm(forms.ModelForm):

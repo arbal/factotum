@@ -6,13 +6,15 @@
 <h1 class="col-sm-12"><span class="fa fa-check-square" title="factotum"></span>
 QA Extraction Scripts</h1>
 <br>
-<table class="table table-striped table-bordered dataTable no-footer" id='extraction_script_table'>
+
+    <table class="table table-striped table-bordered dataTable no-footer" id='extraction_script_table'>
     <thead class="table-primary">
         <th>Extraction Script</th>
-        <th>Documents</th>
+        <th>Extracted Text</th>
         <th>Percent QA Checked</th>
         <th>QA Summary</th>
         <th>QA Status</th>
+        <th>Delete Extracted Text</th>
     </thead>
     <tbody>
     {% for extraction_script in extraction_scripts %}
@@ -27,7 +29,7 @@ QA Extraction Scripts</h1>
                  {{ extraction_script.title }}
             {% endif %}
         </td>
-        <td id="docs-{{extraction_script.id}}">{{ extraction_script.datadocument_count }}</td>
+        <td id="docs-{{extraction_script.id}}">{{ extraction_script.extractedtext_count }}</td>
         <td id="pct-{{extraction_script.id}}">{{ extraction_script.percent_complete }}{{' '}}%</td>
         <td>
             <a href="{% url 'qa_extraction_script_summary' extraction_script.id %}"
@@ -36,15 +38,26 @@ QA Extraction Scripts</h1>
             </a>
         </td>
         <td id="qa-{{extraction_script.id}}">
-         {% if extraction_script.datadocument_count > 0 %}
+         {% if extraction_script.extractedtext_count > 0 %}
             {% if not extraction_script.qa_button_text == "QA Complete" %}
-              <a class="btn btn-info btn-sm" role="button" 
+              <a class="btn btn-primary btn-sm col-12" role="button"
                 title="{{ extraction_script.qa_button_text }} on {{ extraction_script.title }}"
            href='{% url "qa_extraction_script" extraction_script.id %}'> {{ extraction_script.qa_button_text }}
                 </a>
             {% else %}
-            {{ extraction_script.qa_button_text }}
+              <a class="btn btn-light btn-sm col-12" disabled role="button">
+                {{ extraction_script.qa_button_text }}</a>
             {% endif %}
+         {% endif %}
+        </td>
+        <td id="et-{{extraction_script.id}}">
+         {% if extraction_script.extractedtext_count > 0 %}
+              <a class="btn btn-primary btn-sm"
+                 role="button"
+                 id="et-delete-button-{{extraction_script.id}}"
+                 data-toggle="confirmation"
+                 data-title="This action will delete {{ extraction_script.extractedtext_count }} extracted text records."
+                 href='{% url "delete_extracted_text" extraction_script.id %}'><span class="fa fa-fs fa-trash"></span></a>
          {% endif %}
         </td>
       </tr>

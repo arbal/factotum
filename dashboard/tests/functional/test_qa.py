@@ -30,7 +30,7 @@ class QATest(TestCase):
         self.assertEqual(
             script.url, href, "There should be an external link to the script."
         )
-        td = response_html.xpath(f'//*[@id="docs-{script.pk}"]').pop()  # soda?
+        td = response_html.xpath(f'//*[@id="docs-{script.pk}"]').pop()
         model_doc_count = ExtractedText.objects.filter(extraction_script=script).count()
 
         self.assertEqual(
@@ -99,7 +99,7 @@ class QATest(TestCase):
         # Go back to the QA index page to confirm that the QA is complete
         response = self.client.get("/qa/extractionscript/").content.decode("utf8")
         response_html = html.fromstring(response)
-        status = response_html.xpath(f'//*[@id="qa-{ script.pk }"]').pop()
+        status = response_html.xpath(f'//*[@id="qa-{ script.pk }"]/a').pop()
         self.assertIn(
             "QA Complete",
             status.text,

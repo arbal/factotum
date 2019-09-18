@@ -320,10 +320,18 @@ class DataGroupDetailTestWithFixtures(TestCase):
 
         # Test on a data group with no extracted documents
         dg = (
-            DataDocument.objects.filter(extractedtext__isnull=True)
-            .filter(data_group__group_type__code="CO")
+            DataGroup.objects.filter(
+                id__in=DataDocument.objects.filter(extractedtext__isnull=True).values(
+                    "data_group"
+                )
+            )
+            .exclude(
+                id__in=DataDocument.objects.filter(extractedtext__isnull=False).values(
+                    "data_group"
+                )
+            )
+            .filter(group_type__code="CO")
             .first()
-            .data_group
         )
         resp = self.client.get(f"/datagroup/{dg.pk}/")
         self.assertNotContains(

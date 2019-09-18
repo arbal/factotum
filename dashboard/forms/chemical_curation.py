@@ -16,7 +16,7 @@ class DGChoiceField(forms.ModelChoiceField):
 class DataGroupSelector(forms.ModelForm):
     data_group = DGChoiceField(
         queryset=DataGroup.objects.all(),
-        label="Download uncurated chemicals for a Data Group",
+        label="Download Uncurated Chemicals by Data Group",
         required=False,
     )
 

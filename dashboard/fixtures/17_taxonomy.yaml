@@ -1,0 +1,1846 @@
+- model: dashboard.taxonomysource
+  pk: 1
+  fields: {created_at: !!timestamp '2019-01-31 10:23:39.250523', updated_at: !!timestamp '2019-01-31
+      10:23:39.250549', title: GPC Bricks, description: 'Global Product Classification
+      (GPC) ''Bricks'' system for classifying products (https://www.gs1.org/standards/gpc).  Encoded
+      here is the ''...list of GPC Bricks assigned to the contexts for GDS Release
+      3.1.2, based on GPC Release June 2016). cat_code within the taxonomy indicates
+      the GPC identification number/code for that level of the brick. GPC Bricks consist
+      of  four hierarchical levels: the GDS 3.1.2 Assigned Context, the Segment, the
+      Family, the Class, and then the Brick.', last_edited_by: 1}
+- model: dashboard.taxonomysource
+  pk: 2
+  fields: {created_at: !!timestamp '2019-01-31 10:24:05.292577', updated_at: !!timestamp '2019-01-31
+      10:24:05.292606', title: SHEDS-HT, description: Product categories as they were
+      defined in the SHEDS-HT model/paper, last_edited_by: 1}
+
+- model: dashboard.taxonomy
+  pk: 5630
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: arts and crafts adhesive-spray, description: 'spray adhesives
+      for primarily craft purposes, including spray mounts and stencil placement sprays',
+    parent: null, source: 2, category_code: P.AC.010.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5631
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: arts and crafts adhesive-NOC, description: 'glue sticks, glitter
+      glues, fabric glues, craft glue, and other adhesives used for primarily craft
+      purposes', parent: null, source: 2, category_code: P.AC.010.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5632
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: arts and crafts cleaner, description: 'solvent-based products
+      for cleaning paint, adhesives, etc. from hands or surfaces', parent: null, source: 2,
+    category_code: P.AC.020.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5633
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: arts and crafts finish-spray, description: spray shellacs
+      or polyurethane coatings for primarily craft purposes, parent: null, source: 2,
+    category_code: P.AC.030.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5634
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: arts and crafts finish-NOC, description: shellacs or polyurethane
+      coatings for primarily craft purposes, parent: null, source: 2, category_code: P.AC.030.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5635
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: arts and crafts paint, description: paints and colorants for
+      primarily craft purposes (including acrylic and enamel paints), parent: null,
+    source: 2, category_code: P.AC.040.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5636
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: body paint-spray, description: 'body paints, markers, glitters,
+      play cosmetics, and halloween cosmetics (spray or aerosol formulation specified)',
+    parent: null, source: 2, category_code: P.AC.050.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5637
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: body paint-NOC, description: 'body paints, markers, glitters,
+      play cosmetics, and halloween cosmetics', parent: null, source: 2, category_code: P.AC.050.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5638
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: bubble solution, description: 'liquid bubble solutions, including
+      solutions for bubble machines', parent: null, source: 2, category_code: P.AC.060.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5639
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: craft kit, description: multi-component crafting kits where
+      individual products are not designated, parent: null, source: 2, category_code: P.AC.070.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5640
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: crayons, description: wax crayons for coloring or illustration,
+    parent: null, source: 2, category_code: P.AC.080.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5641
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: dye, description: products for dying fabrics, parent: null,
+    source: 2, category_code: P.AC.090.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5642
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: fabric paints and sealers-spray, description: paints or sealers
+      for treating fabrics (spray or aerosol formulation specified), parent: null,
+    source: 2, category_code: P.AC.100.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5643
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: fabric paints and sealers-NOC, description: paints or sealers
+      for treating fabrics, parent: null, source: 2, category_code: P.AC.100.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5644
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: finger paint, description: non-edible finger paints, parent: null,
+    source: 2, category_code: P.AC.110.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5645
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: flocking, description: flocking and artificial snow, parent: null,
+    source: 2, category_code: P.AC.120.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5646
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: fogger, description: liquid solutions for fogger machines,
+    parent: null, source: 2, category_code: P.AC.130.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5647
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: glaze, description: liquid products for glazing craft pottery,
+    parent: null, source: 2, category_code: P.AC.140.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5648
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: gun cleaner, description: liquid solutions for cleaning interior
+      or exterior of firearms, parent: null, source: 2, category_code: P.AC.150.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5649
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: pens and markers, description: writing utensils containing
+      liquid or gel ink, parent: null, source: 2, category_code: P.AC.160.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5650
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: play dough, description: children's play modeling clays, parent: null,
+    source: 2, category_code: P.AC.170.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5651
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: antifreeze, description: antifreeze and/or coolant solutions
+      for motorized vehicles, parent: null, source: 2, category_code: P.AP.010.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5652
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: auto air freshener-spray, description: air fresheners for
+      car interiors (spray or aerosol formulation specified), parent: null, source: 2,
+    category_code: P.AP.020.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5653
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: auto air freshener-NOC, description: 'air fresheners for car
+      interiors, including products for vents', parent: null, source: 2, category_code: P.AP.020.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5654
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: auto fluids and additives-spray, description: 'power steering
+      fluids, transmission fluids, brake fluids, fuel injector cleaners, gas treatments,
+      or leak stoppers (spray or aerosol formulation specified)', parent: null, source: 2,
+    category_code: P.AP.030.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5655
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: auto fluids and additives-NOC, description: 'power steering
+      fluids, transmission fluids, brake fluids, fuel injector cleaners, gas treatments,
+      or leak stoppers', parent: null, source: 2, category_code: P.AP.030.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5656
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: auto lubricant-spray, description: 'engine lubricants and
+      belt dressings, not including motor oils (spray or aerosol formulation specified)',
+    parent: null, source: 2, category_code: P.AP.040.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5657
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: auto lubricant-NOC, description: 'engine lubricants and belt
+      dressings, not including motor oils', parent: null, source: 2, category_code: P.AP.040.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5658
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: auto paint-spray, description: paints and primers for auto
+      body or engine (spray or aerosol formulation specified), parent: null, source: 2,
+    category_code: P.AP.050.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5659
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: auto paint-NOC, description: paints and primers for auto body
+      or engine, parent: null, source: 2, category_code: P.AP.050.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5660
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: auto refrigerant, description: refrigerants and freon products
+      for auto applications, parent: null, source: 2, category_code: P.AP.060.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5661
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: boat cleaner, description: 'cleaners, washes, and polishes
+      for exterior marine applications', parent: null, source: 2, category_code: P.AP.070.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5662
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: boat engine fluids, description: engine fluids for marine
+      applications, parent: null, source: 2, category_code: P.AP.080.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5663
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: body cleaner, description: 'cleaners, shampoos, and washes
+      for auto body exterior (not including wax products)', parent: null, source: 2,
+    category_code: P.AP.090.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5664
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: body repair-spray, description: 'products for repairing auto
+      body exteriors, including bondo-type products and scratch fillers (spray or
+      aerosol formulation specified)', parent: null, source: 2, category_code: P.AP.100.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5665
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: body repair-NOC, description: 'products for repairing auto
+      body exteriors, including bondo-type products and scratch fillers', parent: null,
+    source: 2, category_code: P.AP.100.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5666
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: body wax-spray, description: 'auto body waxes and coatings,
+      including combo wash/wax products (spray or aerosol formulation specified)',
+    parent: null, source: 2, category_code: P.AP.110.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5667
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: body wax-NOC, description: 'auto body waxes and coatings,
+      including combo wash/wax products', parent: null, source: 2, category_code: P.AP.110.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5668
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: degreaser-spray, description: 'auto, engine and brake degreasers
+      (spray or aerosol formulation specified)', parent: null, source: 2, category_code: P.AP.120.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5669
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: degreaser-NOC, description: 'auto, engine and brake degreasers',
+    parent: null, source: 2, category_code: P.AP.120.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5670
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: detailing-spray, description: 'products for cleaning, polishing,
+      or protecting car interior surfaces, apholstery, leather, carpeting, tires,
+      or rims (spray or aerosol formulation specified', parent: null, source: 2, category_code: P.AP.130.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5671
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: detailing-NOC, description: 'products for cleaning, polishing,
+      or protecting car interior surfaces, apholstery, leather, carpeting, tires,
+      or rims', parent: null, source: 2, category_code: P.AP.130.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5672
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: motor oil, description: petroleum-based or synthetic engine
+      lubricants, parent: null, source: 2, category_code: P.AP.140.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5673
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: windows or windshield-spray, description: products for washing
+      or protecting windshields or windows (spray or aerosol formulation specified),
+    parent: null, source: 2, category_code: P.AP.150.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5674
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: windows or windshield-NOC, description: products for washing
+      or protecting windshields or windows, parent: null, source: 2, category_code: P.AP.150.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5675
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: adhesive remover-spray, description: solvent products for
+      removing adhesives from surfaces (spray or aerosol formulation specified), parent: null,
+    source: 2, category_code: P.HM.010.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5676
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: adhesive remover-NOC, description: solvent products for removing
+      adhesives from surfaces, parent: null, source: 2, category_code: P.HM.010.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5677
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: caulk or sealant, description: 'caulks and sealers for household
+      use, including silicone products', parent: null, source: 2, category_code: P.HM.020.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5678
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: concrete, description: products for patching or cleaning concrete
+      surfaces, parent: null, source: 2, category_code: P.HM.030.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5679
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: corrosion protection-spray, description: products for protecting
+      metal surfaces from corrosion or removing corrosion (spray or aerosol formulation
+      specified), parent: null, source: 2, category_code: P.HM.040.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5680
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: corrosion protection-NOC, description: products for protecting
+      metal surfaces from corrosion or removing corrosion, parent: null, source: 2,
+    category_code: P.HM.040.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5681
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: degreaser, description: products for degreasing indoor surfaces,
+    parent: null, source: 2, category_code: P.HM.050.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5682
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: finish-spray, description: 'products for permanently coating
+      and protecting wood surfaces, including polyurethane products (spray or aerosol
+      formulation specified)', parent: null, source: 2, category_code: P.HM.060.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5683
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: finish-NOC, description: 'products for permanently coating
+      and protecting wood surfaces, including polyurethane products', parent: null,
+    source: 2, category_code: P.HM.060.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5684
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: grout sealer, description: products for coating and protecting
+      tile or grout, parent: null, source: 2, category_code: P.HM.070.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5685
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: lock deicer, description: products for deicing car or residential
+      locks, parent: null, source: 2, category_code: P.HM.080.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5686
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: lubricant-spray, description: household maintenance lubricants
+      (spray or aerosol formulation specified), parent: null, source: 2, category_code: P.HM.090.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5687
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: lubricant-NOC, description: household maintenance lubricants,
+    parent: null, source: 2, category_code: P.HM.090.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5688
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: mortar or grout, description: products for attaching and grouting
+      interior tiles, parent: null, source: 2, category_code: P.HM.100.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5689
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: multipurpose adhesive-spray, description: 'general purpose
+      repair adhesives including all purpose glues, super glue, and epoxies; not including
+      wood glues (spray or aerosol formulation specified)', parent: null, source: 2,
+    category_code: P.HM.110.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5690
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: multipurpose adhesive-NOC, description: 'general purpose repair
+      adhesives including all purpose glues, super glue, and epoxies; not including
+      wood glues', parent: null, source: 2, category_code: P.HM.110.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5691
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: paint-exterior, description: home improvement paints characterized
+      as exterior use, parent: null, source: 2, category_code: P.HM.120.005, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5692
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: paint-interior, description: home improvement paints characterized
+      as interior use, parent: null, source: 2, category_code: P.HM.120.009, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5693
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: paint-spray, description: home improvement paints not characterized
+      as to interior or exterior use (spray or aerosol formulation specified), parent: null,
+    source: 2, category_code: P.HM.120.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5694
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: paint-NOC, description: home improvement paints not characterized
+      as to interior or exterior use, parent: null, source: 2, category_code: P.HM.120.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5695
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: paint cleaner-spray, description: paint removing products
+      for clean-up (spray or aerosol formulation specified), parent: null, source: 2,
+    category_code: P.HM.130.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5696
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: paint cleaner-NOC, description: paint removing products for
+      clean-up, parent: null, source: 2, category_code: P.HM.130.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5697
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: paint texture, description: textured paints including ceiling
+      texture, parent: null, source: 2, category_code: P.HM.140.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5698
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: paint thinner, description: paint or lacquer thinners, parent: null,
+    source: 2, category_code: P.HM.150.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5699
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: patch and repair, description: 'drywall, ceiling, and joint
+      compounds, spackles, or fillers', parent: null, source: 2, category_code: P.HM.160.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5700
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: plumbing, description: 'miscellaneous plumbing repair products
+      (putties, tapes, cements)', parent: null, source: 2, category_code: P.HM.170.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5701
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: primer-exterior, description: home improvement primers characterized
+      as exterior use, parent: null, source: 2, category_code: P.HM.180.005, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5702
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: primer-interior, description: home improvement primers characterized
+      as interior use, parent: null, source: 2, category_code: P.HM.180.009, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5703
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: primer-spray, description: home improvement primers not characterized
+      as to interior or exterior use (spray or aerosol formulation specified), parent: null,
+    source: 2, category_code: P.HM.180.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5704
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: primer-NOC, description: home improvement primers not characterized
+      as to interior or exterior use, parent: null, source: 2, category_code: P.HM.180.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5705
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: putty or filler, description: 'putty-type crack, hole, and
+      wood fillers', parent: null, source: 2, category_code: P.HM.190.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5706
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: refrigerant, description: air conditioner or other refrigerants,
+    parent: null, source: 2, category_code: P.HM.200.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5707
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: roof, description: 'products for roof maintenance or repair,
+      including cleaners, sealers, or coatings', parent: null, source: 2, category_code: P.HM.210.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5708
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: septic system, description: septic system treatment products,
+    parent: null, source: 2, category_code: P.HM.220.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5709
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: spray foam, description: spray insulation and weatherstripping
+      products, parent: null, source: 2, category_code: P.HM.230.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5710
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: stain-exterior, description: 'wood stains characterized as
+      exterior use, including deck stains', parent: null, source: 2, category_code: P.HM.240.005,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5711
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: stain-NOC, description: wood stains not characterized as interior
+      or exterior use, parent: null, source: 2, category_code: P.HM.240.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5712
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: stripper-spray, description: paint and finish strippers (spray
+      or aerosol formulation specified), parent: null, source: 2, category_code: P.HM.250.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5713
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: stripper-NOC, description: paint and finish strippers, parent: null,
+    source: 2, category_code: P.HM.250.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5714
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: surface sealer-exterior, description: products for coating
+      and protecting household surfaces characterized as exterior use, parent: null,
+    source: 2, category_code: P.HM.260.005, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5715
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: surface sealer-spray, description: products for coating and
+      protecting household surfaces not characterized as interior or exterior use
+      (spray or aerosol formulation specified), parent: null, source: 2, category_code: P.HM.260.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5716
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: surface sealer-NOC, description: products for coating and
+      protecting household surfaces not characterized as interior or exterior use,
+    parent: null, source: 2, category_code: P.HM.260.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5717
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: welding, description: 'miscellaneous welding products including
+      gases, fluxes, and adhesives', parent: null, source: 2, category_code: P.HM.270.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5718
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: wood adhesive, description: adhesives specifically characterized
+      as wood glues, parent: null, source: 2, category_code: P.HM.280.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5719
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: printer ink, description: ink for inkjet printers, parent: null,
+    source: 2, category_code: P.HO.010.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5720
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: printer toner, description: laser printer toners, parent: null,
+    source: 2, category_code: P.HO.020.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5721
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: white out, description: correction fluids for ink or type,
+    parent: null, source: 2, category_code: P.HO.030.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5722
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: air freshener-gel, description: home air fresheners (gel formulation
+      specified), parent: null, source: 2, category_code: P.IH.010.007, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5723
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: air freshener-liquid, description: home air fresheners (liquid
+      formulation specified), parent: null, source: 2, category_code: P.IH.010.013,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5724
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: air freshener-oil or diffuse, description: home air fresheners
+      (oil formulations or diffusers), parent: null, source: 2, category_code: P.IH.010.016,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5725
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: air freshener-spray, description: home air fresheners (spray
+      or aerosol formulation specified), parent: null, source: 2, category_code: P.IH.010.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5726
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: air freshener-NOC, description: home air fresheners, parent: null,
+    source: 2, category_code: P.IH.010.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5727
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: automatic dishwashing additive, description: 'rinse aids,
+      spot removers, and dishwasher cleaners', parent: null, source: 2, category_code: P.IH.020.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5728
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: automatic dishwashing detergent-gel, description: detergents
+      for automatic dishwashers (gel formulation specified), parent: null, source: 2,
+    category_code: P.IH.030.007, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5729
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: automatic dishwashing detergent-powder, description: detergents
+      for automatic dishwashers (powder formulation specified), parent: null, source: 2,
+    category_code: P.IH.030.023, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5730
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: automatic dishwashing detergent-NOC, description: detergents
+      for automatic dishwashers, parent: null, source: 2, category_code: P.IH.030.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5731
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: bathroom cleaner-spray, description: 'bathtub, tile, and toilet
+      surface cleaners (spray or aerosol formulation specified)', parent: null, source: 2,
+    category_code: P.IH.040.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5732
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: bathroom cleaner-NOC, description: 'bathtub, tile, and toilet
+      surface cleaners', parent: null, source: 2, category_code: P.IH.040.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5733
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: bleach, description: bleaches (including color-safe bleaches),
+    parent: null, source: 2, category_code: P.IH.050.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5734
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: candles, description: candles, parent: null, source: 2, category_code: P.IH.060.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5735
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: carpet cleaner-spray, description: carpet cleaning products
+      and machine solutions (spray or aerosol formulation specified), parent: null,
+    source: 2, category_code: P.IH.070.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5736
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: carpet cleaner-NOC, description: carpet cleaning products
+      and machine solutions, parent: null, source: 2, category_code: P.IH.070.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5737
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: carpet deodorizer, description: carpet deodorizers, parent: null,
+    source: 2, category_code: P.IH.080.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5738
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: dish soap, description: hand dish washing liquids and detergents,
+    parent: null, source: 2, category_code: P.IH.090.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5739
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: disinfectant-spray, description: disinfecting liquids (spray
+      or aerosol formulation specified), parent: null, source: 2, category_code: P.IH.100.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5740
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: disinfectant-NOC, description: disinfecting liquids (including
+      wipes), parent: null, source: 2, category_code: P.IH.100.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5741
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: drain, description: drain openers or digesters, parent: null,
+    source: 2, category_code: P.IH.110.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5742
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: dry cleaner, description: dry cleaning fluids or kits for
+      home use, parent: null, source: 2, category_code: P.IH.120.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5743
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: dryer sheets, description: dryer fabric softener sheets, parent: null,
+    source: 2, category_code: P.IH.130.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5744
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: electronics cleaner-spray, description: miscellaneous products
+      for cleaning home electronic equipment (including surface cleaners or cleaners
+      for interior parts)  (spray or aerosol formulation spec, parent: null, source: 2,
+    category_code: P.IH.140.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5745
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: electronics cleaner-NOC, description: miscellaneous products
+      for cleaning home electronic equipment (including surface cleaners or cleaners
+      for interior parts), parent: null, source: 2, category_code: P.IH.140.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5746
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: fabric deodorizer, description: spray fabric deodorizers,
+    parent: null, source: 2, category_code: P.IH.150.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5747
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: fabric protectant, description: fabric protectants and wrinkle
+      releasers, parent: null, source: 2, category_code: P.IH.160.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5748
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: fabric softener, description: fabric softeners (excluding
+      dryer sheets), parent: null, source: 2, category_code: P.IH.170.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5749
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: fireplace, description: miscellaneous fireplace and firepit
+      products, parent: null, source: 2, category_code: P.IH.180.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5750
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: floor cleaner, description: hard floor cleaners (including  premoistened
+      wipes and pads), parent: null, source: 2, category_code: P.IH.190.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5751
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: floor polish, description: hard floor shining and waxing products,
+    parent: null, source: 2, category_code: P.IH.200.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5752
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: glass cleaner-spray, description: glass and window cleaners
+      (spray or aerosol formulation specified), parent: null, source: 2, category_code: P.IH.210.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5753
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: glass cleaner-NOC, description: glass and window cleaners,
+    parent: null, source: 2, category_code: P.IH.210.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5754
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hand cleaner, description: products marketed as hand cleaners
+      (solvent-based), parent: null, source: 2, category_code: P.IH.220.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5755
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: heavy duty cleaner-spray, description: heavy duty or concentrated
+      multipurpose cleaners (spray or aerosol formulation specified), parent: null,
+    source: 2, category_code: P.IH.230.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5756
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: heavy duty cleaner-NOC, description: heavy duty or concentrated
+      multipurpose cleaners, parent: null, source: 2, category_code: P.IH.230.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5757
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: houseplant care-spray, description: 'houseplant and cut flower
+      foods, fertilizers, or pesticides (spray or aerosol formulation specified)',
+    parent: null, source: 2, category_code: P.IH.240.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5758
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: houseplant care-NOC, description: 'houseplant and cut flower
+      foods, fertilizers, or pesticides', parent: null, source: 2, category_code: P.IH.240.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5759
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: lamp oil or lighter fluid, description: 'lighters, lighter
+      fluids, and other indoor fuels', parent: null, source: 2, category_code: P.IH.250.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5760
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: laundry detergent-liquid, description: laundry detergents
+      and soaps (liquid formulation specified), parent: null, source: 2, category_code: P.IH.260.013,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5761
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: laundry detergent-powder, description: laundry detergents
+      and soaps (powder formulation specified), parent: null, source: 2, category_code: P.IH.260.023,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5762
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: laundry detergent-NOC, description: laundry detergents and
+      soaps, parent: null, source: 2, category_code: P.IH.260.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5763
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: laundry fragrance, description: scent products to be added
+      to wash, parent: null, source: 2, category_code: P.IH.270.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5764
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: laundry stain remover-spray, description: stain removers or
+      laundry pre-treatment products (spray or aerosol formulation specified), parent: null,
+    source: 2, category_code: P.IH.280.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5765
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: laundry stain remover-NOC, description: stain removers or
+      laundry pre-treatment products, parent: null, source: 2, category_code: P.IH.280.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5766
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: laundry starch-spray, description: fabric starches (spray
+      or aerosol formulation specified), parent: null, source: 2, category_code: P.IH.290.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5767
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: laundry starch-NOC, description: fabric starches, parent: null,
+    source: 2, category_code: P.IH.290.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5768
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: lime remover, description: products for removing lime or scale
+      from surfaces, parent: null, source: 2, category_code: P.IH.300.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5769
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: metal polish, description: cleaning products for metal surfaces,
+    parent: null, source: 2, category_code: P.IH.310.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5770
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: oven cleaner-spray, description: oven and grill cleaners (spray
+      or aerosol formulation specified), parent: null, source: 2, category_code: P.IH.320.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5771
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: oven cleaner-NOC, description: oven and grill cleaners, parent: null,
+    source: 2, category_code: P.IH.320.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5772
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: shoe polish or protectant, description: 'shoe polishes, cleaners,
+      and protectants', parent: null, source: 2, category_code: P.IH.330.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5773
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: surface cleaner-spray, description: hard surface and kitchen
+      surface cleaners (spray or aerosol formulation specified), parent: null, source: 2,
+    category_code: P.IH.340.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5774
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: surface cleaner-NOC, description: hard surface and kitchen
+      surface cleaners, parent: null, source: 2, category_code: P.IH.340.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5775
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: upholstery cleaner, description: upholstery fabric cleaners,
+    parent: null, source: 2, category_code: P.IH.350.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5776
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: wood polish-spray, description: wood or furniture dusting
+      or polishing products (spray or aerosol formulation specified), parent: null,
+    source: 2, category_code: P.IH.360.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5777
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: wood polish-NOC, description: wood or furniture dusting or
+      polishing products, parent: null, source: 2, category_code: P.IH.360.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5778
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: cleaner-exterior, description: 'exterior surface (e.g. deck,
+      house, driveway) cleaners', parent: null, source: 2, category_code: P.LY.010.005,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5779
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: garden care-other, description: miscellaneous garden care
+      products not otherwise characterized (e.g. rooting powders), parent: null, source: 2,
+    category_code: P.LY.020.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5780
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: garden fertilizer, description: 'fertilizers for vegetable
+      or flower gardens, including in combination with pest/weed controllers', parent: null,
+    source: 2, category_code: P.LY.030.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5781
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: grill or camping fuel, description: 'grill, lantern and camping
+      stove fuels, including briquets', parent: null, source: 2, category_code: P.LY.040.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5782
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: herbicide-spray, description: 'herbicides, weed killers, and
+      brush killers (spray or aerosol formulation specified)', parent: null, source: 2,
+    category_code: P.LY.050.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5783
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: herbicide-NOC, description: 'herbicides, weed killers, and
+      brush killers', parent: null, source: 2, category_code: P.LY.050.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5784
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: lawn fertilizer, description: 'fertilizers for lawns, including
+      in combination with pest/weed controllers', parent: null, source: 2, category_code: P.LY.060.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5785
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: lawnmower fluids, description: oils and other fluids for lawnmowers
+      or other small yard care equipment, parent: null, source: 2, category_code: P.LY.070.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5786
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: mulch, description: 'mulches, including those with weed controllers',
+    parent: null, source: 2, category_code: P.LY.080.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5787
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: pool chemicals-algaecide, description: 'algaecidal products
+      for pools, hot tubs, and spas', parent: null, source: 2, category_code: P.LY.090.002,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5788
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: pool chemicals-chlorinating, description: 'chlorinating products
+      for pools, hot tubs, and spas', parent: null, source: 2, category_code: P.LY.090.003,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5789
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: pool chemicals-ph control, description: 'ph control products
+      for pools, hot tubs, and spas', parent: null, source: 2, category_code: P.LY.090.022,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5790
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: pool chemicals-shock, description: 'shock products for pools,
+      hot tubs, and spas', parent: null, source: 2, category_code: P.LY.090.025, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5791
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: pool chemicals-NOC, description: 'products not otherwise characterized
+      for pools, hot tubs, and spas', parent: null, source: 2, category_code: P.LY.090.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5792
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: potting soil, description: potting soil and vermiculite, parent: null,
+    source: 2, category_code: P.LY.100.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5793
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: surface deicer, description: products for deicing surfaces,
+    parent: null, source: 2, category_code: P.LY.110.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5794
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: trees, description: miscellaneous tree care products including
+      sealers, parent: null, source: 2, category_code: P.LY.120.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5795
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: acne spot treatment-spray, description: creams and wipes for
+      spot-treating acne (spray or aerosol formulation specified, parent: null, source: 2,
+    category_code: P.PC.010.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5796
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: acne spot treatment-NOC, description: creams and wipes for
+      spot-treating acne, parent: null, source: 2, category_code: P.PC.010.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5797
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: aftershave, description: 'lotions, balms, liquids, and gels
+      for post-shave applications (usually fragranced)', parent: null, source: 2,
+    category_code: P.PC.020.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5798
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: baby lotion, description: baby cream or lotion (excluding
+      diaper creams), parent: null, source: 2, category_code: P.PC.030.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5799
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: baby oil, description: skin oils specifically marketed for
+      babies, parent: null, source: 2, category_code: P.PC.040.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5800
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: baby powder, description: powders specifically marketed for
+      babies, parent: null, source: 2, category_code: P.PC.050.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5801
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: baby shampoo, description: shampoos specifically marketed
+      for babies, parent: null, source: 2, category_code: P.PC.060.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5802
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: baby wash, description: body washes and cleaners specifically
+      marketed for babies, parent: null, source: 2, category_code: P.PC.070.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5803
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: baby wipes, description: diaper and other baby wipes, parent: null,
+    source: 2, category_code: P.PC.080.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5804
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: bar soap, description: bar and other solid soaps, parent: null,
+    source: 2, category_code: P.PC.090.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5805
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: bath oil, description: bath oils or oil-filled beads, parent: null,
+    source: 2, category_code: P.PC.100.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5806
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: bath paints or crayons, description: bath paints or bath crayons,
+    parent: null, source: 2, category_code: P.PC.110.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5807
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: bath salts, description: 'bath salts, soaks, and fizzes',
+    parent: null, source: 2, category_code: P.PC.120.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5808
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: bite relief, description: soothing treatments for insect bites,
+    parent: null, source: 2, category_code: P.PC.130.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5809
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: blush or bronzer, description: 'cheek blushes, bronzers, and
+      rouges', parent: null, source: 2, category_code: P.PC.140.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5810
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: body adhesive, description: adhesives for attaching decorations
+      or clothing to skin, parent: null, source: 2, category_code: P.PC.150.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5811
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: body care set, description: multicomponent body care or bath
+      set for which individual products are not designated, parent: null, source: 2,
+    category_code: P.PC.160.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5812
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: body oil-spray, description: 'body oils (not including baby
+      or bath oils, spray or aerosol formulation specified)', parent: null, source: 2,
+    category_code: P.PC.170.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5813
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: body oil-NOC, description: body oils (not including baby or
+      bath oils), parent: null, source: 2, category_code: P.PC.170.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5814
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: body powder, description: talcum and dusting powders for the
+      body, parent: null, source: 2, category_code: P.PC.180.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5815
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: body scrub, description: body cleaners containing abrasives
+      or exfoliants, parent: null, source: 2, category_code: P.PC.190.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5816
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: body wash, description: 'body cleaners, washes, shower gels',
+    parent: null, source: 2, category_code: P.PC.200.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5817
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: body wipes, description: body wipes and towelettes (excluding
+      diaper or baby wipes), parent: null, source: 2, category_code: P.PC.210.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5818
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: bubble bath, description: bubble baths, parent: null, source: 2,
+    category_code: P.PC.220.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5819
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: clipper lubricant or cleaner, description: cleaning and lubricating
+      products for hair clippers, parent: null, source: 2, category_code: P.PC.230.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5820
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: contact care-spray, description: contact lens cleaners and
+      solutions (spray or aerosol formulation specified), parent: null, source: 2,
+    category_code: P.PC.240.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5821
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: contact care-NOC, description: contact lens cleaners and solutions,
+    parent: null, source: 2, category_code: P.PC.240.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5822
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: cosmetic tool cleaner, description: products for cleaning
+      brushes and other cosmetic implements, parent: null, source: 2, category_code: P.PC.250.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5823
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: denture adhesive, description: denture adhesives, parent: null,
+    source: 2, category_code: P.PC.260.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5824
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: denture cleaner, description: denture cleansers, parent: null,
+    source: 2, category_code: P.PC.270.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5825
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: deodorant-gel, description: deodorants and antiperspirants
+      (gel formulation specified), parent: null, source: 2, category_code: P.PC.280.007,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5826
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: deodorant-solid, description: deodorants and antiperspirants
+      (solid formulation specified), parent: null, source: 2, category_code: P.PC.280.028,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5827
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: deodorant-spray, description: deodorants and antiperspirants
+      (spray or aerosol formulation specified), parent: null, source: 2, category_code: P.PC.280.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5828
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: deodorant-NOC, description: deodorants and antiperspirants
+      not otherwise characterized, parent: null, source: 2, category_code: P.PC.280.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5829
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: depilatory-spray, description: chemical products for removal
+      of body or facial hair (spray or aerosol formulation specified), parent: null,
+    source: 2, category_code: P.PC.290.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5830
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: depilatory-NOC, description: chemical products for removal
+      of body or facial hair, parent: null, source: 2, category_code: P.PC.290.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5831
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: diaper cream, description: diaper creams and ointments, parent: null,
+    source: 2, category_code: P.PC.300.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5832
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: dry shampoo-spray, description: dry shampoos for removing
+      hair oils (spray or aerosol formulation specified), parent: null, source: 2,
+    category_code: P.PC.310.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5833
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: dry shampoo-NOC, description: dry shampoos for removing hair
+      oils, parent: null, source: 2, category_code: P.PC.310.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5834
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: ethnic hair care, description: 'products for ethnic hair care,
+      including wrap set lotions and pressing lotions (excluding relaxers)', parent: null,
+    source: 2, category_code: P.PC.320.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5835
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: eye cream, description: creams and moisturizers for specific
+      treatment of eye area, parent: null, source: 2, category_code: P.PC.330.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5836
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: eye drops, description: products for lubricating eyes or treating
+      redness, parent: null, source: 2, category_code: P.PC.340.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5837
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: eye lid spray, description: spray product for moisturizing
+      the eyelid, parent: null, source: 2, category_code: P.PC.350.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5838
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: eye liner-liquid, description: eye liners or brow coloring
+      products (liquid or gel formulation specified), parent: null, source: 2, category_code: P.PC.360.013,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5839
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: eye liner-NOC, description: eye liners or brow coloring products,
+    parent: null, source: 2, category_code: P.PC.360.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5840
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: eye makeup-other, description: miscellaneous cosmetic eye
+      products including lash adhesives and tints, parent: null, source: 2, category_code: P.PC.370.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5841
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: eye products, description: NA, parent: null, source: 2, category_code: P.PC.380.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5842
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: eye shadow, description: products for coloring eye lids, parent: null,
+    source: 2, category_code: P.PC.390.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5843
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: face cleansing wipes, description: textile wipes or pads treated
+      with cleansing solution, parent: null, source: 2, category_code: P.PC.400.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5844
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: face cream or moisturizer-spray, description: 'moisturizers,
+      lotions, and creams for primarily treating the face (excluding eye-specific
+      products) (spray or aerosol formulation specified)', parent: null, source: 2,
+    category_code: P.PC.410.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5845
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: face cream or moisturizer-NOC, description: 'moisturizers,
+      lotions, and creams for primarily treating the face (excluding eye-specific
+      products)', parent: null, source: 2, category_code: P.PC.410.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5846
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: face mask, description: leave-on masks or peels for treatment
+      of the face, parent: null, source: 2, category_code: P.PC.420.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5847
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: face powder, description: pressed or loose powders for face,
+    parent: null, source: 2, category_code: P.PC.430.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5848
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: face scrub-acne, description: 'facial cleansing products containing
+      exfoliating particles, for acne treatment', parent: null, source: 2, category_code: P.PC.440.001,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5849
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: face scrub-NOC, description: facial cleansing products containing
+      exfoliating particles (excluding products for acne), parent: null, source: 2,
+    category_code: P.PC.440.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5850
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: face wash-acne, description: 'facial cleansing products (excluding
+      scrubs), for acne treatment', parent: null, source: 2, category_code: P.PC.450.001,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5851
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: face wash-spray, description: facial cleansing products (excluding
+      scrubs) (spray or aerosol formulation specified), parent: null, source: 2, category_code: P.PC.450.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5852
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: face wash-NOC, description: facial cleansing products (excluding
+      scrubs and products for acne), parent: null, source: 2, category_code: P.PC.450.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5853
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: foot care-spray, description: 'miscellaneous products for
+      application to feet, including scrubs, lotions, and deodorants (spray or aerosol
+      formulation specified)', parent: null, source: 2, category_code: P.PC.460.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5854
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: foot care-NOC, description: 'miscellaneous products for application
+      to feet, including scrubs, lotions, and deodorants', parent: null, source: 2,
+    category_code: P.PC.460.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5855
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: foundation or concealer, description: liquid or cream foundation
+      make-ups and concealers, parent: null, source: 2, category_code: P.PC.470.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5856
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: fragrance-spray, description: 'fragrances, colognes, and perfumes
+      (spray or aerosol formulation specified)', parent: null, source: 2, category_code: P.PC.480.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5857
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: fragrance-NOC, description: 'fragrances, colognes, and perfumes',
+    parent: null, source: 2, category_code: P.PC.480.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5858
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: glitter, description: powder products containing reflective
+      particles for face or body, parent: null, source: 2, category_code: P.PC.490.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5859
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair bleach, description: products for lightening or removing
+      color from hair on the head, parent: null, source: 2, category_code: P.PC.500.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5860
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair color-permanent, description: hair colors and dyes characterized
+      as permanent, parent: null, source: 2, category_code: P.PC.510.019, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5861
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair color-professional, description: hair colors and dyes
+      characterized as for professional use, parent: null, source: 2, category_code: P.PC.510.024,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5862
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair color-temporary, description: hair colors and dyes characterized
+      as temporary, parent: null, source: 2, category_code: P.PC.510.030, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5863
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair color-temporary spray, description: hair colors and dyes
+      characterized as temporary (spray or aerosol formulation specified), parent: null,
+    source: 2, category_code: P.PC.510.031, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5864
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair color-NOC, description: hair coloring products not otherwise
+      categorized, parent: null, source: 2, category_code: P.PC.510.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5865
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair color activator, description: chemical activators for
+      hair coloring products, parent: null, source: 2, category_code: P.PC.520.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5866
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair color developer, description: chemical developers for
+      hair coloring products, parent: null, source: 2, category_code: P.PC.530.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5867
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair color toner, description: chemical toners for hair coloring
+      products, parent: null, source: 2, category_code: P.PC.540.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5868
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair conditioner-leave-in, description: leave-in everyday
+      hair conditioners and detanglers, parent: null, source: 2, category_code: P.PC.550.011,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5869
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair conditioner-leave-in-spray, description: leave-in everyday
+      hair conditioners (spray or aerosol formulation specified), parent: null, source: 2,
+    category_code: P.PC.550.012, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5870
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair conditioner-spray, description: rinse-out everyday hair
+      conditioners (excluding combo shampoo/conditioner products) (spray or aerosol
+      formulation specified), parent: null, source: 2, category_code: P.PC.550.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5871
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair conditioner-NOC, description: rinse-out everyday hair
+      conditioners (excluding combo shampoo/conditioner products), parent: null, source: 2,
+    category_code: P.PC.550.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5872
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair conditioning treatment-professional, description: hair
+      conditioning and moisturizing treatments for occasional use characterized as
+      for professional use, parent: null, source: 2, category_code: P.PC.560.024,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5873
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair conditioning treatment-spray, description: hair conditioning
+      and moisturizing treatments for occasional use (spray or aerosol formulation
+      specified), parent: null, source: 2, category_code: P.PC.560.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5874
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair conditioning treatment-NOC, description: hair conditioning
+      and moisturizing treatments for occasional use, parent: null, source: 2, category_code: P.PC.560.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5875
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair relaxer, description: chemical hair relaxers, parent: null,
+    source: 2, category_code: P.PC.570.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5876
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair spray, description: spray fixatives for hair, parent: null,
+    source: 2, category_code: P.PC.580.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5877
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair styling-gel, description: 'hair styling products for
+      hold, shine, or texture (gel formulation indicated)', parent: null, source: 2,
+    category_code: P.PC.590.007, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5878
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair styling-gel-spray, description: 'hair styling products
+      for hold, shine, or texture (gel and spray formulation indicated)', parent: null,
+    source: 2, category_code: P.PC.590.008, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5879
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair styling-mousse, description: foaming hair styling products,
+    parent: null, source: 2, category_code: P.PC.590.014, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5880
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair styling-mousse-spray, description: foaming hair styling
+      products  (spray or aerosol formulation specified), parent: null, source: 2,
+    category_code: P.PC.590.015, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5881
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair styling-powder, description: powder products for styling
+      or fixing hair, parent: null, source: 2, category_code: P.PC.590.023, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5882
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair styling-spray, description: 'hair styling products for
+      hold, shine, or texture (spray or aerosol formulation specified)', parent: null,
+    source: 2, category_code: P.PC.590.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5883
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hair styling-NOC, description: 'hair styling products for
+      hold, shine, or texture', parent: null, source: 2, category_code: P.PC.590.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5884
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hand sanitizer-spray, description: antibacterial products
+      for hands (spray or aerosol formulation specified), parent: null, source: 2,
+    category_code: P.PC.600.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5885
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hand sanitizer-NOC, description: antibacterial products for
+      hands, parent: null, source: 2, category_code: P.PC.600.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5886
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hand soap, description: liquid hand soaps, parent: null, source: 2,
+    category_code: P.PC.610.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5887
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hand wipes, description: wipes and solution primarily for
+      hands, parent: null, source: 2, category_code: P.PC.620.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5888
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hand or body lotion-gel, description: lotions and creams primarily
+      for hands and body (gel formulations indicated), parent: null, source: 2, category_code: P.PC.630.007,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5889
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hand or body lotion-gel-spray, description: lotions and creams
+      primarily for hands and body (gel and spray or aerosol formulation specified),
+    parent: null, source: 2, category_code: P.PC.630.008, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5890
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hand or body lotion-spray, description: lotions and creams
+      primarily for hands and body (spray or aerosol formulation specified), parent: null,
+    source: 2, category_code: P.PC.630.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5891
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: hand or body lotion-NOC, description: lotions and creams primarily
+      for hands and body, parent: null, source: 2, category_code: P.PC.630.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5892
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: lice shampoo, description: shampoos for the treatment of head
+      lice, parent: null, source: 2, category_code: P.PC.640.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5893
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: liniment, description: liniments and ointments for treatment
+      of muscle or joint pain, parent: null, source: 2, category_code: P.PC.650.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5894
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: lip balm, description: lip products primarily for protection,
+    parent: null, source: 2, category_code: P.PC.660.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5895
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: lip color, description: 'colored lip products, excluding glosses',
+    parent: null, source: 2, category_code: P.PC.670.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5896
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: lip gloss, description: glossy lip products, parent: null,
+    source: 2, category_code: P.PC.680.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5897
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: lip liner, description: pencils for lining lips, parent: null,
+    source: 2, category_code: P.PC.690.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5898
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: makeup primer, description: products for priming face for
+      make-up, parent: null, source: 2, category_code: P.PC.700.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5899
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: makeup remover, description: products for removing face make-ups,
+    parent: null, source: 2, category_code: P.PC.710.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5900
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: makeup set, description: multicomponent make-up set set for
+      which individual products are not designated, parent: null, source: 2, category_code: P.PC.720.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5901
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: mascara, description: eyelash mascaras, parent: null, source: 2,
+    category_code: P.PC.730.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5902
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: mouthwash-spray, description: antiseptic and dental mouthwashes
+      and rinses (spray or aerosol formulation specified), parent: null, source: 2,
+    category_code: P.PC.740.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5903
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: mouthwash-NOC, description: antiseptic and dental mouthwashes
+      and rinses, parent: null, source: 2, category_code: P.PC.740.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5904
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: nail adhesive, description: adhesives for reparing fingernails
+      or attaching artificial nails, parent: null, source: 2, category_code: P.PC.750.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5905
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: nail polish, description: 'clear or colored nail enamels,
+      polishes, basecoats, topcoats, and other acrylic coatings', parent: null, source: 2,
+    category_code: P.PC.760.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5906
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: nail polish remover, description: products for removing nail
+      polish or artificial nails, parent: null, source: 2, category_code: P.PC.770.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5907
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: nail products-other, description: miscellaneous products for
+      nail or cuticle treatment not covered by other categories, parent: null, source: 2,
+    category_code: P.PC.780.018, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5908
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: nail products-other-spray, description: miscellaneous products
+      for nail or cuticle treatment not covered by other categories (spray or aerosol
+      formulation specified), parent: null, source: 2, category_code: P.PC.780.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5909
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: scalp treatment-spray, description: 'products for treating
+      the scalp, including products dandruff or hair loss (spray or aerosol formulation
+      specified)', parent: null, source: 2, category_code: P.PC.790.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5910
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: scalp treatment-NOC, description: 'products for treating the
+      scalp, including products dandruff or hair loss', parent: null, source: 2, category_code: P.PC.790.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5911
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: self-tanner-spray, description: 'chemical products for tanning,
+      staining, or coloring the skin (spray or aerosol formulation specified)', parent: null,
+    source: 2, category_code: P.PC.800.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5912
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: self-tanner-NOC, description: 'chemical products for tanning,
+      staining, or coloring the skin', parent: null, source: 2, category_code: P.PC.800.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5913
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: sexual wellness, description: 'sexual wellness products, including
+      personal lubricants', parent: null, source: 2, category_code: P.PC.810.000,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5914
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: shampoo-dandruff, description: 'shampoos, including dual shampoo/conditioner
+      products for treatment of dandruff', parent: null, source: 2, category_code: P.PC.820.004,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5915
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: shampoo-NOC, description: 'shampoos, including dual shampoo/conditioner
+      products', parent: null, source: 2, category_code: P.PC.820.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5916
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: shaving cream-gel, description: 'shaving creams, foams, balms
+      and soaps (gel formulation specified)', parent: null, source: 2, category_code: P.PC.830.007,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5917
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: shaving cream-NOC, description: 'shaving creams, foams, balms
+      and soaps', parent: null, source: 2, category_code: P.PC.830.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5918
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: sunscreen-spray, description: suncreens and blocks (spray
+      or aerosol formulations specified, parent: null, source: 2, category_code: P.PC.840.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5919
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: sunscreen-children, description: suncreens and blocks marketed
+      to children or babies, parent: null, source: 2, category_code: P.PC.840.100,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5920
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: sunscreen-children-spray, description: suncreens and blocks
+      marketed to children or babies (spray or aerosol formulations specified), parent: null,
+    source: 2, category_code: P.PC.840.101, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5921
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: sunscreen-NOC, description: sunscreens and blocks, parent: null,
+    source: 2, category_code: P.PC.840.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5922
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: teeth whitener, description: teeth whitening products (excluding
+      toothpastes), parent: null, source: 2, category_code: P.PC.850.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5923
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: toner, description: face and skin toners and astringents,
+    parent: null, source: 2, category_code: P.PC.860.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5924
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: toothpaste-gel, description: toothpastes and dentrifices (gel
+      formulation specified), parent: null, source: 2, category_code: P.PC.870.007,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5925
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: toothpaste-NOC, description: toothpastes and dentrifices,
+    parent: null, source: 2, category_code: P.PC.870.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5926
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: waxing, description: wax products for removing hair from face
+      or body, parent: null, source: 2, category_code: P.PC.880.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5927
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: animal repellent-spray, description: chemical animal repellents
+      (spray or aerosol formulation specified), parent: null, source: 2, category_code: P.PE.010.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5928
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: animal repellent-NOC, description: chemical animal repellents,
+    parent: null, source: 2, category_code: P.PE.010.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5929
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: fungicide-spray, description: fungicides for garden or home
+      use  (spray or aerosol formulation specified), parent: null, source: 2, category_code: P.PE.020.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5930
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: fungicide-NOC, description: fungicides for garden or home
+      use, parent: null, source: 2, category_code: P.PE.020.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5931
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: insect repellent-exterior, description: 'miscellaneous products
+      for repelling insects, exterior use indicated', parent: null, source: 2, category_code: P.PE.030.005,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5932
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: insect repellent-exterior-spray, description: 'miscellaneous
+      products for repelling insects, exterior use indicated  (spray or aerosol formulation
+      specified)', parent: null, source: 2, category_code: P.PE.030.006, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5933
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: insect repellent-skin, description: products for repelling
+      insects from skin, parent: null, source: 2, category_code: P.PE.030.026, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5934
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: insect repellent-skin-spray, description: products for repelling
+      insects from skin (spray or aerosol formulation specified), parent: null, source: 2,
+    category_code: P.PE.030.027, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5935
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: insect repellent-spray, description: miscellaneous products
+      for repelling insects (excluding products to be applied to skin) (spray or aerosol
+      formulation specified), parent: null, source: 2, category_code: P.PE.030.029,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5936
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: insect repellent-NOC, description: miscellaneous products
+      for repelling insects (excluding products to be applied to skin), parent: null,
+    source: 2, category_code: P.PE.030.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5937
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: insecticide-exterior, description: 'insecticides, exterior
+      use indicated -  including lawn and gardens', parent: null, source: 2, category_code: P.PE.040.005,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5938
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: insecticide-exterior-spray, description: 'insecticides, exterior
+      use indicated (spray or aerosol formulation specified)', parent: null, source: 2,
+    category_code: P.PE.040.006, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5939
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: insecticide-interior, description: 'insecticides, interior
+      use indicated', parent: null, source: 2, category_code: P.PE.040.009, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5940
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: insecticide-interior-spray, description: 'insecticides, interior
+      use indicated (spray or aerosol formulation specified)', parent: null, source: 2,
+    category_code: P.PE.040.010, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5941
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: insecticide-spray, description: insecticides not otherwise
+      characterized (spray or aerosol formulation specified), parent: null, source: 2,
+    category_code: P.PE.040.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5942
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: insecticide-NOC, description: insecticides not otherwise characterized,
+    parent: null, source: 2, category_code: P.PE.040.999, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5943
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: rodenticide, description: rodenticides for interior or exterior
+      use, parent: null, source: 2, category_code: P.PE.050.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5944
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: aquarium, description: miscellaneous aquarium treatment products,
+    parent: null, source: 2, category_code: P.PT.010.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5945
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: cat litter, description: cat litters, parent: null, source: 2,
+    category_code: P.PT.020.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5946
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: other pet treatments-spray, description: miscellaneous pet
+      treatments (excluding pesticides)  (spray or aerosol formulation specified),
+    parent: null, source: 2, category_code: P.PT.030.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5947
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: other pet treatments-NOC, description: miscellaneous pet treatments
+      (excluding pesticides), parent: null, source: 2, category_code: P.PT.030.999,
+    last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5948
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: pesticide-pet, description: pesticides for application to  pets,
+    parent: null, source: 2, category_code: P.PT.040.020, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5949
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: pesticide-pet-spray, description: pesticides for application
+      to  pets  (spray or aerosol formulation specified), parent: null, source: 2,
+    category_code: P.PT.040.021, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5950
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: pet shampoo, description: pet shampoos (inclduing those contain
+      pesticides), parent: null, source: 2, category_code: P.PT.050.000, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5951
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: pet stain cleaner-spray, description: carpet and upholstery
+      cleaners for pet stains (spray or aerosol formulation specified), parent: null,
+    source: 2, category_code: P.PT.060.029, last_edited_by: 1}
+- model: dashboard.taxonomy
+  pk: 5952
+  fields: {created_at: !!timestamp '2019-02-26 00:00:00', updated_at: !!timestamp '2019-02-26
+      00:00:00', title: pet stain cleaner-NOC, description: carpet and upholstery
+      cleaners for pet stains, parent: null, source: 2, category_code: P.PT.060.999,
+    last_edited_by: 1}
+
+- model: dashboard.taxonomytopuc
+  pk: 2
+  fields: {created_at: null, updated_at: null, PUC: 20, taxonomy: 5630}
+- model: dashboard.taxonomytopuc
+  pk: 3
+  fields: {created_at: null, updated_at: null, PUC: 20, taxonomy: 5631}
+- model: dashboard.taxonomytopuc
+  pk: 4
+  fields: {created_at: null, updated_at: null, PUC: 20, taxonomy: 5632}
+- model: dashboard.taxonomytopuc
+  pk: 5
+  fields: {created_at: null, updated_at: null, PUC: 20, taxonomy: 5633}
+- model: dashboard.taxonomytopuc
+  pk: 6
+  fields: {created_at: null, updated_at: null, PUC: 20, taxonomy: 5634}
+- model: dashboard.taxonomytopuc
+  pk: 7
+  fields: {created_at: null, updated_at: null, PUC: 20, taxonomy: 5635}

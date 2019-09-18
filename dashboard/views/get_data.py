@@ -13,23 +13,22 @@ from dashboard.forms import HabitsPUCForm
 
 
 def get_data(request, template_name="get_data/get_data.html"):
-    hnp = None
-    form = HabitsPUCForm()
-    context = {"hnp": hnp, "form": form, "first": None}
+    context = {"habits_and_practices": None, "form": HabitsPUCForm(), "first": None}
     if request.method == "POST":
         form = HabitsPUCForm(request.POST)
         if form.is_valid():
             puc = PUC.objects.get(pk=form["puc"].value())
-            pucs = puc.get_the_kids()
-            link_table = ExtractedHabitsAndPracticesToPUC
-            links = link_table.objects.filter(PUC__in=pucs).values_list(
-                "extracted_habits_and_practices", flat=True
+            pucs = puc.get_children()
+            links = ExtractedHabitsAndPracticesToPUC.objects.filter(
+                PUC__in=pucs
+            ).values_list("extracted_habits_and_practices", flat=True)
+            habits_and_practices = ExtractedHabitsAndPractices.objects.filter(
+                pk__in=links
             )
-            hnp = ExtractedHabitsAndPractices.objects.filter(pk__in=links)
             context["form"] = form
-            context["hnp"] = hnp if len(hnp) > 0 else 0
-            if len(hnp) > 0:
-                context["first"] = hnp[0].pk
+            context["habits_and_practices"] = habits_and_practices
+            if len(habits_and_practices) > 0:
+                context["first"] = habits_and_practices[0].pk
     return render(request, template_name, context)
 
 

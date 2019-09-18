@@ -39,10 +39,7 @@ class Ingredient(CommonInfo):
     )
 
     rawchem_ptr = models.OneToOneField(
-        related_name="ingredient",
-        parent_link=True,
-        on_delete=models.CASCADE,
-        to="dashboard.RawChem",
+        related_name="ingredient", on_delete=models.CASCADE, to="dashboard.RawChem"
     )
 
     def __str__(self):

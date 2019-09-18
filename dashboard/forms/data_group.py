@@ -19,8 +19,8 @@ class DGFormSet(BaseBulkFormSet):
     can_order = False
     can_delete = False
     min_num = 1
-    max_num = sys.maxsize
-    absolute_max = sys.maxsize
+    max_num = 50000
+    absolute_max = 50000
     validate_min = True
     validate_max = True
 

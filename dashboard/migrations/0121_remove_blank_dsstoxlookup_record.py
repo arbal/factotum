@@ -11,12 +11,12 @@ class Migration(migrations.Migration):
             UPDATE dashboard_rawchem
             SET dsstox_id = NULL
             WHERE dsstox_id = 1090
-            """,
+            """
         ),
         migrations.RunSQL(
             """
             DELETE FROM dashboard_dsstoxlookup
             WHERE id = 1090
-            """,
+            """
         ),
     ]

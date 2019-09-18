@@ -11,6 +11,7 @@ from dashboard.models import (
     ExtractedHHRec,
     ExtractedListPresence,
     ExtractedText,
+    PUC,
 )
 
 
@@ -59,6 +60,9 @@ class SimpleTree:
         self.value = value
         self.leaves = leaves
 
+    def __str__(self):
+        return self.name
+
     def set(self, names, value, default=None):
         """Recursively add leaves to a SimpleTree object.
 
@@ -98,7 +102,10 @@ class SimpleTree:
             root = next(l for l in root.leaves if l.name == name)
         return root
 
+    def n_children(self):
+ 	      return sum(1 for p in self.iter() if p.value) - 1
 
+    
 def get_extracted_models(t):
     """Returns the parent model function and and the associated child model
     based on datagroup type"""
@@ -239,3 +246,19 @@ def gather_errors(form_instance, values=False):
     errors = err_rep("forms", "entries")
     errors = err_rep("form", "entry")
     return errors
+
+
+def accumulate_pucs(qs):
+    all_pucs = qs
+    for p in qs:
+        family = PUC.objects.none()
+        if p.get_level() > 2:
+            family = PUC.objects.filter(
+                gen_cat=p.gen_cat, prod_fam=p.prod_fam, prod_type=""
+            ).distinct()
+        if p.get_level() > 1:
+            general = PUC.objects.filter(
+                gen_cat=p.gen_cat, prod_fam="", prod_type=""
+            ).distinct()
+            all_pucs = all_pucs | general | family
+    return all_pucs

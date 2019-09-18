@@ -2,7 +2,6 @@ from model_utils import FieldTracker
 from model_utils.managers import InheritanceManager
 from django.db import models
 from django.apps import apps
-from django.db.models.signals import pre_save
 
 
 class RawChem(models.Model):

@@ -1,22 +1,13 @@
 import csv
 import datetime
 from django.db.models import Value, IntegerField
-
-# from djqscsv import render_to_csv_response
-
-from django import forms
-from django.contrib import messages
-from django.db.models import Value, IntegerField
 from django.shortcuts import render, reverse, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse, StreamingHttpResponse
+from django.http import StreamingHttpResponse
 
-from dashboard.models import *
-from dashboard.forms import (
-    DataGroupSelector,
-    get_extracted_models,
-    create_detail_formset,
-)
+from dashboard.models import RawChem, DSSToxLookup, DataGroup, DataDocument
+from dashboard.forms import DataGroupSelector
+from dashboard.utils import get_extracted_models
 
 
 @login_required()
@@ -139,7 +130,6 @@ def download_raw_chems_dg(request, pk):
         .values("id", "raw_cas", "raw_chem_name", "rid", "dg_id")[0:10000]
     )
     pseudo_buffer = Echo()
-    writer = csv.writer(pseudo_buffer)
     response = StreamingHttpResponse(
         streaming_content=(iterate_rawchems(uncurated_chems, pseudo_buffer)),
         content_type="text/csv",

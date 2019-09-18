@@ -20,7 +20,7 @@ class ChemicalCurationTests(TestCase):
         """
         response = self.client.get("/chemical_curation/")
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Download uncurated chemicals for a Data Group")
+        self.assertContains(response, "Download Uncurated Chemicals by Data Group")
 
         # Pick one curated and one non-curated RawChem record, and
         # confirm that the downloaded file excludes and includes them,

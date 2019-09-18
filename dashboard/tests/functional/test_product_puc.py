@@ -2,7 +2,14 @@ from django.test import TestCase, override_settings
 from dashboard.tests.loader import fixtures_standard
 from lxml import html
 from django.urls import reverse
-from dashboard.models import PUC, PUCTag, PUCToTag, Product, ProductToPUC, ProductDocument
+from dashboard.models import (
+    PUC,
+    PUCTag,
+    PUCToTag,
+    Product,
+    ProductToPUC,
+    ProductDocument,
+)
 from django.db.utils import IntegrityError
 from django.db.models import Count, Sum
 from dashboard.models.raw_chem import RawChem
@@ -302,7 +309,15 @@ class TestProductPuc(TestCase):
     def test_curated_chemical_count(self):
         puc = PUC.objects.get(pk=185)
         docs = ProductDocument.objects.filter(product__in=puc.products.all())
-        chems = (RawChem.objects.filter(extracted_text__data_document__in=docs.values_list('document',flat=True))
-                .annotate(chems=Count('dsstox',distinct=True))
-                .aggregate(chem_count=Sum("chems")))
-        self.assertEqual(chems['chem_count'],1,"There should be 1 record for this puc")
+        chems = (
+            RawChem.objects.filter(
+                extracted_text__data_document__in=docs.values_list(
+                    "document", flat=True
+                )
+            )
+            .annotate(chems=Count("dsstox", distinct=True))
+            .aggregate(chem_count=Sum("chems"))
+        )
+        self.assertEqual(
+            chems["chem_count"], 1, "There should be 1 record for this puc"
+        )

@@ -1,6 +1,5 @@
 $(document).ready(function () {
   var table = $('#extraction_script_table').DataTable({
-  // "lengthMenu": [ 10, 25, 50, 75, 100 ], // change number of records shown
   "columnDefs": [
       {
           "targets": 3,
@@ -12,3 +11,8 @@ $(document).ready(function () {
       "<'row'<'col-sm-5'i><'col-sm-7'p>>" // order the control divs
   });
 });
+
+$('[data-toggle=confirmation]').confirmation(
+  {rootSelector: '[data-toggle=confirmation]'
+      , singleton: true
+      , popout: true, content: 'Do you want to continue?'});

@@ -68,7 +68,7 @@ class TestSearch(TestCase):
         response = self.client.get("/search/product/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
         total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
-        expected_total = "33 products"
+        expected_total = "6 products"
         self.assertIn(expected_total, total_took)
         # documents
         response = self.client.get("/search/datadocument/" + qs)
@@ -80,7 +80,7 @@ class TestSearch(TestCase):
         response = self.client.get("/search/puc/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
         total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
-        expected_total = "8 pucs"
+        expected_total = "11 pucs"
         self.assertIn(expected_total, total_took)
 
     def test_facets(self):
@@ -88,37 +88,22 @@ class TestSearch(TestCase):
         response = self.client.get("/search/product/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
         total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
-        expected_total = "2 products returned"
+        expected_total = "1 products returned"
         self.assertIn(expected_total, total_took)
 
     def test_input(self):
+        # Test ampersand
         qs = self._get_query_str("Rubber & Vinyl 80 Spray Adhesive")
         response = self.client.get("/search/product/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
         total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
-        expected_total = "120 products returned"
+        expected_total = "4 products returned"
         self.assertIn(expected_total, total_took)
 
-        qs = self._get_query_str("Phenoseal Does It All!")
+        # Test comma
+        qs = self._get_query_str("2,6-Di-tert-butyl-p-cresol")
         response = self.client.get("/search/product/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
         total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
-        expected_total = "89 products returned"
-        self.assertIn(expected_total, total_took)
-
-        qs = self._get_query_str("Homax Tough As Tile One Part, Brush-On Kit")
-        response = self.client.get("/search/product/" + qs)
-        response_html = html.fromstring(response.content.decode("utf8"))
-        total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
-        expected_total = "66 products returned"
-        self.assertIn(expected_total, total_took)
-
-        qs = self._get_query_str(
-            "Homax Tough As Tile One Part, Brush-On Kit",
-            {"product_brandname": ["Rust-Oleum"]},
-        )
-        response = self.client.get("/search/product/" + qs)
-        response_html = html.fromstring(response.content.decode("utf8"))
-        total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
-        expected_total = "3 products returned"
+        expected_total = "2 products returned"
         self.assertIn(expected_total, total_took)

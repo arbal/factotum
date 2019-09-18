@@ -1,11 +1,12 @@
 from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from dashboard.models import ExtractedText, RawChem, DSSToxLookup, PUC
+from dashboard.models import DataDocument, ExtractedText, RawChem, DSSToxLookup, PUC
 
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+import time
 
 
 def log_karyn_in(object):
@@ -381,3 +382,43 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             "User should go to PUC page when clicking bubble",
         )
         # self.browser.back()
+    
+    def test_delete_dd_from_dg(self):
+        """
+        The seed data includes an unmatched data document that 
+        can be deleted from the data group detail page.
+        Confirm that the delete button works.
+        """
+        dd = DataDocument.objects.get(id=354788)
+        dg_id = dd.data_group.id
+        dg_url = self.live_server_url + f"/datagroup/{dg_id}/"
+        self.browser.get(dg_url)
+        # Wait for the trash can to be clickable
+        wait = WebDriverWait(self.browser, 10)
+        trash_can = wait.until(
+            ec.element_to_be_clickable(
+                (By.XPATH, "//*[@id='docs']/tbody/tr[3]/td[2]/div/a")
+            )
+        )
+        # The URL is correct
+        self.assertIn("/datadocument/delete/354788/", trash_can.get_attribute("href"))
+        trash_can.click()
+        # The browser redirects to the confirmation page
+        self.assertIn("/datadocument/delete/354788/", self.browser.current_url)
+
+        confirm_button = self.browser.find_element_by_xpath(
+                "/html/body/div[1]/form/input[2]"
+            )
+        confirm_button.click()
+        # It needs a pause to avoid ConnectionResetError
+        time.sleep(3)
+        # Clicking the confirm button redirects to the data group page
+        self.assertIn(dg_url, self.browser.current_url)
+        # and removes the record
+        self.assertFalse(DataDocument.objects.filter(id=354788).exists())
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from dashboard.models import PUC
 from django.db.models import Count
@@ -17,6 +17,7 @@ def puc_detail(request, pk, template_name="puc/puc_detail.html"):
     puc = get_object_or_404(PUC, pk=pk)
     data = {}
     data["puc"] = puc
+    data["linked_taxonomies"] = puc.get_linked_taxonomies()
     data["referer"] = (
         request.META["HTTP_REFERER"] if "HTTP_REFERER" in request.META else None
     )
