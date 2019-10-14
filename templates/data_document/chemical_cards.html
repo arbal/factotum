@@ -104,6 +104,12 @@
                         <b>{{ chemical.weight_fraction_type_label }}</b>
                         <p>{{ chemical.weight_fraction_type }}</p>
                     </li> 
+                    {% if chemical.component %}
+                    <li>
+                        <b>{{ chemical.component_label }}</b>
+                        <p>{{ chemical.component }}</p>
+                    </li>
+                    {% endif %}
                 {% elif doc.data_group.is_hh %}
                 <ul> 
                     <li>

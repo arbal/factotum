@@ -5,10 +5,17 @@ from dashboard.tests.loader import load_model_objects, fixtures_standard
 from django.contrib.auth.models import User
 from django.db.models import Count, Max
 
-from dashboard.forms import *
 from dashboard.forms.data_group import ExtractFileFormSet
 
-from dashboard.models import *
+from dashboard.models import (
+    Product,
+    ProductDocument,
+    DataDocument,
+    ExtractedText,
+    DataGroup,
+    GroupType,
+    ExtractedChemical,
+)
 
 
 @tag("loader")
@@ -62,7 +69,7 @@ class DataGroupDetailTest(TestCase):
             "Composition",
             'Type of DataGroup needs to be "composition" for this test.',
         )
-        response = self.client.get(f"/datagroup/{pk}/")
+        self.client.get(f"/datagroup/{pk}/")
         self.assertEqual(
             self.objects.dg.get_extracted_template_fieldnames(),
             [
@@ -80,6 +87,7 @@ class DataGroupDetailTest(TestCase):
                 "unit_type",
                 "ingredient_rank",
                 "raw_central_comp",
+                "component",
             ],
             "Fieldnames passed are incorrect!",
         )
@@ -91,7 +99,7 @@ class DataGroupDetailTest(TestCase):
             "Functional use",
             'Type of DataGroup needs to be "FU" for this test.',
         )
-        response = self.client.get(f"/datagroup/{pk}/")
+        self.client.get(f"/datagroup/{pk}/")
         self.assertEqual(
             self.objects.dg.get_extracted_template_fieldnames(),
             [

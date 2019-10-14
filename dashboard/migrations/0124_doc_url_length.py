@@ -5,15 +5,17 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('dashboard', '0123_remove_parent_link'),
-    ]
+    dependencies = [("dashboard", "0123_remove_parent_link")]
 
     operations = [
         migrations.AlterField(
-            model_name='datadocument',
-            name='url',
-            field=models.CharField(blank=True, max_length=375, null=True,
-                                   validators=[django.core.validators.URLValidator()]),
-        ),
+            model_name="datadocument",
+            name="url",
+            field=models.CharField(
+                blank=True,
+                max_length=375,
+                null=True,
+                validators=[django.core.validators.URLValidator()],
+            ),
+        )
     ]

@@ -9,17 +9,17 @@
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <div class="accordion" id="codeAccordion">
-          {% for group in groups %}
+          {% for grouptype in grouptypes %}
           <div class="card">
             <div class="card-header-sm bg-light" id="headingOne">
               <h4>
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#dg-{{group.code}}" aria-expanded="true" aria-controls="collapseOne">
-                    <span class="dot mr-1 dot-dg-{{ group.code }}"><small><b>{{ group.code }}</b></small></span>
-                      <b>{{group.title}}</b>
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#dg-{{grouptype.code}}" aria-expanded="true" aria-controls="collapseOne">
+                    <span class="dot mr-1 dot-dg-{{ grouptype.code }}"><small><b>{{ grouptype.code }}</b></small></span>
+                      <b>{{grouptype.title}}</b>
                 </button>
               </h4>
             </div>
-            <div id="dg-{{group.code}}" class="collapse {% if group.code == 'CO' %} show {% endif %}" aria-labelledby="headingOne" data-parent="#codeAccordion">
+            <div id="dg-{{grouptype.code}}" class="collapse {% if grouptype.code == 'CO' %} show {% endif %}" aria-labelledby="headingOne" data-parent="#codeAccordion">
               <div class="card-body">
                   <table class="table table-sm table-bordered text-center">
                       <thead class="bg-light">
@@ -27,7 +27,7 @@
                         <th class="text-center">title</th>
                       </thead>
                       <tbody>
-                        {% for doc_type in group.codes %}
+                        {% for doc_type in grouptype.codes %}
                         <tr>
                           <td>{{doc_type.code}}</td>
                           <td>{{doc_type.title}}</td>
@@ -57,15 +57,6 @@
      {{field_error}}, should read {{good_fields}}</p>
   {% endif %}
 
-  {% if line_errors %}
-  <p class="form-control is-invalid">CSV has bad data in row/s:
-    <br>
-     {% for error in line_errors %}
-        row {{error.0}}: {{error.1}}
-        <br>
-     {% endfor %}
-     Please fix this before uploading.</p>
-  {% endif %}
     <div class="row">
       <div class="col-md-6">
         <form method="post" enctype="multipart/form-data" novalidate>

@@ -110,6 +110,13 @@
                     {% endif %}" 
                  href="{% url 'search-model' 'puc' %}?q={{ encoded_q }}">PUCs</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link
+                    {% if model == 'chemical' %}
+                    active
+                    {% endif %}"
+                 href="{% url 'search-model' 'chemical' %}?q={{ encoded_q }}">Chemicals</a>
+            </li>
         </ul>
         <small class="text-muted pb-4" id="total-took">
             {{ result.total }}
@@ -128,6 +135,8 @@
             {% include 'search/datadocument.html' %}
         {% elif model == 'puc' %}
             {% include 'search/puc.html' %}
+        {% elif model == 'chemical' %}
+            {% include 'search/chemical.html' %}
         {% endif %}
         {% if result.total %}
         <nav class="float-right" aria-label="Paginated navigation">

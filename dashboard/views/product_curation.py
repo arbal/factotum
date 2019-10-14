@@ -120,6 +120,7 @@ def link_product_form(request, pk):
     form.fields["document_type"].queryset = queryset
     if request.method == "POST":
         form = ProductLinkForm(request.POST or None)
+        form.fields["document_type"].queryset = queryset
         if form.is_valid():
             upc = form["upc"].value()
             title = form["title"].value()
@@ -138,21 +139,13 @@ def link_product_form(request, pk):
                 p = ProductDocument(product=product, document=doc)
                 p.save()
             document_type = form["document_type"].value()
-            # update if user changes
-            a = bool(document_type)
-            b = bool(doc.document_type)
-            c = b and (document_type != str(doc.document_type.pk))
-            if a ^ b | c:
-                doc.document_type = (
-                    DocumentType.objects.get(pk=document_type) if a else None
-                )
+            if int(document_type) != doc.document_type_id:
+                doc.document_type = DocumentType.objects.get(pk=document_type)
                 doc.save()
             if "datadocument" in form["return_url"].value():
                 return redirect("data_document", pk=doc.pk)
             else:
                 return redirect("link_product_list", pk=doc.data_group.pk)
-        else:
-            pass  # form is invalid
     return render(request, template_name, {"document": doc, "form": form})
 
 

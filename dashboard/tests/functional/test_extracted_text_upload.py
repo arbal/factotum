@@ -1,7 +1,5 @@
-import tempfile, csv, os, io
+import io
 
-from django.urls import resolve
-from django.http import HttpRequest
 from django.test import RequestFactory, TestCase, Client
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -9,8 +7,15 @@ from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
 
 from dashboard import views
-from dashboard.models import *
-from dashboard.tests.loader import fixtures_standard
+from dashboard.models import (
+    ExtractedText,
+    DataDocument,
+    DataGroup,
+    ExtractedChemical,
+    ExtractedCPCat,
+    ExtractedListPresence,
+    ExtractedFunctionalUse,
+)
 
 
 def make_upload_csv(filename):
@@ -55,16 +60,16 @@ class UploadExtractedFileTest(TestCase):
             "data_document_id,data_document_filename,"
             "prod_name,doc_date,rev_num,raw_category,raw_cas,raw_chem_name,"
             "report_funcuse,raw_min_comp,raw_max_comp,unit_type,"
-            "ingredient_rank,raw_central_comp"
+            "ingredient_rank,raw_central_comp,component"
             "\n"
             "8,11177849.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
-            "0000075-37-6,hydrofluorocarbon 152a (difluoroethane),,0.39,0.42,1,,"
+            "0000075-37-6,hydrofluorocarbon 152a (difluoroethane),,0.39,0.42,1,,,Test Component"
             "\n"
             "7,11165872.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
-            "0000064-17-5,sd alcohol 40-b (ethanol),,0.5,0.55,1,,"
+            "0000064-17-5,sd alcohol 40-b (ethanol),,0.5,0.55,1,,,Test Component"
             "\n"
-            "7,11165872.pdf,Alberto European Hairspray (Aerosol) - All Variants,"
-            "0000064-17-6,sd alcohol 40-c (ethanol c),,,,,,"
+            "7,11165872.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
+            "0000064-17-6,sd alcohol 40-c (ethanol c),,,,2,,,Test Component"
         )
         sample_csv_bytes = csv_string.encode(encoding="UTF-8", errors="strict")
         in_mem_sample_csv = InMemoryUploadedFile(
@@ -82,7 +87,7 @@ class UploadExtractedFileTest(TestCase):
             "data_document_id,data_document_filename,"
             "prod_name,doc_date,rev_num,raw_category,raw_cas,raw_chem_name,"
             "report_funcuse,raw_min_comp,raw_max_comp,unit_type,"
-            "ingredient_rank,raw_central_comp"
+            "ingredient_rank,raw_central_comp,component"
             "\n"
             "8,11177849.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
             "0000075-37-6,hydrofluorocarbon 152a (difluoroethane),,0.39,0.42,1,,"
@@ -147,6 +152,13 @@ class UploadExtractedFileTest(TestCase):
         )
         text_count = ExtractedText.objects.all().count()
         self.assertTrue(text_count == 2, "Should be 2 extracted texts")
+        chem_count = ExtractedChemical.objects.filter(
+            component="Test Component"
+        ).count()
+        self.assertTrue(
+            chem_count == 3,
+            "Should be 3 extracted chemical records with the Test Component",
+        )
         dg = DataGroup.objects.get(pk=6)
         dg.delete()
 
@@ -267,6 +279,3 @@ class UploadExtractedFileTest(TestCase):
             1,
             "One new ExtractedFunctionalUse after upload.",
         )
-
-        # dg = DataGroup.objects.get(pk=50)
-        # dg.delete()

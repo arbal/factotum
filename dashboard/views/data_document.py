@@ -227,9 +227,15 @@ def extracted_text_edit(request, pk):
 
 @login_required
 def list_presence_tag_curation(request):
-    documents = DataDocument.objects.filter(data_group__group_type__code="CP").exclude(
-        extractedtext__rawchem__in=ExtractedListPresenceToTag.objects.values(
-            "content_object_id"
+    documents = (
+        DataDocument.objects.filter(
+            data_group__group_type__code="CP", extractedtext__rawchem__isnull=False
+        )
+        .distinct()
+        .exclude(
+            extractedtext__rawchem__in=ExtractedListPresenceToTag.objects.values(
+                "content_object_id"
+            )
         )
     )
     return render(

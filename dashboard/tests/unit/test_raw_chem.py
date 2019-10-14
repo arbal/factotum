@@ -40,34 +40,3 @@ class CuratedChemTest(TestCase):
             None,
             "Changing the raw_cas should delete the link to DSSToxLookup",
         )
-
-
-class TestRawChemSubclasses(TestCase):
-    fixtures = fixtures_standard
-
-    def test_get_data_documents(self):
-        """ Traversing the subclasses
-            and confirming that each subclass's data document matches what is returned by its
-            related RawChem record's get_data_document() method. 
-         """
-        for ec in ExtractedChemical.objects.all():
-            rc = ec.rawchem_ptr
-            self.assertEqual(
-                ec.data_document,
-                rc.get_data_document(),
-                "The ExtractedChemical object and RawChem object should hae the same datadocument",
-            )
-        for efu in ExtractedFunctionalUse.objects.all():
-            rc = efu.rawchem_ptr
-            self.assertEqual(
-                efu.data_document,
-                rc.get_data_document(),
-                "The ExtractedFunctionalUse object and RawChem object should hae the same datadocument",
-            )
-        for elp in ExtractedListPresence.objects.all():
-            rc = elp.rawchem_ptr
-            self.assertEqual(
-                elp.data_document,
-                rc.get_data_document(),
-                "The ExtractedListPresence object and RawChem object should hae the same datadocument",
-            )

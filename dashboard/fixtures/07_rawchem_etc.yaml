@@ -13,6 +13,20 @@
     qa_approved_by: null
     qa_group: null
 - model: dashboard.extractedtext
+  pk: 354786
+  fields:
+    created_at: 2019-09-19 11:24:56.456067
+    updated_at: 2019-09-19 11:24:56.456092
+    prod_name: lids
+    doc_date: '2018-04-47'
+    rev_num: '474747'
+    extraction_script: 13
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
   pk: 354783
   fields:
     created_at: 2019-02-21 11:24:00
@@ -7671,6 +7685,13 @@
     cpcat_code: cpcat_code
     cpcat_sourcetype: free
 - model: dashboard.extractedcpcat
+  pk: 354786
+  fields:
+    cat_code: purrrrrrr
+    description_cpcat: 10-speed
+    cpcat_code: more cowbell!
+    cpcat_sourcetype: free
+- model: dashboard.extractedcpcat
   pk: 354787
   fields:
     cat_code: toy boat
@@ -8417,7 +8438,7 @@
   fields:
     extracted_text: 127870
     raw_cas: 120-47-8
-    raw_chem_name: Ethylparaben
+    raw_chem_name: "Benzoic acid"
     temp_id: 27216
     temp_obj_name: ExtractedChemical
     rid: DTXRID0073
@@ -16233,6 +16254,16 @@
     temp_obj_name: null
     rid: null
     dsstox: 10
+- model: dashboard.rawchem
+  pk: 854
+  fields:
+    extracted_text: 354786
+    raw_cas: 13-47
+    raw_chem_name: schpongle
+    temp_id: 0
+    temp_obj_name: null
+    rid: null
+    dsstox: null
 - model: dashboard.extractedchemical
   pk: 2
   fields:
@@ -25671,6 +25702,13 @@
     updated_at: 2019-07-25 11:14:35.259648
     qa_flag: false
     report_funcuse: spiritual enlightenment
+- model: dashboard.extractedlistpresence
+  pk: 854
+  fields:
+    created_at: 2019-09-19 11:28:06.961653
+    updated_at: 2019-09-19 11:28:06.961675
+    qa_flag: false
+    report_funcuse: surfactaint
 - model: dashboard.extractedhhrec
   pk: 760
   fields:
@@ -26099,3 +26137,13 @@
     analytical_method: " TSI DustTrak\u2122 DRX 8533 Aerosol Monitor\""
     num_measure: null
     num_nondetect: null
+- model: dashboard.rawchem
+  pk: 855
+  fields:
+    extracted_text: 127870
+    raw_cas: 50594-66-6
+    raw_chem_name: "5-(2-Chloro-alapha,alpha,alpha-trifluoro-p-tolyloxy)-2-nitrobenzoic acid"
+    temp_id: 27216
+    temp_obj_name: ExtractedChemical
+    rid: 
+    dsstox: 

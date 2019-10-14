@@ -57,10 +57,12 @@ class InitBulkFormSet:
             all(o is not None for o in (inp["data"], inp["files"], self.serializer))
             and fn in inp["files"]
         ):
-            bulk = self.serializer(
+            self.bulk = self.serializer(
                 inp["files"][fn], *self.serializer_args, **self.serializer_kwargs
             )
-            inp["data"] = BulkMuxDict(inp["data"], bulk, self.header_fields, prefix)
+            inp["data"] = BulkMuxDict(
+                inp["data"], self.bulk, self.header_fields, prefix
+            )
         super().__init__(**inp)
 
     @property

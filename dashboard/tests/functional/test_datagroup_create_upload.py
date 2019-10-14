@@ -33,8 +33,8 @@ class RegisterRecordsTest(TestCase):
         long_fn = "a filename that is too long " * 10
         csv_string = (
             "filename,title,document_type,url,organization\n"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,,, \n"
-            f"{long_fn},Body Cream,1,, \n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,, \n"
+            f"{long_fn},Body Cream,MS,, \n"
         )
         data = io.StringIO(csv_string)
         sample_csv = InMemoryUploadedFile(
@@ -48,7 +48,7 @@ class RegisterRecordsTest(TestCase):
         form_data = {
             "name": ["Walmart MSDS Test Group"],
             "description": ["test data group"],
-            "group_type": ["1"],
+            "group_type": ["2"],
             "downloaded_by": [str(User.objects.get(username="Karyn").pk)],
             "downloaded_at": ["08/02/2018"],
             "download_script": ["1"],
@@ -68,13 +68,15 @@ class RegisterRecordsTest(TestCase):
         request.session["datasource_pk"] = 10
         resp = views.data_group_create(request=request, pk=10)
         dg_exists = DataGroup.objects.filter(name="Walmart MSDS Test Group").exists()
-        self.assertContains(resp, "Filename too long")
+        self.assertContains(
+            resp, "filename: Ensure this value has at most 255 characters"
+        )
         self.assertFalse(dg_exists)
 
         csv_string = (
             "filename,title,document_type,url,organization\n"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,,, \n"
-            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,,, \n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,, \n"
+            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,MS,, \n"
         )
         data = io.StringIO(csv_string)
         sample_csv = InMemoryUploadedFile(
@@ -113,7 +115,6 @@ class RegisterRecordsTest(TestCase):
             os.listdir(settings.MEDIA_ROOT),
             "The data group's UUID should be a folder in MEDIA_ROOT",
         )
-
         # In the Data Group Detail Page
         resp = self.client.get(f"/datagroup/{dg.pk}/")
 
@@ -188,8 +189,8 @@ class RegisterRecordsTest(TestCase):
     def test_datagroup_create_dupe_filename(self):
         csv_string = (
             "filename,title,document_type,url,organization\n"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,1,, \n"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,Body Cream,1,, \n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,, \n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,Body Cream,MS,, \n"
         )
         data = io.StringIO(csv_string)
         sample_csv = InMemoryUploadedFile(
@@ -203,7 +204,7 @@ class RegisterRecordsTest(TestCase):
         form_data = {
             "name": ["Walmart MSDS Test Group"],
             "description": ["test data group"],
-            "group_type": ["1"],
+            "group_type": ["2"],
             "downloaded_by": [str(User.objects.get(username="Karyn").pk)],
             "downloaded_at": ["08/02/2018"],
             "download_script": ["1"],
@@ -223,13 +224,18 @@ class RegisterRecordsTest(TestCase):
         request.session["datasource_pk"] = 10
         resp = views.data_group_create(request=request, pk=10)
 
-        self.assertContains(resp, "Duplicate filename found")
+        self.assertContains(
+            resp,
+            "Duplicate &quot;filename&quot; values for &quot;"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf&quot; are not allowed.",
+        )
 
-    def test_csv_line_endings(self):
+    def test_datagroup_create_url_len_err(self):
+        long_url = "http://www.epa.gov" * 16
         csv_string = (
-            "filename,title,document_type,url,organization\r"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,,, \r"
-            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,,, \r\n"
+            "filename,title,document_type,url,organization\n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,, \n"
+            f"another.pdf,Body Cream,MS,{long_url}, \n"
         )
         data = io.StringIO(csv_string)
         sample_csv = InMemoryUploadedFile(
@@ -243,7 +249,46 @@ class RegisterRecordsTest(TestCase):
         form_data = {
             "name": ["Walmart MSDS Test Group"],
             "description": ["test data group"],
-            "group_type": ["1"],
+            "group_type": ["2"],
+            "downloaded_by": [str(User.objects.get(username="Karyn").pk)],
+            "downloaded_at": ["08/02/2018"],
+            "download_script": ["1"],
+            "data_source": ["10"],
+        }
+        request = self.factory.post(path="/datagroup/new/", data=form_data)
+        request.FILES["csv"] = sample_csv
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        middleware = MessageMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.user = User.objects.get(username="Karyn")
+        request.session = {}
+        request.session["datasource_title"] = "Walmart"
+        request.session["datasource_pk"] = 10
+        resp = views.data_group_create(request=request, pk=10)
+        self.assertContains(resp, "url: Enter a valid URL")
+
+    def test_csv_line_endings(self):
+        csv_string = (
+            "filename,title,document_type,url,organization\r"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,, \r"
+            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,MS,, \r\n"
+        )
+        data = io.StringIO(csv_string)
+        sample_csv = InMemoryUploadedFile(
+            data,
+            field_name="csv",
+            name="register_records.csv",
+            content_type="text/csv",
+            size=len(csv_string),
+            charset="utf-8",
+        )
+        form_data = {
+            "name": ["Walmart MSDS Test Group"],
+            "description": ["test data group"],
+            "group_type": ["2"],
             "downloaded_by": [f"{User.objects.first().pk}"],
             "downloaded_at": ["08/02/2018"],
             "download_script": ["1"],

@@ -10,7 +10,12 @@ volumes:
 
 services:
   elasticsearch:
-    image: elasticsearch:7.3.1
+    build:
+      context: .
+      dockerfile: ../../dockerfiles/Dockerfile.factotum_elastic
+      args:
+        BRANCH: ${FACTOTUM_ELASTIC_BRANCH:-dev}
+    image: factotum-elasticsearch
     restart: unless-stopped
     environment:
       discovery.type: single-node
@@ -48,16 +53,12 @@ services:
       - elasticsearch
 
   logstash:
-    build:
-      context: .
-      dockerfile: ../../dockerfiles/Dockerfile.logstash
-      args:
-        MYSQL_CONNECTOR_VERSION: ${MYSQL_CONNECTOR_VERSION:-8.0.17}
-        BRANCH: ${FACTOTUM_ELASTIC_BRANCH:-dev}
+    build: https://github.com/HumanExposure/factotum_elastic.git#${FACTOTUM_ELASTIC_BRANCH:-dev}
     image: factotum-logstash
     restart: "no"
     environment:
-      ELASTICSEARCH_HOST: elasticsearch:9200
+      ELASTICSEARCH_HOST: elasticsearch
+      ELASTICSEARCH_PORT: 9200
       SQL_DATABASE: "${SQL_DATABASE}"
       SQL_USER: "${SQL_USER}"
       SQL_PASSWORD: "${SQL_PASSWORD}"

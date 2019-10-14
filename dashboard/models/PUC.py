@@ -9,8 +9,88 @@ from .common_info import CommonInfo
 from django.apps import apps
 
 from dashboard.models import ProductDocument
-from django.db.models import Count, Sum, F
+from django.db.models import Count, F, Q
 from .raw_chem import RawChem
+from dashboard.utils import GroupConcat, SimpleTree
+
+
+class PUCQuerySet(models.QuerySet):
+    def dtxsid_filter(self, sid):
+        """ Returns a QuerySet of PUCs with a product containing a chemical.
+
+        Arguments:
+            ``sid``
+                a DTXSID sid string
+        """
+        return self.filter(
+            products__datadocument__extractedtext__rawchem__dsstox__sid=sid
+        )
+
+    def with_num_products(self):
+        """ Returns a QuerySet of PUCs with a product count included.
+
+        The product count is annotated as 'num_products'
+        """
+        return self.annotate(num_products=Count("products", distinct=True))
+
+    def with_allowed_attributes(self):
+        """ Returns a QuerySet of PUCs with an allowed tags string.
+
+        The allowed tags string is annotated as 'allowed_attributes'
+        """
+        return self.annotate(
+            allowed_attributes=GroupConcat("tags__name", separator="; ", distinct=True)
+        )
+
+    def with_assumed_attributes(self):
+        """ Returns a QuerySet of PUCs with an assumed tags string.
+
+        The assumed tags string is annotated as 'assumed_attributes'
+        """
+        return self.annotate(
+            assumed_attributes=GroupConcat(
+                "tags__name",
+                separator="; ",
+                distinct=True,
+                filter=Q(puctotag__assumed=True),
+            )
+        )
+
+    def astree(self, include=None):
+        """ Returns a SimpleTree representation of a PUC queryset.
+        """
+        tree = SimpleTree()
+        for puc in self:
+            if isinstance(puc, dict):
+                names = tuple(
+                    n for n in (puc["gen_cat"], puc["prod_fam"], puc["prod_type"]) if n
+                )
+            elif isinstance(puc, self.model):
+                names = tuple(
+                    n for n in (puc.gen_cat, puc.prod_fam, puc.prod_type) if n
+                )
+            tree[names] = puc
+        return tree
+
+
+class PUCManager(models.Manager):
+    def get_queryset(self):
+        return PUCQuerySet(self.model, using=self._db)
+
+    def dtxsid_filter(self, sid):
+        return self.get_queryset().dtxsid_filter(sid)
+
+    def with_num_products(self):
+        return self.get_queryset().with_num_products()
+
+    def with_allowed_attributes(self):
+        return self.get_queryset().with_allowed_attributes()
+
+    def with_assumed_attributes(self):
+        return self.get_queryset().with_assumed_attributes()
+
+    def astree(self):
+        return self.get_queryset().astree()
 
 
 class PUC(CommonInfo):
@@ -40,6 +120,7 @@ class PUC(CommonInfo):
         blank=True,
         help_text="A set of PUC Attributes applicable to this PUC",
     )
+    objects = PUCManager()
 
     class Meta:
         ordering = ["gen_cat", "prod_fam", "prod_type"]

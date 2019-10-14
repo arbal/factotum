@@ -133,7 +133,7 @@ class ExtractedTextQAForm(forms.ModelForm):
 class ProductLinkForm(forms.ModelForm):
     required_css_class = "required"  # adds to label tag
     document_type = forms.ModelChoiceField(
-        queryset=DocumentType.objects.all(), label="Data Document Type", required=False
+        queryset=DocumentType.objects.all(), label="Data Document Type", required=True
     )
 
     return_url = forms.CharField()
@@ -282,6 +282,7 @@ class ExtractedChemicalForm(forms.ModelForm):
             "ingredient_rank",
             "report_funcuse",
             "weight_fraction_type",
+            "component",
         ]
 
 
@@ -311,7 +312,7 @@ class ExtractedHHRecForm(forms.ModelForm):
         ]
 
 
-def create_detail_formset(document, extra=1, can_delete=False, exclude=[]):
+def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidden=[]):
     """Returns the pair of formsets that will be needed based on group_type.
     .                       ('CO'),('CP'),('FU'),('HP'),('HH')
     Parameters
@@ -324,6 +325,8 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[]):
             whether a delete checkbox is included
         exclude : list
             which fields to leave out of the form
+        hiddent : list
+            which fields to make hidden on the form
     .
 
     """
@@ -337,12 +340,21 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[]):
         formset=BaseInlineFormSet,
         form=forms.ModelForm,
         exclude=exclude,
+        hidden=hidden,
     ):
         formset_fields = model.detail_fields()
         if exclude:
             formset_fields = [
                 in_field for in_field in formset_fields if not in_field in exclude
             ]
+        # set fields to hidden if so specified
+        widgets = dict(
+            [
+                (in_field, forms.HiddenInput())
+                for in_field in formset_fields
+                if in_field in hidden
+            ]
+        )
         return forms.inlineformset_factory(
             parent_model=parent_model,
             model=model,
@@ -351,6 +363,7 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[]):
             form=form,
             extra=extra,
             can_delete=can_delete,
+            widgets=widgets,
         )
 
     def one():  # for chemicals or unknown
@@ -359,6 +372,7 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[]):
             model=child,
             formset=ExtractedChemicalFormSet,
             form=ExtractedChemicalForm,
+            hidden=["component"],
         )
         return (ExtractedTextForm, ChemicalFormSet)
 

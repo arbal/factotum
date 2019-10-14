@@ -351,8 +351,20 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 "The prod_name of the new object should match what was entered",
             )
 
+    def _n_children(self, tree):
+        cnt = len(tree.children)
+        for c in tree.children:
+            cnt += self._n_children(c)
+        return cnt
+
     def test_bubble_plot(self):
-        num_pucs = len(PUC.objects.filter(kind="FO"))
+        pucs = (
+            PUC.objects.filter(kind="FO")
+            .with_num_products()
+            .filter(num_products__gt=0)
+            .astree()
+        )
+        num_pucs = self._n_children(pucs)
         self.browser.get(self.live_server_url)
         wait = WebDriverWait(self.browser, 10)
         wait.until(ec.presence_of_element_located((By.CLASS_NAME, "bubble")))
@@ -369,20 +381,19 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         import time
 
         time.sleep(3)
+        pucs = (
+            PUC.objects.filter(kind="FO")
+            .dtxsid_filter(dss.sid)
+            .with_num_products()
+            .filter(num_products__gt=0)
+            .astree()
+        )
+        num_pucs = self._n_children(pucs)
         bubbles = self.browser.find_elements_by_class_name("bubble")
         self.assertEqual(
-            dss.puc_count,
-            len(bubbles),
-            ("There should be a circle" "drawn for every PUC"),
+            num_pucs, len(bubbles), ("There should be a circle" "drawn for every PUC")
         )
-        bubbles[0].click()
-        self.assertIn(
-            "/puc/",
-            self.browser.current_url,
-            "User should go to PUC page when clicking bubble",
-        )
-        # self.browser.back()
-    
+
     def test_delete_dd_from_dg(self):
         """
         The seed data includes an unmatched data document that 
@@ -407,8 +418,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.assertIn("/datadocument/delete/354788/", self.browser.current_url)
 
         confirm_button = self.browser.find_element_by_xpath(
-                "/html/body/div[1]/form/input[2]"
-            )
+            "/html/body/div[1]/form/input[2]"
+        )
         confirm_button.click()
         # It needs a pause to avoid ConnectionResetError
         time.sleep(3)
@@ -416,9 +427,3 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.assertIn(dg_url, self.browser.current_url)
         # and removes the record
         self.assertFalse(DataDocument.objects.filter(id=354788).exists())
-
-
-
-
-
-

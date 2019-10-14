@@ -1,16 +1,27 @@
 import sys
+import csv
 import uuid
 import zipfile
+from pathlib import Path
+from datetime import datetime
 
 from django import forms
 from django.conf import settings
+from django.core.files import File
 from django.core.files.storage import FileSystemStorage
 from django.db import transaction
 from django.db.models import CharField, Value as V
 from django.db.models.functions import Cast, Concat
 
 from bulkformsets import BaseBulkFormSet, CSVReader
-from dashboard.models import DataDocument, Ingredient, Product, ProductDocument, Script
+from dashboard.models import (
+    DataDocument,
+    Ingredient,
+    Product,
+    ProductDocument,
+    Script,
+    DocumentType,
+)
 from dashboard.utils import clean_dict, get_extracted_models, get_form_for_models
 
 
@@ -273,3 +284,91 @@ class BulkAssignProdForm(forms.Form):
             created_prods.update(upc=Concat(V("stub_"), Cast("id", CharField())))
             ProductDocument.objects.bulk_create(prod_docs)
         return self.count
+
+
+class RegisterRecordsFormSet(DGFormSet):
+    prefix = "register"
+    header_fields = ["data_group"]
+    serializer = CSVReader
+
+    def __init__(self, dg, *args, **kwargs):
+        self.dg = dg
+        self.form = DataDocumentCSVForm
+        super().__init__(*args, **kwargs)
+
+    def clean(self, *args, **kwargs):
+        """Errors raised here are exposed in non_form_errors() and will be rendered
+        before getting to and form-specific errors.
+        """
+        header = list(self.bulk.fieldnames)
+        header_cols = ["filename", "title", "document_type", "url", "organization"]
+        if header != header_cols:
+            raise forms.ValidationError(f"CSV column titles should be {header_cols}")
+        if not any(self.errors):
+            values = set()
+            for form in self.forms:
+                value = form.cleaned_data.get("filename")
+                if value in values:
+                    raise forms.ValidationError(
+                        f'Duplicate "filename" values for "{value}" are not allowed.'
+                    )
+                values.add(value)
+
+    def save(self):
+        with transaction.atomic():
+            new_docs = []
+            now = datetime.now()
+            for f in self.forms:
+                f.cleaned_data["created_at"] = now
+                obj = DataDocument(**f.cleaned_data)
+                new_docs.append(obj)
+            DataDocument.objects.bulk_create(new_docs)
+        made = DataDocument.objects.filter(created_at=now, data_group=self.dg)
+        text = "DataDocument_id,filename,title,document_type,url,organization\n"
+        for doc in made:
+            items = [
+                str(doc.pk),
+                doc.filename,
+                doc.title,
+                doc.document_type.code,
+                doc.url if doc.url else "",
+                doc.organization,
+            ]
+            text += ",".join(items) + "\n"
+        with open(self.dg.csv.path, "w") as f:
+            myfile = File(f)
+            myfile.write("".join(text))
+        uid = str(self.dg.fs_id)
+        new_zip_path = Path(settings.MEDIA_URL) / uid / (uid + ".zip")
+        zf = zipfile.ZipFile(str(new_zip_path), "w", zipfile.ZIP_DEFLATED)
+        zf.close()
+        self.dg.zip_file = new_zip_path
+        self.dg.save()
+        return len(self.forms)
+
+
+class DocTypeFormField(forms.ModelChoiceField):
+    def clean(self, value):
+        if value:
+            try:
+                return DocumentType.objects.get(code=value)
+            except:
+                raise forms.ValidationError(
+                    f"'{value}' is not a valid DocumentType code."
+                )
+        else:
+            return DocumentType.objects.get(code="UN")
+
+
+class DataDocumentCSVForm(forms.ModelForm):
+    class Meta:
+        model = DataDocument
+        fields = [
+            "data_group",
+            "filename",
+            "title",
+            "document_type",
+            "url",
+            "organization",
+        ]
+        field_classes = {"document_type": DocTypeFormField}

@@ -97,7 +97,7 @@ class DataDocumentDetailTest(TestCase):
         data = {
             "title": ["New Product"],
             "upc": ["stub_9860"],
-            "document_type": [""],
+            "document_type": ["29"],
             "return_url": ["/datadocument/167497/"],
         }
         response = self.client.post("/link_product_form/167497/", data=data)
@@ -112,7 +112,7 @@ class DataDocumentDetailTest(TestCase):
         data = {
             "title": ["Product Title"],
             "upc": ["stub_9100"],
-            "document_type": [""],
+            "document_type": ["29"],
             "return_url": ["/datadocument/245401/"],
         }
         response = self.client.post("/link_product_form/245401/", data=data)
@@ -125,7 +125,7 @@ class DataDocumentDetailTest(TestCase):
         data = {
             "title": ["Product Title"],
             "upc": ["stub_9101"],
-            "document_type": [""],
+            "document_type": ["29"],
             "return_url": ["/datadocument/245401/"],
         }
         response = self.client.post("/link_product_form/245401/", data=data)
@@ -202,13 +202,11 @@ class DataDocumentDetailTest(TestCase):
     def test_subtitle_ellipsis(self):
         id = 354783
         doc = DataDocument.objects.get(id=id)
-        subtitle = doc.subtitle 
+        subtitle = doc.subtitle
         subtitle45 = subtitle[:45]
         response = self.client.get("/datadocument/%i/" % id)
         # Confirm that the displayed subtitle is truncated and ... is appended
         self.assertContains(response, "This subtitle is more than 90 c…")
-
-
 
     def test_chemname_ellipsis(self):
         """Check that DataDocument chemical names get truncated"""
@@ -385,16 +383,11 @@ class TestDynamicDetailFormsets(TestCase):
             response, 'href="' + reverse("list_presence_tag_curation") + '"'
         )
 
+        # seed data should have one data document with a chemical, but no tags
         response = self.client.get(reverse("list_presence_tag_curation"))
-        list_presence_ids = ExtractedListPresenceToTag.objects.values_list(
-            "content_object_id", flat=True
-        )
-        documents = DataDocument.objects.annotate(
-            code=F("data_group__group_type__code")
-        ).annotate(list_presence_id=Min("extractedtext__rawchem"))
-        for document in documents:
-            doc_url = reverse("data_document", kwargs={"pk": document.pk})
-            if document.code != "CP" or document.list_presence_id in list_presence_ids:
-                self.assertNotContains(response, f'href="{doc_url}"')
-            elif document.list_presence_id not in list_presence_ids:
-                self.assertContains(response, f'href="{doc_url}"')
+        self.assertContains(response, 'href="/datadocument/354786/' + '"')
+
+        # add a tag and make sure none get returned
+        ExtractedListPresenceToTag.objects.create(content_object_id=854, tag_id=323)
+        response = self.client.get(reverse("list_presence_tag_curation"))
+        self.assertNotContains(response, 'href="/datadocument/354786/' + '"')

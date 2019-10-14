@@ -1,25 +1,22 @@
 import csv
-import json
 import datetime
-from dateutil.relativedelta import relativedelta
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.db.models import Count, F, DateField, DateTimeField, Q
-from django.db.models.functions import Trunc
-from collections import defaultdict as dd
 
 from dashboard.models import (
+    PUC,
+    DataDocument,
     DataGroup,
     DataSource,
-    Product,
     DSSToxLookup,
-    RawChem,
-    DataDocument,
-    ProductToPUC,
-    PUC,
     ExtractedListPresenceTag,
+    Product,
+    ProductToPUC,
+    RawChem,
 )
-from dashboard.utils import GroupConcat, SimpleTree
+from dateutil.relativedelta import relativedelta
+from django.db.models import Count, DateField, DateTimeField, F
+from django.db.models.functions import Trunc
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
 
 
 def index(request):
@@ -145,45 +142,18 @@ def product_with_puc_count_by_month():
 
 
 def download_PUCs(request):
-    """This view gets called every time we call the index view and is used to
-    populate the bubble plot. It is also used to download all of the PUCs in
-    csv form.
+    """This view is used to download all of the PUCs in CSV form.
     """
     response = HttpResponse(content_type="text/csv")
     response["Content-Disposition"] = 'attachment; filename="PUCs.csv"'
-    bubbles = request.GET.get("bubbles", None)
-    dtxsid = request.GET.get("dtxsid", None)
-    pucs = PUC.objects.all()
-    if bubbles:
-        pucs = pucs.filter(kind="FO")
-    if dtxsid:
-        pucs = pucs.filter(
-            products__datadocument__extractedtext__rawchem__dsstox__sid=dtxsid
-        )
     pucs = (
-        pucs.annotate(
-            allowed_attributes=GroupConcat("tags__name", separator="; ", distinct=True)
-        )
-        .annotate(
-            assumed_attributes=GroupConcat(
-                "tags__name",
-                separator="; ",
-                distinct=True,
-                filter=Q(puctotag__assumed=True),
-            )
-        )
-        .annotate(products_count=Count("products", distinct=True))
-    ).order_by("gen_cat", "prod_fam", "prod_type")
-
-    # Let's use a tree data structure to represent our PUC hierarchy
-    # so we can efficiently traverse it to find cumulative product count
-    puc_tree = SimpleTree(name="root", value=None, leaves=[])
-    for puc in pucs:
-        names = (n for n in (puc.gen_cat, puc.prod_fam, puc.prod_type) if n)
-        puc_tree.set(names, puc)
-    # Write CSV
+        PUC.objects.order_by("gen_cat", "prod_fam", "prod_type")
+        .with_allowed_attributes()
+        .with_assumed_attributes()
+        .with_num_products()
+        .astree()
+    )
     writer = csv.writer(response)
-
     cols = [
         "General category",
         "Product family",
@@ -195,39 +165,47 @@ def download_PUCs(request):
         "PUC level",
         "Product count",
         "Cumulative product count",
-        "url",
     ]
-    if not bubbles:
-        cols.remove("url")
     writer.writerow(cols)
-    for puc_leaf in puc_tree.iter():
-        if puc_leaf.value:
-            row = [
-                puc_leaf.value.gen_cat,
-                puc_leaf.value.prod_fam,
-                puc_leaf.value.prod_type,
-                puc_leaf.value.allowed_attributes,
-                puc_leaf.value.assumed_attributes,
-                puc_leaf.value.description,
-                puc_leaf.value.kind,
-                sum(
-                    1
-                    for n in (
-                        puc_leaf.value.gen_cat,
-                        puc_leaf.value.prod_fam,
-                        puc_leaf.value.prod_type,
-                    )
-                    if n
-                ),
-                puc_leaf.value.products_count,
-                sum(l.value.products_count for l in puc_leaf.iter() if l.value),
-                puc_leaf.value.url,
-            ]
-            if not bubbles:
-                row = row[:-1]
-            writer.writerow(row)
-
+    for puc_key, puc in pucs.items():
+        row = [
+            puc.gen_cat,
+            puc.prod_fam,
+            puc.prod_type,
+            puc.allowed_attributes,
+            puc.assumed_attributes,
+            puc.description,
+            puc.kind,
+            len(puc_key),
+            puc.num_products,
+            sum(p.num_products for p in pucs.objects[puc_key].values()),
+        ]
+        writer.writerow(row)
     return response
+
+
+def bubble_PUCs(request):
+    """This view is used to download all of the PUCs in nested JSON form.
+    """
+    dtxsid = request.GET.get("dtxsid", None)
+    if dtxsid:
+        pucs = PUC.objects.dtxsid_filter(dtxsid)
+    else:
+        pucs = PUC.objects.all()
+    pucs = (
+        pucs.filter(kind="FO")
+        .with_num_products()
+        .values("id", "gen_cat", "prod_fam", "prod_type", "num_products")
+        .filter(num_products__gt=0)
+        .astree()
+    )
+    # We only needed gen_cat, prod_fam, prod_type to build the tree
+    for puc in pucs.values():
+        puc.pop("gen_cat")
+        puc.pop("prod_fam")
+        puc.pop("prod_type")
+
+    return JsonResponse(pucs.asdict())
 
 
 def download_LPKeywords(request):

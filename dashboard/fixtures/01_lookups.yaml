@@ -220,6 +220,14 @@
     title: Academic
     description: Report, etc. issued by a university
     code: AC
+- model: dashboard.documenttype
+  pk: 29
+  fields:
+    created_at: 2019-09-29 15:31:38.537826
+    updated_at: 2019-09-29 15:31:38.537856
+    title: Unidentified
+    description: null
+    code: UN
 - model: dashboard.documenttypegrouptypecompatibilty
   pk: 1
   fields:
@@ -395,6 +403,56 @@
     updated_at: 2019-04-30 11:51:34.012840
     document_type: 20
     group_type: 2
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 26
+  fields:
+    created_at: 2019-09-29 16:52:33.257891
+    updated_at: 2019-09-29 16:52:33.257925
+    document_type: 29
+    group_type: 6
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 27
+  fields:
+    created_at: 2019-09-29 16:52:33.259974
+    updated_at: 2019-09-29 16:52:33.260028
+    document_type: 29
+    group_type: 2
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 28
+  fields:
+    created_at: 2019-09-29 16:52:33.262208
+    updated_at: 2019-09-29 16:52:33.262252
+    document_type: 29
+    group_type: 3
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 29
+  fields:
+    created_at: 2019-09-29 16:52:33.264216
+    updated_at: 2019-09-29 16:52:33.264246
+    document_type: 29
+    group_type: 4
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 30
+  fields:
+    created_at: 2019-09-29 16:52:33.266274
+    updated_at: 2019-09-29 16:52:33.266338
+    document_type: 29
+    group_type: 7
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 31
+  fields:
+    created_at: 2019-09-29 16:52:33.268234
+    updated_at: 2019-09-29 16:52:33.268263
+    document_type: 29
+    group_type: 5
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 32
+  fields:
+    created_at: 2019-09-29 16:52:33.269583
+    updated_at: 2019-09-29 16:52:33.269608
+    document_type: 29
+    group_type: 1
+
 - model: dashboard.unittype
   pk: 1
   fields: {created_at: ! '2018-05-07 16:29:57', updated_at: null, title: weight fraction,

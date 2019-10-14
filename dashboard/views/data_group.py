@@ -1,13 +1,9 @@
 import csv
 from djqscsv import render_to_csv_response
-from pathlib import Path
-import zipfile
 from django.db.models import CharField, Exists, F, OuterRef, Value as V
 from django.db.models.functions import StrIndex, Substr
-from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.core.files import File
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -17,6 +13,7 @@ from dashboard.forms.data_group import (
     CleanCompFormSet,
     ExtractFileFormSet,
     UploadDocsForm,
+    RegisterRecordsFormSet,
 )
 from dashboard.models import (
     ExtractedText,
@@ -187,92 +184,42 @@ def data_group_create(request, pk, template_name="data_group/datagroup_form.html
         "name": f"{datasource} {group_key}",
         "data_source": datasource,
     }
+    form = DataGroupForm(
+        request.POST or None,
+        request.FILES or None,
+        user=request.user,
+        initial=initial_values,
+    )
+    grouptypes = GroupType.objects.all()
+    for grouptype in grouptypes:
+        grouptype.codes = DocumentType.objects.compatible(grouptype)
+    context = {"form": form, "datasource": datasource, "grouptypes": grouptypes}
     if request.method == "POST":
-        form = DataGroupForm(
-            request.POST, request.FILES, user=request.user, initial=initial_values
-        )
         if form.is_valid():
             datagroup = form.save()
-            info = datagroup.csv.open("rU")
-            table = csv.DictReader(info)
-            good_fields = ["filename", "title", "document_type", "url", "organization"]
-            if not table.fieldnames == good_fields:
-                datagroup.csv.close()
+            form_data = {
+                "register-data_group": datagroup.pk,
+                "register-TOTAL_FORMS": 0,
+                "register-INITIAL_FORMS": 0,
+                "register-MAX_NUM_FORMS": "",
+            }
+            csv_file = request.FILES["csv"].open()  # gets closed when saved above
+            csv_dict = {"register-bulkformsetfileupload": csv_file}
+            rf = RegisterRecordsFormSet(datagroup, form_data, csv_dict)
+            if rf.is_valid():
+                rf.save()
+                return redirect("data_group_detail", pk=datagroup.id)
+            else:
+                if rf.non_form_errors():
+                    for msg in rf.non_form_errors():
+                        messages.error(request, msg)
+                if not rf.non_form_errors() and rf.errors:
+                    errors = gather_errors(rf)
+                    for e in errors:
+                        messages.error(request, e.strip("__all__:"))
+                    # add more here, don't need to add more errors if any non_form_errors exist
                 datagroup.delete()
-                return render(
-                    request,
-                    template_name,
-                    {
-                        "field_error": table.fieldnames,
-                        "good_fields": good_fields,
-                        "form": form,
-                    },
-                )
-            text = ["DataDocument_id," + ",".join(table.fieldnames) + "\n"]
-            errors = []
-            filenames = []
-            count = 0
-            for line in table:  # read every csv line, create docs for each
-                count += 1
-                doc_type = None
-                code = line["document_type"]
-                if line["filename"] == "":
-                    errors.append([count, "Filename can't be empty!"])
-                    continue
-                if len(line["filename"]) > 255:
-                    errors.append([count, "Filename too long!"])
-                    continue
-                if line["filename"] in filenames:
-                    errors.append([count, "Duplicate filename found in csv"])
-                    continue
-                if line["title"] == "":  # updates title in line object
-                    line["title"] = line["filename"].split(".")[0]
-                a = bool(code)
-                b = a and DocumentType.objects.filter(code=code).exists()
-                if b:
-                    doc_type = DocumentType.objects.get(code=code)
-                elif a & ~b:
-                    errors.append([count, "DocumentType code doesn't exist."])
-
-                filenames.append(line["filename"])
-                doc = DataDocument(
-                    filename=line["filename"],
-                    title=line["title"],
-                    document_type=doc_type,
-                    url=line["url"],
-                    organization=line["organization"],
-                    data_group=datagroup,
-                )
-                doc.save()
-                # update line to hold the pk for writeout
-                text.append(str(doc.pk) + "," + ",".join(line.values()) + "\n")
-            if errors:
-                datagroup.csv.close()
-                datagroup.delete()
-                return render(
-                    request, template_name, {"line_errors": errors, "form": form}
-                )
-            # Save the DG to make sure the pk exists
-            datagroup.save()
-            # Let's even write the csv first
-            with open(datagroup.csv.path, "w") as f:
-                myfile = File(f)
-                myfile.write("".join(text))
-            # Let's explicitly use the full path for writing of the zipfile
-            uid = str(datagroup.fs_id)
-            new_zip_name = Path(settings.MEDIA_URL) / uid / (uid + ".zip")
-            new_zip_path = Path(settings.MEDIA_ROOT) / uid / (uid + ".zip")
-            zf = zipfile.ZipFile(str(new_zip_path), "w", zipfile.ZIP_DEFLATED)
-            datagroup.zip_file = new_zip_name
-            zf.close()
-            datagroup.save()
-            return redirect("data_group_detail", pk=datagroup.id)
-    else:
-        groups = GroupType.objects.all()
-        for group in groups:
-            group.codes = DocumentType.objects.compatible(group)
-        form = DataGroupForm(user=request.user, initial=initial_values)
-    context = {"form": form, "datasource": datasource, "groups": groups}
+                return render(request, template_name, context)
     return render(request, template_name, context)
 
 
@@ -412,6 +359,7 @@ def download_registered_datadocuments(request, pk):
             filename=filename,
             field_header_map={"id": "DataDocument_id"},
             use_verbose_names=False,
+            encoding="utf-8",
         )
     else:
         qs = DataDocument.objects.filter(data_group_id=0).values(*columnlist)

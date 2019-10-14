@@ -87,6 +87,8 @@ FRIENDLY_FIELDS = {
     "puc_description": "Description",
 }
 
+TOTAL_COUNT_AGG = "unique_total_count"
+
 
 class ElasticPaginator:
     """To be used with Django's paginator"""
@@ -132,7 +134,7 @@ class ElasticPaginator:
                         re.sub(r"(<em>)|(</em>)", "", hightlight)
                     )
                     original_field = hit["source"][source_field]
-                    hit["source"][source_field] = html.format_html(
+                    hit["source"][source_field] = html.mark_safe(
                         re.sub(stripped_highlight, hightlight, original_field)
                     )
         # patch friendly name
@@ -213,6 +215,8 @@ def run_query(
         a = A("terms", field=facet)
         a.metric("unique_count", "cardinality", field=id_field)
         s.aggs.bucket(facet, a)
+    # add cardinal aggregation on id_field to get unique total count
+    s.aggs.bucket(TOTAL_COUNT_AGG, A("cardinality", field=id_field))
     # execute the search
     response = s.execute().to_dict()
     # gather the results
@@ -247,9 +251,10 @@ def run_query(
             }
             results_facets_list.append(results_facets_object)
         results_facets[facet] = results_facets_list
+    # get unique total count
+    length = response_aggs[TOTAL_COUNT_AGG]["value"]
     # replace hits with paginator
     if page is not None:
-        length = response["hits"]["total"]["value"]
         espaginator = ElasticPaginator(
             length, q, model, facets, fuzzy, connection="default"
         )
@@ -258,5 +263,5 @@ def run_query(
         "hits": results_hits,
         "facets": results_facets,
         "took": response["took"] / 1000,
-        "total": response["hits"]["total"]["value"],
+        "total": length,
     }

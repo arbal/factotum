@@ -32,7 +32,7 @@
                     </small>
                 </div>
                 <div class="accordion" id="puc-accordion">
-                    {% for leaf in pucs.leaves %}
+                    {% for leaf in pucs.children %}
                     <div class="card">
                         <!-- Level 1 -->
                         <div class="card-header-sm bg-light">
@@ -43,7 +43,7 @@
                                     <i class="fas fa-chevron-circle-right icon-secondary"></i>
                                     <i class="fas fa-chevron-circle-down icon-secondary d-none"></i>
                                 </button>
-                                <b>{{ leaf }}</b>
+                                <b>{{ leaf.name }}</b>
                                 <a href="{{ leaf.value.url }}" 
                                 class="ml-2" 
                                 title="PUC detail" 
@@ -52,23 +52,23 @@
                                 <i class="fas fa-info-circle icon-secondary"></i>
                                 </a>
                                 <span class="dot m-2 float-right text-center puc-link"
-                                    data-gen-cat="{{ leaf }}">
-                                    <small><b>{{ leaf.n_children }}</b></small>
+                                    data-gen-cat="{{ leaf.name }}">
+                                    <small><b>{{ leaf|length|add:"-1" }}</b></small>
                                 </span>
                             </div>
                         </div>
                         <div id="puc-{{ leaf.value.pk }}" 
                             class="collapse">
                             <div class="card-body p-0 puc-link"
-                                data-gen-cat="{{ leaf }}">
-                            {% if leaf.leaves %}
+                                data-gen-cat="{{ leaf.name }}">
+                            {% if leaf.children %}
                             <div class="accordion ml-3" id="accordion-{{ leaf.value.pk }}">
-                                {% for leaflet in leaf.leaves %}
+                                {% for leaflet in leaf.children %}
                                 <div class="card">
                                     <!-- Level 2 -->
                                     <div class="card-header-sm bg-light">
                                         <div class="text-left">
-                                            {% if leaflet.n_children %}
+                                            {% if leaflet.children %}
                                             <button class="handle mr-2 btn btn-light shadow-none"
                                                 data-toggle="collapse" 
                                                 data-target="#accordion-{{ leaflet.value.pk }}">
@@ -81,7 +81,7 @@
                                             </button>
                                             <span class="m-1"></span>
                                             {% endif %}
-                                            <b>{{ leaflet }}</b>
+                                            <b>{{ leaflet.name }}</b>
                                             <a href="{{ leaflet.value.url }}" 
                                             class="ml-2" 
                                             title="PUC detail" 
@@ -89,10 +89,10 @@
                                             data-placement="top">
                                                 <i class="fas fa-info-circle icon-secondary"></i>
                                             </a>
-                                            {% if leaflet.n_children %}
+                                            {% if leaflet.children %}
                                             <span class="dot m-2 float-right text-center puc-link"
-                                                data-gen-cat="{{ leaf }}">
-                                                <small><b>{{ leaflet.n_children }}</b></small>
+                                                data-gen-cat="{{ leaf.name }}">
+                                                <small><b>{{ leaflet|length|add:"-1" }}</b></small>
                                             </span>
                                             {% endif %}
                                         </div>
@@ -100,15 +100,15 @@
                                     <div id="accordion-{{ leaflet.value.pk }}" 
                                         class="collapse">
                                         <div class="card-body p-0 puc-link"
-                                            data-gen-cat="{{ leaf }}">
-                                            {% if leaflet.leaves %}
+                                            data-gen-cat="{{ leaf.name }}">
+                                            {% if leaflet.children %}
                                             <div class="ml-3" id="accordion-{{ leaflet.value.pk }}">
-                                                {% for needle in leaflet.leaves %}
+                                                {% for needle in leaflet.children %}
                                                 <div class="card">
                                                     <div class="card-header-sm bg-light">
                                                         <div class="text-left p-2 ml-2">
                                                             <span class="m-4"></span>
-                                                            <b>{{ needle }}</b>
+                                                            <b>{{ needle.name }}</b>
                                                             <a href="{{ needle.value.url }}" 
                                                                 class="ml-2" 
                                                                 title="PUC detail" 
@@ -140,14 +140,9 @@
             </div>
         </div>
         <div class="col-7 pl-4 pr-0">
-            <div class="bubble-chart" id="chart">
-                <svg></svg>
-            </div>
             <div class="row">
-                <div class="btn-group p-2 ml-2" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-secondary" id="split">Split</button>
-                    <button type="button" class="btn btn-secondary" id="combine">Combine</button>
-                </div>
+                <h4>Products Linked to PUCs</h4>
+                <svg id="nestedcircles" width="100%" height="500"></svg>
             </div>
         </div>
     </div>
@@ -171,17 +166,10 @@
 {% endif %}
 {% endblock %}
 {% block js %}
-<script src="{% static 'js/d3_rick.min.js' %}"></script>
+<script src="{% static 'js/d3.v5.min.js' %}"></script>
 <script src="{% static 'js/dashboard/dsstox_detail.js' %}"></script>
 <script src="{% static 'js/bubble_chart.js' %}"></script>
 <script>
-    d3v4.csv("{% url 'download_PUCs' %}?bubbles=True&dtxsid={{ substance.sid }}", function (error, data) {
-      if (error) {
-        console.error('Error getting or parsing the data.');
-        throw error;
-      }
-      var chart = bubbleChart(625, 500, showLegend=false);
-      d3v4.select('#chart').datum(data).call(chart);
-    });
+    nestedBubbleChart(500, 500, "{% url 'bubble_PUCs' %}?dtxsid={{ substance.sid }}")
 </script>
 {% endblock %}

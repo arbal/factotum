@@ -4,6 +4,8 @@ from lxml import html
 from django.utils import timezone
 from django.test import RequestFactory, TestCase, override_settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.contrib.messages.middleware import MessageMiddleware
+from django.contrib.sessions.middleware import SessionMiddleware
 
 from dashboard.models import *
 from dashboard.tests.loader import *
@@ -118,9 +120,9 @@ class DataGroupFormTest(TestCase):
     def test_register_records_header(self):
         ds_pk = DataSource.objects.first().pk
         csv_string = (
-            "filename,title,document_type,product,url,organization"
-            "1.pdf,Home Depot,2,,www.homedepot.com/594.pdf,"
-            "2.pdf,Home Depot,2,,www.homedepot.com/fb5.pdf,"
+            "filename,title,document_type,product,url,organization\n"
+            "1.pdf,Home Depot,2,,www.homedepot.com/594.pdf,\n"
+            "2.pdf,Home Depot,2,,www.homedepot.com/fb5.pdf,\n"
         )
         csv_string_bytes = csv_string.encode(encoding="UTF-8", errors="strict")
         in_mem_sample_csv = InMemoryUploadedFile(
@@ -140,7 +142,21 @@ class DataGroupFormTest(TestCase):
             "data_source": ds_pk,
             "csv": in_mem_sample_csv,
         }
-        req = self.factory.post(path=f"/datasource/{ds_pk}/datagroup_new/", data=data)
-        req.user = User.objects.get(username="Karyn")
-        resp = data_group_create(request=req, pk=6)
-        self.assertContains(resp, "CSV column headers are incorrect for upload")
+        request = self.factory.post(
+            path=f"/datasource/{ds_pk}/datagroup_new/", data=data
+        )
+
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        middleware = MessageMiddleware()
+        middleware.process_request(request)
+
+        request.session.save()
+        request.user = User.objects.get(username="Karyn")
+        resp = data_group_create(request=request, pk=6)
+        self.assertContains(
+            resp,
+            "CSV column titles should be [&#39;filename&#39;, &#39;title&#39;,"
+            " &#39;document_type&#39;, &#39;url&#39;, &#39;organization&#39;]",
+        )

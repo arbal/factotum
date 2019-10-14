@@ -22,13 +22,21 @@ class ExtractedChemical(CommonInfo, RawChem):
     raw_min_comp = models.CharField("Minimum", max_length=100, null=True, blank=True)
     raw_max_comp = models.CharField("Maximum", max_length=100, null=True, blank=True)
     unit_type = models.ForeignKey(
-        UnitType, on_delete=models.PROTECT, null=True, blank=True
+        UnitType,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        verbose_name="Unit type",
     )
     report_funcuse = models.CharField(
-        "Functional use", max_length=255, null=True, blank=True
+        "Reported functional use", max_length=255, null=True, blank=True
     )
     weight_fraction_type = models.ForeignKey(
-        WeightFractionType, on_delete=models.PROTECT, null=True, default="1"
+        WeightFractionType,
+        on_delete=models.PROTECT,
+        null=True,
+        default="1",
+        verbose_name="Weight fraction type",
     )
     ingredient_rank = models.PositiveIntegerField(
         "Ingredient rank", null=True, blank=True, validators=[validate_ingredient_rank]
@@ -36,6 +44,7 @@ class ExtractedChemical(CommonInfo, RawChem):
     raw_central_comp = models.CharField(
         "Central", max_length=100, null=True, blank=True
     )
+    component = models.CharField("Component", max_length=200, null=True, blank=True)
 
     class Meta:
         ordering = (F("ingredient_rank").asc(nulls_last=True),)
@@ -71,6 +80,7 @@ class ExtractedChemical(CommonInfo, RawChem):
             "report_funcuse",
             "weight_fraction_type",
             "rawchem_ptr",
+            "component",
         ]
 
     def get_datadocument_url(self):
@@ -79,17 +89,6 @@ class ExtractedChemical(CommonInfo, RawChem):
     @property
     def data_document(self):
         return self.extracted_text.data_document
-
-    def indexing(self):
-        obj = ExtractedChemicalIndex(
-            meta={"id": self.id},
-            chem_name=self.raw_chem_name,
-            raw_cas=self.raw_cas,
-            raw_chem_name=self.raw_chem_name,
-            facet_model_name="Extracted Chemical",
-        )
-        obj.save()
-        return obj.to_dict(include_meta=True)
 
     def get_extractedtext(self):
         return self.extracted_text
@@ -131,3 +130,7 @@ class ExtractedChemical(CommonInfo, RawChem):
     @property
     def ingredient_rank_label(self):
         return self.__get_label("ingredient_rank")
+
+    @property
+    def component_label(self):
+        return self.__get_label("component")

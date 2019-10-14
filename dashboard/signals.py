@@ -52,7 +52,7 @@ def uncurate(sender, **kwargs):
 @receiver(post_delete, sender=DocumentTypeGroupTypeCompatibilty)
 def rm_invalid_doctypes(sender, **kwargs):
     """When a DocumentTypeGroupTypeCompatibilty is dropped, the newly invalid DocumentType
-    fields of affected DataDocuments need to be nullified.
+    fields of affected DataDocuments need to be made unidentified.
     """
     compat_obj = kwargs["instance"]
     doc_type = compat_obj.document_type
@@ -60,7 +60,7 @@ def rm_invalid_doctypes(sender, **kwargs):
     (
         DataDocument.objects.filter(
             document_type=doc_type, data_group__group_type=group_type
-        ).update(document_type=None)
+        ).update(document_type=doc_type._meta.model.objects.get(code="UN"))
     )
 
 

@@ -6,14 +6,16 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0122_remove_product_data_source'),
-    ]
+    dependencies = [("dashboard", "0122_remove_product_data_source")]
 
     operations = [
         migrations.AlterField(
-            model_name='ingredient',
-            name='rawchem_ptr',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='ingredient', to='dashboard.RawChem'),
-        ),
+            model_name="ingredient",
+            name="rawchem_ptr",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="ingredient",
+                to="dashboard.RawChem",
+            ),
+        )
     ]

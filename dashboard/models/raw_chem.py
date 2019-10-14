@@ -50,36 +50,6 @@ class RawChem(models.Model):
     def data_group_id(self):
         return str(self.extracted_text.data_document.data_group_id)
 
-    def get_data_document(self):
-        """Find the child object by trying each of the classes, then return the 
-            datadocument id from it
-            NOTE: this will be obsolete once we move the data_document 
-            foreign key into RawChem in ticket 654
-         """
-        id = self.id
-        try:
-            return (
-                apps.get_model("dashboard.ExtractedChemical")
-                .objects.get(rawchem_ptr=id)
-                .data_document
-            )
-        except apps.get_model("dashboard.ExtractedChemical").DoesNotExist:
-            try:
-                return (
-                    apps.get_model("dashboard.ExtractedFunctionalUse")
-                    .objects.get(rawchem_ptr=id)
-                    .data_document
-                )
-            except apps.get_model("dashboard.ExtractedFunctionalUse").DoesNotExist:
-                try:
-                    return (
-                        apps.get_model("dashboard.ExtractedListPresence")
-                        .objects.get(rawchem_ptr=id)
-                        .data_document
-                    )
-                except apps.get_model("dashboard.ExtractedListPresence").DoesNotExist:
-                    return False
-
     def clean(self):
         def whitespace(fld):
             if fld:

@@ -6,6 +6,10 @@ from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
 
 
+def get_default_document_type():
+    return DocumentType.objects.get(code="UN").pk
+
+
 class DataDocument(CommonInfo):
     """
     A DataDocument object is a single source of Factotum data. 
@@ -66,7 +70,9 @@ class DataDocument(CommonInfo):
     products = models.ManyToManyField("Product", through="ProductDocument")
     matched = models.BooleanField(default=False)
     document_type = models.ForeignKey(
-        "DocumentType", on_delete=models.PROTECT, null=True, blank=True
+        "DocumentType",
+        on_delete=models.SET(get_default_document_type),
+        default=get_default_document_type,
     )
     organization = models.CharField(max_length=255, blank=True)
     note = models.TextField(blank=True, null=True)
@@ -106,5 +112,5 @@ class DataDocument(CommonInfo):
             and self.document_type not in DocumentType.objects.compatible(self)
         ):
             raise ValidationError(
-                ("The document type must be allowed by " "the parent data group.")
+                ("The document type must be allowed by the parent data group.")
             )

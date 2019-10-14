@@ -10,8 +10,8 @@ from .data_document import DataDocument
 class ProductDocumentManager(models.Manager):
     def from_chemical(self, dsstox):
         """Retrieve a queryset of ProductDocuments where the 'document' is
-		linked to an instance of DSSToxLookup, i.e. chemical.
-		"""
+        linked to an instance of DSSToxLookup, i.e. chemical.
+        """
         if not type(dsstox) == apps.get_model("dashboard.DSSToxLookup"):
             raise TypeError("'dsstox' argument is not a DSSToxLookup instance.")
         return self.filter(

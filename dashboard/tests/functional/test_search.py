@@ -62,25 +62,35 @@ class TestSearch(TestCase):
         string = "Arts and crafts/Office supplies"
         self.assertIn(string, str(response.content))
 
+        response = self.client.get("/search/chemical/?q=" + b64)
+        string = "DTXSID6026296"
+        self.assertIn(string, str(response.content))
+
     def test_number_returned(self):
         # products
         qs = self._get_query_str("water")
         response = self.client.get("/search/product/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
         total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
-        expected_total = "6 products"
+        expected_total = "7 products"  # This includes "eau" synonym records
         self.assertIn(expected_total, total_took)
         # documents
         response = self.client.get("/search/datadocument/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
         total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
-        expected_total = "23 datadocuments"
+        expected_total = "42 datadocuments"  # includes "eau" and "H2O" synonyms
         self.assertIn(expected_total, total_took)
         # pucs
         response = self.client.get("/search/puc/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
         total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
-        expected_total = "11 pucs"
+        expected_total = "12 pucs"  # includes synonyms
+        self.assertIn(expected_total, total_took)
+        # chemicals
+        response = self.client.get("/search/chemical/" + qs)
+        response_html = html.fromstring(response.content.decode("utf8"))
+        total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
+        expected_total = "1 chemicals"
         self.assertIn(expected_total, total_took)
 
     def test_facets(self):
@@ -97,7 +107,7 @@ class TestSearch(TestCase):
         response = self.client.get("/search/product/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
         total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
-        expected_total = "4 products returned"
+        expected_total = "3 products returned"
         self.assertIn(expected_total, total_took)
 
         # Test comma
@@ -105,5 +115,12 @@ class TestSearch(TestCase):
         response = self.client.get("/search/product/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
         total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
-        expected_total = "2 products returned"
+        expected_total = "1 products returned in"
         self.assertIn(expected_total, total_took)
+
+    def test_synonyms(self):
+        # Test benzoic acid => ethylparaben
+        qs = self._get_query_str("ethylparaben")
+        response = self.client.get("/search/datadocument/" + qs)
+        response_html = response.content.decode("utf8")
+        self.assertIn("<em>Benzoic acid</em>", response_html)

@@ -1,14 +1,17 @@
-from django.contrib.auth.models import User
-from dashboard.models import DataGroup, DataDocument, GroupType, DocumentType
-from django.test import RequestFactory, TestCase, Client
-from django.core.exceptions import ValidationError
-from django.urls import resolve
-
 import os
 import io
-from dashboard import views
+
+from django.urls import resolve
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.test import RequestFactory, TestCase, Client
+from django.contrib.messages.middleware import MessageMiddleware
+from django.contrib.sessions.middleware import SessionMiddleware
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
+
+from dashboard import views
 from dashboard.tests.loader import fixtures_standard
+from dashboard.models import DataGroup, DataDocument, GroupType, DocumentType
 
 
 class DDTestModel(TestCase):
@@ -97,8 +100,8 @@ class DDTestUpload(TestCase):
     def testBadGroupTypeInCSV(self):
         csv_string_bad = (
             "filename,title,document_type,url,organization\n"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,9,, \n"
-            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,4,, \n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,HH,, \n"
+            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,HH,, \n"
         )
 
         data = io.StringIO(csv_string_bad)
@@ -123,13 +126,24 @@ class DDTestUpload(TestCase):
         }
         request = self.factory.post(path="/datagroup/new", data=form_data)
         request.FILES["csv"] = sample_csv
+
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        middleware = MessageMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+
         request.user = User.objects.get(username="Karyn")
         request.session = {}
         request.session["datasource_title"] = "Walmart"
         request.session["datasource_pk"] = 10
         resp = views.data_group_create(pk=10, request=request)
         # the upload form should be invalid
-        self.assertIn("CSV has bad data in row/s:".encode(), resp.content)
+        self.assertIn(
+            "The document type must be allowed by the parent data group.".encode(),
+            resp.content,
+        )
 
     def test_upload_csv_as_datadoc(self):
         csv_string = (

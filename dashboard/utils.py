@@ -1,8 +1,7 @@
-from django import forms
-from django.forms.models import apply_limit_choices_to_to_formfield
-from django.core.exceptions import FieldDoesNotExist
-from django.db.models import Aggregate
+from collections.abc import MutableMapping
+
 from dashboard.models import (
+    PUC,
     ExtractedChemical,
     ExtractedCPCat,
     ExtractedFunctionalUse,
@@ -11,8 +10,11 @@ from dashboard.models import (
     ExtractedHHRec,
     ExtractedListPresence,
     ExtractedText,
-    PUC,
 )
+from django import forms
+from django.core.exceptions import FieldDoesNotExist
+from django.db.models import Aggregate
+from django.forms.models import apply_limit_choices_to_to_formfield
 
 
 class GroupConcat(Aggregate):
@@ -39,75 +41,135 @@ class GroupConcat(Aggregate):
         super().__init__(expression, separator=separator, **extra)
 
 
-class SimpleTree:
-    """A simple tree data structure. Used for traversing PUCs.
-    
-    Properties:
+class SimpleTree(MutableMapping):
+    """A simple tree data structure.
+
+    This has many methods similar to a dictionary.
+
+    >>> pizza = SimpleTree()
+    >>> pizza["pepperoni"] = 5
+    >>> pizza["cheese", "no_pickles"] = 3
+    >>> pizza["cheese", "no_mayo"] = 10
+    >>> [food for food in t.items()]
+           [(('pepperoni',), 5), (('cheese', 'no_pickles'), 3), ...]
+
+    Values are returned by default. You can return the SimpleTree object by
+    performing lookups on the "objects" interface. The "parent" attribute
+    will refer to the original parent of the object.
+
+    >>> child = t.objects["pizza", "cheese"]
+    >>> [food for food in child.items()]
+           [(('cheese', 'no_pickles'), 5), ...]
+    >>> [food for food in child.parent.items()]
+           [(('pepperoni',), 5), (('cheese', 'no_pickles'), 3), ...]
+
+    You can return a dictionary representation with "asdict()".
+
+    >>> pizza.asdict()
+            {"name": "root", "children": [{"name": "pepperoni", "value": 5...}]}
+
+    Attributes:
+        objects (SimpleTreeObjectInterface): returns SimpleTrees
+        parent (SimpleTree): the parent SimpleTree object
         name (str): the node name
-        value (any): the root node value
-        leaves (list): a list of children SimpleTree objects
+        value (any): the node value
+        children (list): a list of children SimpleTree objects
     """
 
-    def __init__(self, name=None, value=None, leaves=[]):
-        """Initialize a SimpleTree instance.
+    class _SimpleTreeObjectInterface:
+        def __init__(self, outer):
+            self.outer = outer
 
-        Arguments:
-            name (str): the node name (default=None)
-            value (any): the root node value (default=None)
-            leaves (list): a list of children SimpleTree objects (default=[])
-        """
-        self.name = name
-        self.value = value
-        self.leaves = leaves
+        def __getitem__(self, keys):
+            _, child = self.outer._get_or_create(keys)
+            return child
 
-    def __str__(self):
-        return self.name
+    def __init__(self):
+        self.parent = None
+        self.name = "root"
+        self.value = None
+        self.children = []
+        self.objects = self._SimpleTreeObjectInterface(self)
 
-    def set(self, names, value, default=None):
-        """Recursively add leaves to a SimpleTree object.
-
-        Arguments:
-            names (iter): an iterable of names to route the leaf under
-            value (any): the leaf value (default=default)
-            default (any): if a leaf doesn't exist upstream from the destination
-                           use this value as the upstream leaf value
-        """
-        root = self
-        for name in names:
+    def _get_or_create(self, keys, create=False):
+        if not isinstance(keys, tuple):
+            keys = (keys,)
+        parent = self
+        for name in keys:
             try:
-                leaf = next(l for l in root.leaves if l.name == name)
+                i, parent = next(
+                    (i, child)
+                    for i, child in enumerate(parent.children)
+                    if child.name == name
+                )
             except StopIteration:
-                leaf = SimpleTree(name=name, value=default, leaves=[])
-                root.leaves.append(leaf)
-            root = leaf
-        root.value = value
+                if create:
+                    child = self.__class__()
+                    child.parent = parent
+                    child.name = name
+                    parent.children.append(child)
+                    i = len(parent.children) - 1
+                    parent = child
+                else:
+                    raise KeyError(name)
+        return i, parent
 
-    def iter(self):
-        """Return an iterator than traverses the tree downward."""
-        yield self
-        for leaf in self.leaves:
-            yield from leaf.iter()
+    @property
+    def _is_item(self):
+        return self.name is not None and self.value is not None
 
-    def find(self, names):
-        """Breadth-first search
+    def __setitem__(self, keys, value):
+        _, child = self._get_or_create(keys, create=True)
+        child.value = value
 
-        Arguments:
-            names (iter): an iterable containing the the names to look for
+    def __getitem__(self, keys):
+        _, child = self._get_or_create(keys)
+        return child.value
 
-        Returns:
-            a SimpleTree object
+    def __delitem__(self, keys):
+        i, child = self._get_or_create(keys)
+        parent = child.parent
+        parent.children.pop(i)
+
+    def __iter__(self):
+        yield from self.keys()
+
+    def __len__(self):
+        return sum(1 for v in self.values())
+
+    def items(self):
+        return zip(self.keys(), self.values())
+
+    def keys(self):
+        if self._is_item:
+            name = []
+            child = self
+            while child.parent is not None:
+                name.insert(0, child.name)
+                child = child.parent
+            yield tuple(name)
+        for child in self.children:
+            yield from child.keys()
+
+    def values(self):
+        if self._is_item:
+            yield self.value
+        for child in self.children:
+            yield from child.values()
+
+    def asdict(self):
+        """Return a dictionary representation of the tree.
         """
-        root = self
-        for name in names:
-            root = next(l for l in root.leaves if l.name == name)
-        return root
-
-    def n_children(self):
- 	      return sum(1 for p in self.iter() if p.value) - 1
+        d = {"name": self.name}
+        if self._is_item:
+            d["value"] = self.value
+        if self.children:
+            d["children"] = [child.asdict() for child in self.children]
+        return d
 
     
 def get_extracted_models(t):
-    """Returns the parent model function and and the associated child model
+    """Returns the parent model function and the associated child model
     based on datagroup type"""
     if t == "CO" or t == "UN":
         return (ExtractedText, ExtractedChemical)

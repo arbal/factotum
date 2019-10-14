@@ -16,27 +16,26 @@
                 </li>
             </ul>
 
-
             <table id="formset" class="form">
             {% for form in detail_formset.forms %}
-            <!-- {% if forloop.first %}
-            <thead><tr>
-                {% for field in form.visible_fields %}
-                <th>{{ field.label|capfirst }}</th>
-                {% endfor %}
-            </tr></thead>
-            {% endif %} -->
             <tr class="{% cycle row1 row2 %}">
             {{ form.management_form }}
             {% for field in form.visible_fields %}
-            {% if forloop.first %}
-            <tr class='padding-row' 
-            id='rawchem-{% if form.instance.id %}{{form.instance.id}}{% else %}{{form.data.id}}{% endif %}'>
-                <td>&nbsp;
-                  <!-- <code>I am an empty row with id of "rawchem-{% if form.instance.id %}{{form.instance.id}}{% else %}{{form.data.id}}{% endif %}"</code> -->
-                </td>
-            </tr>
-        {% endif %} 
+                {% if forloop.first %}
+                    <tr class='padding-row'
+                        id='rawchem-{% if form.instance.id %}{{form.instance.id}}{% else %}{{form.data.id}}{% endif %}'>
+                        <td>&nbsp;
+                          <!-- <code>I am an empty row with id of "rawchem-{% if form.instance.id %}{{form.instance.id}}{% else %}{{form.data.id}}{% endif %}"</code> -->
+                        </td>
+                    </tr>
+                    {% if form.component.value %}
+                        <tr>
+                            <td>&nbsp;
+                                <h5>{{ form.component.value }}</h5>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endif %}
                 <td>
                 {# Include the hidden fields in the form #}
                 {% if forloop.first %}
