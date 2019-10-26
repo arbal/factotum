@@ -12,6 +12,7 @@ from django.core.validators import URLValidator
 
 from .common_info import CommonInfo
 from .group_type import GroupType
+from .raw_chem import RawChem
 
 
 # could be used for dynamically creating filename on instantiation
@@ -56,6 +57,10 @@ class DataGroup(CommonInfo):
     @property
     def is_composition(self):
         return self.type == "CO"
+
+    @property
+    def is_supplemental_doc(self):
+        return self.type == "SD"
 
     @property
     def is_habits_and_practices(self):
@@ -243,3 +248,14 @@ class DataGroup(CommonInfo):
         """Used in the datagroup_form.html template to display only the filename
         """
         return self.csv.name.split("/")[-1]
+
+    def uncurated_count(self):
+        return (
+            RawChem.objects.filter(dsstox__isnull=True)
+            .filter(extracted_text__data_document__data_group=self)
+            .count()
+        )
+
+    @property
+    def uncurated(self):
+        return self.uncurated_count() >= 1

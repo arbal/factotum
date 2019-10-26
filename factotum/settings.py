@@ -23,40 +23,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Application definition
 
 INSTALLED_APPS = [
-<<<<<<< HEAD
-    'dal',
-    'dal_select2',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'dashboard.apps.DashboardConfig',
-    'api.apps.ApiConfig',
-    'bootstrap_datepicker_plus',
-    'widget_tweaks',
-    'django.contrib.humanize',
-    'factotum',
-    'django_filters',
-    #'debug_toolbar',
-    'haystack',
-    'haystack_elasticsearch',
-    'taggit',
-    'taggit_labels',
-    'django_extensions'
-]
-
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'debug_toolbar.middleware.DebugToolbarMiddleware',
-=======
     "dal",
     "dal_select2",
     "django.contrib.admin",
@@ -71,7 +37,7 @@ MIDDLEWARE = [
     "widget_tweaks",
     "django.contrib.humanize",
     "factotum",
-    "debug_toolbar",
+    #"debug_toolbar",
     "taggit",
     "taggit_labels",
     "django_extensions",
@@ -87,8 +53,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
->>>>>>> 2b3f685d17fcbe305fedf220629cbfd9443a56e0
+    #"debug_toolbar.middleware.DebugToolbarMiddleware",
+    "crum.CurrentRequestUserMiddleware",
 ]
 
 ROOT_URLCONF = "factotum.urls"
