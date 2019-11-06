@@ -15,6 +15,7 @@ from dashboard.models import (
     ExtractedCPCat,
     ExtractedListPresence,
     ExtractedFunctionalUse,
+    RawChem,
 )
 
 
@@ -70,6 +71,9 @@ class UploadExtractedFileTest(TestCase):
             "\n"
             "7,11165872.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
             "0000064-17-6,sd alcohol 40-c (ethanol c),,,,2,,,Test Component"
+            "\n"
+            "7,11165872.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
+            ",,,,,,,,"
         )
         sample_csv_bytes = csv_string.encode(encoding="UTF-8", errors="strict")
         in_mem_sample_csv = InMemoryUploadedFile(
@@ -94,9 +98,18 @@ class UploadExtractedFileTest(TestCase):
             "\n"
             "8,11177849.pdf,A different prod_name with the same datadocument,,,aerosol hairspray,"
             "0000064-17-5,sd alcohol 40-b (ethanol),,0.5,0.55,1,,"
-            # "\n"
-            # "7,11165873.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
-            # "0000064-17-5,sd alcohol 40-b (ethanol),,0.5,0.55,,,"
+            "\n"
+            "2000,11177849.pdf,A different prod_name with the same datadocument,,,aerosol hairspray,"
+            "0000064-17-5,sd alcohol 40-b (ethanol),,0.5,0.55,1,,"
+            "\n"
+            "8,11177849.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
+            "0000075-37-6,hydrofluorocarbon 152a (difluoroethane),,0.39,,1,,0.39,Test Component"
+            "\n"
+            "8,11177849.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
+            "0000075-37-6,hydrofluorocarbon 152a (difluoroethane),,0.39,,1,,,Test Component"
+            "\n"
+            "8,11177849.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
+            "0000075-37-6,hydrofluorocarbon 152a (difluoroethane),,0.39,0.42,,,,Test Component"
         )
         sample_csv_bytes = csv_string.encode(encoding="UTF-8", errors="strict")
         in_mem_sample_csv = InMemoryUploadedFile(
@@ -129,6 +142,10 @@ class UploadExtractedFileTest(TestCase):
         text_count = ExtractedText.objects.all().count()
         resp = views.data_group_detail(request=req, pk=6)
         self.assertContains(resp, "must be 1:1")
+        self.assertContains(resp, "were not found for this data group")
+        self.assertContains(resp, "There must be a unit type")
+        self.assertContains(resp, "Central composition value cannot be defined")
+        self.assertContains(resp, "Both minimum and maximimum")
         post_text_count = ExtractedText.objects.all().count()
         self.assertEquals(
             text_count, post_text_count, "Shouldn't have extracted texts uploaded"
@@ -138,12 +155,23 @@ class UploadExtractedFileTest(TestCase):
         doc_count = DataDocument.objects.filter(
             raw_category="aerosol hairspray"
         ).count()
+        old_rawchem_count = RawChem.objects.filter().count()
+        old_extractedchemical_count = ExtractedChemical.objects.filter().count()
         self.assertTrue(
             doc_count == 0, "DataDocument raw category shouldn't exist yet."
         )
         resp = views.data_group_detail(request=req, pk=6)
-        self.assertContains(resp, "3 extracted records uploaded successfully.")
-
+        self.assertContains(resp, "4 extracted records uploaded successfully.")
+        new_rawchem_count = RawChem.objects.filter().count()
+        new_extractedchemical_count = ExtractedChemical.objects.filter().count()
+        self.assertTrue(
+            new_rawchem_count - old_rawchem_count == 3,
+            "There should only be 3 new RawChem records",
+        )
+        self.assertTrue(
+            new_extractedchemical_count - old_extractedchemical_count == 3,
+            "There should only be 3 new ExtractedChemical records",
+        )
         doc_count = DataDocument.objects.filter(
             raw_category="aerosol hairspray"
         ).count()
