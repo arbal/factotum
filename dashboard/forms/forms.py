@@ -250,7 +250,7 @@ class ExtractedHHDocForm(ExtractedTextForm):
 
 class ExtractedHHDocEditForm(ExtractedHHDocForm):
     class Meta(ExtractedHHDocForm.Meta):
-        fields = ExtractedHHDocForm.Meta.fields + ["prod_name", "doc_date", "rev_num"]
+        fields = ExtractedHHDocForm.Meta.fields + ["doc_date"]
 
 
 class DocumentTypeForm(forms.ModelForm):
