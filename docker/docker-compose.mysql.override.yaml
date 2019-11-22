@@ -1,0 +1,27 @@
+version: "3.1"
+
+
+volumes:
+  mysqldata:
+
+
+services:
+
+  mysql:
+    image: mysql:5.7.23
+    restart: unless-stopped
+    environment:
+      MYSQL_USER: ${SQL_USER}
+      MYSQL_PASSWORD: ${SQL_PASSWORD}
+      MYSQL_DATABASE: ${SQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${SQL_PASSWORD}
+    ports:
+      - ${SQL_PORT:-3306}:3306
+    volumes: 
+      - mysqldata:/var/lib/mysql
+
+  logstash:
+    environment:
+      SQL_HOST: mysql
+    depends_on:
+      - mysql

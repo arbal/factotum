@@ -99,6 +99,16 @@ class TestSearch(TestCase):
         expected_total = "1 chemicals"
         self.assertIn(expected_total, total_took)
 
+    def test_model_counts(self):
+        qs = self._get_query_str("water")
+        response = self.client.get("/search/product/" + qs)
+        counts = response.wsgi_request.session["unique_counts"]
+        self.assertIsNotNone(counts)
+        self.assertEquals(counts["datadocument"], 42)
+        self.assertEquals(counts["product"], 7)
+        self.assertEquals(counts["chemical"], 1)
+        self.assertEquals(counts["puc"], 12)
+
     def test_facets(self):
         qs = self._get_query_str("water", {"product_brandname": ["3M"]})
         response = self.client.get("/search/product/" + qs)
