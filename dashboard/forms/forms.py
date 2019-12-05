@@ -268,8 +268,7 @@ class DocumentTypeForm(forms.ModelForm):
         super(DocumentTypeForm, self).__init__(*args, **kwargs)
         self.fields["document_type"].label = ""
         self.fields["document_type"].help_text = None
-        self.fields["document_type"].widget.attrs.update(
-            {"onchange": "form.submit();"})
+        self.fields["document_type"].widget.attrs.update({"onchange": "form.submit();"})
 
 
 class ExtractedChemicalFormSet(BaseInlineFormSet):
