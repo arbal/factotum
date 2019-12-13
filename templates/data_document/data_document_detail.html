@@ -38,6 +38,9 @@
                    role="button"
                    title="View data document"
                    data-toggle="tooltip"
+
+                   target="_blank"
+
                    href="{{ doc.pdf_url }}">
                     <span class="fa fa-fs {{ doc.pdf_url|fileicon }}"></span>
                 </a>
@@ -194,7 +197,8 @@
                         Selected</p>
                 </div>
             {% endif %}
-            {% if not doc.data_group.is_habits_and_practices %}
+            {% if doc.data_group.can_have_products %}
+
                 <hr>
                 <div>
                     <!-- Products -->
@@ -401,16 +405,20 @@
                             <li class="nav-item">
                                 <a class="nav-link"
                                    href="#chem-{{ chemical.pk }}">
+                                    {% firstof chemical.rendered_chemname chemical.rendered_cas "None" as title_name %}
                                     <p class="m-0"
                                        data-toggle="tooltip"
                                        data-placement="left"
-                                       title="{{ chemical.rendered_chemname }}"
+                                       title="{{ title_name }}"
                                        data-boundary="viewport">
-                                        {{ chemical.rendered_chemname|truncatechars:18 }}
+                                       {{ title_name|truncatechars:18 }}
                                     </p>
-                                    <small class="m-0">
-                                        {{ chemical.rendered_cas|truncatechars:18 }}
-                                    </small>
+                                    {% if chemical.rendered_chemname and chemical.rendered_cas %}
+                                        <small class="m-0">
+                                            {{ chemical.rendered_cas|truncatechars:18 }}
+                                        </small>
+                                    {% endif %}
+
                                 </a>
                             </li>
                         {% endfor %}
