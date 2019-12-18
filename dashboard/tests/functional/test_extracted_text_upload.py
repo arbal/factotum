@@ -139,6 +139,8 @@ class UploadExtractedFileTest(TestCase):
 
         # Check the scripts offered in the selection form
         resp = self.c.get(path="/datagroup/6/", stream=True)
+        self.assertTrue("extfile_formset" in resp.context)
+        self.assertContains(resp, 'name="cleancomp-script_id"')
         soup = bs4.BeautifulSoup(resp.content, features="lxml")
         selector = soup.find_all(attrs={"name": "extfile-extraction_script"})[0]
 
@@ -334,4 +336,50 @@ class UploadExtractedFileTest(TestCase):
             len(ExtractedFunctionalUse.objects.filter(extracted_text_id=dd_id)),
             1,
             "One new ExtractedFunctionalUse after upload.",
+        )
+
+    def test_chemicalpresencelist_upload(self):
+        dd_id = 254782
+        dd = DataDocument.objects.get(pk=dd_id)
+        dd_pdf = dd.pdf_url()
+
+        sample_csv = (
+            "data_document_id,data_document_filename,doc_date,raw_category,raw_cas,raw_chem_name,"
+            "report_funcuse,cat_code,description_cpcat,cpcat_code,cpcat_sourcetype,component"
+            "\n"
+            "%s,"
+            "%s,"
+            "2018-04-07,,,,,,,,,CP Test Component" % (dd_id, dd_pdf)
+        )
+        sample_csv_bytes = sample_csv.encode(encoding="UTF-8", errors="strict")
+        in_mem_sample_csv = InMemoryUploadedFile(
+            io.BytesIO(sample_csv_bytes),
+            field_name="extfile-bulkformsetfileupload",
+            name="Chemical_presence_list_template.csv",
+            content_type="text/csv",
+            size=len(sample_csv),
+            charset="utf-8",
+        )
+        req_data = {"extfile-extraction_script": 5, "extfile-submit": "Submit"}
+        req_data.update(self.mng_data)
+        req = self.factory.post("/datagroup/49/", data=req_data)
+        req.FILES["extfile-bulkformsetfileupload"] = in_mem_sample_csv
+        middleware = SessionMiddleware()
+        middleware.process_request(req)
+        req.session.save()
+        middleware = MessageMiddleware()
+        middleware.process_request(req)
+        req.session.save()
+        req.user = User.objects.get(username="Karyn")
+        self.assertEqual(
+            len(ExtractedCPCat.objects.filter(pk=dd_id)), 0, "Empty before upload."
+        )
+        # Now get the response
+        resp = views.data_group_detail(request=req, pk=49)
+        self.assertContains(resp, "1 extracted record uploaded successfully.")
+
+        self.assertEqual(
+            len(ExtractedCPCat.objects.filter(pk=dd_id)),
+            1,
+            "One new ExtractedCPCat after upload.",
         )

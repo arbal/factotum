@@ -105,13 +105,6 @@ class ExtractedChemical(CommonInfo, RawChem):
     script = models.ForeignKey(
         to=Script, on_delete=models.CASCADE, null=True, blank=True
     )
-    component = models.CharField(
-        "Component",
-        max_length=200,
-        null=True,
-        blank=True,
-        help_text="product component",
-    )
 
     class Meta:
         ordering = (F("ingredient_rank").asc(nulls_last=True),)
@@ -161,10 +154,10 @@ class ExtractedChemical(CommonInfo, RawChem):
             "extracted_text",
             "raw_chem_name",
             "raw_cas",
+            "unit_type",
             "raw_min_comp",
             "raw_central_comp",
             "raw_max_comp",
-            "unit_type",
             "ingredient_rank",
             "report_funcuse",
             "weight_fraction_type",
@@ -223,3 +216,28 @@ class ExtractedChemical(CommonInfo, RawChem):
     @property
     def component_label(self):
         return self.__get_label("component")
+
+    @property
+    def auditlog_model_name(self):
+        """
+        Returns the string that is used in the AuditLog table in the
+        'model_name' field
+        """
+        return "extractedchemical"
+
+    @property
+    def auditlog_fields(self):
+        return [
+            "raw_min_comp",
+            "raw_max_comp",
+            "raw_central_comp",
+            "unit_type_id",
+            "report_funcuse",
+            "ingredient_rank",
+            "lower_wf_analysis",
+            "central_wf_analysis",
+            "upper_wf_analysis",
+            "raw_cas",
+            "raw_chem_name",
+            "rid",
+        ]
