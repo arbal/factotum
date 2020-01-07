@@ -106,6 +106,7 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
                     "%d extracted record%s uploaded successfully."
                     % (num_saved, pluralize(num_saved)),
                 )
+                context["tabledata"]["numextracted"] = (dg.extracted_docs(),)
             else:
                 errors = gather_errors(formset)
                 for e in errors:
@@ -161,9 +162,7 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
                 errors = gather_errors(product_formset)
                 for e in errors:
                     messages.error(request, e)
-        else:
-            context["product_formset"] = ProductBulkCSVFormSet()
-
+        context["product_formset"] = ProductBulkCSVFormSet()
     return render(request, template_name, context)
 
 
@@ -407,25 +406,8 @@ def get_product_csv_template(request, pk):
     ] = f'attachment; filename="product_csv_template_{pk}.csv"'
     writer = csv.writer(response)
     writer.writerow(
-        [
-            "data_document_id",
-            "data_document_filename",
-            "title",
-            "upc",
-            "url",
-            "brand_name",
-            "size",
-            "color",
-            "item_id",
-            "parent_item_id",
-            "short_description",
-            "long_description",
-            "thumb_image",
-            "medium_image",
-            "large_image",
-            "model_number",
-            "manufacturer",
-        ]
+        ["data_document_id", "data_document_filename"]
+        + dg.get_product_template_fieldnames()
     )
     for doc in DataDocument.objects.filter(data_group=dg):
         writer.writerow([doc.id, doc.filename])

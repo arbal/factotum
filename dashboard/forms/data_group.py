@@ -141,22 +141,7 @@ class ProductBulkCSVFormSet(DGFormSet):
         header_cols = [
             "data_document_id",
             "data_document_filename",
-            "title",
-            "upc",
-            "url",
-            "brand_name",
-            "size",
-            "color",
-            "item_id",
-            "parent_item_id",
-            "short_description",
-            "long_description",
-            "thumb_image",
-            "medium_image",
-            "large_image",
-            "model_number",
-            "manufacturer",
-        ]
+        ] + DataGroup.get_product_template_fieldnames(self)
         if header != header_cols:
             raise forms.ValidationError(f"CSV column titles should be {header_cols}")
 
@@ -280,6 +265,7 @@ class ChemicalPresenceExtractFileForm(BaseExtractFileForm):
     cpcat_code = field_for_model(ExtractedCPCat, "cpcat_code")
     cpcat_sourcetype = field_for_model(ExtractedCPCat, "cpcat_sourcetype")
     report_funcuse = field_for_model(ExtractedListPresence, "report_funcuse")
+    component = field_for_model(ExtractedListPresence, "component")
 
     def clean(self):
         super().clean()
