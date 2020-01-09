@@ -1,44 +1,42 @@
 import csv
 import datetime
 
-from dashboard.models import (
-    PUC,
-    DataDocument,
-    DataGroup,
-    DataSource,
-    DSSToxLookup,
-    ExtractedListPresenceTag,
-    Product,
-    ProductToPUC,
-    RawChem,
-)
 from dateutil.relativedelta import relativedelta
 from django.db.models import Count, DateField, DateTimeField, F
 from django.db.models.functions import Trunc
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
+from dashboard.models import (
+    PUC,
+    DataDocument,
+    ExtractedListPresenceTag,
+    Product,
+    ProductToPUC,
+    RawChem,
+    GroupType,
+)
+
 
 def index(request):
     stats = {}
-    stats["datagroup_count"] = DataGroup.objects.count()
-    stats["datasource_count"] = DataSource.objects.count()
-
     stats["datadocument_count"] = DataDocument.objects.count()
-    stats["datadocument_with_extracted_text_percent"] = (
-        DataDocument.objects.filter(extractedtext__isnull=False).count()
-        / DataDocument.objects.count()
-        * 100
-    )
-    stats["datadocument_count_by_date"] = datadocument_count_by_date()
-    stats["datadocument_count_by_month"] = datadocument_count_by_month()
     stats["product_count"] = Product.objects.count()
-    stats["dss_tox_count"] = DSSToxLookup.objects.count()
     stats["chemical_count"] = RawChem.objects.count()
     stats["product_with_puc_count"] = (
         ProductToPUC.objects.values("product_id").distinct().count()
     )
-    stats["product_with_puc_count_by_month"] = product_with_puc_count_by_month()
+    stats["curated_chemical_count"] = RawChem.objects.filter(
+        dsstox__isnull=False
+    ).count()
+    stats["dsstox_sid_count"] = RawChem.objects.values("dsstox__sid").distinct().count()
+
+    pucs = PUC.objects.with_num_products().filter(kind="FO").all().astree()
+    for puc_name, puc_obj in pucs.items():
+        puc_obj.cumnum_products = sum(
+            p.num_products for p in pucs.objects[puc_name].values()
+        )
+    stats["pucs"] = pucs
     return render(request, "dashboard/index.html", stats)
 
 
@@ -141,6 +139,28 @@ def product_with_puc_count_by_month():
     return product_stats
 
 
+def grouptype_stats(request):
+    """Return a json representation of the stats for GroupType.
+    Returns:
+    json: { "data" : [[ title, documentcount ], [...], ], }
+    """
+    grouptype_rows = GroupType.objects.annotate(
+        documentcount=Count("datagroup__datadocument", distinct=True),
+        rawchemcount=Count(
+            "datagroup__datadocument__extractedtext__rawchem", distinct=True
+        ),
+    ).order_by("-documentcount")
+
+    return JsonResponse(
+        {
+            "data": [
+                [row.title, row.documentcount, row.rawchemcount]
+                for row in grouptype_rows
+            ]
+        }
+    )
+
+
 def download_PUCs(request):
     """This view is used to download all of the PUCs in CSV form.
     """
@@ -206,6 +226,24 @@ def bubble_PUCs(request):
         puc.pop("prod_type")
 
     return JsonResponse(pucs.asdict())
+
+
+def collapsible_tree_PUCs(request):
+    """This view is used to download all of the PUCs in nested JSON form.
+    Regardless of if it is associated with an item
+    """
+    pucs = (
+        PUC.objects.all()
+        .filter(kind="FO")
+        .values("id", "gen_cat", "prod_fam", "prod_type")
+        .astree()
+        .asdict()
+    )
+
+    # Name the first element.  Default = Root
+    pucs["name"] = "Formulations"
+
+    return JsonResponse(pucs)
 
 
 def download_LPKeywords(request):

@@ -71,9 +71,9 @@
                 <dt class="col-6">Cumulative Products</dt>
                 <dd class="col-6">{{ puc.cumulative_product_count }}</dd>
                 <dt class="col-6">Curated Chemicals</dt>
-                <dd class="col-6">{{ puc.curated_chemical_count }}</dd>
+                <dd class="col-6"><a href="#chemicals">{{ puc.curated_chemical_count }}</a></dd>
                 <dt class="col-6">Documents</dt>
-                <dd class="col-6">{{ puc.document_count }} </dd>
+                <dd class="col-6"><a href="#documents">{{ puc.document_count }}</a> </dd>
             </dl>
         </div>
         <div class="col-6" id="taxonomies">
@@ -100,15 +100,47 @@
         </div>
     </div>
 
-    <div class="row col-12 pt-4">
+    <div class="row col-12 pt-4" id="prod-table-div">
         <h4>Products Assigned To "{{ puc }}"</h4>
-        <table class="table table-striped table-bordered dataTable no-footer table-sm" 
+        <table class="table table-striped dataTable no-footer table-sm" 
             data-puc="{{ puc.id }}"
             id="products">
-            <thead class="table-primary">
+            <thead >
             <tr>
                 <th>Title</th>
                 <th>Brand Name</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+
+    <div class="row col-12 pt-4" id="doc-table-div">
+        <h4>Documents Associated with "{{ puc }}"</h4>
+        <table class="table table-striped  dataTable no-footer table-sm" 
+            data-puc="{{ puc.id }}"
+            id="documents">
+            <thead >
+            <tr>
+                <th>Document</th>
+                <th>Data Type</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="row col-12 pt-4" id="chem-table-div">
+        <h4>Chemicals Associated with "{{ puc }}"</h4>
+        <table class="table table-striped  dataTable no-footer table-sm" 
+            data-puc="{{ puc.id }}"
+            id="chemicals">
+            <thead >
+            <tr>
+                <th>DTXSID</th>
+                <th>Preferred CAS</th>
+                <th>Preferred Name</th>
             </tr>
             </thead>
             <tbody></tbody>
@@ -125,7 +157,7 @@
 
 {% block css %}
     <style>
-        #products_wrapper {
+        #products_wrapper, #documents_wrapper, #chemicals_wrapper{
             width: 100%;
         }
     </style>

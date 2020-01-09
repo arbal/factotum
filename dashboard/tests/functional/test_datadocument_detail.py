@@ -451,6 +451,27 @@ class TestDynamicDetailFormsets(TestCase):
             )
             self.assertEqual(dd_child_model, childform_model)
 
+    def test_cp_form_contains_correct_fields(self):
+        """
+        Test to verify that the form for Data Documents of type 'CP'
+        can only have specific fields.
+        Outlined in issue #1208 https://github.com/HumanExposure/factotum/issues/1208
+        """
+        acceptable_fields = ["doc_date"]
+
+        cp_data_doc = DataDocument.objects.filter(
+            data_group__group_type__code="CP"
+        ).first()
+        parent_form, _ = create_detail_formset(cp_data_doc)
+
+        # Assert all acceptable fields are in the Extracted Text form.
+        for field in acceptable_fields:
+            self.assertIn(field, parent_form.base_fields)
+
+        # Assert ONLY the acceptable fields are in the Extracted Text form.
+        for field in parent_form.base_fields:
+            self.assertIn(field, acceptable_fields)
+
     def test_listpresence_tags_form(self):
         """'Assure that the list presence keywords appear for correct doc types and tags save
         """
@@ -559,7 +580,8 @@ class TestDynamicDetailFormsets(TestCase):
         component = rawchem.component
         response = self.client.get("/datadocument/%i/" % data_document.pk)
         response_html = html.fromstring(response.content)
-        component_text = response_html.xpath(
-            f'//*[@id="component-{ rawchem.id }"]/text()'
-        ).pop()
-        self.assertEqual(component, component_text)
+        component_text = response_html.xpath(f'//*[@id="component-{ rawchem.id }"]/text()').pop()
+        self.assertEqual(
+            component,
+            component_text
+        )
