@@ -15,11 +15,11 @@ FIELD_DICT = {
         "truechem_name",
     ),
     "puc_id": (
-        "rawchem_cas",
-        "rawchem_name",
-        "truechem_dtxsid",
-        "truechem_cas",
-        "truechem_name",
+        "rawchem_cas^4",
+        "rawchem_name^4",
+        "truechem_dtxsid^4",
+        "truechem_cas^4",
+        "truechem_name^5",
         "puc_kind",
         "puc_gencat",
         "puc_prodfam",
@@ -27,11 +27,11 @@ FIELD_DICT = {
         "puc_description",
     ),
     "product_id": (
-        "rawchem_cas",
-        "rawchem_name",
-        "truechem_dtxsid",
-        "truechem_cas",
-        "truechem_name",
+        "rawchem_cas^4",
+        "rawchem_name^4",
+        "truechem_dtxsid^4",
+        "truechem_cas^5",
+        "truechem_name^5",
         "product_upc",
         "product_manufacturer",
         "product_brandname",
@@ -40,11 +40,11 @@ FIELD_DICT = {
         "product_longdescription",
     ),
     "datadocument_id": (
-        "rawchem_cas",
-        "rawchem_name",
-        "truechem_dtxsid",
-        "truechem_cas",
-        "truechem_name",
+        "rawchem_cas^4",
+        "rawchem_name^4",
+        "truechem_dtxsid^4",
+        "truechem_cas^5",
+        "truechem_name^5",
         "datadocument_grouptype",
         "datadocument_title",
         "datadocument_subtitle",
@@ -194,9 +194,12 @@ def run_query(
     s = s.highlight("*")
     # add the query with optional fuzziness
     if fuzzy:
-        s = s.query(MultiMatch(query=q, fields=fields, fuzziness="AUTO"))
+        s = s.query(
+            MultiMatch(query=q, fields=fields, type="most_fields", fuzziness="AUTO")
+        )
     else:
-        s = s.query(MultiMatch(query=q, fields=fields))
+        # s = s.query(MultiMatch(query=q, fields=fields, type="most_fields"))
+        s = s.query(MultiMatch(query=q, fields=fields, type="cross_fields", tie_breaker="0.5"))
     # collapse on id_field
     dict_update = {}
     inner_hits = []

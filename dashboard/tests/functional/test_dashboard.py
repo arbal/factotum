@@ -1,24 +1,27 @@
-import csv
-import time
+import json
+
+from django.test import TestCase, tag
+from django.urls import resolve, reverse
 from lxml import html
 
-from django.urls import resolve
-from django.test import TestCase, tag
-
-from dashboard.tests.loader import load_model_objects, fixtures_standard
 from dashboard import views
-from dashboard.models import *
+from dashboard.models import (
+    PUCTag,
+    PUCToTag,
+    RawChem,
+    ProductToPUC,
+    Product,
+    PUC,
+    GroupType,
+    DataDocument,
+)
+from dashboard.tests.loader import load_model_objects, fixtures_standard
 
 
 @tag("loader")
 class DashboardTest(TestCase):
     def setUp(self):
         self.objects = load_model_objects()
-        # self.test_start = time.time()
-
-    # def tearDown(self):
-    #     self.test_elapsed = time.time() - self.test_start
-    #     print('\nFinished with ' + self._testMethodName + ' in {:.2f}s'.format(self.test_elapsed))
 
     def test_public_navbar(self):
         self.client.logout()
@@ -48,42 +51,6 @@ class DashboardTest(TestCase):
         )
         found = resolve("/qa/compextractionscript/")
         self.assertEqual(found.func, views.qa_extractionscript_index)
-
-    def test_percent_extracted_text_doc(self):
-        response = self.client.get("/").content.decode("utf8")
-        response_html = html.fromstring(response)
-        extracted_doc_count = response_html.xpath(
-            "/html/body/div[1]/div[1]/div[4]/div/div"
-        )[0].text
-        self.assertEqual("100%", extracted_doc_count)
-
-        # Add a Data Document with no related extracted record
-        dd = DataDocument.objects.create(
-            title="New Document",
-            data_group=self.objects.dg,
-            document_type=self.objects.dt,
-            filename="new_example.pdf",
-        )
-        dd.save()
-
-        response = self.client.get("/").content.decode("utf8")
-        response_html = html.fromstring(response)
-        extracted_doc_count = response_html.xpath(
-            "/html/body/div[1]/div[1]/div[4]/div/div"
-        )[0].text
-        self.assertEqual("50%", extracted_doc_count)
-
-        # Add an ExtractedText object
-        et = ExtractedText.objects.create(
-            data_document_id=dd.id, extraction_script=self.objects.exscript
-        )
-        et.save()
-        response = self.client.get("/").content.decode("utf8")
-        response_html = html.fromstring(response)
-        extracted_doc_count = response_html.xpath(
-            "/html/body/div[1]/div[1]/div[4]/div/div"
-        )[0].text
-        self.assertEqual("100%", extracted_doc_count)
 
     def test_PUC_download(self):
         puc = self.objects.puc
@@ -119,6 +86,70 @@ class DashboardTest(TestCase):
         self.assertEqual(row1[7], "3")
         self.assertEqual(row1[8], "0")
 
+    def test_collapsible_tree_PUCs(self):
+        # Keys that must be present at every level
+        required_keys = ["name"]
+
+        response = self.client.get(reverse("collapsible_tree_PUCs"))
+        json_response_content = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json_response_content["name"], "Formulations")
+        self._check_json_structure(json_response_content, required_keys)
+
+    def _check_json_structure(self, json, required_keys):
+        # This function recursively tests for keys at every level of a simple tree json response.
+        for key in required_keys:
+            self.assertTrue(key in json)
+
+        if "children" in json:
+            for i in range(len(json["children"])):
+                self._check_json_structure(json["children"][i], required_keys)
+
+    def test_grouptype_stats_table(self):
+        grouptypescount = GroupType.objects.all().count()
+
+        response = self.client.get(reverse("grouptype_stats"))
+        json_response_content = json.loads(response.content)
+
+        # Add a document and a rawchem to verify count increments.
+        DataDocument.objects.create(data_group=self.objects.dg)
+        RawChem.objects.create(extracted_text=self.objects.extext)
+        response_after_create = self.client.get(reverse("grouptype_stats"))
+        json_response_content_after_create = json.loads(response_after_create.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            len(json_response_content["data"]),
+            grouptypescount,
+            "All Group Types should be represented.",
+        )
+        self.assertEqual(
+            json_response_content["data"][0][0],
+            "Composition",
+            "Values should be ordered by the number of related documents",
+        )
+        self.assertEqual(
+            json_response_content["data"][0][1],
+            1,
+            "documentcount returned seems to be incorrect information",
+        )
+        self.assertEqual(
+            json_response_content["data"][0][2],
+            1,
+            "rawchemcount returned seems to be incorrect information",
+        )
+        self.assertEqual(
+            json_response_content_after_create["data"][0][1],
+            2,
+            "Adding a data document should increase documentcount",
+        )
+        self.assertEqual(
+            json_response_content_after_create["data"][0][2],
+            2,
+            "Adding a RawChem should increase rawchemcount",
+        )
+
     def test_PUCTag_download(self):
         """check the PUCTag that would be downloaded from the loader
         """
@@ -138,20 +169,16 @@ class DashboardTestWithFixtures(TestCase):
     def test_chemical_card(self):
         response = self.client.get("/").content.decode("utf8")
         self.assertIn(
-            "DSS Tox Chemicals", response, "Where is the DSS Tox Chemicals card???"
+            "Unique DTXSID", response, "Where is the DSS Tox Chemicals card???"
         )
         response_html = html.fromstring(response)
         num_dss = int(response_html.xpath('//*[@name="dsstox"]')[0].text)
-        dss_table_count = DSSToxLookup.objects.count()
+        dss_table_count = RawChem.objects.values("dsstox__sid").distinct().count()
         self.assertEqual(
             num_dss,
             dss_table_count,
-            "The number shown should match the number of records in DSSToxLookup",
+            "The number shown should match the number DSSToxLookup SIDs with a matching RawChem record",
         )
-
-
-class DashboardTestWithFixtures(TestCase):
-    fixtures = fixtures_standard
 
     def test_producttopuc_counts(self):
         response = self.client.get("/").content.decode("utf8")
@@ -162,10 +189,12 @@ class DashboardTestWithFixtures(TestCase):
         )
         response_html = html.fromstring(response)
 
-        chem_count = response_html.xpath(
-            '//div[@class="card-body" and contains(h3, "Extracted Chemicals")]/div'
-        )[0].text
-        self.assertEqual(str(RawChem.objects.count()), chem_count)
+        chem_count = int(
+            response_html.xpath(
+                '//div[@class="card-body" and contains(h3, "Extracted Chemicals")]/div'
+            )[0].text
+        )
+        self.assertEqual(RawChem.objects.count(), chem_count)
 
         num_prods = int(
             response_html.xpath('//*[@name="product_with_puc_count"]')[0].text

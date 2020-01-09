@@ -1,3 +1,5 @@
+import json
+
 from lxml import html
 
 from django.test import TestCase, tag
@@ -98,10 +100,8 @@ class DataGroupDetailTest(TestCase):
             1,
             "Not all DataDocuments linked to Product, bulk_create needed",
         )
-        self.assertIn(
-            "Bulk Create",
-            response.content.decode(),
-            "Bulk create button should be present.",
+        self.assertContains(
+            response, "Bulk Create", msg_prefix="Bulk create button should be present."
         )
         p = Product.objects.create(upc="stub_47")
         ProductDocument.objects.create(document=doc, product=p)
@@ -114,10 +114,10 @@ class DataGroupDetailTest(TestCase):
             title="Habits and practices"
         )
         response = self.client.get(f"/datagroup/{self.objects.dg.pk}/")
-        self.assertNotIn(
+        self.assertNotContains(
+            response,
             "Bulk Create",
-            response.content.decode(),
-            ("Bulk button shouldn't be present w/ " "Habits and practices group_type."),
+            msg_prefix="Bulk button shouldn't be present w/ Habits and practices group_type.",
         )
 
     def test_bulk_create_post(self):
@@ -208,12 +208,23 @@ class DataGroupDetailTest(TestCase):
         fu = GroupType.objects.create(title="Functional use")
         self.objects.dg.group_type = fu
         self.objects.dg.save()
-        response = self.client.get(f"/datagroup/{pk}/").content.decode("utf8")
-        self.assertNotIn(
-            '<th class="text-center">Product</th>',
-            response,
-            "Data Group should have Product column.",
+        response = self.client.get(f"/datagroup/{pk}/")
+        self.assertNotContains(response, '<th class="text-center">Product</th>')
+
+    def test_detail_table_media_document_link(self):
+        dg = self.objects.dg
+        data_doc = DataDocument.objects.create(
+            data_group=dg, title="data_doc", filename="filename.pdf"
         )
+        data_doc_with_dot = DataDocument.objects.create(
+            data_group=dg, title="data_doc_with_dot", filename="filename.2.pdf"
+        )
+        response = self.client.get(f"/datagroup/{dg.pk}/documents_table/")
+        self.assertEquals(response.status_code, 200)
+        response_content = json.loads(response.content.decode("utf-8"))["data"]
+        for content in response_content:
+            if content["id"] in [data_doc.pk, data_doc_with_dot.pk]:
+                self.assertTrue(content["fileext"] == ".pdf")
 
     def test_detail_datasource_link(self):
         pk = self.objects.dg.pk
@@ -401,7 +412,6 @@ class DataGroupDetailTestWithFixtures(TestCase):
             "Fieldnames passed are incorrect!",
         )
         dg = DataGroup.objects.filter(group_type__code="CP").first()
-        print(dg.pk)
         self.assertEqual(
             str(dg.group_type),
             "Chemical presence list",

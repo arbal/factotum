@@ -1,13 +1,12 @@
 import csv
-from djqscsv import render_to_csv_response
-from django.db.models import CharField, Exists, F, OuterRef, Value as V
-from django.db.models.functions import StrIndex, Substr
-from django.contrib.auth.decorators import login_required
+
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.db.models import Exists, F, OuterRef
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.defaultfilters import pluralize
-from bulkformsets.serializers import CSVReader
+from djqscsv import render_to_csv_response
 
 from dashboard.forms import DataGroupForm, create_detail_formset
 from dashboard.forms.data_group import (
@@ -26,7 +25,9 @@ from dashboard.models import (
     DocumentType,
     GroupType,
     DataDocument,
+    AuditLog,
     DataGroup,
+
 )
 from dashboard.utils import gather_errors
 from factotum.settings import MEDIA_URL
@@ -45,6 +46,7 @@ def data_group_list(request, code=None, template_name="data_group/datagroup_list
 
 @login_required()
 def data_group_detail(request, pk, template_name="data_group/datagroup_detail.html"):
+    AuditLog.get_trigger_sql()
     dg = get_object_or_404(DataGroup, pk=pk)
     tabledata = {
         "fsid": dg.fs_id,
@@ -172,11 +174,7 @@ def data_group_documents_table(request, pk):
     docs = (
         DataDocument.objects.filter(data_group=dg)
         .annotate(extracted=Exists(ExtractedText.objects.filter(pk=OuterRef("pk"))))
-        .annotate(
-            fileext=Substr(
-                "filename", (StrIndex("filename", V("."))), output_field=CharField()
-            )
-        )
+        .annotate(fileext=F("filename"))
         .annotate(product_title=F("products__title"))
         .annotate(product_id=F("products__id"))
     )
@@ -201,11 +199,16 @@ def data_group_documents_table(request, pk):
         doc_vals = docs.values("id", "title", "matched", "fileext")
     else:
         doc_vals = docs.values("id", "title", "matched", "fileext", "extracted")
+    # Reduce file name to file extention
+    for doc in doc_vals:
+        doc["fileext"] = "." + doc["fileext"].split(".")[-1]
     return JsonResponse({"data": list(doc_vals)})
 
 
 @login_required()
-def data_group_create(request, pk, template_name="data_group/datagroup_form.html"):
+def data_group_create(
+    request, pk, template_name="data_group/datagroup_create_form.html"
+):
     datasource = get_object_or_404(DataSource, pk=pk)
     group_key = DataGroup.objects.filter(data_source=datasource).count() + 1
     initial_values = {
@@ -254,16 +257,18 @@ def data_group_create(request, pk, template_name="data_group/datagroup_form.html
 
 
 @login_required()
-def data_group_update(request, pk, template_name="data_group/datagroup_form.html"):
+def data_group_update(
+    request, pk, template_name="data_group/datagroup_update_form.html"
+):
     datagroup = get_object_or_404(DataGroup, pk=pk)
     form = DataGroupForm(request.POST or None, instance=datagroup)
+    # Do not offer the chance to update the group type
+    form.fields.pop("group_type")
     if form.is_valid():
         if form.has_changed():
             form.save()
         return redirect("data_group_detail", pk=datagroup.id)
     form.referer = request.META.get("HTTP_REFERER", None)
-    # updated 07/03/2019 - now none of the group types should be allowed to change (was ones with extracted docs only)
-    form.fields["group_type"].disabled = True
     groups = GroupType.objects.all()
     for group in groups:
         group.codes = DocumentType.objects.compatible(group)

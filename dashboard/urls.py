@@ -8,6 +8,7 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("grouptype/stats/", views.grouptype_stats, name="grouptype_stats"),
     path("datasources/", views.data_source_list, name="data_source_list"),
     path("datasource/<int:pk>/", views.data_source_detail, name="data_source_detail"),
     path("datasource/new/", views.data_source_create, name="data_source_new"),
@@ -174,10 +175,15 @@ urlpatterns = [
         views.ListPresenceTagAutocomplete.as_view(),
         name="list_presence_tags_autocomplete",
     ),
+    path("d_json/", views.document_ajax, name="d_ajax_url"),
     path("p_json/", views.product_ajax, name="p_ajax_url"),
+    path("c_json/", views.chemical_ajax, name="c_ajax_url"),
     path("pucs/", views.puc_list, name="puc_list"),
     path("puc/<int:pk>/", views.puc_detail, name="puc_detail"),
     path("dl_pucs_json/", views.bubble_PUCs, name="bubble_PUCs"),
+    path(
+        "dl_pucs_json/tree/", views.collapsible_tree_PUCs, name="collapsible_tree_PUCs"
+    ),
     path("dl_pucs/", views.download_PUCs, name="download_PUCs"),
     path("dl_puctags/", views.download_PUCTags, name="download_PUCTags"),
     path("dl_lpkeywords/", views.download_LPKeywords, name="download_LPKeywords"),
@@ -268,6 +274,5 @@ urlpatterns = [
         name="keywordset_documents",
     ),
 ]
-
 if settings.DEBUG is True:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

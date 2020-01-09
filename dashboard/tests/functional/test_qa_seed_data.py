@@ -302,7 +302,7 @@ class TestQaPage(TestCase):
         self.assertIn(elp_flagged.raw_cas.encode(), response.content)
 
         elp_not_flagged = elps.filter(qa_flag=False).first()
-        self.assertNotIn(elp_not_flagged.raw_cas.encode(), response.content)
+        self.assertNotContains(response, elp_not_flagged.raw_cas)
 
     def test_every_extractedtext_qa(self):
         # Attempt to open a QA page for every ExtractedText record
@@ -311,7 +311,6 @@ class TestQaPage(TestCase):
                 f"/qa/extractedtext/%s" % et.data_document_id, follow=True
             )
             if response.status_code != 200:
-                # print(et.data_document_id)
                 pass
 
             self.assertEqual(response.status_code, 200)
