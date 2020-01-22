@@ -208,7 +208,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 '//*[@id="btn-toggle-edit"]'
             )
             self.browser.find_element_by_id(
-                f"chem-card-{RawChem.objects.filter(extracted_text__pk=doc_id).first().id}").click()
+                f"chem-card-{RawChem.objects.filter(extracted_text__pk=doc_id).first().id}"
+            ).click()
             edit_button.send_keys("\n")
 
             # Wait for the field to be editable

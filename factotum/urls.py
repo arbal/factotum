@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.conf import settings
 from django.conf.urls import include, url
-from django.urls import path
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
@@ -29,8 +28,9 @@ urlpatterns = [
     url(r"^admin/", admin.site.urls, name="admin"),
     url(r"^feedback/", include("feedback.urls", namespace="feedback")),
     url(r"", include("dashboard.urls")),
-    url(r"", include("api.urls")),
     url(r"^docs/", include("docs.urls")),
+    url(r"^api/tasks/", include("celery_usertask.urls")),
+    url(r"^api/tasks/", include("celery_resultsview.urls")),
 ]
 
 if settings.DEBUG:
