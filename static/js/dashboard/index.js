@@ -1,4 +1,4 @@
-nestedBubbleChart(500, 500, "dl_pucs_json/");
+nestedBubbleChart(500, 500, false, "dl_pucs_json/");
 collapsibleTree("dl_pucs_json/tree/");
 
 // Venn Diagram of SIDs per Group Type combination
@@ -95,11 +95,34 @@ function renderVenn(div_id, set_data) {
     //         return d.size
     //     });
 }
+
+
+function grouptype_transform(rows)
+{
+    for (row of rows) {
+        if (['Habits and practices', 'Unidentified', 'Supplemental documents'].includes(row[0]))
+        {
+            row[2] = '';
+            row[3] = '';
+        }
+    }
+    return rows
+}
+
 $('#grouptype_table').DataTable({
-    "serverSide": false,
-    "info": false,
-    "paging": false,
-    "searching": false,
-    "ordering": false,
-    "ajax": "grouptype/stats/",
-});
+    "serverSide":   false,
+    "info":         false,
+    "paging":       false,
+    "searching":    false,
+    "ordering":     false,
+    "ajax":         {
+                        "url":          "grouptype/stats/",
+                        "dataSrc":      function ( json ) {
+                            return this.grouptype_transform(json.data);
+                        },
+                    },
+    "columns":      [{"title": "Group Type"},
+                     {"title": "Documents (%)"},
+                     {"title": "Raw Chemical Records (%)"},
+                     {"title": "Curated Chemical Records (%)"},]
+})

@@ -18,7 +18,7 @@ from dashboard.models import (
     RawChem,
 )
 from dashboard.forms import create_detail_formset
-from factotum.settings import EXTRA
+from django.conf import settings
 from dashboard.tests.loader import fixtures_standard, datadocument_models
 from dashboard.utils import get_extracted_models
 
@@ -315,6 +315,14 @@ class DataDocumentDetailTest(TestCase):
         # Confirm that the displayed subtitle is truncated and ... is appended
         self.assertContains(response, "This subtitle is more than 90 c…")
 
+    def test_hp_group_type(self):
+        id = 53
+        response = self.client.get("/datadocument/%i/" % id)
+        # Should display organization for HP group type
+        self.assertContains(response, "Test Organization")
+        # Should not display Product name
+        self.assertNotContains(response, "Product name")
+
     def test_chemname_ellipsis(self):
         """Check that DataDocument chemical names get truncated"""
         trunc_length = 45
@@ -441,7 +449,7 @@ class TestDynamicDetailFormsets(TestCase):
         """
         for et in ExtractedText.objects.all():
             dd = et.data_document
-            ParentForm, ChildForm = create_detail_formset(dd, EXTRA)
+            ParentForm, ChildForm = create_detail_formset(dd, settings.EXTRA)
             child_formset = ChildForm(instance=et)
             # Compare the model of the child formset's QuerySet to the model
             # of the ExtractedText object's child objects
@@ -580,8 +588,31 @@ class TestDynamicDetailFormsets(TestCase):
         component = rawchem.component
         response = self.client.get("/datadocument/%i/" % data_document.pk)
         response_html = html.fromstring(response.content)
-        component_text = response_html.xpath(f'//*[@id="component-{ rawchem.id }"]/text()').pop()
-        self.assertEqual(
-            component,
-            component_text
+        component_text = response_html.xpath(
+            f'//*[@id="component-{ rawchem.id }"]/text()'
+        ).pop()
+        self.assertEqual(component, component_text)
+
+    def test_chemical_ordering(self):
+        data_document = DataDocument.objects.get(pk=170415)
+        exchems = ExtractedChemical.objects.filter(extracted_text_id=170415).order_by(
+            "component", "ingredient_rank"
         )
+        chem_ids = exchems.values_list("id", flat=True)
+        first_id = chem_ids[0]
+        second_id = chem_ids[1]
+        response = self.client.get("/datadocument/%i/" % data_document.pk)
+        response_html = html.fromstring(response.content)
+        cards = response_html.find_class("card")
+        self.assertEqual(cards[0].get("id"), f"chem-{first_id}")
+
+        # changing the component of the first chemical should move it to the bottom
+        # of the page
+        ec = exchems.get(id=93)
+        ec.component = "Component C"
+        ec.save()
+        response = self.client.get("/datadocument/%i/" % data_document.pk)
+        response_html = html.fromstring(response.content)
+        cards = response_html.find_class("card")
+        # the new first card should match the second ID
+        self.assertEqual(cards[0].get("id"), f"chem-{second_id}")

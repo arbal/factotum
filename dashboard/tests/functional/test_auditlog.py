@@ -1,5 +1,6 @@
 import crum
 import io
+from urllib import parse
 
 from django.test import RequestFactory, Client
 from django.contrib.auth.models import User
@@ -17,6 +18,7 @@ from dashboard.models import (
     ExtractedFunctionalUse,
     AuditLog,
 )
+from dashboard.tests.mixins import TempFileMixin
 
 
 def make_upload_csv(filename):
@@ -34,7 +36,7 @@ def make_upload_csv(filename):
     return in_mem_sample_csv
 
 
-class AuditLogTest(TransactionTestCase):
+class AuditLogTest(TempFileMixin, TransactionTestCase):
     fixtures = [
         "00_superuser.yaml",
         "01_lookups.yaml",
@@ -94,7 +96,8 @@ class AuditLogTest(TransactionTestCase):
         req_data.update(self.mng_data)
         with crum.impersonate(self.user):
             resp = self.c.post("/datagroup/6/", req_data)
-        AsyncResult(resp.context["task_id"]).wait()
+        task_id = parse.parse_qs(parse.urlparse(resp.url).query)["task_id"][0]
+        AsyncResult(task_id).wait()
 
         # get audit logs
         logs = AuditLog.objects.all()
@@ -246,7 +249,8 @@ class AuditLogTest(TransactionTestCase):
         req_data.update(self.mng_data)
         with crum.impersonate(self.user):
             resp = self.c.post("/datagroup/49/", req_data)
-        AsyncResult(resp.context["task_id"]).wait()
+        task_id = parse.parse_qs(parse.urlparse(resp.url).query)["task_id"][0]
+        AsyncResult(task_id).wait()
 
         logs = AuditLog.objects.all()
         self.assertEquals(8, len(logs), "Should have log entries")
@@ -335,7 +339,8 @@ class AuditLogTest(TransactionTestCase):
         req_data.update(self.mng_data)
         with crum.impersonate(self.user):
             resp = self.c.post("/datagroup/50/", req_data)
-        AsyncResult(resp.context["task_id"]).wait()
+        task_id = parse.parse_qs(parse.urlparse(resp.url).query)["task_id"][0]
+        AsyncResult(task_id).wait()
 
         self.assertEqual(
             len(ExtractedFunctionalUse.objects.filter(extracted_text_id=dd_id)),

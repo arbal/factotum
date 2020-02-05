@@ -1,5 +1,6 @@
 import io
 import bs4
+from urllib import parse
 
 from django.test import RequestFactory, Client
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -17,6 +18,7 @@ from dashboard.models import (
     ExtractedFunctionalUse,
     RawChem,
 )
+from dashboard.tests.mixins import TempFileMixin
 
 
 def make_upload_csv(filename):
@@ -34,7 +36,7 @@ def make_upload_csv(filename):
     return in_mem_sample_csv
 
 
-class UploadExtractedFileTest(TransactionTestCase):
+class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
     fixtures = [
         "00_superuser.yaml",
         "01_lookups.yaml",
@@ -122,7 +124,8 @@ class UploadExtractedFileTest(TransactionTestCase):
         )
         return in_mem_sample_csv
 
-    def get_results(self, task_id):
+    def get_results(self, resp):
+        task_id = parse.parse_qs(parse.urlparse(resp.url).query)["task_id"][0]
         AsyncResult(task_id).wait(propagate=False)
         return self.c.get(f"/api/tasks/{task_id}/")
 
@@ -163,7 +166,7 @@ class UploadExtractedFileTest(TransactionTestCase):
         req_data.update(self.mng_data)
         req_data["extfile-bulkformsetfileupload"] = self.generate_invalid_chem_csv()
         resp = self.c.post("/datagroup/6/", req_data)
-        resp = self.get_results(resp.context["task_id"])
+        resp = self.get_results(resp)
         text_count = ExtractedText.objects.all().count()
         self.assertContains(resp, "must be 1:1")
         self.assertContains(resp, "were not found for this data group")
@@ -185,7 +188,7 @@ class UploadExtractedFileTest(TransactionTestCase):
         )
         req_data["extfile-bulkformsetfileupload"] = self.generate_valid_chem_csv()
         resp = self.c.post("/datagroup/6/", req_data)
-        resp = self.get_results(resp.context["task_id"])
+        resp = self.get_results(resp)
         self.assertContains(resp, '"result": 4,')
         new_rawchem_count = RawChem.objects.filter().count()
         new_extractedchemical_count = ExtractedChemical.objects.filter().count()
@@ -227,7 +230,7 @@ class UploadExtractedFileTest(TransactionTestCase):
         req_data.update(self.mng_data)
         req_data["extfile-bulkformsetfileupload"] = in_mem_sample_csv
         resp = self.c.post("/datagroup/49/", req_data)
-        resp = self.get_results(resp.context["task_id"])
+        resp = self.get_results(resp)
         self.assertContains(resp, "must be 1:1")
         self.assertEqual(
             len(ExtractedCPCat.objects.all()),
@@ -238,7 +241,7 @@ class UploadExtractedFileTest(TransactionTestCase):
         in_mem_sample_csv = make_upload_csv("sample_files/presence_chars.csv")
         req_data["extfile-bulkformsetfileupload"] = in_mem_sample_csv
         resp = self.c.post("/datagroup/49/", req_data)
-        resp = self.get_results(resp.context["task_id"])
+        resp = self.get_results(resp)
         self.assertContains(resp, "Ensure this value has at most 50 characters")
         self.assertEqual(
             len(ExtractedCPCat.objects.all()),
@@ -249,7 +252,7 @@ class UploadExtractedFileTest(TransactionTestCase):
         in_mem_sample_csv = make_upload_csv("sample_files/presence_good.csv")
         req_data["extfile-bulkformsetfileupload"] = in_mem_sample_csv
         resp = self.c.post("/datagroup/49/", req_data)
-        resp = self.get_results(resp.context["task_id"])
+        resp = self.get_results(resp)
         self.assertContains(resp, '"result": 3,')
 
         doc_count = DataDocument.objects.filter(
@@ -306,7 +309,7 @@ class UploadExtractedFileTest(TransactionTestCase):
         )
         # Now get the response
         resp = self.c.post("/datagroup/50/", req_data)
-        resp = self.get_results(resp.context["task_id"])
+        resp = self.get_results(resp)
         self.assertContains(resp, '"result": 1,')
 
         doc_count = DataDocument.objects.filter(raw_category="raw PUC").count()
@@ -350,7 +353,7 @@ class UploadExtractedFileTest(TransactionTestCase):
         )
         # Now get the response
         resp = self.c.post("/datagroup/49/", req_data)
-        resp = self.get_results(resp.context["task_id"])
+        resp = self.get_results(resp)
         self.assertContains(resp, '"result": 1,')
 
         self.assertEqual(

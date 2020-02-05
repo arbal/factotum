@@ -1,10 +1,13 @@
 import csv
+import os
+from django.conf import settings
 from django.utils import timezone
 from django.test import TestCase, tag
 from django.db.utils import IntegrityError
 from django.db.models import Count, Q
 from dashboard.models import *
 from dashboard.tests.loader import *
+from dashboard.tests.mixins import TempFileMixin
 
 
 def create_data_documents(data_group, source_type, pdfs):
@@ -134,6 +137,7 @@ class ModelsTest(TestCase):
             last_edited_by=self.objects.user,
         )
         self.assertEqual(ExtractedHabitsAndPractices.objects.count(), 1)
+        self.assertEqual(ExtractedHabitsAndPracticesDataType.objects.count(), 1)
         self.assertEqual(ExtractedHabitsAndPracticesToPUC.objects.count(), 0)
         e2p = ExtractedHabitsAndPracticesToPUC.objects.create(
             extracted_habits_and_practices=self.objects.ehp, PUC=self.objects.puc
@@ -291,7 +295,7 @@ class PUCModelTest(TestCase):
         self.assertEqual(puc.document_count, distinct_doc_count)
 
 
-class DataGroupFilesTest(TestCase):
+class DataGroupFilesTest(TempFileMixin, TestCase):
 
     fixtures = fixtures_standard
 
@@ -308,6 +312,7 @@ class DataGroupFilesTest(TestCase):
         self.assertFalse(dg6.zip_url)
 
         # 50 is the only datagroup that has a linked file in the /media folder
+        os.mkdir(os.path.join(settings.MEDIA_ROOT, str(dg50.fs_id)))
         self.assertTrue(dg50.dg_folder == dg50.get_dg_folder())
         self.assertFalse(dg50.zip_url)
 

@@ -1,6 +1,8 @@
 from django.db import models
-from .common_info import CommonInfo
+from django.apps import apps
 from django.urls import reverse
+
+from .common_info import CommonInfo
 from .document_type import DocumentType
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
@@ -10,9 +12,19 @@ def get_default_document_type():
     return DocumentType.objects.get(code="UN").pk
 
 
+class DataDocumentManager(models.Manager):
+    def from_chemical(self, dsstox):
+        """Retrieve a queryset of ProductDocuments where the 'document' is
+        linked to an instance of DSSToxLookup, i.e. chemical.
+        """
+        if not type(dsstox) == apps.get_model("dashboard.DSSToxLookup"):
+            raise TypeError("'dsstox' argument is not a DSSToxLookup instance.")
+        return self.filter(extractedtext__rawchem__in=dsstox.curated_chemical.all())
+
+
 class DataDocument(CommonInfo):
     """
-    A DataDocument object is a single source of Factotum data. 
+    A DataDocument object is a single source of Factotum data.
     """
 
     filename = models.CharField(
@@ -82,6 +94,8 @@ class DataDocument(CommonInfo):
         help_text="Long-form notes about the document",
     )
 
+    objects = DataDocumentManager()
+
     class Meta:
         ordering = ["-id"]
 
@@ -94,10 +108,18 @@ class DataDocument(CommonInfo):
         return self.data_group.group_type.code in ["CP", "HH", "CO"]
 
     @property
+    def detail_page_include_organization(self):
+        return self.data_group.group_type.code in ["HP"]
+
+    @property
+    def chemicals(self):
+        return self.extractedtext.rawchem if self.is_extracted else []
+
+    @property
     def is_extracted(self):
         """When the content of a data document has been extracted by manual data entry
         or by an extraction script, a new ExtractedText record is created
-        with the DataDocument's id as its primary key. 
+        with the DataDocument's id as its primary key.
         """
         return hasattr(self, "extractedtext")
 
