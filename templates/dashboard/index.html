@@ -90,13 +90,9 @@
                style="width:100%"
                id="grouptype_table"
         >
-            <thead>
-                <tr>
-                    <th scope="col">Group Type</th>
-                    <th scope="col">Number of Documents</th>
-                    <th scope="col">Number of Raw Chemicals</th>
-                </tr>
-            </thead>
+            <tr>
+                <td class="text-center" colspan="4"><i class="fas fa-spinner fa-pulse"></i></td>
+            </tr>
         </table>
     </div>
 
@@ -114,6 +110,12 @@
             <svg id="nestedcircles" width="100%" height="500"></svg>
         </div>
     </div>
+
+<div class="row mt-5 mb-5">
+    <h4>SIDs per Group Type</h4>
+
+    <div id="venn"></div>
+</div>
 {% endblock %}
 
 {% block css %}
@@ -126,5 +128,6 @@
     <script src="{% static 'js/bubble_chart.js' %}"></script>
     <script src="{% static 'js/bubble_puc_legend.js' %}"></script>
     <script src="{% static 'js/collapsible_tree.js' %}"></script>
+    <script src="{% static 'js/dashboard/venn.min.js' %}"></script>
     <script src="{% static 'js/dashboard/index.js' %}"></script>
 {% endblock %}

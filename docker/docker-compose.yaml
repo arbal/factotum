@@ -4,6 +4,7 @@ version: "3.1"
 volumes:
   esdata:
   lsdata:
+  redisdata:
 
 services:
   elasticsearch:
@@ -32,10 +33,16 @@ services:
       ELASTICSEARCH_HOST: elasticsearch
       ELASTICSEARCH_PORT: ${ELASTICSEARCH_PORT:-9200}
       LOGSTASH_PORT: ${LOGSTASH_PORT:-5959}
-
       SQL_PORT: ${SQL_PORT:-3306}
       XPACK_MONITORING_ENABLED: "false"
     volumes:
       - lsdata:/usr/share/logstash/data
     depends_on:
       - elasticsearch
+
+  redis:
+    image: redis:5-alpine
+    restart: unless-stopped
+    volumes:
+      - redisdata:/data
+    command: redis-server --port ${REDIS_PORT:-6379} --appendonly yes

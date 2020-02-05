@@ -3,7 +3,8 @@ import csv
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Exists, F, OuterRef
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.defaultfilters import pluralize
 from djqscsv import render_to_csv_response
@@ -27,10 +28,9 @@ from dashboard.models import (
     DataDocument,
     AuditLog,
     DataGroup,
-
 )
 from dashboard.utils import gather_errors
-from factotum.settings import MEDIA_URL
+from django.conf import settings
 
 
 @login_required()
@@ -94,27 +94,18 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
                 errors = gather_errors(form)
                 for e in errors:
                     messages.error(request, e)
-        else:
-            context["uploaddocs_form"] = UploadDocsForm(dg)
+            return redirect("data_group_detail", dg.pk)
+        context["uploaddocs_form"] = UploadDocsForm(dg)
 
     if dg.include_extract_form():
         if "extfile-submit" in request.POST:
-            formset = ExtractFileFormSet(dg, request.POST, request.FILES)
-            context["extfile_formset"] = ExtractFileFormSet(dg, request.POST)
-            if formset.is_valid():
-                num_saved = formset.save()
-                messages.success(
-                    request,
-                    "%d extracted record%s uploaded successfully."
-                    % (num_saved, pluralize(num_saved)),
-                )
-                context["tabledata"]["numextracted"] = (dg.extracted_docs(),)
-            else:
-                errors = gather_errors(formset)
-                for e in errors:
-                    messages.error(request, e)
-        else:
-            context["extfile_formset"] = ExtractFileFormSet(dg)
+            formset = ExtractFileFormSet(request.POST, request.FILES, dgpk=dg.pk)
+            async_result = formset.enqueue(f"extfile_formset.{dg.pk}")
+            return HttpResponseRedirect(
+                reverse("data_group_detail", args=[dg.pk])
+                + f"?task_id={async_result.id}"
+            )
+        context["extfile_formset"] = ExtractFileFormSet(dgpk=dg.pk)
 
     if dg.include_clean_comp_data_form():
         if "cleancomp-submit" in request.POST:
@@ -131,8 +122,8 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
                 errors = gather_errors(formset)
                 for e in errors:
                     messages.error(request, e)
-        else:
-            context["cleancomp_formset"] = CleanCompFormSet(dg)
+            return redirect("data_group_detail", dg.pk)
+        context["cleancomp_formset"] = CleanCompFormSet(dg)
 
     if dg.include_bulk_assign_form():
         if "bulkassignprod-submit" in request.POST:
@@ -148,8 +139,8 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
                 errors = gather_errors(form)
                 for e in errors:
                     messages.error(request, e)
-        else:
-            context["bulkassignprod_form"] = BulkAssignProdForm(dg)
+            return redirect("data_group_detail", dg.pk)
+        context["bulkassignprod_form"] = BulkAssignProdForm(dg)
 
     if dg.include_product_upload_form():
         if "products-submit" in request.POST:
@@ -164,6 +155,7 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
                 errors = gather_errors(product_formset)
                 for e in errors:
                     messages.error(request, e)
+            return redirect("data_group_detail", dg.pk)
         context["product_formset"] = ProductBulkCSVFormSet()
     return render(request, template_name, context)
 
@@ -275,7 +267,12 @@ def data_group_update(
     return render(
         request,
         template_name,
-        {"datagroup": datagroup, "form": form, "media": MEDIA_URL, "groups": groups},
+        {
+            "datagroup": datagroup,
+            "form": form,
+            "media": settings.MEDIA_URL,
+            "groups": groups,
+        },
     )
 
 
