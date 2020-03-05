@@ -194,6 +194,7 @@ urlpatterns = [
         name="download_raw_chems_dg",
     ),
     path("chemical/<str:sid>/", views.chemical_detail, name="chemical"),
+    path("chemical_product_json/", views.ChemicalProductListJson.as_view(), name="chemical_product_ajax_url"),
     path(
         "habitsandpractices/<int:pk>/",
         views.habitsandpractices,
@@ -206,6 +207,11 @@ urlpatterns = [
     ),
     path("get_data/", views.get_data, name="get_data"),
     path("bulk_documents/", views.BulkDocuments.as_view(), name="bulk_documents"),
+    path(
+        "bulk_rawcategory/",
+        views.RawCategoryToPUCList.as_view(),
+        name="rawcategory_to_puc",
+    ),
     path("dl_chem_summary/", views.download_chem_stats, name="download_chem_stats"),
     path("upload/dtxsid_csv/", views.upload_dtxsid_csv, name="upload_dtxsid_csv"),
     path(
@@ -217,16 +223,6 @@ urlpatterns = [
         "product_csv_template/<int:pk>/",
         views.get_product_csv_template,
         name="get_product_csv_template",
-    ),
-    path(
-        "datagroup/diagnostics/<int:pk>/",
-        views.data_group_diagnostics,
-        name="data_group_diagnostics",
-    ),
-    path(
-        "datagroup/diagnostics/",
-        views.data_group_diagnostics,
-        name="data_group_diagnostics",
     ),
     path(
         "extractedtext/edit/<int:pk>/",

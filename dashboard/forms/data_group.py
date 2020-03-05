@@ -1,14 +1,8 @@
-import os
 import uuid
-import zipfile
-from pathlib import Path
 from datetime import datetime
 from django.utils import timezone
 
 from django import forms
-from django.conf import settings
-from django.core.files import File
-from django.core.files.storage import FileSystemStorage
 from django.db import transaction
 from django.db.models import CharField, Value as V
 
@@ -24,6 +18,7 @@ from dashboard.models import (
     Script,
     DocumentType,
     ExtractedChemical,
+    FunctionalUse,
     DataGroup,
     RawChem,
     ExtractedText,
@@ -37,8 +32,6 @@ from dashboard.models import (
 from dashboard.utils import (
     clean_dict,
     get_extracted_models,
-    get_form_for_models,
-    field_for_model,
     field_for_model,
     get_missing_ids,
     inheritance_bulk_create,
@@ -67,11 +60,11 @@ class UploadDocsForm(forms.Form):
     def clean(self):
         if len(self.files.getlist("%s-documents" % self.prefix)) > 600:
             raise forms.ValidationError("Please limit upload to 600 files.")
-        uploaded_filenames = set(
-            f.name for f in self.files.getlist("%s-documents" % self.prefix)
-        )
+        self.file_dict = {
+            f.name: f for f in self.files.getlist("%s-documents" % self.prefix)
+        }
         self.datadocuments = DataDocument.objects.filter(
-            data_group=self.dg, filename__in=uploaded_filenames
+            data_group=self.dg, filename__in=self.file_dict.keys()
         )
         if not self.datadocuments.exists():
             raise forms.ValidationError(
@@ -79,20 +72,11 @@ class UploadDocsForm(forms.Form):
             )
 
     def save(self):
-        store = os.path.join(settings.MEDIA_ROOT, str(self.dg.fs_id))
-        fs = FileSystemStorage(store + "/pdf")
-        upd_list = []
-        doc_dict = {d.name: d for d in self.files.getlist("%s-documents" % self.prefix)}
-        # TODO: we'll have dangling files if there is a failure in here
-        with zipfile.ZipFile(self.dg.zip_file, "a", zipfile.ZIP_DEFLATED) as zf:
-            for datadocument in self.datadocuments:
-                docfile = doc_dict[datadocument.filename]
-                afn = datadocument.get_abstract_filename()
-                fs.save(afn, docfile)
-                zf.write(store + "/pdf/" + afn, afn)
-                datadocument.matched = True
-                upd_list.append(datadocument)
-        DataDocument.objects.bulk_update(self.datadocuments, ["matched"])
+        with transaction.atomic():
+            for doc in self.datadocuments:
+                doc.file = self.file_dict[doc.filename]
+                doc.save()
+
         return self.datadocuments.count()
 
 
@@ -210,6 +194,7 @@ class BaseExtractFileForm(forms.Form):
     raw_category = field_for_model(DataDocument, "raw_category")
     raw_cas = field_for_model(RawChem, "raw_cas")
     raw_chem_name = field_for_model(RawChem, "raw_chem_name")
+    report_funcuse = forms.CharField(required=False)
 
     def clean(self):
         super().clean()
@@ -225,7 +210,6 @@ class BaseExtractFileForm(forms.Form):
 class FunctionalUseExtractFileForm(BaseExtractFileForm):
     prod_name = field_for_model(ExtractedText, "prod_name")
     rev_num = field_for_model(ExtractedText, "rev_num")
-    report_funcuse = field_for_model(ExtractedFunctionalUse, "report_funcuse")
 
     def clean(self):
         super().clean()
@@ -245,7 +229,6 @@ class CompositionExtractFileForm(BaseExtractFileForm):
     ingredient_rank = field_for_model(ExtractedChemical, "ingredient_rank")
     raw_central_comp = field_for_model(ExtractedChemical, "raw_central_comp")
     component = field_for_model(ExtractedChemical, "component")
-    report_funcuse = field_for_model(ExtractedChemical, "report_funcuse")
 
     def clean(self):
         super().clean()
@@ -265,7 +248,6 @@ class ChemicalPresenceExtractFileForm(BaseExtractFileForm):
     description_cpcat = field_for_model(ExtractedCPCat, "description_cpcat")
     cpcat_code = field_for_model(ExtractedCPCat, "cpcat_code")
     cpcat_sourcetype = field_for_model(ExtractedCPCat, "cpcat_sourcetype")
-    report_funcuse = field_for_model(ExtractedListPresence, "report_funcuse")
     component = field_for_model(ExtractedListPresence, "component")
 
     def clean(self):
@@ -437,17 +419,42 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
                 datadocument = None
             # Child creates
             child_params = clean_dict(data, Child)
+            use_vals = [u.strip() for u in form["report_funcuse"].value().split(";")]
+            uses = None
             # Only include children if relevant data is attached
             if child_params.keys() - {"extracted_text_id", "weight_fraction_type_id"}:
                 child = Child(**child_params)
                 child._meta.created_fields = child_params
                 child._meta.updated_fields = {}
+                uses = []
+                for use in use_vals:
+                    if not use:  # filter out empty strings
+                        continue
+                    elif len(use) > 255:
+                        form.add_error(
+                            "report_funcuse",
+                            forms.ValidationError(
+                                "The reported functional use string is too long"
+                            ),
+                        )
+                    else:
+                        uses.append(FunctionalUse(report_funcuse=use))
+
             else:
                 child = None
+            if uses and self.dg.type not in ("FU",) and len(uses) > 1:
+                form.add_error(
+                    "report_funcuse",
+                    forms.ValidationError(
+                        "No more than one functional use is acceptable."
+                        f" Reported uses: { [str(u) for u in uses] }"
+                    ),
+                )
             # Store in dictionary
             data["datadocument"] = datadocument
             data["parent"] = parent
             data["child"] = child
+            data["uses"] = uses
 
     def save(self):
         datadocuments = [
@@ -460,6 +467,9 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
         ]
         children = [
             f.cleaned_data["child"] for f in self.forms if f.cleaned_data["child"]
+        ]
+        funcuses = [
+            f.cleaned_data["uses"] for f in self.forms if f.cleaned_data["child"]
         ]
         with transaction.atomic():
             # Update DataDocument and Parent
@@ -476,15 +486,14 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
             for objs in (parents, children):
                 created_objs = [o for o in objs if o._meta.created_fields]
                 if created_objs:
-                    inheritance_bulk_create(created_objs)
-            # Store CSV
-            fs = FileSystemStorage(
-                os.path.join(settings.MEDIA_ROOT, str(self.dg.fs_id))
-            )
-            fs.save(
-                str(self.dg) + "_extracted.csv",
-                self.files["extfile-bulkformsetfileupload"],
-            )
+                    chems = inheritance_bulk_create(created_objs)
+            reported_uses = []
+            for chem, uses in zip(chems, funcuses):
+                for use in uses:
+                    if use.report_funcuse:
+                        use.chem_id = chem.pk
+                        reported_uses.append(use)
+            FunctionalUse.objects.bulk_create(reported_uses)
         return len(self.forms)
 
 
@@ -549,7 +558,6 @@ class CleanCompFormSet(DGFormSet):
             raise forms.ValidationError(f"Invalid script selection.")
 
     def save(self):
-        now = datetime.now()
         with transaction.atomic():
             database_chemicals = ExtractedChemical.objects.select_for_update().in_bulk(
                 self.cleaned_ids
@@ -655,27 +663,6 @@ class RegisterRecordsFormSet(DGFormSet):
                 obj = DataDocument(**f.cleaned_data)
                 new_docs.append(obj)
             DataDocument.objects.bulk_create(new_docs)
-        made = DataDocument.objects.filter(created_at=now, data_group=self.dg)
-        text = "DataDocument_id,filename,title,document_type,url,organization\n"
-        for doc in made:
-            items = [
-                str(doc.pk),
-                doc.filename,
-                doc.title,
-                doc.document_type.code,
-                doc.url if doc.url else "",
-                doc.organization,
-            ]
-            text += ",".join(items) + "\n"
-        with open(self.dg.csv.path, "w") as f:
-            myfile = File(f)
-            myfile.write("".join(text))
-        uid = str(self.dg.fs_id)
-        new_zip_path = Path(settings.MEDIA_ROOT) / uid / (uid + ".zip")
-        zf = zipfile.ZipFile(str(new_zip_path), "w", zipfile.ZIP_DEFLATED)
-        zf.close()
-        self.dg.zip_file = new_zip_path
-        self.dg.save()
         return len(self.forms)
 
 

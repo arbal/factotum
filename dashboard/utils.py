@@ -1,4 +1,5 @@
 from collections.abc import MutableMapping
+import zipstream
 
 from dashboard.models import (
     PUC,
@@ -7,6 +8,7 @@ from dashboard.models import (
     ExtractedFunctionalUse,
     ExtractedHabitsAndPractices,
     ExtractedHHDoc,
+    ExtractedLMDoc,
     ExtractedHHRec,
     ExtractedListPresence,
     ExtractedText,
@@ -17,6 +19,8 @@ from django.db import connection, transaction
 from django.db.models import Aggregate
 from django.db.models.sql.subqueries import InsertQuery
 from django.forms.models import apply_limit_choices_to_to_formfield
+from django.http import StreamingHttpResponse
+from django.utils.text import get_valid_filename
 
 
 class GroupConcat(Aggregate):
@@ -210,6 +214,8 @@ def get_extracted_models(t):
         return (ExtractedText, ExtractedHabitsAndPractices)
     elif t == "HH":
         return (ExtractedHHDoc, ExtractedHHRec)
+    elif t == "LM":
+        return (ExtractedLMDoc, ExtractedChemical)
     else:
         return (None, None)
 
@@ -440,9 +446,39 @@ def inheritance_bulk_create(models):
         with connection.cursor() as cursor:
             cursor.execute(sql_str, sql_values)
             last_id = cursor.lastrowid
-        if not pk_given_in_model:
+        if not pk_given_in_model and not parent_done:
             for i, m in enumerate(models):
                 m.pk = last_id + i
         if not parent_done:
             parent_done = True
     return models
+
+
+def zip_stream(files={}, data={}, filename="file.zip"):
+    """Generate a ZIP archive in a StreamingHttpResponse.
+
+    Builds an uncompressed streaming ZIP archive rather than
+    building the ZIP archive in memory then serving it.
+
+    Args:
+        files: A dictionary mapping the names of files to be placed
+            in the ZIP archive to the location of the files on the
+            filesystem.
+        data: A dictionary mapping the names of files to be placed
+            in the ZIP archive to strings or bytes containing the contents
+            of the file.
+        filename: A filename to optionally give the response.
+
+    Returns:
+        A django.http.StreamingHttpResponse object containing the ZIP archive.
+    """
+    z = zipstream.ZipFile(mode="w")
+    for arcname, filesystemname in files.items():
+        z.write(filesystemname, arcname)
+    for arcname, datastring in data.items():
+        z.writestr(arcname, datastring)
+    response = StreamingHttpResponse(z, content_type="application/zip")
+    response[
+        "Content-Disposition"
+    ] = f'attachment; filename="{get_valid_filename(filename)}"'
+    return response

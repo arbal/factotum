@@ -17,9 +17,9 @@
 
             <div class="card-title border-bottom">
 
-                <div class="row mb-1">
-                    <!-- Raw Chem Row -->
-                    <div class="col col-md-5 col-xl-7 text-truncate align-self-center"
+                <!-- Raw Chem Row -->
+                <div class="row mb-1 align-items-center">
+                    <div class="col col-md-5 col-xl-7 text-truncate"
                          id="raw_chem_name-{{ chemical.pk }}"
                          title="{{ chemical.raw_chem_name }}"
                     >
@@ -27,7 +27,7 @@
                             {{ chemical.raw_chem_name }}
                         </small>
                     </div>
-                    <div class="col-12 col-md order-2 text-truncate align-self-center" id="raw_cas-{{ chemical.pk }}">
+                    <div class="col-12 col-md order-2 text-truncate" id="raw_cas-{{ chemical.pk }}">
                         <small class="text-muted" title="{{ chemical.raw_cas }}">
                             {{ chemical.raw_cas }}
                         </small>
@@ -57,8 +57,9 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="row mb-1">
-                    <!-- True Chem Row -->
+
+                <!-- True Chem Row -->
+                <div class="row mb-1 align-items-end">
                     <div class="col-12 col-md-5 col-xl-7 text-truncate">
                         <h3 class="d-inline"
                             id="chem_name-{{ chemical.pk }}"
@@ -100,7 +101,7 @@
 
             <!-- card -->
             <div class="card-text">
-                {% if doc.data_group.is_composition %}
+                {% if doc.data_group.is_composition or doc.data_group.is_literature_monitoring %}
                     <div class="row mb-4">
                         <div class="col-1"></div>
                         <div class="col-10 text-center mb-2 mt-2">
@@ -127,10 +128,10 @@
                     </div>
                     <div class="row">
                         <div class="col-6 text-left mt-auto">
-                            {% if chemical.report_funcuse %}
+                            {% if chemical.functional_uses.first %}
                                 <span id="report_funcuse">
-                                    {{ chemical.report_funcuse }}
-                                    </span>
+                                    {{ chemical.functional_uses.first }}
+                                </span>
                             {% endif %}
                         </div>
                         <div class="col-6 text-right">
@@ -143,9 +144,12 @@
                     </div>
                 {% else %}
                     <div class="row">
-                        <div class="col-md-9">
-                            <b>{{ chemical.report_funcuse_label }}</b>
-                            <p>{{ chemical.report_funcuse }}</p>
+                        <div class="col-6 text-left mt-auto">   
+                            {% if chemical.functional_uses.first %}
+                                <span id="report_funcuse">
+                                    {{ chemical.functional_uses.first }}
+                                </span>
+                            {% endif %}
                         </div>
                         {% if doc.data_group.is_chemical_presence %}
                             {% include 'data_document/lp_tag_buttons.html' %}
@@ -194,12 +198,12 @@
                                 Are you sure you want to delete "{{ chemical }}" ?
                             </div>
                             <div class="modal-footer">
-                                <button id="chemical-modal-cancel"
+                                <button id="chemical-modal-cancel-{{chemical.pk}}"
                                         type="button"
                                         class="btn btn-secondary"
                                         data-dismiss="modal"> Cancel
                                 </button>
-                                <button id="chemical-modal-save"
+                                <button id="chemical-modal-save-{{chemical.pk}}"
                                         type="submit"
                                         class="btn btn-primary">
                                     Delete

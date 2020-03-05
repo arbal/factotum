@@ -14,6 +14,7 @@ from dashboard.models import (
     ExtractedCPCat,
     ExtractedHHDoc,
     ExtractedText,
+    FunctionalUse,
     Script,
     WeightFractionType,
     QANotes,
@@ -23,6 +24,7 @@ from dashboard.models import (
     ExtractedFunctionalUse,
     ExtractedListPresence,
     ExtractedHHRec,
+    ExtractedLMDoc,
 )
 
 from dashboard.utils import get_extracted_models
@@ -30,6 +32,7 @@ from dashboard.utils import get_extracted_models
 
 class DataGroupForm(forms.ModelForm):
     required_css_class = "required"  # adds to label tag
+    csv = forms.FileField()
 
     class Meta:
         model = DataGroup
@@ -42,7 +45,6 @@ class DataGroupForm(forms.ModelForm):
             "downloaded_at",
             "download_script",
             "data_source",
-            "csv",
         ]
         widgets = {"downloaded_at": DatePickerInput()}
         labels = {"csv": _("Register Records CSV File"), "url": _("URL")}
@@ -243,6 +245,24 @@ class ExtractedHHDocForm(ExtractedTextForm):
         ]
 
 
+class ExtractedLMDocForm(ExtractedTextForm):
+    class Meta:
+        model = ExtractedLMDoc
+        fields = ExtractedTextForm.Meta.fields + ["study_type", "pmid", "media"]
+
+        widgets = {
+            "media": forms.Textarea(attrs={"rows": 4, "cols": 25}),
+            "pmid": forms.TextInput(
+                attrs={
+                    "type": "number",
+                    "min": "0",
+                    "step": "1",
+                    "style": "-moz-appearance: textfield",
+                }
+            ),
+        }
+
+
 class ExtractedHHDocEditForm(ExtractedHHDocForm):
     class Meta(ExtractedHHDocForm.Meta):
         fields = ExtractedHHDocForm.Meta.fields + ["doc_date"]
@@ -271,7 +291,6 @@ class ExtractedChemicalForm(forms.ModelForm):
         fields = [
             "raw_chem_name",
             "raw_cas",
-            "report_funcuse",
             "raw_min_comp",
             "raw_central_comp",
             "raw_max_comp",
@@ -285,13 +304,13 @@ class ExtractedChemicalForm(forms.ModelForm):
 class ExtractedFunctionalUseForm(forms.ModelForm):
     class Meta:
         model = ExtractedFunctionalUse
-        fields = ["raw_chem_name", "raw_cas", "report_funcuse"]
+        fields = ["raw_chem_name", "raw_cas"]
 
 
 class ExtractedListPresenceForm(forms.ModelForm):
     class Meta:
         model = ExtractedListPresence
-        fields = ["raw_chem_name", "raw_cas", "report_funcuse", "component"]
+        fields = ["raw_chem_name", "raw_cas", "component"]
 
 
 class ExtractedHHRecForm(forms.ModelForm):
@@ -388,7 +407,19 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
         ParentForm = ExtractedHHDocForm if extracted else ExtractedHHDocEditForm
         return (ParentForm, HHFormSet)
 
-    dg_types = {"CO": one, "UN": one, "FU": two, "HP": three, "CP": four, "HH": five}
+    def six():  # for extracted_lm_doc
+        LMFormSet = make_formset(parent, child)
+        return (ExtractedLMDocForm, LMFormSet)
+
+    dg_types = {
+        "CO": one,
+        "UN": one,
+        "FU": two,
+        "HP": three,
+        "CP": four,
+        "HH": five,
+        "LM": six,
+    }
     func = dg_types.get(group_type, lambda: None)
     return func()
 
