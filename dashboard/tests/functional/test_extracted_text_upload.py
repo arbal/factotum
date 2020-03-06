@@ -4,6 +4,7 @@ from urllib import parse
 
 from django.test import RequestFactory, Client
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.files import File
 
 from celery.result import AsyncResult
 from celery_djangotest.integration import TransactionTestCase
@@ -16,6 +17,7 @@ from dashboard.models import (
     ExtractedCPCat,
     ExtractedListPresence,
     ExtractedFunctionalUse,
+    FunctionalUse,
     RawChem,
 )
 from dashboard.tests.mixins import TempFileMixin
@@ -69,10 +71,10 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
             "0000075-37-6,hydrofluorocarbon 152a (difluoroethane),,0.39,0.42,1,,,Test Component"
             "\n"
             "7,11165872.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
-            "0000064-17-5,sd alcohol 40-b (ethanol),,0.5,0.55,1,,,Test Component"
+            "0000064-17-5,sd alcohol 40-b (ethanol),adhesive,0.5,0.55,1,,,Test Component"
             "\n"
             "7,11165872.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
-            "0000064-17-6,sd alcohol 40-c (ethanol c),,,,2,,,Test Component"
+            "0000064-17-6,sd alcohol 40-c (ethanol c),propellant,,,2,,,Test Component"
             "\n"
             "7,11165872.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
             ",,,,,,,,"
@@ -99,10 +101,10 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
             "0000075-37-6,hydrofluorocarbon 152a (difluoroethane),,0.39,0.42,1,,"
             "\n"
             "8,11177849.pdf,A different prod_name with the same datadocument,,,aerosol hairspray,"
-            "0000064-17-5,sd alcohol 40-b (ethanol),,0.5,0.55,1,,"
+            "0000064-17-5,sd alcohol 40-b (ethanol),adhesive,0.5,0.55,1,,"
             "\n"
             "2000,11177849.pdf,A different prod_name with the same datadocument,,,aerosol hairspray,"
-            "0000064-17-5,sd alcohol 40-b (ethanol),,0.5,0.55,1,,"
+            "0000064-17-5,sd alcohol 40-b (ethanol),propellant,0.5,0.55,1,,"
             "\n"
             "8,11177849.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
             "0000075-37-6,hydrofluorocarbon 152a (difluoroethane),,0.39,,1,,0.39,Test Component"
@@ -124,6 +126,32 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         )
         return in_mem_sample_csv
 
+    def generate_valid_funcuse_csv(self, funcuse_string):
+        sample_csv = (
+            "data_document_id,data_document_filename,prod_name,"
+            "doc_date,rev_num,raw_category,raw_cas,raw_chem_name,report_funcuse"
+            "\n"
+            "%s,"
+            "%s,"
+            "sample functional use product,"
+            "2018-04-07,"
+            ","
+            "raw PUC,"
+            "RAW-CAS-01,"
+            "raw chemname 01,"
+            "%s" % (self.dd_id, self.dd_pdf, funcuse_string)
+        )
+        sample_csv_bytes = sample_csv.encode(encoding="UTF-8", errors="strict")
+        in_mem_sample_csv = InMemoryUploadedFile(
+            io.BytesIO(sample_csv_bytes),
+            field_name="extfile-bulkformsetfileupload",
+            name="Functional_use_extract_template.csv",
+            content_type="text/csv",
+            size=len(sample_csv),
+            charset="utf-8",
+        )
+        return in_mem_sample_csv
+
     def get_results(self, resp):
         task_id = parse.parse_qs(parse.urlparse(resp.url).query)["task_id"][0]
         AsyncResult(task_id).wait(propagate=False)
@@ -134,8 +162,8 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         # so that uploading ExtractedText is an option
         DataDocument.objects.create(
             filename="fake.pdf",
+            file=File(io.BytesIO(), name="blank.pdf"),
             title="Another unextracted document",
-            matched=True,
             data_group_id="6",
             created_at="2019-11-18 11:00:00.000000",
             updated_at="2019-11-18 12:00:00.000000",
@@ -215,6 +243,17 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
             chem_count == 3,
             "Should be 3 extracted chemical records with the Test Component",
         )
+
+        # Detailed inspection of new ExtractedChemical records
+        new_ex_chems = ExtractedChemical.objects.filter(
+            extracted_text__data_document__data_group__id=6
+        )
+        ec = new_ex_chems.filter(
+            raw_chem_name="sd alcohol 40-c (ethanol c)"
+        ).prefetch_related("functional_uses")[0]
+        fu = ec.functional_uses.first()
+        self.assertEqual(fu.report_funcuse, "propellant")
+
         dg = DataGroup.objects.get(pk=6)
         dg.delete()
 
@@ -271,39 +310,17 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         # This action is performed on a data document without extracted text
         # but with a matched data document. DataDocument 500 was added to the
         # seed data for this test
-        dd_id = 500
-        dd = DataDocument.objects.get(pk=dd_id)
+        self.dd_id = 500
+        dd = DataDocument.objects.get(pk=self.dd_id)
         # et = ExtractedText.objects.get(data_document=dd)
-        dd_pdf = dd.pdf_url()
+        self.dd_pdf = dd.file.name
 
-        sample_csv = (
-            "data_document_id,data_document_filename,prod_name,"
-            "doc_date,rev_num,raw_category,raw_cas,raw_chem_name,report_funcuse"
-            "\n"
-            "%s,"
-            "%s,"
-            "sample functional use product,"
-            "2018-04-07,"
-            ","
-            "raw PUC,"
-            "RAW-CAS-01,"
-            "raw chemname 01,"
-            "surfactant" % (dd_id, dd_pdf)
-        )
-        sample_csv_bytes = sample_csv.encode(encoding="UTF-8", errors="strict")
-        in_mem_sample_csv = InMemoryUploadedFile(
-            io.BytesIO(sample_csv_bytes),
-            field_name="extfile-bulkformsetfileupload",
-            name="Functional_use_extract_template.csv",
-            content_type="text/csv",
-            size=len(sample_csv),
-            charset="utf-8",
-        )
+        in_mem_sample_csv = self.generate_valid_funcuse_csv("surfactant;fragrance")
         req_data = {"extfile-extraction_script": 5, "extfile-submit": "Submit"}
         req_data.update(self.mng_data)
         req_data["extfile-bulkformsetfileupload"] = in_mem_sample_csv
         self.assertEqual(
-            len(ExtractedFunctionalUse.objects.filter(extracted_text_id=dd_id)),
+            len(ExtractedFunctionalUse.objects.filter(extracted_text_id=self.dd_id)),
             0,
             "Empty before upload.",
         )
@@ -311,6 +328,20 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         resp = self.c.post("/datagroup/50/", req_data)
         resp = self.get_results(resp)
         self.assertContains(resp, '"result": 1,')
+        # Check the two new records
+        self.assertEqual(
+            FunctionalUse.objects.count(),
+            2,
+            "There should be two new functional use records associated with \
+                the newly added ExtractedFunctionalUse record",
+        )
+
+        efu = ExtractedFunctionalUse.objects.filter(
+            extracted_text_id=self.dd_id
+        ).first()
+        fus = FunctionalUse.objects.filter(chem_id=efu.rawchem_ptr_id)
+        self.assertTrue(fus.filter(report_funcuse="fragrance").count(), 1)
+        self.assertTrue(fus.filter(report_funcuse="surfactant").count(), 1)
 
         doc_count = DataDocument.objects.filter(raw_category="raw PUC").count()
         self.assertTrue(
@@ -318,15 +349,45 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         )
 
         self.assertEqual(
-            len(ExtractedFunctionalUse.objects.filter(extracted_text_id=dd_id)),
+            len(ExtractedFunctionalUse.objects.filter(extracted_text_id=self.dd_id)),
             1,
             "One new ExtractedFunctionalUse after upload.",
         )
 
+    def test_functionaluse_too_long(self):
+        # Test what happens when the functional use string in the csv is too long
+        # for the database field
+        self.dd_id = 500
+        dd = DataDocument.objects.get(pk=self.dd_id)
+        # et = ExtractedText.objects.get(data_document=dd)
+        self.dd_pdf = dd.file.name
+        # Test a genuinely too-long field
+        too_long_reported_funcuse = "funcuse" * 47
+        in_mem_sample_csv = self.generate_valid_funcuse_csv(too_long_reported_funcuse)
+        req_data = {"extfile-extraction_script": 5, "extfile-submit": "Submit"}
+        req_data.update(self.mng_data)
+        req_data["extfile-bulkformsetfileupload"] = in_mem_sample_csv
+        # Now get the response
+        resp = self.c.post("/datagroup/50/", req_data)
+        resp = self.get_results(resp)
+        self.assertContains(resp, "The reported functional use string is too long")
+
+        # Test a field that would be too long for the model, but is getting split
+        # into multiple functional uses
+        too_long_reported_funcuse = "funcuse;" * 47
+        in_mem_sample_csv = self.generate_valid_funcuse_csv(too_long_reported_funcuse)
+        req_data = {"extfile-extraction_script": 5, "extfile-submit": "Submit"}
+        req_data.update(self.mng_data)
+        req_data["extfile-bulkformsetfileupload"] = in_mem_sample_csv
+        # Now get the response
+        resp = self.c.post("/datagroup/50/", req_data)
+        resp = self.get_results(resp)
+        self.assertContains(resp, '"result": 1,')
+
     def test_chemicalpresencelist_upload(self):
         dd_id = 254782
         dd = DataDocument.objects.get(pk=dd_id)
-        dd_pdf = dd.pdf_url()
+        dd_pdf = dd.file.name
 
         sample_csv = (
             "data_document_id,data_document_filename,doc_date,raw_category,raw_cas,raw_chem_name,"

@@ -24,6 +24,7 @@ from .extracted_list_presence import (
 )
 from .extracted_hhdoc import ExtractedHHDoc
 from .extracted_hhrec import ExtractedHHRec
+from .extracted_lmdoc import ExtractedLMDoc
 from .script import Script, QAGroup
 from .dsstox_lookup import DSSToxLookup
 from .unit_type import UnitType
@@ -38,3 +39,4 @@ from .taxonomy import Taxonomy
 from .taxonomy_source import TaxonomySource
 from .taxonomy_to_PUC import TaxonomyToPUC
 from .audit_log import AuditLog
+from .functional_use import FunctionalUse

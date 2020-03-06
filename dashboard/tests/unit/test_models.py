@@ -1,6 +1,9 @@
 import csv
+import io
 import os
 from django.conf import settings
+from django.core.files import File
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.test import TestCase, tag
 from django.db.utils import IntegrityError
@@ -18,13 +21,19 @@ def create_data_documents(data_group, source_type, pdfs):
         for line in table:  # read every csv line, create docs for each
             if line["title"] == "":  # updates title in line object
                 line["title"] = line["filename"].split(".")[0]
+            _, ext = os.path.splitext(line["filename"])
+            file = (
+                File(io.BytesIO(), name="blank{ext}")
+                if line["filename"] in pdfs
+                else None
+            )
             dd = DataDocument.objects.create(
                 filename=line["filename"],
+                file=file,
                 title=line["title"],
                 document_type=DocumentType.objects.get(code="MS"),
                 url=line["url"],
                 organization=line["organization"],
-                matched=line["filename"] in pdfs,
                 data_group=data_group,
             )
             dd.save()
@@ -40,13 +49,19 @@ def create_data_documents_with_txt(data_group, source_type, pdf_txt):
         for line in table:  # read every csv line, create docs for each
             if line["title"] == "":  # updates title in line object
                 line["title"] = line["filename"].split(".")[0]
+            _, ext = os.path.splitext(line["filename"])
+            file = (
+                File(io.BytesIO(), name=f"blank{ext}")
+                if line["filename"] in pdf_txt
+                else None
+            )
             dd = DataDocument.objects.create(
                 filename=line["filename"],
+                file=file,
                 title=line["title"],
                 document_type=DocumentType.objects.get(code="MS"),
                 url=line["url"],
                 organization=line["organization"],
-                matched=line["filename"] in pdf_txt,
                 data_group=data_group,
             )
             dd.save()
@@ -55,7 +70,7 @@ def create_data_documents_with_txt(data_group, source_type, pdf_txt):
 
 
 @tag("loader")
-class ModelsTest(TestCase):
+class ModelsTest(TempFileMixin, TestCase):
     def setUp(self):
         self.objects = load_model_objects()
         self.client.login(username="Karyn", password="specialP@55word")
@@ -121,11 +136,11 @@ class ModelsTest(TestCase):
         doc = DataDocument.objects.create(data_group=self.objects.dg)
         self.assertFalse(self.objects.dg.all_matched())
         self.assertFalse(self.objects.dg.all_extracted())
-        doc.matched = True
         doc.save()
         self.assertFalse(self.objects.dg.all_matched())
-        self.objects.doc.matched = True
-        self.objects.doc.save()
+        for doc in self.objects.dg.datadocument_set.all():
+            doc.file = File(io.BytesIO(), name="blank.pdf")
+            doc.save()
         self.assertTrue(self.objects.dg.all_matched())
 
     def test_extracted_habits_and_practices(self):
@@ -153,14 +168,6 @@ class ModelsTest(TestCase):
         self.objects.doc.save()
         self.assertEqual(
             DataDocument.objects.filter(organization="Test Organization").count(), 1
-        )
-
-    def test_data_document_filename(self):
-        pk = self.objects.doc.pk
-        self.assertEqual(
-            self.objects.doc.get_abstract_filename(),
-            f"document_{pk}.pdf",
-            "This is used in the FileSystem naming convention.",
         )
 
     def test_dg_with_txt(self):
@@ -295,28 +302,6 @@ class PUCModelTest(TestCase):
         self.assertEqual(puc.document_count, distinct_doc_count)
 
 
-class DataGroupFilesTest(TempFileMixin, TestCase):
-
-    fixtures = fixtures_standard
-
-    def test_filefield_properties(self):
-        dg5 = DataGroup.objects.get(pk=5)  # this datagroup has no csv value
-        dg6 = DataGroup.objects.get(pk=6)  # this one has a csv value, but no file
-        dg50 = DataGroup.objects.get(pk=50)  # this one has a /media/ folder
-
-        # All of the falsy properties should return False rather than errors
-        self.assertFalse(dg5.dg_folder)
-        self.assertFalse(dg5.zip_url)
-
-        self.assertFalse(dg6.dg_folder)
-        self.assertFalse(dg6.zip_url)
-
-        # 50 is the only datagroup that has a linked file in the /media folder
-        os.mkdir(os.path.join(settings.MEDIA_ROOT, str(dg50.fs_id)))
-        self.assertTrue(dg50.dg_folder == dg50.get_dg_folder())
-        self.assertFalse(dg50.zip_url)
-
-
 class DataDocumentTest(TestCase):
 
     fixtures = fixtures_standard
@@ -381,3 +366,33 @@ class DocumentTypeTest(TestCase):
             num_ex_doc_post_rm == num_ex_doc_pre_rm + num_doc_pre_rm,
             "Too many DataDocument.document_types nullified",
         )
+
+
+class FunctionalUseModelTest(TestCase):
+    fixtures = fixtures_standard
+
+    def test_funcuse_fields(self):
+        fields = ["chem", "report_funcuse", "clean_funcuse"]
+        model_fields = [f.name for f in FunctionalUse._meta.get_fields()]
+        for fld in fields:
+            self.assertIn(
+                fld, model_fields, f'"{fld}"" field should be in FunctionalUse model.'
+            )
+
+    def test_functionaluse(self):
+        # read
+        fc = FunctionalUse.objects.filter(pk=1).first()
+        self.assertEquals(fc.report_funcuse, "swell")
+        self.assertEquals(fc.clean_funcuse, "clean")
+
+        # update
+        fc.report_funcuse = "report use"
+        fc.clean_funcuse = "clean use"
+        fc.save()
+        fc = FunctionalUse.objects.filter(pk=1).first()
+        self.assertEquals(fc.report_funcuse, "report use")
+        self.assertEquals(fc.clean_funcuse, "clean use")
+
+    def test_functionaluse_validation(self):
+        funcuse = FunctionalUse(report_funcuse="", clean_funcuse="")
+        self.assertRaises(ValidationError, funcuse.clean_fields)

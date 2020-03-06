@@ -51,6 +51,7 @@ fixtures_standard = [
     "14_list_presence_tag",
     "15_list_presence_to_tag",
     "17_taxonomy",
+    "18_functional_use",
 ]
 
 datadocument_models = {
@@ -112,7 +113,6 @@ def load_model_objects():
         downloaded_by=user,
         downloaded_at=timezone.now(),
         group_type=gt,
-        csv="register_records_matching.csv",
         url="https://www.epa.gov",
     )
     dt = DocumentType.objects.create(title="MSDS", code="MS")
