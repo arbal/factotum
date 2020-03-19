@@ -14,8 +14,8 @@ def chemical_detail(request, sid):
     # get parent PUCs too
     pucs.merge(
         PUC.objects.all()
-            .annotate(num_products=Value(0, output_field=IntegerField()))
-            .astree()
+        .annotate(num_products=Value(0, output_field=IntegerField()))
+        .astree()
     )
     # Get cumulative product count
     for puc_name, puc_obj in pucs.items():

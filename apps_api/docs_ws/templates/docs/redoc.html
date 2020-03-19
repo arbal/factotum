@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Factotum Web Services</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link href="{% static 'ext/fonts/font.css' %}" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <redoc spec-url="{% url 'openapi-schema' %}" no-auto-auth="true" path-in-middle-panel="true" expand-responses="200,201"></redoc>
+    <script src="{% static 'ext/js/redoc.standalone.js' %}"> </script>
+  </body>
+</html>

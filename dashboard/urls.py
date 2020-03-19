@@ -194,7 +194,16 @@ urlpatterns = [
         name="download_raw_chems_dg",
     ),
     path("chemical/<str:sid>/", views.chemical_detail, name="chemical"),
-    path("chemical_product_json/", views.ChemicalProductListJson.as_view(), name="chemical_product_ajax_url"),
+    path(
+        "chemical_product_json/",
+        views.ChemicalProductListJson.as_view(),
+        name="chemical_product_ajax_url",
+    ),
+    path(
+        "chemical_product_json/",
+        views.ChemicalProductListJson.as_view(),
+        name="chemical_product_ajax_url",
+    ),
     path(
         "chemical_product_json/",
         views.ChemicalProductListJson.as_view(),

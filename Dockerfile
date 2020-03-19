@@ -4,7 +4,9 @@ RUN apk add --no-cache \
         g++ \
         git \
         libxslt-dev \
-        mariadb-dev
+        mariadb-dev \
+        jpeg-dev \
+        zlib-dev
 
 COPY requirements.txt /requirements.txt
 RUN pip --no-cache-dir install -r /requirements.txt \
@@ -19,6 +21,6 @@ RUN rm -f .env \
 
 CMD gunicorn factotum.wsgi -c factotum/gunicorn.py
 
-EXPOSE 8000
+EXPOSE 8000 8001
 VOLUME /app/collected_static
 VOLUME /app/media
