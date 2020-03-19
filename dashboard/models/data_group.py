@@ -175,6 +175,7 @@ class DataGroup(CommonInfo):
             "large_image",
             "model_number",
             "manufacturer",
+            "image_name",
         ]
         return product_fields
 

@@ -43,7 +43,9 @@ class ChemicalProductListJson(BaseDatatableView):
         qs = super().get_initial_queryset()
         sid = self.request.GET.get("sid")
         if sid:
-            return qs.filter(Q(document__extractedtext__rawchem__dsstox__sid=sid)).distinct()
+            return qs.filter(
+                Q(document__extractedtext__rawchem__dsstox__sid=sid)
+            ).distinct()
         return qs.filter()
 
     def render_column(self, row, column):

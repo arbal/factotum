@@ -161,7 +161,6 @@ def load_model_objects():
     ehp = ExtractedHabitsAndPractices.objects.create(
         extracted_text=extext,
         product_surveyed="Test Product Surveyed",
-        prevalence="Continuous",
         data_type=ehp_dt,
     )
 

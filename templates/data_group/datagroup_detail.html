@@ -190,31 +190,38 @@
             </div>
 
             <div class="tab-pane fade" id="productupload_form">
-                    <h5 class="card-title">Upload product data</h5>
-                      <div class="form-group row pl-3 pr-3">
-                        <div class="custom-file">
-                    <form method="POST" name="productupload_form" enctype="multipart/form-data">
-                      {% csrf_token %}
-                      {{ product_formset.management_form }}
-                          <input type="file" class="custom-file-input" name="products-bulkformsetfileupload" accept="text/csv, .csv" required>
-                          <label class="custom-file-label" for="products-bulkformsetfileupload">
-                              Choose file...
-                          </label>
-                        </div>
-                      </div>
-                      <div class="form-group row pl-3 pr-3">
-                        <button class="btn btn-primary" name="products-submit" type="submit">Submit</button>
-                        </form>
-                        <a href="{% url 'get_product_csv_template' datagroup.pk %}" class="ml-1 btn btn-outline-secondary" download>
-                            <span class="fa fa-file-csv"></span>Download product CSV template
-                        </a>
-                      </div>
-
-                    <div class="text-muted small text-center">
-                        <span class="fa fa-info-circle mr-2"></span>The CSV file must include these headers:<br>
-                        <span class="text-monospace">{{ product_data_fieldnames }}</span>
-                    </div>
+              <h5 class="card-title">Upload product data</h5>
+              <form method="POST" name="productupload_form" enctype="multipart/form-data" onsubmit="return validateProductFormSubmit()">
+                {% csrf_token %}
+                {{ product_formset.management_form }}
+                <div class="form-group row pl-3 pr-3">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="products-bulkformsetfileupload" accept="text/csv, .csv" required>
+                    <label class="custom-file-label" for="products-bulkformsetfileupload">
+                      Choose file...
+                    </label>
                   </div>
+                </div>
+                <div class="form-group row pl-3 pr-3">
+                  <div class="custom-file">
+                    <input id="products-bulkformsetimageupload" type="file" class="custom-file-input" name="products-bulkformsetimageupload" webkitdirectory directory multiple>
+                    <label class="custom-file-label" for="products-bulkformsetimageupload">
+                      Choose image folder (optional)...
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group row pl-3 pr-3">
+                  <button class="btn btn-primary" name="products-submit" type="submit">Submit</button>
+                  <a href="{% url 'get_product_csv_template' datagroup.pk %}" class="ml-1 btn btn-outline-secondary" download>
+                      <span><i class="fa fa-file-csv"></i> Download product CSV template</span>
+                  </a>
+                </div>
+              </form>
+              <div class="text-muted small text-center">
+                  <span class="fa fa-info-circle mr-2"></span>The CSV file must include these headers:<br>
+                  <span class="text-monospace">{{ product_data_fieldnames }}</span>
+              </div>
+            </div>
 
 
             <div class="tab-pane fade" id="extfile_formset">
@@ -423,6 +430,7 @@
 <script src="{% static 'js/d3.v5.min.js' %}"></script>
 <script src="{% static 'js/dashboard/bootstrap-filepicker.js' %}"></script>
 {{ tabledata|json_script:"tabledata" }}
+{{ env|json_script:"env" }}
 <script src="{% static 'js/dashboard/datagroup_detail.js' %}?cache_invalidate=2"></script>
 <script src="{% static 'js/lodash.min.js' %}"></script>
 <script src="{% static 'js/js.cookie.min.js' %}"></script>

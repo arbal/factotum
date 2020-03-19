@@ -1,8 +1,28 @@
 from django.test import TestCase
 
-
 from dashboard.tests.loader import fixtures_standard
 from dashboard.models import ExtractedText, DataDocument, ProductDocument, Product
+from dashboard.tests.mixins import TempFileMixin
+
+
+class ProductTests(TempFileMixin, TestCase):
+    def test_image_upload(self):
+        product = Product()
+        product.image.save(
+            name="dave_or_grant.png",
+            content=open(
+                "sample_files/images/products/product_image_upload_valid/dave_or_grant.png",
+                "rb",
+            ),
+            save=True,
+        )
+        sample_file = open(
+            "sample_files/images/products/product_image_upload_valid/dave_or_grant.png",
+            "rb",
+        )
+        saved_image = product.image.open(mode="rb")
+        # Verify binary data is identical
+        self.assertEqual(saved_image.read(), sample_file.read())
 
 
 class ProductTestWithSeedData(TestCase):

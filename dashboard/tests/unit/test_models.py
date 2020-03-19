@@ -372,7 +372,7 @@ class FunctionalUseModelTest(TestCase):
     fixtures = fixtures_standard
 
     def test_funcuse_fields(self):
-        fields = ["chem", "report_funcuse", "clean_funcuse"]
+        fields = ["chem", "category", "report_funcuse", "clean_funcuse"]
         model_fields = [f.name for f in FunctionalUse._meta.get_fields()]
         for fld in fields:
             self.assertIn(
@@ -384,15 +384,58 @@ class FunctionalUseModelTest(TestCase):
         fc = FunctionalUse.objects.filter(pk=1).first()
         self.assertEquals(fc.report_funcuse, "swell")
         self.assertEquals(fc.clean_funcuse, "clean")
+        self.assertIsNotNone(fc.category)
+        self.assertEquals(1, fc.category.id)
 
         # update
         fc.report_funcuse = "report use"
         fc.clean_funcuse = "clean use"
+        fc.category = FunctionalUseCategory(id=2)
         fc.save()
         fc = FunctionalUse.objects.filter(pk=1).first()
         self.assertEquals(fc.report_funcuse, "report use")
         self.assertEquals(fc.clean_funcuse, "clean use")
+        self.assertEquals(2, fc.category.id)
 
     def test_functionaluse_validation(self):
         funcuse = FunctionalUse(report_funcuse="", clean_funcuse="")
         self.assertRaises(ValidationError, funcuse.clean_fields)
+
+
+class FunctionalUseCategoryModelTest(TestCase):
+    fixtures = fixtures_standard
+
+    def test_funcuse_fields(self):
+        fields = ["title", "description", "created_at", "updated_at"]
+        model_fields = [f.name for f in FunctionalUseCategory._meta.get_fields()]
+        for field in fields:
+            self.assertIn(
+                field,
+                model_fields,
+                f'"{field}"" field should be in FunctionalUseCategory model.',
+            )
+
+    def test_functionalusecatetory(self):
+        # read
+        fuc = FunctionalUseCategory.objects.filter(pk=1).first()
+        self.assertEquals(fuc.title, "surfactant")
+        self.assertEquals(fuc.description, "surfactant")
+
+        # update
+        fuc.title = "title updated"
+        fuc.description = ""
+        fuc.save()
+        fuc = FunctionalUseCategory.objects.filter(pk=1).first()
+        self.assertEquals(fuc.title, "title updated")
+        self.assertEquals(fuc.description, "")
+
+        # functionaluse associated
+        fu = FunctionalUse.objects.filter(category=1).first()
+        self.assertIsNotNone(fu)
+
+        # delete
+        fuc.delete()
+
+        # funcationaluse associated should set to null now
+        fu = FunctionalUse.objects.filter(category=1).first()
+        self.assertIsNone(fu)

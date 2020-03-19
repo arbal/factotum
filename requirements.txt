@@ -37,5 +37,6 @@ sphinx-rtd-theme==0.4.3
 urllib3==1.24.2
 wincertstore==0.2
 zipstream==1.1.4
+Pillow==7.0.0
 
 -e git+https://github.com/bennylope/django-taggit-labels.git@7afef34125653e958dc5dba0280904a0714aa808#egg=django_taggit_labels

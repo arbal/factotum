@@ -44,12 +44,12 @@ class TestAjax(TestCase):
         self.assertEquals(len(data["data"]), 10)
 
     def test_product_search(self):
-        response = self.client.get("/p_json/?" + params.format(search="test"))
+        response = self.client.get("/p_json/?" + params.format(search="unknown"))
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.content)
         self.assertEquals(data["recordsTotal"], self.all_product_count)
-        self.assertEquals(data["recordsFiltered"], 1)
-        self.assertEquals(len(data["data"]), 1)
+        self.assertEquals(data["recordsFiltered"], 2)
+        self.assertEquals(len(data["data"]), 2)
 
     def test_document_search(self):
         response = self.client.get("/d_json/?" + params.format(search="shampoo"))

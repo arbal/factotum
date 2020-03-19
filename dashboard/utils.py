@@ -1,18 +1,9 @@
+import os
+import uuid
 from collections.abc import MutableMapping
 import zipstream
 
-from dashboard.models import (
-    PUC,
-    ExtractedChemical,
-    ExtractedCPCat,
-    ExtractedFunctionalUse,
-    ExtractedHabitsAndPractices,
-    ExtractedHHDoc,
-    ExtractedLMDoc,
-    ExtractedHHRec,
-    ExtractedListPresence,
-    ExtractedText,
-)
+from django.apps import apps
 from django import forms
 from django.core.exceptions import FieldDoesNotExist
 from django.db import connection, transaction
@@ -204,20 +195,34 @@ class SimpleTree(MutableMapping):
 def get_extracted_models(t):
     """Returns the parent model function and the associated child model
     based on datagroup type"""
+
+    # Local import used to avoid circular import
+    ExtractedText = apps.get_model("dashboard", "ExtractedText")
+    ExtractedChemical = apps.get_model("dashboard", "ExtractedChemical")
+    ExtractedCPCat = apps.get_model("dashboard", "ExtractedCPCat")
+    ExtractedListPresence = apps.get_model("dashboard", "ExtractedListPresence")
+    ExtractedFunctionalUse = apps.get_model("dashboard", "ExtractedFunctionalUse")
+    ExtractedHabitsAndPractices = apps.get_model(
+        "dashboard", "ExtractedHabitsAndPractices"
+    )
+    ExtractedHHDoc = apps.get_model("dashboard", "ExtractedHHDoc")
+    ExtractedHHRec = apps.get_model("dashboard", "ExtractedHHRec")
+    ExtractedLMDoc = apps.get_model("dashboard", "ExtractedLMDoc")
+
     if t == "CO" or t == "UN":
-        return (ExtractedText, ExtractedChemical)
+        return ExtractedText, ExtractedChemical
     elif t == "FU":
-        return (ExtractedText, ExtractedFunctionalUse)
+        return ExtractedText, ExtractedFunctionalUse
     elif t == "CP":
-        return (ExtractedCPCat, ExtractedListPresence)
+        return ExtractedCPCat, ExtractedListPresence
     elif t == "HP":
-        return (ExtractedText, ExtractedHabitsAndPractices)
+        return ExtractedText, ExtractedHabitsAndPractices
     elif t == "HH":
-        return (ExtractedHHDoc, ExtractedHHRec)
+        return ExtractedHHDoc, ExtractedHHRec
     elif t == "LM":
-        return (ExtractedLMDoc, ExtractedChemical)
+        return ExtractedLMDoc, ExtractedChemical
     else:
-        return (None, None)
+        return None, None
 
 
 def clean_dict(odict, model, translations={}, keep_nones=False):
@@ -359,6 +364,8 @@ def gather_errors(form_instance, values=False):
 
 
 def accumulate_pucs(qs):
+    PUC = apps.get_model("dashboard", "PUC")
+
     all_pucs = qs
     for p in qs:
         family = PUC.objects.none()
@@ -482,3 +489,10 @@ def zip_stream(files={}, data={}, filename="file.zip"):
         "Content-Disposition"
     ] = f'attachment; filename="{get_valid_filename(filename)}"'
     return response
+
+
+def uuid_file(instance, filename):
+    """Creates a UUID for storing files in MEDIA_ROOT
+    """
+    _, ext = os.path.splitext(filename)
+    return str(uuid.uuid4()) + ext

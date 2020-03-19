@@ -454,12 +454,49 @@ function dismissTask(task_id, form) {
     }).then(response => window.location.reload(false));
 }
 
+validateProductFormSubmit = () => {
+    var dir = document.getElementById("products-bulkformsetimageupload");
+    var oversize_files = []
+    // Check that directory doesn't have too many images
+    if (0 < dir.files.length && dir.files.length < env.PRODUCT_IMAGE_DIRECTORY_MAX_FILE_COUNT) {
+        var total_file_size = 0
+        // Check that no images are too large
+        for (var i = 0; i <= dir.files.length - 1; i++)
+        {
+            var file = dir.files.item(i).size;
+            if (file > env.PRODUCT_IMAGE_MAX_SIZE) {
+                oversize_files.push(dir.files.item(i).name)
+            }
+            total_file_size += file
+        }
+        if (oversize_files.length != 0) {
+            error_message = "Please limit these files to " + (env.PRODUCT_IMAGE_MAX_SIZE / 1000000) + " MB:\n"
+            for (file_name of oversize_files)
+            {
+                error_message += file_name + "\n"
+            }
+            alert(error_message)
+            return false
+        }
+        // Check that directory is not too large
+        if (total_file_size > env.PRODUCT_IMAGE_DIRECTORY_MAX_UPLOAD) {
+            limit_in_megabytes = env.PRODUCT_IMAGE_DIRECTORY_MAX_UPLOAD / 1000000
+            alert("Please limit upload to less than " + limit_in_megabytes + " MB total")
+            return false
+        }
+    } else if (dir.files.length > env.PRODUCT_IMAGE_DIRECTORY_MAX_FILE_COUNT) {
+        alert("Please limit upload to less than " + env.PRODUCT_IMAGE_DIRECTORY_MAX_FILE_COUNT + " Documents")
+        return false
+    }
+}
+
 $(document).ready(function() {
     setTaskState(false);
     setInterval(() => setTaskState(true), 5000);
     var tableData = JSON.parse(
         document.getElementById("tabledata").textContent
     );
+    env = JSON.parse(env.text);
     renderDataTable(
         tableData.boolComp,
         tableData.boolHab,

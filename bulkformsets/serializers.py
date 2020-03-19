@@ -2,6 +2,7 @@ import csv
 import itertools as it
 import io
 
+from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.forms import formsets
 
 
@@ -14,7 +15,9 @@ class CSVReader:
         fieldnames = kwargs.pop("fieldnames", None)
         if type(f.file) is io.StringIO:
             self.f = f
-        elif isinstance(f.file, io.BufferedIOBase):
+        elif isinstance(f.file, io.BufferedIOBase) or isinstance(
+            f, TemporaryUploadedFile
+        ):
             self.f = io.TextIOWrapper(f.file, encoding="utf-8-sig", newline="")
         else:
             raise ValueError("Unknown file type.")

@@ -138,6 +138,25 @@ class MetaEnv(type):
             cls._get("ENABLE_GOOGLE_ANALYTICS", default, prefix=False) in cls.truevals
         )
 
+    @property
+    def PRODUCT_IMAGE_DIRECTORY_MAX_UPLOAD(cls):
+        default = 5000000
+        return int(
+            cls._get("PRODUCT_IMAGE_DIRECTORY_MAX_UPLOAD", default, prefix=False)
+        )
+
+    @property
+    def PRODUCT_IMAGE_DIRECTORY_MAX_FILE_COUNT(cls):
+        default = 500
+        return int(
+            cls._get("PRODUCT_IMAGE_DIRECTORY_MAX_FILE_COUNT", default, prefix=False)
+        )
+
+    @property
+    def PRODUCT_IMAGE_MAX_SIZE(cls):
+        default = 1000000
+        return int(cls._get("PRODUCT_IMAGE_MAX_SIZE", default, prefix=False))
+
 
 class env(metaclass=MetaEnv):
     truevals = ("true", "True", "yes", "y", "1", "on", "ok", True)

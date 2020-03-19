@@ -4,11 +4,21 @@ from django.apps import apps
 from django.db import models
 from django.urls import reverse
 from django.db.models import Max, Prefetch
+from django.core.exceptions import ValidationError
 
+from factotum.environment import env
 from .common_info import CommonInfo
 from .extracted_text import ExtractedText
 from .data_source import DataSource
 from .source_category import SourceCategory
+from dashboard.utils import uuid_file
+
+
+def validate_product_image_size(image):
+    if image.size > env.PRODUCT_IMAGE_MAX_SIZE:
+        raise ValidationError(
+            "Max size of file is %s MB" % (env.PRODUCT_IMAGE_MAX_SIZE / 1000000)
+        )
 
 
 class ProductQuerySet(models.QuerySet):
@@ -92,6 +102,13 @@ class Product(CommonInfo):
     )
     large_image = models.CharField(
         max_length=500, null=True, blank=True, help_text="large image"
+    )
+    image = models.ImageField(
+        help_text="The product's image file",
+        upload_to=uuid_file,
+        validators=[validate_product_image_size],
+        blank=True,
+        null=True,
     )
     objects = ProductQuerySet.as_manager()
 

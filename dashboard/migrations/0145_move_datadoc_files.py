@@ -60,7 +60,7 @@ def move_files(apps, schema_editor):
                 fs_id = str(uuid.UUID(d.fs_id_str))
                 csv_root = os.path.dirname(d.csv)
                 _, ext = os.path.splitext(d.filename)
-                archive_filename = f"document_{d.pk}{ext}"
+                archive_filename = f"datadocument_{d.pk}{ext}"
                 archive_path = os.path.join(
                     archive_base, fs_id, "pdf", archive_filename
                 )

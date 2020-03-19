@@ -148,7 +148,11 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                     "extracted-text-modal-save"
                 )
                 save_button.click()
-                self.browser.refresh()
+                wait.until(
+                    ec.text_to_be_present_in_element(
+                        (By.XPATH, "//*[@id='id_prod_name']"), "Fake Product"
+                    )
+                )
                 self.assertEqual(
                     self.browser.find_element_by_id("id_prod_name").text, "Fake Product"
                 )
@@ -168,7 +172,11 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                     "extracted-text-modal-save"
                 )
                 save_button.click()
-                self.browser.refresh()
+                wait.until(
+                    ec.text_to_be_present_in_element(
+                        (By.XPATH, "//*[@id='id_doc_date']"), "2018"
+                    )
+                )
                 self.assertEqual(
                     self.browser.find_element_by_id("id_doc_date").text, "2018"
                 )
@@ -274,6 +282,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
             self.assertEqual("Save changes", save_button.get_attribute("value"))
             save_button.click()
+            self.browser.refresh()
             wait = WebDriverWait(self.browser, 10)
 
             audit_link = wait.until(
@@ -286,6 +295,9 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             self.browser.execute_script("arguments[0].click();", audit_link)
 
             self.assertIn("Last updated: 0 minutes ago", audit_link.text)
+
+            # audit_log.click() does not work in chromedriver here for some reason
+            self.browser.execute_script("arguments[0].click();", audit_link)
 
             datatable = wait.until(
                 ec.visibility_of_element_located((By.XPATH, "//*[@id='audit-log']"))

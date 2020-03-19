@@ -36,6 +36,7 @@ from dashboard.utils import (
     get_missing_ids,
     inheritance_bulk_create,
 )
+from factotum.environment import env
 
 
 class DGFormSet(BaseBulkFormSet):
@@ -103,6 +104,7 @@ class ProductCSVForm(forms.Form):
     large_image = field_for_model(Product, "large_image")
     model_number = field_for_model(Product, "model_number")
     manufacturer = field_for_model(Product, "manufacturer")
+    image_name = forms.CharField(required=False)
 
 
 class ProductBulkCSVFormSet(DGFormSet):
@@ -122,6 +124,54 @@ class ProductBulkCSVFormSet(DGFormSet):
     form = ProductCSVForm
 
     def clean(self, *args, **kwargs):
+        missing_images = []
+        oversize_images = []
+        directory_size = 0
+        # Directory Max file count error
+        if (
+            len(self.files.getlist("products-bulkformsetimageupload"))
+            > env.PRODUCT_IMAGE_DIRECTORY_MAX_FILE_COUNT
+        ):
+            raise forms.ValidationError(
+                "The image directory has too many files.  "
+                "Please reduce the number of document upload at one time to < %d."
+                % env.PRODUCT_IMAGE_DIRECTORY_MAX_FILE_COUNT
+            )
+        self.image_dict = {
+            f.name: f for f in self.files.getlist("products-bulkformsetimageupload")
+        }
+        # Image Upload is too large
+        for file_name in self.image_dict:
+            directory_size += self.image_dict[file_name].size
+            if self.image_dict[file_name].size > env.PRODUCT_IMAGE_MAX_SIZE:
+                oversize_images.append(file_name)
+        # Directory too large error
+        if directory_size > env.PRODUCT_IMAGE_DIRECTORY_MAX_UPLOAD:
+            raise forms.ValidationError(
+                "The image directory is too large.  "
+                "Please reduce the size of the directory to < %d MB"
+                % (env.PRODUCT_IMAGE_DIRECTORY_MAX_UPLOAD / 1000000)
+            )
+        # Images too large error
+        if oversize_images:
+            raise forms.ValidationError(
+                "The following images are too large.  "
+                "Please reduce their sizes to < %d MB: "
+                % (env.PRODUCT_IMAGE_MAX_SIZE / 1000000)
+                + ", ".join([image for image in oversize_images])
+            )
+        # No Image match error
+        for f in self.forms:
+            image_name = f.cleaned_data["image_name"]
+            if image_name and not image_name in self.image_dict.keys():
+                missing_images.append(str(f.cleaned_data["data_document_id"].pk))
+        if missing_images:
+            report = (
+                "The following record images could not be matched.  "
+                "Please correct or remove their image_names and retry the upload: "
+            )
+            report += ", ".join(missing_images)
+            raise forms.ValidationError(report)
         header = list(self.bulk.fieldnames)
         header_cols = [
             "data_document_id",
@@ -152,11 +202,12 @@ class ProductBulkCSVFormSet(DGFormSet):
 
     def save(self):
         rejected_docids = []
-        reports = ""
+        reports = []
         added_products = 0
 
         for f in self.forms:
             f.cleaned_data["created_at"] = datetime.now()
+            image_name = f.cleaned_data.pop("image_name")
             product_dict = clean_dict(f.cleaned_data, Product)
             # Reject the Product if its UPC already exists in the database
             # or if it was identified as an internal duplicate above
@@ -171,6 +222,9 @@ class ProductBulkCSVFormSet(DGFormSet):
                     product_dict["upc"] = Product.objects.next_upc()
                 # add the new product to the database
                 product = Product(**product_dict)
+                # attach the image if there is one
+                if image_name:
+                    product.image = self.image_dict[image_name]
                 product.save()
                 # once the product is created, it can be linked to
                 # a DataDocument via the ProductDocument table
@@ -181,9 +235,9 @@ class ProductBulkCSVFormSet(DGFormSet):
                 added_products += 1
 
         if len(rejected_docids) > 0:
-            reports = f"The following records had existing or duplicated UPCs and were not added: "
-            reports += ", ".join("%d" % i for i in rejected_docids)
-
+            report = f"The following records had existing or duplicated UPCs and were not added: "
+            report += ", ".join("%d" % i for i in rejected_docids)
+            reports.append(report)
         return added_products, reports
 
 

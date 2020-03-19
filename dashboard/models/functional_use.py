@@ -26,6 +26,10 @@ class FunctionalUse(CommonInfo):
         related_name="functional_uses",
     )
 
+    category = models.ForeignKey(
+        "FunctionalUseCategory", on_delete=models.SET_NULL, null=True, blank=True
+    )
+
     report_funcuse = models.CharField(
         "Reported functional use", max_length=255, null=False, blank=True
     )

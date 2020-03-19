@@ -30,6 +30,7 @@ from dashboard.models import (
     DataGroup,
 )
 from dashboard.utils import gather_errors, zip_stream
+from factotum.environment import env
 
 
 @login_required()
@@ -74,6 +75,11 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
         "cleancomp_formset": None,
         "bulkassignprod_form": None,
         "product_formset": None,
+        "env": {
+            "PRODUCT_IMAGE_DIRECTORY_MAX_UPLOAD": env.PRODUCT_IMAGE_DIRECTORY_MAX_UPLOAD,
+            "PRODUCT_IMAGE_DIRECTORY_MAX_FILE_COUNT": env.PRODUCT_IMAGE_DIRECTORY_MAX_FILE_COUNT,
+            "PRODUCT_IMAGE_MAX_SIZE": env.PRODUCT_IMAGE_MAX_SIZE,
+        },
     }
     # TODO: Lots of boilerplate code here.
     if dg.include_upload_docs_form():
@@ -147,7 +153,8 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
                 messages.success(
                     request, f"{num_saved} records have been successfully uploaded."
                 )
-                messages.warning(request, reports)
+                for report in reports:
+                    messages.warning(request, report)
             else:
                 errors = gather_errors(product_formset)
                 for e in errors:

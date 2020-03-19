@@ -196,6 +196,11 @@ urlpatterns = [
     path("chemical/<str:sid>/", views.chemical_detail, name="chemical"),
     path("chemical_product_json/", views.ChemicalProductListJson.as_view(), name="chemical_product_ajax_url"),
     path(
+        "chemical_product_json/",
+        views.ChemicalProductListJson.as_view(),
+        name="chemical_product_ajax_url",
+    ),
+    path(
         "habitsandpractices/<int:pk>/",
         views.habitsandpractices,
         name="habitsandpractices",

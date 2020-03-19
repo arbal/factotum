@@ -4,11 +4,12 @@ import uuid
 from django.db import models
 from django.apps import apps
 from django.urls import reverse
+from django.core.exceptions import ValidationError
+from django.core.validators import URLValidator
 
 from .common_info import CommonInfo
 from .document_type import DocumentType
-from django.core.exceptions import ValidationError
-from django.core.validators import URLValidator
+from dashboard.utils import uuid_file
 
 
 def uuid_file(instance, filename):
