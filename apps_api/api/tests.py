@@ -235,3 +235,19 @@ class TestExtractedChemicalSerializer(TestCase):
             extracted_chemical.ingredient_rank,
             serialized_extracted_chemical.data["ingredient_rank"],
         )
+
+
+class TestFunctionalUseCategory(TestCase):
+    def test_retrieve(self):
+        fu_cat = models.FunctionalUseCategory.objects.first()
+        response = self.get("/functionaluses/%d/" % fu_cat.id)
+        self.assertEqual(response["id"], fu_cat.id)
+        self.assertEqual(response["title"], fu_cat.title)
+        self.assertEqual(response["description"], fu_cat.description)
+
+    def test_list(self):
+        count = models.FunctionalUseCategory.objects.count()
+        response = self.get("/functionaluses/")
+        self.assertTrue("paging" in response)
+        self.assertTrue("meta" in response)
+        self.assertEqual(count, response["meta"]["count"])

@@ -293,3 +293,23 @@ class ChemicalPresenceSerializer(serializers.ModelSerializer):
                 "label": "Definition",
             },
         }
+
+
+class FunctionalUseCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.FunctionalUseCategory
+        fields = ["id", "title", "description"]
+        extra_kwargs = {
+            "id": {
+                "help_text": "The unique numeric identifier for the functional use category.",
+                "label": "ID",
+            },
+            "title": {
+                "help_text": "Title of the functional use category.",
+                "label": "Title",
+            },
+            "description": {
+                "help_text": "Description of the functional use category.",
+                "label": "Description",
+            },
+        }

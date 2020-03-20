@@ -99,3 +99,12 @@ class ChemicalPresenceViewSet(viewsets.ReadOnlyModelViewSet):
         .select_related("kind")
         .order_by("id")
     )
+
+
+class FunctionUseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    list: Service providing a list of all functional use categories.
+    """
+
+    serializer_class = serializers.FunctionalUseCategorySerializer
+    queryset = models.FunctionalUseCategory.objects.all().order_by("id")
