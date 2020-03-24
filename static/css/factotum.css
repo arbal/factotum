@@ -108,6 +108,10 @@ div.search-result-main{
     color: #868e96;
 }
 
+.icon-primary {
+    color: #ff0000;
+}
+
 .hidden {
     visibility: hidden;
 }

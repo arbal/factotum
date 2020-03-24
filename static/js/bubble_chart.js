@@ -28,7 +28,7 @@ function setRadiusFromChildren(node, padding) {
     node.r = getRadius(
         (node.value / (node.value -
             (node.data.value ? node.data.value.num_products : 0))) *
-            getArea(d3v5.packEnclose(node.children).r)
+        getArea(d3v5.packEnclose(node.children).r)
     ) + padding;
 }
 
@@ -50,7 +50,7 @@ function translateChild(node) {
 
 function nestedBubbleChart(width, height, fixed, dataurl) {
     d3v5.json(dataurl)
-        .then(function(data) {
+        .then(function (data) {
             var size = Math.min(width, height)
             // load JSON into hierarchy data structure
             // compute cumulative product count
@@ -123,23 +123,24 @@ function nestedBubbleChart(width, height, fixed, dataurl) {
                 .style("background", "#eae9e0")
                 .style("cursor", "pointer")
                 .on("click", () => zoom(root));
-            if (fixed === true){
+            if (fixed === true) {
                 svg.style("position", "fixed")
             }
 
-           const node = svg
+            const node = svg
                 .append("g")
                 .selectAll("circle")
                 .data(root.descendants().slice(1))
                 .join("circle")
                 .attr("class", "bubble")
+                .attr("id", d => "bubble-" + (d.data.value ? d.data.value.id : ''))
                 .attr("fill", d => d.color)
                 .attr("opacity", d => d.opacity)
                 .attr("pointer-events", d => (!d.children ? "none" : null))
-                .on("mouseover", function() {
+                .on("mouseover", function () {
                     d3v5.select(this).attr("stroke", "#000");
                 })
-                .on("mouseout", function() {
+                .on("mouseout", function () {
                     d3v5.select(this).attr("stroke", null);
                 })
                 .on(
@@ -154,13 +155,26 @@ function nestedBubbleChart(width, height, fixed, dataurl) {
                 .selectAll("text")
                 .data(root.descendants())
                 .join("text")
+                .attr("id", d => "bubble-label-" + (d.data.value ? d.data.value.id : ''))
                 .style("font", d => (d.parent === root ? "0px sans-serif" : "14px sans-serif"))
                 .style("fill-opacity", d => (d.parent === focus ? 1 : 0))
                 .style("display", d => (d.parent === root ? "inline" : "none"))
                 // Display the name with the cumulative count
                 .text(d => d.data.name + " (" + d.value + ")");
 
+            // (d.data.value ? d.data.value.id : '')
+
             zoomTo([root.x, root.y, root.r * 2]);
+
+
+            //This is only working in the context of this function; would like to refactor it into page-specific code
+            chemical_puc = $('#chemical').data('puc');
+            bubble_el = document.getElementById("bubble-" + chemical_puc);
+            if (chemical_puc && bubble_el) {
+                bubble_el.dispatchEvent(new Event('click'));
+                document.getElementById("bubble-label-" + chemical_puc).style.display = "inline";
+                document.getElementById("bubble-label-" + chemical_puc).style.fillOpacity = "1";
+            }
 
             function zoomTo(v) {
                 const k = size / v[2];
@@ -182,7 +196,6 @@ function nestedBubbleChart(width, height, fixed, dataurl) {
                 const focus0 = focus;
 
                 focus = d;
-
                 const transition = svg
                     .transition()
                     .duration(d3v5.event.altKey ? 7500 : 750)
@@ -196,7 +209,7 @@ function nestedBubbleChart(width, height, fixed, dataurl) {
                     });
 
                 label
-                    .filter(function(d) {
+                    .filter(function (d) {
                         return (
                             d.parent === focus ||
                             this.style.display === "inline"
@@ -205,10 +218,10 @@ function nestedBubbleChart(width, height, fixed, dataurl) {
                     .transition(transition)
                     .style("font", d => (d.parent === root ? "0px sans-serif" : "14px sans-serif"))
                     .style("fill-opacity", d => (d.parent === focus ? 1 : 0))
-                    .on("start", function(d) {
+                    .on("start", function (d) {
                         if (d.parent === focus) this.style.display = "inline";
                     })
-                    .on("end", function(d) {
+                    .on("end", function (d) {
                         if (d.parent !== focus) this.style.display = "none";
                     });
             }

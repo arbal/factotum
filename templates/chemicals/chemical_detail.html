@@ -6,7 +6,11 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-5 p-0">
+        <div class="col-5 p-0" id="chemical"
+             data-sid="{{ chemical.sid }}"
+             data-puc="{{ puc.pk }}"
+             data-pid=""
+             data-puc-parents="{{ puc.get_parent_ids }}">
             <h1>
             <span class='pr-1' data-toggle="tooltip" data-placement="right" title="Chemical Name">{{ chemical|title }}
             </span>
@@ -110,9 +114,7 @@
                             disabled>Show All Documents</button>
                 </span>
             </h4>
-            <table class="table table-striped  dataTable table-sm"
-                   data-sid="{{ chemical.sid }}"
-                   id="documents">
+            <table class="table table-striped  dataTable table-sm" id="documents">
                 <thead>
                 <tr>
                     <th>Document</th>
@@ -122,12 +124,12 @@
                 <tbody></tbody>
                 <tfoot class="m-0">
                 <tr>
-                    <th id="documents_info_text" class="m-0"></th>
+                    <th id="documents-info-text" class="m-0"></th>
                     <th class="m-0 p-0">
                         {% if group_types.count > 1 %}
                             <div class="form-group m-0">
                                 <select class="form-control"
-                                        id="group_type_dropdown"
+                                        id="group-type-dropdown"
                                         title="Filter by Group Type"
                                         data-placement="left">
                                     <option value="-1">
@@ -159,9 +161,9 @@
                             disabled>Show All Products</button>
                 </span>
             </h4>
-            <table class="table table-striped  dataTable table-sm"
-                   data-sid="{{ chemical.sid }}"
-                   id="products">
+            <table class="table table-striped  dataTable table-sm" id="products">
+                <thead>
+                <tr>
                     <th>Product</th>
                     <th>Associated Document</th>
                     <th>PUC</th>
@@ -170,7 +172,7 @@
                 <tbody></tbody>
                 <tfoot class="m-0">
                 <tr>
-                    <th id="products_info_text" class="m-0"></th>
+                    <th id="products-info-text" class="m-0"></th>
                 </tr>
                 </tfoot>
             </table>
@@ -184,10 +186,7 @@
 
 {% block js %}
     <script src="{% static 'js/d3.v5.min.js' %}"></script>
-    <script src="{% static 'js/dashboard/chemical_detail.js' %}"></script>
     <script src="{% static 'js/bubble_chart.js' %}"></script>
     <script src="{% static 'js/bubble_puc_legend.js' %}"></script>
-    <script>
-        nestedBubbleChart(500, 500, false, "{% url 'bubble_PUCs' %}?dtxsid={{ chemical.sid }}")
-    </script>
+    <script src="{% static 'js/dashboard/chemical_detail.js' %}"></script>
 {% endblock %}

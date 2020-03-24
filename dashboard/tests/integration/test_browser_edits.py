@@ -418,7 +418,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         wait.until(ec.presence_of_element_located((By.ID, "puc-accordion")))
         bubble_legend = self.browser.find_element_by_id("puc-accordion")
         self.assertTrue(bubble_legend, "Bubble plot legend could not be found")
-        child_card = bubble_legend.find_element_by_xpath("//*[@id='puc-20']")
+        child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-20']")
         self.assertEqual(child_card.get_attribute("class"), "collapse")
 
     def test_collapsible_tree(self):

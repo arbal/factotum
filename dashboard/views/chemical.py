@@ -5,9 +5,9 @@ from django_datatables_view.base_datatable_view import BaseDatatableView
 
 from dashboard.models import DSSToxLookup, PUC, ProductDocument
 
-
-def chemical_detail(request, sid):
+def chemical_detail(request, sid, puc_id=None):
     chemical = get_object_or_404(DSSToxLookup, sid=sid)
+    puc = get_object_or_404(PUC, id=puc_id) if puc_id else None
     keysets = chemical.get_tag_sets()
     group_types = chemical.get_unique_datadocument_group_types_for_dropdown()
     pucs = PUC.objects.dtxsid_filter(sid).with_num_products().astree()
@@ -17,7 +17,7 @@ def chemical_detail(request, sid):
         .annotate(num_products=Value(0, output_field=IntegerField()))
         .astree()
     )
-    # Get cumulative product count
+    # Get cumulative product count, displayed in bubble_puc_legend
     for puc_name, puc_obj in pucs.items():
         puc_obj.cumnum_products = sum(
             p.num_products for p in pucs.objects[puc_name].values()
@@ -27,6 +27,7 @@ def chemical_detail(request, sid):
         "keysets": keysets,
         "group_types": group_types,
         "pucs": pucs,
+        "puc": puc,
         "show_filter": True,
     }
     return render(request, "chemicals/chemical_detail.html", context)
