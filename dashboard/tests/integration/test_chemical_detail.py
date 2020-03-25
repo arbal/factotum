@@ -127,4 +127,3 @@ class TestChemicalDetail(StaticLiveServerTestCase):
             "Test Occupational PUC",
             self.browser.find_element_by_xpath("//*[@id='puc-accordion']").text,
         )
-
