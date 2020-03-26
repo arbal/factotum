@@ -292,7 +292,7 @@ class UploadProductTest(TempFileMixin, TestCase):
         resp = self.post_csv(sample_csv)
         self.assertContains(
             resp,
-            f"The following records had existing or duplicated UPCs and were not added: {self.docs[3].pk}",
+            f"The following data documents had existing or duplicated UPCs and their new products were added as duplicates: {self.docs[3].pk}",
         )
         self.assertContains(resp, "3 records have been successfully uploaded")
         self.assertEqual(
@@ -315,7 +315,7 @@ class UploadProductTest(TempFileMixin, TestCase):
         resp = self.post_csv(sample_csv)
         self.assertContains(
             resp,
-            f"The following records had existing or duplicated UPCs and were not added: {self.docs[2].pk}, {self.docs[4].pk}",
+            f"The following data documents had existing or duplicated UPCs and their new products were added as duplicates: {self.docs[2].pk}, {self.docs[4].pk}",
         )
         self.assertContains(resp, "3 records have been successfully uploaded.")
 
