@@ -5,6 +5,7 @@ from django_datatables_view.base_datatable_view import BaseDatatableView
 
 from dashboard.models import DSSToxLookup, PUC, ProductDocument
 
+
 def chemical_detail(request, sid, puc_id=None):
     chemical = get_object_or_404(DSSToxLookup, sid=sid)
     puc = get_object_or_404(PUC, id=puc_id) if puc_id else None

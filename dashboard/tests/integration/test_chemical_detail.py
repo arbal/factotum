@@ -44,8 +44,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
 
         wait.until(
             ec.text_to_be_present_in_element(
-                (By.XPATH, "//*[@id='products_info']"),
-                "Showing 1 to 4 of 4 entries",
+                (By.XPATH, "//*[@id='products_info']"), "Showing 1 to 4 of 4 entries"
             )
         )
         self.assertInHTML(
@@ -71,8 +70,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         # Data Documents
         wait.until(
             ec.text_to_be_present_in_element(
-                (By.XPATH, "//*[@id='documents_info']"),
-                "Showing 1 to 2 of 2 entries",
+                (By.XPATH, "//*[@id='documents_info']"), "Showing 1 to 2 of 2 entries"
             )
         )
         self.assertInHTML(
@@ -84,7 +82,9 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         chemical = DSSToxLookup.objects.get(sid="DTXSID9022528")
         puc = PUC.objects.get(pk=185)
         wait = WebDriverWait(self.browser, 10)
-        self.browser.get(self.live_server_url + "/chemical/" + chemical.sid + "/puc/" + str(puc.pk))
+        self.browser.get(
+            self.live_server_url + "/chemical/" + chemical.sid + "/puc/" + str(puc.pk)
+        )
 
         # Test the Bubble Plot Legend Zoom occurred
         wait.until(
@@ -94,9 +94,20 @@ class TestChemicalDetail(StaticLiveServerTestCase):
             "hand/body lotion",
             self.browser.find_element_by_xpath("//*[@id='card-185']/div/div/b").text,
         )
-        self.assertFalse(self.browser.find_element_by_xpath("//*[@id='card-210']/div/div").is_displayed())
+        self.assertFalse(
+            self.browser.find_element_by_xpath(
+                "//*[@id='card-210']/div/div"
+            ).is_displayed()
+        )
 
         # Test that Bubble Plot zoom occurred
-        self.assertTrue(self.browser.find_element_by_xpath("//*[@id='bubble-label-185']").is_displayed())
-        self.assertFalse(self.browser.find_element_by_xpath("//*[@id='bubble-label-210']").is_displayed())
-
+        self.assertTrue(
+            self.browser.find_element_by_xpath(
+                "//*[@id='bubble-label-185']"
+            ).is_displayed()
+        )
+        self.assertFalse(
+            self.browser.find_element_by_xpath(
+                "//*[@id='bubble-label-210']"
+            ).is_displayed()
+        )
