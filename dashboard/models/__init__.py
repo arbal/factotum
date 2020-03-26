@@ -5,7 +5,7 @@ from .data_group import DataGroup
 from .document_type import DocumentType
 from .document_type_group_type_compatibility import DocumentTypeGroupTypeCompatibilty
 from .data_document import DataDocument
-from .product import Product
+from .product import Product, DuplicateProduct
 from .source_category import SourceCategory
 from .product_document import ProductDocument
 from .extracted_text import ExtractedText

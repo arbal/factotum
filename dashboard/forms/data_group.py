@@ -14,6 +14,7 @@ from celery_formtask.forms import FormTaskMixin
 from dashboard.models import (
     DataDocument,
     Product,
+    DuplicateProduct,
     ProductDocument,
     Script,
     DocumentType,
@@ -212,9 +213,27 @@ class ProductBulkCSVFormSet(DGFormSet):
             # Reject the Product if its UPC already exists in the database
             # or if it was identified as an internal duplicate above
             if product_dict.get("upc") in self.dupe_upcs:
-                # if the UPC is already in the database, reject
-                # this product and report it. It does not invalidate
-                # the formset, though
+                # if the UPC is already in the database, add the product
+                # to the DuplicateProduct model and report it.
+                # It does not invalidate the formset
+
+                # Move the source file's duplicate UPC to the source_upc field
+                product_dict.update(source_upc=product_dict.get("upc"))
+                # replace the incoming UPC with a UUID
+                product_dict.update(upc=uuid.uuid4())
+
+                product = DuplicateProduct(**product_dict)
+                # attach the image if there is one
+                if image_name:
+                    product.image = self.image_dict[image_name]
+                product.save()
+                # once the product is created, it can be linked to
+                # a DataDocument via the ProductDocument table
+                productdocument = ProductDocument(
+                    product=product, document=f.cleaned_data["data_document_id"]
+                )
+                productdocument.save()
+
                 rejected_docids.append(f.cleaned_data["data_document_id"].pk)
             else:
                 if not product_dict.get("upc"):
