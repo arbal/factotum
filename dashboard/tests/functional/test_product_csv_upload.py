@@ -298,7 +298,6 @@ class UploadProductTest(TempFileMixin, TestCase):
         self.assertEqual(
             DuplicateProduct.objects.filter(source_upc="stub_11").count(), 1
         )
-        print(DuplicateProduct.objects.filter(source_upc="stub_11").first().__dict__)
 
     def test_duplicate_upc_upload(self):
         """
