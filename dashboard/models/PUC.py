@@ -157,13 +157,18 @@ class PUC(CommonInfo):
         if self.is_level_one:
             return [self.pk, 0, 0]
         if self.is_level_two:
-            gen_cat_puc = PUC.objects.filter(gen_cat=self.gen_cat, prod_fam="", prod_type="").first()
+            gen_cat_puc = PUC.objects.filter(
+                gen_cat=self.gen_cat, prod_fam="", prod_type=""
+            ).first()
             return [gen_cat_puc.pk, self.pk, 0]
         if self.is_level_three:
-            gen_cat_puc = PUC.objects.filter(gen_cat=self.gen_cat, prod_fam="", prod_type="").first()
-            prod_fam_puc = PUC.objects.filter(gen_cat=self.gen_cat, prod_fam=self.prod_fam, prod_type="").first()
+            gen_cat_puc = PUC.objects.filter(
+                gen_cat=self.gen_cat, prod_fam="", prod_type=""
+            ).first()
+            prod_fam_puc = PUC.objects.filter(
+                gen_cat=self.gen_cat, prod_fam=self.prod_fam, prod_type=""
+            ).first()
             return [gen_cat_puc.pk, prod_fam_puc.pk, self.pk]
-
 
     @property
     def product_count(self):
