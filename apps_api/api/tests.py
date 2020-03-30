@@ -4,6 +4,7 @@ from django.db import connection, reset_queries
 from django.test.utils import override_settings
 from drf_yasg.generators import EndpointEnumerator
 
+from apps_api.api import views
 from apps_api.api.serializers import ExtractedChemicalSerializer
 from apps_api.core.test import TestCase
 
@@ -251,3 +252,104 @@ class TestFunctionalUseCategory(TestCase):
         self.assertTrue("paging" in response)
         self.assertTrue("meta" in response)
         self.assertEqual(count, response["meta"]["count"])
+
+
+class TestComposition(TestCase):
+    """ This endpoint does not have single row reads so the data will be verified
+    from one of the returned rows.  There are also 4 filters, all of which are being
+    tested in test filter
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.queryset = views.CompositionViewSet.queryset
+
+    def test_no_filter_error_message(self):
+        response = self.get("/composition/")
+        self.assertEqual(
+            response[0],
+            "Request must be filtered by one of these parameters "
+            "['rid', 'product', 'chemical', 'document']",
+        )
+
+    def test_filter(self):
+        doc_id = 156051
+        chem_id = "DTXSID9022528"
+        rid = "DTXRID002"
+        prod_id = 1868
+
+        response_rid_filter = self.get(f"/composition/?rid={rid}")
+        response_doc_filter = self.get(f"/composition/?document={doc_id}")
+        response_chem_filter = self.get(f"/composition/?chemical={chem_id}")
+        response_prod_filter = self.get(f"/composition/?product={prod_id}")
+
+        composition = self.queryset.get(rid=rid)
+
+        self.assertTrue("paging" in response_rid_filter)
+        self.assertTrue("meta" in response_rid_filter)
+        self.assertEqual(
+            self.queryset.filter(rid=rid).count(), response_rid_filter["meta"]["count"]
+        )
+        self.assertEqual(composition.rid, response_rid_filter["data"][0]["rid"])
+        self.assertEqual(
+            composition.dsstox.sid, response_rid_filter["data"][0]["chemical_id"]
+        )
+        self.assertEqual(
+            composition.ingredient_rank,
+            response_rid_filter["data"][0]["ingredient_rank"],
+        )
+        self.assertAlmostEqual(
+            composition.lower_wf_analysis,
+            self._cast_to_float(
+                response_rid_filter["data"][0]["lower_weight_fraction"]
+            ),
+        )
+        self.assertAlmostEqual(
+            composition.central_wf_analysis,
+            self._cast_to_float(
+                response_rid_filter["data"][0]["central_weight_fraction"]
+            ),
+        )
+        self.assertAlmostEqual(
+            composition.upper_wf_analysis,
+            self._cast_to_float(
+                response_rid_filter["data"][0]["upper_weight_fraction"]
+            ),
+        )
+        self.assertEqual(
+            composition.component, response_rid_filter["data"][0]["component"]
+        )
+        self.assertEqual(
+            composition.extracted_text.data_document_id,
+            response_rid_filter["data"][0]["document"],
+        )
+        self.assertEqual(
+            [
+                product.id
+                for product in composition.extracted_text.data_document.products.all()
+            ],
+            response_rid_filter["data"][0]["products"],
+        )
+        self.assertEqual(
+            self.queryset.filter(extracted_text__data_document_id=doc_id).count(),
+            response_doc_filter["meta"]["count"],
+        )
+        self.assertEqual(
+            self.queryset.filter(dsstox__sid=chem_id).count(),
+            response_chem_filter["meta"]["count"],
+        )
+        self.assertEqual(
+            self.queryset.filter(
+                extracted_text__data_document__products__pk=prod_id
+            ).count(),
+            response_prod_filter["meta"]["count"],
+        )
+
+    def _cast_to_float(self, value):
+        """Attempts to cast a value to float returns the object on failure
+        """
+        try:
+            return float(value)
+        except TypeError:
+            return value

@@ -313,3 +313,33 @@ class FunctionalUseCategorySerializer(serializers.ModelSerializer):
                 "label": "Description",
             },
         }
+
+
+class CompositionSerializer(ExtractedChemicalSerializer):
+    rid = serializers.CharField(
+        help_text="The RID of this composition data.", label="RID"
+    )
+    document = serializers.IntegerField(
+        source="extracted_text.data_document_id",
+        help_text="The Document associated with this composition data.",
+        label="Document",
+    )
+    products = serializers.SerializerMethodField(
+        help_text="List of products associated with this composition data.",
+        label="Products",
+        required=False,
+    )
+
+    def get_products(self, item):
+        return [
+            product.id for product in item.extracted_text.data_document.products.all()
+        ]
+
+    class Meta:
+        model = ExtractedChemicalSerializer.Meta.model
+        fields = ExtractedChemicalSerializer.Meta.fields + [
+            "rid",
+            "document",
+            "products",
+        ]
+        extra_kwargs = ExtractedChemicalSerializer.Meta.extra_kwargs

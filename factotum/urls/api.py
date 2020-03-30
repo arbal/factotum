@@ -18,6 +18,7 @@ router.register(
     basename="chemical_presences",
 )
 router.register(r"functionaluses", apiviews.FunctionUseCategoryViewSet)
+router.register(r"composition", apiviews.CompositionViewSet)
 
 urlpatterns = [
     path(

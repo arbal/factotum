@@ -1,4 +1,5 @@
 from django_filters import rest_framework as filters
+from rest_framework.exceptions import ValidationError
 
 from dashboard import models
 
@@ -44,3 +45,34 @@ class ChemicalFilter(filters.FilterSet):
     class Meta:
         model = models.DSSToxLookup
         fields = []
+
+
+class CompositionFilter(filters.FilterSet):
+    document = filters.NumberFilter(
+        field_name="extracted_text__data_document_id",
+        help_text="Document ID to filter composition data against.",
+        initial=100000,
+    )
+    chemical = filters.CharFilter(
+        field_name="dsstox__sid",
+        help_text="Chemical sid to filter composition data against.",
+        initial="DTXSID9022528",
+    )
+    rid = filters.CharFilter(
+        field_name="rid",
+        help_text="Composition's rid to filter composition data against.",
+        initial="DTXRID001",
+    )
+    product = filters.NumberFilter(
+        field_name="extracted_text__data_document__products",
+        help_text="Product id to filter composition data against.",
+        initial=100000,
+    )
+
+    def is_valid(self):
+        if not set(self.request.GET.keys() & self.form.fields.keys()):
+            raise ValidationError(
+                "Request must be filtered by one of these parameters "
+                "['rid', 'product', 'chemical', 'document']"
+            )
+        return super().is_valid()

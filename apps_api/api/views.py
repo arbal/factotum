@@ -1,5 +1,6 @@
-from django.db.models import Prefetch
-from rest_framework import viewsets
+from django.db.models import Prefetch, Q
+from rest_framework import viewsets, generics
+from rest_framework.viewsets import ViewSetMixin
 
 from apps_api.api import filters, serializers
 from dashboard import models
@@ -108,3 +109,19 @@ class FunctionUseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = serializers.FunctionalUseCategorySerializer
     queryset = models.FunctionalUseCategory.objects.all().order_by("id")
+
+
+class CompositionViewSet(ViewSetMixin, generics.ListAPIView):
+    """
+    list: Service providing all Composition data in ChemExpoDB.
+    Accepts a required filter for any of ["rid", "product", "chemical", "document"]
+    """
+
+    serializer_class = serializers.CompositionSerializer
+    queryset = (
+        models.ExtractedChemical.objects.all()
+        .exclude(Q(dsstox__isnull=True) | Q(rid__isnull=True) | Q(rid=""))
+        .prefetch_related("extracted_text__data_document__products", "dsstox")
+        .order_by("id")
+    )
+    filterset_class = filters.CompositionFilter
