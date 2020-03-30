@@ -1,6 +1,6 @@
 from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from dashboard.models import PUC, DSSToxLookup, Product, DataDocument
+from dashboard.models import PUC, DSSToxLookup, Product, DataDocument, ExtractedChemical
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -110,4 +110,20 @@ class TestChemicalDetail(StaticLiveServerTestCase):
             self.browser.find_element_by_xpath(
                 "//*[@id='bubble-label-210']"
             ).is_displayed()
+        )
+
+    def test_only_formulations(self):
+        dss = DSSToxLookup.objects.get(sid="DTXSID9022528")
+        # add a non-formulation PUC to a product that's related to
+        # DTXSID9022528
+        dd_id = ExtractedChemical.objects.filter(dsstox=dss).first().extracted_text_id
+        dd = DataDocument.objects.get(pk=dd_id)
+        p = dd.products.create(title="Test Product")
+        p.puc_set.create(kind="OC", gen_cat="Test Occupational PUC")
+
+        wait = WebDriverWait(self.browser, 10)
+        self.browser.get(self.live_server_url + "/chemical/" + dss.sid)
+        self.assertNotIn(
+            "Test Occupational PUC",
+            self.browser.find_element_by_xpath("//*[@id='puc-accordion']").text,
         )
