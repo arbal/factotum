@@ -102,6 +102,19 @@ class ChemicalPresenceViewSet(viewsets.ReadOnlyModelViewSet):
     )
 
 
+class FunctionalUseViewSet(ViewSetMixin, generics.ListAPIView):
+    """
+    list: Service to retrieve the functional use to chemical connection.
+    Query parameter is required, which can be any of ["document", "chemical", "category"]
+    """
+
+    serializer_class = serializers.FunctionalUseSerializer
+    queryset = models.FunctionalUse.objects.prefetch_related(
+        "chem__extracted_text__data_document", "chem__dsstox"
+    ).order_by("id")
+    filterset_class = filters.FunctionalUseFilter
+
+
 class FunctionUseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     """
     list: Service providing a list of all functional use categories.

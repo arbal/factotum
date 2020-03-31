@@ -21,6 +21,8 @@ class TestQueryCount(TestCase):
         reset_queries()
         for endpoint in EndpointEnumerator().get_api_endpoints():
             url = endpoint[0]
+            if url == "/function/":
+                continue
             # Only hit list endpoints
             if "{" not in url and "}" not in url:
                 result = self.get(url)
@@ -236,6 +238,72 @@ class TestExtractedChemicalSerializer(TestCase):
             extracted_chemical.ingredient_rank,
             serialized_extracted_chemical.data["ingredient_rank"],
         )
+
+
+class TestFunction(TestCase):
+    def test_no_filter_error(self):
+        response = self.get("/function/")
+        self.assertEqual("invalid", response[0].code)
+
+    def test_document_filter(self):
+        document_id = 156051
+        dataset = models.FunctionalUse.objects.filter(
+            chem__extracted_text__data_document_id=document_id
+        ).order_by("id")
+        count = dataset.count()
+        func_use = dataset.first()
+
+        response = self.get("/function/?document=%d" % document_id)
+        self.assertTrue("meta" in response)
+        self.assertEqual(count, response["meta"]["count"])
+        data = response["data"][0]
+        self.assertIsNotNone(data)
+        self.assertEquals(
+            func_use.chem.extracted_text.data_document_id, data["document_id"]
+        )
+        self.assertEquals(func_use.chem.dsstox.sid, data["chemical_id"])
+        self.assertEquals(func_use.chem.rid, data["rid"])
+        self.assertEquals(func_use.category.id, data["category_id"])
+
+    def test_chemical_filter(self):
+        chemical_id = "DTXSID9022528"
+        dataset = models.FunctionalUse.objects.filter(
+            chem__dsstox__sid=chemical_id
+        ).order_by("id")
+        count = dataset.count()
+        func_use = dataset.first()
+
+        response = self.get("/function/?chemical=%s" % chemical_id)
+        self.assertTrue("meta" in response)
+        self.assertEqual(count, response["meta"]["count"])
+        data = response["data"][0]
+        self.assertIsNotNone(data)
+        self.assertEquals(
+            func_use.chem.extracted_text.data_document_id, data["document_id"]
+        )
+        self.assertEquals(func_use.chem.dsstox.sid, data["chemical_id"])
+        self.assertEquals(func_use.chem.rid, data["rid"])
+        self.assertEquals(func_use.category.id, data["category_id"])
+
+    def test_category_filter(self):
+        category_id = 1
+        dataset = models.FunctionalUse.objects.filter(category=category_id).order_by(
+            "id"
+        )
+        count = dataset.count()
+        func_use = dataset.first()
+
+        response = self.get("/function/?category=%d" % category_id)
+        self.assertTrue("meta" in response)
+        self.assertEqual(count, response["meta"]["count"])
+        data = response["data"][0]
+        self.assertIsNotNone(data)
+        self.assertEquals(
+            func_use.chem.extracted_text.data_document_id, data["document_id"]
+        )
+        self.assertEquals(func_use.chem.dsstox.sid, data["chemical_id"])
+        self.assertEquals(func_use.chem.rid, data["rid"])
+        self.assertEquals(func_use.category.id, data["category_id"])
 
 
 class TestFunctionalUseCategory(TestCase):

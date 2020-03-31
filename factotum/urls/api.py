@@ -17,6 +17,7 @@ router.register(
     apiviews.ChemicalPresenceViewSet,
     basename="chemical_presences",
 )
+router.register(r"function", apiviews.FunctionalUseViewSet)
 router.register(r"functionaluses", apiviews.FunctionUseCategoryViewSet)
 router.register(r"composition", apiviews.CompositionViewSet)
 

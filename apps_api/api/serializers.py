@@ -295,6 +295,41 @@ class ChemicalPresenceSerializer(serializers.ModelSerializer):
         }
 
 
+class FunctionalUseSerializer(serializers.ModelSerializer):
+    document_id = serializers.IntegerField(
+        source="chem.extracted_text.data_document_id",
+        read_only=True,
+        label="Document ID",
+        help_text="The Document ID associated with this functional use record.",
+    )
+
+    chemical_id = serializers.CharField(
+        source="chem.dsstox.sid",
+        allow_null=True,
+        required=False,
+        label="Chemical ID",
+        help_text="The Chemical SID associated with this functional use record.",
+    )
+
+    rid = serializers.CharField(
+        source="chem.rid",
+        read_only=True,
+        label="RID",
+        help_text="The Chemical RID associated with this functional use record.",
+    )
+
+    class Meta:
+        model = models.FunctionalUse
+        fields = ["document_id", "chemical_id", "rid", "category_id"]
+        extra_kwargs = {
+            "category_id": {
+                "source": "category",
+                "label": "Category ID",
+                "help_text": "The Functional Use Category ID associated with this functional use record.",
+            }
+        }
+
+
 class FunctionalUseCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.FunctionalUseCategory
