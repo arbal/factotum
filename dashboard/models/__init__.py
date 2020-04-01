@@ -15,6 +15,9 @@ from .extracted_functional_use import ExtractedFunctionalUse
 from .extracted_habits_and_practices import (
     ExtractedHabitsAndPractices,
     ExtractedHabitsAndPracticesDataType,
+    ExtractedHabitsAndPracticesTag,
+    ExtractedHabitsAndPracticesToTag,
+    ExtractedHabitsAndPracticesTagKind,
 )
 from .extracted_list_presence import (
     ExtractedListPresence,

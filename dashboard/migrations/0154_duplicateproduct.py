@@ -6,20 +6,31 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0153_product_add_image_field'),
-    ]
+    dependencies = [("dashboard", "0153_product_add_image_field")]
 
     operations = [
         migrations.CreateModel(
-            name='DuplicateProduct',
+            name="DuplicateProduct",
             fields=[
-                ('product_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='dashboard.Product')),
-                ('source_upc', models.CharField(db_index=True, help_text='Source UPC', max_length=60)),
+                (
+                    "product_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="dashboard.Product",
+                    ),
+                ),
+                (
+                    "source_upc",
+                    models.CharField(
+                        db_index=True, help_text="Source UPC", max_length=60
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('dashboard.product',),
-        ),
+            options={"abstract": False},
+            bases=("dashboard.product",),
+        )
     ]
