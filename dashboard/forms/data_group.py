@@ -14,6 +14,7 @@ from celery_formtask.forms import FormTaskMixin
 from dashboard.models import (
     DataDocument,
     Product,
+    DuplicateProduct,
     ProductDocument,
     Script,
     DocumentType,
@@ -209,12 +210,27 @@ class ProductBulkCSVFormSet(DGFormSet):
             f.cleaned_data["created_at"] = datetime.now()
             image_name = f.cleaned_data.pop("image_name")
             product_dict = clean_dict(f.cleaned_data, Product)
-            # Reject the Product if its UPC already exists in the database
-            # or if it was identified as an internal duplicate above
+            # if the UPC is already in the database, add the product
+            # to the DuplicateProduct model and report it.
+            # It does not invalidate the formset
             if product_dict.get("upc") in self.dupe_upcs:
-                # if the UPC is already in the database, reject
-                # this product and report it. It does not invalidate
-                # the formset, though
+                # Move the source file's duplicate UPC to the source_upc field
+                product_dict.update(source_upc=product_dict.get("upc"))
+                # replace the incoming UPC with a UUID
+                product_dict.update(upc=uuid.uuid4())
+                # Create the new record
+                product = DuplicateProduct(**product_dict)
+                # attach the image if there is one
+                if image_name:
+                    product.image = self.image_dict[image_name]
+                product.save()
+                # once the product is created, it can be linked to
+                # a DataDocument via the ProductDocument table
+                productdocument = ProductDocument(
+                    product=product, document=f.cleaned_data["data_document_id"]
+                )
+                productdocument.save()
+
                 rejected_docids.append(f.cleaned_data["data_document_id"].pk)
             else:
                 if not product_dict.get("upc"):
@@ -235,7 +251,7 @@ class ProductBulkCSVFormSet(DGFormSet):
                 added_products += 1
 
         if len(rejected_docids) > 0:
-            report = f"The following records had existing or duplicated UPCs and were not added: "
+            report = f"The following data documents had existing or duplicated UPCs and their new products were added as duplicates: "
             report += ", ".join("%d" % i for i in rejected_docids)
             reports.append(report)
         return added_products, reports

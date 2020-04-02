@@ -54,6 +54,23 @@ fixtures_standard = [
     "18_functional_use",
 ]
 
+fixtures_habits_practices = [
+    "00_superuser",
+    "01_lookups",
+    "02_datasource",
+    "03_datagroup",
+    "04_PUC",
+    "05_product",
+    "06_datadocument",
+    "07_extractedtext",
+    "07d_rawchem",
+    "07e_extractedchemical",
+    "08_script",
+    "09_productdocument",
+    "10_habits_and_practices",
+    "11_habits_and_practices_to_puc",
+]
+
 datadocument_models = {
     "CO": ExtractedChemical,
     "FU": ExtractedFunctionalUse,

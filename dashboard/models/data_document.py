@@ -1,6 +1,3 @@
-import os
-import uuid
-
 from django.db import models
 from django.apps import apps
 from django.urls import reverse
@@ -10,11 +7,6 @@ from django.core.validators import URLValidator
 from .common_info import CommonInfo
 from .document_type import DocumentType
 from dashboard.utils import uuid_file
-
-
-def uuid_file(instance, filename):
-    _, ext = os.path.splitext(filename)
-    return str(uuid.uuid4()) + ext
 
 
 def get_default_document_type():

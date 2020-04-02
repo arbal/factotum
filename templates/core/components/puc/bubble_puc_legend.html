@@ -14,7 +14,7 @@
                     {% if leaf.children %}
                         <button class="handle mr-2 btn btn-light shadow-none"
                                 data-toggle="collapse"
-                                data-target="#puc-{{ leaf.value.pk }}">
+                                data-target="#accordion-{{ leaf.value.pk }}">
                             <i class="fas fa-chevron-circle-right icon-secondary"></i>
                             <i class="fas fa-chevron-circle-down icon-secondary d-none"></i>
                         </button>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            <div id="puc-{{ leaf.value.pk }}"
+            <div id="accordion-{{ leaf.value.pk }}"
                 class="collapse">
                 <div class="card-body p-0 puc-link"
                     data-gen-cat="{{ leaf.name }}">

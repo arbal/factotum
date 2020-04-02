@@ -29,7 +29,6 @@ mysqlclient==1.4.6
 pyflakes==2.1.1
 python-dotenv>=0.10.3,<0.11
 pytz==2018.9
-pyyaml>=4.2b1
 requests==2.20.0
 selenium>=3.14.0
 Sphinx==2.2.1
@@ -37,6 +36,15 @@ sphinx-rtd-theme==0.4.3
 urllib3==1.24.2
 wincertstore==0.2
 zipstream==1.1.4
+six>=1.12.0,<1.13
+uritemplate>=3.0.0,<3.1
+whitenoise>=4.1.4,<4.2.0
+python-logstash==0.4.6
+django-filter>=2.2.0,<2.3
+django-mysql>=3.3.0,<3.4
+djangorestframework>=3.10.3,<3.11
+drf-yasg>=1.17.0,<1.18.0
+PyYAML>=5.1.2,<5.2
 Pillow==7.0.0
 
 -e git+https://github.com/bennylope/django-taggit-labels.git@7afef34125653e958dc5dba0280904a0714aa808#egg=django_taggit_labels

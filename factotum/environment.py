@@ -14,6 +14,11 @@ class MetaEnv(type):
         return cls._get("DEBUG", default, prefix=True) in cls.truevals
 
     @property
+    def ROOT_URLCONF(cls):
+        default = "factotum"
+        return cls._get("ROOT_URLCONF", default, prefix=False)
+
+    @property
     def SECRET_KEY(cls):
         default = "factotum" if cls.DEBUG else ""
         return cls._get("SECRET_KEY", default, prefix=True)
@@ -47,6 +52,11 @@ class MetaEnv(type):
     def FACTOTUM_PORT(cls):
         deafult = "8000"
         return cls._get("FACTOTUM_PORT", deafult)
+
+    @property
+    def FACTOTUM_WS_PORT(cls):
+        default = "8001"
+        return cls._get("FACTOTUM_WS_PORT", default)
 
     @property
     def SQL_DATABASE(cls):

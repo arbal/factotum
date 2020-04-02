@@ -14,11 +14,13 @@ from dashboard.tests.mixins import TempFileMixin
 from dashboard.models import DataGroup, DataDocument, DocumentType
 
 
-class DDTestModel(TestCase):
+class DDTests(TempFileMixin, TestCase):
 
     fixtures = fixtures_standard
 
     def setUp(self):
+        self.factory = RequestFactory()
+        self.client.login(username="Karyn", password="specialP@55word")
         self.client = Client()
 
     def test_dd_model_with_wrong_document_type(self):
@@ -44,15 +46,6 @@ class DDTestModel(TestCase):
         )
         dd.save()
         self.assertEqual(dt_comp.title, dd.document_type.title)
-
-
-class DDTestUpload(TempFileMixin, TestCase):
-
-    fixtures = fixtures_standard
-
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.client.login(username="Karyn", password="specialP@55word")
 
     def testGoodGroupTypeInCSV(self):
         csv_string_good = (

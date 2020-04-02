@@ -160,3 +160,18 @@ class Product(CommonInfo):
 
     class Meta:
         ordering = ["-created_at"]
+
+
+class DuplicateProduct(Product):
+    """
+    A model for storing product records whose UPCs already exist in the database
+    """
+
+    source_upc = models.CharField(
+        db_index=True,
+        max_length=60,
+        null=False,
+        blank=False,
+        unique=False,
+        help_text="Source UPC",
+    )

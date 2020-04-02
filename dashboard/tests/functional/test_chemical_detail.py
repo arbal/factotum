@@ -113,8 +113,8 @@ class ChemicalDetail(TestCase):
         self.assertContains(response, 'Products Containing "water"')
 
         response_html = html.fromstring(response.content)
-        datatable_sid = response_html.xpath('//*[@id="products"]/@data-sid')[0]
-        self.assertEqual(dss.sid, datatable_sid, "Product datatable sid incorrect")
+        datatable_sid = response_html.xpath('//*[@id="chemical"]/@data-sid')[0]
+        self.assertEqual(dss.sid, datatable_sid, "Chemical sid incorrect")
 
         response = self.client.get(
             f"/chemical_product_json/?sid={dss.sid}&search[value]=Creme"

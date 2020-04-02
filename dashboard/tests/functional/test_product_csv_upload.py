@@ -13,6 +13,7 @@ from django.utils.timezone import now
 from dashboard import views
 from dashboard.models import (
     Product,
+    DuplicateProduct,
     DataDocument,
     ProductDocument,
     DataSource,
@@ -276,8 +277,10 @@ class UploadProductTest(TempFileMixin, TestCase):
 
     def test_existing_upc_upload(self):
         """
-        A UPC that exists in the database already should be rejected
+        If a product's UPC already exists in the database, the incoming Product record should be diverted
+        to the DuplicateProduct model 
         """
+        self.assertEqual(DuplicateProduct.objects.filter(upc="stub_11").count(), 0)
         Product.objects.create(upc="stub_11")
         sample_csv = (
             "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
@@ -289,9 +292,12 @@ class UploadProductTest(TempFileMixin, TestCase):
         resp = self.post_csv(sample_csv)
         self.assertContains(
             resp,
-            f"The following records had existing or duplicated UPCs and were not added: {self.docs[3].pk}",
+            f"The following data documents had existing or duplicated UPCs and their new products were added as duplicates: {self.docs[3].pk}",
         )
         self.assertContains(resp, "3 records have been successfully uploaded")
+        self.assertEqual(
+            DuplicateProduct.objects.filter(source_upc="stub_11").count(), 1
+        )
 
     def test_duplicate_upc_upload(self):
         """
@@ -309,7 +315,7 @@ class UploadProductTest(TempFileMixin, TestCase):
         resp = self.post_csv(sample_csv)
         self.assertContains(
             resp,
-            f"The following records had existing or duplicated UPCs and were not added: {self.docs[2].pk}, {self.docs[4].pk}",
+            f"The following data documents had existing or duplicated UPCs and their new products were added as duplicates: {self.docs[2].pk}, {self.docs[4].pk}",
         )
         self.assertContains(resp, "3 records have been successfully uploaded.")
 

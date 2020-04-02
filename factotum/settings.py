@@ -25,25 +25,31 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "dashboard.apps.DashboardConfig",
-    "feedback.apps.FeedbackConfig",
     "bootstrap_datepicker_plus",
     "widget_tweaks",
     "django.contrib.humanize",
     "factotum",
-    #"debug_toolbar",
+    "debug_toolbar",
     "taggit",
     "taggit_labels",
     "django_extensions",
     "elastic.apps.ElasticConfig",
     "bulkformsets.apps.BulkFormSetsConfig",
     "docs",
+    "dashboard.apps.DashboardConfig",
+    "feedback.apps.FeedbackConfig",
     "celery_usertask",
     "celery_filetask",
     "celery_formtask",
     "celery_djangotest",
     "celery_resultsview",
     "django_cleanup.apps.CleanupConfig",
+    "django_filters",
+    "rest_framework",
+    "django_mysql",
+    "apps_api.api",
+    "apps_api.docs_ws",
+    "apps_api.core",
 ]
 
 MIDDLEWARE = [
@@ -54,7 +60,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    #"debug_toolbar.middleware.DebugToolbarMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "crum.CurrentRequestUserMiddleware",
 ]
 
@@ -67,7 +73,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-ROOT_URLCONF = "factotum.urls"
+ROOT_URLCONF = "factotum.urls." + env.ROOT_URLCONF
 
 TEMPLATES = [
     {
@@ -213,3 +219,46 @@ LOGGING = {
 }
 
 DJANGO_EXTENSIONS_RESET_DB_MYSQL_ENGINES = ("factotum.db",)
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [],
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
+    "DEFAULT_PAGINATION_CLASS": "apps_api.core.pagination.StandardPagination",
+    "DEFAULT_PERMISSION_CLASSES": [],
+    "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
+    "PAGE_SIZE": 100,
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
+    "URL_FIELD_NAME": "link",
+}
+
+SWAGGER_SETTINGS = {
+    "DEFAULT_GENERATOR_CLASS": "apps_api.core.generators.StandardSchemaGenerator",
+    "DEFAULT_AUTO_SCHEMA_CLASS": "apps_api.core.inspectors.StandardAutoSchema",
+    "DEFAULT_FIELD_INSPECTORS": [
+        "drf_yasg.inspectors.CamelCaseJSONFilter",
+        "drf_yasg.inspectors.ReferencingSerializerInspector",
+        "drf_yasg.inspectors.RelatedFieldInspector",
+        "drf_yasg.inspectors.ChoiceFieldInspector",
+        "drf_yasg.inspectors.FileFieldInspector",
+        "drf_yasg.inspectors.DictFieldInspector",
+        "drf_yasg.inspectors.JSONFieldInspector",
+        "drf_yasg.inspectors.HiddenFieldInspector",
+        "drf_yasg.inspectors.RecursiveFieldInspector",
+        "drf_yasg.inspectors.SerializerMethodFieldInspector",
+        "drf_yasg.inspectors.SimpleFieldInspector",
+        "drf_yasg.inspectors.StringDefaultFieldInspector",
+    ],
+    "DEFAULT_FILTER_INSPECTORS": ["apps_api.core.inspectors.DjangoFiltersInspector"],
+    "DEFAULT_PAGINATOR_INSPECTORS": [
+        "apps_api.core.inspectors.StandardPaginatorInspector"
+    ],
+    "SECURITY_DEFINITIONS": {},
+}
+
+DJANGO_MYSQL_REWRITE_QUERIES = True
+SILENCED_SYSTEM_CHECKS = [
+    "django_mysql.W001",
+    "django_mysql.W002",
+    "django_mysql.W003",
+    "django_mysql.W004",
+]

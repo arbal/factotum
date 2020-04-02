@@ -44,6 +44,7 @@
     created_at: 2020-01-30 02:45:44.188103
     updated_at: 2020-01-30 02:45:44.188119
     chem: 2
+    category: 3
     report_funcuse: tubing
     clean_funcuse: ""
 - model: dashboard.functionaluse
@@ -52,6 +53,7 @@
     created_at: 2020-01-30 02:45:44.188650
     updated_at: 2020-01-30 02:45:44.188665
     chem: 3
+    category: 1
     report_funcuse: cleaning
     clean_funcuse: ""
 - model: dashboard.functionaluse
@@ -60,6 +62,7 @@
     created_at: 2020-01-30 02:45:44.189085
     updated_at: 2020-01-30 02:45:44.189099
     chem: 6
+    category: 2
     report_funcuse: swell
     clean_funcuse: ""
 - model: dashboard.functionaluse
@@ -68,6 +71,7 @@
     created_at: 2020-01-30 02:45:44.189747
     updated_at: 2020-01-30 02:45:44.189783
     chem: 5
+    category: 3
     report_funcuse: surfactant
     clean_funcuse: ""
 - model: dashboard.functionaluse

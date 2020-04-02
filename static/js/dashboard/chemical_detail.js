@@ -1,45 +1,70 @@
-var documents_url, products_url;
+var chemical = $('#chemical'),
+    puc = chemical.data('puc'),
+    sid = chemical.data('sid'),
+    pid = chemical.data('pid'),
+    puc_parents = chemical.data('puc-parents'),
+    document_table,
+    product_table;
+nestedBubbleChart(500, 500, false, "/dl_pucs_json/?dtxsid=" + sid);
+
 
 $(document).ready(function () {
-    documents_url = '/d_json/?chem_detail=True&sid=' + $('#documents').data('sid');
-    products_url = '/chemical_product_json?sid=' + $('#products').data('sid');
+    document_table = build_document_table().on('draw', moveText);
+    product_table = build_product_table().on('draw', moveText);
 
-    var documenttable = build_document_table();
-    var producttable = build_product_table();
+    //expand accordion to default puc, if one exists
+    if (puc_parents.length) {
+        $('#accordion-' + puc_parents.join(', #accordion-')).collapse('show');
+    }
+
+    if (puc) {
+        $('#reset-documents').prop('disabled', false);
+        $('#reset-products').prop('disabled', false);
+
+    }
 
     $('a[id^="filter-"]').on('click', e => {
-        var puc = $(e.currentTarget).data('pk');
-        documenttable.ajax.url(documents_url + '&category=' + puc).load(moveText);
-        producttable.ajax.url(products_url + '&category=' + puc).load(moveText);
+        chemical.data('puc', $(e.currentTarget).data('pk'));
+        document_table.ajax.url(get_documents_url()).load(moveText);
+        product_table.ajax.url(get_products_url()).load(moveText);
         $('#reset-documents').prop('disabled', false);
         $('#reset-products').prop('disabled', false);
     });
     $('a[id^="keywords-"]').on('click', e => {
-        var pid = $(e.currentTarget).data('presence-id');
-        documenttable.ajax.url(documents_url + '&pid=' + pid).load(moveText);
+        chemical.data('pid', $(e.currentTarget).data('presence-id'));
+        document_table.ajax.url(get_documents_url()).load(moveText);
         $('#reset-documents').prop('disabled', false);
     });
     $('#group_type_dropdown').on('change', e => {
         var group_type = $(e.currentTarget).children("option:selected").val();
-        documenttable.ajax.url(documents_url + '&group_type=' + group_type).load(moveText);
+        document_table.ajax.url(get_documents_url() + '&group_type=' + group_type).load(moveText);
         $('#reset-documents').prop('disabled', false);
     });
     $('#reset-documents').on('click', function (e) {
-        documenttable.ajax.url(documents_url).load(moveText);
+        chemical.data('puc', '');
+        chemical.data('pid', '');
+        document_table.ajax.url(get_documents_url()).load(moveText);
         $(this).prop('disabled', true);
     });
     $('#reset-products').on('click', function (e) {
-        producttable.ajax.url(products_url).load(moveText);
+        chemical.data('puc', '');
+        chemical.data('pid', '');
+        product_table.ajax.url(get_products_url()).load(moveText);
         $(this).prop('disabled', true);
     });
     var moveText = () => {
-        $('#documents_info_text').text($('#documents_info').text());
-        $('#products_info_text').text($('#products_info').text());
+        $('#documents-info-text').text($('#documents-info').text());
+        $('#products-info-text').text($('#products-info').text());
     };
-
-    documenttable.on('draw', moveText);
-    producttable.on('draw', moveText);
 });
+
+function get_documents_url() {
+    return '/d_json/?chem_detail=True&sid=' + chemical.data('sid') + '&category=' + chemical.data('puc') + '&pid=' + chemical.data('pid');
+}
+
+function get_products_url() {
+    return '/chemical_product_json/?sid=' + chemical.data('sid') + '&category=' + chemical.data('puc');
+}
 
 function build_document_table() {
     return $('#documents').DataTable({
@@ -69,9 +94,9 @@ function build_document_table() {
         drawCallback: () => {
             // $('.paginate_button').on('click', moveText);
         },
-        ajax: documents_url,
+        ajax: get_documents_url(),
         initComplete: function () {
-            $('#documents_info_text').text($('#documents_info').text())
+            $('#documents-info-text').text($('#documents-info').text())
         }
     });
 }
@@ -112,9 +137,9 @@ function build_product_table() {
         drawCallback: () => {
             // $('.paginate_button').on('click', moveText);
         },
-        ajax: products_url,
+        ajax: get_products_url(),
         initComplete: function () {
-            $('#products_info_text').text($('#products_info').text())
+            $('#products-info-text').text($('#products-info').text())
         }
     });
 }

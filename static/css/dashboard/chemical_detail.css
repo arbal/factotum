@@ -1,7 +1,7 @@
-#documents_wrapper, #products_wrapper {
+#documents-wrapper, #products-wrapper {
     width: 100%;
 }
-#documents_info, #products_info {
+#documents-info, #products-info {
     display: none;
 }
 
