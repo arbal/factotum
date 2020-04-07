@@ -63,7 +63,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 "The same rawchem record should now have nothing in its dsstox link",
             )
             self.assertEqual(
-                None, rc.rid, "The same rawchem record should now have no RID"
+                "", rc.rid, "The same rawchem record should now have no RID"
             )
 
     def test_new_chem(self):

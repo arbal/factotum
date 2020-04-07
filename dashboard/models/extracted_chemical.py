@@ -26,18 +26,10 @@ def validate_wf_analysis(value):
 
 class ExtractedChemical(CommonInfo, RawChem):
     raw_min_comp = models.CharField(
-        "Minimum",
-        max_length=100,
-        null=True,
-        blank=True,
-        help_text="minimum composition",
+        "Minimum", max_length=100, blank=True, help_text="minimum composition"
     )
     raw_max_comp = models.CharField(
-        "Maximum",
-        max_length=100,
-        null=True,
-        blank=True,
-        help_text="maximum composition",
+        "Maximum", max_length=100, blank=True, help_text="maximum composition"
     )
     unit_type = models.ForeignKey(
         UnitType,
@@ -61,11 +53,7 @@ class ExtractedChemical(CommonInfo, RawChem):
         help_text="ingredient rank",
     )
     raw_central_comp = models.CharField(
-        "Central",
-        max_length=100,
-        null=True,
-        blank=True,
-        help_text="central composition",
+        "Central", max_length=100, blank=True, help_text="central composition"
     )
     lower_wf_analysis = models.DecimalField(
         "Lower weight fraction analysis",
@@ -104,9 +92,9 @@ class ExtractedChemical(CommonInfo, RawChem):
     def clean(self):
         error_dict = {}
         ut = bool(self.unit_type_id)
-        minc = self.raw_min_comp is not None
-        cenc = self.raw_central_comp is not None
-        maxc = self.raw_max_comp is not None
+        minc = self.raw_min_comp is not ""
+        cenc = self.raw_central_comp is not ""
+        maxc = self.raw_max_comp is not ""
         minwf = self.lower_wf_analysis is not None
         cenwf = self.central_wf_analysis is not None
         maxwf = self.upper_wf_analysis is not None

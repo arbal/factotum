@@ -7,18 +7,18 @@
     title: 3M(TM) Rubber & Vinyl 80 Spray Adhesive
     manufacturer: ''
     upc: stub_11
-    url: null
+    url: ''
     brand_name: 3M
-    size: null
-    model_number: null
-    color: null
+    size: ''
+    model_number: ''
+    color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 878
   fields:
@@ -28,18 +28,18 @@
     title: Anti-Icky-Poo
     manufacturer: Emaren Labs Inc.
     upc: stub_878
-    url: null
+    url: ''
     brand_name: Anti-Icky-Poo
-    size: null
-    model_number: null
-    color: null
+    size: ''
+    model_number: ''
+    color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1836
   fields:
@@ -49,18 +49,18 @@
     title: OSI Green Series Formula 38 Drywall & Metal Framing Adhesive
     manufacturer: Henkel Corporation
     upc: stub_1836
-    url: null
+    url: ''
     brand_name: OSI F 38
-    size: null
-    model_number: null
-    color: null
+    size: ''
+    model_number: ''
+    color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1842
   fields:
@@ -70,18 +70,18 @@
     title: Acetone
     manufacturer: me
     upc: stub_1842
-    url: null
-    brand_name: null
-    size: null
-    model_number: null
-    color: null
+    url: ''
+    brand_name: ''
+    size: ''
+    model_number: ''
+    color: ''
     item_id: null
     parent_item_id: null
     short_description: ''
     long_description: ''
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1843
   fields:
@@ -91,18 +91,18 @@
     title: Electroslag Flux
     manufacturer: ''
     upc: stub_1843
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1844
   fields:
@@ -112,18 +112,18 @@
     title: Type 29 Flap Disc
     manufacturer: ''
     upc: stub_1844
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1845
   fields:
@@ -133,18 +133,18 @@
     title: AVCAT
     manufacturer: ''
     upc: stub_1845
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1846
   fields:
@@ -154,18 +154,18 @@
     title: Avgas 100LL
     manufacturer: ''
     upc: stub_1846
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1847
   fields:
@@ -175,18 +175,18 @@
     title: Spray Lotion
     manufacturer: ''
     upc: stub_1847
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1848
   fields:
@@ -196,18 +196,18 @@
     title: Cyclops Mirror
     manufacturer: ''
     upc: stub_1848
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1849
   fields:
@@ -217,18 +217,18 @@
     title: Magic Minerals
     manufacturer: ''
     upc: stub_1849
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1850
   fields:
@@ -238,20 +238,20 @@
     title: unknown
     manufacturer: me
     upc: stub_1850
-    url: null
+    url: ''
     brand_name: goop
     size: big
-    model_number: null
+    model_number: ''
     color: brown
     item_id: null
     parent_item_id: null
-    short_description: null
+    short_description: ''
     long_description: this is a very long description of the product that is described
       on this page and it tells me all kinds of information that I need to know about
       this given product
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1851
   fields:
@@ -261,18 +261,18 @@
     title: Almay Smart Shade Primer
     manufacturer: ''
     upc: stub_1851
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1852
   fields:
@@ -282,18 +282,18 @@
     title: Visor Care Kit
     manufacturer: ''
     upc: stub_1852
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1853
   fields:
@@ -303,18 +303,18 @@
     title: 'SHINING MONKEY FABRIC PROTECTOR '
     manufacturer: ''
     upc: stub_1853
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1854
   fields:
@@ -324,18 +324,18 @@
     title: Calgon Vanilla Passion Body Cream
     manufacturer: ''
     upc: '567890123456'
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1855
   fields:
@@ -345,18 +345,18 @@
     title: Advanced Extra Protection Shave Gel
     manufacturer: ''
     upc: stub_1855
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1856
   fields:
@@ -366,18 +366,18 @@
     title: 'Oyster White Aerosol Paint '
     manufacturer: ''
     upc: stub_1856
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1857
   fields:
@@ -387,18 +387,18 @@
     title: Moco de Gorila Punk
     manufacturer: ''
     upc: stub_1857
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1858
   fields:
@@ -408,18 +408,18 @@
     title: Halston Ladies Cologne
     manufacturer: ''
     upc: stub_1858
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1859
   fields:
@@ -429,18 +429,18 @@
     title: Orange Petalooza Body Wash
     manufacturer: ''
     upc: stub_1859
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1860
   fields:
@@ -450,18 +450,18 @@
     title: HAND SANITIZER
     manufacturer: ''
     upc: stub_1860
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1861
   fields:
@@ -471,18 +471,18 @@
     title: Aim Tartar Control Toothpaste
     manufacturer: ''
     upc: stub_1861
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1862
   fields:
@@ -492,18 +492,18 @@
     title: body butter
     manufacturer: ''
     upc: stub_1862
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1863
   fields:
@@ -513,18 +513,18 @@
     title: Floral Gardenia Body Lotion
     manufacturer: ''
     upc: stub_1863
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1864
   fields:
@@ -534,18 +534,18 @@
     title: Baby Magic Creamy Baby Oil
     manufacturer: ''
     upc: '345678901234'
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1865
   fields:
@@ -555,18 +555,18 @@
     title: Kera Care Shampoos
     manufacturer: ''
     upc: stub_1865
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1866
   fields:
@@ -576,18 +576,18 @@
     title: Rose Whipped Body Lotion
     manufacturer: ''
     upc: stub_1866
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1867
   fields:
@@ -597,18 +597,18 @@
     title: Mama Bee Soothing Leg & Foot Creme
     manufacturer: ''
     upc: '234567890123'
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1868
   fields:
@@ -618,18 +618,18 @@
     title: Lemon Clarifying Shampoo
     manufacturer: ''
     upc: stub_1868
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1869
   fields:
@@ -639,18 +639,18 @@
     title: Coty Deodorant
     manufacturer: ''
     upc: stub_1869
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1870
   fields:
@@ -660,18 +660,18 @@
     title: HAIRepair Anti-Breakage Creme
     manufacturer: ''
     upc: stub_1870
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1871
   fields:
@@ -681,18 +681,18 @@
     title: Nitrous oxide-propelled sweetened whipped cream
     manufacturer: ConAgra Foods
     upc: '123456789012'
-    url: null
+    url: ''
     brand_name: Reddi-wip
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1872
   fields:
@@ -702,18 +702,18 @@
     title: Multiple document types
     manufacturer: ''
     upc: stub_1872
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1873
   fields:
@@ -723,18 +723,18 @@
     title: Unmatched product
     manufacturer: ''
     upc: stub_1873
-    url: null
+    url: ''
     brand_name: ''
     size: ''
-    model_number: null
+    model_number: ''
     color: ''
     item_id: null
     parent_item_id: null
-    short_description: null
-    long_description: null
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    short_description: ''
+    long_description: ''
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''
 - model: dashboard.product
   pk: 1874
   fields:
@@ -744,17 +744,17 @@
     title: unknown
     manufacturer: me
     upc: stub_1874
-    url: null
+    url: ''
     brand_name: goop
     size: big
-    model_number: null
+    model_number: ''
     color: brown
     item_id: null
     parent_item_id: null
-    short_description: null
+    short_description: ''
     long_description: This product has no associated document,
       and a title of "unknown". After migration 0151 runs, it
       should still have a title of "unknown"
-    thumb_image: null
-    medium_image: null
-    large_image: null
+    thumb_image: ''
+    medium_image: ''
+    large_image: ''

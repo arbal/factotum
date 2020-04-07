@@ -4,7 +4,7 @@ from .common_info import CommonInfo
 
 class TaxonomySource(CommonInfo):
     title = models.CharField(max_length=100, blank=False, null=False)
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(blank=True)
     last_edited_by = models.ForeignKey(
         "auth.User", on_delete=models.SET_DEFAULT, default=1
     )

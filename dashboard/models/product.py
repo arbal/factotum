@@ -55,12 +55,7 @@ class Product(CommonInfo):
     )
     title = models.CharField(max_length=255)
     manufacturer = models.CharField(
-        db_index=True,
-        max_length=250,
-        null=True,
-        blank=True,
-        default="",
-        help_text="title",
+        db_index=True, max_length=250, blank=True, default="", help_text="title"
     )
     upc = models.CharField(
         db_index=True,
@@ -70,39 +65,28 @@ class Product(CommonInfo):
         unique=True,
         help_text="UPC",
     )
-    url = models.CharField(max_length=500, null=True, blank=True, help_text="URL")
+    url = models.CharField(max_length=500, blank=True, help_text="URL")
     brand_name = models.CharField(
-        db_index=True,
-        max_length=200,
-        null=True,
-        blank=True,
-        default="",
-        help_text="brand name",
+        db_index=True, max_length=200, blank=True, default="", help_text="brand name"
     )
-    size = models.CharField(max_length=100, null=True, blank=True, help_text="size")
+    size = models.CharField(max_length=100, blank=True, help_text="size")
     model_number = models.CharField(
-        max_length=200, null=True, blank=True, help_text="model number"
+        max_length=200, blank=True, help_text="model number"
     )
-    color = models.CharField(max_length=100, null=True, blank=True, help_text="color")
+    color = models.CharField(max_length=100, blank=True, help_text="color")
     item_id = models.IntegerField(null=True, blank=True, help_text="item ID")
     parent_item_id = models.IntegerField(
         null=True, blank=True, help_text="parent item ID"
     )
-    short_description = models.TextField(
-        null=True, blank=True, help_text="short description"
-    )
-    long_description = models.TextField(
-        null=True, blank=True, help_text="long description"
-    )
+    short_description = models.TextField(blank=True, help_text="short description")
+    long_description = models.TextField(blank=True, help_text="long description")
     thumb_image = models.CharField(
-        max_length=500, null=True, blank=True, help_text="thumbnail image"
+        max_length=500, blank=True, help_text="thumbnail image"
     )
     medium_image = models.CharField(
-        max_length=500, null=True, blank=True, help_text="medium image"
+        max_length=500, blank=True, help_text="medium image"
     )
-    large_image = models.CharField(
-        max_length=500, null=True, blank=True, help_text="large image"
-    )
+    large_image = models.CharField(max_length=500, blank=True, help_text="large image")
     image = models.ImageField(
         help_text="The product's image file",
         upload_to=uuid_file,

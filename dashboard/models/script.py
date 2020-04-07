@@ -21,9 +21,7 @@ class Script(CommonInfo):
     QA_COMPLETE_PERCENTAGE = 0.2
 
     title = models.CharField(max_length=50)
-    url = models.CharField(
-        max_length=225, null=True, blank=True, validators=[URLValidator()]
-    )
+    url = models.CharField(max_length=225, blank=True, validators=[URLValidator()])
     qa_begun = models.BooleanField(default=False)
     script_type = models.CharField(
         max_length=2, choices=TYPE_CHOICES, blank=False, default="EX"

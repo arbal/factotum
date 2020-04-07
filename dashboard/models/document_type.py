@@ -24,7 +24,7 @@ class DocumentTypeManager(models.Manager):
 
 class DocumentType(CommonInfo):
     title = models.CharField(max_length=50, unique=True)
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(blank=True)
     code = models.CharField(blank=True, max_length=2, default="??", unique=True)
     group_types = models.ManyToManyField(
         through="dashboard.DocumentTypeGroupTypeCompatibilty",

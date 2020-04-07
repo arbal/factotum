@@ -230,7 +230,7 @@ def clean_dict(odict, model, translations={}, keep_nones=False):
     """
     cleaned = {}
     for k, v in odict.items():
-        if v is not None or keep_nones:
+        if v or keep_nones:
             translated_k = translations.get(k, k)
             try:
                 model._meta.get_field(translated_k)

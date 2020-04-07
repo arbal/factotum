@@ -102,7 +102,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
 
         # get audit logs
         logs = AuditLog.objects.all()
-        self.assertEquals(16, len(logs), "Should have log entries")
+        self.assertEquals(24, len(logs), "Should have log entries")
 
         for log in logs:
             self.assertIsNotNone(log.model_name)
@@ -172,7 +172,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         for log in logs:
             self.assertEquals(log.model_name, "rawchem")
             self.assertEquals("rid", log.field_name)
-            self.assertIsNone(log.old_value)
+            self.assertFalse(log.old_value)
             self.assertEquals("test rid", log.new_value)
             self.assertIsNotNone(log.date_created)
             self.assertIsNotNone(log.user_id)
@@ -250,7 +250,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         AsyncResult(task_id).wait()
 
         logs = AuditLog.objects.all()
-        self.assertEquals(10, len(logs), "Should have log entries")
+        self.assertEquals(16, len(logs), "Should have log entries")
 
         for log in logs:
             self.assertIsNotNone(log.model_name)
@@ -286,7 +286,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         chems.delete()
 
         logs = AuditLog.objects.all()
-        self.assertEquals(10, len(logs), "Should have 10 log entries")
+        self.assertEquals(16, len(logs), "Should have 10 log entries")
 
         for log in logs:
             self.assertIsNotNone(log.model_name)
@@ -346,7 +346,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         )
 
         logs = AuditLog.objects.all()
-        self.assertEquals(4, len(logs), "Should have 4 log entries")
+        self.assertEquals(6, len(logs), "Should have 4 log entries")
         for log in logs:
             self.assertIsNotNone(log.model_name)
             self.assertIsNotNone(log.field_name)
@@ -391,7 +391,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         for ef in efs:
             ef.delete()
         logs = AuditLog.objects.all()
-        self.assertEquals(6, len(logs), "Should have log entries")
+        self.assertEquals(8, len(logs), "Should have log entries")
         for log in logs:
             self.assertIsNotNone(log.model_name)
             self.assertIsNotNone(log.field_name)

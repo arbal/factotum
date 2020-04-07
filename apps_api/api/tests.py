@@ -205,13 +205,13 @@ class TestExtractedChemicalSerializer(TestCase):
         dsstox = models.DSSToxLookup.objects.first()
         extracted_chemical = models.ExtractedChemical.objects.create(
             extracted_text=et,
-            dsstox=dsstox,
             component=str(uuid.uuid1()),
             lower_wf_analysis=0.1,
             central_wf_analysis=0.2,
             upper_wf_analysis=0.3,
             ingredient_rank=1,
         )
+        extracted_chemical.dsstox = dsstox
         serialized_extracted_chemical = ExtractedChemicalSerializer(extracted_chemical)
 
         self.assertEqual(

@@ -100,7 +100,7 @@ class ExtractedListPresenceTagKind(CommonInfo):
 
 
 class ExtractedListPresenceTag(TagBase, CommonInfo):
-    definition = models.CharField("Definition", max_length=750, null=True, blank=True)
+    definition = models.CharField("Definition", max_length=750, blank=True)
     kind = models.ForeignKey(
         ExtractedListPresenceTagKind, default=1, on_delete=models.PROTECT
     )

@@ -33,7 +33,7 @@ class DataGroup(CommonInfo):
     """
 
     name = models.CharField(max_length=50)
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(blank=True)
     downloaded_by = models.ForeignKey(
         "auth.User", on_delete=models.SET_DEFAULT, default=1
     )

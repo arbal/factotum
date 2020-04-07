@@ -15,13 +15,13 @@
                 <div class="row">
                     <div class="col-6 text-left" id="raw_chem_name-{{ chemical.pk }}">
                         <h5 class="text-muted">
-                            {{ chemical.raw_chem_name|truncatechars:45 }}
+                            {{ chemical.raw_chem_name|truncatechars:45|default:"None" }}
                         </h5>
                     </div>
 
                     <div class="col-6 text-right" id="raw_cas-{{ chemical.pk }}">
                         <h5 class="text-muted">
-                            {{ chemical.raw_cas }}
+                            {{ chemical.raw_cas|default:"None" }}
                         </h5>
                     </div>
             {% if chemical.component %}

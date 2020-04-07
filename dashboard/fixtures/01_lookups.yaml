@@ -65,7 +65,7 @@
       created_at: ! "2019-02-21 09:08:21.651124",
       updated_at: ! "2019-02-21 09:08:21.651149",
       title: HHE Report,
-      description: null,
+      description: '',
       code: HH,
     }
 - model: dashboard.grouptype
@@ -75,7 +75,7 @@
       created_at: ! "2020-02-21 09:08:21.651124",
       updated_at: ! "2020-02-21 09:08:21.651149",
       title: Literature Monitoring,
-      description: null,
+      description: '',
       code: LM,
     }
 - model: dashboard.dsstoxlookup
@@ -244,7 +244,7 @@
     created_at: 2019-02-21 09:08:21.652415
     updated_at: 2019-02-21 09:08:21.652431
     title: HHE Report
-    description: null
+    description: ''
     code: HH
 - model: dashboard.documenttype
   pk: 16
@@ -252,7 +252,7 @@
     created_at: 2018-07-12 10:50:39.660935
     updated_at: 2018-07-12 10:50:39.660935
     title: Product Safety Data Sheet (PSDS)
-    description: null
+    description: ''
     code: PS
 - model: dashboard.documenttype
   pk: 18
@@ -260,7 +260,7 @@
     created_at: 2018-07-12 10:50:39.660937
     updated_at: 2018-07-12 10:50:39.660937
     title: product label
-    description: null
+    description: ''
     code: PL
 - model: dashboard.documenttype
   pk: 19
@@ -278,7 +278,7 @@
     created_at: 2018-07-12 10:50:39.660939
     updated_at: 2018-07-12 10:50:39.660939
     title: Technical Data Sheet
-    description: null
+    description: ''
     code: TD
 - model: dashboard.documenttype
   pk: 21
@@ -286,7 +286,7 @@
     created_at: 2018-07-12 10:50:39.660940
     updated_at: 2018-07-12 10:50:39.660940
     title: RIVM Report
-    description: null
+    description: ''
     code: RI
 - model: dashboard.documenttype
   pk: 22
@@ -336,7 +336,7 @@
     created_at: 2019-09-29 15:31:38.537826
     updated_at: 2019-09-29 15:31:38.537856
     title: Unidentified
-    description: null
+    description: ''
     code: UN
 - model: dashboard.documenttypegrouptypecompatibilty
   pk: 1

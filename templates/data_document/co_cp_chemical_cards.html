@@ -24,12 +24,12 @@
                          title="{{ chemical.raw_chem_name }}"
                     >
                         <small class="text-muted">
-                            {{ chemical.raw_chem_name }}
+                            {{ chemical.raw_chem_name|default:"None" }}
                         </small>
                     </div>
                     <div class="col-12 col-md order-2 text-truncate" id="raw_cas-{{ chemical.pk }}">
                         <small class="text-muted" title="{{ chemical.raw_cas }}">
-                            {{ chemical.raw_cas }}
+                            {{ chemical.raw_cas|default:"None" }}
                         </small>
                     </div>
                     <div class="col-auto order-1 order-md-3 text-right">

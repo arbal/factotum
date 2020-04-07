@@ -34,10 +34,8 @@ class DSSToxLookup(CommonInfo):
         unique=True,
         validators=[validate_prefix, validate_blank_char],
     )
-    true_cas = models.CharField("True CAS", max_length=50, null=True, blank=True)
-    true_chemname = models.CharField(
-        "True chemical name", max_length=500, null=True, blank=True
-    )
+    true_cas = models.CharField("True CAS", max_length=50, blank=True)
+    true_chemname = models.CharField("True chemical name", max_length=500, blank=True)
 
     def __str__(self):
         return self.true_chemname
