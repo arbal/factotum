@@ -585,7 +585,7 @@ class TestDynamicDetailFormsets(TestCase):
         datadocURL = "http://airgas.com/msds/001088.pdf"
         self.assertContains(response, datadocURL)
 
-        self.assertIn("View data source (external)", response.content.decode("utf-8"))
+        self.assertIn("View Data Source (external)", response.content.decode("utf-8"))
         datasourceURL = "http://www.airgas.com/sds-search"
         self.assertContains(response, datasourceURL)
 

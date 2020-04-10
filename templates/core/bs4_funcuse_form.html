@@ -57,23 +57,24 @@
 
   {% for field in form.visible_fields %}
     {% if field.name == 'report_funcuse' %}
-      <div class="form-group mb-2 {% if not forloop.parentloop.first and not field.value and not field.errors %}
-                              mystical
-                              {% endif %}">
+      <div class="form-group mb-2
+        {% if not forloop.parentloop.first and not field.value and not field.errors %}
+            mystical
+        {% endif %}">
       {% if forloop.parentloop.first %}
-      <span>
-        {{ field.label_tag }}
-        {% if doc.data_group.is_functional_use %}
-        <a class="btn btn-sm btn-outline-secondary hover-success float-right mb-2 mr-2"
-                id="funcuse-add"
-                title="Add Functional Use"
-                data-toggle="tooltip"
-                role="button">
-            <span class="fa fa-fs fa-plus"></span>
-        </a>
-        {% endif %}
-      </span>
-      <br>
+          <span>
+            {{ field.label_tag }}
+            {% if doc.data_group.is_functional_use %}
+                <a class="btn btn-sm btn-outline-secondary hover-success float-right mb-2 mr-2"
+                        id="funcuse-add"
+                        title="Add Functional Use"
+                        data-toggle="tooltip"
+                        role="button">
+                    <span class="fa fa-fs fa-plus"></span>
+                </a>
+            {% endif %}
+          </span>
+          <br>
       {% endif %}
       <br>
       <div class="row">

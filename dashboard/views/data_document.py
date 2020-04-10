@@ -17,6 +17,7 @@ from dashboard.forms import (
     ExtractedFunctionalUseForm,
     ExtractedHHRecForm,
     ExtractedListPresenceForm,
+    ExtractedLMDocForm,
 )
 from dashboard.models import (
     AuditLog,
@@ -76,7 +77,6 @@ def data_document_detail(request, pk):
         )
         chem = chemicals.first()
         fufs = FuncUseFormSet(instance=chem)
-    # import ipdb; ipdb.set_trace()
     context = {
         "fufs": fufs,
         "doc": doc,

@@ -1,11 +1,12 @@
-from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from dashboard.models import DataDocument, ExtractedText, RawChem, FunctionalUse
-
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support.ui import WebDriverWait, Select
+
+from dashboard.models import DataDocument, ExtractedText, FunctionalUse, RawChem
+from dashboard.tests.loader import fixtures_standard, load_browser
+import time
 
 
 def log_karyn_in(object):
@@ -283,7 +284,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             self.assertEqual("Save changes", save_button.get_attribute("value"))
             save_button.click()
             self.browser.refresh()
-            wait = WebDriverWait(self.browser, 10)
 
             audit_link = wait.until(
                 ec.element_to_be_clickable(
@@ -293,7 +293,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
             self.assertIn("Last updated: 0 minutes ago", audit_link.text)
 
-            # audit_log.click() does not work in chromedriver here for some reason
+            # audit_link.click() does not work in chromedriver here for some reason
             self.browser.execute_script("arguments[0].click();", audit_link)
 
             datatable = wait.until(
@@ -351,3 +351,51 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 f'//*[@id="functional_uses_{chem_pk}"]'
             )
             self.assertIn("surfactant", functional_uses_col.text)
+
+    def test_lm_chemical_update(self):
+        wait = WebDriverWait(self.browser, 10)
+        doc = DataDocument.objects.get(pk=9)
+        self.browser.get(self.live_server_url + f"/datadocument/{doc.pk}/")
+
+        # LM datadocuments shouldn't be able to have products associated with them
+        with self.assertRaises(NoSuchElementException):
+            self.browser.find_element_by_id("add_product_button")
+
+        self.browser.find_element_by_xpath(
+            '//*[@id="btn-add-or-edit-extracted-text"]'
+        ).click()
+        save_button = wait.until(
+            ec.element_to_be_clickable(
+                (By.XPATH, "//*[@id='extracted-text-modal-save']")
+            )
+        )
+        Select(self.browser.find_element_by_id("id_study_type")).select_by_visible_text(
+            "Targeted"
+        )
+        self.browser.find_element_by_id("id_pmid").send_keys("01234567890123456789")
+        self.browser.find_element_by_id("id_media").send_keys("Lorem ipso fido leash")
+        save_button.click()
+
+        study_type = wait.until(
+            ec.visibility_of_element_located((By.ID, "id_study_type"))
+        )
+        self.assertIn("Targeted", study_type.text)
+
+        add_chem_button = wait.until(
+            ec.element_to_be_clickable((By.XPATH, "//*[@id='add_chemical']"))
+        )
+        add_chem_button.click()
+
+        save_button = wait.until(ec.element_to_be_clickable((By.ID, "saveChem")))
+        self.browser.find_element_by_id("id_raw_chem_name").send_keys(
+            "The Rawest Chem Name"
+        )
+        save_button.click()
+
+        time.sleep(3)
+        raw_chem = RawChem.objects.filter(extracted_text_id=doc.pk).first()
+
+        self.assertInHTML(
+            "The Rawest Chem Name",
+            self.browser.find_element_by_id(f"raw_chem_name-{raw_chem.pk}").text,
+        )

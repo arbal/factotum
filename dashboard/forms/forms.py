@@ -248,7 +248,7 @@ class ExtractedHHDocForm(ExtractedTextForm):
 class ExtractedLMDocForm(ExtractedTextForm):
     class Meta:
         model = ExtractedLMDoc
-        fields = ExtractedTextForm.Meta.fields + ["study_type", "pmid", "media"]
+        fields = ["doc_date", "study_type", "pmid", "media"]
 
         widgets = {
             "media": forms.Textarea(attrs={"rows": 4, "cols": 25}),
@@ -329,7 +329,7 @@ class ExtractedHHRecForm(forms.ModelForm):
 
 def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidden=[]):
     """Returns the pair of formsets that will be needed based on group_type.
-    .                       ('CO'),('CP'),('FU'),('HP'),('HH')
+    .                       ('CO'),('CP'),('FU'),('HP'),('HH'),('LM')
     Parameters
         ----------
         document : DataDocument
@@ -340,7 +340,7 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
             whether a delete checkbox is included
         exclude : list
             which fields to leave out of the form
-        hiddent : list
+        hidden : list
             which fields to make hidden on the form
     .
 
@@ -408,8 +408,8 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
         return (ParentForm, HHFormSet)
 
     def six():  # for extracted_lm_doc
-        LMFormSet = make_formset(parent, child)
-        return (ExtractedLMDocForm, LMFormSet)
+        LMDocFormSet = make_formset(parent, child)
+        return (ExtractedLMDocForm, LMDocFormSet)
 
     dg_types = {
         "CO": one,

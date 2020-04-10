@@ -81,21 +81,23 @@ class DataGroup(CommonInfo):
 
     @property
     def can_have_products(self):
-        return bool(self.type not in ["HH", "CP", "HP", "FU"])
+        return bool(self.type not in ["HH", "CP", "HP", "FU", "LM"])
 
-    def get_extract_models(self):
-        """Returns the parent model class and the associated child model"""
-        if self.type in ("CO", "UN"):
-            m = ("ExtractedText", "ExtractedChemical")
-        elif self.type == "FU":
-            m = ("ExtractedText", "ExtractedFunctionalUse")
-        elif self.type == "CP":
-            m = ("ExtractedCPCat", "ExtractedListPresence")
-        elif self.type == "HP":
-            m = ("ExtractedText", "ExtractedHabitsAndPractices")
-        elif self.type == "HH":
-            m = ("ExtractedHHDoc", "ExtractedHHRec")
-        return (apps.get_model("dashboard", m[0]), apps.get_model("dashboard", m[1]))
+    # def get_extract_models(self):
+    #     """Returns the parent model class and the associated child model"""
+    #     if self.type in ("CO", "UN"):
+    #         m = ("ExtractedText", "ExtractedChemical")
+    #     elif self.type == "LM":
+    #         m = ("ExtractedLMDoc", "ExtractedChemical")
+    #     elif self.type == "FU":
+    #         m = ("ExtractedText", "ExtractedFunctionalUse")
+    #     elif self.type == "CP":
+    #         m = ("ExtractedCPCat", "ExtractedListPresence")
+    #     elif self.type == "HP":
+    #         m = ("ExtractedText", "ExtractedHabitsAndPractices")
+    #     elif self.type == "HH":
+    #         m = ("ExtractedHHDoc", "ExtractedHHRec")
+    #     return (apps.get_model("dashboard", m[0]), apps.get_model("dashboard", m[1]))
 
     def matched_docs(self):
         return self.datadocument_set.exclude(file="").count()

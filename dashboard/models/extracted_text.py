@@ -5,14 +5,6 @@ from django.urls import reverse
 
 from .common_info import CommonInfo
 
-# this could potentially be used for 1:1 matching when uploading
-# coming in django v2.2!!
-# class Meta:
-# 	constraints = [
-# 		models.UniqueConstraint(fields=['prod_name','data_document'],
-# 								name='unique_assignment'),
-# 	]
-
 
 class ExtractedText(CommonInfo):
     data_document = models.OneToOneField(

@@ -221,7 +221,8 @@
              id="add_chemical">
             <button class="btn m-0 p-0 btn-outline-secondary hover-success"
                     data-toggle="modal"
-                    data-target="#chemical-add-modal">
+                    data-target="#chemical-add-modal"
+                    style="z-index: 290;"> <!-- z-index workaround for selenium/webdriver bug -->
                 <div class="card-body shadow rounded p-0 m-0 text-center"
                      data-toggle="tooltip"
                      title="Add chemical">
