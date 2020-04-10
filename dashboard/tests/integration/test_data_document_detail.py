@@ -291,9 +291,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 )
             )
 
-            # audit_log.click() does not work in chromedriver here for some reason
-            self.browser.execute_script("arguments[0].click();", audit_link)
-
             self.assertIn("Last updated: 0 minutes ago", audit_link.text)
 
             # audit_log.click() does not work in chromedriver here for some reason
