@@ -350,6 +350,49 @@ class FunctionalUseCategorySerializer(serializers.ModelSerializer):
         }
 
 
+class ExtractedListPresenceTagSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(label="Keyword Name", help_text="")
+
+    class Meta:
+        model = models.ExtractedListPresenceTag
+        fields = ["name"]
+        extra_kwargs = {
+            "name": {
+                "label": "Keyword Name",
+                "help_text": "This is the name of a list presence keyword",
+            }
+        }
+
+
+class TagsetRelatedDataSerializer(serializers.Serializer):
+    document_id = serializers.CharField(
+        source="extracted_text.data_document_id", label="Data Document ID", help_text=""
+    )
+    rids = serializers.SerializerMethodField(
+        label="RID List", help_text="List presence rids."
+    )
+
+    def get_rids(self, obj):
+        """If more information is needed this should be moved into its own serializer
+        """
+        return [obj.rid for obj in obj["extracted_list_presence"]]
+
+
+class TagsetSerializer(serializers.Serializer):
+    keywords = ExtractedListPresenceTagSerializer(many=True, source="tags")
+    related = TagsetRelatedDataSerializer(many=True)
+
+
+class ChemicalPresenceTagsetSerializer(serializers.ModelSerializer):
+    # Tagsets come from a partial function that are added through ChemicalPresenceTagsetFilter
+    keyword_sets = TagsetSerializer(source="tagsets", many=True)
+
+    class Meta:
+        model = models.DSSToxLookup
+        fields = ["chemical_id", "keyword_sets"]
+        extra_kwargs = {"chemical_id": {"label": "DTXSID", "source": "sid"}}
+
+
 class CompositionSerializer(ExtractedChemicalSerializer):
     rid = serializers.CharField(
         help_text="The RID of this composition data.", label="RID"
