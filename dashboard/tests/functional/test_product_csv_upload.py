@@ -157,6 +157,11 @@ class UploadProductTest(TempFileMixin, TestCase):
         resp = self.c.get(f"/datadocument/%s/" % self.docs[0].pk)
         self.assertContains(resp, "product title a")
 
+        # The product image should appear on its page
+        p_id = Product.objects.filter(title="product title a").first().id
+        resp = self.c.get(f"/product/%s/" % p_id)
+        self.assertContains(resp, "Product Image Url")
+
     def test_product_data_upload_with_wrong_image_name_single(self):
         """
         A single row with images that arent in the uploaded directory should be rejected
