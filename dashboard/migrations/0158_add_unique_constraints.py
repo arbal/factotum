@@ -3,7 +3,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('dashboard', '0156_remove_nulls'),
+        ('dashboard', '0157_modify_hp_tag_ordering'),
     ]
 
     operations = [

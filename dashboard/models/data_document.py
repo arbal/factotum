@@ -103,7 +103,7 @@ class DataDocument(CommonInfo):
     @property
     def detail_page_editable(self):
         # this could be moved to settings
-        return self.data_group.group_type.code in ["CP", "HH", "CO", "FU", "LM"]
+        return self.data_group.group_type.code in ["CP", "HH", "HP", "CO", "FU", "LM"]
 
     @property
     def detail_page_include_organization(self):
