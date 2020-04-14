@@ -1,52 +1,78 @@
 <div class="col-lg-7 scroll-div bg-light shadow rounded" id="cards" data-spy="scroll" data-target="#chem-scrollspy"
     data-offset="10">
-    {% for chemical in doc.extractedtext.practices.all %}
-    <div class="card mt-2 big-bottom" id="chem-{{ chemical.pk }}">
+    {% for hp in doc.extractedtext.practices.all %}
+    <div class="card mt-2" id="chem-{{ hp.pk }}">
         <div class="card-body shadow rounded">
-            <div class="card-title border-bottom">
-                <h3 class="d-inline" title="{{ chemical.product_surveyed }}" data-toggle="tooltip"
+            <div class="card-title border-bottom d-flex pb-1 mt-0 align-items-center">
+                <h3 class="mr-auto text-truncate" title="{{ hp.product_surveyed }}" data-toggle="tooltip"
                     data-placement="bottom">
-                    {{ chemical.product_surveyed|truncatechars:45 }}
+                    {{ hp.product_surveyed }}
                 </h3>
+                {% if doc.detail_page_editable and request.user.is_authenticated %}
+                <div class="btn-group btn-group-sm"
+                     id="chemical_edit_buttons">
+                    <button class="btn btn-outline-secondary hover-success"
+                            id="chemical-update-{{ hp.pk }}"
+                            title="edit"
+                            href="{% url 'chemical_update' hp.pk %}"
+                            data-toggle="modal"
+                            data-target="#chemical-update-modal"
+                            value="{{ hp.pk }}"
+                            style="z-index: 290;"> <!-- z-index workaround for selenium/webdriver bug -->
+                        <span class="fa fa-fs fa-edit"></span>
+                    </button>
+                    <button class="btn btn-outline-secondary hover-danger"
+                            title="delete"
+                            role="button"
+                            data-toggle="modal"
+                            data-target="#chem-delete-{{ hp.pk }}">
+                        <span class="fa fa-fs fa-trash"></span>
+                    </button>
+                </div>
+            {% endif %}
             </div>
-            <!-- card dl -->
             <div class="card-text">
-                <ul>
-                    <li>
-                        <b>{{ chemical.mass_label }}</b>
-                        <p>{{ chemical.mass }}</p>
-                    </li>
-                    <li>
-                        <b>{{ chemical.mass_unit_label }}</b>
-                        <p>{{ chemical.mass_unit }}</p>
-                    </li>
-                    <li>
-                        <b>{{ chemical.frequency_label }}</b>
-                        <p>{{ chemical.frequency }}</p>
-                    </li>
-                    <li>
-                        <b>{{ chemical.frequency_unit_label }}</b>
-                        <p>{{ chemical.frequency_unit }}</p>
-                    </li>
-                    <li>
-                        <b>{{ chemical.duration_label }}</b>
-                        <p>{{ chemical.duration }}</p>
-                    </li>
-                    <li>
-                        <b>{{ chemical.duration_unit_label }}</b>
-                        <p>{{ chemical.duration_unit }}</p>
-                    </li>
-                    <li>
-                        <b>{{ chemical.prevalence_label }}</b>
-                        <p>{{ chemical.prevalence }}</p>
-                    </li>
-                    <li>
-                        <b>{{ chemical.notes_label }}</b>
-                        <p>{{ chemical.notes }}</p>
-                    </li>
-                </ul>
+                <div>{{ hp.data_type }}</div>
+                <div class="mt-2">Tags</div>
+                <div class="p-2 row">
+                    {% for tag in hp.tags.all %}
+                        <div class="col-6">
+                            {{ tag.kind }}: {{ tag.name }}
+                        </div>
+                    {% empty %}
+                        <div class="col-12">Not associated with any Tags</div>
+                    {% endfor %}
+                </div>
+                <div>PUCs</div>
+                <div class="list-unstyled p-2">
+                    {% for puc in hp.PUCs.all %}
+                        <div>{{ puc }}</div>
+                    {% empty %}
+                        <div>Not associated with any PUCs</div>
+                    {% endfor %}
+                </div>
+                <div>{{ hp.notes }}</div>
             </div>
         </div>
     </div>
     {% endfor %}
+    {% if doc.is_extracted and doc.detail_page_editable and request.user.is_authenticated %}
+        <!-- add hp -->
+        <div class="card m-4 p-0"
+             id="add_chemical">
+            <button class="btn m-0 p-0 btn-outline-secondary hover-success"
+                    data-toggle="modal"
+                    data-target="#chemical-add-modal">
+                <div class="card-body shadow rounded p-0 m-0 text-center"
+                     data-toggle="tooltip"
+                     title="Add Habits and Practices">
+                    <span class="fa fa-fs fa-plus"></span>
+                </div>
+            </button>
+        </div>
+        <div class="modal" id="chemical-add-modal" data-backdrop="static"
+             data-url="{% url 'chemical_create' doc.pk %}"></div>
+        <div class="modal" id="chemical-update-modal" data-backdrop="static"
+             data-url="{% url 'chemical_update' 47 %}"></div>
+    {% endif %}
 </div>

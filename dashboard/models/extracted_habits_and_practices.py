@@ -109,10 +109,9 @@ class ExtractedHabitsAndPracticesTag(TagBase, CommonInfo):
     )
 
     class Meta:
-
         verbose_name = _("Extracted habits and practices keyword")
         verbose_name_plural = _("Extracted habits and practices keywords")
-        ordering = ("name",)
+        ordering = ("kind", "name")
 
     def __str__(self):
         return self.name
