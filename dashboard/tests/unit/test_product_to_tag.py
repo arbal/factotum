@@ -1,3 +1,4 @@
+from django.db.utils import IntegrityError
 from django.test import TestCase, tag
 
 from dashboard.models import PUCTag, ProductToTag, PUCToTag
@@ -32,3 +33,10 @@ class ProductToTagTest(TestCase):
         self.assertEqual(
             len(PUCToTag.objects.all()), 1, ("There should be a PUC linked to PUCTag")
         )
+
+    def test_unique_constaint(self):
+        t = PUCTag.objects.create(name="tang", slug="tang")
+        c = PUCToTag.objects.create(content_object=self.objects.puc, tag=t)
+
+        with self.assertRaises(IntegrityError):
+            d = PUCToTag.objects.create(content_object=self.objects.puc, tag=t)

@@ -12,3 +12,8 @@ class ExtractedHabitsAndPracticesToPUC(CommonInfo):
 
     def __str__(self):
         return str(self.id)
+
+    class Meta:
+        unique_together = ["extracted_habits_and_practices", "PUC"]
+        verbose_name = "Extracted Habits and Practices/PUC Association"
+        verbose_name_plural = "Extracted Habits and Practices/PUC Associations"

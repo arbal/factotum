@@ -1,12 +1,11 @@
-from six import text_type
-from taggit.models import TaggedItemBase, TagBase
-from taggit.managers import TaggableManager
-
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from six import text_type
+from taggit.managers import TaggableManager
+from taggit.models import TaggedItemBase, TagBase
 
-from .raw_chem import RawChem
 from .common_info import CommonInfo
+from .raw_chem import RawChem
 
 
 class ExtractedListPresence(CommonInfo, RawChem):
@@ -80,6 +79,7 @@ class ExtractedListPresenceToTag(TaggedItemBase, CommonInfo):
     )
 
     class Meta:
+        unique_together = ["content_object", "tag"]
         verbose_name = _("Extracted list presence to keyword")
         verbose_name_plural = _("Extracted list presence to keywords")
         ordering = ("content_object",)
@@ -106,7 +106,6 @@ class ExtractedListPresenceTag(TagBase, CommonInfo):
     )
 
     class Meta:
-
         verbose_name = _("Extracted list presence keyword")
         verbose_name_plural = _("Extracted list presence keywords")
         ordering = ("name",)

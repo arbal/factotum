@@ -209,13 +209,6 @@
     product: 1870
     document: 127808
 - model: dashboard.productdocument
-  pk: 1974
-  fields:
-    created_at: 2019-05-12 22:23:50.519364
-    updated_at: 2019-05-12 22:23:50.519466
-    product: 1866
-    document: 127870
-- model: dashboard.productdocument
   pk: 1975
   fields:
     created_at: 2019-05-12 23:07:47.733833

@@ -1,7 +1,7 @@
+from django.contrib.auth.models import User
 from django.test import TestCase, override_settings
 from django.test.client import Client
 
-from django.contrib.auth.models import User
 from dashboard.models import (
     DSSToxLookup,
     DataDocument,
@@ -11,14 +11,12 @@ from dashboard.models import (
     ProductToPUC,
     PUC,
 )
-from dashboard.views.get_data import stats_by_dtxsids
-
 from dashboard.tests.loader import fixtures_standard
+from dashboard.views.get_data import stats_by_dtxsids
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
 class TestGetData(TestCase):
-
     fixtures = fixtures_standard
 
     def setUp(self):
@@ -145,10 +143,9 @@ class TestGetData(TestCase):
                 ethylparaben_stats = e
 
         self.assertEqual(
-            5,
+            4,
             ethylparaben_stats["products_n"],
-            "There should be 4 products \
-        associated with ethylparaben",
+            "There should be 4 products associated with ethylparaben",
         )
         self.client.login(username="Karyn", password="specialP@55word")
         # get the associated documents for linking to products
@@ -169,10 +166,9 @@ class TestGetData(TestCase):
             if e["sid"] == "DTXSID9022528":
                 ethylparaben_stats = e
         self.assertEqual(
-            7,
+            6,
             ethylparaben_stats["products_n"],
-            "There should now be 7 products \
-        associated with ethylparaben",
+            "There should now be 7 products associated with ethylparaben",
         )
 
     def test_habits_and_practices_cards(self):

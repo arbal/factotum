@@ -1,10 +1,11 @@
-from django.db import models
 from django.apps import apps
+from django.db import models
 from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
 
 from .common_info import CommonInfo
-from .product import Product
 from .data_document import DataDocument
+from .product import Product
 
 
 class ProductDocumentManager(models.Manager):
@@ -29,6 +30,11 @@ class ProductDocument(CommonInfo):
 
     def __str__(self):
         return "%s --> %s" % (self.product.title, self.document.title)
+
+    class Meta:
+        unique_together = ["product", "document"]
+        verbose_name = _("Product/Document Association")
+        verbose_name_plural = _("Product/Document Associations")
 
     def get_absolute_url(self):
         return reverse("product_detail", kwargs={"pk": self.pk})
