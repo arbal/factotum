@@ -25,6 +25,7 @@ from dashboard.models import (
     ExtractedListPresence,
     ExtractedHHRec,
     ExtractedLMDoc,
+    ExtractedHabitsAndPractices,
 )
 
 from dashboard.utils import get_extracted_models
@@ -305,6 +306,14 @@ class ExtractedFunctionalUseForm(forms.ModelForm):
     class Meta:
         model = ExtractedFunctionalUse
         fields = ["raw_chem_name", "raw_cas"]
+
+
+class ExtractedHabitsAndPracticesForm(forms.ModelForm):
+    required_css_class = "required"  # adds to label tag
+
+    class Meta:
+        model = ExtractedHabitsAndPractices
+        fields = ["product_surveyed", "data_type", "notes"]
 
 
 class ExtractedListPresenceForm(forms.ModelForm):

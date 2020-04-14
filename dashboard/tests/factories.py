@@ -42,6 +42,8 @@ class DocumentTypeFactory(factory.django.DjangoModelFactory):
         model = models.DocumentType
         django_get_or_create = ("code",)
 
+    title = factory.Faker("word")
+    description = factory.Faker("paragraph")
     # Default type - unknown (compatible with all document types)
     code = "UN"
 
@@ -72,6 +74,9 @@ class ExtractedTextFactory(factory.django.DjangoModelFactory):
 class ExtractedHabitsAndPracticesDataTypeFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.ExtractedHabitsAndPracticesDataType
+
+    title = factory.Faker("word")
+    description = factory.Faker("text", max_nb_chars=255)
 
 
 class ExtractedHabitsAndPracticesTagKindFactory(factory.django.DjangoModelFactory):

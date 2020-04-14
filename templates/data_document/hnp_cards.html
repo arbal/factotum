@@ -1,5 +1,5 @@
 <div class="col-lg-7 scroll-div bg-light shadow rounded" id="cards" data-spy="scroll" data-target="#chem-scrollspy"
-    data-offset="10">
+     data-offset="10">
     {% for hp in doc.extractedtext.practices.all %}
     <div class="card mt-2" id="chem-{{ hp.pk }}">
         <div class="card-body shadow rounded">
@@ -14,7 +14,7 @@
                     <button class="btn btn-outline-secondary hover-success"
                             id="chemical-update-{{ hp.pk }}"
                             title="edit"
-                            href="{% url 'chemical_update' hp.pk %}"
+                            href="{% url 'ehp_update' hp.pk %}"
                             data-toggle="modal"
                             data-target="#chemical-update-modal"
                             value="{{ hp.pk }}"
@@ -29,7 +29,7 @@
                         <span class="fa fa-fs fa-trash"></span>
                     </button>
                 </div>
-            {% endif %}
+                {% endif %}
             </div>
             <div class="card-text">
                 <div>{{ hp.data_type }}</div>
@@ -55,24 +55,65 @@
             </div>
         </div>
     </div>
+    <!-- delete modal-->
+    <div class="modal fade"
+         id="chem-delete-{{ hp.pk }}"
+         tabindex="-1" role="dialog"
+         aria-labelledby="extextModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered"
+             role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{% url 'ehp_delete' doc.pk hp.pk %}"
+                      method="post">
+                    {% csrf_token %}
+                    <div
+                            class="modal-body">
+                        Are you sure you want to delete "{{ hp.product_surveyed }}" ?
+                    </div>
+                    <div class="modal-footer">
+                        <button id="chemical-modal-cancel-{{ hp.pk }}"
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"> Cancel
+                        </button>
+                        <button id="chemical-modal-save-{{ hp.pk }}"
+                                type="submit"
+                                class="btn btn-primary">
+                            Delete
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     {% endfor %}
     {% if doc.is_extracted and doc.detail_page_editable and request.user.is_authenticated %}
-        <!-- add hp -->
-        <div class="card m-4 p-0"
-             id="add_chemical">
-            <button class="btn m-0 p-0 btn-outline-secondary hover-success"
-                    data-toggle="modal"
-                    data-target="#chemical-add-modal">
-                <div class="card-body shadow rounded p-0 m-0 text-center"
-                     data-toggle="tooltip"
-                     title="Add Habits and Practices">
-                    <span class="fa fa-fs fa-plus"></span>
-                </div>
-            </button>
-        </div>
-        <div class="modal" id="chemical-add-modal" data-backdrop="static"
-             data-url="{% url 'chemical_create' doc.pk %}"></div>
-        <div class="modal" id="chemical-update-modal" data-backdrop="static"
-             data-url="{% url 'chemical_update' 47 %}"></div>
+    <!-- add hp -->
+    <div class="card m-4 p-0"
+         id="add_chemical">
+        <button class="btn m-0 p-0 btn-outline-secondary hover-success"
+                data-toggle="modal"
+                data-target="#chemical-add-modal">
+            <div class="card-body shadow rounded p-0 m-0 text-center"
+                 data-toggle="tooltip"
+                 title="Add Habits and Practices">
+                <span class="fa fa-fs fa-plus"></span>
+            </div>
+        </button>
+    </div>
+    <div class="modal" id="chemical-add-modal" data-backdrop="static"
+         data-url="{% url 'ehp_create' doc.pk %}"></div>
+    <div class="modal" id="chemical-update-modal" data-backdrop="static"
+         data-url="{% url 'ehp_update' 47 %}"></div>
     {% endif %}
+    <div class="modal" id="chemical-audit-log-modal" data-backdrop="static"></div>
 </div>

@@ -6,7 +6,7 @@
 }
 </style>
 <div class="modal-dialog" role="document">
-    <form action="{% url 'chemical_create' doc.pk %}" method="post" id="chem-create" class="form">
+    <form action="{% url post_url doc.pk %}" method="post" id="chem-create" class="form">
         {% csrf_token %}
         <div class="modal-content">
             <div class="modal-header">

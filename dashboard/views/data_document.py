@@ -3,10 +3,11 @@ from django.http import HttpResponse, JsonResponse
 from django.db.models import OuterRef, Subquery
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.db.models import Q
 
+from dashboard.forms.forms import ExtractedHabitsAndPracticesForm
 from dashboard.utils import get_extracted_models
 from dashboard.forms import (
     ExtractedListPresenceTagForm,
@@ -31,6 +32,7 @@ from dashboard.models import (
     ExtractedChemical,
     RawChem,
     AuditLog,
+    ExtractedHabitsAndPractices,
 )
 from django.forms import inlineformset_factory
 
@@ -106,7 +108,9 @@ class ChemCreateView(CreateView):
             extra=extra,
             can_delete=False,
         )
-        context.update({"formset": FuncUseFormSet, "doc": doc})
+        context.update(
+            {"formset": FuncUseFormSet, "doc": doc, "post_url": "chemical_create"}
+        )
         if not "fufs" in context:
             context["fufs"] = FuncUseFormSet()
         return context
@@ -155,7 +159,9 @@ class ChemUpdateView(UpdateView):
             extra=extra,
             can_delete=True,
         )
-        context.update({"formset": FuncUseFormSet, "doc": doc})
+        context.update(
+            {"formset": FuncUseFormSet, "doc": doc, "post_url": "chemical_update"}
+        )
         if not "fufs" in context:
             context["fufs"] = FuncUseFormSet(instance=self.object)
         return context
@@ -180,6 +186,56 @@ class ChemUpdateView(UpdateView):
             )
         else:
             return self.form_invalid(form, formset)
+
+
+@method_decorator(login_required, name="dispatch")
+class EHPCreateView(CreateView):
+    template_name = "chemicals/chemical_add_form.html"
+    model = DataDocument
+    form_class = ExtractedHabitsAndPracticesForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        doc = DataDocument.objects.get(pk=self.kwargs.get("doc"))
+        context.update({"post_url": "ehp_create", "doc": doc})
+        return context
+
+    def form_valid(self, form):
+        form.instance.extracted_text_id = self.kwargs.get("doc")
+        extracted_habits_and_practices = form.save()
+        return render(
+            self.request,
+            "chemicals/chemical_create_success.html",
+            {"chemical": extracted_habits_and_practices},
+        )
+
+
+@method_decorator(login_required, name="dispatch")
+class EHPUpdateView(UpdateView):
+    template_name = "chemicals/chemical_edit_form.html"
+    model = ExtractedHabitsAndPractices
+    form_class = ExtractedHabitsAndPracticesForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({"post_url": "ehp_update"})
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return render(
+            self.request,
+            "chemicals/chemical_create_success.html",
+            {"chemical": self.object},
+        )
+
+
+@method_decorator(login_required, name="dispatch")
+class EHPDeleteView(DeleteView):
+    model = ExtractedHabitsAndPractices
+
+    def get_success_url(self):
+        return reverse("data_document", args=[self.kwargs.get("doc")])
 
 
 @login_required()
