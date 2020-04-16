@@ -12,7 +12,7 @@ from .extracted_text import ExtractedText
 
 class ExtractedHabitsAndPracticesDataType(CommonInfo):
     title = models.CharField(max_length=50, blank=False, null=False)
-    description = models.CharField(max_length=255, blank=True, null=True)
+    description = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
         return self.title
@@ -103,16 +103,15 @@ class ExtractedHabitsAndPracticesTagKind(CommonInfo):
 
 
 class ExtractedHabitsAndPracticesTag(TagBase, CommonInfo):
-    definition = models.CharField("Definition", max_length=750, null=True, blank=True)
+    definition = models.CharField("Definition", max_length=750, blank=True)
     kind = models.ForeignKey(
         ExtractedHabitsAndPracticesTagKind, default=1, on_delete=models.PROTECT
     )
 
     class Meta:
-
         verbose_name = _("Extracted habits and practices keyword")
         verbose_name_plural = _("Extracted habits and practices keywords")
-        ordering = ("name",)
+        ordering = ("kind", "name")
 
     def __str__(self):
         return self.name

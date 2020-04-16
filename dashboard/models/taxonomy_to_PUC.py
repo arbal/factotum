@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
 from .common_info import CommonInfo
 
 
@@ -7,4 +9,6 @@ class TaxonomyToPUC(CommonInfo):
     taxonomy = models.ForeignKey("Taxonomy", on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name_plural = "Taxonomies to PUC's"
+        unique_together = ["taxonomy", "PUC"]
+        verbose_name = _("Taxonomy/PUC Association")
+        verbose_name_plural = _("Taxonomy/PUC Associations")

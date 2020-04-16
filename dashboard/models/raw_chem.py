@@ -13,19 +13,15 @@ class RawChem(models.Model):
     )
 
     raw_cas = models.CharField(
-        "Raw CAS", max_length=100, null=True, blank=True, help_text="Raw CAS"
+        "Raw CAS", max_length=100, blank=True, help_text="Raw CAS"
     )
     raw_chem_name = models.CharField(
-        "Raw chemical name",
-        max_length=1300,
-        null=True,
-        blank=True,
-        help_text="Raw chemical name",
+        "Raw chemical name", max_length=1300, blank=True, help_text="Raw chemical name"
     )
     temp_id = models.IntegerField(default=0, null=True, blank=True)
-    temp_obj_name = models.CharField(max_length=255, null=True, blank=True)
+    temp_obj_name = models.CharField(max_length=255, blank=True)
 
-    rid = models.CharField(max_length=50, null=True, blank=True, help_text="RID")
+    rid = models.CharField(max_length=50, blank=True, help_text="RID")
 
     dsstox = models.ForeignKey(
         "DSSToxLookup",
@@ -35,11 +31,7 @@ class RawChem(models.Model):
         blank=True,
     )
     component = models.CharField(
-        "Component",
-        max_length=200,
-        null=True,
-        blank=True,
-        help_text="product component",
+        "Component", max_length=200, blank=True, help_text="product component"
     )
 
     objects = InheritanceManager()

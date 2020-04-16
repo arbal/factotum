@@ -15,13 +15,13 @@
                 <div class="row">
                     <div class="col-6 text-left" id="raw_chem_name-{{ chemical.pk }}">
                         <h5 class="text-muted">
-                            {{ chemical.raw_chem_name|truncatechars:45 }}
+                            {{ chemical.raw_chem_name|truncatechars:45|default:"None" }}
                         </h5>
                     </div>
 
                     <div class="col-6 text-right" id="raw_cas-{{ chemical.pk }}">
                         <h5 class="text-muted">
-                            {{ chemical.raw_cas }}
+                            {{ chemical.raw_cas|default:"None" }}
                         </h5>
                     </div>
             {% if chemical.component %}
@@ -174,7 +174,8 @@
              id="add_chemical">
             <button class="btn m-0 p-0 btn-outline-secondary hover-success"
                     data-toggle="modal"
-                    data-target="#chemical-add-modal">
+                    data-target="#chemical-add-modal"
+                    style="z-index: 290;"> <!-- z-index workaround for selenium/webdriver bug -->
                 <div class="card-body shadow rounded p-0 m-0 text-center"
                      data-toggle="tooltip"
                      title="Add chemical">

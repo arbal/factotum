@@ -46,15 +46,12 @@ class DataDocument(CommonInfo):
         max_length=255, verbose_name="title", help_text="the title of the document"
     )
     subtitle = models.CharField(
-        null=True,
         blank=True,
         max_length=250,
-        default=None,
         verbose_name="subtitle",
         help_text="the subtitle of the document",
     )
     url = models.CharField(
-        null=True,
         blank=True,
         max_length=375,
         validators=[URLValidator()],
@@ -62,7 +59,6 @@ class DataDocument(CommonInfo):
         help_text="an optional URL to the document's remote source",
     )
     raw_category = models.CharField(
-        null=True,
         blank=True,
         max_length=1000,
         verbose_name="raw category",
@@ -93,10 +89,7 @@ class DataDocument(CommonInfo):
         help_text="The organization that provided the source file",
     )
     note = models.TextField(
-        blank=True,
-        null=True,
-        verbose_name="note",
-        help_text="Long-form notes about the document",
+        blank=True, verbose_name="note", help_text="Long-form notes about the document"
     )
 
     objects = DataDocumentManager()
@@ -110,7 +103,7 @@ class DataDocument(CommonInfo):
     @property
     def detail_page_editable(self):
         # this could be moved to settings
-        return self.data_group.group_type.code in ["CP", "HH", "CO", "FU", "LM"]
+        return self.data_group.group_type.code in ["CP", "HH", "HP", "CO", "FU", "LM"]
 
     @property
     def detail_page_include_organization(self):

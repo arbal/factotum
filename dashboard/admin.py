@@ -1,9 +1,10 @@
-from django.contrib import admin
-from dashboard.models import *
-from django.db.models import Count
-
 from django import forms
+from django.contrib import admin
+from django.db.models import Count
+from django.utils.translation import ugettext_lazy as _
 from taggit_labels.widgets import LabelWidget
+
+from dashboard.models import *
 from dashboard.signals import *
 
 
@@ -28,9 +29,9 @@ class PUCAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         return (
             super(PUCAdmin, self)
-            .get_queryset(request)
-            .prefetch_related("tags")
-            .annotate(num_products=Count("products"))
+                .get_queryset(request)
+                .prefetch_related("tags")
+                .annotate(num_products=Count("products"))
         )
 
     def num_products(self, obj):
@@ -110,8 +111,8 @@ class GroupTypeInline(admin.TabularInline):
     model = DocumentType.group_types.through
     extra = 0
     can_delete = False
-    verbose_name = "Compatible Group Type"
-    verbose_name_plural = "Compatible Group Types"
+    verbose_name = _("Compatible Group Type")
+    verbose_name_plural = _("Compatible Group Types")
 
 
 class DocumentTypeAdmin(admin.ModelAdmin):

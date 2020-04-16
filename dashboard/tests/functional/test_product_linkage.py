@@ -99,7 +99,7 @@ class TestProductLinkage(TestCase):
         # pick documents and check the attributes of their now-related products
         # 1: check a case where the ExtractedText record had a prod_name to offer
         ets = ExtractedText.objects.filter(data_document__data_group=dg)
-        et = ets.filter(prod_name__isnull=False).first()
+        et = ets.exclude(prod_name="").first()
         doc = DataDocument.objects.get(pk=et.data_document_id)
         product = ProductDocument.objects.get(document=doc).product
         self.assertEqual(
@@ -108,7 +108,7 @@ class TestProductLinkage(TestCase):
             "Title should be taken from ExtractedText.prod_name in bulkassignprod_form",
         )
         # 2: check a case where ExtractedText.prod_name is None
-        et = ets.filter(prod_name__isnull=True).first()
+        et = ets.filter(prod_name="").first()
         doc = DataDocument.objects.get(pk=et.data_document_id)
         product = ProductDocument.objects.get(document=doc).product
         self.assertEqual(

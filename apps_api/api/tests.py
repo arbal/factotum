@@ -6,6 +6,7 @@ from drf_yasg.generators import EndpointEnumerator
 
 from apps_api.api import views
 from apps_api.api.serializers import ExtractedChemicalSerializer
+from apps_api.api.views import ChemicalPresenceTagViewSet
 from apps_api.core.test import TestCase
 
 from dashboard import models
@@ -205,13 +206,13 @@ class TestExtractedChemicalSerializer(TestCase):
         dsstox = models.DSSToxLookup.objects.first()
         extracted_chemical = models.ExtractedChemical.objects.create(
             extracted_text=et,
-            dsstox=dsstox,
             component=str(uuid.uuid1()),
             lower_wf_analysis=0.1,
             central_wf_analysis=0.2,
             upper_wf_analysis=0.3,
             ingredient_rank=1,
         )
+        extracted_chemical.dsstox = dsstox
         serialized_extracted_chemical = ExtractedChemicalSerializer(extracted_chemical)
 
         self.assertEqual(
@@ -320,6 +321,90 @@ class TestFunctionalUseCategory(TestCase):
         self.assertTrue("paging" in response)
         self.assertTrue("meta" in response)
         self.assertEqual(count, response["meta"]["count"])
+
+
+class TestChemicalPresenceTags(TestCase):
+    queryset = ChemicalPresenceTagViewSet.queryset
+
+    def test_no_filter_error(self):
+        response = self.get("/chemicalpresence/")
+        self.assertEqual("invalid", response[0].code)
+
+    def test_chemical_filter(self):
+        chemical_id = "DTXSID9020584"
+        dataset = self.queryset.filter(sid=chemical_id).distinct()
+        count = dataset.count()
+        first_chemical = dataset.first()
+        tagsets = first_chemical.get_tags_with_extracted_text()
+        response = self.get("/chemicalpresence/?chemical=%s" % chemical_id)
+        data = response["data"][0]
+
+        self.assertTrue("meta" in response)
+        self.assertEqual(count, response["meta"]["count"])
+        self.assertIsNotNone(data)
+        self.assertEquals(first_chemical.sid, data["chemical_id"])
+        for keyword in data["keyword_sets"][0]["keywords"]:
+            self.assertIn(keyword["name"], [tag.name for tag in tagsets[0]["tags"]])
+        self.assertEqual(
+            int(data["keyword_sets"][0]["related"][0]["document_id"]),
+            tagsets[0]["related"][0]["extracted_text"].data_document_id,
+        )
+        self.assertListEqual(
+            data["keyword_sets"][0]["related"][0]["rids"],
+            [elp.rid for elp in tagsets[0]["related"][0]["extracted_list_presence"]],
+        )
+
+    def test_tag_filter(self):
+        tag_id = 1
+        dataset = self.queryset.filter(
+            curated_chemical__extractedlistpresence__tags__pk=tag_id
+        ).distinct()
+        count = dataset.count()
+        first_chemical = dataset.first()
+        tagsets = first_chemical.get_tags_with_extracted_text(tag_id=tag_id)
+        response = self.get("/chemicalpresence/?keyword=%s" % tag_id)
+        data = response["data"][0]
+
+        self.assertTrue("meta" in response)
+        self.assertEqual(count, response["meta"]["count"])
+        self.assertIsNotNone(data)
+        self.assertEquals(first_chemical.sid, data["chemical_id"])
+        for keyword in data["keyword_sets"][0]["keywords"]:
+            self.assertIn(keyword["name"], [tag.name for tag in tagsets[0]["tags"]])
+        self.assertEqual(
+            int(data["keyword_sets"][0]["related"][0]["document_id"]),
+            tagsets[0]["related"][0]["extracted_text"].data_document_id,
+        )
+        self.assertListEqual(
+            data["keyword_sets"][0]["related"][0]["rids"],
+            [elp.rid for elp in tagsets[0]["related"][0]["extracted_list_presence"]],
+        )
+
+    def test_document_filter(self):
+        document_id = 254781
+        dataset = self.queryset.filter(
+            curated_chemical__extracted_text__data_document_id=document_id
+        ).distinct()
+        count = dataset.count()
+        first_chemical = dataset.first()
+        tagsets = first_chemical.get_tags_with_extracted_text(doc_id=document_id)
+        response = self.get("/chemicalpresence/?document=%s" % document_id)
+        data = response["data"][0]
+
+        self.assertTrue("meta" in response)
+        self.assertEqual(count, response["meta"]["count"])
+        self.assertIsNotNone(data)
+        self.assertEquals(first_chemical.sid, data["chemical_id"])
+        for keyword in data["keyword_sets"][0]["keywords"]:
+            self.assertIn(keyword["name"], [tag.name for tag in tagsets[0]["tags"]])
+        self.assertEqual(
+            int(data["keyword_sets"][0]["related"][0]["document_id"]),
+            tagsets[0]["related"][0]["extracted_text"].data_document_id,
+        )
+        self.assertListEqual(
+            data["keyword_sets"][0]["related"][0]["rids"],
+            [elp.rid for elp in tagsets[0]["related"][0]["extracted_list_presence"]],
+        )
 
 
 class TestComposition(TestCase):

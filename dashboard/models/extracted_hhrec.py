@@ -7,15 +7,11 @@ from .raw_chem import RawChem
 
 
 class ExtractedHHRec(CommonInfo, RawChem):
-    media = models.CharField("Media", max_length=30, null=True, blank=True)
-    sampling_method = models.TextField("Sampling Method", null=True, blank=True)
-    analytical_method = models.TextField("Analytical Method", null=True, blank=True)
-    num_measure = models.CharField(
-        "Numeric Measure", max_length=50, null=True, blank=True
-    )
-    num_nondetect = models.CharField(
-        "Numeric Nondetect", max_length=50, null=True, blank=True
-    )
+    media = models.CharField("Media", max_length=30, blank=True)
+    sampling_method = models.TextField("Sampling Method", blank=True)
+    analytical_method = models.TextField("Analytical Method", blank=True)
+    num_measure = models.CharField("Numeric Measure", max_length=50, blank=True)
+    num_nondetect = models.CharField("Numeric Nondetect", max_length=50, blank=True)
 
     @classmethod
     def detail_fields(cls):

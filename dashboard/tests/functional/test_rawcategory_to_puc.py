@@ -118,9 +118,10 @@ class TestRawCategoryToPUCView(TestCase):
         for blank_raw_category in range(self.minimum_document_count):
             doc = DataDocument.objects.create(data_group=self.dg, raw_category="")
             doc.product_set.add(Product.objects.create(upc=uuid1()))
-        for null_raw_category in range(self.minimum_document_count):
-            doc = DataDocument.objects.create(data_group=self.dg, raw_category=None)
-            doc.product_set.add(Product.objects.create(upc=uuid1()))
+        # Null cases removed from dictionary
+        # for null_raw_category in range(self.minimum_document_count):
+        #     doc = DataDocument.objects.create(data_group=self.dg, raw_category=None)
+        #     doc.product_set.add(Product.objects.create(upc=uuid1()))
         response = self.client.get(reverse(self.path_name))
 
         self.assertEqual(

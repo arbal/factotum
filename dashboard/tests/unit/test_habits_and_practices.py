@@ -1,10 +1,12 @@
-from django.urls import resolve
 from django.test import TestCase, tag
+from django.urls import resolve
+from django.db.utils import IntegrityError
 
 from dashboard import views
 from dashboard.forms import create_detail_formset
 from dashboard.tests.loader import load_model_objects
 
+from dashboard.models import ExtractedHabitsAndPracticesToPUC
 
 @tag("loader")
 class HabitViewTest(TestCase):
@@ -99,3 +101,15 @@ class HabitViewTest(TestCase):
         # Ensure that the URL above responds correctly
         response2 = self.client.get(f"/datagroup/{self.objects.dg.pk}/")
         self.assertContains(response2, "Data Group Detail: Data Group for Test")
+
+    def test_unique_constaint(self):
+        self.ehp1 = ExtractedHabitsAndPracticesToPUC.objects.create(
+            extracted_habits_and_practices=self.objects.ehp,
+            PUC=self.objects.puc
+        )
+
+        with self.assertRaises(IntegrityError):
+            self.ehp2 = ExtractedHabitsAndPracticesToPUC.objects.create(
+                extracted_habits_and_practices=self.objects.ehp,
+                PUC=self.objects.puc
+            )

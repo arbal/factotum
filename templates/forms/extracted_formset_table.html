@@ -36,7 +36,8 @@
                             id="chem-card-{{ form.rawchem_ptr.value }}"
                             data-toggle="collapse"
                             data-target="#chem{{ form.rawchem_ptr.value }}"
-                            aria-expanded="true">
+                            aria-expanded="true"
+                            style="z-index: 290;"> <!-- z-index workaround for selenium/webdriver bug -->
                         {% if form.instance.raw_chem_name %}
                             <span class="fas fa-flask"></span>
                             {{ form.instance.raw_chem_name|truncatechars:133 }}

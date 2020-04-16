@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
 from .common_info import CommonInfo
 
 
@@ -11,5 +13,5 @@ class DocumentTypeGroupTypeCompatibilty(CommonInfo):
 
     class Meta:
         unique_together = ["document_type", "group_type"]
-        verbose_name = "Document type/Group type compatibilty"
-        verbose_name_plural = "Document type/Group type compatibilties"
+        verbose_name = _("Document type/Group type compatibilty")
+        verbose_name_plural = _("Document type/Group type compatibilties")

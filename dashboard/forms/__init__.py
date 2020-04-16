@@ -23,6 +23,7 @@ from .forms import (
     ExtractedFunctionalUseForm,
     ExtractedHHRecForm,
     ExtractedListPresenceForm,
+    ExtractedLMDocForm,
 )
 from dashboard.forms.list_presence_tag_form import ExtractedListPresenceTagForm
 from dashboard.forms.product_tag_form import ProductTagForm

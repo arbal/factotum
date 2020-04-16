@@ -19,6 +19,7 @@ router.register(
 )
 router.register(r"function", apiviews.FunctionalUseViewSet)
 router.register(r"functionaluses", apiviews.FunctionUseCategoryViewSet)
+router.register(r"chemicalpresence", apiviews.ChemicalPresenceTagViewSet)
 router.register(r"composition", apiviews.CompositionViewSet)
 
 urlpatterns = [

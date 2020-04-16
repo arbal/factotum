@@ -34,10 +34,8 @@ class DSSToxLookup(CommonInfo):
         unique=True,
         validators=[validate_prefix, validate_blank_char],
     )
-    true_cas = models.CharField("True CAS", max_length=50, null=True, blank=True)
-    true_chemname = models.CharField(
-        "True chemical name", max_length=500, null=True, blank=True
-    )
+    true_cas = models.CharField("True CAS", max_length=50, blank=True)
+    true_chemname = models.CharField("True chemical name", max_length=500, blank=True)
 
     def __str__(self):
         return self.true_chemname
@@ -93,3 +91,56 @@ class DSSToxLookup(CommonInfo):
                     )
                 )
         return keysets
+
+    def get_tags_with_extracted_text(self, doc_id=None, tag_id=None):
+        extracted_list_presences = (
+            ExtractedListPresence.objects.prefetch_related("tags")
+            .select_related("extracted_text")
+            .filter(dsstox=self)
+        )
+        tagsets = {}
+        for extracted_list_presence in extracted_list_presences:
+            if extracted_list_presence.tags.exists() and (
+                (
+                    not tag_id
+                    or tag_id
+                    in extracted_list_presence.tags.values_list("pk", flat=True)
+                )
+                and (not doc_id or doc_id == extracted_list_presence.extracted_text.pk)
+            ):
+                tagset_dict = tagsets.get(frozenset(extracted_list_presence.tags.all()))
+                if tagset_dict:
+                    rid_list = tagset_dict.get(extracted_list_presence.extracted_text)
+                    if rid_list:
+                        rid_list.append(extracted_list_presence)
+                    else:
+                        tagset_dict.update(
+                            {
+                                extracted_list_presence.extracted_text: [
+                                    extracted_list_presence
+                                ]
+                            }
+                        )
+                else:
+                    tagsets.update(
+                        {
+                            frozenset(extracted_list_presence.tags.all()): {
+                                extracted_list_presence.extracted_text: [
+                                    extracted_list_presence
+                                ]
+                            }
+                        }
+                    )
+        # Transform the data to be more manageable.
+        tagset_list = []
+        for tags, values in tagsets.items():
+            tagset_list.append(
+                {
+                    "tags": tags,
+                    "related": [
+                        {"extracted_text": key, "extracted_list_presence": value}
+                        for key, value in values.items()
+                    ],
+                }
+            )
+        return tagset_list

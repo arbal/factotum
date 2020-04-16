@@ -128,11 +128,11 @@ def link_product_form(request, pk):
             product, created = Product.objects.get_or_create(upc=upc)
             if created:
                 product.title = title
-                product.manufacturer = form["manufacturer"].value()
-                product.brand_name = form["brand_name"].value()
+                product.manufacturer = form["manufacturer"].value() or ""
+                product.brand_name = form["brand_name"].value() or ""
                 product.upc = form["upc"].value()
-                product.size = form["size"].value()
-                product.color = form["color"].value()
+                product.size = form["size"].value() or ""
+                product.color = form["color"].value() or ""
                 product.save()
             if not ProductDocument.objects.filter(
                 document=doc, product=product

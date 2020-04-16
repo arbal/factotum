@@ -45,7 +45,6 @@
                    title="View data document"
                    data-toggle="tooltip"
                    target="_blank"
-                   download="{{ doc.filename }}"
                    href="{{ doc.file.url }}">
                     <span class="fa fa-fs {{ doc.file.url|fileicon }}"></span>
                 </a>
@@ -94,7 +93,7 @@
             <div class="d-flex flex-row justify-content-between">
                 <div>
                     <a id="datasource_link"
-                       title="DataSource"
+                       title="Data Source"
                        data-toggle="tooltip"
                             {% if request.user.is_authenticated %}
                        href="{% url 'data_source_detail' doc.data_group.data_source.id %}"
@@ -108,7 +107,7 @@
                 <div class="btn-group btn-group-sm shadow ">
                     {% if doc.data_group.data_source.url %}
                         <a class="btn btn-outline-secondary hover-success"
-                                title="View data source (external)"
+                                title="View Data Source (external)"
                                 id="datasource_url"
                                 data-toggle="tooltip"
                                 target="_blank"
@@ -129,7 +128,7 @@
                 </div>
             </div>
             <a id="datagroup_link"
-               title="DataGroup"
+               title="Data Group"
                data-toggle="tooltip"
                     {% if request.user.is_authenticated %}
                href="{% url 'data_group_detail' doc.data_group.id %}"
@@ -139,7 +138,7 @@
             </a>
 
             <div class="d-table-cell">
-                <h5 title="group type : document type"
+                <h5 title="Group Type : Document Type"
                     data-toggle="tooltip">
                     {{ doc.data_group.group_type }}
                     {% if doc.document_type %}
@@ -231,7 +230,6 @@
                 </div>
             {% endif %}
             {% if doc.data_group.can_have_products %}
-
                 <hr>
                 <div>
                     <!-- Products -->

@@ -124,6 +124,17 @@ class FunctionUseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.FunctionalUseCategory.objects.all().order_by("id")
 
 
+class ChemicalPresenceTagViewSet(ViewSetMixin, generics.ListAPIView):
+    """
+    list: Service returns all chemicals and their associated tags, documents, and rids.
+    Accepts a required filter for any of ["chemical", "document", "keyword"]
+    """
+
+    serializer_class = serializers.ChemicalPresenceTagsetSerializer
+    queryset = models.DSSToxLookup.objects.all().order_by("id")
+    filterset_class = filters.ChemicalPresenceTagsetFilter
+
+
 class CompositionViewSet(ViewSetMixin, generics.ListAPIView):
     """
     list: Service providing all Composition data in ChemExpoDB.

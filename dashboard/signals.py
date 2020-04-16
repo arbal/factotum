@@ -44,9 +44,11 @@ def delete_related_product_tags(sender, **kwargs):
 def uncurate(sender, **kwargs):
     instance = kwargs.get("instance")
     watched_keys = {"raw_cas", "raw_chem_name"}
-    if not instance.tracker.changed().keys().isdisjoint(watched_keys):
+    if not instance._state.adding and not instance.tracker.changed().keys().isdisjoint(
+        watched_keys
+    ):
         instance.dsstox = None
-        instance.rid = None
+        instance.rid = ""
 
 
 @receiver(post_delete, sender=DocumentTypeGroupTypeCompatibilty)

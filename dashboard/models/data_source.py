@@ -32,7 +32,7 @@ class DataSource(CommonInfo):
         default=47, validators=[validate_nonzero]
     )
     state = models.CharField(max_length=2, choices=STATE_CHOICES, default="AT")
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(blank=True)
     priority = models.CharField(max_length=2, choices=PRIORITY_CHOICES, default="HI")
 
     def __str__(self):

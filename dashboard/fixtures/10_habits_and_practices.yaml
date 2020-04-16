@@ -26,3 +26,47 @@
   pk: 5
   fields: {created_at: ! '2018-10-23 14:07:09.203430', updated_at: ! '2018-10-23 14:07:09.203456',
     extracted_text: 53, product_surveyed: trombone, data_type: 2, notes: another HnP to link to PUCs, data_type_id: 2}
+- model: dashboard.extractedhabitsandpracticestagkind
+  pk: 1
+  fields: {created_at: ! '2020-04-08 14:07:09.203430', updated_at: ! '2020-04-08  14:07:09.203456',
+           name: Age}
+- model: dashboard.extractedhabitsandpracticestagkind
+  pk: 2
+  fields: {created_at: ! '2020-04-08 14:07:09.203430', updated_at: ! '2020-04-08  14:07:09.203456',
+           name: Race}
+- model: dashboard.extractedhabitsandpracticestagkind
+  pk: 3
+  fields: {created_at: ! '2020-04-08 14:07:09.203430', updated_at: ! '2020-04-08  14:07:09.203456',
+           name: SES}
+- model: dashboard.extractedhabitsandpracticestag
+  pk: 1
+  fields: {created_at: ! '2020-04-08 14:07:09.203430', updated_at: ! '2020-04-08  14:07:09.203456',
+    name: Infant, slug: infant, kind: 1, definition: Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt}
+- model: dashboard.extractedhabitsandpracticestag
+  pk: 2
+  fields: {created_at: ! '2020-04-08 14:07:09.203430', updated_at: ! '2020-04-08  14:07:09.203456',
+    name: Low-Income, slug: low-income, kind: 3, definition: Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt}
+- model: dashboard.extractedhabitsandpracticestag
+  pk: 3
+  fields: {created_at: ! '2020-04-08 14:07:09.203430', updated_at: ! '2020-04-08  14:07:09.203456',
+    name: White, slug: white, kind: 2, definition: Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt}
+- model: dashboard.extractedhabitsandpracticestag
+  pk: 4
+  fields: {created_at: ! '2020-04-08 14:07:09.203430', updated_at: ! '2020-04-08  14:07:09.203456',
+           name: Adolescent, slug: adolescent, kind: 1, definition: Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt}
+- model: dashboard.extractedhabitsandpracticestotag
+  pk: 1
+  fields: {created_at: ! '2020-04-08 14:07:09.203430', updated_at: ! '2020-04-08  14:07:09.203456',
+  content_object_id: 1, tag: 1}
+- model: dashboard.extractedhabitsandpracticestotag
+  pk: 2
+  fields: {created_at: ! '2020-04-08 14:07:09.203430', updated_at: ! '2020-04-08  14:07:09.203456',
+  content_object_id: 1, tag: 2}
+- model: dashboard.extractedhabitsandpracticestotag
+  pk: 3
+  fields: {created_at: ! '2020-04-08 14:07:09.203430', updated_at: ! '2020-04-08  14:07:09.203456',
+  content_object_id: 1, tag_id: 3}
+- model: dashboard.extractedhabitsandpracticestotag
+  pk: 4
+  fields: {created_at: ! '2020-04-08 14:07:09.203430', updated_at: ! '2020-04-08  14:07:09.203456',
+  content_object_id: 1, tag_id: 4}

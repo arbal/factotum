@@ -24,9 +24,10 @@ class HabitsAndPracticesTest(TestCase):
     def test_hp_tags(self):
         # makes two new tags and assigns them to an existing ExtractedHabitsAndPractices
         hp1 = ExtractedHabitsAndPractices.objects.filter(extracted_text_id=53).first()
+        old_count = hp1.tags.count()
         kind1 = ExtractedHabitsAndPracticesTagKind(name="age group")
         kind1.save()
-        tag1 = ExtractedHabitsAndPracticesTag(name="infant", kind=kind1)
+        tag1 = ExtractedHabitsAndPracticesTag(name="teenager", kind=kind1)
         tag1.save()
         hp1.tags.add(tag1)
         kind2 = ExtractedHabitsAndPracticesTagKind(name="ethnicity")
@@ -35,6 +36,6 @@ class HabitsAndPracticesTest(TestCase):
         tag2.save()
         hp1.tags.add(tag2)
         # both tags are now related to the ExtractedHabitsAndPractices record
-        self.assertEqual(hp1.tags.count(), 2)
+        self.assertEqual(hp1.tags.count(), old_count + 2)
         # one of the new tags has today's date for its updated_at
-        self.assertEqual(hp1.tags.first().updated_at.day, date.today().day)
+        self.assertEqual(hp1.tags.get(pk=tag1.pk).updated_at.day, date.today().day)

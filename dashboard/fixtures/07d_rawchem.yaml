@@ -56,7 +56,7 @@
     raw_chem_name: Allantoin
     temp_id: 10
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 8
@@ -66,7 +66,7 @@
     raw_chem_name: Boric acid
     temp_id: 11708
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 9
@@ -76,7 +76,7 @@
     raw_chem_name: Acrolein
     temp_id: 12021
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 10
@@ -86,7 +86,7 @@
     raw_chem_name: Citric acid
     temp_id: 12272
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 11
@@ -96,7 +96,7 @@
     raw_chem_name: Dehydroacetic acid
     temp_id: 12468
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 12
@@ -106,7 +106,7 @@
     raw_chem_name: Benzyl alcohol
     temp_id: 12768
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 13
@@ -116,7 +116,7 @@
     raw_chem_name: Citric acid
     temp_id: 13787
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 14
@@ -126,7 +126,7 @@
     raw_chem_name: tert-Butyl alcohol
     temp_id: 14100
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 15
@@ -136,7 +136,7 @@
     raw_chem_name: 1,3-Butadiene
     temp_id: 14133
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 16
@@ -146,7 +146,7 @@
     raw_chem_name: 1,3-Butadiene
     temp_id: 14160
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 17
@@ -156,7 +156,7 @@
     raw_chem_name: 1,3-Butadiene
     temp_id: 14507
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 18
@@ -166,7 +166,7 @@
     raw_chem_name: 1,3-Butadiene
     temp_id: 14833
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 19
@@ -176,7 +176,7 @@
     raw_chem_name: 1,3-Butadiene
     temp_id: 14854
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 20
@@ -186,7 +186,7 @@
     raw_chem_name: Citric acid
     temp_id: 15249
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 21
@@ -196,7 +196,7 @@
     raw_chem_name: Citric acid
     temp_id: 15253
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 22
@@ -206,7 +206,7 @@
     raw_chem_name: Isobutylparaben
     temp_id: 15512
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 23
@@ -256,7 +256,7 @@
     raw_chem_name: Chlorobenzene
     temp_id: 16131
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 28
@@ -296,7 +296,7 @@
     raw_chem_name: Niacinamide
     temp_id: 17962
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 32
@@ -306,7 +306,7 @@
     raw_chem_name: Nickel
     temp_id: 18446
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 33
@@ -316,7 +316,7 @@
     raw_chem_name: Glycerol
     temp_id: 18786
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 34
@@ -326,7 +326,7 @@
     raw_chem_name: Isopropanol
     temp_id: 19401
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 35
@@ -336,7 +336,7 @@
     raw_chem_name: Saccharin
     temp_id: 19484
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 36
@@ -346,7 +346,7 @@
     raw_chem_name: Sodium bicarbonate
     temp_id: 19494
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 37
@@ -356,7 +356,7 @@
     raw_chem_name: Lecithin
     temp_id: 19581
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 38
@@ -366,7 +366,7 @@
     raw_chem_name: Sodium chloride
     temp_id: 20043
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 39
@@ -376,7 +376,7 @@
     raw_chem_name: Nickel
     temp_id: 20477
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 40
@@ -386,7 +386,7 @@
     raw_chem_name: Nickel
     temp_id: 20555
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 41
@@ -396,7 +396,7 @@
     raw_chem_name: Nickel
     temp_id: 20733
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 42
@@ -406,7 +406,7 @@
     raw_chem_name: Nickel
     temp_id: 20832
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 43
@@ -416,7 +416,7 @@
     raw_chem_name: Nickel
     temp_id: 21190
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 44
@@ -426,7 +426,7 @@
     raw_chem_name: Nickel
     temp_id: 21202
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 45
@@ -436,7 +436,7 @@
     raw_chem_name: Titanium dioxide
     temp_id: 21538
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 46
@@ -446,7 +446,7 @@
     raw_chem_name: Titanium dioxide
     temp_id: 21675
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 47
@@ -456,7 +456,7 @@
     raw_chem_name: Toluene
     temp_id: 21750
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: 15
 - model: dashboard.rawchem
   pk: 48
@@ -466,7 +466,7 @@
     raw_chem_name: Triethanolamine
     temp_id: 22072
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 49
@@ -476,7 +476,7 @@
     raw_chem_name: 1,2,4-Trimethylbenzene
     temp_id: 22471
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 50
@@ -486,7 +486,7 @@
     raw_chem_name: Nickel
     temp_id: 22612
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 51
@@ -496,7 +496,7 @@
     raw_chem_name: Nickel
     temp_id: 22800
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 52
@@ -506,7 +506,7 @@
     raw_chem_name: Nicotine
     temp_id: 23078
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 53
@@ -516,7 +516,7 @@
     raw_chem_name: Nickel
     temp_id: 23302
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 54
@@ -526,7 +526,7 @@
     raw_chem_name: Acetone
     temp_id: 23775
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 55
@@ -536,7 +536,7 @@
     raw_chem_name: Methanol
     temp_id: 23852
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 56
@@ -546,7 +546,7 @@
     raw_chem_name: Polysorbate 80
     temp_id: 23970
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 57
@@ -556,7 +556,7 @@
     raw_chem_name: Sodium chloride
     temp_id: 24255
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 58
@@ -566,7 +566,7 @@
     raw_chem_name: Lecithin
     temp_id: 24357
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 59
@@ -576,7 +576,7 @@
     raw_chem_name: Titanium dioxide
     temp_id: 24876
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 60
@@ -586,7 +586,7 @@
     raw_chem_name: Titanium dioxide
     temp_id: 24949
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 61
@@ -596,7 +596,7 @@
     raw_chem_name: Titanium dioxide
     temp_id: 25017
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 62
@@ -606,7 +606,7 @@
     raw_chem_name: Resorcinol
     temp_id: 25499
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 63
@@ -616,7 +616,7 @@
     raw_chem_name: Sodium chloride
     temp_id: 25766
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 64
@@ -626,7 +626,7 @@
     raw_chem_name: Sodium chloride
     temp_id: 25769
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 65
@@ -636,7 +636,7 @@
     raw_chem_name: Acetone
     temp_id: 25889
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 66
@@ -646,7 +646,7 @@
     raw_chem_name: Acetone
     temp_id: 26003
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 67
@@ -656,7 +656,7 @@
     raw_chem_name: Methyl tert-butyl ether
     temp_id: 26062
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 68
@@ -666,7 +666,7 @@
     raw_chem_name: Titanium dioxide
     temp_id: 26257
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 69
@@ -676,7 +676,7 @@
     raw_chem_name: Titanium dioxide
     temp_id: 26440
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 70
@@ -686,7 +686,7 @@
     raw_chem_name: Triethanolamine
     temp_id: 26542
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 71
@@ -696,7 +696,7 @@
     raw_chem_name: Triethanolamine
     temp_id: 26645
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 72
@@ -706,7 +706,7 @@
     raw_chem_name: Nitromethane
     temp_id: 26918
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 73
@@ -726,7 +726,7 @@
     raw_chem_name: Methylparaben
     temp_id: 27598
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 75
@@ -736,7 +736,7 @@
     raw_chem_name: Cyclohexane
     temp_id: 27736
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 76
@@ -746,7 +746,7 @@
     raw_chem_name: Nitrous oxide
     temp_id: 27890
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 77
@@ -756,7 +756,7 @@
     raw_chem_name: Nitrous oxide
     temp_id: 27925
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 78
@@ -766,7 +766,7 @@
     raw_chem_name: Copper
     temp_id: 28575
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 79
@@ -776,7 +776,7 @@
     raw_chem_name: Copper
     temp_id: 28996
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 80
@@ -786,7 +786,7 @@
     raw_chem_name: Copper
     temp_id: 29027
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 81
@@ -796,7 +796,7 @@
     raw_chem_name: Copper
     temp_id: 29104
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 82
@@ -806,7 +806,7 @@
     raw_chem_name: Castor oil
     temp_id: 30203
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 83
@@ -816,7 +816,7 @@
     raw_chem_name: Toluene
     temp_id: 30656
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: 15
 - model: dashboard.rawchem
   pk: 84
@@ -826,7 +826,7 @@
     raw_chem_name: 1,1,2-Trichloroethane
     temp_id: 31125
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 85
@@ -836,7 +836,7 @@
     raw_chem_name: 1,1,1-Trichloroethane
     temp_id: 31138
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 86
@@ -846,7 +846,7 @@
     raw_chem_name: Vinyl chloride
     temp_id: 31478
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 87
@@ -856,7 +856,7 @@
     raw_chem_name: 1,1-Dichloroethylene
     temp_id: 31495
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 88
@@ -866,7 +866,7 @@
     raw_chem_name: Dimethoxymethane
     temp_id: 31619
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 89
@@ -876,7 +876,7 @@
     raw_chem_name: Propanone
     temp_id: 32012
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 90
@@ -916,7 +916,7 @@
     raw_chem_name: Etidronic acid
     temp_id: 33012
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
     component: Component A
 - model: dashboard.rawchem
@@ -927,7 +927,7 @@
     raw_chem_name: Citronellol
     temp_id: 33285
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 95
@@ -937,7 +937,7 @@
     raw_chem_name: Propylene carbonate
     temp_id: 33673
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 96
@@ -947,7 +947,7 @@
     raw_chem_name: Linalyl acetate
     temp_id: 33794
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 97
@@ -957,7 +957,7 @@
     raw_chem_name: Methanol
     temp_id: 34008
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 98
@@ -967,7 +967,7 @@
     raw_chem_name: Methanol
     temp_id: 34021
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 99
@@ -977,7 +977,7 @@
     raw_chem_name: Methanol
     temp_id: 34280
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 100
@@ -987,7 +987,7 @@
     raw_chem_name: 1-Butanol
     temp_id: 34343
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 101
@@ -997,7 +997,7 @@
     raw_chem_name: Carbon
     temp_id: 35205
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 102
@@ -1007,7 +1007,7 @@
     raw_chem_name: n-Hexane
     temp_id: 35590
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 103
@@ -1017,7 +1017,7 @@
     raw_chem_name: n-Hexane
     temp_id: 35867
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 104
@@ -1027,7 +1027,7 @@
     raw_chem_name: Butane
     temp_id: 36111
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 105
@@ -1037,7 +1037,7 @@
     raw_chem_name: Butane
     temp_id: 36135
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 106
@@ -1047,7 +1047,7 @@
     raw_chem_name: Ethanolamine
     temp_id: 36191
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 107
@@ -1057,7 +1057,7 @@
     raw_chem_name: Copper
     temp_id: 36923
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 108
@@ -1067,7 +1067,7 @@
     raw_chem_name: Copper
     temp_id: 37282
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 109
@@ -1077,7 +1077,7 @@
     raw_chem_name: Copper
     temp_id: 37661
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 110
@@ -1087,7 +1087,7 @@
     raw_chem_name: Copper
     temp_id: 37997
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 111
@@ -1097,7 +1097,7 @@
     raw_chem_name: Lead
     temp_id: 38292
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 112
@@ -1107,7 +1107,7 @@
     raw_chem_name: Mercury
     temp_id: 38545
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 113
@@ -1117,7 +1117,7 @@
     raw_chem_name: Dimethyl carbonate
     temp_id: 38906
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 114
@@ -1127,7 +1127,7 @@
     raw_chem_name: Dimethyl carbonate
     temp_id: 39190
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 115
@@ -1147,7 +1147,7 @@
     raw_chem_name: Isobutane
     temp_id: 40999
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 117
@@ -1157,7 +1157,7 @@
     raw_chem_name: Benzyl salicylate
     temp_id: 41250
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 118
@@ -1167,7 +1167,7 @@
     raw_chem_name: Butane
     temp_id: 41387
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 119
@@ -1177,7 +1177,7 @@
     raw_chem_name: Butane
     temp_id: 41529
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 120
@@ -1187,7 +1187,7 @@
     raw_chem_name: Castor oil
     temp_id: 41704
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 121
@@ -1197,7 +1197,7 @@
     raw_chem_name: Potassium hydroxide
     temp_id: 41840
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 122
@@ -1207,7 +1207,7 @@
     raw_chem_name: Decamethylcyclopentasiloxane
     temp_id: 42193
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 123
@@ -1217,7 +1217,7 @@
     raw_chem_name: Diethyl carbonate
     temp_id: 42273
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 124
@@ -1227,7 +1227,7 @@
     raw_chem_name: Ethylene glycol dimethyl ether
     temp_id: 42748
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 125
@@ -1237,7 +1237,7 @@
     raw_chem_name: Copper
     temp_id: 43198
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 126
@@ -1247,7 +1247,7 @@
     raw_chem_name: Copper
     temp_id: 43296
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 127
@@ -1257,7 +1257,7 @@
     raw_chem_name: Copper
     temp_id: 43442
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 128
@@ -1267,7 +1267,7 @@
     raw_chem_name: Copper
     temp_id: 43990
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 129
@@ -1277,7 +1277,7 @@
     raw_chem_name: Copper
     temp_id: 44053
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 130
@@ -1287,7 +1287,7 @@
     raw_chem_name: Mercury
     temp_id: 45187
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 131
@@ -1297,7 +1297,7 @@
     raw_chem_name: Lanolin
     temp_id: 45375
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 132
@@ -1307,7 +1307,7 @@
     raw_chem_name: Oxalic acid
     temp_id: 45893
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 133
@@ -1317,7 +1317,7 @@
     raw_chem_name: Oxalic acid
     temp_id: 45896
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 134
@@ -1327,7 +1327,7 @@
     raw_chem_name: Benzyl salicylate
     temp_id: 46093
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 135
@@ -1388,7 +1388,7 @@
     raw_chem_name: Salicylic acid
     temp_id: 47214
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 141
@@ -1398,7 +1398,7 @@
     raw_chem_name: Ethylene
     temp_id: 47243
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 142
@@ -1408,7 +1408,7 @@
     raw_chem_name: Propane
     temp_id: 47420
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 143
@@ -1418,7 +1418,7 @@
     raw_chem_name: Citronellol
     temp_id: 47799
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 144
@@ -1428,7 +1428,7 @@
     raw_chem_name: Syrups, hydrolyzed starch, hydrogenated
     temp_id: 48530
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 145
@@ -1438,7 +1438,7 @@
     raw_chem_name: Octamethylcyclotetrasiloxane
     temp_id: 48554
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 146
@@ -1448,7 +1448,7 @@
     raw_chem_name: Carbon
     temp_id: 49083
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 147
@@ -1458,7 +1458,7 @@
     raw_chem_name: Oleic acid
     temp_id: 49500
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 148
@@ -1468,7 +1468,7 @@
     raw_chem_name: Benzyl benzoate
     temp_id: 49611
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 149
@@ -1478,7 +1478,7 @@
     raw_chem_name: 4-tert-Butylcyclohexyl acetate
     temp_id: 49682
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 150
@@ -1488,7 +1488,7 @@
     raw_chem_name: Vitamin D3
     temp_id: 49779
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 151
@@ -1528,7 +1528,7 @@
     raw_chem_name: Propane
     temp_id: 51032
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 155
@@ -1538,7 +1538,7 @@
     raw_chem_name: 1,3-Dioxolan-2-one
     temp_id: 51363
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 156
@@ -1548,7 +1548,7 @@
     raw_chem_name: Sodium hydroxide
     temp_id: 51920
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 157
@@ -1558,7 +1558,7 @@
     raw_chem_name: Dimethyldioctadecylammonium chloride
     temp_id: 51931
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 158
@@ -1568,7 +1568,7 @@
     raw_chem_name: Ammonia
     temp_id: 52559
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 159
@@ -1578,7 +1578,7 @@
     raw_chem_name: Ammonia
     temp_id: 52573
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 160
@@ -1588,7 +1588,7 @@
     raw_chem_name: Dimethylamine
     temp_id: 52750
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 161
@@ -1598,7 +1598,7 @@
     raw_chem_name: Magnesium stearate
     temp_id: 52829
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 162
@@ -1608,7 +1608,7 @@
     raw_chem_name: Fluorine
     temp_id: 52841
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 163
@@ -1618,7 +1618,7 @@
     raw_chem_name: Heptane
     temp_id: 52955
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 164
@@ -1628,7 +1628,7 @@
     raw_chem_name: Heptane
     temp_id: 53195
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 165
@@ -1638,7 +1638,7 @@
     raw_chem_name: Heptane
     temp_id: 53334
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 166
@@ -1648,7 +1648,7 @@
     raw_chem_name: Hydrogen cyanide
     temp_id: 53557
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 167
@@ -1658,7 +1658,7 @@
     raw_chem_name: Hydrogen sulfide
     temp_id: 53771
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 168
@@ -1668,7 +1668,7 @@
     raw_chem_name: 1,3-Dioxolane
     temp_id: 53871
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 169
@@ -1678,7 +1678,7 @@
     raw_chem_name: Petrolatum
     temp_id: 54541
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 170
@@ -1688,7 +1688,7 @@
     raw_chem_name: Dimethyl carbonate
     temp_id: 54747
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 171
@@ -1698,7 +1698,7 @@
     raw_chem_name: Dimethyl carbonate
     temp_id: 54766
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 172
@@ -1708,7 +1708,7 @@
     raw_chem_name: Butane
     temp_id: 56034
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 173
@@ -1718,7 +1718,7 @@
     raw_chem_name: Butane
     temp_id: 56153
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 174
@@ -1728,7 +1728,7 @@
     raw_chem_name: Butane
     temp_id: 56482
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 175
@@ -1738,7 +1738,7 @@
     raw_chem_name: Butane
     temp_id: 56730
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 176
@@ -1748,7 +1748,7 @@
     raw_chem_name: Butane
     temp_id: 57042
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 177
@@ -1758,7 +1758,7 @@
     raw_chem_name: Butane
     temp_id: 57055
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 178
@@ -1768,7 +1768,7 @@
     raw_chem_name: Butane
     temp_id: 57255
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 179
@@ -1778,7 +1778,7 @@
     raw_chem_name: Butane
     temp_id: 57433
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 180
@@ -1788,7 +1788,7 @@
     raw_chem_name: Butane
     temp_id: 58059
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 181
@@ -1798,7 +1798,7 @@
     raw_chem_name: Sodium hydroxide
     temp_id: 58931
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 182
@@ -1808,7 +1808,7 @@
     raw_chem_name: Silica
     temp_id: 59244
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 183
@@ -1818,7 +1818,7 @@
     raw_chem_name: Silica
     temp_id: 59257
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 184
@@ -1828,7 +1828,7 @@
     raw_chem_name: 2,2-Dimethylbutane
     temp_id: 59468
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 185
@@ -1838,7 +1838,7 @@
     raw_chem_name: 2,3-Dimethylbutane
     temp_id: 59560
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 186
@@ -1848,7 +1848,7 @@
     raw_chem_name: Amides, coco, N-(hydroxyethyl)
     temp_id: 59636
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 187
@@ -1858,7 +1858,7 @@
     raw_chem_name: Halothane
     temp_id: 59647
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 188
@@ -1868,7 +1868,7 @@
     raw_chem_name: 1-Hexene
     temp_id: 59802
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 189
@@ -1878,7 +1878,7 @@
     raw_chem_name: 2-Methylbutane
     temp_id: 60017
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 190
@@ -1888,7 +1888,7 @@
     raw_chem_name: 2-Methylbutane
     temp_id: 60078
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 191
@@ -1898,7 +1898,7 @@
     raw_chem_name: 2-Methylbutane
     temp_id: 60194
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 192
@@ -1908,7 +1908,7 @@
     raw_chem_name: Methane
     temp_id: 60535
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 193
@@ -1918,7 +1918,7 @@
     raw_chem_name: Methane
     temp_id: 61231
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 194
@@ -1928,7 +1928,7 @@
     raw_chem_name: Methane
     temp_id: 61390
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 195
@@ -1938,7 +1938,7 @@
     raw_chem_name: Methane
     temp_id: 61642
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 196
@@ -1948,7 +1948,7 @@
     raw_chem_name: Methane
     temp_id: 61820
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 197
@@ -1958,7 +1958,7 @@
     raw_chem_name: Methane
     temp_id: 62098
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 198
@@ -1968,7 +1968,7 @@
     raw_chem_name: Methane
     temp_id: 62534
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 199
@@ -1978,7 +1978,7 @@
     raw_chem_name: Methane
     temp_id: 62662
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 200
@@ -1988,7 +1988,7 @@
     raw_chem_name: Methane
     temp_id: 63094
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 201
@@ -1998,7 +1998,7 @@
     raw_chem_name: Methane
     temp_id: 63768
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 202
@@ -2008,7 +2008,7 @@
     raw_chem_name: Methane
     temp_id: 64106
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 203
@@ -2018,7 +2018,7 @@
     raw_chem_name: Methane
     temp_id: 64133
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 204
@@ -2028,7 +2028,7 @@
     raw_chem_name: Pentane
     temp_id: 64821
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 205
@@ -2038,7 +2038,7 @@
     raw_chem_name: Pentane
     temp_id: 65388
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 206
@@ -2048,7 +2048,7 @@
     raw_chem_name: Pentane
     temp_id: 65718
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 207
@@ -2058,7 +2058,7 @@
     raw_chem_name: Pentane
     temp_id: 65728
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 208
@@ -2068,7 +2068,7 @@
     raw_chem_name: Pentane
     temp_id: 65812
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 209
@@ -2078,7 +2078,7 @@
     raw_chem_name: Pentane
     temp_id: 66007
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 210
@@ -2088,7 +2088,7 @@
     raw_chem_name: Pentane
     temp_id: 66171
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 211
@@ -2098,7 +2098,7 @@
     raw_chem_name: Pentane
     temp_id: 66572
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 212
@@ -2108,7 +2108,7 @@
     raw_chem_name: Pentane
     temp_id: 66761
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 213
@@ -2118,7 +2118,7 @@
     raw_chem_name: Pentane
     temp_id: 66821
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 214
@@ -2128,7 +2128,7 @@
     raw_chem_name: Pentane
     temp_id: 66919
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 215
@@ -2138,7 +2138,7 @@
     raw_chem_name: Pentane
     temp_id: 67063
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 216
@@ -2158,7 +2158,7 @@
     raw_chem_name: Ethane
     temp_id: 67993
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 218
@@ -2168,7 +2168,7 @@
     raw_chem_name: Ethylene
     temp_id: 68412
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 219
@@ -2178,7 +2178,7 @@
     raw_chem_name: Ethylene
     temp_id: 68437
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 220
@@ -2188,7 +2188,7 @@
     raw_chem_name: Ethane
     temp_id: 68445
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 221
@@ -2198,7 +2198,7 @@
     raw_chem_name: Ethylene
     temp_id: 68636
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 222
@@ -2208,7 +2208,7 @@
     raw_chem_name: Ethane
     temp_id: 69043
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 223
@@ -2218,7 +2218,7 @@
     raw_chem_name: Ethane
     temp_id: 69099
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 224
@@ -2228,7 +2228,7 @@
     raw_chem_name: Propane
     temp_id: 69369
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 225
@@ -2238,7 +2238,7 @@
     raw_chem_name: Propane
     temp_id: 70169
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 226
@@ -2248,7 +2248,7 @@
     raw_chem_name: Ethylene
     temp_id: 70320
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 227
@@ -2258,7 +2258,7 @@
     raw_chem_name: Propane
     temp_id: 70348
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 228
@@ -2268,7 +2268,7 @@
     raw_chem_name: Propane
     temp_id: 70415
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 229
@@ -2278,7 +2278,7 @@
     raw_chem_name: Ethylene
     temp_id: 70921
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 230
@@ -2288,7 +2288,7 @@
     raw_chem_name: Dimethyl sulfide
     temp_id: 70923
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 231
@@ -2298,7 +2298,7 @@
     raw_chem_name: Ethane
     temp_id: 71160
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 232
@@ -2308,7 +2308,7 @@
     raw_chem_name: Ethane
     temp_id: 71265
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 233
@@ -2318,7 +2318,7 @@
     raw_chem_name: Ethane
     temp_id: 71452
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 234
@@ -2328,7 +2328,7 @@
     raw_chem_name: Ethane
     temp_id: 71646
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 235
@@ -2338,7 +2338,7 @@
     raw_chem_name: Ethane
     temp_id: 71988
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 236
@@ -2348,7 +2348,7 @@
     raw_chem_name: Ethylene
     temp_id: 72017
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 237
@@ -2358,7 +2358,7 @@
     raw_chem_name: Propane
     temp_id: 72523
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 238
@@ -2368,7 +2368,7 @@
     raw_chem_name: Ethane
     temp_id: 72729
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 239
@@ -2378,7 +2378,7 @@
     raw_chem_name: Ethane
     temp_id: 72807
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 240
@@ -2388,7 +2388,7 @@
     raw_chem_name: Ethane
     temp_id: 72964
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 241
@@ -2398,7 +2398,7 @@
     raw_chem_name: Ethylene
     temp_id: 73250
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 242
@@ -2408,7 +2408,7 @@
     raw_chem_name: Ethane
     temp_id: 73280
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 243
@@ -2418,7 +2418,7 @@
     raw_chem_name: Ethane
     temp_id: 73475
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 244
@@ -2428,7 +2428,7 @@
     raw_chem_name: Ethylene
     temp_id: 73794
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 245
@@ -2438,7 +2438,7 @@
     raw_chem_name: Ethane
     temp_id: 73844
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 246
@@ -2448,7 +2448,7 @@
     raw_chem_name: Ethylene
     temp_id: 73890
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 247
@@ -2458,7 +2458,7 @@
     raw_chem_name: Propane
     temp_id: 74265
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 248
@@ -2468,7 +2468,7 @@
     raw_chem_name: Ethane
     temp_id: 74388
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 249
@@ -2478,7 +2478,7 @@
     raw_chem_name: Propane
     temp_id: 74435
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 250
@@ -2488,7 +2488,7 @@
     raw_chem_name: Isobutane
     temp_id: 74826
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 251
@@ -2498,7 +2498,7 @@
     raw_chem_name: Ethane
     temp_id: 74833
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 252
@@ -2508,7 +2508,7 @@
     raw_chem_name: Ethane
     temp_id: 74909
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 253
@@ -2518,7 +2518,7 @@
     raw_chem_name: Ethane
     temp_id: 75411
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 254
@@ -2528,7 +2528,7 @@
     raw_chem_name: Ethylene
     temp_id: 75423
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 255
@@ -2538,7 +2538,7 @@
     raw_chem_name: Ethane
     temp_id: 75456
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 256
@@ -2548,7 +2548,7 @@
     raw_chem_name: Ethylene
     temp_id: 76216
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 257
@@ -2558,7 +2558,7 @@
     raw_chem_name: Propane
     temp_id: 76372
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 258
@@ -2568,7 +2568,7 @@
     raw_chem_name: Propane
     temp_id: 76662
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 259
@@ -2578,7 +2578,7 @@
     raw_chem_name: Ethane
     temp_id: 76806
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 260
@@ -2588,7 +2588,7 @@
     raw_chem_name: Isobutane
     temp_id: 76916
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 261
@@ -2598,7 +2598,7 @@
     raw_chem_name: Ethane
     temp_id: 77018
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 262
@@ -2608,7 +2608,7 @@
     raw_chem_name: Ethane
     temp_id: 77342
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 263
@@ -2618,7 +2618,7 @@
     raw_chem_name: Ethane
     temp_id: 77624
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 264
@@ -2628,7 +2628,7 @@
     raw_chem_name: Ethane
     temp_id: 77740
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 265
@@ -2638,7 +2638,7 @@
     raw_chem_name: Isobutane
     temp_id: 77830
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 266
@@ -2648,7 +2648,7 @@
     raw_chem_name: Isobutane
     temp_id: 78462
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 267
@@ -2658,7 +2658,7 @@
     raw_chem_name: Isobutane
     temp_id: 78876
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 268
@@ -2668,7 +2668,7 @@
     raw_chem_name: Isobutane
     temp_id: 79267
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 269
@@ -2678,7 +2678,7 @@
     raw_chem_name: Isobutane
     temp_id: 79273
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 270
@@ -2688,7 +2688,7 @@
     raw_chem_name: Isobutane
     temp_id: 79532
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 271
@@ -2698,7 +2698,7 @@
     raw_chem_name: Isobutane
     temp_id: 79969
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 272
@@ -2708,7 +2708,7 @@
     raw_chem_name: Isobutane
     temp_id: 79973
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 273
@@ -2718,7 +2718,7 @@
     raw_chem_name: Polysorbate 60
     temp_id: 80070
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 274
@@ -2728,7 +2728,7 @@
     raw_chem_name: Citrate
     temp_id: 80119
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 275
@@ -2738,7 +2738,7 @@
     raw_chem_name: 1-Butene
     temp_id: 80163
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 276
@@ -2748,7 +2748,7 @@
     raw_chem_name: 1-Butene
     temp_id: 80355
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 277
@@ -2758,7 +2758,7 @@
     raw_chem_name: 1-Butene
     temp_id: 80616
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 278
@@ -2768,7 +2768,7 @@
     raw_chem_name: 1-Butene
     temp_id: 80771
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 279
@@ -2778,7 +2778,7 @@
     raw_chem_name: 1-Butene
     temp_id: 80794
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 280
@@ -2788,7 +2788,7 @@
     raw_chem_name: 1-Butene
     temp_id: 80826
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 281
@@ -2798,7 +2798,7 @@
     raw_chem_name: 1-Butene
     temp_id: 81060
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 282
@@ -2808,7 +2808,7 @@
     raw_chem_name: 1-Butene
     temp_id: 81169
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 283
@@ -2818,7 +2818,7 @@
     raw_chem_name: 1-Butene
     temp_id: 81399
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 284
@@ -2828,7 +2828,7 @@
     raw_chem_name: Carbon dioxide
     temp_id: 82425
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 285
@@ -2838,7 +2838,7 @@
     raw_chem_name: Carbon dioxide
     temp_id: 82468
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 286
@@ -2848,7 +2848,7 @@
     raw_chem_name: Carbon dioxide
     temp_id: 82509
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 287
@@ -2858,7 +2858,7 @@
     raw_chem_name: Carbon dioxide
     temp_id: 83161
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 288
@@ -2868,7 +2868,7 @@
     raw_chem_name: Carbon dioxide
     temp_id: 83210
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 289
@@ -2878,7 +2878,7 @@
     raw_chem_name: Carbon dioxide
     temp_id: 83447
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 290
@@ -2888,7 +2888,7 @@
     raw_chem_name: Carbon dioxide
     temp_id: 83605
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 291
@@ -2898,7 +2898,7 @@
     raw_chem_name: Carbon dioxide
     temp_id: 83862
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 292
@@ -2908,7 +2908,7 @@
     raw_chem_name: Carbon dioxide
     temp_id: 84014
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 293
@@ -2918,7 +2918,7 @@
     raw_chem_name: Carbon dioxide
     temp_id: 84309
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 294
@@ -2928,7 +2928,7 @@
     raw_chem_name: Potassium hydroxide
     temp_id: 84954
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 295
@@ -2938,7 +2938,7 @@
     raw_chem_name: NH4Cl
     temp_id: 85334
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 296
@@ -2948,7 +2948,7 @@
     raw_chem_name: 1,2-Butadiene
     temp_id: 85516
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 297
@@ -2958,7 +2958,7 @@
     raw_chem_name: trans-Anethole
     temp_id: 85931
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 298
@@ -2968,7 +2968,7 @@
     raw_chem_name: Carbon monoxide
     temp_id: 86153
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 299
@@ -2978,7 +2978,7 @@
     raw_chem_name: Carbon monoxide
     temp_id: 86181
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 300
@@ -2988,7 +2988,7 @@
     raw_chem_name: Carbon monoxide
     temp_id: 86438
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 301
@@ -2998,7 +2998,7 @@
     raw_chem_name: Carbon monoxide
     temp_id: 86781
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 302
@@ -3008,7 +3008,7 @@
     raw_chem_name: 2,6-Di-tert-butyl-p-cresol
     temp_id: 87507
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 303
@@ -3018,7 +3018,7 @@
     raw_chem_name: 1,4-Dioxane
     temp_id: 87594
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 304
@@ -3038,7 +3038,7 @@
     raw_chem_name: Ethylene oxide
     temp_id: 87909
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 306
@@ -3048,7 +3048,7 @@
     raw_chem_name: Nickel
     temp_id: 88339
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 307
@@ -3058,7 +3058,7 @@
     raw_chem_name: Antimony
     temp_id: 89434
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 308
@@ -3068,7 +3068,7 @@
     raw_chem_name: Arsenic
     temp_id: 89472
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 309
@@ -3078,7 +3078,7 @@
     raw_chem_name: Copper
     temp_id: 89618
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 310
@@ -3088,7 +3088,7 @@
     raw_chem_name: 2-Methylpentane
     temp_id: 90253
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 311
@@ -3098,7 +3098,7 @@
     raw_chem_name: Manganese
     temp_id: 90432
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 312
@@ -3108,7 +3108,7 @@
     raw_chem_name: Manganese
     temp_id: 90443
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 313
@@ -3118,7 +3118,7 @@
     raw_chem_name: Cyclopentene
     temp_id: 90546
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 314
@@ -3128,7 +3128,7 @@
     raw_chem_name: Cyclopentene
     temp_id: 90559
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 315
@@ -3138,7 +3138,7 @@
     raw_chem_name: 1,2-Propadiene
     temp_id: 90711
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 316
@@ -3148,7 +3148,7 @@
     raw_chem_name: Sodium dodecylbenzenesulfonate
     temp_id: 91026
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 317
@@ -3158,7 +3158,7 @@
     raw_chem_name: Ethyl alcohol
     temp_id: 91070
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 318
@@ -3168,7 +3168,7 @@
     raw_chem_name: Ethyl alcohol
     temp_id: 91092
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 319
@@ -3178,7 +3178,7 @@
     raw_chem_name: Alcohol
     temp_id: 91229
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 320
@@ -3188,7 +3188,7 @@
     raw_chem_name: Alcohol
     temp_id: 91294
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 321
@@ -3248,7 +3248,7 @@
     raw_chem_name: Hydrogen
     temp_id: 93223
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 327
@@ -3258,7 +3258,7 @@
     raw_chem_name: Hydrogen
     temp_id: 93508
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 328
@@ -3268,7 +3268,7 @@
     raw_chem_name: Hydrogen
     temp_id: 94312
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 329
@@ -3278,7 +3278,7 @@
     raw_chem_name: Hydrogen
     temp_id: 94405
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 330
@@ -3288,7 +3288,7 @@
     raw_chem_name: Hydrogen
     temp_id: 94536
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 331
@@ -3298,7 +3298,7 @@
     raw_chem_name: Hydrogen
     temp_id: 94647
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 332
@@ -3308,7 +3308,7 @@
     raw_chem_name: Hydrogen
     temp_id: 94838
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 333
@@ -3318,7 +3318,7 @@
     raw_chem_name: Hydrogen
     temp_id: 95105
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 334
@@ -3328,7 +3328,7 @@
     raw_chem_name: Malic acid
     temp_id: 95431
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 335
@@ -3338,7 +3338,7 @@
     raw_chem_name: Asphalt
     temp_id: 95644
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 336
@@ -3348,7 +3348,7 @@
     raw_chem_name: Polyethylene glycol
     temp_id: 95681
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 337
@@ -3358,7 +3358,7 @@
     raw_chem_name: Glycerin
     temp_id: 96088
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 338
@@ -3368,7 +3368,7 @@
     raw_chem_name: Glycerin
     temp_id: 96374
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 339
@@ -3378,7 +3378,7 @@
     raw_chem_name: Glycerin
     temp_id: 96385
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 340
@@ -3388,7 +3388,7 @@
     raw_chem_name: Gro
     temp_id: 96582
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 341
@@ -3398,7 +3398,7 @@
     raw_chem_name: Dimethyl carbonate
     temp_id: 96975
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 342
@@ -3408,7 +3408,7 @@
     raw_chem_name: Sodium hydroxide
     temp_id: 97184
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 343
@@ -3418,7 +3418,7 @@
     raw_chem_name: Sodium hydroxide
     temp_id: 97189
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 344
@@ -3428,7 +3428,7 @@
     raw_chem_name: (R)-p-mentha-1,8-diene
     temp_id: 97749
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 345
@@ -3438,7 +3438,7 @@
     raw_chem_name: Titanium dioxide
     temp_id: 97880
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 346
@@ -3448,7 +3448,7 @@
     raw_chem_name: Ethylene glycol dimethyl ether
     temp_id: 98116
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 347
@@ -3458,7 +3458,7 @@
     raw_chem_name: Gro
     temp_id: 98580
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 348
@@ -3468,7 +3468,7 @@
     raw_chem_name: Ni
     temp_id: 99351
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 349
@@ -3478,7 +3478,7 @@
     raw_chem_name: Ni
     temp_id: 99354
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 350
@@ -3488,7 +3488,7 @@
     raw_chem_name: Ni
     temp_id: 99426
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 351
@@ -3498,7 +3498,7 @@
     raw_chem_name: Citric acid, anhydrous
     temp_id: 99642
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 352
@@ -3508,7 +3508,7 @@
     raw_chem_name: Phosphor
     temp_id: 99736
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 353
@@ -3518,7 +3518,7 @@
     raw_chem_name: P
     temp_id: 99739
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 354
@@ -3528,7 +3528,7 @@
     raw_chem_name: Ethyl alcohol
     temp_id: 99974
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 355
@@ -3538,7 +3538,7 @@
     raw_chem_name: Alcohol
     temp_id: 100119
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 356
@@ -3548,7 +3548,7 @@
     raw_chem_name: Alcohol
     temp_id: 100289
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 357
@@ -3558,7 +3558,7 @@
     raw_chem_name: Alcohol
     temp_id: 100424
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 358
@@ -3568,7 +3568,7 @@
     raw_chem_name: Ethyl alc
     temp_id: 100743
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 359
@@ -3578,7 +3578,7 @@
     raw_chem_name: Ethyl alc
     temp_id: 100897
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 360
@@ -3588,7 +3588,7 @@
     raw_chem_name: Glycerin
     temp_id: 101349
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 361
@@ -3598,7 +3598,7 @@
     raw_chem_name: Glycerin
     temp_id: 101518
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 362
@@ -3608,7 +3608,7 @@
     raw_chem_name: Glycerin
     temp_id: 101532
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 363
@@ -3618,7 +3618,7 @@
     raw_chem_name: Gro
     temp_id: 102294
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 364
@@ -3628,7 +3628,7 @@
     raw_chem_name: Gro
     temp_id: 102296
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 365
@@ -3638,7 +3638,7 @@
     raw_chem_name: Gro
     temp_id: 102297
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 366
@@ -3648,7 +3648,7 @@
     raw_chem_name: PROPYLENE GLYCOL
     temp_id: 102426
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 367
@@ -3658,7 +3658,7 @@
     raw_chem_name: Ethyl alc
     temp_id: 103218
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 368
@@ -3668,7 +3668,7 @@
     raw_chem_name: Ethyl alc
     temp_id: 103280
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 369
@@ -3678,7 +3678,7 @@
     raw_chem_name: Glycerin
     temp_id: 103842
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 370
@@ -3688,7 +3688,7 @@
     raw_chem_name: Gro
     temp_id: 104108
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 371
@@ -3698,7 +3698,7 @@
     raw_chem_name: 1,3-BUTADIEN
     temp_id: 104556
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 372
@@ -3708,7 +3708,7 @@
     raw_chem_name: 1,3-BUTADIEN
     temp_id: 104560
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 373
@@ -3718,7 +3718,7 @@
     raw_chem_name: 1,3-BUTADIEN
     temp_id: 104620
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 374
@@ -3728,7 +3728,7 @@
     raw_chem_name: 1,3-BUTADIEN
     temp_id: 104623
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 375
@@ -3738,7 +3738,7 @@
     raw_chem_name: 1,3-BUTADIEN
     temp_id: 104665
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 376
@@ -3748,7 +3748,7 @@
     raw_chem_name: 1,3-BUTADIEN
     temp_id: 105065
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 377
@@ -3758,7 +3758,7 @@
     raw_chem_name: Alcohol
     temp_id: 105249
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 378
@@ -3768,7 +3768,7 @@
     raw_chem_name: BUTADIENE
     temp_id: 105517
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 379
@@ -3778,7 +3778,7 @@
     raw_chem_name: Ethyl alcohol
     temp_id: 105908
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 380
@@ -3788,7 +3788,7 @@
     raw_chem_name: BUTADIENE
     temp_id: 105912
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 381
@@ -3798,7 +3798,7 @@
     raw_chem_name: UN1170
     temp_id: 106356
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 382
@@ -3808,7 +3808,7 @@
     raw_chem_name: Butadien
     temp_id: 106771
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 383
@@ -3818,7 +3818,7 @@
     raw_chem_name: Butadien
     temp_id: 106777
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 384
@@ -3828,7 +3828,7 @@
     raw_chem_name: Butadien
     temp_id: 106905
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 385
@@ -3838,7 +3838,7 @@
     raw_chem_name: Butadien
     temp_id: 106932
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 386
@@ -3848,7 +3848,7 @@
     raw_chem_name: Butadien
     temp_id: 106949
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 387
@@ -3858,7 +3858,7 @@
     raw_chem_name: Butadien
     temp_id: 106998
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 388
@@ -3868,7 +3868,7 @@
     raw_chem_name: Butadien
     temp_id: 107208
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 389
@@ -3878,7 +3878,7 @@
     raw_chem_name: Butadien
     temp_id: 107440
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 390
@@ -3888,7 +3888,7 @@
     raw_chem_name: Ethyl alc
     temp_id: 107677
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 391
@@ -3898,7 +3898,7 @@
     raw_chem_name: Isopropyl alcohol
     temp_id: 107918
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 392
@@ -3908,7 +3908,7 @@
     raw_chem_name: Isopropyl alcohol
     temp_id: 107919
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 393
@@ -3918,7 +3918,7 @@
     raw_chem_name: Glycerin
     temp_id: 108424
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 394
@@ -3928,7 +3928,7 @@
     raw_chem_name: Glycerin
     temp_id: 108684
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 395
@@ -3938,7 +3938,7 @@
     raw_chem_name: Glycerin
     temp_id: 108690
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 396
@@ -3948,7 +3948,7 @@
     raw_chem_name: Glycerin
     temp_id: 108802
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 397
@@ -3958,7 +3958,7 @@
     raw_chem_name: Glycerin
     temp_id: 109137
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 398
@@ -3968,7 +3968,7 @@
     raw_chem_name: Glycerin
     temp_id: 109210
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 399
@@ -3978,7 +3978,7 @@
     raw_chem_name: Gro
     temp_id: 109397
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 400
@@ -3988,7 +3988,7 @@
     raw_chem_name: Gro
     temp_id: 109527
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 401
@@ -3998,7 +3998,7 @@
     raw_chem_name: Gro
     temp_id: 109583
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 402
@@ -4008,7 +4008,7 @@
     raw_chem_name: Tetra
     temp_id: 110011
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 403
@@ -4018,7 +4018,7 @@
     raw_chem_name: SDS
     temp_id: 110068
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 404
@@ -4028,7 +4028,7 @@
     raw_chem_name: Ni
     temp_id: 110271
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 405
@@ -4038,7 +4038,7 @@
     raw_chem_name: Ni
     temp_id: 110354
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 406
@@ -4048,7 +4048,7 @@
     raw_chem_name: Ni
     temp_id: 110489
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 407
@@ -4058,7 +4058,7 @@
     raw_chem_name: Nam
     temp_id: 110750
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 408
@@ -4068,7 +4068,7 @@
     raw_chem_name: Peroxide
     temp_id: 110846
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 409
@@ -4078,7 +4078,7 @@
     raw_chem_name: Stearic acid
     temp_id: 110916
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 410
@@ -4088,7 +4088,7 @@
     raw_chem_name: Myristic acid
     temp_id: 110944
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 411
@@ -4098,7 +4098,7 @@
     raw_chem_name: Ethyl alc
     temp_id: 112568
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 412
@@ -4108,7 +4108,7 @@
     raw_chem_name: Resorcin
     temp_id: 113089
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 413
@@ -4118,7 +4118,7 @@
     raw_chem_name: Monoethanolamine
     temp_id: 113122
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 414
@@ -4128,7 +4128,7 @@
     raw_chem_name: Glycol
     temp_id: 113528
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 415
@@ -4138,7 +4138,7 @@
     raw_chem_name: Glycol
     temp_id: 113537
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 416
@@ -4148,7 +4148,7 @@
     raw_chem_name: Glycol
     temp_id: 113678
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 417
@@ -4158,7 +4158,7 @@
     raw_chem_name: Glycerin
     temp_id: 114159
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 418
@@ -4168,7 +4168,7 @@
     raw_chem_name: Glycerin
     temp_id: 114278
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 419
@@ -4178,7 +4178,7 @@
     raw_chem_name: Glycerin
     temp_id: 114493
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 420
@@ -4188,7 +4188,7 @@
     raw_chem_name: Gro
     temp_id: 114664
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 421
@@ -4198,7 +4198,7 @@
     raw_chem_name: Gro
     temp_id: 114686
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 422
@@ -4208,7 +4208,7 @@
     raw_chem_name: Ni
     temp_id: 114998
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 423
@@ -4218,7 +4218,7 @@
     raw_chem_name: Ni
     temp_id: 115060
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 424
@@ -4228,7 +4228,7 @@
     raw_chem_name: Ni
     temp_id: 115128
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 425
@@ -4238,7 +4238,7 @@
     raw_chem_name: Ni
     temp_id: 115304
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 426
@@ -4248,7 +4248,7 @@
     raw_chem_name: Dichlorofluoroethane
     temp_id: 116619
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 427
@@ -4258,7 +4258,7 @@
     raw_chem_name: Mentha piperita oil
     temp_id: 116918
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 428
@@ -4268,7 +4268,7 @@
     raw_chem_name: Isopropyl alcohol
     temp_id: 117017
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 429
@@ -4278,7 +4278,7 @@
     raw_chem_name: Toluen
     temp_id: 117398
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 430
@@ -4288,7 +4288,7 @@
     raw_chem_name: Triethanolamin
     temp_id: 117527
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 431
@@ -4298,7 +4298,7 @@
     raw_chem_name: Triethanolamin
     temp_id: 117581
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 432
@@ -4308,7 +4308,7 @@
     raw_chem_name: TEA
     temp_id: 117697
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 433
@@ -4318,7 +4318,7 @@
     raw_chem_name: Adiponitrile
     temp_id: 117714
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 434
@@ -4328,7 +4328,7 @@
     raw_chem_name: Xylene
     temp_id: 118194
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 435
@@ -4338,7 +4338,7 @@
     raw_chem_name: Glycol
     temp_id: 118490
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 436
@@ -4348,7 +4348,7 @@
     raw_chem_name: Naphthalen
     temp_id: 119048
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 437
@@ -4358,7 +4358,7 @@
     raw_chem_name: Ni
     temp_id: 119498
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 438
@@ -4368,7 +4368,7 @@
     raw_chem_name: Ni
     temp_id: 119767
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 439
@@ -4378,7 +4378,7 @@
     raw_chem_name: Ni
     temp_id: 119824
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 440
@@ -4388,7 +4388,7 @@
     raw_chem_name: C16
     temp_id: 119989
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 441
@@ -4398,7 +4398,7 @@
     raw_chem_name: Stearate
     temp_id: 120189
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 442
@@ -4408,7 +4408,7 @@
     raw_chem_name: Butyl alcohol
     temp_id: 120543
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 443
@@ -4418,7 +4418,7 @@
     raw_chem_name: TiO2
     temp_id: 120683
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 444
@@ -4428,7 +4428,7 @@
     raw_chem_name: Toluen
     temp_id: 121000
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 445
@@ -4438,7 +4438,7 @@
     raw_chem_name: N,N-Diethyl-m-toluamid
     temp_id: 121471
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 446
@@ -4448,7 +4448,7 @@
     raw_chem_name: Nickel
     temp_id: 122225
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 447
@@ -4458,7 +4458,7 @@
     raw_chem_name: Nickel
     temp_id: 122273
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 448
@@ -4479,7 +4479,7 @@
       arginylglycyltyrosylthreonyltyrosylleuc
     temp_id: 123071
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 449
@@ -4489,7 +4489,7 @@
     raw_chem_name: Manganese
     temp_id: 123436
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 450
@@ -4499,7 +4499,7 @@
     raw_chem_name: Manganese
     temp_id: 123484
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 451
@@ -4509,7 +4509,7 @@
     raw_chem_name: Manganese
     temp_id: 123545
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 452
@@ -4519,7 +4519,7 @@
     raw_chem_name: Manganese
     temp_id: 123626
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 453
@@ -4529,7 +4529,7 @@
     raw_chem_name: Manganese
     temp_id: 123685
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 454
@@ -4539,7 +4539,7 @@
     raw_chem_name: Manganese
     temp_id: 123838
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 455
@@ -4549,7 +4549,7 @@
     raw_chem_name: Molybdenum
     temp_id: 124072
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 456
@@ -4559,7 +4559,7 @@
     raw_chem_name: Molybdenum
     temp_id: 124099
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 457
@@ -4569,7 +4569,7 @@
     raw_chem_name: Silver
     temp_id: 124160
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 458
@@ -4579,7 +4579,7 @@
     raw_chem_name: Silver
     temp_id: 124264
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 459
@@ -4589,7 +4589,7 @@
     raw_chem_name: Silver
     temp_id: 124290
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 460
@@ -4599,7 +4599,7 @@
     raw_chem_name: Silver
     temp_id: 124406
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 461
@@ -4609,7 +4609,7 @@
     raw_chem_name: Aceton
     temp_id: 124504
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 462
@@ -4619,7 +4619,7 @@
     raw_chem_name: 1,2-Propanediol
     temp_id: 124713
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 463
@@ -4629,7 +4629,7 @@
     raw_chem_name: Propane-1,2-diol
     temp_id: 124731
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 464
@@ -4639,7 +4639,7 @@
     raw_chem_name: Cu
     temp_id: 125577
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 465
@@ -4649,7 +4649,7 @@
     raw_chem_name: Cu
     temp_id: 125693
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 466
@@ -4659,7 +4659,7 @@
     raw_chem_name: Cu
     temp_id: 125752
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 467
@@ -4669,7 +4669,7 @@
     raw_chem_name: Cu
     temp_id: 125804
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 468
@@ -4679,7 +4679,7 @@
     raw_chem_name: Cu
     temp_id: 125814
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 469
@@ -4689,7 +4689,7 @@
     raw_chem_name: Cu
     temp_id: 125829
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 470
@@ -4699,7 +4699,7 @@
     raw_chem_name: Adipic acid
     temp_id: 125986
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 471
@@ -4709,7 +4709,7 @@
     raw_chem_name: Oxybenzone
     temp_id: 126330
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 472
@@ -4719,7 +4719,7 @@
     raw_chem_name: Formaldehyd
     temp_id: 126507
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 473
@@ -4729,7 +4729,7 @@
     raw_chem_name: Resorcin
     temp_id: 126772
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 474
@@ -4739,7 +4739,7 @@
     raw_chem_name: ISOBUTYLENE
     temp_id: 129475
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 475
@@ -4749,7 +4749,7 @@
     raw_chem_name: PROPENE, 2-METHYL-
     temp_id: 129667
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 476
@@ -4759,7 +4759,7 @@
     raw_chem_name: PROPENE, 2-METHYL-
     temp_id: 129764
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 477
@@ -4769,7 +4769,7 @@
     raw_chem_name: PROPENE, 2-METHYL-
     temp_id: 129794
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 478
@@ -4779,7 +4779,7 @@
     raw_chem_name: PROPENE, 2-METHYL-
     temp_id: 130026
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 479
@@ -4789,7 +4789,7 @@
     raw_chem_name: Isopren
     temp_id: 130124
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 480
@@ -4799,7 +4799,7 @@
     raw_chem_name: As
     temp_id: 130312
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 481
@@ -4809,7 +4809,7 @@
     raw_chem_name: Cu
     temp_id: 130617
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 482
@@ -4819,7 +4819,7 @@
     raw_chem_name: Ethylene glycol monobutyl ether
     temp_id: 130871
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 483
@@ -4829,7 +4829,7 @@
     raw_chem_name: Mn
     temp_id: 131044
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 484
@@ -4839,7 +4839,7 @@
     raw_chem_name: Mn
     temp_id: 131046
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 485
@@ -4849,7 +4849,7 @@
     raw_chem_name: Vanillin
     temp_id: 131125
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 486
@@ -4859,7 +4859,7 @@
     raw_chem_name: Acetic acid, butyl ester
     temp_id: 131210
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 487
@@ -4869,7 +4869,7 @@
     raw_chem_name: Cu
     temp_id: 131712
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 488
@@ -4879,7 +4879,7 @@
     raw_chem_name: Mangan
     temp_id: 132523
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 489
@@ -4889,7 +4889,7 @@
     raw_chem_name: acetic ester
     temp_id: 132642
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 490
@@ -4899,7 +4899,7 @@
     raw_chem_name: Phosgen
     temp_id: 132958
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 491
@@ -4909,7 +4909,7 @@
     raw_chem_name: Ag
     temp_id: 133084
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 492
@@ -4919,7 +4919,7 @@
     raw_chem_name: Ag
     temp_id: 133210
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 493
@@ -4929,7 +4929,7 @@
     raw_chem_name: Ag
     temp_id: 133248
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 494
@@ -4939,7 +4939,7 @@
     raw_chem_name: Toluen
     temp_id: 133345
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 495
@@ -4949,7 +4949,7 @@
     raw_chem_name: Toluen
     temp_id: 133358
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 496
@@ -4959,7 +4959,7 @@
     raw_chem_name: Polyethylene glycol monododecyl ether
     temp_id: 133365
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 497
@@ -4969,7 +4969,7 @@
     raw_chem_name: H2O
     temp_id: 133897
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 498
@@ -4979,7 +4979,7 @@
     raw_chem_name: Silicic acid, aluminum sodium salt
     temp_id: 135009
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 499
@@ -4989,7 +4989,7 @@
     raw_chem_name: eau
     temp_id: 135635
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 500
@@ -4999,7 +4999,7 @@
     raw_chem_name: eau
     temp_id: 135689
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 501
@@ -5009,7 +5009,7 @@
     raw_chem_name: Pin-2(3)-ene
     temp_id: 136350
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 502
@@ -5019,7 +5019,7 @@
     raw_chem_name: SDS
     temp_id: 136921
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 503
@@ -5029,7 +5029,7 @@
     raw_chem_name: diphenyl ether
     temp_id: 137122
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 504
@@ -5039,7 +5039,7 @@
     raw_chem_name: Distilled water
     temp_id: 137157
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 505
@@ -5049,7 +5049,7 @@
     raw_chem_name: aqua
     temp_id: 137297
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 506
@@ -5059,7 +5059,7 @@
     raw_chem_name: Tetrasodium EDTA
     temp_id: 137968
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 507
@@ -5069,7 +5069,7 @@
     raw_chem_name: METHYL N-AMYL KETONE
     temp_id: 138325
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 508
@@ -5079,7 +5079,7 @@
     raw_chem_name: 1,3-Dioxolan
     temp_id: 138408
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 509
@@ -5089,7 +5089,7 @@
     raw_chem_name: Propylene
     temp_id: 139672
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 510
@@ -5099,7 +5099,7 @@
     raw_chem_name: Propylene
     temp_id: 139972
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 511
@@ -5109,7 +5109,7 @@
     raw_chem_name: Propylene
     temp_id: 140005
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 512
@@ -5119,7 +5119,7 @@
     raw_chem_name: Propylene
     temp_id: 140376
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 513
@@ -5129,7 +5129,7 @@
     raw_chem_name: Propylene
     temp_id: 140382
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 514
@@ -5139,7 +5139,7 @@
     raw_chem_name: Propylene
     temp_id: 140710
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 515
@@ -5149,7 +5149,7 @@
     raw_chem_name: Propylene
     temp_id: 140749
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 516
@@ -5159,7 +5159,7 @@
     raw_chem_name: Propylene
     temp_id: 140955
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 517
@@ -5169,7 +5169,7 @@
     raw_chem_name: Propylene
     temp_id: 141581
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 518
@@ -5179,7 +5179,7 @@
     raw_chem_name: Decamethylcyclopentasiloxan
     temp_id: 141765
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 519
@@ -5189,7 +5189,7 @@
     raw_chem_name: Antimon
     temp_id: 141864
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 520
@@ -5199,7 +5199,7 @@
     raw_chem_name: Cu
     temp_id: 142035
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 521
@@ -5209,7 +5209,7 @@
     raw_chem_name: Ethylene glycol monobutyl ether
     temp_id: 142090
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 522
@@ -5219,7 +5219,7 @@
     raw_chem_name: m-phenoxybenzyl 3-(2,2-dichlorovinyl)-2,2-dimethylcyclopropanecarboxylate
     temp_id: 142211
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 523
@@ -5229,7 +5229,7 @@
     raw_chem_name: Hg
     temp_id: 142268
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 524
@@ -5239,7 +5239,7 @@
     raw_chem_name: Microcrystalline wax
     temp_id: 142689
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 525
@@ -5249,7 +5249,7 @@
     raw_chem_name: STYRENE MONOMER
     temp_id: 142977
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 526
@@ -5259,7 +5259,7 @@
     raw_chem_name: n-Butane
     temp_id: 143216
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 527
@@ -5269,7 +5269,7 @@
     raw_chem_name: n-Butane
     temp_id: 143227
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 528
@@ -5279,7 +5279,7 @@
     raw_chem_name: n-Butan
     temp_id: 143246
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 529
@@ -5289,7 +5289,7 @@
     raw_chem_name: Cetearyl alcohol
     temp_id: 143281
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 530
@@ -5299,7 +5299,7 @@
     raw_chem_name: Dipenten
     temp_id: 143461
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 531
@@ -5309,7 +5309,7 @@
     raw_chem_name: Fumed silica
     temp_id: 143667
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 532
@@ -5319,7 +5319,7 @@
     raw_chem_name: Steareth
     temp_id: 143700
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 533
@@ -5329,7 +5329,7 @@
     raw_chem_name: diiron trioxide
     temp_id: 143843
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 534
@@ -5339,7 +5339,7 @@
     raw_chem_name: KOH
     temp_id: 143871
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 535
@@ -5349,7 +5349,7 @@
     raw_chem_name: Benzene, methyl
     temp_id: 144236
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 536
@@ -5359,7 +5359,7 @@
     raw_chem_name: Isopentane
     temp_id: 145547
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 537
@@ -5369,7 +5369,7 @@
     raw_chem_name: Cu
     temp_id: 146137
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 538
@@ -5379,7 +5379,7 @@
     raw_chem_name: Cu
     temp_id: 146152
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 539
@@ -5389,7 +5389,7 @@
     raw_chem_name: Cu
     temp_id: 146243
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 540
@@ -5399,7 +5399,7 @@
     raw_chem_name: Cu
     temp_id: 146356
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 541
@@ -5409,7 +5409,7 @@
     raw_chem_name: SDS
     temp_id: 147557
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 542
@@ -5419,7 +5419,7 @@
     raw_chem_name: Tris(1-chloro-2-propyl) phosphate
     temp_id: 147769
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 543
@@ -5429,7 +5429,7 @@
     raw_chem_name: CC
     temp_id: 147924
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 544
@@ -5439,7 +5439,7 @@
     raw_chem_name: CC
     temp_id: 147927
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 545
@@ -5449,7 +5449,7 @@
     raw_chem_name: water, distilled
     temp_id: 147960
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 546
@@ -5459,7 +5459,7 @@
     raw_chem_name: aqua
     temp_id: 148238
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 547
@@ -5469,7 +5469,7 @@
     raw_chem_name: eau
     temp_id: 148416
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 548
@@ -5479,7 +5479,7 @@
     raw_chem_name: eau
     temp_id: 148433
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 549
@@ -5489,7 +5489,7 @@
     raw_chem_name: eau
     temp_id: 148465
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 550
@@ -5499,7 +5499,7 @@
     raw_chem_name: eau
     temp_id: 148646
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 551
@@ -5509,7 +5509,7 @@
     raw_chem_name: eau
     temp_id: 148731
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 552
@@ -5519,7 +5519,7 @@
     raw_chem_name: Tetrasodium EDTA
     temp_id: 149223
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 553
@@ -5529,7 +5529,7 @@
     raw_chem_name: Tetrasodium EDTA
     temp_id: 149266
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 554
@@ -5539,7 +5539,7 @@
     raw_chem_name: Propan
     temp_id: 149427
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 555
@@ -5549,7 +5549,7 @@
     raw_chem_name: Isobutan
     temp_id: 149750
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 556
@@ -5559,7 +5559,7 @@
     raw_chem_name: Propanol
     temp_id: 150020
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 557
@@ -5569,7 +5569,7 @@
     raw_chem_name: Citral
     temp_id: 150137
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
     component: Component A
 - model: dashboard.rawchem
@@ -5580,7 +5580,7 @@
     raw_chem_name: Ethylene carbonate
     temp_id: 150178
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 559
@@ -5590,7 +5590,7 @@
     raw_chem_name: n-Hexan
     temp_id: 150976
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 560
@@ -5600,7 +5600,7 @@
     raw_chem_name: Hexane
     temp_id: 151540
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 561
@@ -5610,7 +5610,7 @@
     raw_chem_name: Hexane
     temp_id: 151925
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 562
@@ -5620,7 +5620,7 @@
     raw_chem_name: Hexan
     temp_id: 152278
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 563
@@ -5630,7 +5630,7 @@
     raw_chem_name: Hexan
     temp_id: 152507
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 564
@@ -5640,7 +5640,7 @@
     raw_chem_name: Hexan
     temp_id: 152676
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 565
@@ -5650,7 +5650,7 @@
     raw_chem_name: Hexane
     temp_id: 152899
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 566
@@ -5660,7 +5660,7 @@
     raw_chem_name: Hexan
     temp_id: 153045
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 567
@@ -5670,7 +5670,7 @@
     raw_chem_name: Hexane
     temp_id: 153263
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 568
@@ -5680,7 +5680,7 @@
     raw_chem_name: Hexane
     temp_id: 153396
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 569
@@ -5690,7 +5690,7 @@
     raw_chem_name: Hexan
     temp_id: 153756
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 570
@@ -5700,7 +5700,7 @@
     raw_chem_name: Hexan
     temp_id: 153809
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 571
@@ -5710,7 +5710,7 @@
     raw_chem_name: Hexan
     temp_id: 154105
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 572
@@ -5720,7 +5720,7 @@
     raw_chem_name: Hexan
     temp_id: 154225
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 573
@@ -5730,7 +5730,7 @@
     raw_chem_name: Hexan
     temp_id: 154302
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 574
@@ -5740,7 +5740,7 @@
     raw_chem_name: Cyclopentasiloxane
     temp_id: 154491
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 575
@@ -5750,7 +5750,7 @@
     raw_chem_name: Decamethylcyclopentasiloxan
     temp_id: 154530
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 576
@@ -5760,7 +5760,7 @@
     raw_chem_name: Isopentane
     temp_id: 155124
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 577
@@ -5770,7 +5770,7 @@
     raw_chem_name: Isopentane
     temp_id: 155137
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 578
@@ -5780,7 +5780,7 @@
     raw_chem_name: Hea
     temp_id: 155179
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 579
@@ -5790,7 +5790,7 @@
     raw_chem_name: Sorbit
     temp_id: 155333
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 580
@@ -5800,7 +5800,7 @@
     raw_chem_name: Hexadecanoic acid, 2-ethylhexyl ester
     temp_id: 155985
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 581
@@ -5810,7 +5810,7 @@
     raw_chem_name: Silicic acid, aluminum sodium salt
     temp_id: 156017
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 582
@@ -5820,7 +5820,7 @@
     raw_chem_name: SDS
     temp_id: 156220
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 583
@@ -5830,7 +5830,7 @@
     raw_chem_name: Cd
     temp_id: 156398
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 584
@@ -5840,7 +5840,7 @@
     raw_chem_name: Cu
     temp_id: 156880
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 585
@@ -5850,7 +5850,7 @@
     raw_chem_name: Cu
     temp_id: 156953
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 586
@@ -5860,7 +5860,7 @@
     raw_chem_name: Cu
     temp_id: 156958
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 587
@@ -5870,7 +5870,7 @@
     raw_chem_name: H2O
     temp_id: 157808
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 588
@@ -5880,7 +5880,7 @@
     raw_chem_name: eau
     temp_id: 158300
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 589
@@ -5890,7 +5890,7 @@
     raw_chem_name: eau
     temp_id: 158407
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 590
@@ -5900,7 +5900,7 @@
     raw_chem_name: eau
     temp_id: 158452
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 591
@@ -5910,7 +5910,7 @@
     raw_chem_name: eau
     temp_id: 158460
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
     component: Component B
 - model: dashboard.rawchem
@@ -5921,7 +5921,7 @@
     raw_chem_name: eau
     temp_id: 158480
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 593
@@ -5931,7 +5931,7 @@
     raw_chem_name: Mangan
     temp_id: 158807
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 594
@@ -5941,7 +5941,7 @@
     raw_chem_name: Mangan
     temp_id: 158891
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 595
@@ -5951,7 +5951,7 @@
     raw_chem_name: Mn
     temp_id: 159078
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 596
@@ -5961,7 +5961,7 @@
     raw_chem_name: Hg
     temp_id: 159295
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 597
@@ -5971,7 +5971,7 @@
     raw_chem_name: Tetrasodium EDTA
     temp_id: 159364
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
     component: Component B
 - model: dashboard.rawchem
@@ -5982,7 +5982,7 @@
     raw_chem_name: Propan
     temp_id: 159554
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 599
@@ -5992,7 +5992,7 @@
     raw_chem_name: Propan
     temp_id: 159609
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 600
@@ -6002,7 +6002,7 @@
     raw_chem_name: Isobutan
     temp_id: 159671
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 601
@@ -6012,7 +6012,7 @@
     raw_chem_name: Ethylene carbonate
     temp_id: 159940
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 602
@@ -6022,7 +6022,7 @@
     raw_chem_name: Ethylene carbonate
     temp_id: 160076
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 603
@@ -6032,7 +6032,7 @@
     raw_chem_name: Ethylene carbonate
     temp_id: 160174
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 604
@@ -6042,7 +6042,7 @@
     raw_chem_name: Phosphor
     temp_id: 160520
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 605
@@ -6052,7 +6052,7 @@
     raw_chem_name: Dipenten
     temp_id: 160734
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 606
@@ -6062,7 +6062,7 @@
     raw_chem_name: Aminophenol
     temp_id: 160939
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 607
@@ -6072,7 +6072,7 @@
     raw_chem_name: Silica, Amorphous
     temp_id: 161092
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 608
@@ -6082,7 +6082,7 @@
     raw_chem_name: Disodium EDTA
     temp_id: 161133
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 609
@@ -6092,7 +6092,7 @@
     raw_chem_name: D5
     temp_id: 161215
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 610
@@ -6102,7 +6102,7 @@
     raw_chem_name: Octamethylcyclotetrasiloxan
     temp_id: 161324
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 611
@@ -6112,7 +6112,7 @@
     raw_chem_name: C
     temp_id: 161783
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 612
@@ -6122,7 +6122,7 @@
     raw_chem_name: C
     temp_id: 161828
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 613
@@ -6132,7 +6132,7 @@
     raw_chem_name: Hydrocarbon wax
     temp_id: 162013
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 614
@@ -6142,7 +6142,7 @@
     raw_chem_name: Paraffin wax
     temp_id: 162185
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 615
@@ -6152,7 +6152,7 @@
     raw_chem_name: 1,2-Dimethoxyethane
     temp_id: 162505
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 616
@@ -6162,7 +6162,7 @@
     raw_chem_name: isopentyl acetate
     temp_id: 162716
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 617
@@ -6172,7 +6172,7 @@
     raw_chem_name: Microcrystalline wax
     temp_id: 162877
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 618
@@ -6182,7 +6182,7 @@
     raw_chem_name: Cetearyl alcohol
     temp_id: 162928
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 619
@@ -6192,7 +6192,7 @@
     raw_chem_name: Pigment Green 7
     temp_id: 163223
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 620
@@ -6202,7 +6202,7 @@
     raw_chem_name: IRON OXIDE RED
     temp_id: 163621
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 621
@@ -6212,7 +6212,7 @@
     raw_chem_name: aqua
     temp_id: 164245
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 622
@@ -6222,7 +6222,7 @@
     raw_chem_name: aqua
     temp_id: 164312
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 623
@@ -6232,7 +6232,7 @@
     raw_chem_name: aqua
     temp_id: 164363
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 624
@@ -6242,7 +6242,7 @@
     raw_chem_name: eau
     temp_id: 164599
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 625
@@ -6252,7 +6252,7 @@
     raw_chem_name: eau
     temp_id: 164605
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 626
@@ -6262,7 +6262,7 @@
     raw_chem_name: eau
     temp_id: 164867
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 627
@@ -6272,7 +6272,7 @@
     raw_chem_name: eau
     temp_id: 164871
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 628
@@ -6282,7 +6282,7 @@
     raw_chem_name: eau
     temp_id: 164881
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 629
@@ -6292,7 +6292,7 @@
     raw_chem_name: eau
     temp_id: 164935
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 630
@@ -6302,7 +6302,7 @@
     raw_chem_name: Propane, 2-methyl-
     temp_id: 165211
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 631
@@ -6312,7 +6312,7 @@
     raw_chem_name: Isobutan
     temp_id: 165239
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 632
@@ -6322,7 +6322,7 @@
     raw_chem_name: Isobutan
     temp_id: 165273
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 633
@@ -6332,7 +6332,7 @@
     raw_chem_name: Ethylene carbonate
     temp_id: 165525
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 634
@@ -6342,7 +6342,7 @@
     raw_chem_name: Anisaldehyde
     temp_id: 165975
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 635
@@ -6352,7 +6352,7 @@
     raw_chem_name: Cyclopentasiloxane
     temp_id: 166256
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 636
@@ -6362,7 +6362,7 @@
     raw_chem_name: Decamethylcyclopentasiloxan
     temp_id: 166352
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 637
@@ -6372,7 +6372,7 @@
     raw_chem_name: 1,3-Dioxolan
     temp_id: 166401
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 638
@@ -6382,7 +6382,7 @@
     raw_chem_name: carbonyl sulphide
     temp_id: 167705
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 639
@@ -6392,7 +6392,7 @@
     raw_chem_name: Hydrocarbon wax
     temp_id: 167802
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 640
@@ -6402,7 +6402,7 @@
     raw_chem_name: hydrogen sulphide
     temp_id: 168446
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 641
@@ -6412,7 +6412,7 @@
     raw_chem_name: Sulfide
     temp_id: 168756
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 642
@@ -6422,7 +6422,7 @@
     raw_chem_name: Sulfide
     temp_id: 169699
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 643
@@ -6432,7 +6432,7 @@
     raw_chem_name: Glycerol monostearate
     temp_id: 169943
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 644
@@ -6442,7 +6442,7 @@
     raw_chem_name: 2,2,4-Trimethylpentan
     temp_id: 170041
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 645
@@ -6452,7 +6452,7 @@
     raw_chem_name: ISOOCTAN
     temp_id: 170072
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 646
@@ -6462,7 +6462,7 @@
     raw_chem_name: Cetearyl alcohol
     temp_id: 170331
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 647
@@ -6472,7 +6472,7 @@
     raw_chem_name: NaOH
     temp_id: 170936
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 648
@@ -6482,7 +6482,7 @@
     raw_chem_name: 2,2-Dimethylbutan
     temp_id: 171084
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 649
@@ -6492,7 +6492,7 @@
     raw_chem_name: Halothan
     temp_id: 171440
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 650
@@ -6502,7 +6502,7 @@
     raw_chem_name: Hexene
     temp_id: 171604
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 651
@@ -6512,7 +6512,7 @@
     raw_chem_name: 2-Methylbutan
     temp_id: 172417
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 652
@@ -6522,7 +6522,7 @@
     raw_chem_name: Isopentane
     temp_id: 172612
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 653
@@ -6532,7 +6532,7 @@
     raw_chem_name: Isopentane
     temp_id: 172644
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 654
@@ -6542,7 +6542,7 @@
     raw_chem_name: Isopentane
     temp_id: 172658
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 655
@@ -6552,7 +6552,7 @@
     raw_chem_name: Isopentane
     temp_id: 172659
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 656
@@ -6562,7 +6562,7 @@
     raw_chem_name: Isopentane
     temp_id: 172751
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 657
@@ -6572,7 +6572,7 @@
     raw_chem_name: Isopentane
     temp_id: 172977
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 658
@@ -6582,7 +6582,7 @@
     raw_chem_name: Isopentane
     temp_id: 173001
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 659
@@ -6592,7 +6592,7 @@
     raw_chem_name: Isopentane
     temp_id: 173212
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 660
@@ -6602,7 +6602,7 @@
     raw_chem_name: Isopentane
     temp_id: 174000
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 661
@@ -6612,7 +6612,7 @@
     raw_chem_name: Isopentane
     temp_id: 174015
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 662
@@ -6622,7 +6622,7 @@
     raw_chem_name: Isopentane
     temp_id: 174084
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 663
@@ -6632,7 +6632,7 @@
     raw_chem_name: ISOPENTAN
     temp_id: 174227
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 664
@@ -6642,7 +6642,7 @@
     raw_chem_name: Isopentane
     temp_id: 174248
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 665
@@ -6652,7 +6652,7 @@
     raw_chem_name: ISOPENTAN
     temp_id: 174278
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 666
@@ -6662,7 +6662,7 @@
     raw_chem_name: ISOPENTAN
     temp_id: 174654
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 667
@@ -6672,7 +6672,7 @@
     raw_chem_name: Methylbutane
     temp_id: 175045
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 668
@@ -6682,7 +6682,7 @@
     raw_chem_name: ISOPENTAN
     temp_id: 175074
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 669
@@ -6692,7 +6692,7 @@
     raw_chem_name: Methan
     temp_id: 175460
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 670
@@ -6702,7 +6702,7 @@
     raw_chem_name: Methan
     temp_id: 175676
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 671
@@ -6712,7 +6712,7 @@
     raw_chem_name: Methan
     temp_id: 175888
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 672
@@ -6722,7 +6722,7 @@
     raw_chem_name: Methan
     temp_id: 176133
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 673
@@ -6732,7 +6732,7 @@
     raw_chem_name: Methan
     temp_id: 176554
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 674
@@ -6742,7 +6742,7 @@
     raw_chem_name: Methan
     temp_id: 177061
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 675
@@ -6752,7 +6752,7 @@
     raw_chem_name: Methan
     temp_id: 177781
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 676
@@ -6762,7 +6762,7 @@
     raw_chem_name: Methan
     temp_id: 178297
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 677
@@ -6772,7 +6772,7 @@
     raw_chem_name: Methan
     temp_id: 178405
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 678
@@ -6782,7 +6782,7 @@
     raw_chem_name: Methan
     temp_id: 178753
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 679
@@ -6792,7 +6792,7 @@
     raw_chem_name: Methan
     temp_id: 178909
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 680
@@ -6802,7 +6802,7 @@
     raw_chem_name: Methan
     temp_id: 179112
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 681
@@ -6812,7 +6812,7 @@
     raw_chem_name: o-Toluidine
     temp_id: 179850
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 682
@@ -6822,7 +6822,7 @@
     raw_chem_name: Ethylen
     temp_id: 180421
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 683
@@ -6832,7 +6832,7 @@
     raw_chem_name: Ethylen
     temp_id: 180861
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 684
@@ -6842,7 +6842,7 @@
     raw_chem_name: Ethylen
     temp_id: 180952
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 685
@@ -6852,7 +6852,7 @@
     raw_chem_name: Ethylen
     temp_id: 181158
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 686
@@ -6862,7 +6862,7 @@
     raw_chem_name: Ethylen
     temp_id: 181577
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 687
@@ -6872,7 +6872,7 @@
     raw_chem_name: Ethylen
     temp_id: 181600
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 688
@@ -6882,7 +6882,7 @@
     raw_chem_name: Ethylen
     temp_id: 181621
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 689
@@ -6892,7 +6892,7 @@
     raw_chem_name: Ethylen
     temp_id: 181627
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 690
@@ -6902,7 +6902,7 @@
     raw_chem_name: Ethylen
     temp_id: 181756
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 691
@@ -6912,7 +6912,7 @@
     raw_chem_name: Ethylen
     temp_id: 181891
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 692
@@ -6922,7 +6922,7 @@
     raw_chem_name: Acetylen
     temp_id: 182357
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 693
@@ -6932,7 +6932,7 @@
     raw_chem_name: Acetylen
     temp_id: 182530
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 694
@@ -6942,7 +6942,7 @@
     raw_chem_name: Acetylen
     temp_id: 182609
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 695
@@ -6952,7 +6952,7 @@
     raw_chem_name: Acetylen
     temp_id: 182854
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 696
@@ -6962,7 +6962,7 @@
     raw_chem_name: acetylene
     temp_id: 182974
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 697
@@ -6972,7 +6972,7 @@
     raw_chem_name: acetylene
     temp_id: 183679
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 698
@@ -6982,7 +6982,7 @@
     raw_chem_name: Propan
     temp_id: 184249
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 699
@@ -6992,7 +6992,7 @@
     raw_chem_name: Propan
     temp_id: 184522
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 700
@@ -7002,7 +7002,7 @@
     raw_chem_name: Propan
     temp_id: 184702
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 701
@@ -7012,7 +7012,7 @@
     raw_chem_name: Propan
     temp_id: 184810
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 702
@@ -7022,7 +7022,7 @@
     raw_chem_name: Propan
     temp_id: 184999
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 703
@@ -7032,7 +7032,7 @@
     raw_chem_name: Propan
     temp_id: 185060
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 704
@@ -7042,7 +7042,7 @@
     raw_chem_name: Propan
     temp_id: 185534
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 705
@@ -7052,7 +7052,7 @@
     raw_chem_name: Propan
     temp_id: 185758
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 706
@@ -7062,7 +7062,7 @@
     raw_chem_name: Propan
     temp_id: 185971
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 707
@@ -7072,7 +7072,7 @@
     raw_chem_name: Propan
     temp_id: 186867
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 708
@@ -7082,7 +7082,7 @@
     raw_chem_name: Propan
     temp_id: 187089
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 709
@@ -7092,7 +7092,7 @@
     raw_chem_name: Propan
     temp_id: 187109
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 710
@@ -7102,7 +7102,7 @@
     raw_chem_name: Propan
     temp_id: 187223
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 711
@@ -7112,7 +7112,7 @@
     raw_chem_name: methyl acetylene
     temp_id: 187778
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 712
@@ -7122,7 +7122,7 @@
     raw_chem_name: methyl acetylene
     temp_id: 187803
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 713
@@ -7132,7 +7132,7 @@
     raw_chem_name: methyl acetylene
     temp_id: 187888
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 714
@@ -7142,7 +7142,7 @@
     raw_chem_name: methyl acetylene
     temp_id: 187961
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 715
@@ -7152,7 +7152,7 @@
     raw_chem_name: Isobutan
     temp_id: 188163
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 716
@@ -7162,7 +7162,7 @@
     raw_chem_name: Isobutan
     temp_id: 188253
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 717
@@ -7172,7 +7172,7 @@
     raw_chem_name: Isobutan
     temp_id: 188512
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 718
@@ -7182,7 +7182,7 @@
     raw_chem_name: Isobutan
     temp_id: 188631
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 719
@@ -7192,7 +7192,7 @@
     raw_chem_name: Isobutan
     temp_id: 188636
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 720
@@ -7202,7 +7202,7 @@
     raw_chem_name: Isobutan
     temp_id: 188808
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 721
@@ -7212,7 +7212,7 @@
     raw_chem_name: Isobutan
     temp_id: 189291
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 722
@@ -7222,7 +7222,7 @@
     raw_chem_name: Isobutan
     temp_id: 189358
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 723
@@ -7232,7 +7232,7 @@
     raw_chem_name: Isobutan
     temp_id: 189561
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 724
@@ -7242,7 +7242,7 @@
     raw_chem_name: Isobutan
     temp_id: 189840
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 725
@@ -7252,7 +7252,7 @@
     raw_chem_name: Isobutan
     temp_id: 189919
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 726
@@ -7262,7 +7262,7 @@
     raw_chem_name: Isobutan
     temp_id: 189936
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 727
@@ -7272,7 +7272,7 @@
     raw_chem_name: Isobutan
     temp_id: 189995
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 728
@@ -7282,7 +7282,7 @@
     raw_chem_name: Isobutan
     temp_id: 190407
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 729
@@ -7292,7 +7292,7 @@
     raw_chem_name: Isobutan
     temp_id: 190471
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 730
@@ -7302,7 +7302,7 @@
     raw_chem_name: Isobutan
     temp_id: 190673
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 731
@@ -7312,7 +7312,7 @@
     raw_chem_name: Isobutan
     temp_id: 190677
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 732
@@ -7322,7 +7322,7 @@
     raw_chem_name: (Z)-but-2-ene
     temp_id: 191468
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 733
@@ -7332,7 +7332,7 @@
     raw_chem_name: (Z)-but-2-ene
     temp_id: 191474
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 734
@@ -7342,7 +7342,7 @@
     raw_chem_name: buta-1,2-diene
     temp_id: 191781
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 735
@@ -7352,7 +7352,7 @@
     raw_chem_name: Tetradecan
     temp_id: 192051
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 736
@@ -7362,7 +7362,7 @@
     raw_chem_name: CO
     temp_id: 192963
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 737
@@ -7372,7 +7372,7 @@
     raw_chem_name: CO
     temp_id: 192988
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 738
@@ -7382,7 +7382,7 @@
     raw_chem_name: CO
     temp_id: 193372
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 739
@@ -7392,7 +7392,7 @@
     raw_chem_name: CO
     temp_id: 193493
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 740
@@ -7402,7 +7402,7 @@
     raw_chem_name: CO
     temp_id: 193599
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 741
@@ -7412,7 +7412,7 @@
     raw_chem_name: CO
     temp_id: 193827
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 742
@@ -7422,7 +7422,7 @@
     raw_chem_name: CO
     temp_id: 194221
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 743
@@ -7432,7 +7432,7 @@
     raw_chem_name: ethyl acetylene
     temp_id: 194381
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 744
@@ -7442,7 +7442,7 @@
     raw_chem_name: Propadiene
     temp_id: 195084
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 745
@@ -7452,7 +7452,7 @@
     raw_chem_name: allene
     temp_id: 195168
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 746
@@ -7462,7 +7462,7 @@
     raw_chem_name: Neopentan
     temp_id: 195293
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 747
@@ -7472,7 +7472,7 @@
     raw_chem_name: Neopentan
     temp_id: 195380
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 748
@@ -7482,7 +7482,7 @@
     raw_chem_name: Neopentan
     temp_id: 195405
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 749
@@ -7492,7 +7492,7 @@
     raw_chem_name: Neopentan
     temp_id: 195452
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 750
@@ -7502,7 +7502,7 @@
     raw_chem_name: Neopentane
     temp_id: 195740
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 751
@@ -7512,7 +7512,7 @@
     raw_chem_name: Neopentane
     temp_id: 195841
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 752
@@ -7522,7 +7522,7 @@
     raw_chem_name: difluoromethane
     temp_id: 195952
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 753
@@ -7532,7 +7532,7 @@
     raw_chem_name: H2
     temp_id: 196366
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 754
@@ -7542,7 +7542,7 @@
     raw_chem_name: H2
     temp_id: 196919
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 755
@@ -7552,7 +7552,7 @@
     raw_chem_name: H2
     temp_id: 196962
     temp_obj_name: ExtractedChemical
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 756
@@ -7562,7 +7562,7 @@
     raw_chem_name: Functional Use Chem1 Chloro(tetrahydrothiophene)gold(I)
     temp_id: 1
     temp_obj_name: ExtractedFunctionalUse
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 757
@@ -7572,7 +7572,7 @@
     raw_chem_name: Functional Use Chem2
     temp_id: 2
     temp_obj_name: ExtractedFunctionalUse
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 758
@@ -7582,7 +7582,7 @@
     raw_chem_name: hydrofluorocarbon 152a
     temp_id: 1
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
     component: 'Test CP Component'
 - model: dashboard.rawchem
@@ -7593,428 +7593,428 @@
     raw_chem_name: sd alcohol 40-b (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: 10
     component: 'Test CP Component 2'
 - model: dashboard.rawchem
   pk: 760
   fields:
     extracted_text: 354782
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: benzene
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: 14
 - model: dashboard.rawchem
   pk: 761
   fields:
     extracted_text: 354782
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: carbon disulfide
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 762
   fields:
     extracted_text: 354782
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: chloromethane
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 763
   fields:
     extracted_text: 354782
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: dichlorodifluoromethane
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 764
   fields:
     extracted_text: 354782
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: Ethyl acetate
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 765
   fields:
     extracted_text: 354782
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: Ethylbenzene
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 766
   fields:
     extracted_text: 354782
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: Heptane
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 767
   fields:
     extracted_text: 354782
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: Hexane
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 768
   fields:
     extracted_text: 354782
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: "\_Isopropyl alcohol"
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 769
   fields:
     extracted_text: 354782
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: m & p-Xylene
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 770
   fields:
     extracted_text: 354782
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: Methylene chloride
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 771
   fields:
     extracted_text: 354782
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: "\_o-Xylene"
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 772
   fields:
     extracted_text: 354782
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: Propene
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 773
   fields:
     extracted_text: 354782
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: Toluene
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: 15
 - model: dashboard.rawchem
   pk: 774
   fields:
     extracted_text: 354782
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: Trichlorofluoromethane
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 775
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: '"delta-9 tetrahydrocannabinol"'
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 776
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: cannabidiol
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 777
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: cannabinol
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 778
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: diacetyl
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 779
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: 2,3-pentanedione
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 780
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: 2,3-hexanedione
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 781
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: acetone
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 782
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: benzene
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 783
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: acetonitrile
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 784
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: d-limonene
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 785
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: ethanol
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 786
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: ethylbenzene
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 787
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: isopropyl alcohol
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 788
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: m,p-xylene
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 789
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: methyl methacrylate
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 790
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: toluene
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: 15
 - model: dashboard.rawchem
   pk: 791
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: propane
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 792
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: acetaldehyde
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 793
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: decamethylcylcopentasiloxane
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 794
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: n-hexane
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 795
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: Ozone
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 796
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: terpenes
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 797
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: beta-pinene
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 798
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: limonene
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 799
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: endotoxins
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 800
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: fungus
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 801
   fields:
     extracted_text: 354783
-    raw_cas: null
+    raw_cas: ""
     raw_chem_name: particulate matter
     temp_id: null
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 802
@@ -8024,7 +8024,7 @@
     raw_chem_name: sd alcohol40-jj (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: 10
 - model: dashboard.rawchem
   pk: 803
@@ -8034,7 +8034,7 @@
     raw_chem_name: sd alcohol40-ll (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 804
@@ -8044,7 +8044,7 @@
     raw_chem_name: sd alcohol40-mm (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 805
@@ -8054,7 +8054,7 @@
     raw_chem_name: sd alcohol40-nn (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 806
@@ -8064,7 +8064,7 @@
     raw_chem_name: sd alcohol40-oo (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 807
@@ -8074,7 +8074,7 @@
     raw_chem_name: sd alcohol40-pp (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 808
@@ -8084,7 +8084,7 @@
     raw_chem_name: sd alcohol40-qq (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 809
@@ -8094,7 +8094,7 @@
     raw_chem_name: sd alcohol40-rr (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 810
@@ -8104,7 +8104,7 @@
     raw_chem_name: sd alcohol40-ss (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 811
@@ -8114,7 +8114,7 @@
     raw_chem_name: sd alcohol40-tt (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 812
@@ -8124,7 +8124,7 @@
     raw_chem_name: sd alcohol40-uu (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 813
@@ -8134,7 +8134,7 @@
     raw_chem_name: sd alcohol40-vv (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 814
@@ -8144,7 +8144,7 @@
     raw_chem_name: sd alcohol40-ww (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 815
@@ -8154,7 +8154,7 @@
     raw_chem_name: sd alcohol40-xx (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 816
@@ -8164,7 +8164,7 @@
     raw_chem_name: sd alcohol40-yy (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 817
@@ -8174,7 +8174,7 @@
     raw_chem_name: sd alcohol40-zz (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 818
@@ -8184,7 +8184,7 @@
     raw_chem_name: sd alcohol40-a (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 819
@@ -8194,7 +8194,7 @@
     raw_chem_name: sd alcohol40-b (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 820
@@ -8204,7 +8204,7 @@
     raw_chem_name: sd alcohol40-c (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 821
@@ -8214,7 +8214,7 @@
     raw_chem_name: sd alcohol40-d (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 822
@@ -8224,7 +8224,7 @@
     raw_chem_name: sd alcohol40-e (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 823
@@ -8234,7 +8234,7 @@
     raw_chem_name: sd alcohol40-f (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 824
@@ -8244,7 +8244,7 @@
     raw_chem_name: sd alcohol40-g (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 825
@@ -8254,7 +8254,7 @@
     raw_chem_name: sd alcohol40-h (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 826
@@ -8264,7 +8264,7 @@
     raw_chem_name: sd alcohol40-i (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 827
@@ -8274,7 +8274,7 @@
     raw_chem_name: sd alcohol40-j (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 828
@@ -8284,7 +8284,7 @@
     raw_chem_name: sd alcohol40-k (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 829
@@ -8294,7 +8294,7 @@
     raw_chem_name: sd alcohol40-l (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 830
@@ -8304,7 +8304,7 @@
     raw_chem_name: sd alcohol40-m (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 831
@@ -8314,7 +8314,7 @@
     raw_chem_name: sd alcohol40-n (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 832
@@ -8324,7 +8324,7 @@
     raw_chem_name: sd alcohol40-o (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 833
@@ -8334,7 +8334,7 @@
     raw_chem_name: sd alcohol40-p (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 834
@@ -8344,7 +8344,7 @@
     raw_chem_name: sd alcohol40-q (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 835
@@ -8354,7 +8354,7 @@
     raw_chem_name: sd alcohol40-r (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 836
@@ -8364,7 +8364,7 @@
     raw_chem_name: sd alcohol40-s (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 837
@@ -8374,7 +8374,7 @@
     raw_chem_name: sd alcohol40-t (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 838
@@ -8384,7 +8384,7 @@
     raw_chem_name: sd alcohol40-u (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 839
@@ -8394,7 +8394,7 @@
     raw_chem_name: sd alcohol40-v (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 840
@@ -8404,7 +8404,7 @@
     raw_chem_name: sd alcohol40-w (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 841
@@ -8414,7 +8414,7 @@
     raw_chem_name: sd alcohol40-x (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 842
@@ -8424,7 +8424,7 @@
     raw_chem_name: sd alcohol40-y (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 843
@@ -8434,7 +8434,7 @@
     raw_chem_name: sd alcohol40-z (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 844
@@ -8444,7 +8444,7 @@
     raw_chem_name: sd alcohol40-z (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 845
@@ -8454,7 +8454,7 @@
     raw_chem_name: sd alcohol40-z (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 846
@@ -8464,7 +8464,7 @@
     raw_chem_name: sd alcohol40-z (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 847
@@ -8474,7 +8474,7 @@
     raw_chem_name: sd alcohol40-z (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 848
@@ -8484,7 +8484,7 @@
     raw_chem_name: sd alcohol40-z (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 849
@@ -8494,7 +8494,7 @@
     raw_chem_name: sd alcohol40-z (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 850
@@ -8504,7 +8504,7 @@
     raw_chem_name: sd alcohol40-z (ethanol)
     temp_id: 2
     temp_obj_name: ExtractedListPresence
-    rid: null
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 851
@@ -8513,8 +8513,8 @@
     raw_cas: 0000064-17-5
     raw_chem_name: tagged_ethanol
     temp_id: 0
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: 10
 - model: dashboard.rawchem
   pk: 852
@@ -8523,8 +8523,8 @@
     raw_cas: 0000064-17-5
     raw_chem_name: sesquicen-ethanol
     temp_id: 0
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: 10
 - model: dashboard.rawchem
   pk: 853
@@ -8533,8 +8533,8 @@
     raw_cas: ole no. 47
     raw_chem_name: moonshine
     temp_id: 0
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: 10
     component: Test Component
 - model: dashboard.rawchem
@@ -8544,8 +8544,8 @@
     raw_cas: 13-47
     raw_chem_name: schpongle
     temp_id: 0
-    temp_obj_name: null
-    rid: null
+    temp_obj_name: ""
+    rid: ""
     dsstox: null
 - model: dashboard.rawchem
   pk: 855
@@ -8555,7 +8555,7 @@
     raw_chem_name: "5-(2-Chloro-alapha,alpha,alpha-trifluoro-p-tolyloxy)-2-nitrobenzoic acid"
     temp_id: 27216
     temp_obj_name: ExtractedChemical
-    rid:
+    rid: ""
     dsstox:
 - model: dashboard.rawchem
   pk: 856

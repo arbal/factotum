@@ -5,9 +5,9 @@
     study_location: Massachusetts
     naics_code: '621111'
     sampling_date: Dec-16, Feb-17, July-17
-    population_gender: null
-    population_age: null
-    population_other: null
+    population_gender: ''
+    population_age: ''
+    population_other: ''
     occupation: dermatologist
     facility: Hospital dermatology center
 - model: dashboard.extractedhhdoc

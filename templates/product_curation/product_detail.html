@@ -117,7 +117,9 @@
         </div>
     </div>
     <div class="col-4">
-        {% if product.medium_image %}
+        {% if product.image %}
+        <img src="{{ product.image.url }}" height="180px" width="180px" alt="Product Image Url">
+        {% elif product.medium_image %}
         <img src="{{ product.medium_image }}" height="180px" width="180px" alt="Product Medium Image">
         <br>
         {% else %}
@@ -174,10 +176,12 @@
                             </td>
                             <td align="center">
                                 <div class="btn-group">
+                                {% if doc.file != "" %}
                                     <a href="{{ doc.file.url }}" title="Link to {{ doc.filename }}" download="{{ doc.filename }}"
                                         target="_blank">
                                         <span class="fa fa-fs {{ doc.file.url|fileicon }}"></span>
                                     </a>
+                                    {% endif %}
                                 </div>
                             </td>
                         </tr>

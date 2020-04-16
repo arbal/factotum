@@ -1,17 +1,15 @@
-from taggit.models import TaggedItemBase, TagBase
-from taggit.managers import TaggableManager
-
+from django.apps import apps
 from django.db import models
+from django.db.models import Count, F, Q
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
-
-from .common_info import CommonInfo
-from django.apps import apps
+from taggit.managers import TaggableManager
+from taggit.models import TaggedItemBase, TagBase
 
 from dashboard.models import ProductDocument, DataDocument
-from django.db.models import Count, F, Q
-from .raw_chem import RawChem
 from dashboard.utils import GroupConcat, SimpleTree
+from .common_info import CommonInfo
+from .raw_chem import RawChem
 
 
 class PUCQuerySet(models.QuerySet):
@@ -196,9 +194,9 @@ class PUC(CommonInfo):
                 ),
                 dsstox__isnull=False,
             )
-            .values("dsstox")
-            .distinct()
-            .count()
+                .values("dsstox")
+                .distinct()
+                .count()
         )
 
     @property
@@ -227,8 +225,8 @@ class PUC(CommonInfo):
 
         return (
             Taxonomy.objects.filter(product_category=self)
-            .annotate(source_title=F("source__title"))
-            .annotate(source_description=F("source__description"))
+                .annotate(source_title=F("source__title"))
+                .annotate(source_description=F("source__description"))
         )
 
 
@@ -242,10 +240,14 @@ class PUCToTag(TaggedItemBase, CommonInfo):
     def __str__(self):
         return str(self.tag)
 
+    class Meta:
+        unique_together = ["content_object", "tag"]
+        verbose_name = _("PUC Tag")
+        verbose_name_plural = _("PUC Tags")
+
 
 class PUCTag(TagBase, CommonInfo):
-
-    definition = models.TextField(null=True, blank=True, max_length=255)
+    definition = models.TextField(blank=True, max_length=255)
 
     class Meta:
         verbose_name = _("PUC Attribute")

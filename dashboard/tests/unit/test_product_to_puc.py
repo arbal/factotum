@@ -1,11 +1,13 @@
+from django.db.utils import IntegrityError
 from django.test import TestCase, tag
-from dashboard.tests.loader import load_model_objects
+
 from dashboard.models import ProductToPUC
+from dashboard.tests.loader import load_model_objects
 from dashboard.views.product_curation import ProductForm
 
 
 @tag("loader")
-class UberPUCTest(TestCase):
+class ProductToPUCTest(TestCase):
     def setUp(self):
         self.objects = load_model_objects()
 
@@ -31,12 +33,6 @@ class UberPUCTest(TestCase):
         _str = "Test Product Type"
         self.assertEqual(_str, str(uber_puc))
 
-
-@tag("loader")
-class Product_Form_Test(TestCase):
-    def setUp(self):
-        self.objects = load_model_objects()
-
     # it seems to be necessary to us the __dict__ and instance in order to load
     # the form for testing, w/o I don't think the fields are bound, which will
     # never validate!
@@ -48,8 +44,20 @@ class Product_Form_Test(TestCase):
         self.objects.p.title = "Title Necessary"
         self.objects.p.upc = "Upc Necessary"
         self.objects.p.document_type = self.objects.dt.id
-        # print(self.objects.p)
         self.objects.p.save()
         form = ProductForm(self.objects.p.__dict__, instance=self.objects.p)
-        # print(form.errors)
         self.assertTrue(form.is_valid())
+
+    def test_unique_constaint(self):
+        self.ppuc1 = ProductToPUC.objects.create(
+            product=self.objects.p,
+            puc=self.objects.puc,
+            puc_assigned_usr=self.objects.user,
+        )
+
+        with self.assertRaises(IntegrityError):
+            self.ppuc2 = ProductToPUC.objects.create(
+                product=self.objects.p,
+                puc=self.objects.puc,
+                puc_assigned_usr=self.objects.user,
+            )

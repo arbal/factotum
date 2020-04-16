@@ -1,3 +1,5 @@
+from functools import partial
+
 from django_filters import rest_framework as filters
 from rest_framework.exceptions import ValidationError
 
@@ -75,6 +77,31 @@ class ChemicalFilter(filters.FilterSet):
     class Meta:
         model = models.DSSToxLookup
         fields = []
+
+
+class ChemicalPresenceTagsetFilter(filters.FilterSet):
+    chemical = filters.CharFilter(field_name="sid", distinct=True)
+    keyword = filters.NumberFilter(
+        field_name="curated_chemical__extractedlistpresence__tags__pk", distinct=True
+    )
+    document = filters.NumberFilter(
+        field_name="curated_chemical__extracted_text__data_document_id", distinct=True
+    )
+
+    def filter_queryset(self, queryset):
+        if not set(self.request.GET.keys() & self.form.fields.keys()):
+            raise ValidationError(
+                "Request must be filtered by one of these parameters "
+                "['chemical', 'document', 'keyword']"
+            )
+        queryset = super().filter_queryset(queryset)
+        for item in queryset:
+            item.tagsets = partial(
+                item.get_tags_with_extracted_text,
+                tag_id=self.form.cleaned_data.get("keyword"),
+                doc_id=self.form.cleaned_data.get("document"),
+            )
+        return queryset
 
 
 class CompositionFilter(filters.FilterSet):

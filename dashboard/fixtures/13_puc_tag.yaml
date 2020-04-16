@@ -1,11 +1,11 @@
 - model: dashboard.puctag
   pk: 1
   fields: {created_at: !!timestamp '2018-10-25 08:07:37.976293', updated_at: !!timestamp '2018-11-06
-      21:47:56.846146', name: foam spray, slug: foam_spray, definition: null}
+      21:47:56.846146', name: foam spray, slug: foam_spray, definition: ''}
 - model: dashboard.puctag
   pk: 2
   fields: {created_at: !!timestamp '2018-10-25 08:12:32.659366', updated_at: !!timestamp '2018-10-25
-      08:12:32.659387', name: liquid, slug: liquid, definition: null}
+      08:12:32.659387', name: liquid, slug: liquid, definition: ''}
 - model: dashboard.puctag
   pk: 3
   fields: {created_at: !!timestamp '2018-10-25 08:12:40.238436', updated_at: !!timestamp '2018-10-25
@@ -14,11 +14,11 @@
 - model: dashboard.puctag
   pk: 4
   fields: {created_at: !!timestamp '2018-10-25 08:12:50.267602', updated_at: !!timestamp '2018-10-25
-      08:12:50.267632', name: gas, slug: gas, definition: null}
+      08:12:50.267632', name: gas, slug: gas, definition: ''}
 - model: dashboard.puctag
   pk: 5
   fields: {created_at: !!timestamp '2018-10-25 08:13:07.016415', updated_at: !!timestamp '2018-10-25
-      08:13:07.016442', name: gel, slug: gel, definition: null}
+      08:13:07.016442', name: gel, slug: gel, definition: ''}
 - model: dashboard.puctag
   pk: 6
   fields: {created_at: !!timestamp '2018-10-25 08:13:12.656756', updated_at: !!timestamp '2018-10-25
@@ -27,27 +27,27 @@
 - model: dashboard.puctag
   pk: 8
   fields: {created_at: !!timestamp '2018-10-25 08:15:05.698916', updated_at: !!timestamp '2018-10-25
-      08:15:05.698943', name: powder, slug: powder, definition: null}
+      08:15:05.698943', name: powder, slug: powder, definition: ''}
 - model: dashboard.puctag
   pk: 9
   fields: {created_at: !!timestamp '2018-10-25 08:15:11.035894', updated_at: !!timestamp '2018-10-25
-      08:15:11.035922', name: solid, slug: solid, definition: null}
+      08:15:11.035922', name: solid, slug: solid, definition: ''}
 - model: dashboard.puctag
   pk: 10
   fields: {created_at: !!timestamp '2018-11-06 21:47:03.181864', updated_at: !!timestamp '2018-11-06
-      21:47:03.181888', name: hot melt, slug: hot_melt, definition: null}
+      21:47:03.181888', name: hot melt, slug: hot_melt, definition: ''}
 - model: dashboard.puctag
   pk: 11
   fields: {created_at: !!timestamp '2018-11-06 21:47:18.282096', updated_at: !!timestamp '2018-11-06
-      21:47:18.282122', name: foam, slug: foam, definition: null}
+      21:47:18.282122', name: foam, slug: foam, definition: ''}
 - model: dashboard.puctag
   pk: 12
   fields: {created_at: !!timestamp '2018-11-06 21:48:09.961951', updated_at: !!timestamp '2018-11-06
-      21:48:09.961977', name: wipes, slug: wipes, definition: null}
+      21:48:09.961977', name: wipes, slug: wipes, definition: ''}
 - model: dashboard.puctag
   pk: 13
   fields: {created_at: !!timestamp '2018-11-06 21:48:20.936279', updated_at: !!timestamp '2018-11-06
-      21:48:20.936304', name: cartridge, slug: cartridge, definition: null}
+      21:48:20.936304', name: cartridge, slug: cartridge, definition: ''}
 - model: dashboard.puctag
   pk: 14
   fields: {created_at: !!timestamp '2018-11-06 21:48:44.169930', updated_at: !!timestamp '2018-11-06
@@ -57,15 +57,15 @@
 - model: dashboard.puctag
   pk: 15
   fields: {created_at: !!timestamp '2018-11-06 21:48:53.509222', updated_at: !!timestamp '2018-11-06
-      21:48:53.509246', name: hose spray, slug: hose_spray, definition: null}
+      21:48:53.509246', name: hose spray, slug: hose_spray, definition: ''}
 - model: dashboard.puctag
   pk: 16
   fields: {created_at: !!timestamp '2018-11-06 21:49:27.090507', updated_at: !!timestamp '2018-11-06
-      21:49:27.090534', name: exterior, slug: exterior, definition: null}
+      21:49:27.090534', name: exterior, slug: exterior, definition: ''}
 - model: dashboard.puctag
   pk: 17
   fields: {created_at: !!timestamp '2018-11-06 21:49:33.744055', updated_at: !!timestamp '2018-11-06
-      21:49:33.744073', name: interior, slug: interior, definition: null}
+      21:49:33.744073', name: interior, slug: interior, definition: ''}
 - model: dashboard.puctag
   pk: 18
   fields: {created_at: !!timestamp '2018-11-06 21:49:39.220737', updated_at: !!timestamp '2018-11-06
@@ -74,31 +74,31 @@
 - model: dashboard.puctag
   pk: 19
   fields: {created_at: !!timestamp '2018-11-06 21:49:53.664953', updated_at: !!timestamp '2018-11-06
-      21:49:53.664979', name: two-component, slug: two_component, definition: null}
+      21:49:53.664979', name: two-component, slug: two_component, definition: ''}
 - model: dashboard.puctag
   pk: 20
   fields: {created_at: !!timestamp '2018-11-07 16:56:26.979522', updated_at: !!timestamp '2018-11-07
-      16:56:26.979550', name: impregnated sheets, slug: impregnated_sheets, definition: null}
+      16:56:26.979550', name: impregnated sheets, slug: impregnated_sheets, definition: ''}
 - model: dashboard.puctag
   pk: 21
   fields: {created_at: !!timestamp '2018-11-07 16:58:05.081941', updated_at: !!timestamp '2018-11-07
-      16:58:05.081967', name: in vehicle, slug: in_vehicle, definition: null}
+      16:58:05.081967', name: in vehicle, slug: in_vehicle, definition: ''}
 - model: dashboard.puctag
   pk: 22
   fields: {created_at: !!timestamp '2018-11-11 21:16:37.243394', updated_at: !!timestamp '2018-11-11
-      21:16:37.243433', name: trap, slug: trap, definition: null}
+      21:16:37.243433', name: trap, slug: trap, definition: ''}
 - model: dashboard.puctag
   pk: 23
   fields: {created_at: !!timestamp '2018-11-14 20:45:46.495667', updated_at: !!timestamp '2018-11-14
-      20:45:46.495708', name: pods, slug: pods, definition: null}
+      20:45:46.495708', name: pods, slug: pods, definition: ''}
 - model: dashboard.puctag
   pk: 24
   fields: {created_at: !!timestamp '2019-03-20 09:30:01.361869', updated_at: !!timestamp '2019-03-20
-      09:30:01.361897', name: granules, slug: granules, definition: null}
+      09:30:01.361897', name: granules, slug: granules, definition: ''}
 - model: dashboard.puctag
   pk: 25
   fields: {created_at: !!timestamp '2019-05-02 10:38:50.557953', updated_at: !!timestamp '2019-05-02
-      10:38:50.558010', name: candle, slug: candle, definition: null}
+      10:38:50.558010', name: candle, slug: candle, definition: ''}
 - model: dashboard.puctotag
   pk: 1
   fields: {created_at: !!timestamp '2018-10-25 08:15:39.331030', updated_at: !!timestamp '2018-10-25

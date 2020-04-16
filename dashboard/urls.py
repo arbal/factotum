@@ -281,6 +281,19 @@ urlpatterns = [
     ),
     path("chemical/<pk>/edit/", views.ChemUpdateView.as_view(), name="chemical_update"),
     path(
+        "habitspractices/<int:doc>/create/",
+        views.EHPCreateView.as_view(),
+        name="ehp_create",
+    ),
+    path(
+        "habitspractices/<pk>/edit/", views.EHPUpdateView.as_view(), name="ehp_update"
+    ),
+    path(
+        "datadocument/<int:doc>/habitspractices/<pk>/delete/",
+        views.EHPDeleteView.as_view(),
+        name="ehp_delete",
+    ),
+    path(
         "chemical/<pk>/auditlog/", views.chemical_audit_log, name="chemical_audit_log"
     ),
     path(

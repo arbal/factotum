@@ -124,7 +124,7 @@
     created_at: 2018-07-31 11:28:13.705077
     updated_at: 2018-07-31 11:28:13.705115
     title: Manual (dummy)
-    url: null
+    url: ''
     qa_begun: false
     script_type: EX
     confidence: 1
@@ -174,7 +174,7 @@
     created_at: 2019-07-02 13:38:42.306584
     updated_at: 2019-07-02 13:38:42.306607
     title: Chemical Presence Script
-    url: null
+    url: ''
     qa_begun: false
     script_type: EX
     confidence: 1
