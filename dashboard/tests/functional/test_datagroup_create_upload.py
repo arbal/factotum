@@ -25,7 +25,7 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
     def test_datagroup_create(self):
         long_fn = "a filename that is too long " * 10
         csv_string = (
-            "filename,title,document_type,url,organization\n"
+            "filename,title,document_type,url,organization,subtitle\n"
             "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,, \n"
             f"{long_fn},Body Cream,MS,, \n"
         )
@@ -67,7 +67,7 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
         self.assertFalse(dg_exists)
 
         csv_string = (
-            "filename,title,document_type,url,organization\n"
+            "filename,title,document_type,url,organization,subtitle\n"
             "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,, \n"
             "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,MS,, \n"
         )
@@ -176,7 +176,7 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
 
     def test_datagroup_create_dupe_filename(self):
         csv_string = (
-            "filename,title,document_type,url,organization\n"
+            "filename,title,document_type,url,organization,subtitle\n"
             "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,, \n"
             "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,Body Cream,MS,, \n"
         )
@@ -221,7 +221,7 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
     def test_datagroup_create_url_len_err(self):
         long_url = "http://www.epa.gov" * 16
         csv_string = (
-            "filename,title,document_type,url,organization\n"
+            "filename,title,document_type,url,organization,subtitle\n"
             "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,, \n"
             f"another.pdf,Body Cream,MS,{long_url}, \n"
         )
@@ -260,7 +260,7 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
 
     def test_csv_line_endings(self):
         csv_string = (
-            "filename,title,document_type,url,organization\r"
+            "filename,title,document_type,url,organization,subtitle\r"
             "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,, \r"
             "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,MS,, \r\n"
         )

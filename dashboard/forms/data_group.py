@@ -711,7 +711,14 @@ class RegisterRecordsFormSet(DGFormSet):
         before getting to any form-specific errors.
         """
         header = list(self.bulk.fieldnames)
-        header_cols = ["filename", "title", "document_type", "url", "organization"]
+        header_cols = [
+            "filename",
+            "title",
+            "document_type",
+            "url",
+            "organization",
+            "subtitle",
+        ]
         if header != header_cols:
             raise forms.ValidationError(f"CSV column titles should be {header_cols}")
         if not any(self.errors):
@@ -759,5 +766,6 @@ class DataDocumentCSVForm(forms.ModelForm):
             "document_type",
             "url",
             "organization",
+            "subtitle",
         ]
         field_classes = {"document_type": DocTypeFormField}

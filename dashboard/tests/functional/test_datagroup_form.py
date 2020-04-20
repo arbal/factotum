@@ -137,5 +137,5 @@ class DataGroupFormTest(TestCase):
         self.assertContains(
             resp,
             "CSV column titles should be [&#39;filename&#39;, &#39;title&#39;,"
-            " &#39;document_type&#39;, &#39;url&#39;, &#39;organization&#39;]",
+            " &#39;document_type&#39;, &#39;url&#39;, &#39;organization&#39;, &#39;subtitle&#39;]",
         )
