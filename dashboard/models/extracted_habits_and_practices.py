@@ -27,7 +27,9 @@ class ExtractedHabitsAndPractices(CommonInfo):
     )
     product_surveyed = models.CharField("Product Surveyed", max_length=50)
     PUCs = models.ManyToManyField(
-        "dashboard.PUC", through="dashboard.ExtractedHabitsAndPracticesToPUC"
+        "dashboard.PUC",
+        through="dashboard.ExtractedHabitsAndPracticesToPUC",
+        blank=True,
     )
     notes = models.TextField("Notes", blank=True)
     tags = TaggableManager(

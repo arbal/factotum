@@ -494,6 +494,11 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         banner = wait.until(
             ec.element_to_be_clickable((By.CLASS_NAME, "dataTables_info"))
         )
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.CLASS_NAME, "dataTables_info"), "Showing 1 to 4 of 4 entries"
+            )
+        )
         self.assertEqual(banner.text, "Showing 1 to 4 of 4 entries")
         not_extracted = trash_can.find_element_by_name("Not_extracted")
         not_extracted.click()
