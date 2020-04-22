@@ -16,7 +16,6 @@ from dashboard.models import (
     DataDocument,
     Product,
     RawChem,
-    GroupType,
 )
 from dashboard.forms import create_detail_formset
 from django.conf import settings
@@ -424,6 +423,13 @@ class DataDocumentDetailTest(TestCase):
         )
         response = self.client.get(doc.get_absolute_url())
         self.assertContains(response, "Last updated:")
+
+    def test_epa_reg_number(self):
+        id = 7
+        doc = DataDocument.objects.get(pk=id)
+        reg_no = doc.epa_reg_number
+        response = self.client.get(doc.get_absolute_url())
+        self.assertContains(response, reg_no)
 
 
 class TestDynamicDetailFormsets(TestCase):

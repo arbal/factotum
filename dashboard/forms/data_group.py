@@ -718,6 +718,7 @@ class RegisterRecordsFormSet(DGFormSet):
             "url",
             "organization",
             "subtitle",
+            "epa_reg_number",
         ]
         if header != header_cols:
             raise forms.ValidationError(f"CSV column titles should be {header_cols}")
@@ -767,5 +768,6 @@ class DataDocumentCSVForm(forms.ModelForm):
             "url",
             "organization",
             "subtitle",
+            "epa_reg_number",
         ]
         field_classes = {"document_type": DocTypeFormField}

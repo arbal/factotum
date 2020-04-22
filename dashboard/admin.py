@@ -29,9 +29,9 @@ class PUCAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         return (
             super(PUCAdmin, self)
-                .get_queryset(request)
-                .prefetch_related("tags")
-                .annotate(num_products=Count("products"))
+            .get_queryset(request)
+            .prefetch_related("tags")
+            .annotate(num_products=Count("products"))
         )
 
     def num_products(self, obj):

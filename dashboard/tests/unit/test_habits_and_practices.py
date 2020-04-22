@@ -8,6 +8,7 @@ from dashboard.tests.loader import load_model_objects
 
 from dashboard.models import ExtractedHabitsAndPracticesToPUC
 
+
 @tag("loader")
 class HabitViewTest(TestCase):
     multi_db = True
@@ -104,12 +105,10 @@ class HabitViewTest(TestCase):
 
     def test_unique_constaint(self):
         self.ehp1 = ExtractedHabitsAndPracticesToPUC.objects.create(
-            extracted_habits_and_practices=self.objects.ehp,
-            PUC=self.objects.puc
+            extracted_habits_and_practices=self.objects.ehp, PUC=self.objects.puc
         )
 
         with self.assertRaises(IntegrityError):
             self.ehp2 = ExtractedHabitsAndPracticesToPUC.objects.create(
-                extracted_habits_and_practices=self.objects.ehp,
-                PUC=self.objects.puc
+                extracted_habits_and_practices=self.objects.ehp, PUC=self.objects.puc
             )

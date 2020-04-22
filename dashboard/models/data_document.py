@@ -58,6 +58,12 @@ class DataDocument(CommonInfo):
         verbose_name="URL",
         help_text="an optional URL to the document's remote source",
     )
+    epa_reg_number = models.CharField(
+        blank=True,
+        max_length=25,
+        verbose_name="EPA reg. no.",
+        help_text="the document's EPA registration number",
+    )
     raw_category = models.CharField(
         blank=True,
         max_length=1000,

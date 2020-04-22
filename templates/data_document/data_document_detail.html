@@ -146,6 +146,17 @@
                         {{ doc.document_type }}
                     {% endif %}
                 </h5>
+            {% if  doc.epa_reg_number %}
+                <dl class="mb-0">
+                                <dt>
+                                   EPA Reg. No.
+                                </dt>
+                                <dd class="pl-4 mb-0"
+                                    id="epa_reg_number">
+                                    {{ doc.epa_reg_number }}
+                                </dd>
+                            </dl>
+            {% endif %}
             </div>
             {% if doc.raw_category %}
                 <div>

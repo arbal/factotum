@@ -452,6 +452,7 @@ class DataDocumentForm(forms.ModelForm):
             "url",
             "raw_category",
             "organization",
+            "epa_reg_number",
         ]
 
     def __init__(self, *args, **kwargs):

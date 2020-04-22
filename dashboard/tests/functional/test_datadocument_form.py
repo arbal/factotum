@@ -25,6 +25,7 @@ class DataDocumentDetailFormTest(TestCase, DashboardFormFieldTestMixin):
                 "url",
                 "raw_category",
                 "organization",
+                "epa_reg_number",
             ]
         )
 
