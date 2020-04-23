@@ -64,7 +64,7 @@
       {% if forloop.parentloop.first %}
           <span>
             {{ field.label_tag }}
-            {% if doc.data_group.is_functional_use %}
+            {% if doc.data_group.can_have_multiple_funcuse %}
                 <a class="btn btn-sm btn-outline-secondary hover-success float-right mb-2 mr-2"
                         id="funcuse-add"
                         title="Add Functional Use"

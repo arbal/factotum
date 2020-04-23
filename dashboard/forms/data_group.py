@@ -512,7 +512,7 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
 
             else:
                 child = None
-            if uses and self.dg.type not in ("FU",) and len(uses) > 1:
+            if uses and not self.dg.can_have_multiple_funcuse and len(uses) > 1:
                 form.add_error(
                     "report_funcuse",
                     forms.ValidationError(

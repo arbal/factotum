@@ -100,7 +100,7 @@ class ChemCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         doc = DataDocument.objects.get(pk=self.kwargs.get("doc"))
-        extra = 12 if doc.data_group.is_functional_use else 1
+        extra = 12 if doc.data_group.can_have_multiple_funcuse else 1
         FuncUseFormSet = inlineformset_factory(
             RawChem,
             FunctionalUse,
@@ -151,7 +151,7 @@ class ChemUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         doc = self.object.extracted_text.data_document
-        extra = 12 if doc.data_group.is_functional_use else 1
+        extra = 12 if doc.data_group.can_have_multiple_funcuse else 1
         FuncUseFormSet = inlineformset_factory(
             RawChem,
             FunctionalUse,

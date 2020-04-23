@@ -74,7 +74,7 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
             "0000064-17-5,sd alcohol 40-b (ethanol),adhesive,0.5,0.55,1,,,Test Component"
             "\n"
             "7,11165872.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
-            "0000064-17-6,sd alcohol 40-c (ethanol c),propellant,,,2,,,Test Component"
+            "0000064-17-6,sd alcohol 40-c (ethanol c),adhesive;propellant,,,2,,,Test Component"
             "\n"
             "7,11165872.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
             ",,,,,,,,"
@@ -248,11 +248,13 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         new_ex_chems = ExtractedChemical.objects.filter(
             extracted_text__data_document__data_group__id=6
         )
+        # Verify multiple report_funcuse upload
         ec = new_ex_chems.filter(
             raw_chem_name="sd alcohol 40-c (ethanol c)"
         ).prefetch_related("functional_uses")[0]
-        fu = ec.functional_uses.first()
-        self.assertEqual(fu.report_funcuse, "propellant")
+        self.assertEqual(ec.functional_uses.count(), 2)
+        self.assertEqual(ec.functional_uses.first().report_funcuse, "adhesive")
+        self.assertEqual(ec.functional_uses.all()[1].report_funcuse, "propellant")
 
         dg = DataGroup.objects.get(pk=6)
         dg.delete()

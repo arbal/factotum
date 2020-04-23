@@ -126,22 +126,38 @@
                         </div>
                         <div class="col-1"></div>
                     </div>
-                    <div class="row">
-                        <div class="col-6 text-left mt-auto">
-                            {% if chemical.functional_uses.first %}
-                                <span id="report_funcuse">
+
+                    {% if doc.data_group.can_have_multiple_funcuse %}
+                        <div class="row">
+                            <div class="col-6 text-left mt-auto">
+                            </div>
+                            <div class="col-6 text-right">
+                                {% if chemical.ingredient_rank %}
+                                    <h3 class="d-inline" id="ingredient_rank" title="Ingredient Rank">
+                                        {{ chemical.ingredient_rank }}
+                                    </h3>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% include 'core/components/all_funcuses_in_chemical_card.html' %}
+                    {% else %}
+                        <div class="row">
+                            <div class="col-6 text-left mt-auto">
+                                {% if chemical.functional_uses.first %}
+                                    <span id="report_funcuse">
                                     {{ chemical.functional_uses.first }}
                                 </span>
-                            {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="col-6 text-right">
+                                {% if chemical.ingredient_rank %}
+                                    <h3 class="d-inline" id="ingredient_rank" title="Ingredient Rank">
+                                        {{ chemical.ingredient_rank }}
+                                    </h3>
+                                {% endif %}
+                            </div>
                         </div>
-                        <div class="col-6 text-right">
-                            {% if chemical.ingredient_rank %}
-                                <h3 class="d-inline" id="ingredient_rank" title="Ingredient Rank">
-                                    {{ chemical.ingredient_rank }}
-                                </h3>
-                            {% endif %}
-                        </div>
-                    </div>
+                    {% endif %}
                 {% else %}
                     <div class="row">
                         <div class="col-6 text-left mt-auto">   

@@ -126,7 +126,7 @@ class DataDocumentDetailTest(TestCase):
         # Test presence of necessary display attributes
         raw_comp = page.xpath('//*[@id="raw_comp"]')[0].text
         self.assertInHTML("4 - 7 weight fraction", raw_comp)
-        report_funcuse = page.xpath('//*[@id="report_funcuse"]')[0].text
+        report_funcuse = page.xpath('//*[@id="functional_uses_1"]//*')[0].text
         self.assertIn("swell", report_funcuse)
         ingredient_rank = page.xpath('//*[@id="ingredient_rank"]')[0].text
         self.assertIn("1", ingredient_rank)
