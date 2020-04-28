@@ -445,3 +445,49 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             f'//*[@id="functional_uses_{new_fu.id}"]'
         )
         self.assertIn("adhesive", functional_uses_col.text)
+
+    def test_cp_multiple_fu(self):
+        doc = DataDocument.objects.get(pk=354787)
+
+        list_url = self.live_server_url + f"/datadocument/{doc.pk}/"
+        self.browser.get(list_url)
+        chem = doc.extractedtext.rawchem.first()
+
+        self.browser.find_element_by_xpath(
+            f'//*[@id="chemical-update-{chem.pk}"]'
+        ).click()
+
+        # Verify that the modal window appears by finding the Save button
+        # The modal window does not immediately appear, so the browser
+        # should wait for the button to be clickable
+        wait = WebDriverWait(self.browser, 10)
+        save_button = wait.until(
+            ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
+        )
+
+        # verify that Add Functional Use button exists
+        funcuse_add_btn = self.browser.find_element_by_xpath(f'//*[@id="funcuse-add"]')
+        funcuse_add_btn.click()
+        new_funcuse_box = wait.until(
+            ec.element_to_be_clickable(
+                (By.XPATH, f"//*[@id='id_functional_uses-1-report_funcuse']")
+            )
+        )
+        new_funcuse_box.send_keys("adhesive")
+        save_button.click()
+
+        # Reload the page after saving
+        self.browser.get(list_url)
+
+        new_fu = (
+            FunctionalUse.objects.filter(chem_id=chem.pk)
+            .filter(report_funcuse="adhesive")
+            .first()
+        )
+
+        self.assertIsNotNone(new_fu)
+
+        functional_uses_col = self.browser.find_element_by_xpath(
+            f'//*[@id="functional_uses_{new_fu.id}"]'
+        )
+        self.assertIn("adhesive", functional_uses_col.text)

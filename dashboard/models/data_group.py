@@ -85,7 +85,7 @@ class DataGroup(CommonInfo):
 
     @property
     def can_have_multiple_funcuse(self):
-        return self.type in ["FU", "CO"]
+        return self.type in ["FU", "CO", "CP"]
 
     # def get_extract_models(self):
     #     """Returns the parent model class and the associated child model"""

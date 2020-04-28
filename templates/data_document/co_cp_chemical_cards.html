@@ -159,18 +159,29 @@
                         </div>
                     {% endif %}
                 {% else %}
-                    <div class="row">
-                        <div class="col-6 text-left mt-auto">   
-                            {% if chemical.functional_uses.first %}
-                                <span id="report_funcuse">
-                                    {{ chemical.functional_uses.first }}
-                                </span>
+                    {% if doc.data_group.can_have_multiple_funcuse %}
+                        {% if doc.data_group.is_chemical_presence %}
+                            <div class="row">
+                                <div class="col-6 text-left mt-auto">
+                                </div>
+                                {% include 'data_document/lp_tag_buttons.html' %}
+                            </div>
+                        {% endif %}
+                        {% include 'core/components/all_funcuses_in_chemical_card.html' %}
+                    {% else %}
+                        <div class="row">
+                            <div class="col-6 text-left mt-auto">
+                                {% if chemical.functional_uses.first %}
+                                    <span id="report_funcuse">
+                                        {{ chemical.functional_uses.first }}
+                                    </span>
+                                {% endif %}
+                            </div>
+                            {% if doc.data_group.is_chemical_presence %}
+                                {% include 'data_document/lp_tag_buttons.html' %}
                             {% endif %}
                         </div>
-                        {% if doc.data_group.is_chemical_presence %}
-                            {% include 'data_document/lp_tag_buttons.html' %}
-                        {% endif %}
-                    </div>
+                    {% endif %}
                 {% endif %}
                 <div class="row mb-0">
                     <div class="col-6 text-left mt-auto">
