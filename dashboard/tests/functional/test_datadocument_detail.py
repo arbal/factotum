@@ -542,6 +542,9 @@ class TestDynamicDetailFormsets(TestCase):
                             ).count()
                         ),
                     )
+                elif code == "HP":
+                    # These test are currently in integration/test_hp_card.py
+                    pass
                 else:
                     self.assertFalse(
                         response_html.xpath('boolean(//*[@id="id_tags"])'),

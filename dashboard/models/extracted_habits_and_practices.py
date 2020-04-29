@@ -116,4 +116,4 @@ class ExtractedHabitsAndPracticesTag(TagBase, CommonInfo):
         ordering = ("kind", "name")
 
     def __str__(self):
-        return self.name
+        return f"{self.kind.name}: {self.name}"

@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.db.models import Q
 
 from dashboard.forms.forms import ExtractedHabitsAndPracticesForm
+from dashboard.forms.tag_forms import ExtractedHabitsAndPracticesTagForm
 from dashboard.utils import get_extracted_models
 from dashboard.forms import (
     ExtractedListPresenceTagForm,
@@ -33,6 +34,8 @@ from dashboard.models import (
     RawChem,
     AuditLog,
     ExtractedHabitsAndPractices,
+    ExtractedHabitsAndPracticesTag,
+    ExtractedHabitsAndPracticesToTag,
 )
 from django.forms import inlineformset_factory
 
@@ -41,6 +44,7 @@ CHEMICAL_FORMS = {
     "LM": ExtractedChemicalForm,
     "FU": ExtractedFunctionalUseForm,
     "CP": ExtractedListPresenceForm,
+    "HP": ExtractedHabitsAndPracticesForm,
     "HH": ExtractedHHRecForm,
 }
 CHEMICAL_TYPES = CHEMICAL_FORMS.keys()
@@ -60,32 +64,38 @@ def data_document_detail(request, pk):
     ext = Parent.objects.filter(pk=doc.pk).first()
     fufs = []
     chemicals = []
-    lp = None
+    tag_form = tag_form_url = None
 
     if doc.data_group.group_type.code in CHEMICAL_TYPES:
-        chemicals = Child.objects.filter(
-            extracted_text__data_document=doc
-        ).prefetch_related("dsstox")
+        chemicals = Child.objects.filter(extracted_text__data_document=doc)
+
         if Child == ExtractedListPresence:
             chemicals = chemicals.prefetch_related("tags")
+            tag_form = ExtractedListPresenceTagForm()
+            tag_form_url = "save_list_presence_tag_form"
+
         if Child == ExtractedChemical:
             chemicals = chemicals.order_by("component", "ingredient_rank")
-        lp = ExtractedListPresence.objects.filter(
-            extracted_text=ext if ext else None
-        ).first()
-        tag_form = ExtractedListPresenceTagForm()
-        FuncUseFormSet = inlineformset_factory(
-            RawChem, FunctionalUse, fields=("report_funcuse",), extra=1
-        )
-        chem = chemicals.first()
-        fufs = FuncUseFormSet(instance=chem)
+
+        if Child == ExtractedHabitsAndPractices:
+            chemicals = chemicals.prefetch_related("tags")
+            tag_form = ExtractedHabitsAndPracticesTagForm()
+            tag_form_url = "save_habits_and_practices_tag_form"
+        else:
+            chemicals = chemicals.prefetch_related("dsstox")
+            FuncUseFormSet = inlineformset_factory(
+                RawChem, FunctionalUse, fields=("report_funcuse",), extra=1
+            )
+            chem = chemicals.first()
+            fufs = FuncUseFormSet(instance=chem)
     context = {
         "fufs": fufs,
         "doc": doc,
         "extracted_text": ext,
         "chemicals": chemicals,
         "edit_text_form": ParentForm(instance=ext),  # empty form if ext is None
-        "list_presence_tag_form": tag_form if lp else None,
+        "tag_form_url": tag_form_url,
+        "tag_form": tag_form,
     }
     if doc.data_group.group_type.code == "CO":
         script_chem = chemicals.filter(script__isnull=False).first()
@@ -305,6 +315,36 @@ def save_list_presence_tag_form(request, pk):
 
 
 @login_required()
+def save_habits_and_practices_tag_form(request, pk):
+    referer = request.POST.get("referer", "data_document")
+    extracted_text = get_object_or_404(ExtractedText, pk=pk)
+    tag_form = None
+    values = request.POST.get("chems")
+    chems = [int(chem) for chem in values.split(",")]
+    selected = extracted_text.practices.filter(pk__in=chems)
+    tags = ExtractedHabitsAndPracticesTag.objects.filter(
+        pk__in=request.POST.getlist("tags")
+    )
+    for extracted_habits_and_practice in selected:
+        tag_form = ExtractedHabitsAndPracticesTagForm(
+            {"tags": tags}, instance=extracted_habits_and_practice
+        )
+        if tag_form.is_valid():
+            tag_form.save()
+        else:
+            messages.error(request, tag_form.errors["tags"])
+            break
+    if not len(tag_form.errors):
+        messages.success(
+            request,
+            f"Tags [{', '.join([str(tag) for tag in tag_form['tags'].data])}]"
+            " are now connected to practices "
+            f"[{', '.join([str(ehp) for ehp in selected])}]",
+        )
+    return redirect(referer, pk=pk)
+
+
+@login_required()
 def data_document_delete(request, pk):
     doc = get_object_or_404(DataDocument, pk=pk)
     datagroup_id = doc.data_group_id
@@ -369,6 +409,17 @@ def list_presence_tag_delete(request, doc_pk, chem_pk, tag_pk):
     elp = ExtractedListPresence.objects.get(pk=chem_pk)
     tag = ExtractedListPresenceTag.objects.get(pk=tag_pk)
     ExtractedListPresenceToTag.objects.get(content_object=elp, tag=tag).delete()
+    card = f"#chem-{chem_pk}"
+    url = reverse("data_document", args=[doc_pk])
+    url += card
+    return redirect(url)
+
+
+@login_required
+def habits_and_practices_tag_delete(request, doc_pk, chem_pk, tag_pk):
+    ExtractedHabitsAndPracticesToTag.objects.filter(
+        content_object_id=chem_pk, tag_id=tag_pk
+    ).delete()
     card = f"#chem-{chem_pk}"
     url = reverse("data_document", args=[doc_pk])
     url += card

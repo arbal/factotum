@@ -171,9 +171,19 @@ urlpatterns = [
         name="save_list_presence_tag_form",
     ),
     path(
+        "save_habits_and_practices_tags/<int:pk>/",
+        views.save_habits_and_practices_tag_form,
+        name="save_habits_and_practices_tag_form",
+    ),
+    path(
         "list_presence_tags_autocomplete/",
         views.ListPresenceTagAutocomplete.as_view(),
         name="list_presence_tags_autocomplete",
+    ),
+    path(
+        "habits_and_practices_tags_autocomplete/",
+        views.HabitsAndPracticesTagAutocomplete.as_view(),
+        name="habits_and_practices_tags_autocomplete",
     ),
     path("d_json/", views.DocumentListJson.as_view(), name="d_ajax_url"),
     path("p_json/", views.ProductListJson.as_view(), name="p_ajax_url"),
@@ -300,6 +310,11 @@ urlpatterns = [
         "list_presence_tag/delete/<int:doc_pk>/<int:chem_pk>/<int:tag_pk>/",
         views.list_presence_tag_delete,
         name="list_presence_tag_delete",
+    ),
+    path(
+        "habits_and_practices_tag/delete/<int:doc_pk>/<int:chem_pk>/<int:tag_pk>/",
+        views.habits_and_practices_tag_delete,
+        name="habits_and_practices_tag_delete",
     ),
     path("search/<str:model>/", views.search_model, name="search-model"),
 ]
