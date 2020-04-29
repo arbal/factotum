@@ -99,9 +99,9 @@ class DataGroupFormTest(TestCase):
     def test_register_records_header(self):
         ds_pk = DataSource.objects.first().pk
         csv_string = (
-            "filename,title,document_type,product,url,organization\n"
-            "1.pdf,Home Depot,2,,www.homedepot.com/594.pdf,\n"
-            "2.pdf,Home Depot,2,,www.homedepot.com/fb5.pdf,\n"
+            "filename,title,document_type,product,url,organization,epa_reg_number\n"
+            "1.pdf,Home Depot,2,,www.homedepot.com/594.pdf,,,\n"
+            "2.pdf,Home Depot,2,,www.homedepot.com/fb5.pdf,,,\n"
         )
         csv_string_bytes = csv_string.encode(encoding="UTF-8", errors="strict")
         in_mem_sample_csv = InMemoryUploadedFile(
@@ -137,5 +137,6 @@ class DataGroupFormTest(TestCase):
         self.assertContains(
             resp,
             "CSV column titles should be [&#39;filename&#39;, &#39;title&#39;,"
-            " &#39;document_type&#39;, &#39;url&#39;, &#39;organization&#39;]",
+            " &#39;document_type&#39;, &#39;url&#39;, &#39;organization&#39;,"
+            " &#39;subtitle&#39;, &#39;epa_reg_number&#39;]",
         )

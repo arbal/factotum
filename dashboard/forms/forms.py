@@ -1,4 +1,5 @@
 from bootstrap_datepicker_plus import DatePickerInput
+from dal import autocomplete
 
 from django import forms
 from django.forms import BaseInlineFormSet
@@ -313,7 +314,12 @@ class ExtractedHabitsAndPracticesForm(forms.ModelForm):
 
     class Meta:
         model = ExtractedHabitsAndPractices
-        fields = ["product_surveyed", "data_type", "notes"]
+        fields = ["product_surveyed", "data_type", "notes", "PUCs"]
+        widgets = {
+            "PUCs": autocomplete.ModelSelect2Multiple(
+                attrs={"data-minimum-input-length": 3, "class": "w-100 h-100"}
+            )
+        }
 
 
 class ExtractedListPresenceForm(forms.ModelForm):
@@ -446,6 +452,7 @@ class DataDocumentForm(forms.ModelForm):
             "url",
             "raw_category",
             "organization",
+            "epa_reg_number",
         ]
 
     def __init__(self, *args, **kwargs):

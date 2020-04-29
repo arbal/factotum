@@ -1,15 +1,36 @@
 import datetime
 import factory
+from django.db import IntegrityError
 
 from dashboard import models
 
 
-class DataSourceFactory(factory.django.DjangoModelFactory):
+class FactotumFactoryBase(factory.django.DjangoModelFactory):
+    @classmethod
+    def _create(cls, model_class, *args, **kwargs):
+        """
+        This is an override to handle integrity errors with key "name".
+        Name is a unique key and while it's rare that you will end up using the
+        same word twice with faker for two different tags if a model fails to
+        build it will simply retry.
+
+        TODO: related_factories are double created
+
+        :return: saved model instance
+        """
+        try:
+            obj = super()._create(model_class, *args, **kwargs)
+        except IntegrityError:
+            obj = cls.simple_generate(create=True)
+        return obj
+
+
+class DataSourceFactory(FactotumFactoryBase):
     class Meta:
         model = models.DataSource
 
 
-class PUCFactory(factory.django.DjangoModelFactory):
+class PUCFactory(FactotumFactoryBase):
     class Meta:
         model = models.PUC
 
@@ -20,7 +41,7 @@ class PUCFactory(factory.django.DjangoModelFactory):
     description = factory.Faker("text")
 
 
-class GroupTypeFactory(factory.django.DjangoModelFactory):
+class GroupTypeFactory(FactotumFactoryBase):
     class Meta:
         model = models.GroupType
         django_get_or_create = ("code",)
@@ -28,7 +49,7 @@ class GroupTypeFactory(factory.django.DjangoModelFactory):
     code = "CO"
 
 
-class DataGroupFactory(factory.django.DjangoModelFactory):
+class DataGroupFactory(FactotumFactoryBase):
     class Meta:
         model = models.DataGroup
 
@@ -37,7 +58,7 @@ class DataGroupFactory(factory.django.DjangoModelFactory):
     downloaded_at = datetime.datetime.utcnow()
 
 
-class DocumentTypeFactory(factory.django.DjangoModelFactory):
+class DocumentTypeFactory(FactotumFactoryBase):
     class Meta:
         model = models.DocumentType
         django_get_or_create = ("code",)
@@ -48,7 +69,7 @@ class DocumentTypeFactory(factory.django.DjangoModelFactory):
     code = "UN"
 
 
-class DataDocumentFactory(factory.django.DjangoModelFactory):
+class DataDocumentFactory(FactotumFactoryBase):
     class Meta:
         model = models.DataDocument
 
@@ -58,12 +79,12 @@ class DataDocumentFactory(factory.django.DjangoModelFactory):
     # document_type_compatibility = factory.RelatedFactory()
 
 
-class ScriptFactory(factory.django.DjangoModelFactory):
+class ScriptFactory(FactotumFactoryBase):
     class Meta:
         model = models.Script
 
 
-class ExtractedTextFactory(factory.django.DjangoModelFactory):
+class ExtractedTextFactory(FactotumFactoryBase):
     class Meta:
         model = models.ExtractedText
 
@@ -71,7 +92,7 @@ class ExtractedTextFactory(factory.django.DjangoModelFactory):
     extraction_script = factory.SubFactory(ScriptFactory)
 
 
-class ExtractedHabitsAndPracticesDataTypeFactory(factory.django.DjangoModelFactory):
+class ExtractedHabitsAndPracticesDataTypeFactory(FactotumFactoryBase):
     class Meta:
         model = models.ExtractedHabitsAndPracticesDataType
 
@@ -79,14 +100,33 @@ class ExtractedHabitsAndPracticesDataTypeFactory(factory.django.DjangoModelFacto
     description = factory.Faker("text", max_nb_chars=255)
 
 
-class ExtractedHabitsAndPracticesTagKindFactory(factory.django.DjangoModelFactory):
+class ExtractedHabitsAndPracticesTagKindFactory(FactotumFactoryBase):
     class Meta:
         model = models.ExtractedHabitsAndPracticesTagKind
 
     name = factory.Faker("word")
 
+    @classmethod
+    def _create(cls, model_class, *args, **kwargs):
+        """
+        This is an override to handle integrity errors with key "name".
+        Name is a unique key and while it's rare that you will end up using the
+        same word twice with faker for two different tags if a model fails to
+        build it will simply retry.
 
-class ExtractedHabitsAndPracticesTagFactory(factory.django.DjangoModelFactory):
+        This could probably be built into our base DjangoModelFactory
+
+        :return: saved model instance
+        """
+        obj = model_class(*args, **kwargs)
+        try:
+            obj.save()
+        except IntegrityError:
+            obj = cls()
+        return obj
+
+
+class ExtractedHabitsAndPracticesTagFactory(FactotumFactoryBase):
     class Meta:
         model = models.ExtractedHabitsAndPracticesTag
 
@@ -95,7 +135,7 @@ class ExtractedHabitsAndPracticesTagFactory(factory.django.DjangoModelFactory):
     kind = factory.SubFactory(ExtractedHabitsAndPracticesTagKindFactory)
 
 
-class ExtractedHabitsAndPracticesFactory(factory.django.DjangoModelFactory):
+class ExtractedHabitsAndPracticesFactory(FactotumFactoryBase):
     class Meta:
         model = models.ExtractedHabitsAndPractices
 
@@ -129,7 +169,7 @@ class ExtractedHabitsAndPracticesFactory(factory.django.DjangoModelFactory):
                 self.PUCs.add(puc)
 
 
-class ExtractedHabitsAndPracticesToTagFactory(factory.django.DjangoModelFactory):
+class ExtractedHabitsAndPracticesToTagFactory(FactotumFactoryBase):
     class Meta:
         model = models.ExtractedHabitsAndPracticesToTag
 

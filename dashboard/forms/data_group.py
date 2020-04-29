@@ -512,7 +512,7 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
 
             else:
                 child = None
-            if uses and self.dg.type not in ("FU",) and len(uses) > 1:
+            if uses and not self.dg.can_have_multiple_funcuse and len(uses) > 1:
                 form.add_error(
                     "report_funcuse",
                     forms.ValidationError(
@@ -711,7 +711,15 @@ class RegisterRecordsFormSet(DGFormSet):
         before getting to any form-specific errors.
         """
         header = list(self.bulk.fieldnames)
-        header_cols = ["filename", "title", "document_type", "url", "organization"]
+        header_cols = [
+            "filename",
+            "title",
+            "document_type",
+            "url",
+            "organization",
+            "subtitle",
+            "epa_reg_number",
+        ]
         if header != header_cols:
             raise forms.ValidationError(f"CSV column titles should be {header_cols}")
         if not any(self.errors):
@@ -759,5 +767,7 @@ class DataDocumentCSVForm(forms.ModelForm):
             "document_type",
             "url",
             "organization",
+            "subtitle",
+            "epa_reg_number",
         ]
         field_classes = {"document_type": DocTypeFormField}

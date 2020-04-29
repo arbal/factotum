@@ -49,9 +49,9 @@ class DDTests(TempFileMixin, TestCase):
 
     def testGoodGroupTypeInCSV(self):
         csv_string_good = (
-            "filename,title,document_type,url,organization\n"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,, \n"
-            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,MS,, \n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,,,, \n"
+            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,MS,,,, \n"
         )
 
         data = io.StringIO(csv_string_good)
@@ -92,9 +92,9 @@ class DDTests(TempFileMixin, TestCase):
 
     def testBadGroupTypeInCSV(self):
         csv_string_bad = (
-            "filename,title,document_type,url,organization\n"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,HH,, \n"
-            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,HH,, \n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,HH,,,, \n"
+            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,HH,,,, \n"
         )
 
         data = io.StringIO(csv_string_bad)
@@ -140,8 +140,8 @@ class DDTests(TempFileMixin, TestCase):
 
     def test_upload_csv_as_datadoc(self):
         csv_string = (
-            "filename,title,document_type,url,organization\n"
-            "Cal_Pesticide_Residues_1987.csv,Example Datadocument from CSV,SG,, \n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
+            "Cal_Pesticide_Residues_1987.csv,Example Datadocument from CSV,SG,,,, \n"
         )
 
         data = io.StringIO(csv_string)
@@ -183,8 +183,8 @@ class DDTests(TempFileMixin, TestCase):
 
     def test_upload_html_as_datadoc(self):
         csv_string = (
-            "filename,title,document_type,url,organization\n"
-            "alberto_balsam_conditioner_antioxidant_blueberry.html,Example Datadocument from HTML,ID,, \n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
+            "alberto_balsam_conditioner_antioxidant_blueberry.html,Example Datadocument from HTML,ID,,,, \n"
         )
 
         data = io.StringIO(csv_string)
@@ -223,3 +223,50 @@ class DDTests(TempFileMixin, TestCase):
         newdg = DataGroup.objects.get(pk=newdg_pk)
         newdds = DataDocument.objects.filter(data_group=newdg)
         self.assertEqual(newdds.count(), 1, "There should be one new data document")
+
+    def test_csv_upload_row_verification(self):
+        csv_string = (
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
+            "Cal_Pesticide_Residues_1987.csv,Example Datadocument from CSV,SG,http://www.epa.gov,org,cpr \n"
+        )
+
+        data = io.StringIO(csv_string)
+        csv_len = len(csv_string)
+
+        sample_csv = InMemoryUploadedFile(
+            data,
+            field_name="csv",
+            name="register_records.csv",
+            content_type="text/csv",
+            size=csv_len,
+            charset="utf-8",
+        )
+        form_data = {
+            "name": ["California Pesticides"],
+            "description": ["test data group"],
+            "group_type": ["6"],  # CPCat
+            "downloaded_by": ["1"],
+            "downloaded_at": ["08/02/2018"],
+            "download_script": ["1"],
+            "data_source": ["10"],
+        }
+        request = self.factory.post(path="/datagroup/new", data=form_data)
+        request.FILES["csv"] = sample_csv
+        request.user = User.objects.get(username="Karyn")
+        request.session = {}
+        request.session["datasource_title"] = "Walmart"
+        request.session["datasource_pk"] = 10
+        resp = views.data_group_create(pk=10, request=request)
+
+        newdg_pk = resolve(resp.url).kwargs["pk"]
+        newdg = DataGroup.objects.get(pk=newdg_pk)
+        newdds = DataDocument.objects.filter(data_group=newdg)
+        test_data_doc = newdds.get()
+
+        # verify that csv content was properly uploaded and matches the new Data Document's rows
+        self.assertEqual("Cal_Pesticide_Residues_1987.csv", test_data_doc.filename)
+        self.assertEqual("Example Datadocument from CSV", test_data_doc.title)
+        self.assertEqual("SG", test_data_doc.document_type.code)
+        self.assertEqual("http://www.epa.gov", test_data_doc.url)
+        self.assertEqual("org", test_data_doc.organization)
+        self.assertEqual("cpr", test_data_doc.subtitle)

@@ -1,0 +1,65 @@
+<div>
+    <div class="btn-group my-1"
+        role="group">
+        <button
+            type="button"
+            class="btn btn-outline-dark"
+            disabled>
+            {{ tag.kind }}: {{ tag.name }}
+        </button>
+        {% if request.user.is_authenticated %}
+        <button type="button"
+            title="delete keyword"
+            data-toggle="modal"
+            data-target="#tag-delete-{{ hp.pk }}-{{ tag.pk }}"
+            class="btn btn-sm btn-outline-secondary hover-danger"
+            name="danger">
+            <span class="fa fa-fs fa-trash"></span>
+        </button>
+        {% endif %}
+    </div>
+    <div class="modal fade"
+        id="tag-delete-{{ hp.pk }}-{{ tag.pk }}"
+        tabindex="-1" role="dialog"
+        aria-labelledby="extextModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered"
+            role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{% url 'habits_and_practices_tag_delete' doc.pk hp.pk tag.pk %}"
+                        method="post">
+                    {% csrf_token %}
+                    <div
+                        class="modal-body">
+                        Are you sure you want to delete
+                        <button type="button"
+                                class="btn btn-primary"
+                                disabled>
+                            {{ tag.kind }}: {{ tag.name }}
+                        </button>
+                        from "{{ hp }}" ?
+                    </div>
+                    <div class="modal-footer">
+                        <button id="hp-modal-cancel-{{hp.pk}}"
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"> Cancel </button>
+                        <button id="hp-modal-save-{{hp.pk}}"
+                                type="submit"
+                                class="btn btn-primary">
+                            Delete
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

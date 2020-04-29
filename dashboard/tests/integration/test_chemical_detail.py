@@ -127,3 +127,30 @@ class TestChemicalDetail(StaticLiveServerTestCase):
             "Test Occupational PUC",
             self.browser.find_element_by_xpath("//*[@id='puc-accordion']").text,
         )
+
+    def test_filter_by_data_group(self):
+        """
+        All the Products and Documents associated with the Chemical
+        should be returned via ajax calls and included in the tables
+
+        For the purpose of this test, the SID coresponds to Ethanol 
+        """
+        chemical = DSSToxLookup.objects.get(sid="DTXSID9020584")
+        wait = WebDriverWait(self.browser, 10)
+        self.browser.get(self.live_server_url + chemical.get_absolute_url())
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='group_type_dropdown']"), "All"
+            )
+        )
+        input_el = self.browser.find_element_by_xpath("//*[@id='group_type_dropdown']")
+        input_el.send_keys("Chemical presence list\n")
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='group_type_dropdown']"), "Chemical presence list"
+            )
+        )
+        self.assertInHTML(
+            "Showing 1 to 3 of 3 entries (filtered from 8 total entries)",
+            self.browser.find_element_by_xpath("//*[@id='documents_info']").text,
+        )

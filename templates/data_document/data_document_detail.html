@@ -146,6 +146,17 @@
                         {{ doc.document_type }}
                     {% endif %}
                 </h5>
+            {% if  doc.epa_reg_number %}
+                <dl class="mb-0">
+                                <dt>
+                                   EPA Reg. No.
+                                </dt>
+                                <dd class="pl-4 mb-0"
+                                    id="epa_reg_number">
+                                    {{ doc.epa_reg_number }}
+                                </dd>
+                            </dl>
+            {% endif %}
             </div>
             {% if doc.raw_category %}
                 <div>
@@ -190,16 +201,23 @@
                     {% endif %}
                 </div>
             {% endif %}
-            {% if list_presence_tag_form and request.user.is_authenticated %}
+            {% if tag_form and request.user.is_authenticated %}
                 <hr>
-                <div class="">
-                    <form class="form-inline p-0"
-                          action="{% url 'save_list_presence_tag_form' doc.id %}"
+                <div>
+                    <form action="{% url tag_form_url doc.id %}"
                           method="post">
                         {% csrf_token %}
-                        <h5 class="">
-                            <b>List Presence Keywords</b>
-                            <div class="btn-group float-right ml-3"
+                        <div class="d-flex justify-content-between">
+                            <h5>
+                                {% if doc.data_group.is_chemical_presence %}
+                                    <b>List Presence Keywords</b>
+                                {% elif doc.data_group.is_habits_and_practices %}
+                                    <b>Habits and Practices Keywords</b>
+                                {% else %}
+                                    <b>Keywords</b>
+                                {% endif %}
+                            </h5>
+                            <div class="btn-group ml-3"
                                  role="group"
                                  aria-label="Data Document Modification">
                                 <a class="btn btn-sm btn-outline-secondary hover"
@@ -221,12 +239,14 @@
                                     <i class="far fa-save"></i>
                                 </button>
                             </div>
-                        </h5>
-                        {{ list_presence_tag_form }}
+                        </div>
+                        <div class="d-flex mt-2">
+                             {{ tag_form }}
+                        </div>
+                        <p class="text-right text-muted"><span id="selected">0</span> of {{ chemicals|length }} Chemicals
+                            Selected</p>
                         <input type="hidden" name="chems" value="" id="id_chems">
                     </form>
-                    <p class="text-center text-muted"><span id="selected">0</span> of {{ chemicals|length }} Chemicals
-                        Selected</p>
                 </div>
             {% endif %}
             {% if doc.data_group.can_have_products %}
@@ -415,7 +435,7 @@
         </div>
         <!-- chemical card panel -->
         {% if doc.data_group.is_habits_and_practices %}
-            {% include 'data_document/hnp_cards.html' %}
+            {% include 'data_document/hp_cards.html' %}
         {% elif doc.data_group.is_chemical_presence or doc.data_group.is_composition or doc.data_group.is_literature_monitoring %}
             {% include 'data_document/co_cp_chemical_cards.html' %}
         {% elif doc.data_group.is_functional_use %}
@@ -466,7 +486,7 @@
             </nav>
         </div><!-- scrollspy -->
     </div><!-- 3 column panel -->
-    {{ list_presence_tag_form.media }}
+    {{ tag_form.media }}
 
 {% endblock %}
 
@@ -475,8 +495,8 @@
     <script src="{% static 'bootstrap-slider/bootstrap-slider.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail.js' %}"></script>
     <script type="module" src="{% static 'js/dashboard/datadocument_detail_ajax.js' %}"></script>
-    {% if doc.data_group.is_chemical_presence %}
-        <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail_CP.js' %}"></script>
+    {% if doc.data_group.is_chemical_presence or doc.data_group.is_habits_and_practices %}
+        <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail_card_selector.js' %}"></script>
     {% endif %}
     <script src="{% static 'js/jquery.form.js' %}"></script>
 {% endblock %}

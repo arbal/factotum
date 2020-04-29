@@ -16,7 +16,6 @@ from dashboard.models import (
     DataDocument,
     Product,
     RawChem,
-    GroupType,
 )
 from dashboard.forms import create_detail_formset
 from django.conf import settings
@@ -127,7 +126,7 @@ class DataDocumentDetailTest(TestCase):
         # Test presence of necessary display attributes
         raw_comp = page.xpath('//*[@id="raw_comp"]')[0].text
         self.assertInHTML("4 - 7 weight fraction", raw_comp)
-        report_funcuse = page.xpath('//*[@id="report_funcuse"]')[0].text
+        report_funcuse = page.xpath('//*[@id="functional_uses_1"]//*')[0].text
         self.assertIn("swell", report_funcuse)
         ingredient_rank = page.xpath('//*[@id="ingredient_rank"]')[0].text
         self.assertIn("1", ingredient_rank)
@@ -425,6 +424,13 @@ class DataDocumentDetailTest(TestCase):
         response = self.client.get(doc.get_absolute_url())
         self.assertContains(response, "Last updated:")
 
+    def test_epa_reg_number(self):
+        id = 7
+        doc = DataDocument.objects.get(pk=id)
+        reg_no = doc.epa_reg_number
+        response = self.client.get(doc.get_absolute_url())
+        self.assertContains(response, reg_no)
+
 
 class TestDynamicDetailFormsets(TestCase):
     fixtures = fixtures_standard
@@ -536,6 +542,9 @@ class TestDynamicDetailFormsets(TestCase):
                             ).count()
                         ),
                     )
+                elif code == "HP":
+                    # These test are currently in integration/test_hp_card.py
+                    pass
                 else:
                     self.assertFalse(
                         response_html.xpath('boolean(//*[@id="id_tags"])'),

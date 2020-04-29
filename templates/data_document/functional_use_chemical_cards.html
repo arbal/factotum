@@ -99,25 +99,11 @@
 
                 <!-- card text -->
                 <div class="card-text" id="functional_uses_{{chemical.id}}">
-                    {% for functional_use in chemical.functional_uses.all %}
-                        <div class="row
-                             {% if not forloop.last %}
-                                mb-3
-                             {% endif %}">
-                            <div class="col-auto">
-                                <small class="text-muted">Reported:</small>
-                                <br />
-                                <span class="font-weight-bold">Cleaned:</span>
-                            </div>
-                            <div class="col text-truncate">
-                                <small class="text-muted">{{ functional_use.report_funcuse }}</small>
-                                <br />
-                                <span class="font-weight-bold">{{ functional_use.clean_funcuse }}</span>
-                            </div>
-                        </div>
-                    {% empty %}
+                    {% if chemical.functional_uses.all %}
+                        {% include 'core/components/all_funcuses_in_chemical_card.html' %}
+                    {% else %}
                         <div>No Functional Uses Reported</div>
-                    {% endfor %}
+                    {% endif %}
                 </div>
 
             </div>

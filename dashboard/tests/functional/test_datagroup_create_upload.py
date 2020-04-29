@@ -25,8 +25,8 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
     def test_datagroup_create(self):
         long_fn = "a filename that is too long " * 10
         csv_string = (
-            "filename,title,document_type,url,organization\n"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,, \n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,,,, \n"
             f"{long_fn},Body Cream,MS,, \n"
         )
         data = io.StringIO(csv_string)
@@ -67,9 +67,9 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
         self.assertFalse(dg_exists)
 
         csv_string = (
-            "filename,title,document_type,url,organization\n"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,, \n"
-            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,MS,, \n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,,,,EPA-REG0011 \n"
+            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,MS,,,,EPA-REG0019\n"
         )
         data = io.StringIO(csv_string)
         sample_csv = InMemoryUploadedFile(
@@ -119,20 +119,31 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
             "The data group detail page must contain the right download link",
         )
 
-        # grab a filename from a data document and see if it's in the csv
+        # grab a filename and EPA reg number from a data document and see if
+        # they're in the csv
         doc_fn = docs.first().filename
+        doc_reg = docs.first().epa_reg_number
         # test whether the registered records csv download link works
         resp_rr_csv = self.client.get(
             csv_href
         )  # this object should be of type StreamingHttpResponse
         docfound = "not found"
+        fnfound = "not found"
+        regfound = "not found"
         for csv_row in resp_rr_csv.streaming_content:
             if doc_fn in str(csv_row):
-                docfound = "found"
+                fnfound = "found"
+            if doc_reg in str(csv_row):
+                regfound = "found"
         self.assertEqual(
-            docfound,
+            fnfound,
             "found",
             "the document file name should appear in the registered records csv",
+        )
+        self.assertEqual(
+            regfound,
+            "found",
+            "the document's EPA registration number should appear in the registered records csv",
         )
 
         # Test whether the data document csv download works
@@ -176,9 +187,9 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
 
     def test_datagroup_create_dupe_filename(self):
         csv_string = (
-            "filename,title,document_type,url,organization\n"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,, \n"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,Body Cream,MS,, \n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,,,, \n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,Body Cream,MS,,,, \n"
         )
         data = io.StringIO(csv_string)
         sample_csv = InMemoryUploadedFile(
@@ -221,8 +232,8 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
     def test_datagroup_create_url_len_err(self):
         long_url = "http://www.epa.gov" * 16
         csv_string = (
-            "filename,title,document_type,url,organization\n"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,, \n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,,,, \n"
             f"another.pdf,Body Cream,MS,{long_url}, \n"
         )
         data = io.StringIO(csv_string)
@@ -260,9 +271,9 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
 
     def test_csv_line_endings(self):
         csv_string = (
-            "filename,title,document_type,url,organization\r"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,, \r"
-            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,MS,, \r\n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number\r"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,,,,EPA-REG-NUMBER01 \r"
+            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,MS,,,, \r\n"
         )
         data = io.StringIO(csv_string)
         sample_csv = InMemoryUploadedFile(

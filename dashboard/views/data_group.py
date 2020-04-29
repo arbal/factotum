@@ -374,7 +374,15 @@ def download_datadocument_zip_file(request, pk):
 @login_required
 def download_registered_datadocuments(request, pk):
     datagroup = DataGroup.objects.filter(pk=pk).first()
-    columnlist = ["filename", "title", "document_type", "url", "organization"]
+    columnlist = [
+        "filename",
+        "title",
+        "document_type",
+        "url",
+        "organization",
+        "subtitle",
+        "epa_reg_number",
+    ]
     if datagroup:
         columnlist.insert(0, "id")
         filename = datagroup.get_name_as_slug() + "_registered_documents.csv"

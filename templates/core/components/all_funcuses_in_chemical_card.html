@@ -1,0 +1,17 @@
+{% for functional_use in chemical.functional_uses.all %}
+    <div class="row
+        {% if not forloop.last %}
+            mb-3
+        {% endif %}">
+        <div class="col-auto">
+            <small class="text-muted">Reported:</small>
+            <br />
+            <span class="font-weight-bold">Cleaned:</span>
+        </div>
+        <div class="col text-truncate" id="functional_uses_{{ functional_use.id }}">
+            <small class="text-muted">{{ functional_use.report_funcuse }}</small>
+            <br />
+            <span class="font-weight-bold">{{ functional_use.clean_funcuse }}</span>
+        </div>
+    </div>
+{% endfor %}

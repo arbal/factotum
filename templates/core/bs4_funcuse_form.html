@@ -19,17 +19,17 @@
 
     {% if form.is_bound %}
       {% if field.errors %}
-        {% render_field field class="form-control is-invalid" %}
+        {% render_field field class+="form-control is-invalid" %}
         {% for error in field.errors %}
           <div class="invalid-feedback">
             {{ error }}
           </div>
         {% endfor %}
       {% else %}
-        {% render_field field class="form-control is-valid" %}
+        {% render_field field class+="form-control is-valid" %}
       {% endif %}
     {% else %}
-      {% render_field field class="form-control" %}
+      {% render_field field class+="form-control" %}
     {% endif %}
 
     {% if field.help_text %}
@@ -64,7 +64,7 @@
       {% if forloop.parentloop.first %}
           <span>
             {{ field.label_tag }}
-            {% if doc.data_group.is_functional_use %}
+            {% if doc.data_group.can_have_multiple_funcuse %}
                 <a class="btn btn-sm btn-outline-secondary hover-success float-right mb-2 mr-2"
                         id="funcuse-add"
                         title="Add Functional Use"

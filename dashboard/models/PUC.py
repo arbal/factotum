@@ -194,9 +194,9 @@ class PUC(CommonInfo):
                 ),
                 dsstox__isnull=False,
             )
-                .values("dsstox")
-                .distinct()
-                .count()
+            .values("dsstox")
+            .distinct()
+            .count()
         )
 
     @property
@@ -225,8 +225,8 @@ class PUC(CommonInfo):
 
         return (
             Taxonomy.objects.filter(product_category=self)
-                .annotate(source_title=F("source__title"))
-                .annotate(source_description=F("source__description"))
+            .annotate(source_title=F("source__title"))
+            .annotate(source_description=F("source__description"))
         )
 
 
