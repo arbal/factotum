@@ -79,6 +79,7 @@
     parent_item_id: null
     short_description: ''
     long_description: ''
+    epa_reg_number: "EPA-123456789-99"
     thumb_image: ''
     medium_image: ''
     large_image: ''

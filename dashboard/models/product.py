@@ -80,6 +80,12 @@ class Product(CommonInfo):
     )
     short_description = models.TextField(blank=True, help_text="short description")
     long_description = models.TextField(blank=True, help_text="long description")
+    epa_reg_number = models.CharField(
+        blank=True,
+        max_length=25,
+        verbose_name="EPA reg. no.",
+        help_text="the document's EPA registration number",
+    )
     thumb_image = models.CharField(
         max_length=500, blank=True, help_text="thumbnail image"
     )

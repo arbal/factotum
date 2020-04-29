@@ -98,8 +98,8 @@ class UploadProductTest(TempFileMixin, TestCase):
 
     def test_valid_product_data_upload(self):
         sample_csv = (
-            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
-            f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425\n"
+            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
+            f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425,url,brand_name,size,color,1,1,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer\n"
             f"{self.docs[1].pk},fefd813f-d1e0-4fa7-8c4e-49030eca08a3.pdf,'product title b',903944840750\n"
             f"{self.docs[2].pk},fc5f964c-91e2-42c5-9899-2ff38e37ba89.pdf,'product title c',852646877466\n"
             f"{self.docs[3].pk},f040f93d-1cf3-4eff-85a9-da14d8d2e252.pdf,'product title d'\n"
@@ -120,10 +120,20 @@ class UploadProductTest(TempFileMixin, TestCase):
         resp = self.c.get(f"/datadocument/%s/" % self.docs[0].pk)
         self.assertContains(resp, "product title a")
 
+        # Test rows from newly created product have been set on the resulting product model.
+        product_a = Product.objects.get(title="product title a", upc="110230011425")
+        excluded_product_fields = ["source_category", "image"]
+        for field in product_a._meta.fields:
+            if field.name not in excluded_product_fields:
+                self.assertTrue(
+                    getattr(product_a, field.name),
+                    f"Product field {field.name} is not being set by csv",
+                )
+
     def test_valid_product_data_upload_with_image(self):
         sample_csv = (
-            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
-            f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425,,,,,,,,,,,,,,dave_or_grant.png\n"
+            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
+            f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425,,,,,,,,,,,,,,,dave_or_grant.png\n"
             f"{self.docs[1].pk},fefd813f-d1e0-4fa7-8c4e-49030eca08a3.pdf,product title b,903944840750\n"
             f"{self.docs[2].pk},fc5f964c-91e2-42c5-9899-2ff38e37ba89.pdf,product title c,852646877466\n"
             f"{self.docs[3].pk},f040f93d-1cf3-4eff-85a9-da14d8d2e252.pdf,product title d\n"
@@ -168,9 +178,9 @@ class UploadProductTest(TempFileMixin, TestCase):
         The document should not be processed
         """
         sample_csv = (
-            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
-            f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425,,,,,,,,,,,,,,dave_or_lincoln.png\n"
-            f"{self.docs[1].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425,,,,,,,,,,,,,,dave_or_grant.png\n"
+            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
+            f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425,,,,,,,,,,,,,,,dave_or_lincoln.png\n"
+            f"{self.docs[1].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425,,,,,,,,,,,,,,,dave_or_grant.png\n"
         )
         pre_pdcount = ProductDocument.objects.count()
         resp = self.post_csv(
@@ -191,9 +201,9 @@ class UploadProductTest(TempFileMixin, TestCase):
         Rows with images that arent in the uploaded directory should be rejected
         """
         sample_csv = (
-            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
-            f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425,,,,,,,,,,,,,,dave_or_lincoln.png\n"
-            f"{self.docs[1].pk},fefd813f-d1e0-4fa7-8c4e-49030eca08a3.pdf,product title b,903944840750,,,,,,,,,,,,,,foobar.png\n"
+            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
+            f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425,,,,,,,,,,,,,,,dave_or_lincoln.png\n"
+            f"{self.docs[1].pk},fefd813f-d1e0-4fa7-8c4e-49030eca08a3.pdf,product title b,903944840750,,,,,,,,,,,,,,,foobar.png\n"
         )
         resp = self.post_csv(
             sample_csv, image_directory_name="product_image_upload_valid"
@@ -209,8 +219,8 @@ class UploadProductTest(TempFileMixin, TestCase):
         Rows with images that arent in the uploaded directory should be rejected
         """
         sample_csv = (
-            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
-            f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425,,,,,,,,,,,,,,dave_or_grant.png\n"
+            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
+            f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425,,,,,,,,,,,,,,,dave_or_grant.png\n"
         )
         pre_pdcount = ProductDocument.objects.count()
         resp = self.post_csv(
@@ -239,8 +249,8 @@ class UploadProductTest(TempFileMixin, TestCase):
         Rows with images that arent in the uploaded directory should be rejected
         """
         sample_csv = (
-            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
-            f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425,,,,,,,,,,,,,,dave_or_grant.png\n"
+            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
+            f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425,,,,,,,,,,,,,,,dave_or_grant.png\n"
         )
         pre_pdcount = ProductDocument.objects.count()
         resp = self.post_csv(
@@ -262,8 +272,8 @@ class UploadProductTest(TempFileMixin, TestCase):
         Rows with images that arent in the uploaded directory should be rejected
         """
         sample_csv = (
-            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
-            f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425,,,,,,,,,,,,,,dave_or_grant.png\n"
+            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
+            f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425,,,,,,,,,,,,,,,dave_or_grant.png\n"
         )
         pre_pdcount = ProductDocument.objects.count()
         resp = self.post_csv(
@@ -288,7 +298,7 @@ class UploadProductTest(TempFileMixin, TestCase):
         self.assertEqual(DuplicateProduct.objects.filter(upc="stub_11").count(), 0)
         Product.objects.create(upc="stub_11")
         sample_csv = (
-            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
+            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
             f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,'product title a',110230011425\n"
             f"{self.docs[1].pk},fefd813f-d1e0-4fa7-8c4e-49030eca08a3.pdf,'product title b',903944840750\n"
             f"{self.docs[2].pk},fc5f964c-91e2-42c5-9899-2ff38e37ba89.pdf,'product title c',852646877466\n"
@@ -310,7 +320,7 @@ class UploadProductTest(TempFileMixin, TestCase):
         being rejected
         """
         sample_csv = (
-            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
+            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
             f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,'product title a',110230011425\n"
             f"{self.docs[1].pk},fefd813f-d1e0-4fa7-8c4e-49030eca08a3.pdf,'product title b',903944840750\n"
             f"{self.docs[2].pk},fc5f964c-91e2-42c5-9899-2ff38e37ba89.pdf,'product title c',852646877466\n"
@@ -329,7 +339,7 @@ class UploadProductTest(TempFileMixin, TestCase):
         The bad header should cause the entire form to be invalid
         """
         sample_csv = (
-            "data_document_idX,data_document_file_name,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
+            "data_document_idX,data_document_file_name,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
             f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,'product title a',110230011425\n"
             f"{self.docs[1].pk},fefd813f-d1e0-4fa7-8c4e-49030eca08a3.pdf,'product title b',903944840750\n"
             f"{self.docs[2].pk},fc5f964c-91e2-42c5-9899-2ff38e37ba89.pdf,'product title c',852646877466\n"
@@ -347,7 +357,7 @@ class UploadProductTest(TempFileMixin, TestCase):
         # Product auto-stub function requires at least 1 product to exist
         Product.objects.create()
         sample_csv = (
-            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
+            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
             f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a\n"
             f"{self.docs[1].pk},fefd813f-d1e0-4fa7-8c4e-49030eca08a3.pdf,'product title b'\n"
             f"{self.docs[2].pk},fc5f964c-91e2-42c5-9899-2ff38e37ba89.pdf,'product title c'\n"
