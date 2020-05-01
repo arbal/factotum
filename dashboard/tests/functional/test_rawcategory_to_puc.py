@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils.timezone import now
 from django.contrib.auth.models import User
 
-from dashboard.models import DataGroup, DataDocument, Product
+from dashboard.models import DataGroup, DataDocument, Product, GroupType
 from dashboard.views import DataSource, PUC, RawCategoryToPUCList
 
 
@@ -21,12 +21,15 @@ class TestRawCategoryToPUCView(TestCase):
             username="Karyn", password="specialP@55word"
         )
         cls.ds = DataSource.objects.create(title="Test Data Source")
+        cls.dgt = GroupType.objects.create()
         cls.dg = DataGroup.objects.create(
             downloaded_at=now(),
             data_source=cls.ds,
             downloaded_by=cls.user,
             name="Test Data Group",
+            group_type=cls.dgt,
         )
+
         for min_visible_datadoc in range(cls.minimum_document_count):
             cls.doc = DataDocument.objects.create(
                 data_group=cls.dg, raw_category="visible"
@@ -161,6 +164,7 @@ class TestRawCategoryToPUCView(TestCase):
             data_source=self.ds,
             downloaded_by=self.user,
             name="Test Data Group 2",
+            group_type=self.dgt,
         )
         docs2 = []
         for min_visible_datadoc in range(self.minimum_document_count):

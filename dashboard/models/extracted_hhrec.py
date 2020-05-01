@@ -1,12 +1,11 @@
 from django.db import models
 from six import text_type
 
-from .common_info import CommonInfo
 from .extracted_text import ExtractedText
 from .raw_chem import RawChem
 
 
-class ExtractedHHRec(CommonInfo, RawChem):
+class ExtractedHHRec(RawChem):
     media = models.CharField("Media", max_length=30, blank=True)
     sampling_method = models.TextField("Sampling Method", blank=True)
     analytical_method = models.TextField("Analytical Method", blank=True)

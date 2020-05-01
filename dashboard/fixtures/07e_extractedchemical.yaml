@@ -1,8 +1,6 @@
 - model: dashboard.extractedchemical
   pk: 2
   fields:
-    created_at: 2019-04-08 07:01:07.897509
-    updated_at: 2019-04-08 07:01:07.897509
     raw_min_comp: '.0047'
     raw_max_comp: '.0074'
     unit_type: 1
@@ -16,8 +14,6 @@
 - model: dashboard.extractedchemical
   pk: 3
   fields:
-    created_at: 2019-04-08 07:01:07.897509
-    updated_at: 2019-04-08 07:01:07.897509
     raw_min_comp: '4'
     raw_max_comp: '7'
     unit_type: 2
@@ -27,8 +23,6 @@
 - model: dashboard.extractedchemical
   pk: 4
   fields:
-    created_at: 2019-04-08 07:01:07.897509
-    updated_at: 2019-04-08 07:01:07.897509
     raw_min_comp: '4'
     raw_max_comp: '7'
     unit_type: 1
@@ -38,8 +32,6 @@
 - model: dashboard.extractedchemical
   pk: 6
   fields:
-    created_at: 2018-06-06 07:14:52
-    updated_at: 2018-06-06 07:14:52
     raw_min_comp: '4'
     raw_max_comp: '7'
     unit_type: 1
@@ -49,8 +41,6 @@
 - model: dashboard.extractedchemical
   pk: 7
   fields:
-    created_at: 2018-06-06 07:14:52
-    updated_at: 2018-06-06 07:14:52
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -64,8 +54,6 @@
 - model: dashboard.extractedchemical
   pk: 8
   fields:
-    created_at: 2018-06-06 07:15:00
-    updated_at: 2018-06-06 07:15:00
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -79,8 +67,6 @@
 - model: dashboard.extractedchemical
   pk: 9
   fields:
-    created_at: 2018-06-06 07:15:22
-    updated_at: 2018-06-06 07:15:22
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -94,8 +80,6 @@
 - model: dashboard.extractedchemical
   pk: 10
   fields:
-    created_at: 2018-06-06 07:15:44
-    updated_at: 2018-06-06 07:15:44
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -109,8 +93,6 @@
 - model: dashboard.extractedchemical
   pk: 11
   fields:
-    created_at: 2018-06-06 07:16:07
-    updated_at: 2018-06-06 07:16:07
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -124,8 +106,6 @@
 - model: dashboard.extractedchemical
   pk: 12
   fields:
-    created_at: 2018-06-06 07:16:34
-    updated_at: 2018-06-06 07:16:34
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -139,8 +119,6 @@
 - model: dashboard.extractedchemical
   pk: 13
   fields:
-    created_at: 2018-06-06 07:17:13
-    updated_at: 2018-06-06 07:17:13
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -154,8 +132,6 @@
 - model: dashboard.extractedchemical
   pk: 14
   fields:
-    created_at: 2018-06-06 07:17:22
-    updated_at: 2018-06-06 07:17:22
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -169,8 +145,6 @@
 - model: dashboard.extractedchemical
   pk: 15
   fields:
-    created_at: 2018-06-06 07:17:22
-    updated_at: 2018-06-06 07:17:22
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -184,8 +158,6 @@
 - model: dashboard.extractedchemical
   pk: 16
   fields:
-    created_at: 2018-06-06 07:17:22
-    updated_at: 2018-06-06 07:17:22
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -199,8 +171,6 @@
 - model: dashboard.extractedchemical
   pk: 17
   fields:
-    created_at: 2018-06-06 07:17:24
-    updated_at: 2018-06-06 07:17:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -214,8 +184,6 @@
 - model: dashboard.extractedchemical
   pk: 18
   fields:
-    created_at: 2018-06-06 07:17:25
-    updated_at: 2018-06-06 07:17:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -229,8 +197,6 @@
 - model: dashboard.extractedchemical
   pk: 19
   fields:
-    created_at: 2018-06-06 07:17:25
-    updated_at: 2018-06-06 07:17:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -244,8 +210,6 @@
 - model: dashboard.extractedchemical
   pk: 20
   fields:
-    created_at: 2018-06-06 07:17:41
-    updated_at: 2018-06-06 07:17:41
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -259,8 +223,6 @@
 - model: dashboard.extractedchemical
   pk: 21
   fields:
-    created_at: 2018-06-06 07:17:41
-    updated_at: 2018-06-06 07:17:41
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -274,8 +236,6 @@
 - model: dashboard.extractedchemical
   pk: 22
   fields:
-    created_at: 2018-06-06 07:18:03
-    updated_at: 2018-06-06 07:18:03
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -289,8 +249,6 @@
 - model: dashboard.extractedchemical
   pk: 23
   fields:
-    created_at: 2018-06-06 07:18:08
-    updated_at: 2018-06-06 07:18:08
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -304,8 +262,6 @@
 - model: dashboard.extractedchemical
   pk: 24
   fields:
-    created_at: 2018-06-06 07:18:12
-    updated_at: 2018-06-06 07:18:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -319,8 +275,6 @@
 - model: dashboard.extractedchemical
   pk: 25
   fields:
-    created_at: 2018-06-06 07:18:12
-    updated_at: 2018-06-06 07:18:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -334,8 +288,6 @@
 - model: dashboard.extractedchemical
   pk: 26
   fields:
-    created_at: 2018-06-06 07:18:12
-    updated_at: 2018-06-06 07:18:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -349,8 +301,6 @@
 - model: dashboard.extractedchemical
   pk: 27
   fields:
-    created_at: 2018-06-06 07:18:29
-    updated_at: 2018-06-06 07:18:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -364,8 +314,6 @@
 - model: dashboard.extractedchemical
   pk: 28
   fields:
-    created_at: 2018-06-06 07:19:05
-    updated_at: 2018-06-06 07:19:05
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -379,8 +327,6 @@
 - model: dashboard.extractedchemical
   pk: 29
   fields:
-    created_at: 2018-06-06 07:19:06
-    updated_at: 2018-06-06 07:19:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -394,8 +340,6 @@
 - model: dashboard.extractedchemical
   pk: 30
   fields:
-    created_at: 2018-06-06 07:19:11
-    updated_at: 2018-06-06 07:19:11
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -409,8 +353,6 @@
 - model: dashboard.extractedchemical
   pk: 31
   fields:
-    created_at: 2018-06-06 07:19:22
-    updated_at: 2018-06-06 07:19:22
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -424,8 +366,6 @@
 - model: dashboard.extractedchemical
   pk: 32
   fields:
-    created_at: 2018-06-06 07:19:24
-    updated_at: 2018-06-06 07:19:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -439,8 +379,6 @@
 - model: dashboard.extractedchemical
   pk: 33
   fields:
-    created_at: 2018-06-06 07:19:44
-    updated_at: 2018-06-06 07:19:44
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -454,8 +392,6 @@
 - model: dashboard.extractedchemical
   pk: 34
   fields:
-    created_at: 2018-06-06 07:20:29
-    updated_at: 2018-06-06 07:20:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -469,8 +405,6 @@
 - model: dashboard.extractedchemical
   pk: 35
   fields:
-    created_at: 2018-06-06 07:20:32
-    updated_at: 2018-06-06 07:20:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -484,8 +418,6 @@
 - model: dashboard.extractedchemical
   pk: 36
   fields:
-    created_at: 2018-06-06 07:20:35
-    updated_at: 2018-06-06 07:20:35
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -499,8 +431,6 @@
 - model: dashboard.extractedchemical
   pk: 37
   fields:
-    created_at: 2018-06-06 07:20:38
-    updated_at: 2018-06-06 07:20:38
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -514,8 +444,6 @@
 - model: dashboard.extractedchemical
   pk: 38
   fields:
-    created_at: 2018-06-06 07:20:59
-    updated_at: 2018-06-06 07:20:59
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -529,8 +457,6 @@
 - model: dashboard.extractedchemical
   pk: 39
   fields:
-    created_at: 2018-06-06 07:21:17
-    updated_at: 2018-06-06 07:21:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -544,8 +470,6 @@
 - model: dashboard.extractedchemical
   pk: 40
   fields:
-    created_at: 2018-06-06 07:21:17
-    updated_at: 2018-06-06 07:21:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -559,8 +483,6 @@
 - model: dashboard.extractedchemical
   pk: 41
   fields:
-    created_at: 2018-06-06 07:21:18
-    updated_at: 2018-06-06 07:21:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -574,8 +496,6 @@
 - model: dashboard.extractedchemical
   pk: 42
   fields:
-    created_at: 2018-06-06 07:21:18
-    updated_at: 2018-06-06 07:21:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -589,8 +509,6 @@
 - model: dashboard.extractedchemical
   pk: 43
   fields:
-    created_at: 2018-06-06 07:21:20
-    updated_at: 2018-06-06 07:21:20
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -604,8 +522,6 @@
 - model: dashboard.extractedchemical
   pk: 44
   fields:
-    created_at: 2018-06-06 07:21:20
-    updated_at: 2018-06-06 07:21:20
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -619,8 +535,6 @@
 - model: dashboard.extractedchemical
   pk: 45
   fields:
-    created_at: 2018-06-06 07:21:27
-    updated_at: 2018-06-06 07:21:27
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -634,8 +548,6 @@
 - model: dashboard.extractedchemical
   pk: 46
   fields:
-    created_at: 2018-06-06 07:21:28
-    updated_at: 2018-06-06 07:21:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -649,8 +561,6 @@
 - model: dashboard.extractedchemical
   pk: 47
   fields:
-    created_at: 2018-06-06 07:21:30
-    updated_at: 2018-06-06 07:21:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -664,8 +574,6 @@
 - model: dashboard.extractedchemical
   pk: 48
   fields:
-    created_at: 2018-06-06 07:21:41
-    updated_at: 2018-06-06 07:21:41
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -679,8 +587,6 @@
 - model: dashboard.extractedchemical
   pk: 49
   fields:
-    created_at: 2018-06-06 07:21:49
-    updated_at: 2018-06-06 07:21:49
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -694,8 +600,6 @@
 - model: dashboard.extractedchemical
   pk: 50
   fields:
-    created_at: 2018-06-06 07:21:50
-    updated_at: 2018-06-06 07:21:50
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -709,8 +613,6 @@
 - model: dashboard.extractedchemical
   pk: 51
   fields:
-    created_at: 2018-06-06 07:21:50
-    updated_at: 2018-06-06 07:21:50
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -724,8 +626,6 @@
 - model: dashboard.extractedchemical
   pk: 52
   fields:
-    created_at: 2018-06-06 07:21:52
-    updated_at: 2018-06-06 07:21:52
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -739,8 +639,6 @@
 - model: dashboard.extractedchemical
   pk: 53
   fields:
-    created_at: 2018-06-06 07:21:52
-    updated_at: 2018-06-06 07:21:52
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -754,8 +652,6 @@
 - model: dashboard.extractedchemical
   pk: 54
   fields:
-    created_at: 2018-06-06 07:22:11
-    updated_at: 2018-06-06 07:22:11
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -769,8 +665,6 @@
 - model: dashboard.extractedchemical
   pk: 55
   fields:
-    created_at: 2018-06-06 07:22:12
-    updated_at: 2018-06-06 07:22:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -784,8 +678,6 @@
 - model: dashboard.extractedchemical
   pk: 56
   fields:
-    created_at: 2018-06-06 07:22:54
-    updated_at: 2018-06-06 07:22:54
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -799,8 +691,6 @@
 - model: dashboard.extractedchemical
   pk: 57
   fields:
-    created_at: 2018-06-06 07:23:33
-    updated_at: 2018-06-06 07:23:33
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -814,8 +704,6 @@
 - model: dashboard.extractedchemical
   pk: 58
   fields:
-    created_at: 2018-06-06 07:23:36
-    updated_at: 2018-06-06 07:23:36
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -829,8 +717,6 @@
 - model: dashboard.extractedchemical
   pk: 59
   fields:
-    created_at: 2018-06-06 07:24:04
-    updated_at: 2018-06-06 07:24:04
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -844,8 +730,6 @@
 - model: dashboard.extractedchemical
   pk: 60
   fields:
-    created_at: 2018-06-06 07:24:04
-    updated_at: 2018-06-06 07:24:04
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -859,8 +743,6 @@
 - model: dashboard.extractedchemical
   pk: 61
   fields:
-    created_at: 2018-06-06 07:24:04
-    updated_at: 2018-06-06 07:24:04
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -874,8 +756,6 @@
 - model: dashboard.extractedchemical
   pk: 62
   fields:
-    created_at: 2018-06-06 07:24:26
-    updated_at: 2018-06-06 07:24:26
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -889,8 +769,6 @@
 - model: dashboard.extractedchemical
   pk: 63
   fields:
-    created_at: 2018-06-06 07:24:42
-    updated_at: 2018-06-06 07:24:42
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -904,8 +782,6 @@
 - model: dashboard.extractedchemical
   pk: 64
   fields:
-    created_at: 2018-06-06 07:24:42
-    updated_at: 2018-06-06 07:24:42
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -919,8 +795,6 @@
 - model: dashboard.extractedchemical
   pk: 65
   fields:
-    created_at: 2018-06-06 07:24:58
-    updated_at: 2018-06-06 07:24:58
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -934,8 +808,6 @@
 - model: dashboard.extractedchemical
   pk: 66
   fields:
-    created_at: 2018-06-06 07:24:58
-    updated_at: 2018-06-06 07:24:58
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -949,8 +821,6 @@
 - model: dashboard.extractedchemical
   pk: 67
   fields:
-    created_at: 2018-06-06 07:25:02
-    updated_at: 2018-06-06 07:25:02
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -964,8 +834,6 @@
 - model: dashboard.extractedchemical
   pk: 68
   fields:
-    created_at: 2018-06-06 07:25:43
-    updated_at: 2018-06-06 07:25:43
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -979,8 +847,6 @@
 - model: dashboard.extractedchemical
   pk: 69
   fields:
-    created_at: 2018-06-06 07:25:43
-    updated_at: 2018-06-06 07:25:43
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -994,8 +860,6 @@
 - model: dashboard.extractedchemical
   pk: 70
   fields:
-    created_at: 2018-06-06 07:26:06
-    updated_at: 2018-06-06 07:26:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1009,8 +873,6 @@
 - model: dashboard.extractedchemical
   pk: 71
   fields:
-    created_at: 2018-06-06 07:26:07
-    updated_at: 2018-06-06 07:26:07
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1024,8 +886,6 @@
 - model: dashboard.extractedchemical
   pk: 72
   fields:
-    created_at: 2018-06-06 07:26:58
-    updated_at: 2018-06-06 07:26:58
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1039,8 +899,6 @@
 - model: dashboard.extractedchemical
   pk: 73
   fields:
-    created_at: 2018-06-06 07:27:30
-    updated_at: 2018-06-06 07:27:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1054,8 +912,6 @@
 - model: dashboard.extractedchemical
   pk: 74
   fields:
-    created_at: 2018-06-06 07:27:31
-    updated_at: 2018-06-06 07:27:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1069,8 +925,6 @@
 - model: dashboard.extractedchemical
   pk: 75
   fields:
-    created_at: 2018-06-06 07:27:54
-    updated_at: 2018-06-06 07:27:54
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1084,8 +938,6 @@
 - model: dashboard.extractedchemical
   pk: 76
   fields:
-    created_at: 2018-06-06 07:28:01
-    updated_at: 2018-06-06 07:28:01
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1099,8 +951,6 @@
 - model: dashboard.extractedchemical
   pk: 77
   fields:
-    created_at: 2018-06-06 07:28:01
-    updated_at: 2018-06-06 07:28:01
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1114,8 +964,6 @@
 - model: dashboard.extractedchemical
   pk: 78
   fields:
-    created_at: 2018-06-06 07:29:33
-    updated_at: 2018-06-06 07:29:33
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1129,8 +977,6 @@
 - model: dashboard.extractedchemical
   pk: 79
   fields:
-    created_at: 2018-06-06 07:29:35
-    updated_at: 2018-06-06 07:29:35
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1144,8 +990,6 @@
 - model: dashboard.extractedchemical
   pk: 80
   fields:
-    created_at: 2018-06-06 07:29:35
-    updated_at: 2018-06-06 07:29:35
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1159,8 +1003,6 @@
 - model: dashboard.extractedchemical
   pk: 81
   fields:
-    created_at: 2018-06-06 07:29:40
-    updated_at: 2018-06-06 07:29:40
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1174,8 +1016,6 @@
 - model: dashboard.extractedchemical
   pk: 82
   fields:
-    created_at: 2018-06-06 07:31:36
-    updated_at: 2018-06-06 07:31:36
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1189,8 +1029,6 @@
 - model: dashboard.extractedchemical
   pk: 83
   fields:
-    created_at: 2018-06-06 07:32:08
-    updated_at: 2018-06-06 07:32:08
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1204,8 +1042,6 @@
 - model: dashboard.extractedchemical
   pk: 84
   fields:
-    created_at: 2018-06-06 07:32:29
-    updated_at: 2018-06-06 07:32:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1219,8 +1055,6 @@
 - model: dashboard.extractedchemical
   pk: 85
   fields:
-    created_at: 2018-06-06 07:32:30
-    updated_at: 2018-06-06 07:32:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1234,8 +1068,6 @@
 - model: dashboard.extractedchemical
   pk: 86
   fields:
-    created_at: 2018-06-06 07:33:20
-    updated_at: 2018-06-06 07:33:20
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1249,8 +1081,6 @@
 - model: dashboard.extractedchemical
   pk: 87
   fields:
-    created_at: 2018-06-06 07:33:21
-    updated_at: 2018-06-06 07:33:21
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1264,8 +1094,6 @@
 - model: dashboard.extractedchemical
   pk: 88
   fields:
-    created_at: 2018-06-06 07:33:34
-    updated_at: 2018-06-06 07:33:34
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1279,8 +1107,6 @@
 - model: dashboard.extractedchemical
   pk: 89
   fields:
-    created_at: 2018-06-06 07:34:59
-    updated_at: 2018-06-06 07:34:59
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1294,8 +1120,6 @@
 - model: dashboard.extractedchemical
   pk: 90
   fields:
-    created_at: 2018-06-06 07:35:12
-    updated_at: 2018-06-06 07:35:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1309,8 +1133,6 @@
 - model: dashboard.extractedchemical
   pk: 91
   fields:
-    created_at: 2018-06-06 07:35:12
-    updated_at: 2018-06-06 07:35:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1324,8 +1146,6 @@
 - model: dashboard.extractedchemical
   pk: 92
   fields:
-    created_at: 2018-06-06 07:35:13
-    updated_at: 2018-06-06 07:35:13
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1339,8 +1159,6 @@
 - model: dashboard.extractedchemical
   pk: 93
   fields:
-    created_at: 2018-06-06 07:35:32
-    updated_at: 2018-06-06 07:35:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1354,8 +1172,6 @@
 - model: dashboard.extractedchemical
   pk: 94
   fields:
-    created_at: 2018-06-06 07:35:45
-    updated_at: 2018-06-06 07:35:45
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1369,8 +1185,6 @@
 - model: dashboard.extractedchemical
   pk: 95
   fields:
-    created_at: 2018-06-06 07:35:50
-    updated_at: 2018-06-06 07:35:50
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1384,8 +1198,6 @@
 - model: dashboard.extractedchemical
   pk: 96
   fields:
-    created_at: 2018-06-06 07:36:03
-    updated_at: 2018-06-06 07:36:03
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1399,8 +1211,6 @@
 - model: dashboard.extractedchemical
   pk: 97
   fields:
-    created_at: 2018-06-06 07:36:25
-    updated_at: 2018-06-06 07:36:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1414,8 +1224,6 @@
 - model: dashboard.extractedchemical
   pk: 98
   fields:
-    created_at: 2018-06-06 07:36:25
-    updated_at: 2018-06-06 07:36:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1429,8 +1237,6 @@
 - model: dashboard.extractedchemical
   pk: 99
   fields:
-    created_at: 2018-06-06 07:36:26
-    updated_at: 2018-06-06 07:36:26
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1444,8 +1250,6 @@
 - model: dashboard.extractedchemical
   pk: 100
   fields:
-    created_at: 2018-06-06 07:36:28
-    updated_at: 2018-06-06 07:36:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1459,8 +1263,6 @@
 - model: dashboard.extractedchemical
   pk: 101
   fields:
-    created_at: 2018-06-06 07:37:45
-    updated_at: 2018-06-06 07:37:45
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1474,8 +1276,6 @@
 - model: dashboard.extractedchemical
   pk: 102
   fields:
-    created_at: 2018-06-06 07:38:03
-    updated_at: 2018-06-06 07:38:03
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1489,8 +1289,6 @@
 - model: dashboard.extractedchemical
   pk: 103
   fields:
-    created_at: 2018-06-06 07:38:05
-    updated_at: 2018-06-06 07:38:05
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1504,8 +1302,6 @@
 - model: dashboard.extractedchemical
   pk: 104
   fields:
-    created_at: 2018-06-06 07:38:24
-    updated_at: 2018-06-06 07:38:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1519,8 +1315,6 @@
 - model: dashboard.extractedchemical
   pk: 105
   fields:
-    created_at: 2018-06-06 07:38:25
-    updated_at: 2018-06-06 07:38:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1534,8 +1328,6 @@
 - model: dashboard.extractedchemical
   pk: 106
   fields:
-    created_at: 2018-06-06 07:38:44
-    updated_at: 2018-06-06 07:38:44
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1549,8 +1341,6 @@
 - model: dashboard.extractedchemical
   pk: 107
   fields:
-    created_at: 2018-06-06 07:42:51
-    updated_at: 2018-06-06 07:42:51
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1564,8 +1354,6 @@
 - model: dashboard.extractedchemical
   pk: 108
   fields:
-    created_at: 2018-06-06 07:42:53
-    updated_at: 2018-06-06 07:42:53
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1579,8 +1367,6 @@
 - model: dashboard.extractedchemical
   pk: 109
   fields:
-    created_at: 2018-06-06 07:42:54
-    updated_at: 2018-06-06 07:42:54
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1594,8 +1380,6 @@
 - model: dashboard.extractedchemical
   pk: 110
   fields:
-    created_at: 2018-06-06 07:42:56
-    updated_at: 2018-06-06 07:42:56
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1609,8 +1393,6 @@
 - model: dashboard.extractedchemical
   pk: 111
   fields:
-    created_at: 2018-06-06 07:43:45
-    updated_at: 2018-06-06 07:43:45
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1624,8 +1406,6 @@
 - model: dashboard.extractedchemical
   pk: 112
   fields:
-    created_at: 2018-06-06 07:43:48
-    updated_at: 2018-06-06 07:43:48
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1639,8 +1419,6 @@
 - model: dashboard.extractedchemical
   pk: 113
   fields:
-    created_at: 2018-06-06 07:45:07
-    updated_at: 2018-06-06 07:45:07
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1654,8 +1432,6 @@
 - model: dashboard.extractedchemical
   pk: 114
   fields:
-    created_at: 2018-06-06 07:45:08
-    updated_at: 2018-06-06 07:45:08
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1669,8 +1445,6 @@
 - model: dashboard.extractedchemical
   pk: 115
   fields:
-    created_at: 2018-06-06 07:45:23
-    updated_at: 2018-06-06 07:45:23
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1684,8 +1458,6 @@
 - model: dashboard.extractedchemical
   pk: 116
   fields:
-    created_at: 2018-06-06 07:45:32
-    updated_at: 2018-06-06 07:45:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1699,8 +1471,6 @@
 - model: dashboard.extractedchemical
   pk: 117
   fields:
-    created_at: 2018-06-06 07:46:02
-    updated_at: 2018-06-06 07:46:02
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1714,8 +1484,6 @@
 - model: dashboard.extractedchemical
   pk: 118
   fields:
-    created_at: 2018-06-06 07:46:29
-    updated_at: 2018-06-06 07:46:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1729,8 +1497,6 @@
 - model: dashboard.extractedchemical
   pk: 119
   fields:
-    created_at: 2018-06-06 07:46:30
-    updated_at: 2018-06-06 07:46:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1744,8 +1510,6 @@
 - model: dashboard.extractedchemical
   pk: 120
   fields:
-    created_at: 2018-06-06 07:46:53
-    updated_at: 2018-06-06 07:46:53
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1759,8 +1523,6 @@
 - model: dashboard.extractedchemical
   pk: 121
   fields:
-    created_at: 2018-06-06 07:47:05
-    updated_at: 2018-06-06 07:47:05
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1774,8 +1536,6 @@
 - model: dashboard.extractedchemical
   pk: 122
   fields:
-    created_at: 2018-06-06 07:48:10
-    updated_at: 2018-06-06 07:48:10
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1789,8 +1549,6 @@
 - model: dashboard.extractedchemical
   pk: 123
   fields:
-    created_at: 2018-06-06 07:48:25
-    updated_at: 2018-06-06 07:48:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1804,8 +1562,6 @@
 - model: dashboard.extractedchemical
   pk: 124
   fields:
-    created_at: 2018-06-06 07:49:53
-    updated_at: 2018-06-06 07:49:53
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1819,8 +1575,6 @@
 - model: dashboard.extractedchemical
   pk: 125
   fields:
-    created_at: 2018-06-06 07:50:12
-    updated_at: 2018-06-06 07:50:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1834,8 +1588,6 @@
 - model: dashboard.extractedchemical
   pk: 126
   fields:
-    created_at: 2018-06-06 07:50:13
-    updated_at: 2018-06-06 07:50:13
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1849,8 +1601,6 @@
 - model: dashboard.extractedchemical
   pk: 127
   fields:
-    created_at: 2018-06-06 07:50:13
-    updated_at: 2018-06-06 07:50:13
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1864,8 +1614,6 @@
 - model: dashboard.extractedchemical
   pk: 128
   fields:
-    created_at: 2018-06-06 07:50:15
-    updated_at: 2018-06-06 07:50:15
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1879,8 +1627,6 @@
 - model: dashboard.extractedchemical
   pk: 129
   fields:
-    created_at: 2018-06-06 07:50:15
-    updated_at: 2018-06-06 07:50:15
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1894,8 +1640,6 @@
 - model: dashboard.extractedchemical
   pk: 130
   fields:
-    created_at: 2018-06-06 07:51:23
-    updated_at: 2018-06-06 07:51:23
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1909,8 +1653,6 @@
 - model: dashboard.extractedchemical
   pk: 131
   fields:
-    created_at: 2018-06-06 07:51:35
-    updated_at: 2018-06-06 07:51:35
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1924,8 +1666,6 @@
 - model: dashboard.extractedchemical
   pk: 132
   fields:
-    created_at: 2018-06-06 07:53:06
-    updated_at: 2018-06-06 07:53:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1939,8 +1679,6 @@
 - model: dashboard.extractedchemical
   pk: 133
   fields:
-    created_at: 2018-06-06 07:53:06
-    updated_at: 2018-06-06 07:53:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1954,8 +1692,6 @@
 - model: dashboard.extractedchemical
   pk: 134
   fields:
-    created_at: 2018-06-06 07:54:16
-    updated_at: 2018-06-06 07:54:16
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1969,8 +1705,6 @@
 - model: dashboard.extractedchemical
   pk: 135
   fields:
-    created_at: 2018-06-06 07:55:29
-    updated_at: 2018-06-06 07:55:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1984,8 +1718,6 @@
 - model: dashboard.extractedchemical
   pk: 136
   fields:
-    created_at: 2018-06-06 07:55:29
-    updated_at: 2018-06-06 07:55:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -1999,8 +1731,6 @@
 - model: dashboard.extractedchemical
   pk: 137
   fields:
-    created_at: 2018-06-06 07:55:29
-    updated_at: 2018-06-06 07:55:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2014,8 +1744,6 @@
 - model: dashboard.extractedchemical
   pk: 138
   fields:
-    created_at: 2018-06-06 07:55:30
-    updated_at: 2018-06-06 07:55:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2029,8 +1757,6 @@
 - model: dashboard.extractedchemical
   pk: 139
   fields:
-    created_at: 2018-06-06 07:55:30
-    updated_at: 2018-06-06 07:55:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2044,8 +1770,6 @@
 - model: dashboard.extractedchemical
   pk: 140
   fields:
-    created_at: 2018-06-06 07:55:42
-    updated_at: 2018-06-06 07:55:42
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2059,8 +1783,6 @@
 - model: dashboard.extractedchemical
   pk: 141
   fields:
-    created_at: 2018-06-06 07:55:44
-    updated_at: 2018-06-06 07:55:44
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2074,8 +1796,6 @@
 - model: dashboard.extractedchemical
   pk: 142
   fields:
-    created_at: 2018-06-06 07:55:46
-    updated_at: 2018-06-06 07:55:46
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2089,8 +1809,6 @@
 - model: dashboard.extractedchemical
   pk: 143
   fields:
-    created_at: 2018-06-06 07:56:59
-    updated_at: 2018-06-06 07:56:59
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2104,8 +1822,6 @@
 - model: dashboard.extractedchemical
   pk: 144
   fields:
-    created_at: 2018-06-06 07:58:48
-    updated_at: 2018-06-06 07:58:48
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2119,8 +1835,6 @@
 - model: dashboard.extractedchemical
   pk: 145
   fields:
-    created_at: 2018-06-06 07:59:08
-    updated_at: 2018-06-06 07:59:08
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2134,8 +1848,6 @@
 - model: dashboard.extractedchemical
   pk: 146
   fields:
-    created_at: 2018-06-06 08:02:32
-    updated_at: 2018-06-06 08:02:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2149,8 +1861,6 @@
 - model: dashboard.extractedchemical
   pk: 147
   fields:
-    created_at: 2018-06-06 08:03:15
-    updated_at: 2018-06-06 08:03:15
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2164,8 +1874,6 @@
 - model: dashboard.extractedchemical
   pk: 148
   fields:
-    created_at: 2018-06-06 08:04:25
-    updated_at: 2018-06-06 08:04:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2179,8 +1887,6 @@
 - model: dashboard.extractedchemical
   pk: 149
   fields:
-    created_at: 2018-06-06 08:05:26
-    updated_at: 2018-06-06 08:05:26
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2194,8 +1900,6 @@
 - model: dashboard.extractedchemical
   pk: 150
   fields:
-    created_at: 2018-06-06 08:06:25
-    updated_at: 2018-06-06 08:06:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2209,8 +1913,6 @@
 - model: dashboard.extractedchemical
   pk: 151
   fields:
-    created_at: 2018-06-06 08:06:26
-    updated_at: 2018-06-06 08:06:26
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2224,8 +1926,6 @@
 - model: dashboard.extractedchemical
   pk: 152
   fields:
-    created_at: 2018-06-06 08:06:29
-    updated_at: 2018-06-06 08:06:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2239,8 +1939,6 @@
 - model: dashboard.extractedchemical
   pk: 153
   fields:
-    created_at: 2018-06-06 08:06:30
-    updated_at: 2018-06-06 08:06:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2254,8 +1952,6 @@
 - model: dashboard.extractedchemical
   pk: 154
   fields:
-    created_at: 2018-06-06 08:06:50
-    updated_at: 2018-06-06 08:06:50
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2269,8 +1965,6 @@
 - model: dashboard.extractedchemical
   pk: 155
   fields:
-    created_at: 2018-06-06 08:07:43
-    updated_at: 2018-06-06 08:07:43
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2284,8 +1978,6 @@
 - model: dashboard.extractedchemical
   pk: 156
   fields:
-    created_at: 2018-06-06 08:08:29
-    updated_at: 2018-06-06 08:08:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2299,8 +1991,6 @@
 - model: dashboard.extractedchemical
   pk: 157
   fields:
-    created_at: 2018-06-06 08:08:34
-    updated_at: 2018-06-06 08:08:34
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2314,8 +2004,6 @@
 - model: dashboard.extractedchemical
   pk: 158
   fields:
-    created_at: 2018-06-06 08:09:08
-    updated_at: 2018-06-06 08:09:08
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2329,8 +2017,6 @@
 - model: dashboard.extractedchemical
   pk: 159
   fields:
-    created_at: 2018-06-06 08:09:08
-    updated_at: 2018-06-06 08:09:08
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2344,8 +2030,6 @@
 - model: dashboard.extractedchemical
   pk: 160
   fields:
-    created_at: 2018-06-06 08:10:56
-    updated_at: 2018-06-06 08:10:56
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2359,8 +2043,6 @@
 - model: dashboard.extractedchemical
   pk: 161
   fields:
-    created_at: 2018-06-06 08:11:15
-    updated_at: 2018-06-06 08:11:15
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2374,8 +2056,6 @@
 - model: dashboard.extractedchemical
   pk: 162
   fields:
-    created_at: 2018-06-06 08:11:21
-    updated_at: 2018-06-06 08:11:21
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2389,8 +2069,6 @@
 - model: dashboard.extractedchemical
   pk: 163
   fields:
-    created_at: 2018-06-06 08:11:38
-    updated_at: 2018-06-06 08:11:38
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2404,8 +2082,6 @@
 - model: dashboard.extractedchemical
   pk: 164
   fields:
-    created_at: 2018-06-06 08:11:39
-    updated_at: 2018-06-06 08:11:39
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2419,8 +2095,6 @@
 - model: dashboard.extractedchemical
   pk: 165
   fields:
-    created_at: 2018-06-06 08:11:40
-    updated_at: 2018-06-06 08:11:40
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2434,8 +2108,6 @@
 - model: dashboard.extractedchemical
   pk: 166
   fields:
-    created_at: 2018-06-06 08:11:49
-    updated_at: 2018-06-06 08:11:49
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2449,8 +2121,6 @@
 - model: dashboard.extractedchemical
   pk: 167
   fields:
-    created_at: 2018-06-06 08:11:51
-    updated_at: 2018-06-06 08:11:51
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2464,8 +2134,6 @@
 - model: dashboard.extractedchemical
   pk: 168
   fields:
-    created_at: 2018-06-06 08:11:58
-    updated_at: 2018-06-06 08:11:58
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2479,8 +2147,6 @@
 - model: dashboard.extractedchemical
   pk: 169
   fields:
-    created_at: 2018-06-06 08:16:08
-    updated_at: 2018-06-06 08:16:08
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2494,8 +2160,6 @@
 - model: dashboard.extractedchemical
   pk: 170
   fields:
-    created_at: 2018-06-06 08:17:18
-    updated_at: 2018-06-06 08:17:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2509,8 +2173,6 @@
 - model: dashboard.extractedchemical
   pk: 171
   fields:
-    created_at: 2018-06-06 08:17:18
-    updated_at: 2018-06-06 08:17:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2524,8 +2186,6 @@
 - model: dashboard.extractedchemical
   pk: 172
   fields:
-    created_at: 2018-06-06 08:17:25
-    updated_at: 2018-06-06 08:17:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2539,8 +2199,6 @@
 - model: dashboard.extractedchemical
   pk: 173
   fields:
-    created_at: 2018-06-06 08:17:26
-    updated_at: 2018-06-06 08:17:26
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2554,8 +2212,6 @@
 - model: dashboard.extractedchemical
   pk: 174
   fields:
-    created_at: 2018-06-06 08:17:27
-    updated_at: 2018-06-06 08:17:27
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2569,8 +2225,6 @@
 - model: dashboard.extractedchemical
   pk: 175
   fields:
-    created_at: 2018-06-06 08:17:28
-    updated_at: 2018-06-06 08:17:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2584,8 +2238,6 @@
 - model: dashboard.extractedchemical
   pk: 176
   fields:
-    created_at: 2018-06-06 08:17:29
-    updated_at: 2018-06-06 08:17:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2599,8 +2251,6 @@
 - model: dashboard.extractedchemical
   pk: 177
   fields:
-    created_at: 2018-06-06 08:17:29
-    updated_at: 2018-06-06 08:17:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2614,8 +2264,6 @@
 - model: dashboard.extractedchemical
   pk: 178
   fields:
-    created_at: 2018-06-06 08:17:30
-    updated_at: 2018-06-06 08:17:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2629,8 +2277,6 @@
 - model: dashboard.extractedchemical
   pk: 179
   fields:
-    created_at: 2018-06-06 08:17:30
-    updated_at: 2018-06-06 08:17:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2644,8 +2290,6 @@
 - model: dashboard.extractedchemical
   pk: 180
   fields:
-    created_at: 2018-06-06 08:17:33
-    updated_at: 2018-06-06 08:17:33
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2659,8 +2303,6 @@
 - model: dashboard.extractedchemical
   pk: 181
   fields:
-    created_at: 2018-06-06 08:21:25
-    updated_at: 2018-06-06 08:21:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2674,8 +2316,6 @@
 - model: dashboard.extractedchemical
   pk: 182
   fields:
-    created_at: 2018-06-06 08:21:49
-    updated_at: 2018-06-06 08:21:49
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2689,8 +2329,6 @@
 - model: dashboard.extractedchemical
   pk: 183
   fields:
-    created_at: 2018-06-06 08:21:50
-    updated_at: 2018-06-06 08:21:50
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2704,8 +2342,6 @@
 - model: dashboard.extractedchemical
   pk: 184
   fields:
-    created_at: 2018-06-06 08:22:01
-    updated_at: 2018-06-06 08:22:01
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2719,8 +2355,6 @@
 - model: dashboard.extractedchemical
   pk: 185
   fields:
-    created_at: 2018-06-06 08:22:02
-    updated_at: 2018-06-06 08:22:02
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2734,8 +2368,6 @@
 - model: dashboard.extractedchemical
   pk: 186
   fields:
-    created_at: 2018-06-06 08:24:53
-    updated_at: 2018-06-06 08:24:53
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2749,8 +2381,6 @@
 - model: dashboard.extractedchemical
   pk: 187
   fields:
-    created_at: 2018-06-06 08:25:01
-    updated_at: 2018-06-06 08:25:01
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2764,8 +2394,6 @@
 - model: dashboard.extractedchemical
   pk: 188
   fields:
-    created_at: 2018-06-06 08:25:14
-    updated_at: 2018-06-06 08:25:14
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2779,8 +2407,6 @@
 - model: dashboard.extractedchemical
   pk: 189
   fields:
-    created_at: 2018-06-06 08:26:11
-    updated_at: 2018-06-06 08:26:11
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2794,8 +2420,6 @@
 - model: dashboard.extractedchemical
   pk: 190
   fields:
-    created_at: 2018-06-06 08:26:12
-    updated_at: 2018-06-06 08:26:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2809,8 +2433,6 @@
 - model: dashboard.extractedchemical
   pk: 191
   fields:
-    created_at: 2018-06-06 08:26:14
-    updated_at: 2018-06-06 08:26:14
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2824,8 +2446,6 @@
 - model: dashboard.extractedchemical
   pk: 192
   fields:
-    created_at: 2018-06-06 08:27:00
-    updated_at: 2018-06-06 08:27:00
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2839,8 +2459,6 @@
 - model: dashboard.extractedchemical
   pk: 193
   fields:
-    created_at: 2018-06-06 08:27:13
-    updated_at: 2018-06-06 08:27:13
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2854,8 +2472,6 @@
 - model: dashboard.extractedchemical
   pk: 194
   fields:
-    created_at: 2018-06-06 08:27:14
-    updated_at: 2018-06-06 08:27:14
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2869,8 +2485,6 @@
 - model: dashboard.extractedchemical
   pk: 195
   fields:
-    created_at: 2018-06-06 08:27:17
-    updated_at: 2018-06-06 08:27:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2884,8 +2498,6 @@
 - model: dashboard.extractedchemical
   pk: 196
   fields:
-    created_at: 2018-06-06 08:27:18
-    updated_at: 2018-06-06 08:27:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2899,8 +2511,6 @@
 - model: dashboard.extractedchemical
   pk: 197
   fields:
-    created_at: 2018-06-06 08:27:20
-    updated_at: 2018-06-06 08:27:20
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2914,8 +2524,6 @@
 - model: dashboard.extractedchemical
   pk: 198
   fields:
-    created_at: 2018-06-06 08:27:25
-    updated_at: 2018-06-06 08:27:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2929,8 +2537,6 @@
 - model: dashboard.extractedchemical
   pk: 199
   fields:
-    created_at: 2018-06-06 08:27:26
-    updated_at: 2018-06-06 08:27:26
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2944,8 +2550,6 @@
 - model: dashboard.extractedchemical
   pk: 200
   fields:
-    created_at: 2018-06-06 08:27:31
-    updated_at: 2018-06-06 08:27:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2959,8 +2563,6 @@
 - model: dashboard.extractedchemical
   pk: 201
   fields:
-    created_at: 2018-06-06 08:27:33
-    updated_at: 2018-06-06 08:27:33
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2974,8 +2576,6 @@
 - model: dashboard.extractedchemical
   pk: 202
   fields:
-    created_at: 2018-06-06 08:27:34
-    updated_at: 2018-06-06 08:27:34
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -2989,8 +2589,6 @@
 - model: dashboard.extractedchemical
   pk: 203
   fields:
-    created_at: 2018-06-06 08:27:35
-    updated_at: 2018-06-06 08:27:35
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3004,8 +2602,6 @@
 - model: dashboard.extractedchemical
   pk: 204
   fields:
-    created_at: 2018-06-06 08:30:26
-    updated_at: 2018-06-06 08:30:26
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3019,8 +2615,6 @@
 - model: dashboard.extractedchemical
   pk: 205
   fields:
-    created_at: 2018-06-06 08:30:28
-    updated_at: 2018-06-06 08:30:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3034,8 +2628,6 @@
 - model: dashboard.extractedchemical
   pk: 206
   fields:
-    created_at: 2018-06-06 08:30:29
-    updated_at: 2018-06-06 08:30:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3049,8 +2641,6 @@
 - model: dashboard.extractedchemical
   pk: 207
   fields:
-    created_at: 2018-06-06 08:30:29
-    updated_at: 2018-06-06 08:30:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3064,8 +2654,6 @@
 - model: dashboard.extractedchemical
   pk: 208
   fields:
-    created_at: 2018-06-06 08:30:29
-    updated_at: 2018-06-06 08:30:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3079,8 +2667,6 @@
 - model: dashboard.extractedchemical
   pk: 209
   fields:
-    created_at: 2018-06-06 08:30:30
-    updated_at: 2018-06-06 08:30:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3094,8 +2680,6 @@
 - model: dashboard.extractedchemical
   pk: 210
   fields:
-    created_at: 2018-06-06 08:30:30
-    updated_at: 2018-06-06 08:30:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3109,8 +2693,6 @@
 - model: dashboard.extractedchemical
   pk: 211
   fields:
-    created_at: 2018-06-06 08:30:32
-    updated_at: 2018-06-06 08:30:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3124,8 +2706,6 @@
 - model: dashboard.extractedchemical
   pk: 212
   fields:
-    created_at: 2018-06-06 08:30:32
-    updated_at: 2018-06-06 08:30:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3139,8 +2719,6 @@
 - model: dashboard.extractedchemical
   pk: 213
   fields:
-    created_at: 2018-06-06 08:30:33
-    updated_at: 2018-06-06 08:30:33
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3154,8 +2732,6 @@
 - model: dashboard.extractedchemical
   pk: 214
   fields:
-    created_at: 2018-06-06 08:30:33
-    updated_at: 2018-06-06 08:30:33
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3169,8 +2745,6 @@
 - model: dashboard.extractedchemical
   pk: 215
   fields:
-    created_at: 2018-06-06 08:30:34
-    updated_at: 2018-06-06 08:30:34
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3184,8 +2758,6 @@
 - model: dashboard.extractedchemical
   pk: 216
   fields:
-    created_at: 2018-06-06 08:34:49
-    updated_at: 2018-06-06 08:34:49
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3199,8 +2771,6 @@
 - model: dashboard.extractedchemical
   pk: 217
   fields:
-    created_at: 2018-06-06 08:35:19
-    updated_at: 2018-06-06 08:35:19
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3214,8 +2784,6 @@
 - model: dashboard.extractedchemical
   pk: 218
   fields:
-    created_at: 2018-06-06 08:35:20
-    updated_at: 2018-06-06 08:35:20
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3229,8 +2797,6 @@
 - model: dashboard.extractedchemical
   pk: 219
   fields:
-    created_at: 2018-06-06 08:35:20
-    updated_at: 2018-06-06 08:35:20
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3244,8 +2810,6 @@
 - model: dashboard.extractedchemical
   pk: 220
   fields:
-    created_at: 2018-06-06 08:35:20
-    updated_at: 2018-06-06 08:35:20
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3259,8 +2823,6 @@
 - model: dashboard.extractedchemical
   pk: 221
   fields:
-    created_at: 2018-06-06 08:35:21
-    updated_at: 2018-06-06 08:35:21
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3274,8 +2836,6 @@
 - model: dashboard.extractedchemical
   pk: 222
   fields:
-    created_at: 2018-06-06 08:35:21
-    updated_at: 2018-06-06 08:35:21
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3289,8 +2849,6 @@
 - model: dashboard.extractedchemical
   pk: 223
   fields:
-    created_at: 2018-06-06 08:35:22
-    updated_at: 2018-06-06 08:35:22
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3304,8 +2862,6 @@
 - model: dashboard.extractedchemical
   pk: 224
   fields:
-    created_at: 2018-06-06 08:35:24
-    updated_at: 2018-06-06 08:35:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3319,8 +2875,6 @@
 - model: dashboard.extractedchemical
   pk: 225
   fields:
-    created_at: 2018-06-06 08:35:27
-    updated_at: 2018-06-06 08:35:27
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3334,8 +2888,6 @@
 - model: dashboard.extractedchemical
   pk: 226
   fields:
-    created_at: 2018-06-06 08:35:27
-    updated_at: 2018-06-06 08:35:27
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3349,8 +2901,6 @@
 - model: dashboard.extractedchemical
   pk: 227
   fields:
-    created_at: 2018-06-06 08:35:27
-    updated_at: 2018-06-06 08:35:27
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3364,8 +2914,6 @@
 - model: dashboard.extractedchemical
   pk: 228
   fields:
-    created_at: 2018-06-06 08:35:27
-    updated_at: 2018-06-06 08:35:27
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3379,8 +2927,6 @@
 - model: dashboard.extractedchemical
   pk: 229
   fields:
-    created_at: 2018-06-06 08:35:28
-    updated_at: 2018-06-06 08:35:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3394,8 +2940,6 @@
 - model: dashboard.extractedchemical
   pk: 230
   fields:
-    created_at: 2018-06-06 08:35:28
-    updated_at: 2018-06-06 08:35:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3409,8 +2953,6 @@
 - model: dashboard.extractedchemical
   pk: 231
   fields:
-    created_at: 2018-06-06 08:35:28
-    updated_at: 2018-06-06 08:35:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3424,8 +2966,6 @@
 - model: dashboard.extractedchemical
   pk: 232
   fields:
-    created_at: 2018-06-06 08:35:28
-    updated_at: 2018-06-06 08:35:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3439,8 +2979,6 @@
 - model: dashboard.extractedchemical
   pk: 233
   fields:
-    created_at: 2018-06-06 08:35:28
-    updated_at: 2018-06-06 08:35:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3454,8 +2992,6 @@
 - model: dashboard.extractedchemical
   pk: 234
   fields:
-    created_at: 2018-06-06 08:35:28
-    updated_at: 2018-06-06 08:35:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3469,8 +3005,6 @@
 - model: dashboard.extractedchemical
   pk: 235
   fields:
-    created_at: 2018-06-06 08:35:29
-    updated_at: 2018-06-06 08:35:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3484,8 +3018,6 @@
 - model: dashboard.extractedchemical
   pk: 236
   fields:
-    created_at: 2018-06-06 08:35:29
-    updated_at: 2018-06-06 08:35:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3499,8 +3031,6 @@
 - model: dashboard.extractedchemical
   pk: 237
   fields:
-    created_at: 2018-06-06 08:35:29
-    updated_at: 2018-06-06 08:35:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3514,8 +3044,6 @@
 - model: dashboard.extractedchemical
   pk: 238
   fields:
-    created_at: 2018-06-06 08:35:30
-    updated_at: 2018-06-06 08:35:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3529,8 +3057,6 @@
 - model: dashboard.extractedchemical
   pk: 239
   fields:
-    created_at: 2018-06-06 08:35:30
-    updated_at: 2018-06-06 08:35:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3544,8 +3070,6 @@
 - model: dashboard.extractedchemical
   pk: 240
   fields:
-    created_at: 2018-06-06 08:35:30
-    updated_at: 2018-06-06 08:35:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3559,8 +3083,6 @@
 - model: dashboard.extractedchemical
   pk: 241
   fields:
-    created_at: 2018-06-06 08:35:30
-    updated_at: 2018-06-06 08:35:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3574,8 +3096,6 @@
 - model: dashboard.extractedchemical
   pk: 242
   fields:
-    created_at: 2018-06-06 08:35:30
-    updated_at: 2018-06-06 08:35:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3589,8 +3109,6 @@
 - model: dashboard.extractedchemical
   pk: 243
   fields:
-    created_at: 2018-06-06 08:35:31
-    updated_at: 2018-06-06 08:35:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3604,8 +3122,6 @@
 - model: dashboard.extractedchemical
   pk: 244
   fields:
-    created_at: 2018-06-06 08:35:31
-    updated_at: 2018-06-06 08:35:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3619,8 +3135,6 @@
 - model: dashboard.extractedchemical
   pk: 245
   fields:
-    created_at: 2018-06-06 08:35:31
-    updated_at: 2018-06-06 08:35:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3634,8 +3148,6 @@
 - model: dashboard.extractedchemical
   pk: 246
   fields:
-    created_at: 2018-06-06 08:35:31
-    updated_at: 2018-06-06 08:35:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3649,8 +3161,6 @@
 - model: dashboard.extractedchemical
   pk: 247
   fields:
-    created_at: 2018-06-06 08:35:31
-    updated_at: 2018-06-06 08:35:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3664,8 +3174,6 @@
 - model: dashboard.extractedchemical
   pk: 248
   fields:
-    created_at: 2018-06-06 08:35:31
-    updated_at: 2018-06-06 08:35:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3679,8 +3187,6 @@
 - model: dashboard.extractedchemical
   pk: 249
   fields:
-    created_at: 2018-06-06 08:35:31
-    updated_at: 2018-06-06 08:35:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3694,8 +3200,6 @@
 - model: dashboard.extractedchemical
   pk: 250
   fields:
-    created_at: 2018-06-06 08:35:32
-    updated_at: 2018-06-06 08:35:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3709,8 +3213,6 @@
 - model: dashboard.extractedchemical
   pk: 251
   fields:
-    created_at: 2018-06-06 08:35:32
-    updated_at: 2018-06-06 08:35:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3724,8 +3226,6 @@
 - model: dashboard.extractedchemical
   pk: 252
   fields:
-    created_at: 2018-06-06 08:35:32
-    updated_at: 2018-06-06 08:35:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3739,8 +3239,6 @@
 - model: dashboard.extractedchemical
   pk: 253
   fields:
-    created_at: 2018-06-06 08:35:32
-    updated_at: 2018-06-06 08:35:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3754,8 +3252,6 @@
 - model: dashboard.extractedchemical
   pk: 254
   fields:
-    created_at: 2018-06-06 08:35:32
-    updated_at: 2018-06-06 08:35:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3769,8 +3265,6 @@
 - model: dashboard.extractedchemical
   pk: 255
   fields:
-    created_at: 2018-06-06 08:35:32
-    updated_at: 2018-06-06 08:35:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3784,8 +3278,6 @@
 - model: dashboard.extractedchemical
   pk: 256
   fields:
-    created_at: 2018-06-06 08:35:33
-    updated_at: 2018-06-06 08:35:33
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3799,8 +3291,6 @@
 - model: dashboard.extractedchemical
   pk: 257
   fields:
-    created_at: 2018-06-06 08:35:33
-    updated_at: 2018-06-06 08:35:33
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3814,8 +3304,6 @@
 - model: dashboard.extractedchemical
   pk: 258
   fields:
-    created_at: 2018-06-06 08:35:34
-    updated_at: 2018-06-06 08:35:34
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3829,8 +3317,6 @@
 - model: dashboard.extractedchemical
   pk: 259
   fields:
-    created_at: 2018-06-06 08:35:34
-    updated_at: 2018-06-06 08:35:34
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3844,8 +3330,6 @@
 - model: dashboard.extractedchemical
   pk: 260
   fields:
-    created_at: 2018-06-06 08:35:34
-    updated_at: 2018-06-06 08:35:34
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3859,8 +3343,6 @@
 - model: dashboard.extractedchemical
   pk: 261
   fields:
-    created_at: 2018-06-06 08:35:34
-    updated_at: 2018-06-06 08:35:34
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3874,8 +3356,6 @@
 - model: dashboard.extractedchemical
   pk: 262
   fields:
-    created_at: 2018-06-06 08:35:35
-    updated_at: 2018-06-06 08:35:35
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3889,8 +3369,6 @@
 - model: dashboard.extractedchemical
   pk: 263
   fields:
-    created_at: 2018-06-06 08:35:35
-    updated_at: 2018-06-06 08:35:35
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3904,8 +3382,6 @@
 - model: dashboard.extractedchemical
   pk: 264
   fields:
-    created_at: 2018-06-06 08:35:35
-    updated_at: 2018-06-06 08:35:35
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3919,8 +3395,6 @@
 - model: dashboard.extractedchemical
   pk: 265
   fields:
-    created_at: 2018-06-06 08:35:35
-    updated_at: 2018-06-06 08:35:35
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3934,8 +3408,6 @@
 - model: dashboard.extractedchemical
   pk: 266
   fields:
-    created_at: 2018-06-06 08:35:36
-    updated_at: 2018-06-06 08:35:36
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3949,8 +3421,6 @@
 - model: dashboard.extractedchemical
   pk: 267
   fields:
-    created_at: 2018-06-06 08:35:38
-    updated_at: 2018-06-06 08:35:38
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3964,8 +3434,6 @@
 - model: dashboard.extractedchemical
   pk: 268
   fields:
-    created_at: 2018-06-06 08:35:40
-    updated_at: 2018-06-06 08:35:40
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3979,8 +3447,6 @@
 - model: dashboard.extractedchemical
   pk: 269
   fields:
-    created_at: 2018-06-06 08:35:40
-    updated_at: 2018-06-06 08:35:40
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -3994,8 +3460,6 @@
 - model: dashboard.extractedchemical
   pk: 270
   fields:
-    created_at: 2018-06-06 08:35:42
-    updated_at: 2018-06-06 08:35:42
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4009,8 +3473,6 @@
 - model: dashboard.extractedchemical
   pk: 271
   fields:
-    created_at: 2018-06-06 08:35:44
-    updated_at: 2018-06-06 08:35:44
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4024,8 +3486,6 @@
 - model: dashboard.extractedchemical
   pk: 272
   fields:
-    created_at: 2018-06-06 08:35:44
-    updated_at: 2018-06-06 08:35:44
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4039,8 +3499,6 @@
 - model: dashboard.extractedchemical
   pk: 273
   fields:
-    created_at: 2018-06-06 08:36:10
-    updated_at: 2018-06-06 08:36:10
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4054,8 +3512,6 @@
 - model: dashboard.extractedchemical
   pk: 274
   fields:
-    created_at: 2018-06-06 08:37:20
-    updated_at: 2018-06-06 08:37:20
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4069,8 +3525,6 @@
 - model: dashboard.extractedchemical
   pk: 275
   fields:
-    created_at: 2018-06-06 08:37:58
-    updated_at: 2018-06-06 08:37:58
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4084,8 +3538,6 @@
 - model: dashboard.extractedchemical
   pk: 276
   fields:
-    created_at: 2018-06-06 08:37:58
-    updated_at: 2018-06-06 08:37:58
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4099,8 +3551,6 @@
 - model: dashboard.extractedchemical
   pk: 277
   fields:
-    created_at: 2018-06-06 08:37:59
-    updated_at: 2018-06-06 08:37:59
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4114,8 +3564,6 @@
 - model: dashboard.extractedchemical
   pk: 278
   fields:
-    created_at: 2018-06-06 08:38:00
-    updated_at: 2018-06-06 08:38:00
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4129,8 +3577,6 @@
 - model: dashboard.extractedchemical
   pk: 279
   fields:
-    created_at: 2018-06-06 08:38:00
-    updated_at: 2018-06-06 08:38:00
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4144,8 +3590,6 @@
 - model: dashboard.extractedchemical
   pk: 280
   fields:
-    created_at: 2018-06-06 08:38:00
-    updated_at: 2018-06-06 08:38:00
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4159,8 +3603,6 @@
 - model: dashboard.extractedchemical
   pk: 281
   fields:
-    created_at: 2018-06-06 08:38:01
-    updated_at: 2018-06-06 08:38:01
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4174,8 +3616,6 @@
 - model: dashboard.extractedchemical
   pk: 282
   fields:
-    created_at: 2018-06-06 08:38:01
-    updated_at: 2018-06-06 08:38:01
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4189,8 +3629,6 @@
 - model: dashboard.extractedchemical
   pk: 283
   fields:
-    created_at: 2018-06-06 08:38:02
-    updated_at: 2018-06-06 08:38:02
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4204,8 +3642,6 @@
 - model: dashboard.extractedchemical
   pk: 284
   fields:
-    created_at: 2018-06-06 08:40:00
-    updated_at: 2018-06-06 08:40:00
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4219,8 +3655,6 @@
 - model: dashboard.extractedchemical
   pk: 285
   fields:
-    created_at: 2018-06-06 08:40:00
-    updated_at: 2018-06-06 08:40:00
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4234,8 +3668,6 @@
 - model: dashboard.extractedchemical
   pk: 286
   fields:
-    created_at: 2018-06-06 08:40:00
-    updated_at: 2018-06-06 08:40:00
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4249,8 +3681,6 @@
 - model: dashboard.extractedchemical
   pk: 287
   fields:
-    created_at: 2018-06-06 08:40:02
-    updated_at: 2018-06-06 08:40:02
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4264,8 +3694,6 @@
 - model: dashboard.extractedchemical
   pk: 288
   fields:
-    created_at: 2018-06-06 08:40:03
-    updated_at: 2018-06-06 08:40:03
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4279,8 +3707,6 @@
 - model: dashboard.extractedchemical
   pk: 289
   fields:
-    created_at: 2018-06-06 08:40:03
-    updated_at: 2018-06-06 08:40:03
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4294,8 +3720,6 @@
 - model: dashboard.extractedchemical
   pk: 290
   fields:
-    created_at: 2018-06-06 08:40:04
-    updated_at: 2018-06-06 08:40:04
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4309,8 +3733,6 @@
 - model: dashboard.extractedchemical
   pk: 291
   fields:
-    created_at: 2018-06-06 08:40:05
-    updated_at: 2018-06-06 08:40:05
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4324,8 +3746,6 @@
 - model: dashboard.extractedchemical
   pk: 292
   fields:
-    created_at: 2018-06-06 08:40:05
-    updated_at: 2018-06-06 08:40:05
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4339,8 +3759,6 @@
 - model: dashboard.extractedchemical
   pk: 293
   fields:
-    created_at: 2018-06-06 08:40:07
-    updated_at: 2018-06-06 08:40:07
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4354,8 +3772,6 @@
 - model: dashboard.extractedchemical
   pk: 294
   fields:
-    created_at: 2018-06-06 08:40:19
-    updated_at: 2018-06-06 08:40:19
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4369,8 +3785,6 @@
 - model: dashboard.extractedchemical
   pk: 295
   fields:
-    created_at: 2018-06-06 08:40:57
-    updated_at: 2018-06-06 08:40:57
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4384,8 +3798,6 @@
 - model: dashboard.extractedchemical
   pk: 296
   fields:
-    created_at: 2018-06-06 08:42:23
-    updated_at: 2018-06-06 08:42:23
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4399,8 +3811,6 @@
 - model: dashboard.extractedchemical
   pk: 297
   fields:
-    created_at: 2018-06-06 08:43:04
-    updated_at: 2018-06-06 08:43:04
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4414,8 +3824,6 @@
 - model: dashboard.extractedchemical
   pk: 298
   fields:
-    created_at: 2018-06-06 08:43:05
-    updated_at: 2018-06-06 08:43:05
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4429,8 +3837,6 @@
 - model: dashboard.extractedchemical
   pk: 299
   fields:
-    created_at: 2018-06-06 08:43:05
-    updated_at: 2018-06-06 08:43:05
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4444,8 +3850,6 @@
 - model: dashboard.extractedchemical
   pk: 300
   fields:
-    created_at: 2018-06-06 08:43:06
-    updated_at: 2018-06-06 08:43:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4459,8 +3863,6 @@
 - model: dashboard.extractedchemical
   pk: 301
   fields:
-    created_at: 2018-06-06 08:43:08
-    updated_at: 2018-06-06 08:43:08
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4474,8 +3876,6 @@
 - model: dashboard.extractedchemical
   pk: 302
   fields:
-    created_at: 2018-06-06 08:59:54
-    updated_at: 2018-06-06 08:59:54
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4489,8 +3889,6 @@
 - model: dashboard.extractedchemical
   pk: 303
   fields:
-    created_at: 2018-06-06 09:01:05
-    updated_at: 2018-06-06 09:01:05
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4504,8 +3902,6 @@
 - model: dashboard.extractedchemical
   pk: 304
   fields:
-    created_at: 2018-06-06 09:01:21
-    updated_at: 2018-06-06 09:01:21
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4519,8 +3915,6 @@
 - model: dashboard.extractedchemical
   pk: 305
   fields:
-    created_at: 2018-06-06 09:01:25
-    updated_at: 2018-06-06 09:01:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4534,8 +3928,6 @@
 - model: dashboard.extractedchemical
   pk: 306
   fields:
-    created_at: 2018-06-06 09:03:07
-    updated_at: 2018-06-06 09:03:07
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4549,8 +3941,6 @@
 - model: dashboard.extractedchemical
   pk: 307
   fields:
-    created_at: 2018-06-06 09:16:26
-    updated_at: 2018-06-06 09:16:26
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4564,8 +3954,6 @@
 - model: dashboard.extractedchemical
   pk: 308
   fields:
-    created_at: 2018-06-06 09:16:28
-    updated_at: 2018-06-06 09:16:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4579,8 +3967,6 @@
 - model: dashboard.extractedchemical
   pk: 309
   fields:
-    created_at: 2018-06-06 09:16:43
-    updated_at: 2018-06-06 09:16:43
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4594,8 +3980,6 @@
 - model: dashboard.extractedchemical
   pk: 310
   fields:
-    created_at: 2018-06-06 09:17:05
-    updated_at: 2018-06-06 09:17:05
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4609,8 +3993,6 @@
 - model: dashboard.extractedchemical
   pk: 311
   fields:
-    created_at: 2018-06-06 09:17:11
-    updated_at: 2018-06-06 09:17:11
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4624,8 +4006,6 @@
 - model: dashboard.extractedchemical
   pk: 312
   fields:
-    created_at: 2018-06-06 09:17:11
-    updated_at: 2018-06-06 09:17:11
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4639,8 +4019,6 @@
 - model: dashboard.extractedchemical
   pk: 313
   fields:
-    created_at: 2018-06-06 09:17:28
-    updated_at: 2018-06-06 09:17:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4654,8 +4032,6 @@
 - model: dashboard.extractedchemical
   pk: 314
   fields:
-    created_at: 2018-06-06 09:17:28
-    updated_at: 2018-06-06 09:17:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4669,8 +4045,6 @@
 - model: dashboard.extractedchemical
   pk: 315
   fields:
-    created_at: 2018-06-06 09:17:33
-    updated_at: 2018-06-06 09:17:33
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4684,8 +4058,6 @@
 - model: dashboard.extractedchemical
   pk: 316
   fields:
-    created_at: 2018-06-06 09:20:06
-    updated_at: 2018-06-06 09:20:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4699,8 +4071,6 @@
 - model: dashboard.extractedchemical
   pk: 317
   fields:
-    created_at: 2018-06-06 09:20:13
-    updated_at: 2018-06-06 09:20:13
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4714,8 +4084,6 @@
 - model: dashboard.extractedchemical
   pk: 318
   fields:
-    created_at: 2018-06-06 09:20:14
-    updated_at: 2018-06-06 09:20:14
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4729,8 +4097,6 @@
 - model: dashboard.extractedchemical
   pk: 319
   fields:
-    created_at: 2018-06-06 09:20:14
-    updated_at: 2018-06-06 09:20:14
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4744,8 +4110,6 @@
 - model: dashboard.extractedchemical
   pk: 320
   fields:
-    created_at: 2018-06-06 09:20:15
-    updated_at: 2018-06-06 09:20:15
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4759,8 +4123,6 @@
 - model: dashboard.extractedchemical
   pk: 321
   fields:
-    created_at: 2018-06-06 09:23:06
-    updated_at: 2018-06-06 09:23:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4774,8 +4136,6 @@
 - model: dashboard.extractedchemical
   pk: 322
   fields:
-    created_at: 2018-06-06 09:23:06
-    updated_at: 2018-06-06 09:23:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4789,8 +4149,6 @@
 - model: dashboard.extractedchemical
   pk: 323
   fields:
-    created_at: 2018-06-06 09:23:07
-    updated_at: 2018-06-06 09:23:07
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4804,8 +4162,6 @@
 - model: dashboard.extractedchemical
   pk: 324
   fields:
-    created_at: 2018-06-06 09:23:07
-    updated_at: 2018-06-06 09:23:07
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4819,8 +4175,6 @@
 - model: dashboard.extractedchemical
   pk: 325
   fields:
-    created_at: 2018-06-06 09:23:07
-    updated_at: 2018-06-06 09:23:07
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4834,8 +4188,6 @@
 - model: dashboard.extractedchemical
   pk: 326
   fields:
-    created_at: 2018-06-06 09:26:01
-    updated_at: 2018-06-06 09:26:01
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4849,8 +4201,6 @@
 - model: dashboard.extractedchemical
   pk: 327
   fields:
-    created_at: 2018-06-06 09:26:02
-    updated_at: 2018-06-06 09:26:02
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4864,8 +4214,6 @@
 - model: dashboard.extractedchemical
   pk: 328
   fields:
-    created_at: 2018-06-06 09:26:04
-    updated_at: 2018-06-06 09:26:04
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4879,8 +4227,6 @@
 - model: dashboard.extractedchemical
   pk: 329
   fields:
-    created_at: 2018-06-06 09:26:05
-    updated_at: 2018-06-06 09:26:05
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4894,8 +4240,6 @@
 - model: dashboard.extractedchemical
   pk: 330
   fields:
-    created_at: 2018-06-06 09:26:05
-    updated_at: 2018-06-06 09:26:05
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4909,8 +4253,6 @@
 - model: dashboard.extractedchemical
   pk: 331
   fields:
-    created_at: 2018-06-06 09:26:05
-    updated_at: 2018-06-06 09:26:05
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4924,8 +4266,6 @@
 - model: dashboard.extractedchemical
   pk: 332
   fields:
-    created_at: 2018-06-06 09:26:06
-    updated_at: 2018-06-06 09:26:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4939,8 +4279,6 @@
 - model: dashboard.extractedchemical
   pk: 333
   fields:
-    created_at: 2018-06-06 09:26:07
-    updated_at: 2018-06-06 09:26:07
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4954,8 +4292,6 @@
 - model: dashboard.extractedchemical
   pk: 334
   fields:
-    created_at: 2018-06-06 09:26:38
-    updated_at: 2018-06-06 09:26:38
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4969,8 +4305,6 @@
 - model: dashboard.extractedchemical
   pk: 335
   fields:
-    created_at: 2018-06-06 09:26:57
-    updated_at: 2018-06-06 09:26:57
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4984,8 +4318,6 @@
 - model: dashboard.extractedchemical
   pk: 336
   fields:
-    created_at: 2018-06-06 09:27:38
-    updated_at: 2018-06-06 09:27:38
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -4999,8 +4331,6 @@
 - model: dashboard.extractedchemical
   pk: 337
   fields:
-    created_at: 2018-06-06 09:32:22
-    updated_at: 2018-06-06 09:32:22
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5014,8 +4344,6 @@
 - model: dashboard.extractedchemical
   pk: 338
   fields:
-    created_at: 2018-06-06 09:32:24
-    updated_at: 2018-06-06 09:32:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5029,8 +4357,6 @@
 - model: dashboard.extractedchemical
   pk: 339
   fields:
-    created_at: 2018-06-06 09:32:24
-    updated_at: 2018-06-06 09:32:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5044,8 +4370,6 @@
 - model: dashboard.extractedchemical
   pk: 340
   fields:
-    created_at: 2018-06-06 09:32:39
-    updated_at: 2018-06-06 09:32:39
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5059,8 +4383,6 @@
 - model: dashboard.extractedchemical
   pk: 341
   fields:
-    created_at: 2018-06-06 09:34:15
-    updated_at: 2018-06-06 09:34:15
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5074,8 +4396,6 @@
 - model: dashboard.extractedchemical
   pk: 342
   fields:
-    created_at: 2018-06-06 09:36:22
-    updated_at: 2018-06-06 09:36:22
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5089,8 +4409,6 @@
 - model: dashboard.extractedchemical
   pk: 343
   fields:
-    created_at: 2018-06-06 09:36:22
-    updated_at: 2018-06-06 09:36:22
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5104,8 +4422,6 @@
 - model: dashboard.extractedchemical
   pk: 344
   fields:
-    created_at: 2018-06-06 09:53:47
-    updated_at: 2018-06-06 09:53:47
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5119,8 +4435,6 @@
 - model: dashboard.extractedchemical
   pk: 345
   fields:
-    created_at: 2018-06-06 09:55:36
-    updated_at: 2018-06-06 09:55:36
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5134,8 +4448,6 @@
 - model: dashboard.extractedchemical
   pk: 346
   fields:
-    created_at: 2018-06-06 09:56:51
-    updated_at: 2018-06-06 09:56:51
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5149,8 +4461,6 @@
 - model: dashboard.extractedchemical
   pk: 347
   fields:
-    created_at: 2018-06-06 10:05:53
-    updated_at: 2018-06-06 10:05:53
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5164,8 +4474,6 @@
 - model: dashboard.extractedchemical
   pk: 348
   fields:
-    created_at: 2018-06-06 10:15:17
-    updated_at: 2018-06-06 10:15:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5179,8 +4487,6 @@
 - model: dashboard.extractedchemical
   pk: 349
   fields:
-    created_at: 2018-06-06 10:15:17
-    updated_at: 2018-06-06 10:15:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5194,8 +4500,6 @@
 - model: dashboard.extractedchemical
   pk: 350
   fields:
-    created_at: 2018-06-06 10:15:17
-    updated_at: 2018-06-06 10:15:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5209,8 +4513,6 @@
 - model: dashboard.extractedchemical
   pk: 351
   fields:
-    created_at: 2018-06-06 10:25:31
-    updated_at: 2018-06-06 10:25:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5224,8 +4526,6 @@
 - model: dashboard.extractedchemical
   pk: 352
   fields:
-    created_at: 2018-06-06 10:27:42
-    updated_at: 2018-06-06 10:27:42
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5239,8 +4539,6 @@
 - model: dashboard.extractedchemical
   pk: 353
   fields:
-    created_at: 2018-06-06 10:27:42
-    updated_at: 2018-06-06 10:27:42
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5254,8 +4552,6 @@
 - model: dashboard.extractedchemical
   pk: 354
   fields:
-    created_at: 2018-06-06 10:33:50
-    updated_at: 2018-06-06 10:33:50
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5269,8 +4565,6 @@
 - model: dashboard.extractedchemical
   pk: 355
   fields:
-    created_at: 2018-06-06 10:33:51
-    updated_at: 2018-06-06 10:33:51
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5284,8 +4578,6 @@
 - model: dashboard.extractedchemical
   pk: 356
   fields:
-    created_at: 2018-06-06 10:33:51
-    updated_at: 2018-06-06 10:33:51
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5299,8 +4591,6 @@
 - model: dashboard.extractedchemical
   pk: 357
   fields:
-    created_at: 2018-06-06 10:33:52
-    updated_at: 2018-06-06 10:33:52
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5314,8 +4604,6 @@
 - model: dashboard.extractedchemical
   pk: 358
   fields:
-    created_at: 2018-06-06 10:34:38
-    updated_at: 2018-06-06 10:34:38
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5329,8 +4617,6 @@
 - model: dashboard.extractedchemical
   pk: 359
   fields:
-    created_at: 2018-06-06 10:34:44
-    updated_at: 2018-06-06 10:34:44
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5344,8 +4630,6 @@
 - model: dashboard.extractedchemical
   pk: 360
   fields:
-    created_at: 2018-06-06 10:52:26
-    updated_at: 2018-06-06 10:52:26
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5359,8 +4643,6 @@
 - model: dashboard.extractedchemical
   pk: 361
   fields:
-    created_at: 2018-06-06 10:52:32
-    updated_at: 2018-06-06 10:52:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5374,8 +4656,6 @@
 - model: dashboard.extractedchemical
   pk: 362
   fields:
-    created_at: 2018-06-06 10:52:32
-    updated_at: 2018-06-06 10:52:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5389,8 +4669,6 @@
 - model: dashboard.extractedchemical
   pk: 363
   fields:
-    created_at: 2018-06-06 10:52:54
-    updated_at: 2018-06-06 10:52:54
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5404,8 +4682,6 @@
 - model: dashboard.extractedchemical
   pk: 364
   fields:
-    created_at: 2018-06-06 10:52:54
-    updated_at: 2018-06-06 10:52:54
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5419,8 +4695,6 @@
 - model: dashboard.extractedchemical
   pk: 365
   fields:
-    created_at: 2018-06-06 10:52:54
-    updated_at: 2018-06-06 10:52:54
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5434,8 +4708,6 @@
 - model: dashboard.extractedchemical
   pk: 366
   fields:
-    created_at: 2018-06-06 10:53:24
-    updated_at: 2018-06-06 10:53:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5449,8 +4721,6 @@
 - model: dashboard.extractedchemical
   pk: 367
   fields:
-    created_at: 2018-06-06 11:05:18
-    updated_at: 2018-06-06 11:05:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5464,8 +4734,6 @@
 - model: dashboard.extractedchemical
   pk: 368
   fields:
-    created_at: 2018-06-06 11:05:18
-    updated_at: 2018-06-06 11:05:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5479,8 +4747,6 @@
 - model: dashboard.extractedchemical
   pk: 369
   fields:
-    created_at: 2018-06-06 11:16:02
-    updated_at: 2018-06-06 11:16:02
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5494,8 +4760,6 @@
 - model: dashboard.extractedchemical
   pk: 370
   fields:
-    created_at: 2018-06-06 11:16:15
-    updated_at: 2018-06-06 11:16:15
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5509,8 +4773,6 @@
 - model: dashboard.extractedchemical
   pk: 371
   fields:
-    created_at: 2018-06-06 11:18:12
-    updated_at: 2018-06-06 11:18:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5524,8 +4786,6 @@
 - model: dashboard.extractedchemical
   pk: 372
   fields:
-    created_at: 2018-06-06 11:18:12
-    updated_at: 2018-06-06 11:18:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5539,8 +4799,6 @@
 - model: dashboard.extractedchemical
   pk: 373
   fields:
-    created_at: 2018-06-06 11:18:12
-    updated_at: 2018-06-06 11:18:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5554,8 +4812,6 @@
 - model: dashboard.extractedchemical
   pk: 374
   fields:
-    created_at: 2018-06-06 11:18:12
-    updated_at: 2018-06-06 11:18:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5569,8 +4825,6 @@
 - model: dashboard.extractedchemical
   pk: 375
   fields:
-    created_at: 2018-06-06 11:18:12
-    updated_at: 2018-06-06 11:18:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5584,8 +4838,6 @@
 - model: dashboard.extractedchemical
   pk: 376
   fields:
-    created_at: 2018-06-06 11:18:14
-    updated_at: 2018-06-06 11:18:14
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5599,8 +4851,6 @@
 - model: dashboard.extractedchemical
   pk: 377
   fields:
-    created_at: 2018-06-06 11:18:15
-    updated_at: 2018-06-06 11:18:15
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5614,8 +4864,6 @@
 - model: dashboard.extractedchemical
   pk: 378
   fields:
-    created_at: 2018-06-06 11:18:15
-    updated_at: 2018-06-06 11:18:15
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5629,8 +4877,6 @@
 - model: dashboard.extractedchemical
   pk: 379
   fields:
-    created_at: 2018-06-06 11:18:17
-    updated_at: 2018-06-06 11:18:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5644,8 +4890,6 @@
 - model: dashboard.extractedchemical
   pk: 380
   fields:
-    created_at: 2018-06-06 11:18:17
-    updated_at: 2018-06-06 11:18:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5659,8 +4903,6 @@
 - model: dashboard.extractedchemical
   pk: 381
   fields:
-    created_at: 2018-06-06 11:18:31
-    updated_at: 2018-06-06 11:18:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5674,8 +4916,6 @@
 - model: dashboard.extractedchemical
   pk: 382
   fields:
-    created_at: 2018-06-06 11:18:37
-    updated_at: 2018-06-06 11:18:37
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5689,8 +4929,6 @@
 - model: dashboard.extractedchemical
   pk: 383
   fields:
-    created_at: 2018-06-06 11:18:37
-    updated_at: 2018-06-06 11:18:37
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5704,8 +4942,6 @@
 - model: dashboard.extractedchemical
   pk: 384
   fields:
-    created_at: 2018-06-06 11:18:37
-    updated_at: 2018-06-06 11:18:37
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5719,8 +4955,6 @@
 - model: dashboard.extractedchemical
   pk: 385
   fields:
-    created_at: 2018-06-06 11:18:37
-    updated_at: 2018-06-06 11:18:37
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5734,8 +4968,6 @@
 - model: dashboard.extractedchemical
   pk: 386
   fields:
-    created_at: 2018-06-06 11:18:37
-    updated_at: 2018-06-06 11:18:37
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5749,8 +4981,6 @@
 - model: dashboard.extractedchemical
   pk: 387
   fields:
-    created_at: 2018-06-06 11:18:37
-    updated_at: 2018-06-06 11:18:37
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5764,8 +4994,6 @@
 - model: dashboard.extractedchemical
   pk: 388
   fields:
-    created_at: 2018-06-06 11:18:38
-    updated_at: 2018-06-06 11:18:38
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5779,8 +5007,6 @@
 - model: dashboard.extractedchemical
   pk: 389
   fields:
-    created_at: 2018-06-06 11:18:39
-    updated_at: 2018-06-06 11:18:39
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5794,8 +5020,6 @@
 - model: dashboard.extractedchemical
   pk: 390
   fields:
-    created_at: 2018-06-06 11:19:13
-    updated_at: 2018-06-06 11:19:13
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5809,8 +5033,6 @@
 - model: dashboard.extractedchemical
   pk: 391
   fields:
-    created_at: 2018-06-06 11:21:43
-    updated_at: 2018-06-06 11:21:43
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5824,8 +5046,6 @@
 - model: dashboard.extractedchemical
   pk: 392
   fields:
-    created_at: 2018-06-06 11:21:43
-    updated_at: 2018-06-06 11:21:43
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5839,8 +5059,6 @@
 - model: dashboard.extractedchemical
   pk: 393
   fields:
-    created_at: 2018-06-06 11:41:28
-    updated_at: 2018-06-06 11:41:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5854,8 +5072,6 @@
 - model: dashboard.extractedchemical
   pk: 394
   fields:
-    created_at: 2018-06-06 11:41:29
-    updated_at: 2018-06-06 11:41:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5869,8 +5085,6 @@
 - model: dashboard.extractedchemical
   pk: 395
   fields:
-    created_at: 2018-06-06 11:41:29
-    updated_at: 2018-06-06 11:41:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5884,8 +5098,6 @@
 - model: dashboard.extractedchemical
   pk: 396
   fields:
-    created_at: 2018-06-06 11:41:30
-    updated_at: 2018-06-06 11:41:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5899,8 +5111,6 @@
 - model: dashboard.extractedchemical
   pk: 397
   fields:
-    created_at: 2018-06-06 11:41:31
-    updated_at: 2018-06-06 11:41:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5914,8 +5124,6 @@
 - model: dashboard.extractedchemical
   pk: 398
   fields:
-    created_at: 2018-06-06 11:41:31
-    updated_at: 2018-06-06 11:41:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5929,8 +5137,6 @@
 - model: dashboard.extractedchemical
   pk: 399
   fields:
-    created_at: 2018-06-06 11:42:02
-    updated_at: 2018-06-06 11:42:02
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5944,8 +5150,6 @@
 - model: dashboard.extractedchemical
   pk: 400
   fields:
-    created_at: 2018-06-06 11:42:02
-    updated_at: 2018-06-06 11:42:02
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5959,8 +5163,6 @@
 - model: dashboard.extractedchemical
   pk: 401
   fields:
-    created_at: 2018-06-06 11:42:03
-    updated_at: 2018-06-06 11:42:03
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5974,8 +5176,6 @@
 - model: dashboard.extractedchemical
   pk: 402
   fields:
-    created_at: 2018-06-06 11:48:47
-    updated_at: 2018-06-06 11:48:47
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -5989,8 +5189,6 @@
 - model: dashboard.extractedchemical
   pk: 403
   fields:
-    created_at: 2018-06-06 11:49:02
-    updated_at: 2018-06-06 11:49:02
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6004,8 +5202,6 @@
 - model: dashboard.extractedchemical
   pk: 404
   fields:
-    created_at: 2018-06-06 11:56:01
-    updated_at: 2018-06-06 11:56:01
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6019,8 +5215,6 @@
 - model: dashboard.extractedchemical
   pk: 405
   fields:
-    created_at: 2018-06-06 11:56:01
-    updated_at: 2018-06-06 11:56:01
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6034,8 +5228,6 @@
 - model: dashboard.extractedchemical
   pk: 406
   fields:
-    created_at: 2018-06-06 11:56:02
-    updated_at: 2018-06-06 11:56:02
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6049,8 +5241,6 @@
 - model: dashboard.extractedchemical
   pk: 407
   fields:
-    created_at: 2018-06-06 11:59:01
-    updated_at: 2018-06-06 11:59:01
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6064,8 +5254,6 @@
 - model: dashboard.extractedchemical
   pk: 408
   fields:
-    created_at: 2018-06-06 12:05:01
-    updated_at: 2018-06-06 12:05:01
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6079,8 +5267,6 @@
 - model: dashboard.extractedchemical
   pk: 409
   fields:
-    created_at: 2018-06-06 12:07:07
-    updated_at: 2018-06-06 12:07:07
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6094,8 +5280,6 @@
 - model: dashboard.extractedchemical
   pk: 410
   fields:
-    created_at: 2018-06-06 12:11:02
-    updated_at: 2018-06-06 12:11:02
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6109,8 +5293,6 @@
 - model: dashboard.extractedchemical
   pk: 411
   fields:
-    created_at: 2018-06-06 12:29:57
-    updated_at: 2018-06-06 12:29:57
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6124,8 +5306,6 @@
 - model: dashboard.extractedchemical
   pk: 412
   fields:
-    created_at: 2018-06-06 12:41:25
-    updated_at: 2018-06-06 12:41:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6139,8 +5319,6 @@
 - model: dashboard.extractedchemical
   pk: 413
   fields:
-    created_at: 2018-06-06 12:43:16
-    updated_at: 2018-06-06 12:43:16
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6154,8 +5332,6 @@
 - model: dashboard.extractedchemical
   pk: 414
   fields:
-    created_at: 2018-06-06 12:55:27
-    updated_at: 2018-06-06 12:55:27
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6169,8 +5345,6 @@
 - model: dashboard.extractedchemical
   pk: 415
   fields:
-    created_at: 2018-06-06 12:55:27
-    updated_at: 2018-06-06 12:55:27
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6184,8 +5358,6 @@
 - model: dashboard.extractedchemical
   pk: 416
   fields:
-    created_at: 2018-06-06 12:55:28
-    updated_at: 2018-06-06 12:55:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6199,8 +5371,6 @@
 - model: dashboard.extractedchemical
   pk: 417
   fields:
-    created_at: 2018-06-06 12:56:39
-    updated_at: 2018-06-06 12:56:39
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6214,8 +5384,6 @@
 - model: dashboard.extractedchemical
   pk: 418
   fields:
-    created_at: 2018-06-06 12:56:40
-    updated_at: 2018-06-06 12:56:40
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6229,8 +5397,6 @@
 - model: dashboard.extractedchemical
   pk: 419
   fields:
-    created_at: 2018-06-06 12:56:40
-    updated_at: 2018-06-06 12:56:40
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6244,8 +5410,6 @@
 - model: dashboard.extractedchemical
   pk: 420
   fields:
-    created_at: 2018-06-06 12:57:19
-    updated_at: 2018-06-06 12:57:19
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6259,8 +5423,6 @@
 - model: dashboard.extractedchemical
   pk: 421
   fields:
-    created_at: 2018-06-06 12:57:19
-    updated_at: 2018-06-06 12:57:19
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6274,8 +5436,6 @@
 - model: dashboard.extractedchemical
   pk: 422
   fields:
-    created_at: 2018-06-06 13:03:06
-    updated_at: 2018-06-06 13:03:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6289,8 +5449,6 @@
 - model: dashboard.extractedchemical
   pk: 423
   fields:
-    created_at: 2018-06-06 13:03:07
-    updated_at: 2018-06-06 13:03:07
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6304,8 +5462,6 @@
 - model: dashboard.extractedchemical
   pk: 424
   fields:
-    created_at: 2018-06-06 13:03:07
-    updated_at: 2018-06-06 13:03:07
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6319,8 +5475,6 @@
 - model: dashboard.extractedchemical
   pk: 425
   fields:
-    created_at: 2018-06-06 13:03:08
-    updated_at: 2018-06-06 13:03:08
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6334,8 +5488,6 @@
 - model: dashboard.extractedchemical
   pk: 426
   fields:
-    created_at: 2018-06-06 13:29:32
-    updated_at: 2018-06-06 13:29:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6349,8 +5501,6 @@
 - model: dashboard.extractedchemical
   pk: 427
   fields:
-    created_at: 2018-06-06 13:37:06
-    updated_at: 2018-06-06 13:37:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6364,8 +5514,6 @@
 - model: dashboard.extractedchemical
   pk: 428
   fields:
-    created_at: 2018-06-06 13:39:54
-    updated_at: 2018-06-06 13:39:54
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6379,8 +5527,6 @@
 - model: dashboard.extractedchemical
   pk: 429
   fields:
-    created_at: 2018-06-06 13:50:46
-    updated_at: 2018-06-06 13:50:46
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6394,8 +5540,6 @@
 - model: dashboard.extractedchemical
   pk: 430
   fields:
-    created_at: 2018-06-06 14:00:13
-    updated_at: 2018-06-06 14:00:13
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6409,8 +5553,6 @@
 - model: dashboard.extractedchemical
   pk: 431
   fields:
-    created_at: 2018-06-06 14:00:15
-    updated_at: 2018-06-06 14:00:15
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6424,8 +5566,6 @@
 - model: dashboard.extractedchemical
   pk: 432
   fields:
-    created_at: 2018-06-06 14:00:22
-    updated_at: 2018-06-06 14:00:22
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6439,8 +5579,6 @@
 - model: dashboard.extractedchemical
   pk: 433
   fields:
-    created_at: 2018-06-06 14:00:28
-    updated_at: 2018-06-06 14:00:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6454,8 +5592,6 @@
 - model: dashboard.extractedchemical
   pk: 434
   fields:
-    created_at: 2018-06-06 14:11:44
-    updated_at: 2018-06-06 14:11:44
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6469,8 +5605,6 @@
 - model: dashboard.extractedchemical
   pk: 435
   fields:
-    created_at: 2018-06-06 14:11:47
-    updated_at: 2018-06-06 14:11:47
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6484,8 +5618,6 @@
 - model: dashboard.extractedchemical
   pk: 436
   fields:
-    created_at: 2018-06-06 14:29:42
-    updated_at: 2018-06-06 14:29:42
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6499,8 +5631,6 @@
 - model: dashboard.extractedchemical
   pk: 437
   fields:
-    created_at: 2018-06-06 14:33:39
-    updated_at: 2018-06-06 14:33:39
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6514,8 +5644,6 @@
 - model: dashboard.extractedchemical
   pk: 438
   fields:
-    created_at: 2018-06-06 14:33:40
-    updated_at: 2018-06-06 14:33:40
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6529,8 +5657,6 @@
 - model: dashboard.extractedchemical
   pk: 439
   fields:
-    created_at: 2018-06-06 14:33:41
-    updated_at: 2018-06-06 14:33:41
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6544,8 +5670,6 @@
 - model: dashboard.extractedchemical
   pk: 440
   fields:
-    created_at: 2018-06-06 14:34:53
-    updated_at: 2018-06-06 14:34:53
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6559,8 +5683,6 @@
 - model: dashboard.extractedchemical
   pk: 441
   fields:
-    created_at: 2018-06-06 14:42:25
-    updated_at: 2018-06-06 14:42:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6574,8 +5696,6 @@
 - model: dashboard.extractedchemical
   pk: 442
   fields:
-    created_at: 2018-06-06 14:54:08
-    updated_at: 2018-06-06 14:54:08
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6589,8 +5709,6 @@
 - model: dashboard.extractedchemical
   pk: 443
   fields:
-    created_at: 2018-06-06 15:11:04
-    updated_at: 2018-06-06 15:11:04
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6604,8 +5722,6 @@
 - model: dashboard.extractedchemical
   pk: 444
   fields:
-    created_at: 2018-06-06 15:19:45
-    updated_at: 2018-06-06 15:19:45
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6619,8 +5735,6 @@
 - model: dashboard.extractedchemical
   pk: 445
   fields:
-    created_at: 2018-06-06 15:33:01
-    updated_at: 2018-06-06 15:33:01
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6634,8 +5748,6 @@
 - model: dashboard.extractedchemical
   pk: 446
   fields:
-    created_at: 2018-06-06 15:55:41
-    updated_at: 2018-06-06 15:55:41
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6649,8 +5761,6 @@
 - model: dashboard.extractedchemical
   pk: 447
   fields:
-    created_at: 2018-06-06 15:55:41
-    updated_at: 2018-06-06 15:55:41
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6664,8 +5774,6 @@
 - model: dashboard.extractedchemical
   pk: 448
   fields:
-    created_at: 2018-06-06 15:58:33
-    updated_at: 2018-06-06 15:58:33
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6679,8 +5787,6 @@
 - model: dashboard.extractedchemical
   pk: 449
   fields:
-    created_at: 2018-06-06 15:58:38
-    updated_at: 2018-06-06 15:58:38
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6694,8 +5800,6 @@
 - model: dashboard.extractedchemical
   pk: 450
   fields:
-    created_at: 2018-06-06 15:58:38
-    updated_at: 2018-06-06 15:58:38
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6709,8 +5813,6 @@
 - model: dashboard.extractedchemical
   pk: 451
   fields:
-    created_at: 2018-06-06 15:58:38
-    updated_at: 2018-06-06 15:58:38
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6724,8 +5826,6 @@
 - model: dashboard.extractedchemical
   pk: 452
   fields:
-    created_at: 2018-06-06 15:58:39
-    updated_at: 2018-06-06 15:58:39
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6739,8 +5839,6 @@
 - model: dashboard.extractedchemical
   pk: 453
   fields:
-    created_at: 2018-06-06 15:58:39
-    updated_at: 2018-06-06 15:58:39
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6754,8 +5852,6 @@
 - model: dashboard.extractedchemical
   pk: 454
   fields:
-    created_at: 2018-06-06 15:58:39
-    updated_at: 2018-06-06 15:58:39
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6769,8 +5865,6 @@
 - model: dashboard.extractedchemical
   pk: 455
   fields:
-    created_at: 2018-06-06 15:58:40
-    updated_at: 2018-06-06 15:58:40
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6784,8 +5878,6 @@
 - model: dashboard.extractedchemical
   pk: 456
   fields:
-    created_at: 2018-06-06 15:58:40
-    updated_at: 2018-06-06 15:58:40
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6799,8 +5891,6 @@
 - model: dashboard.extractedchemical
   pk: 457
   fields:
-    created_at: 2018-06-06 15:58:42
-    updated_at: 2018-06-06 15:58:42
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6814,8 +5904,6 @@
 - model: dashboard.extractedchemical
   pk: 458
   fields:
-    created_at: 2018-06-06 15:58:42
-    updated_at: 2018-06-06 15:58:42
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6829,8 +5917,6 @@
 - model: dashboard.extractedchemical
   pk: 459
   fields:
-    created_at: 2018-06-06 15:58:43
-    updated_at: 2018-06-06 15:58:43
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6844,8 +5930,6 @@
 - model: dashboard.extractedchemical
   pk: 460
   fields:
-    created_at: 2018-06-06 15:58:43
-    updated_at: 2018-06-06 15:58:43
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6859,8 +5943,6 @@
 - model: dashboard.extractedchemical
   pk: 461
   fields:
-    created_at: 2018-06-06 15:59:13
-    updated_at: 2018-06-06 15:59:13
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6874,8 +5956,6 @@
 - model: dashboard.extractedchemical
   pk: 462
   fields:
-    created_at: 2018-06-06 16:00:09
-    updated_at: 2018-06-06 16:00:09
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6889,8 +5969,6 @@
 - model: dashboard.extractedchemical
   pk: 463
   fields:
-    created_at: 2018-06-06 16:00:27
-    updated_at: 2018-06-06 16:00:27
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6904,8 +5982,6 @@
 - model: dashboard.extractedchemical
   pk: 464
   fields:
-    created_at: 2018-06-06 16:04:25
-    updated_at: 2018-06-06 16:04:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6919,8 +5995,6 @@
 - model: dashboard.extractedchemical
   pk: 465
   fields:
-    created_at: 2018-06-06 16:04:26
-    updated_at: 2018-06-06 16:04:26
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6934,8 +6008,6 @@
 - model: dashboard.extractedchemical
   pk: 466
   fields:
-    created_at: 2018-06-06 16:04:26
-    updated_at: 2018-06-06 16:04:26
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6949,8 +6021,6 @@
 - model: dashboard.extractedchemical
   pk: 467
   fields:
-    created_at: 2018-06-06 16:04:26
-    updated_at: 2018-06-06 16:04:26
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6964,8 +6034,6 @@
 - model: dashboard.extractedchemical
   pk: 468
   fields:
-    created_at: 2018-06-06 16:04:26
-    updated_at: 2018-06-06 16:04:26
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6979,8 +6047,6 @@
 - model: dashboard.extractedchemical
   pk: 469
   fields:
-    created_at: 2018-06-06 16:04:27
-    updated_at: 2018-06-06 16:04:27
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -6994,8 +6060,6 @@
 - model: dashboard.extractedchemical
   pk: 470
   fields:
-    created_at: 2018-06-06 16:13:52
-    updated_at: 2018-06-06 16:13:52
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7009,8 +6073,6 @@
 - model: dashboard.extractedchemical
   pk: 471
   fields:
-    created_at: 2018-06-06 16:16:23
-    updated_at: 2018-06-06 16:16:23
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7024,8 +6086,6 @@
 - model: dashboard.extractedchemical
   pk: 472
   fields:
-    created_at: 2018-06-06 16:19:23
-    updated_at: 2018-06-06 16:19:23
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7039,8 +6099,6 @@
 - model: dashboard.extractedchemical
   pk: 473
   fields:
-    created_at: 2018-06-06 16:25:11
-    updated_at: 2018-06-06 16:25:11
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7054,8 +6112,6 @@
 - model: dashboard.extractedchemical
   pk: 474
   fields:
-    created_at: 2018-06-06 16:46:38
-    updated_at: 2018-06-06 16:46:38
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7069,8 +6125,6 @@
 - model: dashboard.extractedchemical
   pk: 475
   fields:
-    created_at: 2018-06-06 16:46:38
-    updated_at: 2018-06-06 16:46:38
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7084,8 +6138,6 @@
 - model: dashboard.extractedchemical
   pk: 476
   fields:
-    created_at: 2018-06-06 16:46:39
-    updated_at: 2018-06-06 16:46:39
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7099,8 +6151,6 @@
 - model: dashboard.extractedchemical
   pk: 477
   fields:
-    created_at: 2018-06-06 16:46:39
-    updated_at: 2018-06-06 16:46:39
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7114,8 +6164,6 @@
 - model: dashboard.extractedchemical
   pk: 478
   fields:
-    created_at: 2018-06-06 16:46:39
-    updated_at: 2018-06-06 16:46:39
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7129,8 +6177,6 @@
 - model: dashboard.extractedchemical
   pk: 479
   fields:
-    created_at: 2018-06-06 16:53:41
-    updated_at: 2018-06-06 16:53:41
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7144,8 +6190,6 @@
 - model: dashboard.extractedchemical
   pk: 480
   fields:
-    created_at: 2018-06-06 17:00:17
-    updated_at: 2018-06-06 17:00:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7159,8 +6203,6 @@
 - model: dashboard.extractedchemical
   pk: 481
   fields:
-    created_at: 2018-06-06 17:05:27
-    updated_at: 2018-06-06 17:05:27
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7174,8 +6216,6 @@
 - model: dashboard.extractedchemical
   pk: 482
   fields:
-    created_at: 2018-06-06 17:11:03
-    updated_at: 2018-06-06 17:11:03
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7189,8 +6229,6 @@
 - model: dashboard.extractedchemical
   pk: 483
   fields:
-    created_at: 2018-06-06 17:15:31
-    updated_at: 2018-06-06 17:15:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7204,8 +6242,6 @@
 - model: dashboard.extractedchemical
   pk: 484
   fields:
-    created_at: 2018-06-06 17:15:31
-    updated_at: 2018-06-06 17:15:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7219,8 +6255,6 @@
 - model: dashboard.extractedchemical
   pk: 485
   fields:
-    created_at: 2018-06-06 17:16:01
-    updated_at: 2018-06-06 17:16:01
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7234,8 +6268,6 @@
 - model: dashboard.extractedchemical
   pk: 486
   fields:
-    created_at: 2018-06-06 17:19:16
-    updated_at: 2018-06-06 17:19:16
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7249,8 +6281,6 @@
 - model: dashboard.extractedchemical
   pk: 487
   fields:
-    created_at: 2018-06-06 17:20:46
-    updated_at: 2018-06-06 17:20:46
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7264,8 +6294,6 @@
 - model: dashboard.extractedchemical
   pk: 488
   fields:
-    created_at: 2018-06-06 17:22:37
-    updated_at: 2018-06-06 17:22:37
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7279,8 +6307,6 @@
 - model: dashboard.extractedchemical
   pk: 489
   fields:
-    created_at: 2018-06-06 17:23:06
-    updated_at: 2018-06-06 17:23:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7294,8 +6320,6 @@
 - model: dashboard.extractedchemical
   pk: 490
   fields:
-    created_at: 2018-06-06 17:23:38
-    updated_at: 2018-06-06 17:23:38
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7309,8 +6333,6 @@
 - model: dashboard.extractedchemical
   pk: 491
   fields:
-    created_at: 2018-06-06 17:24:16
-    updated_at: 2018-06-06 17:24:16
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7324,8 +6346,6 @@
 - model: dashboard.extractedchemical
   pk: 492
   fields:
-    created_at: 2018-06-06 17:24:16
-    updated_at: 2018-06-06 17:24:16
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7339,8 +6359,6 @@
 - model: dashboard.extractedchemical
   pk: 493
   fields:
-    created_at: 2018-06-06 17:24:17
-    updated_at: 2018-06-06 17:24:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7354,8 +6372,6 @@
 - model: dashboard.extractedchemical
   pk: 494
   fields:
-    created_at: 2018-06-06 17:25:09
-    updated_at: 2018-06-06 17:25:09
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7369,8 +6385,6 @@
 - model: dashboard.extractedchemical
   pk: 495
   fields:
-    created_at: 2018-06-06 17:25:09
-    updated_at: 2018-06-06 17:25:09
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7384,8 +6398,6 @@
 - model: dashboard.extractedchemical
   pk: 496
   fields:
-    created_at: 2018-06-06 17:25:20
-    updated_at: 2018-06-06 17:25:20
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7399,8 +6411,6 @@
 - model: dashboard.extractedchemical
   pk: 497
   fields:
-    created_at: 2018-06-06 17:46:31
-    updated_at: 2018-06-06 17:46:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7414,8 +6424,6 @@
 - model: dashboard.extractedchemical
   pk: 498
   fields:
-    created_at: 2018-06-06 18:25:16
-    updated_at: 2018-06-06 18:25:16
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7429,8 +6437,6 @@
 - model: dashboard.extractedchemical
   pk: 499
   fields:
-    created_at: 2018-06-06 18:45:44
-    updated_at: 2018-06-06 18:45:44
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7444,8 +6450,6 @@
 - model: dashboard.extractedchemical
   pk: 500
   fields:
-    created_at: 2018-06-06 18:45:44
-    updated_at: 2018-06-06 18:45:44
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7459,8 +6463,6 @@
 - model: dashboard.extractedchemical
   pk: 501
   fields:
-    created_at: 2018-06-06 18:55:28
-    updated_at: 2018-06-06 18:55:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7474,8 +6476,6 @@
 - model: dashboard.extractedchemical
   pk: 502
   fields:
-    created_at: 2018-06-06 19:13:11
-    updated_at: 2018-06-06 19:13:11
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7489,8 +6489,6 @@
 - model: dashboard.extractedchemical
   pk: 503
   fields:
-    created_at: 2018-06-06 19:24:57
-    updated_at: 2018-06-06 19:24:57
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7504,8 +6502,6 @@
 - model: dashboard.extractedchemical
   pk: 504
   fields:
-    created_at: 2018-06-06 19:29:20
-    updated_at: 2018-06-06 19:29:20
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7519,8 +6515,6 @@
 - model: dashboard.extractedchemical
   pk: 505
   fields:
-    created_at: 2018-06-06 19:29:32
-    updated_at: 2018-06-06 19:29:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7534,8 +6528,6 @@
 - model: dashboard.extractedchemical
   pk: 506
   fields:
-    created_at: 2018-06-06 19:32:32
-    updated_at: 2018-06-06 19:32:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7549,8 +6541,6 @@
 - model: dashboard.extractedchemical
   pk: 507
   fields:
-    created_at: 2018-06-06 19:38:45
-    updated_at: 2018-06-06 19:38:45
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7564,8 +6554,6 @@
 - model: dashboard.extractedchemical
   pk: 508
   fields:
-    created_at: 2018-06-06 19:40:34
-    updated_at: 2018-06-06 19:40:34
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7579,8 +6567,6 @@
 - model: dashboard.extractedchemical
   pk: 509
   fields:
-    created_at: 2018-06-06 20:12:04
-    updated_at: 2018-06-06 20:12:04
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7594,8 +6580,6 @@
 - model: dashboard.extractedchemical
   pk: 510
   fields:
-    created_at: 2018-06-06 20:12:05
-    updated_at: 2018-06-06 20:12:05
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7609,8 +6593,6 @@
 - model: dashboard.extractedchemical
   pk: 511
   fields:
-    created_at: 2018-06-06 20:12:05
-    updated_at: 2018-06-06 20:12:05
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7624,8 +6606,6 @@
 - model: dashboard.extractedchemical
   pk: 512
   fields:
-    created_at: 2018-06-06 20:12:07
-    updated_at: 2018-06-06 20:12:07
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7639,8 +6619,6 @@
 - model: dashboard.extractedchemical
   pk: 513
   fields:
-    created_at: 2018-06-06 20:12:07
-    updated_at: 2018-06-06 20:12:07
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7654,8 +6632,6 @@
 - model: dashboard.extractedchemical
   pk: 514
   fields:
-    created_at: 2018-06-06 20:12:09
-    updated_at: 2018-06-06 20:12:09
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7669,8 +6645,6 @@
 - model: dashboard.extractedchemical
   pk: 515
   fields:
-    created_at: 2018-06-06 20:12:09
-    updated_at: 2018-06-06 20:12:09
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7684,8 +6658,6 @@
 - model: dashboard.extractedchemical
   pk: 516
   fields:
-    created_at: 2018-06-06 20:12:10
-    updated_at: 2018-06-06 20:12:10
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7699,8 +6671,6 @@
 - model: dashboard.extractedchemical
   pk: 517
   fields:
-    created_at: 2018-06-06 20:12:13
-    updated_at: 2018-06-06 20:12:13
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7714,8 +6684,6 @@
 - model: dashboard.extractedchemical
   pk: 518
   fields:
-    created_at: 2018-06-06 20:12:31
-    updated_at: 2018-06-06 20:12:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7729,8 +6697,6 @@
 - model: dashboard.extractedchemical
   pk: 519
   fields:
-    created_at: 2018-06-06 20:15:53
-    updated_at: 2018-06-06 20:15:53
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7744,8 +6710,6 @@
 - model: dashboard.extractedchemical
   pk: 520
   fields:
-    created_at: 2018-06-06 20:25:12
-    updated_at: 2018-06-06 20:25:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7759,8 +6723,6 @@
 - model: dashboard.extractedchemical
   pk: 521
   fields:
-    created_at: 2018-06-06 20:34:33
-    updated_at: 2018-06-06 20:34:33
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7774,8 +6736,6 @@
 - model: dashboard.extractedchemical
   pk: 522
   fields:
-    created_at: 2018-06-06 20:41:46
-    updated_at: 2018-06-06 20:41:46
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7789,8 +6749,6 @@
 - model: dashboard.extractedchemical
   pk: 523
   fields:
-    created_at: 2018-06-06 20:42:22
-    updated_at: 2018-06-06 20:42:22
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7804,8 +6762,6 @@
 - model: dashboard.extractedchemical
   pk: 524
   fields:
-    created_at: 2018-06-06 20:54:19
-    updated_at: 2018-06-06 20:54:19
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7819,8 +6775,6 @@
 - model: dashboard.extractedchemical
   pk: 525
   fields:
-    created_at: 2018-06-06 21:18:01
-    updated_at: 2018-06-06 21:18:01
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7834,8 +6788,6 @@
 - model: dashboard.extractedchemical
   pk: 526
   fields:
-    created_at: 2018-06-06 21:28:35
-    updated_at: 2018-06-06 21:28:35
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7849,8 +6801,6 @@
 - model: dashboard.extractedchemical
   pk: 527
   fields:
-    created_at: 2018-06-06 21:28:35
-    updated_at: 2018-06-06 21:28:35
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7864,8 +6814,6 @@
 - model: dashboard.extractedchemical
   pk: 528
   fields:
-    created_at: 2018-06-06 21:28:42
-    updated_at: 2018-06-06 21:28:42
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7879,8 +6827,6 @@
 - model: dashboard.extractedchemical
   pk: 529
   fields:
-    created_at: 2018-06-06 21:28:43
-    updated_at: 2018-06-06 21:28:43
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7894,8 +6840,6 @@
 - model: dashboard.extractedchemical
   pk: 530
   fields:
-    created_at: 2018-06-06 21:39:06
-    updated_at: 2018-06-06 21:39:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7909,8 +6853,6 @@
 - model: dashboard.extractedchemical
   pk: 531
   fields:
-    created_at: 2018-06-06 21:51:09
-    updated_at: 2018-06-06 21:51:09
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7924,8 +6866,6 @@
 - model: dashboard.extractedchemical
   pk: 532
   fields:
-    created_at: 2018-06-06 21:54:34
-    updated_at: 2018-06-06 21:54:34
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7939,8 +6879,6 @@
 - model: dashboard.extractedchemical
   pk: 533
   fields:
-    created_at: 2018-06-06 22:06:56
-    updated_at: 2018-06-06 22:06:56
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7954,8 +6892,6 @@
 - model: dashboard.extractedchemical
   pk: 534
   fields:
-    created_at: 2018-06-06 22:07:53
-    updated_at: 2018-06-06 22:07:53
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7969,8 +6905,6 @@
 - model: dashboard.extractedchemical
   pk: 535
   fields:
-    created_at: 2018-06-06 22:14:48
-    updated_at: 2018-06-06 22:14:48
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7984,8 +6918,6 @@
 - model: dashboard.extractedchemical
   pk: 536
   fields:
-    created_at: 2018-06-06 22:49:22
-    updated_at: 2018-06-06 22:49:22
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -7999,8 +6931,6 @@
 - model: dashboard.extractedchemical
   pk: 537
   fields:
-    created_at: 2018-06-06 23:08:40
-    updated_at: 2018-06-06 23:08:40
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8014,8 +6944,6 @@
 - model: dashboard.extractedchemical
   pk: 538
   fields:
-    created_at: 2018-06-06 23:08:40
-    updated_at: 2018-06-06 23:08:40
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8029,8 +6957,6 @@
 - model: dashboard.extractedchemical
   pk: 539
   fields:
-    created_at: 2018-06-06 23:08:41
-    updated_at: 2018-06-06 23:08:41
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8044,8 +6970,6 @@
 - model: dashboard.extractedchemical
   pk: 540
   fields:
-    created_at: 2018-06-06 23:08:41
-    updated_at: 2018-06-06 23:08:41
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8059,8 +6983,6 @@
 - model: dashboard.extractedchemical
   pk: 541
   fields:
-    created_at: 2018-06-06 23:56:38
-    updated_at: 2018-06-06 23:56:38
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8074,8 +6996,6 @@
 - model: dashboard.extractedchemical
   pk: 542
   fields:
-    created_at: 2018-06-07 00:16:09
-    updated_at: 2018-06-07 00:16:09
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8089,8 +7009,6 @@
 - model: dashboard.extractedchemical
   pk: 543
   fields:
-    created_at: 2018-06-07 00:23:17
-    updated_at: 2018-06-07 00:23:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8104,8 +7022,6 @@
 - model: dashboard.extractedchemical
   pk: 544
   fields:
-    created_at: 2018-06-07 00:23:17
-    updated_at: 2018-06-07 00:23:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8119,8 +7035,6 @@
 - model: dashboard.extractedchemical
   pk: 545
   fields:
-    created_at: 2018-06-07 00:23:28
-    updated_at: 2018-06-07 00:23:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8134,8 +7048,6 @@
 - model: dashboard.extractedchemical
   pk: 546
   fields:
-    created_at: 2018-06-07 00:23:46
-    updated_at: 2018-06-07 00:23:46
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8149,8 +7061,6 @@
 - model: dashboard.extractedchemical
   pk: 547
   fields:
-    created_at: 2018-06-07 00:23:47
-    updated_at: 2018-06-07 00:23:47
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8164,8 +7074,6 @@
 - model: dashboard.extractedchemical
   pk: 548
   fields:
-    created_at: 2018-06-07 00:23:47
-    updated_at: 2018-06-07 00:23:47
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8179,8 +7087,6 @@
 - model: dashboard.extractedchemical
   pk: 549
   fields:
-    created_at: 2018-06-07 00:23:47
-    updated_at: 2018-06-07 00:23:47
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8194,8 +7100,6 @@
 - model: dashboard.extractedchemical
   pk: 550
   fields:
-    created_at: 2018-06-07 00:23:48
-    updated_at: 2018-06-07 00:23:48
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8209,8 +7113,6 @@
 - model: dashboard.extractedchemical
   pk: 551
   fields:
-    created_at: 2018-06-07 00:23:48
-    updated_at: 2018-06-07 00:23:48
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8224,8 +7126,6 @@
 - model: dashboard.extractedchemical
   pk: 552
   fields:
-    created_at: 2018-06-07 00:28:42
-    updated_at: 2018-06-07 00:28:42
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8239,8 +7139,6 @@
 - model: dashboard.extractedchemical
   pk: 553
   fields:
-    created_at: 2018-06-07 00:28:43
-    updated_at: 2018-06-07 00:28:43
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8254,8 +7152,6 @@
 - model: dashboard.extractedchemical
   pk: 554
   fields:
-    created_at: 2018-06-07 00:31:11
-    updated_at: 2018-06-07 00:31:11
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8269,8 +7165,6 @@
 - model: dashboard.extractedchemical
   pk: 555
   fields:
-    created_at: 2018-06-07 00:32:00
-    updated_at: 2018-06-07 00:32:00
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8284,8 +7178,6 @@
 - model: dashboard.extractedchemical
   pk: 556
   fields:
-    created_at: 2018-06-07 00:37:17
-    updated_at: 2018-06-07 00:37:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8299,8 +7191,6 @@
 - model: dashboard.extractedchemical
   pk: 557
   fields:
-    created_at: 2018-06-07 00:42:18
-    updated_at: 2018-06-07 00:42:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8314,8 +7204,6 @@
 - model: dashboard.extractedchemical
   pk: 558
   fields:
-    created_at: 2018-06-07 00:43:54
-    updated_at: 2018-06-07 00:43:54
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8329,8 +7217,6 @@
 - model: dashboard.extractedchemical
   pk: 559
   fields:
-    created_at: 2018-06-07 01:33:43
-    updated_at: 2018-06-07 01:33:43
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8344,8 +7230,6 @@
 - model: dashboard.extractedchemical
   pk: 560
   fields:
-    created_at: 2018-06-07 01:33:45
-    updated_at: 2018-06-07 01:33:45
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8359,8 +7243,6 @@
 - model: dashboard.extractedchemical
   pk: 561
   fields:
-    created_at: 2018-06-07 01:33:52
-    updated_at: 2018-06-07 01:33:52
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8374,8 +7256,6 @@
 - model: dashboard.extractedchemical
   pk: 562
   fields:
-    created_at: 2018-06-07 01:33:56
-    updated_at: 2018-06-07 01:33:56
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8389,8 +7269,6 @@
 - model: dashboard.extractedchemical
   pk: 563
   fields:
-    created_at: 2018-06-07 01:33:57
-    updated_at: 2018-06-07 01:33:57
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8404,8 +7282,6 @@
 - model: dashboard.extractedchemical
   pk: 564
   fields:
-    created_at: 2018-06-07 01:34:03
-    updated_at: 2018-06-07 01:34:03
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8419,8 +7295,6 @@
 - model: dashboard.extractedchemical
   pk: 565
   fields:
-    created_at: 2018-06-07 01:34:03
-    updated_at: 2018-06-07 01:34:03
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8434,8 +7308,6 @@
 - model: dashboard.extractedchemical
   pk: 566
   fields:
-    created_at: 2018-06-07 01:34:03
-    updated_at: 2018-06-07 01:34:03
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8449,8 +7321,6 @@
 - model: dashboard.extractedchemical
   pk: 567
   fields:
-    created_at: 2018-06-07 01:34:09
-    updated_at: 2018-06-07 01:34:09
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8464,8 +7334,6 @@
 - model: dashboard.extractedchemical
   pk: 568
   fields:
-    created_at: 2018-06-07 01:34:09
-    updated_at: 2018-06-07 01:34:09
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8479,8 +7347,6 @@
 - model: dashboard.extractedchemical
   pk: 569
   fields:
-    created_at: 2018-06-07 01:34:10
-    updated_at: 2018-06-07 01:34:10
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8494,8 +7360,6 @@
 - model: dashboard.extractedchemical
   pk: 570
   fields:
-    created_at: 2018-06-07 01:34:10
-    updated_at: 2018-06-07 01:34:10
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8509,8 +7373,6 @@
 - model: dashboard.extractedchemical
   pk: 571
   fields:
-    created_at: 2018-06-07 01:34:11
-    updated_at: 2018-06-07 01:34:11
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8524,8 +7386,6 @@
 - model: dashboard.extractedchemical
   pk: 572
   fields:
-    created_at: 2018-06-07 01:34:16
-    updated_at: 2018-06-07 01:34:16
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8539,8 +7399,6 @@
 - model: dashboard.extractedchemical
   pk: 573
   fields:
-    created_at: 2018-06-07 01:34:17
-    updated_at: 2018-06-07 01:34:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8554,8 +7412,6 @@
 - model: dashboard.extractedchemical
   pk: 574
   fields:
-    created_at: 2018-06-07 01:35:04
-    updated_at: 2018-06-07 01:35:04
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8569,8 +7425,6 @@
 - model: dashboard.extractedchemical
   pk: 575
   fields:
-    created_at: 2018-06-07 01:35:06
-    updated_at: 2018-06-07 01:35:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8584,8 +7438,6 @@
 - model: dashboard.extractedchemical
   pk: 576
   fields:
-    created_at: 2018-06-07 02:01:29
-    updated_at: 2018-06-07 02:01:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8599,8 +7451,6 @@
 - model: dashboard.extractedchemical
   pk: 577
   fields:
-    created_at: 2018-06-07 02:01:29
-    updated_at: 2018-06-07 02:01:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8614,8 +7464,6 @@
 - model: dashboard.extractedchemical
   pk: 578
   fields:
-    created_at: 2018-06-07 02:05:21
-    updated_at: 2018-06-07 02:05:21
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8629,8 +7477,6 @@
 - model: dashboard.extractedchemical
   pk: 579
   fields:
-    created_at: 2018-06-07 02:14:51
-    updated_at: 2018-06-07 02:14:51
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8644,8 +7490,6 @@
 - model: dashboard.extractedchemical
   pk: 580
   fields:
-    created_at: 2018-06-07 03:16:13
-    updated_at: 2018-06-07 03:16:13
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8659,8 +7503,6 @@
 - model: dashboard.extractedchemical
   pk: 581
   fields:
-    created_at: 2018-06-07 03:18:22
-    updated_at: 2018-06-07 03:18:22
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8674,8 +7516,6 @@
 - model: dashboard.extractedchemical
   pk: 582
   fields:
-    created_at: 2018-06-07 03:21:52
-    updated_at: 2018-06-07 03:21:52
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8689,8 +7529,6 @@
 - model: dashboard.extractedchemical
   pk: 583
   fields:
-    created_at: 2018-06-07 03:26:07
-    updated_at: 2018-06-07 03:26:07
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8704,8 +7542,6 @@
 - model: dashboard.extractedchemical
   pk: 584
   fields:
-    created_at: 2018-06-07 03:31:33
-    updated_at: 2018-06-07 03:31:33
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8719,8 +7555,6 @@
 - model: dashboard.extractedchemical
   pk: 585
   fields:
-    created_at: 2018-06-07 03:31:33
-    updated_at: 2018-06-07 03:31:33
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8734,8 +7568,6 @@
 - model: dashboard.extractedchemical
   pk: 586
   fields:
-    created_at: 2018-06-07 03:31:33
-    updated_at: 2018-06-07 03:31:33
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8749,8 +7581,6 @@
 - model: dashboard.extractedchemical
   pk: 587
   fields:
-    created_at: 2018-06-07 03:54:11
-    updated_at: 2018-06-07 03:54:11
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8764,8 +7594,6 @@
 - model: dashboard.extractedchemical
   pk: 588
   fields:
-    created_at: 2018-06-07 03:54:18
-    updated_at: 2018-06-07 03:54:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8779,8 +7607,6 @@
 - model: dashboard.extractedchemical
   pk: 589
   fields:
-    created_at: 2018-06-07 03:54:18
-    updated_at: 2018-06-07 03:54:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8794,8 +7620,6 @@
 - model: dashboard.extractedchemical
   pk: 590
   fields:
-    created_at: 2018-06-07 03:54:18
-    updated_at: 2018-06-07 03:54:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8809,8 +7633,6 @@
 - model: dashboard.extractedchemical
   pk: 591
   fields:
-    created_at: 2018-06-07 03:54:18
-    updated_at: 2018-06-07 03:54:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8824,8 +7646,6 @@
 - model: dashboard.extractedchemical
   pk: 592
   fields:
-    created_at: 2018-06-07 03:54:18
-    updated_at: 2018-06-07 03:54:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8839,8 +7659,6 @@
 - model: dashboard.extractedchemical
   pk: 593
   fields:
-    created_at: 2018-06-07 03:58:02
-    updated_at: 2018-06-07 03:58:02
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8854,8 +7672,6 @@
 - model: dashboard.extractedchemical
   pk: 594
   fields:
-    created_at: 2018-06-07 03:58:03
-    updated_at: 2018-06-07 03:58:03
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8869,8 +7685,6 @@
 - model: dashboard.extractedchemical
   pk: 595
   fields:
-    created_at: 2018-06-07 03:58:04
-    updated_at: 2018-06-07 03:58:04
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8884,8 +7698,6 @@
 - model: dashboard.extractedchemical
   pk: 596
   fields:
-    created_at: 2018-06-07 03:58:41
-    updated_at: 2018-06-07 03:58:41
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8899,8 +7711,6 @@
 - model: dashboard.extractedchemical
   pk: 597
   fields:
-    created_at: 2018-06-07 04:00:25
-    updated_at: 2018-06-07 04:00:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8914,8 +7724,6 @@
 - model: dashboard.extractedchemical
   pk: 598
   fields:
-    created_at: 2018-06-07 04:03:31
-    updated_at: 2018-06-07 04:03:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8929,8 +7737,6 @@
 - model: dashboard.extractedchemical
   pk: 599
   fields:
-    created_at: 2018-06-07 04:03:32
-    updated_at: 2018-06-07 04:03:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8944,8 +7750,6 @@
 - model: dashboard.extractedchemical
   pk: 600
   fields:
-    created_at: 2018-06-07 04:04:32
-    updated_at: 2018-06-07 04:04:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8959,8 +7763,6 @@
 - model: dashboard.extractedchemical
   pk: 601
   fields:
-    created_at: 2018-06-07 04:19:10
-    updated_at: 2018-06-07 04:19:10
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8974,8 +7776,6 @@
 - model: dashboard.extractedchemical
   pk: 602
   fields:
-    created_at: 2018-06-07 04:19:11
-    updated_at: 2018-06-07 04:19:11
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -8989,8 +7789,6 @@
 - model: dashboard.extractedchemical
   pk: 603
   fields:
-    created_at: 2018-06-07 04:19:11
-    updated_at: 2018-06-07 04:19:11
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9004,8 +7802,6 @@
 - model: dashboard.extractedchemical
   pk: 604
   fields:
-    created_at: 2018-06-07 04:33:53
-    updated_at: 2018-06-07 04:33:53
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9019,8 +7815,6 @@
 - model: dashboard.extractedchemical
   pk: 605
   fields:
-    created_at: 2018-06-07 04:40:06
-    updated_at: 2018-06-07 04:40:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9034,8 +7828,6 @@
 - model: dashboard.extractedchemical
   pk: 606
   fields:
-    created_at: 2018-06-07 04:50:12
-    updated_at: 2018-06-07 04:50:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9049,8 +7841,6 @@
 - model: dashboard.extractedchemical
   pk: 607
   fields:
-    created_at: 2018-06-07 05:03:20
-    updated_at: 2018-06-07 05:03:20
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9064,8 +7854,6 @@
 - model: dashboard.extractedchemical
   pk: 608
   fields:
-    created_at: 2018-06-07 05:04:20
-    updated_at: 2018-06-07 05:04:20
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9079,8 +7867,6 @@
 - model: dashboard.extractedchemical
   pk: 609
   fields:
-    created_at: 2018-06-07 05:20:00
-    updated_at: 2018-06-07 05:20:00
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9094,8 +7880,6 @@
 - model: dashboard.extractedchemical
   pk: 610
   fields:
-    created_at: 2018-06-07 05:23:24
-    updated_at: 2018-06-07 05:23:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9109,8 +7893,6 @@
 - model: dashboard.extractedchemical
   pk: 611
   fields:
-    created_at: 2018-06-07 06:19:39
-    updated_at: 2018-06-07 06:19:39
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9124,8 +7906,6 @@
 - model: dashboard.extractedchemical
   pk: 612
   fields:
-    created_at: 2018-06-07 06:19:39
-    updated_at: 2018-06-07 06:19:39
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9139,8 +7919,6 @@
 - model: dashboard.extractedchemical
   pk: 613
   fields:
-    created_at: 2018-06-07 06:24:04
-    updated_at: 2018-06-07 06:24:04
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9154,8 +7932,6 @@
 - model: dashboard.extractedchemical
   pk: 614
   fields:
-    created_at: 2018-06-07 06:24:34
-    updated_at: 2018-06-07 06:24:34
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9169,8 +7945,6 @@
 - model: dashboard.extractedchemical
   pk: 615
   fields:
-    created_at: 2018-06-07 06:50:32
-    updated_at: 2018-06-07 06:50:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9184,8 +7958,6 @@
 - model: dashboard.extractedchemical
   pk: 616
   fields:
-    created_at: 2018-06-07 07:13:40
-    updated_at: 2018-06-07 07:13:40
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9199,8 +7971,6 @@
 - model: dashboard.extractedchemical
   pk: 617
   fields:
-    created_at: 2018-06-07 07:41:35
-    updated_at: 2018-06-07 07:41:35
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9214,8 +7984,6 @@
 - model: dashboard.extractedchemical
   pk: 618
   fields:
-    created_at: 2018-06-07 07:49:10
-    updated_at: 2018-06-07 07:49:10
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9229,8 +7997,6 @@
 - model: dashboard.extractedchemical
   pk: 619
   fields:
-    created_at: 2018-06-07 08:24:17
-    updated_at: 2018-06-07 08:24:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9244,8 +8010,6 @@
 - model: dashboard.extractedchemical
   pk: 620
   fields:
-    created_at: 2018-06-07 09:04:25
-    updated_at: 2018-06-07 09:04:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9259,8 +8023,6 @@
 - model: dashboard.extractedchemical
   pk: 621
   fields:
-    created_at: 2018-06-07 09:41:24
-    updated_at: 2018-06-07 09:41:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9274,8 +8036,6 @@
 - model: dashboard.extractedchemical
   pk: 622
   fields:
-    created_at: 2018-06-07 09:41:24
-    updated_at: 2018-06-07 09:41:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9289,8 +8049,6 @@
 - model: dashboard.extractedchemical
   pk: 623
   fields:
-    created_at: 2018-06-07 09:41:24
-    updated_at: 2018-06-07 09:41:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9304,8 +8062,6 @@
 - model: dashboard.extractedchemical
   pk: 624
   fields:
-    created_at: 2018-06-07 09:41:26
-    updated_at: 2018-06-07 09:41:26
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9319,8 +8075,6 @@
 - model: dashboard.extractedchemical
   pk: 625
   fields:
-    created_at: 2018-06-07 09:41:26
-    updated_at: 2018-06-07 09:41:26
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9334,8 +8088,6 @@
 - model: dashboard.extractedchemical
   pk: 626
   fields:
-    created_at: 2018-06-07 09:41:27
-    updated_at: 2018-06-07 09:41:27
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9349,8 +8101,6 @@
 - model: dashboard.extractedchemical
   pk: 627
   fields:
-    created_at: 2018-06-07 09:41:27
-    updated_at: 2018-06-07 09:41:27
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9364,8 +8114,6 @@
 - model: dashboard.extractedchemical
   pk: 628
   fields:
-    created_at: 2018-06-07 09:41:27
-    updated_at: 2018-06-07 09:41:27
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9379,8 +8127,6 @@
 - model: dashboard.extractedchemical
   pk: 629
   fields:
-    created_at: 2018-06-07 09:41:28
-    updated_at: 2018-06-07 09:41:28
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9394,8 +8140,6 @@
 - model: dashboard.extractedchemical
   pk: 630
   fields:
-    created_at: 2018-06-07 09:54:11
-    updated_at: 2018-06-07 09:54:11
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9409,8 +8153,6 @@
 - model: dashboard.extractedchemical
   pk: 631
   fields:
-    created_at: 2018-06-07 09:54:13
-    updated_at: 2018-06-07 09:54:13
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9424,8 +8166,6 @@
 - model: dashboard.extractedchemical
   pk: 632
   fields:
-    created_at: 2018-06-07 09:54:14
-    updated_at: 2018-06-07 09:54:14
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9439,8 +8179,6 @@
 - model: dashboard.extractedchemical
   pk: 633
   fields:
-    created_at: 2018-06-07 10:11:46
-    updated_at: 2018-06-07 10:11:46
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9454,8 +8192,6 @@
 - model: dashboard.extractedchemical
   pk: 634
   fields:
-    created_at: 2018-06-07 10:55:03
-    updated_at: 2018-06-07 10:55:03
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9469,8 +8205,6 @@
 - model: dashboard.extractedchemical
   pk: 635
   fields:
-    created_at: 2018-06-07 11:26:14
-    updated_at: 2018-06-07 11:26:14
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9484,8 +8218,6 @@
 - model: dashboard.extractedchemical
   pk: 636
   fields:
-    created_at: 2018-06-07 11:26:17
-    updated_at: 2018-06-07 11:26:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9499,8 +8231,6 @@
 - model: dashboard.extractedchemical
   pk: 637
   fields:
-    created_at: 2018-06-07 11:40:54
-    updated_at: 2018-06-07 11:40:54
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9514,8 +8244,6 @@
 - model: dashboard.extractedchemical
   pk: 638
   fields:
-    created_at: 2018-06-07 12:43:34
-    updated_at: 2018-06-07 12:43:34
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9529,8 +8257,6 @@
 - model: dashboard.extractedchemical
   pk: 639
   fields:
-    created_at: 2018-06-07 12:44:50
-    updated_at: 2018-06-07 12:44:50
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9544,8 +8270,6 @@
 - model: dashboard.extractedchemical
   pk: 640
   fields:
-    created_at: 2018-06-07 13:20:46
-    updated_at: 2018-06-07 13:20:46
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9559,8 +8283,6 @@
 - model: dashboard.extractedchemical
   pk: 641
   fields:
-    created_at: 2018-06-07 13:21:17
-    updated_at: 2018-06-07 13:21:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9574,8 +8296,6 @@
 - model: dashboard.extractedchemical
   pk: 642
   fields:
-    created_at: 2018-06-07 13:21:24
-    updated_at: 2018-06-07 13:21:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9589,8 +8309,6 @@
 - model: dashboard.extractedchemical
   pk: 643
   fields:
-    created_at: 2018-06-07 13:56:38
-    updated_at: 2018-06-07 13:56:38
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9604,8 +8322,6 @@
 - model: dashboard.extractedchemical
   pk: 644
   fields:
-    created_at: 2018-06-07 14:11:54
-    updated_at: 2018-06-07 14:11:54
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9619,8 +8335,6 @@
 - model: dashboard.extractedchemical
   pk: 645
   fields:
-    created_at: 2018-06-07 14:12:00
-    updated_at: 2018-06-07 14:12:00
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9634,8 +8348,6 @@
 - model: dashboard.extractedchemical
   pk: 646
   fields:
-    created_at: 2018-06-07 14:29:03
-    updated_at: 2018-06-07 14:29:03
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9649,8 +8361,6 @@
 - model: dashboard.extractedchemical
   pk: 647
   fields:
-    created_at: 2018-06-07 16:04:04
-    updated_at: 2018-06-07 16:04:04
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9664,8 +8374,6 @@
 - model: dashboard.extractedchemical
   pk: 648
   fields:
-    created_at: 2018-06-07 16:34:51
-    updated_at: 2018-06-07 16:34:51
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9679,8 +8387,6 @@
 - model: dashboard.extractedchemical
   pk: 649
   fields:
-    created_at: 2018-06-07 17:43:50
-    updated_at: 2018-06-07 17:43:50
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9694,8 +8400,6 @@
 - model: dashboard.extractedchemical
   pk: 650
   fields:
-    created_at: 2018-06-07 17:48:04
-    updated_at: 2018-06-07 17:48:04
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9709,8 +8413,6 @@
 - model: dashboard.extractedchemical
   pk: 651
   fields:
-    created_at: 2018-06-07 18:01:23
-    updated_at: 2018-06-07 18:01:23
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9724,8 +8426,6 @@
 - model: dashboard.extractedchemical
   pk: 652
   fields:
-    created_at: 2018-06-07 18:01:24
-    updated_at: 2018-06-07 18:01:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9739,8 +8439,6 @@
 - model: dashboard.extractedchemical
   pk: 653
   fields:
-    created_at: 2018-06-07 18:01:24
-    updated_at: 2018-06-07 18:01:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9754,8 +8452,6 @@
 - model: dashboard.extractedchemical
   pk: 654
   fields:
-    created_at: 2018-06-07 18:01:24
-    updated_at: 2018-06-07 18:01:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9769,8 +8465,6 @@
 - model: dashboard.extractedchemical
   pk: 655
   fields:
-    created_at: 2018-06-07 18:01:24
-    updated_at: 2018-06-07 18:01:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9784,8 +8478,6 @@
 - model: dashboard.extractedchemical
   pk: 656
   fields:
-    created_at: 2018-06-07 18:01:24
-    updated_at: 2018-06-07 18:01:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9799,8 +8491,6 @@
 - model: dashboard.extractedchemical
   pk: 657
   fields:
-    created_at: 2018-06-07 18:01:25
-    updated_at: 2018-06-07 18:01:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9814,8 +8504,6 @@
 - model: dashboard.extractedchemical
   pk: 658
   fields:
-    created_at: 2018-06-07 18:01:25
-    updated_at: 2018-06-07 18:01:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9829,8 +8517,6 @@
 - model: dashboard.extractedchemical
   pk: 659
   fields:
-    created_at: 2018-06-07 18:01:26
-    updated_at: 2018-06-07 18:01:26
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9844,8 +8530,6 @@
 - model: dashboard.extractedchemical
   pk: 660
   fields:
-    created_at: 2018-06-07 18:01:29
-    updated_at: 2018-06-07 18:01:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9859,8 +8543,6 @@
 - model: dashboard.extractedchemical
   pk: 661
   fields:
-    created_at: 2018-06-07 18:01:29
-    updated_at: 2018-06-07 18:01:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9874,8 +8556,6 @@
 - model: dashboard.extractedchemical
   pk: 662
   fields:
-    created_at: 2018-06-07 18:01:29
-    updated_at: 2018-06-07 18:01:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9889,8 +8569,6 @@
 - model: dashboard.extractedchemical
   pk: 663
   fields:
-    created_at: 2018-06-07 18:01:29
-    updated_at: 2018-06-07 18:01:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9904,8 +8582,6 @@
 - model: dashboard.extractedchemical
   pk: 664
   fields:
-    created_at: 2018-06-07 18:01:29
-    updated_at: 2018-06-07 18:01:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9919,8 +8595,6 @@
 - model: dashboard.extractedchemical
   pk: 665
   fields:
-    created_at: 2018-06-07 18:01:29
-    updated_at: 2018-06-07 18:01:29
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9934,8 +8608,6 @@
 - model: dashboard.extractedchemical
   pk: 666
   fields:
-    created_at: 2018-06-07 18:01:31
-    updated_at: 2018-06-07 18:01:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9949,8 +8621,6 @@
 - model: dashboard.extractedchemical
   pk: 667
   fields:
-    created_at: 2018-06-07 18:01:32
-    updated_at: 2018-06-07 18:01:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9964,8 +8634,6 @@
 - model: dashboard.extractedchemical
   pk: 668
   fields:
-    created_at: 2018-06-07 18:01:32
-    updated_at: 2018-06-07 18:01:32
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9979,8 +8647,6 @@
 - model: dashboard.extractedchemical
   pk: 669
   fields:
-    created_at: 2018-06-07 18:27:02
-    updated_at: 2018-06-07 18:27:02
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -9994,8 +8660,6 @@
 - model: dashboard.extractedchemical
   pk: 670
   fields:
-    created_at: 2018-06-07 18:27:03
-    updated_at: 2018-06-07 18:27:03
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10009,8 +8673,6 @@
 - model: dashboard.extractedchemical
   pk: 671
   fields:
-    created_at: 2018-06-07 18:27:04
-    updated_at: 2018-06-07 18:27:04
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10024,8 +8686,6 @@
 - model: dashboard.extractedchemical
   pk: 672
   fields:
-    created_at: 2018-06-07 18:27:04
-    updated_at: 2018-06-07 18:27:04
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10039,8 +8699,6 @@
 - model: dashboard.extractedchemical
   pk: 673
   fields:
-    created_at: 2018-06-07 18:27:06
-    updated_at: 2018-06-07 18:27:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10054,8 +8712,6 @@
 - model: dashboard.extractedchemical
   pk: 674
   fields:
-    created_at: 2018-06-07 18:27:08
-    updated_at: 2018-06-07 18:27:08
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10069,8 +8725,6 @@
 - model: dashboard.extractedchemical
   pk: 675
   fields:
-    created_at: 2018-06-07 18:27:10
-    updated_at: 2018-06-07 18:27:10
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10084,8 +8738,6 @@
 - model: dashboard.extractedchemical
   pk: 676
   fields:
-    created_at: 2018-06-07 18:27:12
-    updated_at: 2018-06-07 18:27:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10099,8 +8751,6 @@
 - model: dashboard.extractedchemical
   pk: 677
   fields:
-    created_at: 2018-06-07 18:27:12
-    updated_at: 2018-06-07 18:27:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10114,8 +8764,6 @@
 - model: dashboard.extractedchemical
   pk: 678
   fields:
-    created_at: 2018-06-07 18:27:13
-    updated_at: 2018-06-07 18:27:13
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10129,8 +8777,6 @@
 - model: dashboard.extractedchemical
   pk: 679
   fields:
-    created_at: 2018-06-07 18:27:14
-    updated_at: 2018-06-07 18:27:14
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10144,8 +8790,6 @@
 - model: dashboard.extractedchemical
   pk: 680
   fields:
-    created_at: 2018-06-07 18:27:15
-    updated_at: 2018-06-07 18:27:15
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10159,8 +8803,6 @@
 - model: dashboard.extractedchemical
   pk: 681
   fields:
-    created_at: 2018-06-07 20:57:16
-    updated_at: 2018-06-07 20:57:16
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10174,8 +8816,6 @@
 - model: dashboard.extractedchemical
   pk: 682
   fields:
-    created_at: 2018-06-07 21:40:53
-    updated_at: 2018-06-07 21:40:53
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10189,8 +8829,6 @@
 - model: dashboard.extractedchemical
   pk: 683
   fields:
-    created_at: 2018-06-07 21:40:54
-    updated_at: 2018-06-07 21:40:54
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10204,8 +8842,6 @@
 - model: dashboard.extractedchemical
   pk: 684
   fields:
-    created_at: 2018-06-07 21:40:55
-    updated_at: 2018-06-07 21:40:55
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10219,8 +8855,6 @@
 - model: dashboard.extractedchemical
   pk: 685
   fields:
-    created_at: 2018-06-07 21:40:55
-    updated_at: 2018-06-07 21:40:55
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10234,8 +8868,6 @@
 - model: dashboard.extractedchemical
   pk: 686
   fields:
-    created_at: 2018-06-07 21:40:57
-    updated_at: 2018-06-07 21:40:57
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10249,8 +8881,6 @@
 - model: dashboard.extractedchemical
   pk: 687
   fields:
-    created_at: 2018-06-07 21:40:57
-    updated_at: 2018-06-07 21:40:57
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10264,8 +8894,6 @@
 - model: dashboard.extractedchemical
   pk: 688
   fields:
-    created_at: 2018-06-07 21:40:57
-    updated_at: 2018-06-07 21:40:57
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10279,8 +8907,6 @@
 - model: dashboard.extractedchemical
   pk: 689
   fields:
-    created_at: 2018-06-07 21:40:57
-    updated_at: 2018-06-07 21:40:57
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10294,8 +8920,6 @@
 - model: dashboard.extractedchemical
   pk: 690
   fields:
-    created_at: 2018-06-07 21:40:57
-    updated_at: 2018-06-07 21:40:57
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10309,8 +8933,6 @@
 - model: dashboard.extractedchemical
   pk: 691
   fields:
-    created_at: 2018-06-07 21:40:58
-    updated_at: 2018-06-07 21:40:58
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10324,8 +8946,6 @@
 - model: dashboard.extractedchemical
   pk: 692
   fields:
-    created_at: 2018-06-07 21:41:14
-    updated_at: 2018-06-07 21:41:14
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10339,8 +8959,6 @@
 - model: dashboard.extractedchemical
   pk: 693
   fields:
-    created_at: 2018-06-07 21:41:15
-    updated_at: 2018-06-07 21:41:15
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10354,8 +8972,6 @@
 - model: dashboard.extractedchemical
   pk: 694
   fields:
-    created_at: 2018-06-07 21:41:15
-    updated_at: 2018-06-07 21:41:15
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10369,8 +8985,6 @@
 - model: dashboard.extractedchemical
   pk: 695
   fields:
-    created_at: 2018-06-07 21:41:15
-    updated_at: 2018-06-07 21:41:15
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10384,8 +8998,6 @@
 - model: dashboard.extractedchemical
   pk: 696
   fields:
-    created_at: 2018-06-07 21:41:16
-    updated_at: 2018-06-07 21:41:16
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10399,8 +9011,6 @@
 - model: dashboard.extractedchemical
   pk: 697
   fields:
-    created_at: 2018-06-07 21:41:17
-    updated_at: 2018-06-07 21:41:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10414,8 +9024,6 @@
 - model: dashboard.extractedchemical
   pk: 698
   fields:
-    created_at: 2018-06-07 21:42:16
-    updated_at: 2018-06-07 21:42:16
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10429,8 +9037,6 @@
 - model: dashboard.extractedchemical
   pk: 699
   fields:
-    created_at: 2018-06-07 21:42:17
-    updated_at: 2018-06-07 21:42:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10444,8 +9050,6 @@
 - model: dashboard.extractedchemical
   pk: 700
   fields:
-    created_at: 2018-06-07 21:42:17
-    updated_at: 2018-06-07 21:42:17
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10459,8 +9063,6 @@
 - model: dashboard.extractedchemical
   pk: 701
   fields:
-    created_at: 2018-06-07 21:42:18
-    updated_at: 2018-06-07 21:42:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10474,8 +9076,6 @@
 - model: dashboard.extractedchemical
   pk: 702
   fields:
-    created_at: 2018-06-07 21:42:18
-    updated_at: 2018-06-07 21:42:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10489,8 +9089,6 @@
 - model: dashboard.extractedchemical
   pk: 703
   fields:
-    created_at: 2018-06-07 21:42:19
-    updated_at: 2018-06-07 21:42:19
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10504,8 +9102,6 @@
 - model: dashboard.extractedchemical
   pk: 704
   fields:
-    created_at: 2018-06-07 21:42:20
-    updated_at: 2018-06-07 21:42:20
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10519,8 +9115,6 @@
 - model: dashboard.extractedchemical
   pk: 705
   fields:
-    created_at: 2018-06-07 21:42:21
-    updated_at: 2018-06-07 21:42:21
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10534,8 +9128,6 @@
 - model: dashboard.extractedchemical
   pk: 706
   fields:
-    created_at: 2018-06-07 21:42:22
-    updated_at: 2018-06-07 21:42:22
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10549,8 +9141,6 @@
 - model: dashboard.extractedchemical
   pk: 707
   fields:
-    created_at: 2018-06-07 21:42:24
-    updated_at: 2018-06-07 21:42:24
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10564,8 +9154,6 @@
 - model: dashboard.extractedchemical
   pk: 708
   fields:
-    created_at: 2018-06-07 21:42:25
-    updated_at: 2018-06-07 21:42:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10579,8 +9167,6 @@
 - model: dashboard.extractedchemical
   pk: 709
   fields:
-    created_at: 2018-06-07 21:42:25
-    updated_at: 2018-06-07 21:42:25
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10594,8 +9180,6 @@
 - model: dashboard.extractedchemical
   pk: 710
   fields:
-    created_at: 2018-06-07 21:42:26
-    updated_at: 2018-06-07 21:42:26
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10609,8 +9193,6 @@
 - model: dashboard.extractedchemical
   pk: 711
   fields:
-    created_at: 2018-06-07 21:42:30
-    updated_at: 2018-06-07 21:42:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10624,8 +9206,6 @@
 - model: dashboard.extractedchemical
   pk: 712
   fields:
-    created_at: 2018-06-07 21:42:30
-    updated_at: 2018-06-07 21:42:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10639,8 +9219,6 @@
 - model: dashboard.extractedchemical
   pk: 713
   fields:
-    created_at: 2018-06-07 21:42:31
-    updated_at: 2018-06-07 21:42:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10654,8 +9232,6 @@
 - model: dashboard.extractedchemical
   pk: 714
   fields:
-    created_at: 2018-06-07 21:42:31
-    updated_at: 2018-06-07 21:42:31
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10669,8 +9245,6 @@
 - model: dashboard.extractedchemical
   pk: 715
   fields:
-    created_at: 2018-06-07 21:44:05
-    updated_at: 2018-06-07 21:44:05
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10684,8 +9258,6 @@
 - model: dashboard.extractedchemical
   pk: 716
   fields:
-    created_at: 2018-06-07 21:44:05
-    updated_at: 2018-06-07 21:44:05
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10699,8 +9271,6 @@
 - model: dashboard.extractedchemical
   pk: 717
   fields:
-    created_at: 2018-06-07 21:44:06
-    updated_at: 2018-06-07 21:44:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10714,8 +9284,6 @@
 - model: dashboard.extractedchemical
   pk: 718
   fields:
-    created_at: 2018-06-07 21:44:06
-    updated_at: 2018-06-07 21:44:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10729,8 +9297,6 @@
 - model: dashboard.extractedchemical
   pk: 719
   fields:
-    created_at: 2018-06-07 21:44:06
-    updated_at: 2018-06-07 21:44:06
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10744,8 +9310,6 @@
 - model: dashboard.extractedchemical
   pk: 720
   fields:
-    created_at: 2018-06-07 21:44:07
-    updated_at: 2018-06-07 21:44:07
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10759,8 +9323,6 @@
 - model: dashboard.extractedchemical
   pk: 721
   fields:
-    created_at: 2018-06-07 21:44:09
-    updated_at: 2018-06-07 21:44:09
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10774,8 +9336,6 @@
 - model: dashboard.extractedchemical
   pk: 722
   fields:
-    created_at: 2018-06-07 21:44:09
-    updated_at: 2018-06-07 21:44:09
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10789,8 +9349,6 @@
 - model: dashboard.extractedchemical
   pk: 723
   fields:
-    created_at: 2018-06-07 21:44:15
-    updated_at: 2018-06-07 21:44:15
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10804,8 +9362,6 @@
 - model: dashboard.extractedchemical
   pk: 724
   fields:
-    created_at: 2018-06-07 21:44:16
-    updated_at: 2018-06-07 21:44:16
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10819,8 +9375,6 @@
 - model: dashboard.extractedchemical
   pk: 725
   fields:
-    created_at: 2018-06-07 21:44:21
-    updated_at: 2018-06-07 21:44:21
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10834,8 +9388,6 @@
 - model: dashboard.extractedchemical
   pk: 726
   fields:
-    created_at: 2018-06-07 21:44:21
-    updated_at: 2018-06-07 21:44:21
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10849,8 +9401,6 @@
 - model: dashboard.extractedchemical
   pk: 727
   fields:
-    created_at: 2018-06-07 21:44:21
-    updated_at: 2018-06-07 21:44:21
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10864,8 +9414,6 @@
 - model: dashboard.extractedchemical
   pk: 728
   fields:
-    created_at: 2018-06-07 21:44:22
-    updated_at: 2018-06-07 21:44:22
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10879,8 +9427,6 @@
 - model: dashboard.extractedchemical
   pk: 729
   fields:
-    created_at: 2018-06-07 21:44:23
-    updated_at: 2018-06-07 21:44:23
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10894,8 +9440,6 @@
 - model: dashboard.extractedchemical
   pk: 730
   fields:
-    created_at: 2018-06-07 21:44:23
-    updated_at: 2018-06-07 21:44:23
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10909,8 +9453,6 @@
 - model: dashboard.extractedchemical
   pk: 731
   fields:
-    created_at: 2018-06-07 21:44:23
-    updated_at: 2018-06-07 21:44:23
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10924,8 +9466,6 @@
 - model: dashboard.extractedchemical
   pk: 732
   fields:
-    created_at: 2018-06-08 00:11:30
-    updated_at: 2018-06-08 00:11:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10939,8 +9479,6 @@
 - model: dashboard.extractedchemical
   pk: 733
   fields:
-    created_at: 2018-06-08 00:11:30
-    updated_at: 2018-06-08 00:11:30
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10954,8 +9492,6 @@
 - model: dashboard.extractedchemical
   pk: 734
   fields:
-    created_at: 2018-06-08 00:12:02
-    updated_at: 2018-06-08 00:12:02
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10969,8 +9505,6 @@
 - model: dashboard.extractedchemical
   pk: 735
   fields:
-    created_at: 2018-06-08 00:19:23
-    updated_at: 2018-06-08 00:19:23
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10984,8 +9518,6 @@
 - model: dashboard.extractedchemical
   pk: 736
   fields:
-    created_at: 2018-06-08 00:21:12
-    updated_at: 2018-06-08 00:21:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -10999,8 +9531,6 @@
 - model: dashboard.extractedchemical
   pk: 737
   fields:
-    created_at: 2018-06-08 00:21:12
-    updated_at: 2018-06-08 00:21:12
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11014,8 +9544,6 @@
 - model: dashboard.extractedchemical
   pk: 738
   fields:
-    created_at: 2018-06-08 00:21:18
-    updated_at: 2018-06-08 00:21:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11029,8 +9557,6 @@
 - model: dashboard.extractedchemical
   pk: 739
   fields:
-    created_at: 2018-06-08 00:21:18
-    updated_at: 2018-06-08 00:21:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11044,8 +9570,6 @@
 - model: dashboard.extractedchemical
   pk: 740
   fields:
-    created_at: 2018-06-08 00:21:19
-    updated_at: 2018-06-08 00:21:19
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11059,8 +9583,6 @@
 - model: dashboard.extractedchemical
   pk: 741
   fields:
-    created_at: 2018-06-08 00:21:20
-    updated_at: 2018-06-08 00:21:20
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11074,8 +9596,6 @@
 - model: dashboard.extractedchemical
   pk: 742
   fields:
-    created_at: 2018-06-08 00:21:21
-    updated_at: 2018-06-08 00:21:21
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11089,8 +9609,6 @@
 - model: dashboard.extractedchemical
   pk: 743
   fields:
-    created_at: 2018-06-08 05:25:39
-    updated_at: 2018-06-08 05:25:39
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11104,8 +9622,6 @@
 - model: dashboard.extractedchemical
   pk: 744
   fields:
-    created_at: 2018-06-08 05:33:37
-    updated_at: 2018-06-08 05:33:37
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11119,8 +9635,6 @@
 - model: dashboard.extractedchemical
   pk: 745
   fields:
-    created_at: 2018-06-08 05:33:44
-    updated_at: 2018-06-08 05:33:44
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11134,8 +9648,6 @@
 - model: dashboard.extractedchemical
   pk: 746
   fields:
-    created_at: 2018-06-08 05:33:47
-    updated_at: 2018-06-08 05:33:47
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11149,8 +9661,6 @@
 - model: dashboard.extractedchemical
   pk: 747
   fields:
-    created_at: 2018-06-08 05:33:47
-    updated_at: 2018-06-08 05:33:47
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11164,8 +9674,6 @@
 - model: dashboard.extractedchemical
   pk: 748
   fields:
-    created_at: 2018-06-08 05:33:47
-    updated_at: 2018-06-08 05:33:47
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11179,8 +9687,6 @@
 - model: dashboard.extractedchemical
   pk: 749
   fields:
-    created_at: 2018-06-08 05:33:47
-    updated_at: 2018-06-08 05:33:47
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11194,8 +9700,6 @@
 - model: dashboard.extractedchemical
   pk: 750
   fields:
-    created_at: 2018-06-08 05:33:48
-    updated_at: 2018-06-08 05:33:48
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11209,8 +9713,6 @@
 - model: dashboard.extractedchemical
   pk: 751
   fields:
-    created_at: 2018-06-08 05:33:49
-    updated_at: 2018-06-08 05:33:49
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11224,8 +9726,6 @@
 - model: dashboard.extractedchemical
   pk: 752
   fields:
-    created_at: 2018-06-08 06:37:23
-    updated_at: 2018-06-08 06:37:23
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11239,8 +9739,6 @@
 - model: dashboard.extractedchemical
   pk: 753
   fields:
-    created_at: 2018-06-08 07:00:16
-    updated_at: 2018-06-08 07:00:16
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11254,8 +9752,6 @@
 - model: dashboard.extractedchemical
   pk: 754
   fields:
-    created_at: 2018-06-08 07:00:18
-    updated_at: 2018-06-08 07:00:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2
@@ -11269,8 +9765,6 @@
 - model: dashboard.extractedchemical
   pk: 755
   fields:
-    created_at: 2018-06-08 07:00:18
-    updated_at: 2018-06-08 07:00:18
     raw_min_comp: ''
     raw_max_comp: ''
     unit_type: 2

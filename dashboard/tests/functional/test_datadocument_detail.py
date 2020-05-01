@@ -1,9 +1,10 @@
+from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
+from django.test import TestCase, override_settings
+from django.urls import reverse
 from lxml import html
 
-from django.urls import reverse
-from django.test import TestCase, override_settings
-from django.core.exceptions import ObjectDoesNotExist
-
+from dashboard.forms import create_detail_formset
 from dashboard.models import (
     ExtractedText,
     ExtractedCPCat,
@@ -17,8 +18,6 @@ from dashboard.models import (
     Product,
     RawChem,
 )
-from dashboard.forms import create_detail_formset
-from django.conf import settings
 from dashboard.tests.loader import fixtures_standard, datadocument_models
 from dashboard.utils import get_extracted_models
 
@@ -409,20 +408,33 @@ class DataDocumentDetailTest(TestCase):
         self.assertEqual("fa fa-fs fa-file-pdf", icon_span)
 
     def test_last_updated(self):
-        doc = (
-            ExtractedChemical.objects.filter(updated_at__isnull=False)
-            .first()
-            .extracted_text.data_document
+        extracted = ExtractedChemical.objects.filter(updated_at__isnull=False)
+        response = self.client.get(
+            extracted.first().extracted_text.data_document.get_absolute_url()
         )
-        response = self.client.get(doc.get_absolute_url())
         self.assertContains(response, "Last updated:")
-        doc = (
-            ExtractedListPresence.objects.filter(updated_at__isnull=False)
-            .first()
-            .extracted_text.data_document
+
+        extracted = ExtractedListPresence.objects.filter(updated_at__isnull=False)
+        response = self.client.get(
+            extracted.first().extracted_text.data_document.get_absolute_url()
         )
-        response = self.client.get(doc.get_absolute_url())
         self.assertContains(response, "Last updated:")
+
+        extracted = ExtractedChemical.objects.filter(updated_at__isnull=True).first()
+        self.assertTrue(extracted.updated_at == None)
+        extracted.ingredient_rank = 1
+        extracted.save()
+        extracted.refresh_from_db()
+        self.assertTrue(extracted.updated_at != None)
+
+        extracted = ExtractedListPresence.objects.filter(
+            updated_at__isnull=True
+        ).first()
+        self.assertTrue(extracted.updated_at == None)
+        extracted.qa_flag = 1
+        extracted.save()
+        extracted.refresh_from_db()
+        self.assertTrue(extracted.updated_at != None)
 
     def test_epa_reg_number(self):
         id = 7
@@ -605,7 +617,7 @@ class TestDynamicDetailFormsets(TestCase):
         response = self.client.get("/datadocument/%i/" % data_document.pk)
         response_html = html.fromstring(response.content)
         component_text = response_html.xpath(
-            f'//*[@id="component-{ rawchem.id }"]/text()'
+            f'//*[@id="component-{rawchem.id}"]/text()'
         ).pop()
         self.assertEqual(component, component_text)
 

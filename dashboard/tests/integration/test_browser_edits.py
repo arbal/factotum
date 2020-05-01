@@ -365,6 +365,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 '//*[@id="btn-add-or-edit-extracted-text"]'
             )
             add_button.click()
+
             # Once again, check that the controls on the modal form are clickable
             # before trying to interact with them
             wait.until(
@@ -372,15 +373,12 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                     (By.XPATH, "//*[@id='extracted-text-modal-cancel']")
                 )
             )
-            prod_name_box = self.browser.find_element_by_id("id_prod_name")
-            # Add a prod_name value to the box
-            prod_name_box.send_keys("Fake Product")
-            save_button = self.browser.find_element_by_id("extracted-text-modal-save")
-            save_button.click()
-            self.browser.refresh()
-            self.assertEqual(
-                self.browser.find_element_by_id("id_prod_name").text, "Fake Product"
+            self.browser.find_element_by_xpath("//input[@id='id_prod_name']").send_keys(
+                "Fake Product"
             )
+            self.browser.find_element_by_id("extracted-text-modal-save").click()
+            self.browser.refresh()
+
             # Confirm the presence of the new ExtractedText record
             et = ExtractedText.objects.get(data_document_id=doc_id)
             self.assertEqual(

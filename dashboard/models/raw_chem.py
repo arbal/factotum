@@ -2,8 +2,10 @@ from django.db import models
 from model_utils import FieldTracker
 from model_utils.managers import InheritanceManager
 
+from .common_info import CommonInfo
 
-class RawChem(models.Model):
+
+class RawChem(CommonInfo):
     extracted_text = models.ForeignKey(
         "ExtractedText",
         related_name="rawchem",

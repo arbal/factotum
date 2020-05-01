@@ -8,7 +8,7 @@ from .common_info import CommonInfo
 from .raw_chem import RawChem
 
 
-class ExtractedListPresence(CommonInfo, RawChem):
+class ExtractedListPresence(RawChem):
     """
     A record of a chemical's presence in a CPCat list
 

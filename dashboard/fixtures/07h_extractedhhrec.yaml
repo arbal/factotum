@@ -1,8 +1,6 @@
 - model: dashboard.extractedhhrec
   pk: 760
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
@@ -11,8 +9,6 @@
 - model: dashboard.extractedhhrec
   pk: 761
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
@@ -21,8 +17,6 @@
 - model: dashboard.extractedhhrec
   pk: 762
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
@@ -31,8 +25,6 @@
 - model: dashboard.extractedhhrec
   pk: 763
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
@@ -41,8 +33,6 @@
 - model: dashboard.extractedhhrec
   pk: 764
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
@@ -51,8 +41,6 @@
 - model: dashboard.extractedhhrec
   pk: 765
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
@@ -61,8 +49,6 @@
 - model: dashboard.extractedhhrec
   pk: 766
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
@@ -71,8 +57,6 @@
 - model: dashboard.extractedhhrec
   pk: 767
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
@@ -81,8 +65,6 @@
 - model: dashboard.extractedhhrec
   pk: 768
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
@@ -91,8 +73,6 @@
 - model: dashboard.extractedhhrec
   pk: 769
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
@@ -101,8 +81,6 @@
 - model: dashboard.extractedhhrec
   pk: 770
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
@@ -111,8 +89,6 @@
 - model: dashboard.extractedhhrec
   pk: 771
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
@@ -121,8 +97,6 @@
 - model: dashboard.extractedhhrec
   pk: 772
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
@@ -131,8 +105,6 @@
 - model: dashboard.extractedhhrec
   pk: 773
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
@@ -141,8 +113,6 @@
 - model: dashboard.extractedhhrec
   pk: 774
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
@@ -151,8 +121,6 @@
 - model: dashboard.extractedhhrec
   pk: 775
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Surface Wipe
     sampling_method: 100-square-centimeter (100 cm2) template
     analytical_method: liquid chromatography and high performance liquid chromatography
@@ -161,8 +129,6 @@
 - model: dashboard.extractedhhrec
   pk: 776
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Surface Wipe
     sampling_method: ''
     analytical_method: liquid chromatography and high performance liquid chromatography
@@ -171,8 +137,6 @@
 - model: dashboard.extractedhhrec
   pk: 777
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: Surface Wipe
     sampling_method: ''
     analytical_method: liquid chromatography and high performance liquid chromatography
@@ -181,8 +145,6 @@
 - model: dashboard.extractedhhrec
   pk: 778
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: August 2016 - area, task-based, and instantaneous air samples
       using evacuated canisters; April 2017 - area air samples using thermal desorption
@@ -194,8 +156,6 @@
 - model: dashboard.extractedhhrec
   pk: 779
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: August 2016 - area, task-based, and instantaneous air samples
       using evacuated canisters; April 2017 - area air samples using thermal desorption
@@ -207,8 +167,6 @@
 - model: dashboard.extractedhhrec
   pk: 780
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: ''
     analytical_method: ''
@@ -217,8 +175,6 @@
 - model: dashboard.extractedhhrec
   pk: 781
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: ''
     analytical_method: ''
@@ -227,8 +183,6 @@
 - model: dashboard.extractedhhrec
   pk: 782
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: ''
     analytical_method: ''
@@ -237,8 +191,6 @@
 - model: dashboard.extractedhhrec
   pk: 783
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: ''
     analytical_method: ''
@@ -247,8 +199,6 @@
 - model: dashboard.extractedhhrec
   pk: 784
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: ''
     analytical_method: ''
@@ -257,8 +207,6 @@
 - model: dashboard.extractedhhrec
   pk: 785
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: ''
     analytical_method: ''
@@ -267,8 +215,6 @@
 - model: dashboard.extractedhhrec
   pk: 786
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: ''
     analytical_method: ''
@@ -277,8 +223,6 @@
 - model: dashboard.extractedhhrec
   pk: 787
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: ''
     analytical_method: ''
@@ -287,8 +231,6 @@
 - model: dashboard.extractedhhrec
   pk: 788
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: ''
     analytical_method: ''
@@ -297,8 +239,6 @@
 - model: dashboard.extractedhhrec
   pk: 789
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: ''
     analytical_method: ''
@@ -307,8 +247,6 @@
 - model: dashboard.extractedhhrec
   pk: 790
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: ''
     analytical_method: ''
@@ -317,8 +255,6 @@
 - model: dashboard.extractedhhrec
   pk: 791
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: ''
     analytical_method: ''
@@ -327,8 +263,6 @@
 - model: dashboard.extractedhhrec
   pk: 792
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: ''
     analytical_method: ''
@@ -337,8 +271,6 @@
 - model: dashboard.extractedhhrec
   pk: 793
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: ''
     analytical_method: ''
@@ -347,8 +279,6 @@
 - model: dashboard.extractedhhrec
   pk: 794
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: ''
     analytical_method: ''
@@ -357,8 +287,6 @@
 - model: dashboard.extractedhhrec
   pk: 795
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: area sample
     analytical_method: derivatization technique, An Aeroqual Series 500 portable air
@@ -368,8 +296,6 @@
 - model: dashboard.extractedhhrec
   pk: 796
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: area sample
     analytical_method: derivatization technique
@@ -378,8 +304,6 @@
 - model: dashboard.extractedhhrec
   pk: 797
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: ''
     analytical_method: ''
@@ -388,8 +312,6 @@
 - model: dashboard.extractedhhrec
   pk: 798
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: ''
     analytical_method: ''
@@ -398,8 +320,6 @@
 - model: dashboard.extractedhhrec
   pk: 799
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: closed-face cassettes with endotoxinfree polycarbonate filters
     analytical_method: ' kinetic-chromogenic procedure using the limulus amebocyte
@@ -409,8 +329,6 @@
 - model: dashboard.extractedhhrec
   pk: 800
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: ''
     sampling_method: ''
     analytical_method: ''
@@ -419,8 +337,6 @@
 - model: dashboard.extractedhhrec
   pk: 801
   fields:
-    created_at: 2019-02-21 07:00:37.838615
-    updated_at: 2019-02-21 07:00:37.838615
     media: air
     sampling_method: " TSI DustTrak\u2122 DRX 8533 Aerosol Monitor\""
     analytical_method: " TSI DustTrak\u2122 DRX 8533 Aerosol Monitor\""

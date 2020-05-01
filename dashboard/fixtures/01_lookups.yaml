@@ -64,7 +64,7 @@
     {
       created_at: ! "2019-02-21 09:08:21.651124",
       updated_at: ! "2019-02-21 09:08:21.651149",
-      title: HHE Report,
+      title: 'HHE Report',
       description: '',
       code: HH,
     }
@@ -330,6 +330,7 @@
     title: Academic
     description: Report, etc. issued by a university
     code: AC
+# this value is now created within the squashed migration, so it's available as a default
 - model: dashboard.documenttype
   pk: 29
   fields:

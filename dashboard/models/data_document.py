@@ -10,7 +10,7 @@ from dashboard.utils import uuid_file
 
 
 def get_default_document_type():
-    return DocumentType.objects.get(code="UN").pk
+    return DocumentType.objects.values_list("id", flat=True).get(code="UN")
 
 
 class DataDocumentManager(models.Manager):

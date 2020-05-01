@@ -1,15 +1,9 @@
 - model: dashboard.extractedfunctionaluse
   fields:
     rawchem_ptr_id: 5
-    created_at: 2018-09-06 07:16:07
-    updated_at: 2018-09-06 07:16:07
 - model: dashboard.extractedfunctionaluse
   fields:
     rawchem_ptr_id: 756
-    created_at: 2018-09-06 07:16:07
-    updated_at: 2018-09-06 07:16:07
 - model: dashboard.extractedfunctionaluse
   fields:
     rawchem_ptr_id: 757
-    created_at: 2018-09-06 07:16:07
-    updated_at: 2018-09-06 07:16:07

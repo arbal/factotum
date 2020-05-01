@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [("dashboard", "0158_add_unique_constraints")]
+    dependencies = [("dashboard", "0001_squashed_migrations_0001_to_0158")]
 
     operations = [
         migrations.AlterField(

@@ -1,8 +1,8 @@
-from django.db import models
-from django.dispatch import receiver
-from django.db.models.signals import post_delete, pre_save, pre_delete
-from django.db.backends.signals import connection_created
 from crum import get_current_user
+from django.db import models
+from django.db.backends.signals import connection_created
+from django.db.models.signals import post_delete, pre_save, pre_delete
+from django.dispatch import receiver
 
 from dashboard.models import (
     ProductToPUC,
@@ -13,11 +13,12 @@ from dashboard.models import (
     ExtractedListPresence,
     ExtractedFunctionalUse,
     DataDocument,
-    DataGroup,
     DocumentTypeGroupTypeCompatibilty,
     Product,
     ProductDocument,
+    CommonInfo,
 )
+
 
 # When dissociating a product from a PUC, delete it's (PUC-dependent) tags
 @receiver(pre_delete, sender=ProductToPUC)
@@ -82,3 +83,12 @@ def new_connection(sender, connection, **kwargs):
     # set current user for the session
     if user:
         connection.cursor().execute("SET @current_user = %s", [user.id])
+
+
+@receiver(pre_save)
+def populate_user_fields(sender, instance=None, **kwargs):
+    user = get_current_user()
+    if issubclass(sender, CommonInfo):
+        if not instance.pk:
+            instance.created_by = user
+        instance.updated_by = user
