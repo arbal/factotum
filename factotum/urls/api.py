@@ -4,7 +4,7 @@ from rest_framework import routers
 
 
 from apps_api.api import views as apiviews
-from apps_api.docs_ws import views as docsviews
+from apps_api.openapi import views as docsviews
 from factotum import settings
 
 router = routers.SimpleRouter()
@@ -23,13 +23,9 @@ router.register(r"chemicalpresence", apiviews.ChemicalPresenceTagViewSet)
 router.register(r"composition", apiviews.CompositionViewSet)
 
 urlpatterns = [
-    path(
-        "openapi/",
-        docsviews.SchemaView.without_ui(cache_timeout=0),
-        name="openapi-schema",
-    ),
+    path("openapi.json/", docsviews.OpenAPIView.as_view(), name="openapi-schema"),
     path("", include(router.urls)),
-    path("", docsviews.ReDocView.as_view()),
+    path("", docsviews.RedocView.as_view()),
 ]
 
 if settings.DEBUG:

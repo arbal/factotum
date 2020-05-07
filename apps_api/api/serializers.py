@@ -1,4 +1,5 @@
-from rest_framework import serializers
+from rest_framework_json_api import serializers
+
 from dashboard import models
 
 
@@ -333,12 +334,12 @@ class FunctionalUseSerializer(serializers.ModelSerializer):
 class FunctionalUseCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.FunctionalUseCategory
-        fields = ["id", "title", "description"]
+        # todo: This was named functionaluse instead of the default FunctionalUseCategory
+        #  as a way of reconsiling the route name and resource type.  The route should probably be changed
+        #  to functionalusecategory
+        resource_name = "functionaluse"
+        fields = ["title", "description"]
         extra_kwargs = {
-            "id": {
-                "help_text": "The unique numeric identifier for the functional use category.",
-                "label": "ID",
-            },
             "title": {
                 "help_text": "Title of the functional use category.",
                 "label": "Title",
