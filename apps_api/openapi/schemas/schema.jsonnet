@@ -17,11 +17,13 @@ local description = |||
 ///////////////////
 
 local functional_use = import 'dashboard/functional_use.libsonnet';
+local chemical_presence = import 'dashboard/chemical_presence.libsonnet';
 
 ////////////////////////
 // List of all models //
 ////////////////////////
 local objs = [
+    chemical_presence,
     functional_use,
 ];
 

@@ -106,6 +106,8 @@ class ChemicalPresenceViewSet(viewsets.ReadOnlyModelViewSet):
         .select_related("kind")
         .order_by("id")
     )
+    filterset_class = filters.ChemicalPresenceFilter
+    filterset_fields = {"name", "definition", "kind"}
 
 
 class FunctionalUseViewSet(ViewSetMixin, generics.ListAPIView):

@@ -22,7 +22,11 @@ class TestQueryCount(TestCase):
         reset_queries()
         for endpoint in EndpointEnumerator().get_api_endpoints():
             url = endpoint[0]
-            if url == "/function/" or url == "/chemicalpresence/" or url == "/composition/":
+            if (
+                url == "/function/"
+                or url == "/chemicalpresence/"
+                or url == "/composition/"
+            ):
                 continue
             # Only hit list endpoints
             if "{" not in url and "}" not in url:
@@ -155,7 +159,6 @@ class TestChemicalPresence(TestCase):
     def test_retrieve(self):
         tag = self.qs.first()
         response = self.get("/chemicalpresences/%s/" % tag.id)
-        self.assertEqual(response["id"], tag.id)
         self.assertEqual(response["name"], tag.name)
         self.assertEqual(response["definition"], tag.definition)
         self.assertEqual(response["kind"], tag.kind.name)

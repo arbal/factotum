@@ -104,6 +104,12 @@ class ChemicalPresenceTagsetFilter(filters.FilterSet):
         return queryset
 
 
+class ChemicalPresenceFilter(filters.FilterSet):
+    name = filters.CharFilter(field_name="name")
+    definition = filters.CharFilter(field_name="definition")
+    kind = filters.CharFilter(field_name="kind__name")
+
+
 class CompositionFilter(filters.FilterSet):
     document = filters.NumberFilter(
         field_name="extracted_text__data_document_id",
