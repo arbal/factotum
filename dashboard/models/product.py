@@ -109,18 +109,32 @@ class Product(CommonInfo):
         return reverse("product_detail", kwargs={"pk": self.pk})
 
     @property
-    def uber_puc(self):
-        """Returns the "uber" PUC for this product.
+    def get_producttopuc(self):
+        """Returns the "producttopuc" for this product.
 
         To reduce SQL calls, prefetch this result with
             Product.objects.prefetch_pucs()
         """
-        uberpuc_order = ("MA", "MB", "RU", "AU")
+        uberpuc_order = ("MA", "RU", "MB", "BA", "AU")
         producttopucs = self.producttopuc_set.all()
         for classification_method in uberpuc_order:
             for producttopuc in producttopucs:
                 if producttopuc.classification_method == classification_method:
-                    return producttopuc.puc
+                    return producttopuc
+        return None
+
+    @property
+    def uber_puc(self):
+        producttopuc = self.get_producttopuc
+        if producttopuc:
+            return producttopuc.puc
+        return None
+
+    @property
+    def get_classification_method(self):
+        producttopuc = self.get_producttopuc
+        if producttopuc:
+            return producttopuc.get_classification_method_display()
         return None
 
     def get_tag_list(self):
