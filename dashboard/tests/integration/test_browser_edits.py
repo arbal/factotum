@@ -193,7 +193,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             "0%",
             "Percent QA Checked for the second row on the Chemical Presence QA index should be zero",
         )
-        self.browser.implicitly_wait(100)
+        self.browser.implicitly_wait(10)
         for doc_id in [
             7,  # Composition
             5,  # Functional Use

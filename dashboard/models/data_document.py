@@ -112,10 +112,6 @@ class DataDocument(CommonInfo):
         return self.data_group.group_type.code in ["CP", "HH", "HP", "CO", "FU", "LM"]
 
     @property
-    def detail_page_include_organization(self):
-        return self.data_group.group_type.code in ["HP"]
-
-    @property
     def chemicals(self):
         return self.extractedtext.rawchem if self.is_extracted else []
 
