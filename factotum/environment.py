@@ -103,6 +103,16 @@ class MetaEnv(type):
         return cls._get("ELASTICSEARCH_PORT", default)
 
     @property
+    def FACTOTUM_ELASTIC_USERNAME(cls):
+        default = ""
+        return cls._get("FACTOTUM_ELASTIC_USERNAME", default)
+
+    @property
+    def FACTOTUM_ELASTIC_PASSWORD(cls):
+        default = ""
+        return cls._get("FACTOTUM_ELASTIC_PASSWORD", default)
+
+    @property
     def REDIS_CACHE_DATABASE(cls):
         default = "0"
         return cls._get("REDIS_CACHE_DATABASE", default)

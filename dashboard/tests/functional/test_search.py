@@ -26,6 +26,9 @@ class TestSearch(TestCase):
         self.client.login(username="Karyn", password="specialP@55word")
         self.esurl = settings.ELASTICSEARCH["default"]["HOSTS"][0]
         self.index = settings.ELASTICSEARCH["default"]["INDEX"]
+        (self.es_username, self.es_password) = settings.ELASTICSEARCH["default"][
+            "http_auth"
+        ]
 
     def _b64_str(self, s):
         return base64.b64encode(s.encode()).decode("unicode_escape")
@@ -46,11 +49,18 @@ class TestSearch(TestCase):
         """
         The correct JSON comes back from the elasticsearch server
         """
-        response = requests.get(f"http://{self.esurl}")
-        self.assertTrue(response.ok)
+        auth_header = {
+            "Authorization": "Basic "
+            + base64.b64encode(
+                f"{self.es_username}:{self.es_password}".encode("utf-8")
+            ).decode("utf-8")
+        }
+        response = requests.get(f"http://{self.esurl}", headers=auth_header)
+        self.assertTrue(response.status_code == 200)
 
         response = requests.get(
-            f"http://{self.esurl}/{self.index}/_search?q=ethylparaben"
+            f"http://{self.esurl}/{self.index}/_search?q=ethylparaben",
+            headers=auth_header,
         )
         self.assertIn("DTXSID9022528", str(response.content))
 
