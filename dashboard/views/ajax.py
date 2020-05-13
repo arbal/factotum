@@ -1,3 +1,7 @@
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views import View
+from django.views.generic.detail import SingleObjectMixin
 from django_datatables_view.base_datatable_view import BaseDatatableView
 from django.http import JsonResponse
 from django.db.models import Q
@@ -14,6 +18,7 @@ from dashboard.models import (
     RawChem,
     ExtractedListPresence,
     ExtractedListPresenceToTag,
+    ExtractedListPresenceTag,
 )
 
 
@@ -133,6 +138,35 @@ class ChemicalListJson(FilterDatatableView):
             qs = qs.filter(
                 Q(true_cas__icontains=s) | Q(true_chemname__icontains=s)
             ).distinct()
+        return qs
+
+
+@method_decorator(login_required, name="dispatch")
+class ListPresenceTagSetsJson(SingleObjectMixin, View):
+    model = ExtractedListPresenceTag
+
+    def get(self, request, *args, **kwargs):
+        tagsets = self.get_object().get_tagsets()
+        tagsets_list = []
+        for tagset in tagsets:
+            tagset_names = []
+            for tag in sorted(tagset, key=lambda o: o.name.lower()):
+                tagset_names.append(tag.name)
+            tagsets_list.append([" - ".join(tagset_names)])
+        return JsonResponse({"data": sorted(tagsets_list)}, safe=False)
+
+
+@method_decorator(login_required, name="dispatch")
+class ListPresenceDocumentsJson(FilterDatatableView):
+    model = DataDocument
+    columns = ["title"]
+
+    def get_initial_queryset(self):
+        qs = self.model.objects.filter(
+            extractedtext__rawchem__extractedlistpresence__tags__pk=self.kwargs[
+                "tag_pk"
+            ]
+        ).distinct()
         return qs
 
 

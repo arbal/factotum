@@ -1,5 +1,7 @@
 from django.db.models import Prefetch, Q
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics
+from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.viewsets import ViewSetMixin
 
 from apps_api.api import filters, serializers
@@ -83,6 +85,10 @@ class ChemicalViewSet(viewsets.ReadOnlyModelViewSet):
         curated_chemical__isnull=True
     ).order_by("sid")
     filterset_class = filters.ChemicalFilter
+    # Todo:  These are using the default DRF filters and renderer backends.
+    #  These should be removed as the route is made jsonapi compliant
+    filter_backends = [DjangoFilterBackend]
+    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
 
 
 class ChemicalPresenceViewSet(viewsets.ReadOnlyModelViewSet):
@@ -100,6 +106,8 @@ class ChemicalPresenceViewSet(viewsets.ReadOnlyModelViewSet):
         .select_related("kind")
         .order_by("id")
     )
+    filterset_class = filters.ChemicalPresenceFilter
+    filterset_fields = {"name", "definition", "kind"}
 
 
 class FunctionalUseViewSet(ViewSetMixin, generics.ListAPIView):
@@ -113,6 +121,10 @@ class FunctionalUseViewSet(ViewSetMixin, generics.ListAPIView):
         "chem__extracted_text__data_document", "chem__dsstox"
     ).order_by("id")
     filterset_class = filters.FunctionalUseFilter
+    # Todo:  These are using the default DRF filters and renderer backends.
+    #  These should be removed as the route is made jsonapi compliant
+    filter_backends = [DjangoFilterBackend]
+    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
 
 
 class FunctionUseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -122,6 +134,7 @@ class FunctionUseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = serializers.FunctionalUseCategorySerializer
     queryset = models.FunctionalUseCategory.objects.all().order_by("id")
+    filterset_fields = {"title", "description"}
 
 
 class ChemicalPresenceTagViewSet(ViewSetMixin, generics.ListAPIView):
@@ -133,6 +146,10 @@ class ChemicalPresenceTagViewSet(ViewSetMixin, generics.ListAPIView):
     serializer_class = serializers.ChemicalPresenceTagsetSerializer
     queryset = models.DSSToxLookup.objects.all().order_by("id")
     filterset_class = filters.ChemicalPresenceTagsetFilter
+    # Todo:  These are using the default DRF filters and renderer backends.
+    #  These should be removed as the route is made jsonapi compliant
+    filter_backends = [DjangoFilterBackend]
+    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
 
 
 class CompositionViewSet(ViewSetMixin, generics.ListAPIView):
@@ -149,3 +166,7 @@ class CompositionViewSet(ViewSetMixin, generics.ListAPIView):
         .order_by("id")
     )
     filterset_class = filters.CompositionFilter
+    # Todo:  These are using the default DRF filters and renderer backends.
+    #  These should be removed as the route is made jsonapi compliant
+    filter_backends = [DjangoFilterBackend]
+    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]

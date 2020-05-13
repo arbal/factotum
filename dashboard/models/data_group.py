@@ -176,6 +176,7 @@ class DataGroup(CommonInfo):
             "parent_item_id",
             "short_description",
             "long_description",
+            "epa_reg_number",
             "thumb_image",
             "medium_image",
             "large_image",

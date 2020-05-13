@@ -36,8 +36,15 @@ def index(request):
         puc_obj.cumnum_products = sum(
             p.num_products for p in pucs.objects[puc_name].values()
         )
-    stats["pucs"] = pucs
-    stats["show_filter"] = False
+    stats["formulation_pucs"] = pucs
+
+    pucs = PUC.objects.with_num_products().filter(kind="AR").all().astree()
+    for puc_name, puc_obj in pucs.items():
+        puc_obj.cumnum_products = sum(
+            p.num_products for p in pucs.objects[puc_name].values()
+        )
+    stats["article_pucs"] = pucs
+
     return render(request, "dashboard/index.html", stats)
 
 
@@ -230,12 +237,13 @@ def bubble_PUCs(request):
     """This view is used to download all of the PUCs in nested JSON form.
     """
     dtxsid = request.GET.get("dtxsid", None)
+    kind = request.GET.get("kind", "FO")
     if dtxsid:
         pucs = PUC.objects.dtxsid_filter(dtxsid)
     else:
         pucs = PUC.objects.all()
     pucs = (
-        pucs.filter(kind="FO")
+        pucs.filter(kind=kind)
         .with_num_products()
         .values("id", "gen_cat", "prod_fam", "prod_type", "num_products")
         .filter(num_products__gt=0)

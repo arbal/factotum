@@ -8,7 +8,22 @@ var pucColors = new Map([
     ["Pesticides", "#EC7ABF"],
     ["Pet care", "#7E7E7E"],
     ["Sports equipment", "#BFB83C"],
-    ["Vehicle", "#00BDCC"]
+    ["Vehicle", "#00BDCC"],
+
+    ["Industrial ingredients", "#0079B0"],
+    ["Industrial products", "#FF7B2E"],
+    ["Industrial machinery", "#009C3A"],
+    ["Road vehicles", "#E42A32"],
+    ["Other vehicles/mass transit", "#946BB9"],
+    ["Construction and building materials", "#92564E"],
+    ["Toys and children's products", "#EC7ABF"],
+    ["Packaging (non-food contact)", "#7E7E7E"],
+    ["Food contact items", "#BFB83C"],
+    ["Furniture and Furnishings", "#00BDCC"],
+    ["Other direct contact consumer goods", "#0079B0"],
+    ["Other indirect contact consumer goods", "#FF7B2E"],
+    ["Batteries", "#009C3A"],
+    ["Cons. electronics, mech. appliances, and machinery", "#E42A32"]
 ]);
 
 // Gets area from radius
@@ -48,7 +63,7 @@ function translateChild(node) {
     }
 }
 
-function nestedBubbleChart(width, height, fixed, dataurl) {
+function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
     d3v5.json(dataurl)
         .then(function (data) {
             var size = Math.min(width, height)
@@ -111,9 +126,8 @@ function nestedBubbleChart(width, height, fixed, dataurl) {
 
             let focus = root;
             let view;
-
             const svg = d3v5
-                .select("#nestedcircles")
+                .select("#" + svg_id)
                 .attr(
                     "viewBox",
                     `-${size / 2} -${size / 2} ${size} ${size}`

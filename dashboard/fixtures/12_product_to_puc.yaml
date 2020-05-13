@@ -130,3 +130,42 @@
     puc_assigned_script: null
     classification_method: MA
     classification_confidence: '1.000'
+- model: dashboard.producttopuc
+  pk: 16
+  fields:
+    created_at: 2019-11-06 12:12:39.603403
+    updated_at: 2019-11-06 12:12:39.603429
+    created_by: null
+    updated_by: null
+    product: 1866
+    puc: 310
+    puc_assigned_usr: 1
+    puc_assigned_script: null
+    classification_method: MB
+    classification_confidence: '1.000'
+- model: dashboard.producttopuc
+  pk: 17
+  fields:
+    created_at: 2019-11-06 12:12:39.603403
+    updated_at: 2019-11-06 12:12:39.603429
+    created_by: null
+    updated_by: null
+    product: 1866
+    puc: 311
+    puc_assigned_usr: 1
+    puc_assigned_script: null
+    classification_method: BA
+    classification_confidence: '1.000'
+- model: dashboard.producttopuc
+  pk: 18
+  fields:
+    created_at: 2019-11-06 12:12:39.603403
+    updated_at: 2019-11-06 12:12:39.603429
+    created_by: null
+    updated_by: null
+    product: 1866
+    puc: 312
+    puc_assigned_usr: 1
+    puc_assigned_script: null
+    classification_method: AU
+    classification_confidence: '1.000'

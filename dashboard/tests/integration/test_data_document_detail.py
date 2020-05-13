@@ -1,3 +1,6 @@
+import time
+
+from django.contrib.auth.models import User
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
@@ -6,7 +9,6 @@ from selenium.webdriver.support.ui import WebDriverWait, Select
 
 from dashboard.models import DataDocument, ExtractedText, FunctionalUse, RawChem
 from dashboard.tests.loader import fixtures_standard, load_browser
-import time
 
 
 def log_karyn_in(object):
@@ -164,6 +166,12 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                     et.prod_name,
                     "The prod_name of the new object should match what was entered",
                 )
+                self.assertEqual(
+                    User.objects.filter(username="Karyn").first(),
+                    et.updated_by,
+                    "System should show that Karyn updated this record",
+                )
+
             # Add a "Document Date" for CP documents and verify
             elif doc_id == 254782:
                 prod_name_box = self.browser.find_element_by_id("id_doc_date")
@@ -187,6 +195,11 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                     "2018",
                     et.doc_date,
                     "The prod_name of the new object should match what was entered",
+                )
+                self.assertEqual(
+                    User.objects.filter(username="Karyn").first(),
+                    et.updated_by,
+                    "System should show that Karyn updated this record",
                 )
 
     def test_sd_group_type(self):
@@ -394,6 +407,9 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
         time.sleep(3)
         raw_chem = RawChem.objects.filter(extracted_text_id=doc.pk).first()
+
+        self.assertEqual(raw_chem.updated_by, User.objects.get(username="Karyn"))
+        self.assertTrue(raw_chem.updated_at != "")
 
         self.assertInHTML(
             "The Rawest Chem Name",

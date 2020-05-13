@@ -125,7 +125,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         self.browser.get(self.live_server_url + "/chemical/" + dss.sid)
         self.assertNotIn(
             "Test Occupational PUC",
-            self.browser.find_element_by_xpath("//*[@id='puc-accordion']").text,
+            self.browser.find_element_by_xpath("//*[@id='puc-accordion-FO']").text,
         )
 
     def test_filter_by_data_group(self):

@@ -317,6 +317,21 @@ urlpatterns = [
         name="habits_and_practices_tag_delete",
     ),
     path("search/<str:model>/", views.search_model, name="search-model"),
+    path(
+        "list_presence_tag/<int:pk>/",
+        views.ListPresenceTagView.as_view(),
+        name="lp_tag_detail",
+    ),
+    path(
+        "list_presence_tag/<int:pk>/tagsets/",
+        views.ListPresenceTagSetsJson.as_view(),
+        name="lp_tagsets",
+    ),
+    path(
+        "list_presence_tag/<int:tag_pk>/documents/",
+        views.ListPresenceDocumentsJson.as_view(),
+        name="lp_documents",
+    ),
 ]
 if settings.DEBUG is True:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

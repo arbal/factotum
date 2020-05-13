@@ -35,3 +35,8 @@
     opacity: 0;
     font: 1em sans-serif;
 }
+
+.nestedcircles {
+    transition: transform 1s;
+    margin-bottom: 20px;
+}

@@ -22,12 +22,16 @@ class TestQueryCount(TestCase):
         reset_queries()
         for endpoint in EndpointEnumerator().get_api_endpoints():
             url = endpoint[0]
-            if url == "/function/":
+            if (
+                url == "/function/"
+                or url == "/chemicalpresence/"
+                or url == "/composition/"
+            ):
                 continue
             # Only hit list endpoints
             if "{" not in url and "}" not in url:
                 result = self.get(url)
-                max_queries = len(result["data"])
+                max_queries = len(result["results"])
                 num_queries = len(connection.queries)
                 # Number of queries must be less than the number of data objects returned.
                 self.assertTrue(
@@ -63,20 +67,19 @@ class TestPUC(TestCase):
         count = models.PUC.objects.all().count()
         # test without filter
         response = self.get("/pucs/")
-        self.assertTrue("paging" in response)
         self.assertTrue("meta" in response)
-        self.assertEqual(count, response["meta"]["count"])
-        for key in response["data"][0]:
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
+        for key in response["results"][0]:
             source = self.get_source_field(key)
-            self.assertEqual(getattr(puc, source), response["data"][0][key])
+            self.assertEqual(getattr(puc, source), response["results"][0][key])
         # test with filter
         puc = models.PUC.objects.dtxsid_filter(self.dtxsid).all().first()
         count = models.PUC.objects.dtxsid_filter(self.dtxsid).count()
-        response = self.get("/pucs/", {"chemical": self.dtxsid})
-        self.assertEqual(count, response["meta"]["count"])
-        for key in response["data"][0]:
+        response = self.get("/pucs/", {"filter[chemical]": self.dtxsid})
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
+        for key in response["results"][0]:
             source = self.get_source_field(key)
-            self.assertEqual(getattr(puc, source), response["data"][0][key])
+            self.assertEqual(getattr(puc, source), response["results"][0][key])
 
 
 class TestProduct(TestCase):
@@ -103,28 +106,26 @@ class TestProduct(TestCase):
         self.assertEqual(response["puc_id"], product.uber_puc.id)
 
     def test_page_size(self):
-        response = self.get("/products/?page_size=35")
-        self.assertTrue("paging" in response)
-        self.assertEqual(35, response["paging"]["size"])
+        response = self.get("/products/?page[size]=35")
+        self.assertEqual(35, len(response["results"]))
 
     def test_list(self):
         # test without filter
         count = models.Product.objects.count()
         response = self.get("/products/")
-        self.assertTrue("paging" in response)
         self.assertTrue("meta" in response)
-        self.assertEqual(count, response["meta"]["count"])
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
         # test with chemical filter
         count = models.Product.objects.filter(
             datadocument__extractedtext__rawchem__dsstox__sid=self.dtxsid
         ).count()
-        response = self.get("/products/", {"chemical": self.dtxsid})
-        self.assertEqual(count, response["meta"]["count"])
+        response = self.get("/products/", {"filter[chemical]": self.dtxsid})
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
         # test with UPC filter
         count = models.Product.objects.filter(upc=self.upc).count()
-        response = self.get("/products/", {"upc": self.upc})
-        self.assertEqual(count, response["meta"]["count"])
-        self.assertEqual(self.upc, response["data"][0]["upc"])
+        response = self.get("/products/", {"filter[upc]": self.upc})
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
+        self.assertEqual(self.upc, response["results"][0]["upc"])
 
 
 class TestChemical(TestCase):
@@ -141,16 +142,15 @@ class TestChemical(TestCase):
         # test without filter
         count = self.qs.count()
         response = self.get("/chemicals/")
-        self.assertTrue("paging" in response)
         self.assertTrue("meta" in response)
-        self.assertEqual(count, response["meta"]["count"])
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
 
         # test with PUC filter
         count = self.qs.filter(
             curated_chemical__extracted_text__data_document__product__puc__id=1
         ).count()
         response = self.get("/chemicals/", {"puc": 1})
-        self.assertEqual(count, response["meta"]["count"])
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
 
 
 class TestChemicalPresence(TestCase):
@@ -159,7 +159,6 @@ class TestChemicalPresence(TestCase):
     def test_retrieve(self):
         tag = self.qs.first()
         response = self.get("/chemicalpresences/%s/" % tag.id)
-        self.assertEqual(response["id"], tag.id)
         self.assertEqual(response["name"], tag.name)
         self.assertEqual(response["definition"], tag.definition)
         self.assertEqual(response["kind"], tag.kind.name)
@@ -167,9 +166,8 @@ class TestChemicalPresence(TestCase):
     def test_list(self):
         count = self.qs.count()
         response = self.get("/chemicalpresences/")
-        self.assertTrue("paging" in response)
         self.assertTrue("meta" in response)
-        self.assertEqual(count, response["meta"]["count"])
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
 
 
 class TestDocument(TestCase):
@@ -194,10 +192,9 @@ class TestDocument(TestCase):
     def test_list(self):
         # test without filter
         response = self.get("/documents/")
-        self.assertTrue("paging" in response)
         self.assertTrue("meta" in response)
         count = models.DataDocument.objects.count()
-        self.assertEqual(count, response["meta"]["count"])
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
 
 
 class TestExtractedChemicalSerializer(TestCase):
@@ -256,15 +253,14 @@ class TestFunction(TestCase):
 
         response = self.get("/function/?document=%d" % document_id)
         self.assertTrue("meta" in response)
-        self.assertEqual(count, response["meta"]["count"])
-        data = response["data"][0]
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
+        data = response["results"][0]
         self.assertIsNotNone(data)
         self.assertEquals(
             func_use.chem.extracted_text.data_document_id, data["document_id"]
         )
         self.assertEquals(func_use.chem.dsstox.sid, data["chemical_id"])
         self.assertEquals(func_use.chem.rid, data["rid"])
-        self.assertEquals(func_use.category.id, data["category_id"])
 
     def test_chemical_filter(self):
         chemical_id = "DTXSID9022528"
@@ -276,15 +272,14 @@ class TestFunction(TestCase):
 
         response = self.get("/function/?chemical=%s" % chemical_id)
         self.assertTrue("meta" in response)
-        self.assertEqual(count, response["meta"]["count"])
-        data = response["data"][0]
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
+        data = response["results"][0]
         self.assertIsNotNone(data)
         self.assertEquals(
             func_use.chem.extracted_text.data_document_id, data["document_id"]
         )
         self.assertEquals(func_use.chem.dsstox.sid, data["chemical_id"])
         self.assertEquals(func_use.chem.rid, data["rid"])
-        self.assertEquals(func_use.category.id, data["category_id"])
 
     def test_category_filter(self):
         category_id = 1
@@ -296,31 +291,28 @@ class TestFunction(TestCase):
 
         response = self.get("/function/?category=%d" % category_id)
         self.assertTrue("meta" in response)
-        self.assertEqual(count, response["meta"]["count"])
-        data = response["data"][0]
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
+        data = response["results"][0]
         self.assertIsNotNone(data)
         self.assertEquals(
             func_use.chem.extracted_text.data_document_id, data["document_id"]
         )
         self.assertEquals(func_use.chem.dsstox.sid, data["chemical_id"])
         self.assertEquals(func_use.chem.rid, data["rid"])
-        self.assertEquals(func_use.category.id, data["category_id"])
 
 
 class TestFunctionalUseCategory(TestCase):
     def test_retrieve(self):
         fu_cat = models.FunctionalUseCategory.objects.first()
         response = self.get("/functionaluses/%d/" % fu_cat.id)
-        self.assertEqual(response["id"], fu_cat.id)
         self.assertEqual(response["title"], fu_cat.title)
         self.assertEqual(response["description"], fu_cat.description)
 
     def test_list(self):
         count = models.FunctionalUseCategory.objects.count()
         response = self.get("/functionaluses/")
-        self.assertTrue("paging" in response)
         self.assertTrue("meta" in response)
-        self.assertEqual(count, response["meta"]["count"])
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
 
 
 class TestChemicalPresenceTags(TestCase):
@@ -337,10 +329,10 @@ class TestChemicalPresenceTags(TestCase):
         first_chemical = dataset.first()
         tagsets = first_chemical.get_tags_with_extracted_text()
         response = self.get("/chemicalpresence/?chemical=%s" % chemical_id)
-        data = response["data"][0]
+        data = response["results"][0]
 
         self.assertTrue("meta" in response)
-        self.assertEqual(count, response["meta"]["count"])
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
         self.assertIsNotNone(data)
         self.assertEquals(first_chemical.sid, data["chemical_id"])
         for keyword in data["keyword_sets"][0]["keywords"]:
@@ -363,10 +355,10 @@ class TestChemicalPresenceTags(TestCase):
         first_chemical = dataset.first()
         tagsets = first_chemical.get_tags_with_extracted_text(tag_id=tag_id)
         response = self.get("/chemicalpresence/?keyword=%s" % tag_id)
-        data = response["data"][0]
+        data = response["results"][0]
 
         self.assertTrue("meta" in response)
-        self.assertEqual(count, response["meta"]["count"])
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
         self.assertIsNotNone(data)
         self.assertEquals(first_chemical.sid, data["chemical_id"])
         for keyword in data["keyword_sets"][0]["keywords"]:
@@ -389,10 +381,10 @@ class TestChemicalPresenceTags(TestCase):
         first_chemical = dataset.first()
         tagsets = first_chemical.get_tags_with_extracted_text(doc_id=document_id)
         response = self.get("/chemicalpresence/?document=%s" % document_id)
-        data = response["data"][0]
+        data = response["results"][0]
 
         self.assertTrue("meta" in response)
-        self.assertEqual(count, response["meta"]["count"])
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
         self.assertIsNotNone(data)
         self.assertEquals(first_chemical.sid, data["chemical_id"])
         for keyword in data["keyword_sets"][0]["keywords"]:
@@ -439,64 +431,64 @@ class TestComposition(TestCase):
 
         composition = self.queryset.get(rid=rid)
 
-        self.assertTrue("paging" in response_rid_filter)
         self.assertTrue("meta" in response_rid_filter)
         self.assertEqual(
-            self.queryset.filter(rid=rid).count(), response_rid_filter["meta"]["count"]
+            self.queryset.filter(rid=rid).count(),
+            response_rid_filter["meta"]["pagination"]["count"],
         )
-        self.assertEqual(composition.rid, response_rid_filter["data"][0]["rid"])
+        self.assertEqual(composition.rid, response_rid_filter["results"][0]["rid"])
         self.assertEqual(
-            composition.dsstox.sid, response_rid_filter["data"][0]["chemical_id"]
+            composition.dsstox.sid, response_rid_filter["results"][0]["chemical_id"]
         )
         self.assertEqual(
             composition.ingredient_rank,
-            response_rid_filter["data"][0]["ingredient_rank"],
+            response_rid_filter["results"][0]["ingredient_rank"],
         )
         self.assertAlmostEqual(
             composition.lower_wf_analysis,
             self._cast_to_float(
-                response_rid_filter["data"][0]["lower_weight_fraction"]
+                response_rid_filter["results"][0]["lower_weight_fraction"]
             ),
         )
         self.assertAlmostEqual(
             composition.central_wf_analysis,
             self._cast_to_float(
-                response_rid_filter["data"][0]["central_weight_fraction"]
+                response_rid_filter["results"][0]["central_weight_fraction"]
             ),
         )
         self.assertAlmostEqual(
             composition.upper_wf_analysis,
             self._cast_to_float(
-                response_rid_filter["data"][0]["upper_weight_fraction"]
+                response_rid_filter["results"][0]["upper_weight_fraction"]
             ),
         )
         self.assertEqual(
-            composition.component, response_rid_filter["data"][0]["component"]
+            composition.component, response_rid_filter["results"][0]["component"]
         )
         self.assertEqual(
             composition.extracted_text.data_document_id,
-            response_rid_filter["data"][0]["document"],
+            response_rid_filter["results"][0]["document"],
         )
         self.assertEqual(
             [
                 product.id
                 for product in composition.extracted_text.data_document.products.all()
             ],
-            response_rid_filter["data"][0]["products"],
+            response_rid_filter["results"][0]["products"],
         )
         self.assertEqual(
             self.queryset.filter(extracted_text__data_document_id=doc_id).count(),
-            response_doc_filter["meta"]["count"],
+            response_doc_filter["meta"]["pagination"]["count"],
         )
         self.assertEqual(
             self.queryset.filter(dsstox__sid=chem_id).count(),
-            response_chem_filter["meta"]["count"],
+            response_chem_filter["meta"]["pagination"]["count"],
         )
         self.assertEqual(
             self.queryset.filter(
                 extracted_text__data_document__products__pk=prod_id
             ).count(),
-            response_prod_filter["meta"]["count"],
+            response_prod_filter["meta"]["pagination"]["count"],
         )
 
     def _cast_to_float(self, value):

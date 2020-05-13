@@ -1,6 +1,7 @@
 {% extends 'core/base.html' %}
 {% load staticfiles %}
 {% load humanize %}
+{% load tags %}
 
 {% block title %}Chemical Detail: {{ chemical|title }}{% endblock %}
 
@@ -28,18 +29,35 @@
             </h4>
         </div>
     </div>
+
+    {# Formulation PUCs    #}
     <div class="row">
         <div class="col-5 p-0">
-            {% include "core/components/puc/bubble_puc_legend.html" %}
+            {% show_bubble_puc_legend formulation_pucs "FO" True %}
         </div>
         <div class="col-7">
-            {% if pucs.children %}
-                <svg id="nestedcircles" width="100%" height="500"></svg>
+            {% if formulation_pucs.children %}
+                <svg id="nestedcircles_FO" class="nestedcircles" width="100%" height="500"></svg>
             {% else %}
-                <h3>No PUCs associated with this chemical.</h3>
+                <h3>No Formulation PUCs associated with this chemical.</h3>
             {% endif %}
         </div>
     </div>
+
+    {# Article PUCs    #}
+    <div class="row">
+        <div class="col-5 p-0">
+            {% show_bubble_puc_legend article_pucs "AR" True %}
+        </div>
+        <div class="col-7">
+            {% if article_pucs.children %}
+                <svg id="nestedcircles_AR" class="nestedcircles" width="100%" height="500"></svg>
+            {% else %}
+                <h3>No Article PUCs associated with this chemical.</h3>
+            {% endif %}
+        </div>
+    </div>
+
 
     <div class="row mt-4">
         <div class="tab-content col-12">

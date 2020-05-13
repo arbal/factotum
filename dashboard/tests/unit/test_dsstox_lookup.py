@@ -2,6 +2,7 @@ from django.test import TestCase
 from dashboard.models import (
     DSSToxLookup,
     ExtractedListPresence,
+    ExtractedListPresenceTagKind,
     ExtractedListPresenceTag,
     DataDocument,
     ExtractedText,
@@ -13,7 +14,7 @@ class DSSToxLookupTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.loaded_objects = load_model_objects()
-
+        cls.elptk = ExtractedListPresenceTagKind.objects.create(name="Test Kind")
         cls.dsstox = DSSToxLookup.objects.create(
             sid="1", true_chemname="valid", true_cas="1"
         )
@@ -22,12 +23,11 @@ class DSSToxLookupTest(TestCase):
         )
 
         cls.tag_1 = ExtractedListPresenceTag.objects.create(
-            slug="abrasive", name="abrasive"
+            slug="abrasive", name="abrasive", kind=cls.elptk
         )
         cls.tag_2 = ExtractedListPresenceTag.objects.create(
-            slug="europe", name="europe"
+            slug="europe", name="europe", kind=cls.elptk
         )
-
         # Create a list presence that should never be returned
         # by the self.dsstox.get_tags_with_extracted_text()
         elp = ExtractedListPresence.objects.create(

@@ -1,6 +1,9 @@
 from django.conf import settings
-from django.utils import timezone
 from django.contrib.auth.models import User
+from django.utils import timezone
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
 from dashboard.models import (
     ExtractedText,
     ExtractedChemical,
@@ -22,9 +25,6 @@ from dashboard.models import (
     WeightFractionType,
     ExtractedHabitsAndPracticesDataType,
 )
-
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 
 fixtures_standard = [
     "00_superuser",
@@ -122,6 +122,7 @@ def load_model_objects():
         script_type="EX",
     )
     gt = GroupType.objects.create(title="Composition", code="CO")
+    gt2 = GroupType.objects.create(title="HHE Report", code="HH")
     dg = DataGroup.objects.create(
         name="Data Group for Test",
         description="Testing...",
@@ -133,6 +134,7 @@ def load_model_objects():
         url="https://www.epa.gov",
     )
     dt = DocumentType.objects.create(title="MSDS", code="MS")
+    dt2 = DocumentType.objects.create(title="HHE Report", code="HH")
 
     doc = DataDocument.objects.create(
         title="test document", data_group=dg, document_type=dt, filename="example.pdf"

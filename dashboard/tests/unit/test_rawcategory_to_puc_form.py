@@ -5,7 +5,14 @@ from django.test import TestCase
 from django.utils.timezone import now
 
 from dashboard.forms import RawCategoryToPUCForm
-from dashboard.models import DataSource, DataGroup, DataDocument, Product, PUC
+from dashboard.models import (
+    DataSource,
+    GroupType,
+    DataGroup,
+    DataDocument,
+    Product,
+    PUC,
+)
 
 
 class TestRawCategoryToPUCForm(TestCase):
@@ -15,11 +22,14 @@ class TestRawCategoryToPUCForm(TestCase):
             username="Karyn", password="specialP@55word"
         )
         cls.ds = DataSource.objects.create(title="Test Data Source")
+        cls.dgt = GroupType.objects.create()
+
         cls.dg = DataGroup.objects.create(
             downloaded_at=now(),
             data_source=cls.ds,
             downloaded_by=cls.user,
             name="Test Data Group",
+            group_type=cls.dgt,
         )
         cls.doc = DataDocument.objects.create(data_group=cls.dg, raw_category="visible")
         cls.doc.product_set.add(Product.objects.create(upc=uuid1()))
@@ -199,6 +209,7 @@ class TestRawCategoryToPUCForm(TestCase):
             data_source=self.ds,
             downloaded_by=self.user,
             name="Test Data Group",
+            group_type=self.dgt,
         )
         form = RawCategoryToPUCForm(
             {

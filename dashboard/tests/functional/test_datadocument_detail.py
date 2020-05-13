@@ -1,9 +1,10 @@
+from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
+from django.test import TestCase, override_settings
+from django.urls import reverse
 from lxml import html
 
-from django.urls import reverse
-from django.test import TestCase, override_settings
-from django.core.exceptions import ObjectDoesNotExist
-
+from dashboard.forms import create_detail_formset
 from dashboard.models import (
     ExtractedText,
     ExtractedCPCat,
@@ -17,8 +18,6 @@ from dashboard.models import (
     Product,
     RawChem,
 )
-from dashboard.forms import create_detail_formset
-from django.conf import settings
 from dashboard.tests.loader import fixtures_standard, datadocument_models
 from dashboard.utils import get_extracted_models
 
@@ -325,55 +324,6 @@ class DataDocumentDetailTest(TestCase):
         # Should not display Product name
         self.assertNotContains(response, "Product name")
 
-    # TODO: Remove this test or reinstate strategies that require it.
-    # This test has depreciated.  The only group type that has chemicals on
-    # views/data_document.py is HH.  HH group types currently fail to populate chemicals
-    # def test_chemname_ellipsis(self):
-    #     """Check that DataDocument chemical names get truncated"""
-    #     trunc_length = 45
-    #     trunc_side_length = 18
-    #     doc = (
-    #         DataDocument.objects.filter(
-    #             extractedtext__rawchem__raw_chem_name__iregex=(
-    #                 ".{%i,}" % (trunc_length + 1)
-    #             )
-    #         )
-    #         # Filter out co and cp types as they use co_cp_chemical_cards.html
-    #         .exclude(data_group__group_type__code__in=["CO", "CP"])
-    #         .exclude(extractedtext__rawchem=None)
-    #         .prefetch_related("extractedtext__rawchem")
-    #         .get()
-    #     )
-    #     rc = doc.extractedtext.rawchem.filter(
-    #         raw_chem_name__iregex=(".{%i,}" % (trunc_length + 1))
-    #     ).first()
-    #     self.assertIsNotNone(
-    #         doc,
-    #         (
-    #             "No DataDocument found with a chemical name greater"
-    #             " than %i characters."
-    #         )
-    #         % trunc_length,
-    #     )
-    #     response = self.client.get("/datadocument/%i/" % doc.id)
-    #     response_html = html.fromstring(response.content)
-    #     trunc_rc_name = rc.raw_chem_name[: trunc_length - 1] + "…"
-    #     trunc_side_rc_name = rc.raw_chem_name[: trunc_side_length - 1] + "…"
-    #     path = '//*[@id="chem-%i"]/div/div/div[1]/h5' % rc.id
-    #     side_path = "//*[@id=\"chem-scrollspy\"]/ul/li/a[@href='#chem-%i']/p" % rc.id
-    #     html_rc_name = response_html.xpath(path)[0].text
-    #     html_side_rc_name = response_html.xpath(side_path)[0].text
-    #     self.assertHTMLEqual(
-    #         trunc_rc_name,
-    #         html_rc_name,
-    #         "Long DataDocument chemical names not truncated.",
-    #     )
-    #     self.assertHTMLEqual(
-    #         trunc_side_rc_name,
-    #         html_side_rc_name,
-    #         "Long DataDocument chemical names not truncated in sidebar.",
-    #     )
-
     def test_raw_category_ellipsis(self):
         id = 354784
         response = self.client.get("/datadocument/%i/" % id)
@@ -409,20 +359,33 @@ class DataDocumentDetailTest(TestCase):
         self.assertEqual("fa fa-fs fa-file-pdf", icon_span)
 
     def test_last_updated(self):
-        doc = (
-            ExtractedChemical.objects.filter(updated_at__isnull=False)
-            .first()
-            .extracted_text.data_document
+        extracted = ExtractedChemical.objects.filter(updated_at__isnull=False)
+        response = self.client.get(
+            extracted.first().extracted_text.data_document.get_absolute_url()
         )
-        response = self.client.get(doc.get_absolute_url())
         self.assertContains(response, "Last updated:")
-        doc = (
-            ExtractedListPresence.objects.filter(updated_at__isnull=False)
-            .first()
-            .extracted_text.data_document
+
+        extracted = ExtractedListPresence.objects.filter(updated_at__isnull=False)
+        response = self.client.get(
+            extracted.first().extracted_text.data_document.get_absolute_url()
         )
-        response = self.client.get(doc.get_absolute_url())
         self.assertContains(response, "Last updated:")
+
+        extracted = ExtractedChemical.objects.filter(updated_at__isnull=True).first()
+        self.assertTrue(extracted.updated_at == None)
+        extracted.ingredient_rank = 1
+        extracted.save()
+        extracted.refresh_from_db()
+        self.assertTrue(extracted.updated_at != None)
+
+        extracted = ExtractedListPresence.objects.filter(
+            updated_at__isnull=True
+        ).first()
+        self.assertTrue(extracted.updated_at == None)
+        extracted.qa_flag = 1
+        extracted.save()
+        extracted.refresh_from_db()
+        self.assertTrue(extracted.updated_at != None)
 
     def test_epa_reg_number(self):
         id = 7
@@ -605,7 +568,7 @@ class TestDynamicDetailFormsets(TestCase):
         response = self.client.get("/datadocument/%i/" % data_document.pk)
         response_html = html.fromstring(response.content)
         component_text = response_html.xpath(
-            f'//*[@id="component-{ rawchem.id }"]/text()'
+            f'//*[@id="component-{rawchem.id}"]/text()'
         ).pop()
         self.assertEqual(component, component_text)
 
@@ -638,3 +601,25 @@ class TestDynamicDetailFormsets(TestCase):
         response = self.client.get("/datadocument/%i/" % data_document.pk)
 
         self.assertTemplateUsed("data_document/functional_use_chemical_cards.html")
+
+    def test_organization_presence(self):
+        for doc_id in [
+            7,  # Composition
+            5,  # Functional Use
+            254781,  # Chemical Presence List
+            354783,  # HHE Report
+            54,  # Habits and Practices
+            9,  # Literature Monitoring
+        ]:
+            doc = DataDocument.objects.get(pk=doc_id)
+            response = self.client.get("/datadocument/edit/%i/" % doc_id)
+            response_html = html.fromstring(response.content)
+            self.assertTrue(
+                response_html.xpath('boolean(//*[@id="id_organization"])'),
+                "Organization should be editable for all doc types",
+            )
+            response = self.client.get("/datadocument/%i/" % doc_id)
+            response_html = html.fromstring(response.content)
+            self.assertEqual(
+                response_html.xpath('//*[@id="organization"]')[0].text, doc.organization
+            )

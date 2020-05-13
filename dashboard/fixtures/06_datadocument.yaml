@@ -10,7 +10,7 @@
     raw_category: ""
     data_group: 5
     document_type: 9
-    organization: ""
+    organization: Test Functional Use Organization 1
     note: ""
     file: dcfa5cca-1536-498c-86fe-b99f4114ad89.pdf
 - model: dashboard.datadocument
@@ -25,7 +25,7 @@
     raw_category: ""
     data_group: 6
     document_type: 2
-    organization: ""
+    organization: Test Organization 2
     epa_reg_number: "EPA-REG0007"
     note: ""
     file: 9a7390fd-9ec2-4282-bd59-8e115b06f994.pdf
@@ -41,7 +41,7 @@
     raw_category: ""
     data_group: 6
     document_type: 5
-    organization: ""
+    organization: Test Organization 3
     note: ""
     file: 9d387c75-2a4c-4f6e-976b-88a215b05e52.PDF
 - model: dashboard.datadocument
@@ -56,7 +56,7 @@
     raw_category: ""
     data_group: 54
     document_type: 29
-    organization: ""
+    organization: Test Organization 4
     note: ""
     file: 9d387c75-2a4c-4f6e-976b-88a215b05e52.PDF
 - model: dashboard.datadocument
@@ -86,7 +86,7 @@
     raw_category: ""
     data_group: 8
     document_type: 29
-    organization: ""
+    organization: Test Organization 5
     note: ""
     file: fc878ac2-59ef-467a-9a9d-520687698022.pdf
 - model: dashboard.datadocument
@@ -8617,7 +8617,7 @@
     raw_category: ""
     data_group: 49
     document_type: 10
-    organization: ""
+    organization: Test Organization 254781
     note: ""
     file: 95c1d0b4-1da9-4d95-a550-6eacecf0256f.pdf
 - model: dashboard.datadocument

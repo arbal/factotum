@@ -6,7 +6,7 @@ from .common_info import CommonInfo
 from .raw_chem import RawChem
 
 
-class ExtractedFunctionalUse(CommonInfo, RawChem):
+class ExtractedFunctionalUse(RawChem):
     pass
 
     @classmethod

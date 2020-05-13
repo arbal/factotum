@@ -34,7 +34,7 @@ class TestPUCDetail(TestCase):
         prod_type = response_html.xpath('//*[@id="puc_prod_type"]/text()')
         self.assertIn("/ laundry detergent", prod_type)
         kind = response_html.xpath('//*[@id="puc_kind"]/text()')
-        self.assertIn("formulations", kind)
+        self.assertIn("Formulation", kind)
 
     def test_puc_taxonomies(self):
         response = self.client.get("/puc/62/").content.decode("utf8")

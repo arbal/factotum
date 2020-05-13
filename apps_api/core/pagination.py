@@ -4,7 +4,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.utils.urls import remove_query_param, replace_query_param
 
-
+# Todo: This is unused and has been replaced by the drf-jsonapi standard
 class StandardPagination(PageNumberPagination):
     """The pagination schema to attach to all paginated responses"""
 

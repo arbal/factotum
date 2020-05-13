@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Subquery
 from django.utils.translation import ugettext_lazy as _
 from six import text_type
 from taggit.managers import TaggableManager
@@ -8,7 +9,7 @@ from .common_info import CommonInfo
 from .raw_chem import RawChem
 
 
-class ExtractedListPresence(CommonInfo, RawChem):
+class ExtractedListPresence(RawChem):
     """
     A record of a chemical's presence in a CPCat list
 
@@ -109,6 +110,39 @@ class ExtractedListPresenceTag(TagBase, CommonInfo):
         verbose_name = _("Extracted list presence keyword")
         verbose_name_plural = _("Extracted list presence keywords")
         ordering = ("name",)
+
+    def get_tagsets(self):
+        # Get all ExtractedListPresenceToTag that contain this tag
+        # Order by content_object_id and tag_id to verify set is always ordered
+        # the same
+        subquery = ExtractedListPresenceToTag.objects.filter(tag=self).values(
+            "content_object_id"
+        )
+        elp_to_tag = (
+            ExtractedListPresenceToTag.objects.select_related("tag")
+            .filter(content_object_id__in=Subquery(subquery))
+            .order_by("content_object_id", "tag_id")
+        )
+        # If tag is never used return an empty list
+        if not elp_to_tag:
+            return []
+
+        tagsets = set()
+        tagset = []
+        # Add the first Content Id
+        content_id = elp_to_tag.first().content_object_id
+        for row in elp_to_tag:
+            if row.content_object_id == content_id:
+                # Add tag to the list of this content_object's tags
+                tagset.append(row.tag)
+            else:
+                # Add set and start new set for new content_object
+                tagsets.add(tuple(tagset))
+                tagset = [row.tag]
+                content_id = row.content_object_id
+        # Add the Last tagset
+        tagsets.add(tuple(tagset))
+        return list(tagsets)
 
     def __str__(self):
         return self.name

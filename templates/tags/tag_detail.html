@@ -1,0 +1,49 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Tag · {{ object.name|title }}{% endblock %}
+
+{% block content %}
+    <h1>
+        {{ object.name|title }}
+    </h1>
+    <h4 class="text-secondary">
+        {{ object.kind.name|title }}
+    </h4>
+    <p>
+        {{ object.definition }}
+    </p>
+    <ul class="nav nav-pills nav-justified my-3" id="myTab" role="tablist">
+      <li class="nav-item border rounded">
+        <a class="nav-link active" id="set-tab" data-toggle="tab" href="#set-table-wrapper" role="tab" aria-controls="set" aria-selected="true">Sets</a>
+      </li>
+      <li class="nav-item border rounded">
+        <a class="nav-link" id="document-tab" data-toggle="tab" href="#document-table-wrapper" role="tab" aria-controls="document" aria-selected="false">Documents</a>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <div id="set-table-wrapper" class="tab-pane fade show active" role="tabpanel" aria-labelledby="set-tab">
+            <table id="tagset_table" class="table table-striped table-bordered dataTable w-100">
+                <thead>
+                    <tr>
+                        <th>Names</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div id="document-table-wrapper" class="tab-pane fade" role="tabpanel" aria-labelledby="document-tab">
+            <table id="document_table" class="table table-striped table-bordered dataTable w-100">
+                <thead>
+                    <tr>
+                        <th>Titles</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/dashboard/lp_tag_tables.js' %}"></script>
+{% endblock %}

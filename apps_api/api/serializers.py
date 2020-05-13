@@ -1,4 +1,5 @@
-from rest_framework import serializers
+from rest_framework_json_api import serializers
+
 from dashboard import models
 
 
@@ -278,12 +279,11 @@ class ChemicalPresenceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.ExtractedListPresenceTag
-        fields = ["id", "name", "definition", "kind"]
+        # mark the type as chemicalpresence instead of ExtractedListPresenceTag to match the endpoint
+        resource_name = "chemicalpresence"
+
+        fields = ["name", "definition", "kind"]
         extra_kwargs = {
-            "id": {
-                "help_text": "The unique numeric identifier for the chemical presence tag, used to cross-reference data obtained from other Factotum APIs.",
-                "label": "Chemical Presence ID",
-            },
             "name": {
                 "help_text": "A 'tag' (or keyword) which may be applied to a chemical, indicating that there exists data in ChemExpoDB providing evidence that a chemical is related to that tag.",
                 "label": "Name",
@@ -333,12 +333,12 @@ class FunctionalUseSerializer(serializers.ModelSerializer):
 class FunctionalUseCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.FunctionalUseCategory
-        fields = ["id", "title", "description"]
+        # todo: This was named functionaluse instead of the default FunctionalUseCategory
+        #  as a way of reconsiling the route name and resource type.  The route should probably be changed
+        #  to functionalusecategory
+        resource_name = "functionaluse"
+        fields = ["title", "description"]
         extra_kwargs = {
-            "id": {
-                "help_text": "The unique numeric identifier for the functional use category.",
-                "label": "ID",
-            },
             "title": {
                 "help_text": "Title of the functional use category.",
                 "label": "Title",

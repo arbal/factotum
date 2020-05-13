@@ -26,6 +26,9 @@ class TestSearch(TestCase):
         self.client.login(username="Karyn", password="specialP@55word")
         self.esurl = settings.ELASTICSEARCH["default"]["HOSTS"][0]
         self.index = settings.ELASTICSEARCH["default"]["INDEX"]
+        (self.es_username, self.es_password) = settings.ELASTICSEARCH["default"][
+            "http_auth"
+        ]
 
     def _b64_str(self, s):
         return base64.b64encode(s.encode()).decode("unicode_escape")
@@ -46,11 +49,18 @@ class TestSearch(TestCase):
         """
         The correct JSON comes back from the elasticsearch server
         """
-        response = requests.get(f"http://{self.esurl}")
-        self.assertTrue(response.ok)
+        auth_header = {
+            "Authorization": "Basic "
+            + base64.b64encode(
+                f"{self.es_username}:{self.es_password}".encode("utf-8")
+            ).decode("utf-8")
+        }
+        response = requests.get(f"http://{self.esurl}", headers=auth_header)
+        self.assertTrue(response.status_code == 200)
 
         response = requests.get(
-            f"http://{self.esurl}/{self.index}/_search?q=ethylparaben"
+            f"http://{self.esurl}/{self.index}/_search?q=ethylparaben",
+            headers=auth_header,
         )
         self.assertIn("DTXSID9022528", str(response.content))
 
@@ -108,7 +118,7 @@ class TestSearch(TestCase):
         response = self.client.get("/search/puc/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
         total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
-        expected_total = "12 pucs"  # includes synonyms
+        expected_total = "13 pucs"  # includes synonyms
         self.assertIn(expected_total, total_took)
         # chemicals
         response = self.client.get("/search/chemical/" + qs)
@@ -125,7 +135,7 @@ class TestSearch(TestCase):
         self.assertEquals(counts["datadocument"], 42)
         self.assertEquals(counts["product"], 7)
         self.assertEquals(counts["chemical"], 1)
-        self.assertEquals(counts["puc"], 12)
+        self.assertEquals(counts["puc"], 13)
 
     def test_facets(self):
         qs = self._get_query_str("water", {"product_brandname": ["3M"]})

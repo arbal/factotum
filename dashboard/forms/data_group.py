@@ -100,6 +100,7 @@ class ProductCSVForm(forms.Form):
     parent_item_id = field_for_model(Product, "parent_item_id")
     short_description = field_for_model(Product, "short_description")
     long_description = field_for_model(Product, "long_description")
+    epa_reg_number = field_for_model(Product, "epa_reg_number")
     thumb_image = field_for_model(Product, "thumb_image")
     medium_image = field_for_model(Product, "medium_image")
     large_image = field_for_model(Product, "large_image")

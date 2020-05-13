@@ -164,6 +164,7 @@ class ProductForm(forms.ModelForm):
             "model_number",
             "short_description",
             "long_description",
+            "epa_reg_number",
         ]
 
 
@@ -461,6 +462,3 @@ class DataDocumentForm(forms.ModelForm):
         self.fields["document_type"].queryset = DocumentType.objects.compatible(
             self.instance
         )
-        if self.instance and not self.instance.detail_page_include_organization:
-            # hide organization for all types other than HP
-            self.fields["organization"].widget = forms.HiddenInput()

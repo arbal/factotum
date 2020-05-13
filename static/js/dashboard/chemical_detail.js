@@ -5,7 +5,9 @@ var chemical = $('#chemical'),
     puc_parents = chemical.data('puc-parents'),
     document_table,
     product_table;
-nestedBubbleChart(500, 500, false, "/dl_pucs_json/?dtxsid=" + sid);
+
+nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=FO&dtxsid=" + sid, "nestedcircles_FO");
+nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=AR&dtxsid=" + sid, "nestedcircles_AR");
 
 
 $(document).ready(function () {

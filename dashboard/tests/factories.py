@@ -92,6 +92,45 @@ class ExtractedTextFactory(FactotumFactoryBase):
     extraction_script = factory.SubFactory(ScriptFactory)
 
 
+class ExtractedListPresenceFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.ExtractedListPresence
+
+    # These could possibly be replaced with a rawchem factory
+    raw_cas = factory.Faker("word")
+    raw_chem_name = factory.Faker("word")
+    extracted_text = factory.SubFactory(
+        ExtractedTextFactory, data_document__data_group__group_type__code="CP"
+    )
+
+    @factory.post_generation
+    def tags(self, create, extracted, **kwargs):
+        if not create:
+            # Simple build, do nothing.
+            return
+
+        if extracted:
+            # Add the list of tags that were passed in
+            for tag in extracted:
+                self.tags.add(tag)
+
+
+class ExtractedListPresenceTagKindFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.ExtractedListPresenceTagKind
+
+    name = factory.Faker("word")
+
+
+class ExtractedListPresenceTagFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.ExtractedListPresenceTag
+
+    definition = factory.Faker("word")
+    name = factory.Faker("word")
+    kind = factory.SubFactory(ExtractedListPresenceTagKindFactory)
+
+
 class ExtractedHabitsAndPracticesDataTypeFactory(FactotumFactoryBase):
     class Meta:
         model = models.ExtractedHabitsAndPracticesDataType

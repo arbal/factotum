@@ -6,7 +6,8 @@ RUN apk add --no-cache \
         libxslt-dev \
         mariadb-dev \
         jpeg-dev \
-        zlib-dev
+        zlib-dev \
+        build-base
 
 COPY requirements.txt /requirements.txt
 RUN pip --no-cache-dir install -r /requirements.txt \

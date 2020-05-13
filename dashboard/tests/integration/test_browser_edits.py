@@ -193,7 +193,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             "0%",
             "Percent QA Checked for the second row on the Chemical Presence QA index should be zero",
         )
-        self.browser.implicitly_wait(100)
+        self.browser.implicitly_wait(10)
         for doc_id in [
             7,  # Composition
             5,  # Functional Use
@@ -365,6 +365,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 '//*[@id="btn-add-or-edit-extracted-text"]'
             )
             add_button.click()
+
             # Once again, check that the controls on the modal form are clickable
             # before trying to interact with them
             wait.until(
@@ -372,15 +373,12 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                     (By.XPATH, "//*[@id='extracted-text-modal-cancel']")
                 )
             )
-            prod_name_box = self.browser.find_element_by_id("id_prod_name")
-            # Add a prod_name value to the box
-            prod_name_box.send_keys("Fake Product")
-            save_button = self.browser.find_element_by_id("extracted-text-modal-save")
-            save_button.click()
-            self.browser.refresh()
-            self.assertEqual(
-                self.browser.find_element_by_id("id_prod_name").text, "Fake Product"
+            self.browser.find_element_by_xpath("//input[@id='id_prod_name']").send_keys(
+                "Fake Product"
             )
+            self.browser.find_element_by_id("extracted-text-modal-save").click()
+            self.browser.refresh()
+
             # Confirm the presence of the new ExtractedText record
             et = ExtractedText.objects.get(data_document_id=doc_id)
             self.assertEqual(
@@ -397,7 +395,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
     def test_bubble_plot(self):
         pucs = (
-            PUC.objects.filter(kind="FO")
+            PUC.objects.filter(kind__in=["FO", "AR"])
             .with_num_products()
             .filter(num_products__gt=0)
             .astree()
@@ -413,13 +411,21 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             num_pucs, len(bubbles), ("There should be a circle" "drawn for every PUC")
         )
 
+        plots = self.browser.find_elements_by_class_name("nestedcircles")
+        self.assertTrue(len(plots) == 2, "Need more than one bubble")
+
     def test_bubble_legend(self):
         self.browser.get(self.live_server_url)
         wait = WebDriverWait(self.browser, 10)
-        wait.until(ec.presence_of_element_located((By.ID, "puc-accordion")))
-        bubble_legend = self.browser.find_element_by_id("puc-accordion")
+        wait.until(ec.presence_of_element_located((By.ID, "puc-accordion-FO")))
+        bubble_legend = self.browser.find_element_by_id("puc-accordion-FO")
         self.assertTrue(bubble_legend, "Bubble plot legend could not be found")
         child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-20']")
+        self.assertEqual(child_card.get_attribute("class"), "collapse")
+
+        bubble_legend = self.browser.find_element_by_id("puc-accordion-AR")
+        self.assertTrue(bubble_legend, "Bubble plot legend could not be found")
+        child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-316']")
         self.assertEqual(child_card.get_attribute("class"), "collapse")
 
     def test_collapsible_tree(self):
@@ -433,13 +439,13 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.assertTrue(len(nodes) > 0, "Need more than one node")
 
     def test_dtxsid_bubble_plot(self):
-        dss = next(dss for dss in DSSToxLookup.objects.all() if dss.puc_count > 0)
+        dss = DSSToxLookup.objects.get(sid="DTXSID9022528")
         self.browser.get(self.live_server_url + dss.get_absolute_url())
         import time
 
         time.sleep(3)
         pucs = (
-            PUC.objects.filter(kind="FO")
+            PUC.objects.filter(kind__in=["FO", "AR"])
             .dtxsid_filter(dss.sid)
             .with_num_products()
             .filter(num_products__gt=0)

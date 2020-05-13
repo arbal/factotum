@@ -10,7 +10,7 @@ from dashboard.utils import uuid_file
 
 
 def get_default_document_type():
-    return DocumentType.objects.get(code="UN").pk
+    return DocumentType.objects.values_list("id", flat=True).get(code="UN")
 
 
 class DataDocumentManager(models.Manager):
@@ -110,10 +110,6 @@ class DataDocument(CommonInfo):
     def detail_page_editable(self):
         # this could be moved to settings
         return self.data_group.group_type.code in ["CP", "HH", "HP", "CO", "FU", "LM"]
-
-    @property
-    def detail_page_include_organization(self):
-        return self.data_group.group_type.code in ["HP"]
 
     @property
     def chemicals(self):
