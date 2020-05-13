@@ -1,12 +1,11 @@
 from django.db import models
-from django.core.exceptions import ValidationError
+
+from .PUC import PUC
 from .common_info import CommonInfo
 from .product import Product
-from .PUC import PUC
 
 
 class ProductToPUC(CommonInfo):
-
     CLASSIFICATION_CHOICES = (
         ("MA", "Manual"),
         ("AU", "Automatic"),

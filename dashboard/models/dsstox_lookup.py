@@ -57,6 +57,13 @@ class DSSToxLookup(CommonInfo):
             titles += list(f for f in (puc.gen_cat, puc.prod_fam, puc.prod_type) if f)
         return len(set(titles))
 
+    def puc_count_by_kind(self, kind):
+        pdocs = ProductDocument.objects.from_chemical(self)
+        pucs = PUC.objects.filter(products__in=pdocs.values("product")).filter(
+            kind=kind
+        )
+        return pucs.count()
+
     def get_unique_datadocument_group_types_for_dropdown(self):
         docs = DataDocument.objects.from_chemical(self)
         gts = set(docs.values_list("data_group__group_type__title", flat=True))

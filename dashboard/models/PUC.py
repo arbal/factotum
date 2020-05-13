@@ -74,9 +74,9 @@ class PUCQuerySet(models.QuerySet):
 class PUC(CommonInfo):
     KIND_CHOICES = (
         ("UN", "unknown"),
-        ("FO", "formulations"),
-        ("AR", "articles"),
-        ("OC", "occupational"),
+        ("FO", "Formulation"),
+        ("AR", "Article"),
+        ("OC", "Occupation"),
     )
 
     kind = models.CharField(

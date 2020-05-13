@@ -11,23 +11,43 @@ def chemical_detail(request, sid, puc_id=None):
     puc = get_object_or_404(PUC, id=puc_id) if puc_id else None
     keysets = chemical.get_tag_sets()
     group_types = chemical.get_unique_datadocument_group_types_for_dropdown()
-    pucs = PUC.objects.filter(kind="FO").dtxsid_filter(sid).with_num_products().astree()
+
+    formulation_pucs = (
+        PUC.objects.filter(kind="FO").dtxsid_filter(sid).with_num_products().astree()
+    )
     # get parent PUCs too
-    pucs.merge(
+    formulation_pucs.merge(
         PUC.objects.all()
         .annotate(num_products=Value(0, output_field=IntegerField()))
         .astree()
     )
     # Get cumulative product count, displayed in bubble_puc_legend
-    for puc_name, puc_obj in pucs.items():
+    for puc_name, puc_obj in formulation_pucs.items():
         puc_obj.cumnum_products = sum(
-            p.num_products for p in pucs.objects[puc_name].values()
+            p.num_products for p in formulation_pucs.objects[puc_name].values()
         )
+
+    article_pucs = (
+        PUC.objects.filter(kind="AR").dtxsid_filter(sid).with_num_products().astree()
+    )
+    # get parent PUCs too
+    article_pucs.merge(
+        PUC.objects.all()
+        .annotate(num_products=Value(0, output_field=IntegerField()))
+        .astree()
+    )
+    # Get cumulative product count, displayed in bubble_puc_legend
+    for puc_name, puc_obj in article_pucs.items():
+        puc_obj.cumnum_products = sum(
+            p.num_products for p in article_pucs.objects[puc_name].values()
+        )
+
     context = {
         "chemical": chemical,
         "keysets": keysets,
         "group_types": group_types,
-        "pucs": pucs,
+        "formulation_pucs": formulation_pucs,
+        "article_pucs": article_pucs,
         "puc": puc,
         "show_filter": True,
     }
