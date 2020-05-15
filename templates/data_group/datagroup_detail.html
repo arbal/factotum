@@ -124,6 +124,9 @@
               <a class="nav-link" id="extfile_formset-nav-link" data-toggle="tab" role="tab" href="#extfile_formset">Extracted</a>
             </li>
             {% elif datagroup.type == 'FU' or datagroup.type == 'CO' or datagroup.type == 'CP' %}
+            <li class="nav-item">
+                 <a class="nav-link" id="functional_uses_upload_form-nav-link" data-toggle="tab" role="tab" href="#functional_uses_upload_form">Func. Use</a>
+            </li>
             {% if not datagroup.all_matched %}
             <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Missing documents">
               <a class="nav-link disabled" id="extfile_formset-nav-link">Extraction</a>
@@ -186,6 +189,39 @@
               <div class="text-muted small text-center">
                   <span class="fa fa-info-circle mr-2"></span>The CSV file must include these headers:<br>
                   <span class="text-monospace">{{ clean_comp_data_fieldnames }}</span>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="functional_uses_upload_form">
+              <h5 class="card-title">Upload clean functional use data</h5>
+              <form method="POST" name="functional_uses_upload_form" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ functional_use_formset.management_form }}
+                <div class="form-group row pl-3 pr-3">
+                  <select class="custom-select" name="functional-use-script_id" required>
+                    <option value="" selected>Choose a script...</option>
+                    {% for v, n in functional_use_formset.script_choices %}
+                    {% if v %}
+                    <option value="{{ v }}">{{ n }}</option>
+                    {% endif %}
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group row pl-3 pr-3">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="functional_uses-bulkformsetfileupload" accept="text/csv, .csv" required>
+                    <label class="custom-file-label" for="functional_uses-bulkformsetfileupload">
+                        Choose file...
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group row pl-3 pr-3">
+                  <button class="btn btn-primary" name="functional-uses-submit" type="submit">Submit</button>
+                </div>
+              </form>
+              <div class="text-muted small text-center">
+                  <span class="fa fa-info-circle mr-2"></span>The CSV file must include these headers:<br>
+                  <span class="text-monospace">{{ functional_use_data_fieldnames }}</span>
               </div>
             </div>
 
@@ -328,6 +364,13 @@
             </button>
             {% endif %}
             {% endif %}
+
+            {% if datagroup.type == 'FU' or datagroup.type == 'CO' or datagroup.type == 'CP' %}
+            <a href="{%  url 'download_raw_functional_use_records' datagroup.pk %}" class="btn btn-light text-left" download>
+              <span class="fa fa-file-csv mr-2"></span>Raw functional use records
+            </a>
+            {% endif %}
+
             {% if datagroup.registered_docs %}
             <a href="{%  url 'download_datadocuments' datagroup.pk %}" class="btn btn-light text-left" download>
               <span class="fa fa-file-csv mr-2"></span>Document records

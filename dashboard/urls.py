@@ -53,6 +53,11 @@ urlpatterns = [
         name="download_raw_extracted_records",
     ),
     path(
+        "datagroup/<int:pk>/download_raw_functional_use_records/",
+        views.download_raw_functional_use_records,
+        name="download_raw_functional_use_records",
+    ),
+    path(
         "datagroup/<int:pk>/download_registered_documents/",
         views.download_registered_datadocuments,
         name="download_registered_datadocuments",

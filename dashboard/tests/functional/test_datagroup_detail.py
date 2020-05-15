@@ -326,14 +326,10 @@ class DataGroupDetailTestWithFixtures(TestCase):
                 f"/datagroup/%s/download_raw_extracted_records/" % dg_id
             )
             self.assertEqual(resp.status_code, 200)
-
-        # File downloaded must include [specified fields]
-        resp = self.client.get(
-            f"/datagroup/%s/download_raw_extracted_records/" % dg_ids[0]
-        )
-        field_list = "ExtractedChemical_id,raw_cas,raw_chem_name,raw_min_comp,raw_central_comp,raw_max_comp,unit_type"
-        content = list(i.decode("utf-8") for i in resp.streaming_content)
-        self.assertIn(field_list, content[1])
+            # File downloaded must include [specified fields]
+            field_list = "ExtractedChemical_id,raw_cas,raw_chem_name,raw_min_comp,raw_central_comp,raw_max_comp,unit_type"
+            content = list(i.decode("utf-8") for i in resp.streaming_content)
+            self.assertIn(field_list, content[1])
 
     def test_bulk_create_count(self):
         """Test bulk count on a data group containing both

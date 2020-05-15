@@ -8,6 +8,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.defaultfilters import pluralize
+from django_mysql.models import GroupConcat
 from djqscsv import render_to_csv_response
 
 from dashboard.forms import DataGroupForm, create_detail_formset
@@ -18,6 +19,7 @@ from dashboard.forms.data_group import (
     UploadDocsForm,
     RegisterRecordsFormSet,
     ProductBulkCSVFormSet,
+    FunctionalUseBulkCSVFormSet,
 )
 from dashboard.models import (
     ExtractedText,
@@ -28,6 +30,7 @@ from dashboard.models import (
     GroupType,
     DataDocument,
     DataGroup,
+    FunctionalUse,
 )
 from dashboard.utils import gather_errors, zip_stream
 from factotum.environment import env
@@ -70,11 +73,15 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
                 for x in dg.get_product_template_fieldnames()
             ]
         ),
+        "functional_use_data_fieldnames": ", ".join(
+            [x for x in dg.get_clean_functional_use_data_fieldnames()]
+        ),
         "uploaddocs_form": None,
         "extfile_formset": None,
         "cleancomp_formset": None,
         "bulkassignprod_form": None,
         "product_formset": None,
+        "functional_use_formset": None,
         "env": {
             "PRODUCT_IMAGE_DIRECTORY_MAX_UPLOAD": env.PRODUCT_IMAGE_DIRECTORY_MAX_UPLOAD,
             "PRODUCT_IMAGE_DIRECTORY_MAX_FILE_COUNT": env.PRODUCT_IMAGE_DIRECTORY_MAX_FILE_COUNT,
@@ -161,6 +168,29 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
                     messages.error(request, e)
             return redirect("data_group_detail", dg.pk)
         context["product_formset"] = ProductBulkCSVFormSet()
+
+    if dg.include_functional_use_upload_form():
+        if "functional-uses-submit" in request.POST:
+            functional_use_formset = FunctionalUseBulkCSVFormSet(
+                dg, request.POST, request.FILES
+            )
+            if functional_use_formset.is_valid():
+                num_saved, reports = functional_use_formset.save()
+                messages.success(
+                    request, f"{num_saved} records have been successfully updated."
+                )
+                for report in reports:
+                    messages.warning(request, report)
+            else:
+                errors = gather_errors(functional_use_formset)
+                for e in errors:
+                    messages.error(request, e)
+            return redirect("data_group_detail", dg.pk)
+        else:
+            context["functional_use_formset"] = FunctionalUseBulkCSVFormSet(dg)
+
+    # This render line must happen after all conditional blocks
+    # have been evaluated
     return render(request, template_name, context)
 
 
@@ -325,7 +355,10 @@ def download_raw_extracted_records(request, pk):
         return render_to_csv_response(
             qs,
             filename=(datagroup.get_name_as_slug() + "_raw_extracted_records.csv"),
-            field_header_map={"id": "ExtractedChemical_id"},
+            field_header_map={
+                "id": "ExtractedChemical_id",
+                "unit_type__title": "unit_type",
+            },
             use_verbose_names=False,
         )
     else:
@@ -416,3 +449,27 @@ def get_product_csv_template(request, pk):
     for doc in DataDocument.objects.filter(data_group=dg):
         writer.writerow([doc.id, doc.filename])
     return response
+
+
+@login_required
+def download_raw_functional_use_records(request, pk):
+    datagroup = DataGroup.objects.get(pk=pk)
+    columnlist = [
+        "id",
+        "report_funcuse",
+        "extraction_script__title",
+        "category__title",
+        "clean_funcuse",
+    ]
+    qs = FunctionalUse.objects.filter(
+        chem__extracted_text__data_document__data_group=datagroup
+    ).values(*columnlist)
+    return render_to_csv_response(
+        qs,
+        filename=(datagroup.get_name_as_slug() + "_raw_functional_use_records.csv"),
+        field_header_map={
+            "extraction_script__title": "extraction_script",
+            "category__title": "category_title",
+        },
+        use_verbose_names=False,
+    )

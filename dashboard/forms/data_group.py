@@ -20,6 +20,7 @@ from dashboard.models import (
     DocumentType,
     ExtractedChemical,
     FunctionalUse,
+    FunctionalUseCategory,
     DataGroup,
     RawChem,
     ExtractedText,
@@ -772,3 +773,70 @@ class DataDocumentCSVForm(forms.ModelForm):
             "epa_reg_number",
         ]
         field_classes = {"document_type": DocTypeFormField}
+
+
+class FunctionalUseCSVForm(forms.Form):
+    # A ModelForm does not work here because it will
+    # not carry the id field
+    id = forms.IntegerField(required=True)
+    category_title = forms.CharField(required=True)
+    clean_funcuse = field_for_model(FunctionalUse, "clean_funcuse")
+
+    class Meta:
+        fields = ["id", "category_title", "clean_funcuse"]
+
+
+class FunctionalUseBulkCSVFormSet(DGFormSet):
+    """
+    Assigns extraction_script, category, and clean_funcuse to 
+    exsting functional use records
+    """
+
+    prefix = "functional_uses"
+    serializer = CSVReader
+    form = FunctionalUseCSVForm
+
+    def __init__(self, dg, *args, **kwargs):
+        self.dg = dg
+        self.form = FunctionalUseCSVForm
+        self.script_choices = [
+            (str(s.pk), str(s)) for s in Script.objects.filter(script_type="FU")
+        ]
+        super().__init__(*args, **kwargs)
+
+    def clean(self, *args, **kwargs):
+        header = list(self.bulk.fieldnames)
+        header_cols = ["id", "category_title", "clean_funcuse"]
+        if header != header_cols:
+            raise forms.ValidationError(f"CSV column titles should be {header_cols}")
+
+        for f in self.forms:
+            # Convert category title string to an existing functional use category object
+            category_title = f.cleaned_data.get("category_title")
+            category = FunctionalUseCategory.objects.filter(
+                title=category_title
+            ).first()
+            if not category:
+                raise forms.ValidationError(
+                    f"'{category_title}' is not a valid category title"
+                )
+            else:
+                f.cleaned_data["category"] = category
+
+    def save(self):
+        updated_functional_uses = 0
+        reports = []
+        for f in self.forms:
+            f.cleaned_data["updated_at"] = datetime.now()
+            f.cleaned_data["extraction_script_id"] = self.data[
+                "functional-use-script_id"
+            ]
+            functional_use_dict = clean_dict(f.cleaned_data, FunctionalUse)
+            with transaction.atomic():
+                # update the functional use record for the form
+                FunctionalUse.objects.filter(pk=f.cleaned_data["id"]).update(
+                    **functional_use_dict
+                )
+                updated_functional_uses += 1
+
+        return updated_functional_uses, reports
