@@ -118,7 +118,7 @@ ELASTICSEARCH = {
     "default": {
         "HOSTS": [env.ELASTICSEARCH_HOST + ":" + env.ELASTICSEARCH_PORT],
         "INDEX": "dashboard",
-        "http_auth": (env.FACTOTUM_ELASTIC_USERNAME, env.FACTOTUM_ELASTIC_PASSWORD),
+        "HTTP_AUTH": (env.FACTOTUM_ELASTIC_USERNAME, env.FACTOTUM_ELASTIC_PASSWORD),
     }
 }
 
