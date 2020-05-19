@@ -16,6 +16,8 @@ INTERNAL_IPS = ("127.0.0.1",)
 FILE_UPLOAD_MAX_MEMORY_SIZE = int(env.MAX_UPLOAD_SIZE)
 DATA_UPLOAD_MAX_MEMORY_SIZE = int(env.MAX_UPLOAD_SIZE)
 
+IS_WS_API = True if env.ROOT_URLCONF == "api" else False
+
 INSTALLED_APPS = [
     "dal",
     "dal_select2",
@@ -198,17 +200,27 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "django.server",
         },
+        "logstash": {
+            "level": "INFO",
+            "class": "logstash.UDPLogstashHandler",
+            "host": env.LOGSTASH_HOST,
+            "port": int(env.LOGSTASH_PORT),
+            "version": 1,
+            "message_type": "django",
+            "fqdn": False,
+            "tags": ["factotum_ws", "access"],
+        },
     },
     "loggers": {
         "django": {"handlers": ["console"], "level": "INFO", "propagate": False},
         "django.server": {
-            "handlers": ["django.server"],
+            "handlers": ["logstash", "django.server"] if IS_WS_API else ["django.server"],
             "level": "INFO",
             "propagate": False,
         },
         "gunicorn.access": {
             "level": "INFO",
-            "handlers": ["console"],
+            "handlers": ["logstash", "console"] if IS_WS_API else ["console"],
             "propagate": False,
         },
         "gunicorn.error": {
