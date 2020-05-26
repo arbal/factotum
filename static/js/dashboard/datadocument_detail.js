@@ -65,37 +65,20 @@ $('.hover').mouseout(function () {
     $(this).addClass("btn-outline-secondary");
 })
 
-$('#chemical-add-modal').on('show.bs.modal', function (event) {
-    var modal = $(this);
-    $.ajax({
-        url: modal.attr('data-url'),
-        context: document.body
-    }).done(function (response) {
-        modal.html(response);
-    });
-});
+var request = $.get("/datadocument/" + doc.text + "/cards", function(data) {
+    let domparser = new DOMParser()
+    let doc = domparser.parseFromString(data, "text/html")
 
-$('#chemical-update-modal').on('show.bs.modal', function (event) {
-    var modal = $(this);
-    var chem_pk = event.relatedTarget.value;
-    $.ajax({
-        url: modal.attr('data-url').replace(/47/, chem_pk.toString()),
-        context: document.body
-    }).done(function (response) {
-        modal.html(response);
-    });
-});
+    let card_count = doc.querySelectorAll("[id^=chem-click-]").length
 
-$('#chemical-audit-log-modal').on('show.bs.modal', function (event) {
-    var modal = $(this);
-    $.ajax({
-        url: event.relatedTarget.href,
-        context: document.body,
-        error: function (response) {
-            alert(response.responseText);
-        }
+    $("#chemical-card-panel").html(doc.querySelector("#cards"))
+    $("#card-count").text(card_count)
 
-    }).done(function (response) {
-        modal.html(response);
-    });
-});
+    $("#scrollspy-panel").html(doc.querySelector("#scroll-nav"))
+
+    let scripts = doc.querySelectorAll('script')
+    for (var n = 0; n < scripts.length; n++)
+        $.getScript(scripts[n].src)
+}).fail(function(jqXHR, textStatus, errorThrown) {
+    $("#card-loading-text").text("Cards Failed to Load")
+})

@@ -36,6 +36,7 @@ from dashboard.models import (
     ExtractedHabitsAndPractices,
     ExtractedHabitsAndPracticesTag,
     ExtractedHabitsAndPracticesToTag,
+    ExtractedFunctionalUse,
 )
 from django.forms import inlineformset_factory
 
@@ -63,42 +64,41 @@ def data_document_detail(request, pk):
     Parent, Child = get_extracted_models(doc.data_group.group_type.code)
     ext = Parent.objects.filter(pk=doc.pk).first()
     fufs = []
-    chemicals = []
     tag_form = tag_form_url = None
 
     if doc.data_group.group_type.code in CHEMICAL_TYPES:
-        chemicals = Child.objects.filter(extracted_text__data_document=doc)
-
         if Child == ExtractedListPresence:
-            chemicals = chemicals.prefetch_related("tags")
             tag_form = ExtractedListPresenceTagForm()
             tag_form_url = "save_list_presence_tag_form"
 
-        if Child == ExtractedChemical:
-            chemicals = chemicals.order_by("component", "ingredient_rank")
-
         if Child == ExtractedHabitsAndPractices:
-            chemicals = chemicals.prefetch_related("tags")
             tag_form = ExtractedHabitsAndPracticesTagForm()
             tag_form_url = "save_habits_and_practices_tag_form"
+
         else:
-            chemicals = chemicals.prefetch_related("dsstox")
+            chem = (
+                Child.objects.filter(extracted_text__data_document=doc)
+                .prefetch_related("dsstox")
+                .first()
+            )
             FuncUseFormSet = inlineformset_factory(
                 RawChem, FunctionalUse, fields=("report_funcuse",), extra=1
             )
-            chem = chemicals.first()
             fufs = FuncUseFormSet(instance=chem)
     context = {
         "fufs": fufs,
         "doc": doc,
         "extracted_text": ext,
-        "chemicals": chemicals,
         "edit_text_form": ParentForm(instance=ext),  # empty form if ext is None
         "tag_form_url": tag_form_url,
         "tag_form": tag_form,
     }
     if doc.data_group.group_type.code == "CO":
-        script_chem = chemicals.filter(script__isnull=False).first()
+        script_chem = (
+            Child.objects.filter(extracted_text__data_document=doc)
+            .filter(script__isnull=False)
+            .first()
+        )
         context["cleaning_script"] = script_chem.script if script_chem else None
     return render(request, template_name, context)
 
@@ -440,3 +440,33 @@ def chemical_audit_log(request, pk):
         "chemicals/chemical_audit_log.html",
         {"chemical": chemical, "auditlog": auditlog},
     )
+
+
+def chemical_cards(request, pk):
+    doc = get_object_or_404(DataDocument, pk=pk)
+    _, Child = get_extracted_models(doc.data_group.group_type.code)
+
+    chemicals = Child.objects.filter(extracted_text__data_document=doc)
+
+    if Child == ExtractedListPresence:
+        chemicals = chemicals.prefetch_related("tags", "dsstox")
+        template = "data_document/chemical_cards/co_cp_chemical_cards.html"
+
+    elif Child == ExtractedChemical:
+        chemicals = chemicals.order_by("component", "ingredient_rank").prefetch_related(
+            "dsstox"
+        )
+        template = "data_document/chemical_cards/co_cp_chemical_cards.html"
+
+    elif Child == ExtractedHabitsAndPractices:
+        chemicals = chemicals.prefetch_related("tags")
+        template = "data_document/chemical_cards/hp_cards.html"
+
+    elif Child == ExtractedFunctionalUse:
+        template = "data_document/chemical_cards/functional_use_chemical_cards.html"
+
+    else:
+        chemicals = chemicals.prefetch_related("dsstox")
+        template = "data_document/chemical_cards/chemical_cards.html"
+
+    return render(request, template, {"doc": doc, "chemicals": chemicals})

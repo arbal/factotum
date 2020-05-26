@@ -191,13 +191,18 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
 
     def test_habits_and_practice_cards_remove_PUC(self):
         # Open Edit form and assert puc present (self.pucs[0] in this case.)
+        wait = WebDriverWait(self.browser, 10)
         self.browser.get(
             self.live_server_url
             + f"/datadocument/{self.hnp.extracted_text.data_document_id}"
         )
         self.assertIn(
             str(self.pucs[0]),
-            self.browser.find_element_by_id(f"chem-{self.hnp.pk}").text,
+            wait.until(
+                expected_conditions.presence_of_element_located(
+                    (By.ID, f"chem-{self.hnp.pk}")
+                )
+            ).text,
         )
         edit_hp_button = self.browser.find_element_by_id(
             f"chemical-update-{self.hnp.pk}"
@@ -205,7 +210,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         ActionChains(self.browser).move_to_element(edit_hp_button).click().perform()
 
         # Select and submit the new PUC to the habits and practice
-        edit_form = WebDriverWait(self.browser, 10).until(
+        edit_form = wait.until(
             expected_conditions.presence_of_element_located((By.ID, "chem-update"))
         )
         edit_form.find_element_by_xpath(

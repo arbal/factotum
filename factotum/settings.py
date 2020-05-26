@@ -214,7 +214,9 @@ LOGGING = {
     "loggers": {
         "django": {"handlers": ["console"], "level": "INFO", "propagate": False},
         "django.server": {
-            "handlers": ["logstash", "django.server"] if IS_WS_API else ["django.server"],
+            "handlers": ["logstash", "django.server"]
+            if IS_WS_API
+            else ["django.server"],
             "level": "INFO",
             "propagate": False,
         },

@@ -43,8 +43,10 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         doc = DataDocument.objects.get(pk=254781)
         wait = WebDriverWait(self.browser, 10)
         self.browser.get(self.live_server_url + doc.get_absolute_url())
-        card = self.browser.find_element_by_id(
-            f"chem-click-{doc.extractedtext.rawchem.first().pk}"
+        card = wait.until(
+            ec.element_to_be_clickable(
+                (By.ID, f"chem-click-{doc.extractedtext.rawchem.first().pk}")
+            )
         )
         count_span = self.browser.find_element_by_id("selected")
         self.assertTrue(
@@ -79,7 +81,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         )
         option.click()
         save_button.submit()
-        card = self.browser.find_element_by_id("chem-click-759")
+        card = wait.until(ec.presence_of_element_located((By.ID, "chem-click-759")))
         tags = card.find_elements_by_class_name("tag-btn")
         self.assertEqual(
             [t.text for t in tags],

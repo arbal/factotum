@@ -8,6 +8,41 @@ $(document).ready(function () {
     })
 });
 
+$('#chemical-add-modal').on('show.bs.modal', function (event) {
+    var modal = $(this);
+    $.ajax({
+        url: modal.attr('data-url'),
+        context: document.body
+    }).done(function (response) {
+        modal.html(response);
+    });
+});
+
+$('#chemical-update-modal').on('show.bs.modal', function (event) {
+    var modal = $(this);
+    var chem_pk = event.relatedTarget.value;
+    $.ajax({
+        url: modal.attr('data-url').replace(/47/, chem_pk.toString()),
+        context: document.body
+    }).done(function (response) {
+        modal.html(response);
+    });
+});
+
+$('#chemical-audit-log-modal').on('show.bs.modal', function (event) {
+    var modal = $(this);
+    $.ajax({
+        url: event.relatedTarget.href,
+        context: document.body,
+        error: function (response) {
+            alert(response.responseText);
+        }
+
+    }).done(function (response) {
+        modal.html(response);
+    });
+});
+
 $('[id^=chem-click-]').click(function (e) {
     // add outline to card and add/remove chemicalID to value string in input
     var inputs = $("#id_chems")[0];

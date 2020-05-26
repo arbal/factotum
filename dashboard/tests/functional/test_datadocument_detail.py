@@ -103,7 +103,7 @@ class DataDocumentDetailTest(TestCase):
         the curated name and CAS appear in the sidebar navigation
         """
         ddid = 7
-        resp = self.client.get(f"/datadocument/%s/" % ddid)
+        resp = self.client.get(f"/datadocument/%s/cards" % ddid)
         self.assertIn('href="/chemical/DTXSID2021781/"', resp.content.decode("utf-8"))
         # Any curated chemicals should also be linked to COMPTOX
         self.assertIn(
@@ -137,6 +137,7 @@ class DataDocumentDetailTest(TestCase):
         self.assertContains(response, "Download Script")
         self.assertContains(response, "Cleaning Script")
         comptox = "https://comptox.epa.gov/dashboard/dsstoxdb/results?search="
+        response = self.client.get(f"/datadocument/{doc.pk}/cards")
         self.assertContains(response, comptox)
         chems = doc.extractedtext.rawchem.all().select_subclasses()
         for chem in chems:
@@ -284,7 +285,7 @@ class DataDocumentDetailTest(TestCase):
         one = qs.first()
         two = qs.last()
         self.assertTrue(two.ingredient_rank > one.ingredient_rank)
-        response = self.client.get(f"/datadocument/{doc.pk}/")
+        response = self.client.get(f"/datadocument/{doc.pk}/cards")
         html = response.content.decode("utf-8")
         first_idx = html.index(f'id="chem-{one.pk}"')
         second_idx = html.index(f'id="chem-{two.pk}"')
@@ -361,13 +362,13 @@ class DataDocumentDetailTest(TestCase):
     def test_last_updated(self):
         extracted = ExtractedChemical.objects.filter(updated_at__isnull=False)
         response = self.client.get(
-            extracted.first().extracted_text.data_document.get_absolute_url()
+            f"/datadocument/{extracted.first().extracted_text.data_document.pk}/cards"
         )
         self.assertContains(response, "Last updated:")
 
         extracted = ExtractedListPresence.objects.filter(updated_at__isnull=False)
         response = self.client.get(
-            extracted.first().extracted_text.data_document.get_absolute_url()
+            f"/datadocument/{extracted.first().extracted_text.data_document.pk}/cards"
         )
         self.assertContains(response, "Last updated:")
 
@@ -539,7 +540,7 @@ class TestDynamicDetailFormsets(TestCase):
             sampling_method="test sampling method", extracted_text=ext
         )
         hhrec.save()
-        response = self.client.get("/datadocument/%i/" % ext.data_document_id)
+        response = self.client.get("/datadocument/%i/cards" % ext.data_document_id)
         page = html.fromstring(response.content)
         raw_chem_name = page.xpath('//*[@id="raw_chem_name-' + str(hhrec.id) + '"]/h5')[
             0
@@ -565,7 +566,7 @@ class TestDynamicDetailFormsets(TestCase):
         data_document = DataDocument.objects.get(pk=254781)
         rawchem = RawChem.objects.get(pk=759)
         component = rawchem.component
-        response = self.client.get("/datadocument/%i/" % data_document.pk)
+        response = self.client.get("/datadocument/%i/cards" % data_document.pk)
         response_html = html.fromstring(response.content)
         component_text = response_html.xpath(
             f'//*[@id="component-{rawchem.id}"]/text()'
@@ -580,7 +581,7 @@ class TestDynamicDetailFormsets(TestCase):
         chem_ids = exchems.values_list("id", flat=True)
         first_id = chem_ids[0]
         second_id = chem_ids[1]
-        response = self.client.get("/datadocument/%i/" % data_document.pk)
+        response = self.client.get("/datadocument/%i/cards" % data_document.pk)
         response_html = html.fromstring(response.content)
         cards = response_html.find_class("card")
         self.assertEqual(cards[0].get("id"), f"chem-{first_id}")
@@ -590,7 +591,7 @@ class TestDynamicDetailFormsets(TestCase):
         ec = exchems.get(id=93)
         ec.component = "Component C"
         ec.save()
-        response = self.client.get("/datadocument/%i/" % data_document.pk)
+        response = self.client.get("/datadocument/%i/cards" % data_document.pk)
         response_html = html.fromstring(response.content)
         cards = response_html.find_class("card")
         # the new first card should match the second ID

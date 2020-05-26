@@ -1,5 +1,7 @@
-<div class="col-lg-7 scroll-div bg-light shadow rounded"
-     id="cards"
+{% extends 'data_document/chemical_cards/chemical_card_base.html' %}
+
+{% block cards %}
+<div id="cards"
      data-spy="scroll"
      data-target="#chem-scrollspy"
      data-offset="120">
@@ -262,5 +264,7 @@
         <div class="modal" id="chemical-update-modal" data-backdrop="static"
              data-url="{% url 'chemical_update' 47 %}"></div>
     {% endif %}
-        <div class="modal" id="chemical-audit-log-modal" data-backdrop="static"></div>
-    </div>
+    <div class="modal" id="chemical-audit-log-modal" data-backdrop="static"></div>
+</div>
+
+{% endblock %}
