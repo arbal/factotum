@@ -6,8 +6,11 @@
 
 {% block title %}Data Document {{ doc.id }}: {{ doc.title }}{% endblock %}
 
-{% block css %}
+{% block header_css %}
     <link rel="stylesheet" href="{% static 'css/dashboard/full_width_container.css' %}">
+{% endblock %}
+
+{% block css %}
     <link rel="stylesheet" href="{% static 'css/dashboard/anchored_footer.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap-slider/css/bootstrap-slider.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard/data_document_detail.css' %}">
@@ -240,7 +243,7 @@
                         <div class="d-flex mt-2">
                             {{ tag_form }}
                         </div>
-                        <p class="text-right text-muted"><span id="selected">0</span> of {{ chemicals|length }}
+                        <p class="text-right text-muted"><span id="selected">0</span> of <span id="card-count">?</span>
                             Chemicals
                             Selected</p>
                         <input type="hidden" name="chems" value="" id="id_chems">
@@ -432,69 +435,22 @@
             </div>
         </div>
         <!-- chemical card panel -->
-        {% if doc.data_group.is_habits_and_practices %}
-            {% include 'data_document/hp_cards.html' %}
-        {% elif doc.data_group.is_chemical_presence or doc.data_group.is_composition or doc.data_group.is_literature_monitoring %}
-            {% include 'data_document/co_cp_chemical_cards.html' %}
-        {% elif doc.data_group.is_functional_use %}
-            {% include 'data_document/functional_use_chemical_cards.html' %}
-        {% else %}
-            {% include 'data_document/chemical_cards.html' %}
-        {% endif %}
-        <div class="col-lg-2 position-relative bg-white shadow scroll-div" id="scroll-nav">
-            <nav class="pt-2" id="chem-scrollspy">
-                <ul class="nav nav-pills nav-stacked flex-column">
-                    {% if doc.data_group.is_habits_and_practices %}
-                        {% for chemical in doc.extractedtext.practices.all %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="#chem-{{ chemical.pk }}">
-                                    <p class="m-0"
-                                       data-toggle="tooltip"
-                                       data-placement="left"
-                                       title="{{ chemical.product_surveyed|truncatechars:18 }}">
-                                        {{ chemical.product_surveyed|truncatechars:18 }}
-                                    </p>
-                                </a>
-                            </li>
-                        {% endfor %}
-                    {% else %}
-                        {% for chemical in chemicals %}
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                   href="#chem-{{ chemical.pk }}">
-                                    {% firstof chemical.rendered_chemname chemical.rendered_cas "None" as title_name %}
-                                    <p class="m-0"
-                                       data-toggle="tooltip"
-                                       data-placement="left"
-                                       title="{{ title_name }}"
-                                       data-boundary="viewport">
-                                        {{ title_name|truncatechars:18 }}
-                                    </p>
-                                    {% if chemical.rendered_chemname and chemical.rendered_cas %}
-                                        <small class="m-0">
-                                            {{ chemical.rendered_cas|truncatechars:18 }}
-                                        </small>
-                                    {% endif %}
-
-                                </a>
-                            </li>
-                        {% endfor %}
-                    {% endif %}
-                </ul>
-            </nav>
-        </div><!-- scrollspy -->
+        <div id="chemical-card-panel" class="col-lg-7 scroll-div bg-light shadow rounded">
+            <h5 id="card-loading-text" class="mt-3 text-center">Loading Cards...</h5>
+        </div>
+        <div id="scrollspy-panel" class="col-lg-2 scroll-div bg-white shadow rounded">
+        </div>
     </div><!-- 3 column panel -->
     {{ tag_form.media }}
 
 {% endblock %}
 
 {% block js %}
+    {{ doc.id|json_script:"doc" }}
     <script src="{% static 'js/dashboard/toggle_text.js' %}"></script>
     <script src="{% static 'bootstrap-slider/bootstrap-slider.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail.js' %}"></script>
     <script type="module" src="{% static 'js/dashboard/datadocument_detail_ajax.js' %}"></script>
-    {% if doc.data_group.is_chemical_presence or doc.data_group.is_habits_and_practices %}
-        <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail_card_selector.js' %}"></script>
-    {% endif %}
+
     <script src="{% static 'js/jquery.form.js' %}"></script>
 {% endblock %}

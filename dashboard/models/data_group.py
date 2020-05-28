@@ -164,6 +164,9 @@ class DataGroup(CommonInfo):
     def get_clean_comp_data_fieldnames(self):
         return ["id", "lower_wf_analysis", "central_wf_analysis", "upper_wf_analysis"]
 
+    def get_clean_functional_use_data_fieldnames(self):
+        return ["id", "category_title", "clean_funcuse"]
+
     def get_product_template_fieldnames(self):
         product_fields = [
             "title",
@@ -188,6 +191,9 @@ class DataGroup(CommonInfo):
 
     def include_product_upload_form(self):
         return True
+
+    def include_functional_use_upload_form(self):
+        return self.type in ["FU", "CO", "CP"]
 
     def clean_fields(self, exclude=None):
         super().clean_fields(exclude=exclude)

@@ -27,7 +27,7 @@ class TestSearch(TestCase):
         self.esurl = settings.ELASTICSEARCH["default"]["HOSTS"][0]
         self.index = settings.ELASTICSEARCH["default"]["INDEX"]
         (self.es_username, self.es_password) = settings.ELASTICSEARCH["default"][
-            "http_auth"
+            "HTTP_AUTH"
         ]
 
     def _b64_str(self, s):
@@ -333,7 +333,7 @@ class TestSearch(TestCase):
         a synonym) in its chemicals' true chem names higher
         than a document with "water" in its title. 
         """
-        # The second result row should contain "True chemical name:"
+        # The first result row should contain "True chemical name:"
         qs = self._get_query_str("water")
         resp = self.client.get("/search/datadocument/" + qs)
         soup = bs4.BeautifulSoup(resp.content, features="lxml")

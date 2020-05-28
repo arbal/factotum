@@ -104,7 +104,7 @@
     created_at: 2020-01-30 02:45:44.192534
     updated_at: 2020-01-30 02:45:44.192551
     chem: 852
-    report_funcuse: '#tagged4life'
+    report_funcuse: "#tagged4life"
     clean_funcuse: ""
 - model: dashboard.functionaluse
   pk: 11
@@ -122,3 +122,24 @@
     chem: 854
     report_funcuse: surfactaint
     clean_funcuse: ""
+- model: dashboard.functionaluse
+  pk: 13
+  fields:
+    created_at: 2020-01-30 02:45:44.193517
+    updated_at: 2020-01-30 02:45:44.193532
+    chem: 86
+    report_funcuse: fresh scennt
+- model: dashboard.functionaluse
+  pk: 14
+  fields:
+    created_at: 2020-01-30 02:45:44.193517
+    updated_at: 2020-01-30 02:45:44.193532
+    chem: 86
+    report_funcuse: wetting agent
+- model: dashboard.functionaluse
+  pk: 15
+  fields:
+    created_at: 2020-01-30 02:45:44.193517
+    updated_at: 2020-01-30 02:45:44.193532
+    chem: 389
+    report_funcuse: fresh scent

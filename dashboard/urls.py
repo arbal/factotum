@@ -53,6 +53,11 @@ urlpatterns = [
         name="download_raw_extracted_records",
     ),
     path(
+        "datagroup/<int:pk>/download_raw_functional_use_records/",
+        views.download_raw_functional_use_records,
+        name="download_raw_functional_use_records",
+    ),
+    path(
         "datagroup/<int:pk>/download_registered_documents/",
         views.download_registered_datadocuments,
         name="download_registered_datadocuments",
@@ -158,6 +163,9 @@ urlpatterns = [
     path("product/delete/<int:pk>/", views.product_delete, name="product_delete"),
     path("products/", views.product_list, name="product_list"),
     path("datadocument/<int:pk>/", views.data_document_detail, name="data_document"),
+    path(
+        "datadocument/<int:pk>/cards", views.chemical_cards, name="data_document_cards"
+    ),
     path("save_type/<int:pk>/", views.save_doc_form, name="save_doc_form"),
     path("save_ext/<int:pk>/", views.save_ext_form, name="save_ext_form"),
     path(

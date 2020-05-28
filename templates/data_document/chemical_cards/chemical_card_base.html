@@ -1,0 +1,47 @@
+{% load staticfiles %}
+
+{% block cards %} {% endblock %}
+
+<div id="scroll-nav">
+    <nav class="pt-2" id="chem-scrollspy">
+        <ul class="nav nav-pills nav-stacked flex-column">
+            {% if doc.data_group.is_habits_and_practices %}
+                {% for chemical in doc.extractedtext.practices.all %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#chem-{{ chemical.pk }}">
+                            <p class="m-0"
+                               data-toggle="tooltip"
+                               data-placement="left"
+                               title="{{ chemical.product_surveyed|truncatechars:18 }}">
+                                {{ chemical.product_surveyed|truncatechars:18 }}
+                            </p>
+                        </a>
+                    </li>
+                {% endfor %}
+            {% else %}
+                {% for chemical in chemicals %}
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="#chem-{{ chemical.pk }}">
+                            {% firstof chemical.rendered_chemname chemical.rendered_cas "None" as title_name %}
+                            <p class="m-0"
+                               data-toggle="tooltip"
+                               data-placement="left"
+                               title="{{ title_name }}"
+                               data-boundary="viewport">
+                                {{ title_name|truncatechars:18 }}
+                            </p>
+                            {% if chemical.rendered_chemname and chemical.rendered_cas %}
+                                <small class="m-0">
+                                    {{ chemical.rendered_cas|truncatechars:18 }}
+                                </small>
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </nav>
+</div><!-- scrollspy -->
+
+<script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail_card_selector.js' %}"></script>

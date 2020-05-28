@@ -1,8 +1,31 @@
 import datetime
 import factory
 from django.db import IntegrityError
-
+import random
 from dashboard import models
+from faker.providers import BaseProvider
+
+
+class ChemicalProvider(BaseProvider):
+    def cas_number(self):
+        """
+        Returns a CAS string
+        """
+        seg1 = self.generator.random.randrange(10, 9999999)
+        seg2 = self.generator.random.randrange(10, 99)
+        seg3 = self.generator.random.randrange(0, 9)
+        return f"{seg1}-{seg2}-{seg3}"
+
+    def sid(self):
+        """
+        Returns a DTXSID
+        """
+        seg1 = "DTXSID"
+        seg2 = str(random.randint(0, 9999999)).rjust(7, "0")
+        return f"{seg1}{seg2}"
+
+
+factory.Faker.add_provider(ChemicalProvider)
 
 
 class FactotumFactoryBase(factory.django.DjangoModelFactory):
@@ -83,22 +106,98 @@ class ScriptFactory(FactotumFactoryBase):
     class Meta:
         model = models.Script
 
+    title = factory.Faker("word")
+
+
+class UnitTypeFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.UnitType
+
+    title = factory.Faker("word")
+    description = factory.Faker("text")
+
+
+class WeightFractionTypeFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.WeightFractionType
+
+    title = factory.Faker("word")
+    description = factory.Faker("text")
+
 
 class ExtractedTextFactory(FactotumFactoryBase):
     class Meta:
         model = models.ExtractedText
 
     data_document = factory.SubFactory(DataDocumentFactory)
-    extraction_script = factory.SubFactory(ScriptFactory)
+    extraction_script = factory.SubFactory(ScriptFactory, script_type="EX")
 
 
-class ExtractedListPresenceFactory(factory.django.DjangoModelFactory):
+class TrueChemicalFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.DSSToxLookup
+
+    sid = factory.Faker("sid")
+    true_cas = factory.Faker("cas_number")
+    true_chemname = factory.Faker("word")
+
+
+class FunctionalUseCategoryFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.FunctionalUseCategory
+
+    title = factory.Faker("word")
+    description = factory.Faker("text", max_nb_chars=255)
+
+
+class FunctionalUseFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.FunctionalUse
+
+    category = factory.SubFactory(FunctionalUseCategoryFactory)
+    report_funcuse = factory.Faker("word")
+    clean_funcuse = factory.Faker("word")
+    # extraction_script = factory.SubFactory(ScriptFactory)
+
+
+class RawChemFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.RawChem
+        abstract = True
+
+    class Params:
+        is_curated = False
+
+    raw_cas = factory.Faker("cas_number")
+    raw_chem_name = factory.Faker("word")
+    if factory.SelfAttribute("is_curated"):
+        dsstox = factory.SubFactory(TrueChemicalFactory)
+
+    @factory.post_generation
+    def functional_uses(obj, create, extracted, **kwargs):
+        """
+        generates a functional use record for each RawChem created,
+        more if a `functional_uses` argument is provided with a higher number
+        """
+        if not create:
+            # Build, not create related
+            return
+
+        if extracted:
+            for n in range(extracted):
+                FunctionalUseFactory(chem=obj)
+        else:
+            import random
+
+            number_of_units = random.randint(1, 3)
+            for n in range(number_of_units):
+                FunctionalUseFactory(chem=obj)
+
+
+class ExtractedListPresenceFactory(RawChemFactory):
     class Meta:
         model = models.ExtractedListPresence
 
-    # These could possibly be replaced with a rawchem factory
-    raw_cas = factory.Faker("word")
-    raw_chem_name = factory.Faker("word")
     extracted_text = factory.SubFactory(
         ExtractedTextFactory, data_document__data_group__group_type__code="CP"
     )
@@ -214,3 +313,47 @@ class ExtractedHabitsAndPracticesToTagFactory(FactotumFactoryBase):
 
     content_object = factory.SubFactory(ExtractedHabitsAndPracticesFactory)
     tag = factory.SubFactory(ExtractedHabitsAndPracticesTagFactory)
+
+
+class ExtractedChemicalFactory(RawChemFactory):
+    class Meta:
+        model = models.ExtractedChemical
+
+    extracted_text = factory.SubFactory(
+        ExtractedTextFactory, data_document__data_group__group_type__code="CO"
+    )
+    raw_min_comp = factory.LazyAttribute(lambda o: random.randint(0, 50))
+    raw_max_comp = factory.LazyAttribute(lambda o: random.randint(50, 100))
+    unit_type = factory.SubFactory(UnitTypeFactory)
+    weight_fraction_type = factory.SubFactory(WeightFractionTypeFactory)
+    component = factory.Faker("word")
+    ingredient_rank = factory.LazyAttribute(lambda o: random.randint(1, 999))
+    lower_wf_analysis = factory.LazyAttribute(lambda o: 0.5 - random.random() / 2)
+    upper_wf_analysis = factory.LazyAttribute(lambda o: 0.5 + random.random() / 2)
+
+
+class ExtractedFunctionalUseFactory(RawChemFactory):
+    class Meta:
+        model = models.ExtractedFunctionalUse
+
+    extracted_text = factory.SubFactory(
+        ExtractedTextFactory, data_document__data_group__group_type__code="FU"
+    )
+
+
+class ExtractedHHDocFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.ExtractedHHDoc
+
+    extracted_text = factory.SubFactory(
+        ExtractedTextFactory, data_document__data_group__group_type__code="HH"
+    )
+
+
+class ExtractedHHRecFactory(RawChemFactory):
+    class Meta:
+        model = models.ExtractedHHRec
+
+    extracted_text = factory.SubFactory(
+        ExtractedTextFactory, data_document__data_group__group_type__code="HH"
+    )

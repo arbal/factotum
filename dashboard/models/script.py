@@ -14,6 +14,7 @@ class Script(CommonInfo):
         ("EX", "extraction"),
         ("PC", "product categorization"),
         ("DC", "data cleaning"),
+        ("FU", "functional use cleaning"),
     )
 
     # Specify the share of a script's ExtractedText objects that must be

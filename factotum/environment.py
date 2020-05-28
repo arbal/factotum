@@ -177,6 +177,16 @@ class MetaEnv(type):
         default = 1000000
         return int(cls._get("PRODUCT_IMAGE_MAX_SIZE", default, prefix=False))
 
+    @property
+    def LOGSTASH_HOST(cls):
+        default = "localhost"
+        return cls._get("LOGSTASH_HOST", default)
+
+    @property
+    def LOGSTASH_PORT(cls):
+        default = "5959"
+        return cls._get("LOGSTASH_PORT", default)
+
 
 class env(metaclass=MetaEnv):
     truevals = ("true", "True", "yes", "y", "1", "on", "ok", True)

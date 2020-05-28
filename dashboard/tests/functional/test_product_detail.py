@@ -186,3 +186,11 @@ class TestProductDetail(TestCase):
         self.assertEqual("fa fa-fs fa-file-alt", icon_span)
         icon_span = self._get_icon_span(response_html, 172462)
         self.assertEqual("fa fa-fs fa-file-pdf", icon_span)
+
+    def test_puc_kind_field_displayed(self):
+        response = self.client.get("/product/11/")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "<dt>PUC Kind:</dt>")
+        self.assertContains(
+            response, Product.objects.get(pk=11).uber_puc.get_kind_display()
+        )

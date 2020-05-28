@@ -36,6 +36,12 @@ class FunctionalUse(CommonInfo):
     clean_funcuse = models.CharField(
         "Cleaned functional use", max_length=255, null=False, blank=True
     )
+    extraction_script = models.ForeignKey(
+        "Script",
+        on_delete=models.CASCADE,
+        limit_choices_to={"script_type": "FU"},
+        null=True,
+    )
 
     def __str__(self):
         return self.report_funcuse
