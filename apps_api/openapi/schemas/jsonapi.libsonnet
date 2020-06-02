@@ -1039,21 +1039,14 @@ local buildSpec(objs, description) = {
   },
   components: {
     securitySchemes: {
-      basicAuth: {
+      tokenAuth: {
         type: 'http',
-        scheme: 'basic',
-        description: '[HTTP basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication).',
-      },
-      cookieAuth: {
-        type: 'apiKey',
-        'in': 'cookie',
-        name: 'sessionid',
-        description: 'A session will be made on the server after the first authenticated response. To mitigate CSRF attacks, the server uses the [strict SameSite policy](https://web.dev/samesite-cookies-explained/) in combination with the CORS policy detailed above.',
+        scheme: 'bearer',
+        description: '[Token Authentication](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication).',
       },
     },
   },
-  # Web Services are currently not authenticated
-  # security: [{ basicAuth: [] }, { cookieAuth: [] }],
+  security: [],
   tags: [
     {
       name: obj.type,
@@ -1067,8 +1060,13 @@ local buildSpec(objs, description) = {
       tags: std.set(std.map((function(x) x.type), std.filter((function(x) x.app == app), patchedObjs))),
     }
     for app in std.set(std.map((function(x) x.app), patchedObjs))
+  ] + [
+    {
+      name: "Authentication",
+      tags: ['tokenAuth']
+    }
   ],
-  paths: std.foldl((function(x, y) x + y), std.map(buildPaths, patchedObjs), {}),
+  paths: std.foldl((function(x, y) x + y), std.map(buildPaths, patchedObjs), {}) + import 'auth.libsonnet'
 };
 
 {

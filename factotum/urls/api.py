@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.urls import path, include
 
+from apps_api.core import views as coreviews
 from apps_api.api import views as apiviews
 from apps_api.core.routers import CustomRelationRouter
 from apps_api.openapi import views as docsviews
@@ -27,6 +28,7 @@ router.register(r"composition", apiviews.CompositionViewSet)
 
 urlpatterns = [
     path("openapi.json/", docsviews.OpenAPIView.as_view(), name="openapi-schema"),
+    path("token/", coreviews.ObtainExpiringAuthToken.as_view(), name="token"),
     path("", include(router.urls)),
     path("", docsviews.RedocView.as_view()),
     # Relationships endpoints
