@@ -10,6 +10,7 @@ from apps_api.api.views import ChemicalPresenceTagViewSet
 from apps_api.core.test import TestCase
 
 from dashboard import models
+from unittest import skip
 
 
 class TestQueryCount(TestCase):
@@ -133,8 +134,8 @@ class TestChemical(TestCase):
 
     def test_retrieve(self):
         chem = self.qs.first()
-        response = self.get(f"/chemicals/{chem.sid}/")
-        self.assertEqual(response["id"], chem.sid)
+        response = self.get(f"/chemicals/{chem.id}/")
+        self.assertEqual(response["sid"], chem.sid)
         self.assertEqual(response["name"], chem.true_chemname)
         self.assertEqual(response["cas"], chem.true_cas)
 
@@ -149,7 +150,7 @@ class TestChemical(TestCase):
         count = self.qs.filter(
             curated_chemical__extracted_text__data_document__product__puc__id=1
         ).count()
-        response = self.get("/chemicals/", {"puc": 1})
+        response = self.get("/chemicals/", {"filter[puc]": 1})
         self.assertEqual(count, response["meta"]["pagination"]["count"])
 
 
@@ -174,7 +175,7 @@ class TestDocument(TestCase):
     def test_retrieve(self):
         doc_id = 147446
         doc = models.DataDocument.objects.prefetch_related("products").get(id=doc_id)
-        response = self.get("/documents/%d/" % doc.id)
+        response = self.get("/dataDocuments/%d/" % doc.id)
 
         self.assertEqual(doc.title, response["title"])
         self.assertEqual(doc.subtitle, response["subtitle"])
@@ -182,7 +183,7 @@ class TestDocument(TestCase):
         self.assertEqual(doc.extractedtext.doc_date, response["date"])
         self.assertEqual(doc.data_group.group_type.title, response["data_type"])
         self.assertEqual(doc.document_type.title, response["document_type"])
-        self.assertEqual(doc.file.url, response["url"])
+        self.assertEqual(doc.file.url, response["document_url"])
         self.assertEqual(doc.note, response["notes"])
         self.assertEqual(
             doc.chemicals.filter(dsstox__isnull=False).count(),
@@ -191,12 +192,13 @@ class TestDocument(TestCase):
 
     def test_list(self):
         # test without filter
-        response = self.get("/documents/")
+        response = self.get("/dataDocuments/")
         self.assertTrue("meta" in response)
         count = models.DataDocument.objects.count()
         self.assertEqual(count, response["meta"]["pagination"]["count"])
 
 
+@skip("This serializer will be replaced")
 class TestExtractedChemicalSerializer(TestCase):
     def test_serialize(self):
         et = models.ExtractedText.objects.first()
@@ -212,10 +214,6 @@ class TestExtractedChemicalSerializer(TestCase):
         extracted_chemical.dsstox = dsstox
         serialized_extracted_chemical = ExtractedChemicalSerializer(extracted_chemical)
 
-        self.assertEqual(
-            extracted_chemical.dsstox.sid,
-            serialized_extracted_chemical.data["chemical_id"],
-        )
         self.assertEqual(
             extracted_chemical.component,
             serialized_extracted_chemical.data["component"],
@@ -238,10 +236,11 @@ class TestExtractedChemicalSerializer(TestCase):
         )
 
 
-class TestFunction(TestCase):
-    def test_no_filter_error(self):
-        response = self.get("/function/")
-        self.assertEqual("invalid", response[0].code)
+class TestFunctionalUse(TestCase):
+    # disabled the invalid without filter assertion.
+    # def test_no_filter_error(self):
+    #     response = self.get("/function/")
+    #     self.assertEqual("invalid", response[0].code)
 
     def test_document_filter(self):
         document_id = 156051
@@ -251,15 +250,15 @@ class TestFunction(TestCase):
         count = dataset.count()
         func_use = dataset.first()
 
-        response = self.get("/function/?document=%d" % document_id)
+        response = self.get("/functionalUses/?filter[document]=%d" % document_id)
         self.assertTrue("meta" in response)
         self.assertEqual(count, response["meta"]["pagination"]["count"])
         data = response["results"][0]
         self.assertIsNotNone(data)
         self.assertEquals(
-            func_use.chem.extracted_text.data_document_id, data["document_id"]
+            str(func_use.chem.extracted_text.data_document_id), data["document"]["id"]
         )
-        self.assertEquals(func_use.chem.dsstox.sid, data["chemical_id"])
+        self.assertEquals(str(func_use.chem.dsstox.id), data["chemical"]["id"])
         self.assertEquals(func_use.chem.rid, data["rid"])
 
     def test_chemical_filter(self):
@@ -270,15 +269,15 @@ class TestFunction(TestCase):
         count = dataset.count()
         func_use = dataset.first()
 
-        response = self.get("/function/?chemical=%s" % chemical_id)
+        response = self.get("/functionalUses/?filter[chemical]=%s" % chemical_id)
         self.assertTrue("meta" in response)
         self.assertEqual(count, response["meta"]["pagination"]["count"])
         data = response["results"][0]
         self.assertIsNotNone(data)
         self.assertEquals(
-            func_use.chem.extracted_text.data_document_id, data["document_id"]
+            str(func_use.chem.extracted_text.data_document_id), data["document"]["id"]
         )
-        self.assertEquals(func_use.chem.dsstox.sid, data["chemical_id"])
+        self.assertEquals(str(func_use.chem.dsstox.id), data["chemical"]["id"])
         self.assertEquals(func_use.chem.rid, data["rid"])
 
     def test_category_filter(self):
@@ -289,28 +288,28 @@ class TestFunction(TestCase):
         count = dataset.count()
         func_use = dataset.first()
 
-        response = self.get("/function/?category=%d" % category_id)
+        response = self.get("/functionalUses/?filter[category]=%d" % category_id)
         self.assertTrue("meta" in response)
         self.assertEqual(count, response["meta"]["pagination"]["count"])
         data = response["results"][0]
         self.assertIsNotNone(data)
         self.assertEquals(
-            func_use.chem.extracted_text.data_document_id, data["document_id"]
+            str(func_use.chem.extracted_text.data_document_id), data["document"]["id"]
         )
-        self.assertEquals(func_use.chem.dsstox.sid, data["chemical_id"])
+        self.assertEquals(str(func_use.chem.dsstox.id), data["chemical"]["id"])
         self.assertEquals(func_use.chem.rid, data["rid"])
 
 
 class TestFunctionalUseCategory(TestCase):
     def test_retrieve(self):
         fu_cat = models.FunctionalUseCategory.objects.first()
-        response = self.get("/functionaluses/%d/" % fu_cat.id)
+        response = self.get("/functionalUseCategories/%d/" % fu_cat.id)
         self.assertEqual(response["title"], fu_cat.title)
         self.assertEqual(response["description"], fu_cat.description)
 
     def test_list(self):
         count = models.FunctionalUseCategory.objects.count()
-        response = self.get("/functionaluses/")
+        response = self.get("/functionalUseCategories/")
         self.assertTrue("meta" in response)
         self.assertEqual(count, response["meta"]["pagination"]["count"])
 
@@ -437,9 +436,6 @@ class TestComposition(TestCase):
             response_rid_filter["meta"]["pagination"]["count"],
         )
         self.assertEqual(composition.rid, response_rid_filter["results"][0]["rid"])
-        self.assertEqual(
-            composition.dsstox.sid, response_rid_filter["results"][0]["chemical_id"]
-        )
         self.assertEqual(
             composition.ingredient_rank,
             response_rid_filter["results"][0]["ingredient_rank"],

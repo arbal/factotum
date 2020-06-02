@@ -19,7 +19,9 @@ local ModelTemplate = {
   typePlural:: self.type + 's',
   relationships:: [],
   errors:: [],
+  filters:: [],
   hasRelationships:: std.length(self.relationships) > 0,
+  hasFilters:: std.length(self.filters) > 0,
   defaultRelationships:: [relatedObj for relatedObj in self.relationships if relatedObj.default != null],
   allRelationshipsDefault:: std.length(self.defaultRelationships) == std.length(self.relationships),
   relatedTypes:: [relatedObj.object.type for relatedObj in self.relationships],
@@ -152,6 +154,15 @@ local buildParameters(obj) = {
       default: obj.readableAttributes(obj.type),
     },
   },
+  filters:: [
+      {
+        name: 'filter[' + filter_name + ']',
+        'in': 'query',
+        description: '[filter](https://jsonapi.org/format/#fetching-filtering)',
+        example: "value",
+        required: false,
+      } for filter_name in obj.filters
+    ],
   page:: {
     name: 'page',
     'in': 'query',
@@ -193,7 +204,7 @@ local buildParameters(obj) = {
   },
   write:: [self.id],
   read:: [self.id, self.fields],
-  readList:: [self.sort, self.fields, self.page],
+  readList:: [self.sort, self.fields, self.page,] + [obj for obj in self.filters],
 };
 
 local responseCodeDescriptions = {
@@ -432,7 +443,7 @@ local buildLinks(obj) = {
           type: 'string',
           format: 'uri',
           description: 'The link to the resource that represents the relationship itself.',
-          example: std.extVar('baseServer') + '/' + obj.typePlural + '1/' + relatedObjType,
+          example: std.extVar('baseServer') + '/' + obj.typePlural + '/1/' + relatedObjType,
         },
         related: {
           type: 'string',
@@ -442,7 +453,7 @@ local buildLinks(obj) = {
               'The link to the resource representing the related resource objects.'
             else
               'The link to the resource representing the related resource object.',
-          example: std.extVar('baseServer') + '/' + obj.typePlural + '1/relationships' + relatedObjType,
+          example: std.extVar('baseServer') + '/' + obj.typePlural + '/1/relationships/' + relatedObjType,
         },
       },
       required: ['self', 'related'],

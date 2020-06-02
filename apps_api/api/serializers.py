@@ -1,4 +1,8 @@
 from rest_framework_json_api import serializers
+from rest_framework_json_api.relations import (
+    ResourceRelatedField,
+    SerializerMethodResourceRelatedField,
+)
 
 from dashboard import models
 
@@ -49,15 +53,15 @@ class PUCSerializer(serializers.ModelSerializer):
         }
 
 
-class ChemicalSerializer(serializers.ModelSerializer):
+class ChemicalSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.DSSToxLookup
-        fields = ["id", "name", "cas"]
+        fields = ["sid", "name", "cas", "url"]
+        resource_name = "chemical"
         extra_kwargs = {
-            "id": {
+            "sid": {
                 "help_text": "The DSSTox Substance Identifier, a unique identifier associated with a chemical substance.",
                 "label": "DTXSID",
-                "source": "sid",
             },
             "name": {
                 "help_text": "Preferred name for the chemical substance.",
@@ -123,20 +127,27 @@ class ProductSerializer(serializers.ModelSerializer):
         }
 
 
+class RawChemSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.RawChem
+        resource_name = "chemicals"
+        fields = ["id", "dsstox", "component"]
+
+
 class ExtractedChemicalSerializer(serializers.ModelSerializer):
 
-    chemical_id = serializers.CharField(
+    chemical = ChemicalSerializer(
         label="DTXSID",
         help_text="The DSSTox Substance Identifier for each chemical included on the document. \
             May be >1 per document. See the chemicals API for additional information on the \
             chemical substance.",
-        source="dsstox.sid",
+        source="dsstox",
     )
 
     class Meta:
         model = models.ExtractedChemical
         fields = [
-            "chemical_id",
+            "chemical",
             "component",
             "lower_weight_fraction",
             "central_weight_fraction",
@@ -180,7 +191,9 @@ class ExtractedChemicalSerializer(serializers.ModelSerializer):
         }
 
 
-class DocumentSerializer(serializers.ModelSerializer):
+class DocumentSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name="dataDocument-detail")
+
     date = serializers.CharField(
         default=None,
         read_only=True,
@@ -207,30 +220,47 @@ class DocumentSerializer(serializers.ModelSerializer):
         help_text="Standardized description of the type of document (e.g. Safety Data Sheet (SDS), \
             product label, journal article, government report).",
     )
-    url = serializers.SerializerMethodField(
+    document_url = serializers.SerializerMethodField(
         read_only=True,
         allow_null=True,
         label="URL",
         help_text="Link to a locally stored copy of the document.",
     )
-    products = serializers.PrimaryKeyRelatedField(
-        many=True,
+    source_document_url = serializers.SerializerMethodField(
         read_only=True,
-        label="Product IDs",
-        help_text="Unique numeric identifiers for products associated with the \
+        allow_null=True,
+        label="Source Document URL",
+        help_text="Link to a remote copy of the document.",
+    )
+    products = ResourceRelatedField(
+        label="Products",
+        help_text="Products associated with the \
              original data document. May be >1 product associated with each document. \
              See the Products API for additional information on the product.",
+        many=True,
+        read_only=True,
     )
 
-    chemicals = ExtractedChemicalSerializer(
-        label="Chemicals", many=True, read_only=True
+    chemicals = SerializerMethodResourceRelatedField(
+        many=True, read_only=True, source="get_chemicals", model=models.RawChem
     )
 
-    def get_url(self, obj) -> serializers.URLField:
+    def get_chemicals(self, obj):
+        try:
+            queryset = obj.extractedtext.rawchem.all()
+        except AttributeError:
+            queryset = []
+        return queryset
+
+    def get_document_url(self, obj) -> serializers.URLField:
         return obj.file.url if obj.file else None
+
+    def get_source_document_url(self, obj) -> serializers.URLField:
+        return obj.url
 
     class Meta:
         model = models.DataDocument
+        resource_name = "dataDocument"
         fields = [
             "id",
             "title",
@@ -243,6 +273,8 @@ class DocumentSerializer(serializers.ModelSerializer):
             "notes",
             "products",
             "chemicals",
+            "document_url",
+            "source_document_url",
         ]
         extra_kwargs = {
             "id": {
@@ -295,48 +327,10 @@ class ChemicalPresenceSerializer(serializers.ModelSerializer):
         }
 
 
-class FunctionalUseSerializer(serializers.ModelSerializer):
-    document_id = serializers.IntegerField(
-        source="chem.extracted_text.data_document_id",
-        read_only=True,
-        label="Document ID",
-        help_text="The Document ID associated with this functional use record.",
-    )
-
-    chemical_id = serializers.CharField(
-        source="chem.dsstox.sid",
-        allow_null=True,
-        required=False,
-        label="Chemical ID",
-        help_text="The Chemical SID associated with this functional use record.",
-    )
-
-    rid = serializers.CharField(
-        source="chem.rid",
-        read_only=True,
-        label="RID",
-        help_text="The Chemical RID associated with this functional use record.",
-    )
-
-    class Meta:
-        model = models.FunctionalUse
-        fields = ["document_id", "chemical_id", "rid", "category_id"]
-        extra_kwargs = {
-            "category_id": {
-                "source": "category",
-                "label": "Category ID",
-                "help_text": "The Functional Use Category ID associated with this functional use record.",
-            }
-        }
-
-
-class FunctionalUseCategorySerializer(serializers.ModelSerializer):
+class FunctionalUseCategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.FunctionalUseCategory
-        # todo: This was named functionaluse instead of the default FunctionalUseCategory
-        #  as a way of reconsiling the route name and resource type.  The route should probably be changed
-        #  to functionalusecategory
-        resource_name = "functionaluse"
+        resource_name = "functionalUseCategory"
         fields = ["title", "description"]
         extra_kwargs = {
             "title": {
@@ -348,6 +342,64 @@ class FunctionalUseCategorySerializer(serializers.ModelSerializer):
                 "label": "Description",
             },
         }
+
+
+class FunctionalUseSerializer(serializers.ModelSerializer):
+    included_serializers = {
+        "chemical": ChemicalSerializer,
+        "category": FunctionalUseCategorySerializer,
+        "document": DocumentSerializer,
+    }
+
+    document = ResourceRelatedField(
+        source="chem.extracted_text.data_document",
+        model=models.DataDocument,
+        read_only=True,
+        related_link_view_name="functionalUse-related",
+        self_link_view_name="functionalUse-relationships",
+    )
+
+    chemical = ResourceRelatedField(
+        source="chem.dsstox",
+        model=models.DSSToxLookup,
+        allow_null=True,
+        required=False,
+        read_only=True,
+        related_link_view_name="functionalUse-related",
+        self_link_view_name="functionalUse-relationships",
+    )
+
+    rid = serializers.CharField(
+        source="chem.rid",
+        read_only=True,
+        label="RID",
+        help_text="The Chemical RID associated with this functional use record.",
+    )
+
+    class Meta:
+        model = models.FunctionalUse
+        resource_name = "functionalUse"
+        fields = [
+            "chemical",
+            "rid",
+            "category",
+            "document",
+            "report_funcuse",
+            "clean_funcuse",
+            "url",
+        ]
+        extra_kwargs = {
+            "category": {
+                "label": "Category",
+                "help_text": "The Functional Use Category associated with this functional use record.",
+                "related_link_view_name": "functionalUse-related",
+                "self_link_view_name": "functionalUse-relationships",
+            },
+            "url": {"view_name": "functionalUse-detail"},
+        }
+
+    # class JSONAPIMeta:
+    #     included_resources = ["chemical",]
 
 
 class ExtractedListPresenceTagSerializer(serializers.ModelSerializer):

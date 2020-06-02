@@ -1,6 +1,7 @@
 {
   app: 'dashboard',
-  type: 'functionaluse',
+  type: 'functionalUseCategory',
+  typePlural: 'functionalUseCategories',
   description: 'Service providing a list of all functional use categories.',
   attributes: {
     title: {
