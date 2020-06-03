@@ -13,3 +13,8 @@ class DataGroupTest(TestCase):
             new_group_type = GroupType.objects.create(
                 title="Test", code=group_type.code
             )
+
+    def test_hh_group_no_bulk_assign_form(self):
+        group_type = GroupType.objects.get(code="HH")
+        datagroup = DataGroup.objects.get(group_type=group_type)
+        self.assertFalse(datagroup.include_bulk_assign_form())
