@@ -154,3 +154,30 @@ class TestChemicalDetail(StaticLiveServerTestCase):
             "Showing 1 to 3 of 3 entries (filtered from 8 total entries)",
             self.browser.find_element_by_xpath("//*[@id='documents_info']").text,
         )
+
+    def test_filter_by_puc_kind(self):
+        """
+        All the Products with the Chemical
+        should be returned via ajax calls and included in the tables
+
+        For the purpose of this test, the SID coresponds to Water
+        """
+        chemical = DSSToxLookup.objects.get(sid="DTXSID6026296")
+        wait = WebDriverWait(self.browser, 10)
+        self.browser.get(self.live_server_url + chemical.get_absolute_url())
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='puc_kinds_dropdown']"), "All"
+            )
+        )
+        input_el = self.browser.find_element_by_xpath("//*[@id='puc_kinds_dropdown']")
+        input_el.send_keys("Occupation\n")
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='puc_kinds_dropdown']"), "Occupation"
+            )
+        )
+        self.assertInHTML(
+            "Showing 0 to 0 of 0 entries (filtered from 6 total entries)",
+            self.browser.find_element_by_xpath("//*[@id='products_info']").text,
+        )

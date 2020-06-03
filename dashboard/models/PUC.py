@@ -109,6 +109,15 @@ class PUC(CommonInfo):
     )
     objects = PUCQuerySet.as_manager()
 
+    def get_unique_puc_kinds():
+        kind_choices = PUC.KIND_CHOICES
+        puc_kinds = []
+        for puc_kind in kind_choices:
+            puc_kinds.append(
+                {"puc_kind_code": puc_kind[0], "display_name": puc_kind[1]}
+            )
+        return puc_kinds
+
     class Meta:
         ordering = ["gen_cat", "prod_fam", "prod_type"]
         verbose_name_plural = "PUCs"

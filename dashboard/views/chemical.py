@@ -11,6 +11,7 @@ def chemical_detail(request, sid, puc_id=None):
     puc = get_object_or_404(PUC, id=puc_id) if puc_id else None
     keysets = chemical.get_tag_sets()
     group_types = chemical.get_unique_datadocument_group_types_for_dropdown()
+    puc_kinds = PUC.get_unique_puc_kinds()
 
     formulation_pucs = (
         PUC.objects.filter(kind="FO").dtxsid_filter(sid).with_num_products().astree()
@@ -50,13 +51,14 @@ def chemical_detail(request, sid, puc_id=None):
         "article_pucs": article_pucs,
         "puc": puc,
         "show_filter": True,
+        "puc_kinds": puc_kinds,
     }
     return render(request, "chemicals/chemical_detail.html", context)
 
 
 class ChemicalProductListJson(BaseDatatableView):
     model = ProductDocument
-    columns = ["product", "document", "product.uber_puc"]
+    columns = ["product", "document", "product.uber_puc", "product.uber_puc.kind"]
 
     def get_filter_method(self):
         return self.FILTER_ICONTAINS
@@ -92,15 +94,25 @@ class ChemicalProductListJson(BaseDatatableView):
                     row.product.uber_puc.get_absolute_url(),
                     value,
                 )
+        if column == "product.uber_puc.kind":
+            value = self._render_column(row, column)
+            if value and hasattr(row, "get_absolute_url"):
+                return format_html("<p>{}</p>", value)
         return value
 
     def filter_queryset(self, qs):
         puc = self.request.GET.get("category")
         s = self.request.GET.get("search[value]", None)
+        puc_kind = self.request.GET.get("puc_kind")
         if puc:
             qs = qs.filter(Q(product__puc=puc)).distinct()
         if s:
             qs = qs.filter(
                 Q(product__title__icontains=s) | Q(document__title__icontains=s)
             ).distinct()
+        if puc_kind and puc_kind != "all":
+            if puc_kind == "none":
+                qs = qs.filter(product__puc__isnull=True)
+            else:
+                qs = qs.filter(product__puc__kind=puc_kind)
         return qs
