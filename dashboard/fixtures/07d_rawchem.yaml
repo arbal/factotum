@@ -1631,7 +1631,7 @@
   pk: 137
   fields:
     extracted_text: 163194
-    raw_cas: 7732-18-5
+    raw_cas: none
     raw_chem_name: Water
     temp_id: 46661
     temp_obj_name: ExtractedChemical

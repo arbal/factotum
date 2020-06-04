@@ -344,3 +344,15 @@ class TestSearch(TestCase):
         # should be all the way on the fifth page
         resp = self.client.get("/search/datadocument/" + qs + "&page=5")
         self.assertIn("/datadocument/156624/", str(resp.content))
+
+    def test_chemical_fields(self):
+        """
+        Chemical search results should only return "Preferred name" and "Preferred CAS"
+        Additional fields that may be used as search criteria should not show up.
+        """
+        qs = self._get_query_str("none")
+        resp = self.client.get("/search/chemical/" + qs)
+        soup = bs4.BeautifulSoup(resp.content, features="lxml")
+        divs = soup.find_all("div", {"class": "resultrow"})
+        self.assertInHTML("Preferred chemical name:", str(divs[0]))
+        self.assertInHTML("Preferred CAS:", str(divs[0]))
