@@ -1,6 +1,8 @@
     $(document).ready(function () {
+        let table_settings = JSON.parse(document.getElementById('table_settings').textContent);
         let product_table = $('#products').DataTable({
-            "bPaginate":false,
+            "bPaginate": table_settings.pagination,
+            "pageLength": table_settings.pageLength,
             "bFilter": false,
             columnDefs: [
                 {

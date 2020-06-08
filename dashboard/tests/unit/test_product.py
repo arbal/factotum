@@ -32,10 +32,8 @@ class ProductTestWithSeedData(TestCase):
     def test_rawchemlookup(self):
         # product with data document without extracted text
         et = ExtractedText.objects.values_list("pk", flat=True)
-        dd = DataDocument.objects.exclude(pk__in=et).values_list("pk", flat=True)
-        pd = ProductDocument.objects.filter(
-            document__in=dd, product__isnull=False
-        ).values_list("product", flat=True)
-        p = Product.objects.filter(pk__in=pd).first()
+        dd = DataDocument.objects.exclude(pk__in=et)
+        p = Product.objects.create(upc="1000000000000000")
+        dd.first().products.add(p)
         rawchems = [r for r in p.rawchems]
         self.assertEqual(rawchems, [])

@@ -8,7 +8,7 @@ var rows = JSON.parse(document.getElementById('tabledata').textContent);
 var columnDefs = [
   {headerName: "Data Group", field: "data_group__name", cellRenderer: 'groupCellRenderer'},
   {headerName: "Raw Category", field: "raw_category"},
-  {headerName: "Count", field: "document_count"},
+  {headerName: "Product Count", field: "product_count", cellRenderer: 'productCountCellRenderer', cellClass: "text-right", width: 100},
 ];
 
 var rowData = rows;
@@ -23,7 +23,8 @@ var gridOptions = {
   columnDefs: columnDefs,
   rowData: rowData,
   components: {
-    'groupCellRenderer': GroupCellRenderer
+    'groupCellRenderer': GroupCellRenderer,
+    'productCountCellRenderer': ProductCountCellRenderer
   },
   domLayout: 'autoHeight',
   pagination: true,
@@ -82,6 +83,7 @@ function onSelectionChanged() {
 
 // cell renderer class
 function GroupCellRenderer() {}
+function ProductCountCellRenderer() {}
 
 // init method gets the details of the cell to be rendered
 GroupCellRenderer.prototype.init = function(params) {
@@ -99,6 +101,21 @@ GroupCellRenderer.prototype.init = function(params) {
 };
 
 GroupCellRenderer.prototype.getGui = function() {
+    return this.eGui;
+};
+
+ProductCountCellRenderer.prototype.init = function(params) {
+    this.eGui = document.createElement('div');
+    this.eGui.classList.add('text-right');
+    var text = (
+        '<a href="/bulk_product_puc/?dg=' + params.data.data_group__id + '&rc=' + params.data.raw_category + '">' +
+            params.data.product_count +
+        '</a>'
+    );
+    this.eGui.innerHTML = text;
+};
+
+ProductCountCellRenderer.prototype.getGui = function() {
     return this.eGui;
 };
 
