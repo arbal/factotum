@@ -1,5 +1,6 @@
 import datetime
 import factory
+from django.contrib.auth.models import User
 from django.db import IntegrityError
 import random
 from dashboard import models
@@ -72,12 +73,18 @@ class GroupTypeFactory(FactotumFactoryBase):
     code = "CO"
 
 
+class UserFactory(FactotumFactoryBase):
+    class Meta:
+        model = User
+
+
 class DataGroupFactory(FactotumFactoryBase):
     class Meta:
         model = models.DataGroup
 
     data_source = factory.SubFactory(DataSourceFactory)
     group_type = factory.SubFactory(GroupTypeFactory)
+    downloaded_by = factory.SubFactory(UserFactory)
     downloaded_at = datetime.datetime.utcnow()
 
 
