@@ -19,6 +19,7 @@ from .extracted_habits_and_practices import (
     ExtractedHabitsAndPracticesToTag,
     ExtractedHabitsAndPracticesTagKind,
 )
+from .extracted_hpdoc import ExtractedHPDoc
 from .extracted_list_presence import (
     ExtractedListPresence,
     ExtractedListPresenceTag,
