@@ -38,7 +38,7 @@ class RawCategoryToPUCForm(forms.Form):
             .all()
         )
 
-        if raw_category not in [document.raw_category for document in self.documents]:
+        if not self.documents:
             raise forms.ValidationError(
                 {
                     "raw_category": "No Documents with that Raw Category in the "

@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.utils import safestring
 from django.contrib import messages
 from django.shortcuts import redirect
@@ -212,7 +213,28 @@ def bulk_assign_puc_to_product(
     request, template_name=("product_curation/" "bulk_product_puc.html")
 ):
     max_products_returned = 50
+    table_settings = {"pagination": False}
+    context = {}
     q = safestring.mark_safe(request.GET.get("q", "")).lstrip()
+    datagroup_pk = safestring.mark_safe(request.GET.get("dg", "")).lstrip()
+    rawcategory = safestring.mark_safe(request.GET.get("rc", "")).lstrip()
+
+    form = BulkProductPUCForm(request.POST or None)
+    if form.is_valid():
+        puc = PUC.objects.get(id=form["puc"].value())
+        product_ids = form["id_pks"].value().split(",")
+        for id in product_ids:
+            product = Product.objects.get(id=id)
+            ProductToPUC.objects.update_or_create(
+                puc=puc,
+                product=product,
+                classification_method="MB",
+                puc_assigned_usr=request.user,
+            )
+        messages.success(request, f"{len(product_ids)} products added to PUC - {puc}")
+        queryparams = f"?q={q}" if q else f"?dg={datagroup_pk}&rc={rawcategory}"
+        return HttpResponseRedirect(reverse("bulk_product_puc") + queryparams)
+
     if q > "":
         p = Product.objects.filter(
             Q(title__icontains=q) | Q(brand_name__icontains=q)
@@ -222,27 +244,31 @@ def bulk_assign_puc_to_product(
         full_p_count = Product.objects.filter(
             Q(title__icontains=q) | Q(brand_name__icontains=q)
         ).count()
+    elif datagroup_pk > "" and rawcategory > "":
+        table_settings.update(pagination=True, pageLength=50)
+        p = Product.objects.filter(
+            Q(
+                datadocument__data_group__pk=datagroup_pk,
+                datadocument__raw_category=rawcategory,
+            )
+        )
+        datagroup = DataGroup.objects.get(pk=datagroup_pk)
+        context.update({"datagroup": datagroup, "rawcategory": rawcategory})
+        full_p_count = p.count()
     else:
         p = {}
         full_p_count = 0
-    form = BulkProductPUCForm(request.POST or None)
-    if form.is_valid():
-        puc = PUC.objects.get(id=form["puc"].value())
-        product_ids = form["id_pks"].value().split(",")
-        for id in product_ids:
-            product = Product.objects.get(id=id)
-            ProductToPUC.objects.create(
-                puc=puc,
-                product=product,
-                classification_method="MB",
-                puc_assigned_usr=request.user,
-            )
     form["puc"].label = "PUC to Assign to Selected Products"
-    return render(
-        request,
-        template_name,
-        {"products": p, "q": q, "form": form, "full_p_count": full_p_count},
+    context.update(
+        {
+            "products": p,
+            "q": q,
+            "form": form,
+            "full_p_count": full_p_count,
+            "table_settings": table_settings,
+        }
     )
+    return render(request, template_name, context)
 
 
 @login_required()

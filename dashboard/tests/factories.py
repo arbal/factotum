@@ -106,7 +106,23 @@ class DataDocumentFactory(FactotumFactoryBase):
     data_group = factory.SubFactory(DataGroupFactory)
     document_type = factory.SubFactory(DocumentTypeFactory)
 
-    # document_type_compatibility = factory.RelatedFactory()
+    @factory.post_generation
+    def product(self, create, extracted, **kwargs):
+        if not create:
+            # Simple build, do nothing.
+            return
+
+        if extracted:
+            # Add the list of tags that were passed in
+            for product in extracted:
+                self.products.add(product)
+
+
+class ProductFactory(FactotumFactoryBase):
+    class Meta:
+        model = models.Product
+
+    upc = factory.Faker("ean")
 
 
 class ScriptFactory(FactotumFactoryBase):

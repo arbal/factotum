@@ -1,4 +1,6 @@
 from django.test import TestCase, override_settings
+
+from dashboard.tests import factories
 from dashboard.tests.loader import fixtures_standard
 from lxml import html
 from django.urls import reverse
@@ -160,6 +162,20 @@ class TestProductPuc(TestCase):
                 'string(//*[@id="products"]/thead/tr/th[2]/text())'
             ),
             "The DataTable should display the matching products on successful search",
+        )
+
+    def test_datagroup_rawcategory_params(self):
+        products = factories.ProductFactory.create_batch(10)
+        doc = factories.DataDocumentFactory(product=products, raw_category="test")
+        response = self.client.get(
+            reverse("bulk_product_puc")
+            + f"?dg={doc.data_group.pk}&rc={doc.raw_category}"
+        )
+
+        self.assertSetEqual(
+            set(products),
+            set(response.context.get("products")),
+            "Endpoint doesn't return the same products",
         )
 
     def test_bulk_product_puc_post(self):

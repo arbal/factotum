@@ -23,17 +23,13 @@ class RawCategoryToPUCList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return list(
-            DataDocument.objects.annotate(
-                has_products=Exists(
-                    ProductDocument.objects.filter(document=OuterRef("pk"))
-                )
+            DataDocument.objects.values(
+                "data_group__name", "data_group__id", "raw_category"
             )
-            .filter(has_products=True)
-            .values("data_group__name", "data_group__id", "raw_category")
-            .annotate(document_count=Count("raw_category"))
-            .filter(document_count__gte=50)
+            .annotate(product_count=Count("products"))
+            .filter(product_count__gte=50)
             .exclude(raw_category__isnull=False, raw_category="")
-            .order_by("-document_count")
+            .order_by("-product_count")
         )
 
     def post(self, request):
