@@ -205,7 +205,7 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
     qs = DocumentType.objects.compatible(doc)
     document_type_form.fields["document_type"].queryset = qs
     # the form class overrides the label, so over-override it
-    document_type_form.fields["document_type"].label = "Data document type:"
+    document_type_form.fields["document_type"].label = "Data Document Type:"
     context = {
         "extracted_text": extext,
         "doc": doc,

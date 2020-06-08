@@ -5,6 +5,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.select import Select
 
 
 def log_karyn_in(object):
@@ -30,6 +31,61 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
     def tearDown(self):
         self.browser.quit()
+
+    def test_document_attribute_edit(self):
+        """The user should be able to open the document-editing screen from the 
+        QA page, and the Submit and Cancel buttons should return the user to the
+        original QA page.
+        Fields include:
+            data document title
+            subtitle
+            raw category
+            URL
+            Note
+            data document type
+        """
+        # Habits & Practices example
+        qa_url = self.live_server_url + f"/qa/extractedtext/53/"
+        self.browser.get(qa_url)
+        btn_edit = self.browser.find_element_by_id("edit_document")
+        btn_edit.click()
+        self.assertEqual(
+            self.browser.current_url, self.live_server_url + f"/datadocument/edit/53/"
+        )
+        # Canceling
+        btn_cancel = self.browser.find_element_by_name("cancel")
+        btn_cancel.click()
+        # the browser should return to the QA page
+        self.assertEqual(self.browser.current_url, qa_url)
+
+        # Editing
+        btn_edit = self.browser.find_element_by_id("edit_document")
+        btn_edit.click()
+
+        subtitle_input = self.browser.find_element_by_id("id_subtitle")
+        subtitle_input.send_keys("New subtitle")
+
+        document_type_select = Select(
+            self.browser.find_element_by_xpath('//*[@id="id_document_type"]')
+        )
+        document_type_select.select_by_visible_text("journal article")
+
+        btn_submit = self.browser.find_element_by_name("submit")
+        btn_submit.click()
+        # the browser should return to the QA page
+        self.assertEqual(self.browser.current_url, qa_url)
+        wait = WebDriverWait(self.browser, 10)
+        subtitle_input = wait.until(
+            EC.visibility_of(self.browser.find_element_by_id("subtitle"))
+        )
+        self.assertEqual(subtitle_input.text, "New subtitle")
+
+        document_type_select = Select(
+            self.browser.find_element_by_id("id_document_type")
+        )
+        self.assertEqual(
+            document_type_select.first_selected_option.text, "journal article"
+        )
 
     def test_extracted_text_delete_confirmation(self):
         extraction_script = Script.objects.get(pk=5)
