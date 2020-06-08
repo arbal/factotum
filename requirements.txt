@@ -48,6 +48,6 @@ drf-yasg>=1.17.0,<1.18.0
 PyYAML>=5.1.2,<5.2
 Pillow==7.0.0
 factory-boy==2.12.0
-jsonnet==0.15.0  # https://github.com/google/jsonnet
+jsonnetbin==0.16.0
 
 -e git+https://github.com/bennylope/django-taggit-labels.git@7afef34125653e958dc5dba0280904a0714aa808#egg=django_taggit_labels

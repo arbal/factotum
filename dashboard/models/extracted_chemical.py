@@ -92,9 +92,9 @@ class ExtractedChemical(RawChem):
     def clean(self):
         error_dict = {}
         ut = bool(self.unit_type_id)
-        minc = self.raw_min_comp is not ""
-        cenc = self.raw_central_comp is not ""
-        maxc = self.raw_max_comp is not ""
+        minc = self.raw_min_comp != ""
+        cenc = self.raw_central_comp != ""
+        maxc = self.raw_max_comp != ""
         minwf = self.lower_wf_analysis is not None
         cenwf = self.central_wf_analysis is not None
         maxwf = self.upper_wf_analysis is not None
