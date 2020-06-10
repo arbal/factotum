@@ -205,6 +205,7 @@ def get_extracted_models(t):
     ExtractedHabitsAndPractices = apps.get_model(
         "dashboard", "ExtractedHabitsAndPractices"
     )
+    ExtractedHPDoc = apps.get_model("dashboard", "ExtractedHPDoc")
     ExtractedHHDoc = apps.get_model("dashboard", "ExtractedHHDoc")
     ExtractedHHRec = apps.get_model("dashboard", "ExtractedHHRec")
     ExtractedLMDoc = apps.get_model("dashboard", "ExtractedLMDoc")
@@ -216,7 +217,7 @@ def get_extracted_models(t):
     elif t == "CP":
         return ExtractedCPCat, ExtractedListPresence
     elif t == "HP":
-        return ExtractedText, ExtractedHabitsAndPractices
+        return ExtractedHPDoc, ExtractedHabitsAndPractices
     elif t == "HH":
         return ExtractedHHDoc, ExtractedHHRec
     elif t == "LM":

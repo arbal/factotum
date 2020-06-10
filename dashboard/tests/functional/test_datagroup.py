@@ -1,10 +1,13 @@
-from django.test import TestCase, override_settings
+from django.test import TestCase
 
-from dashboard.tests.loader import *
+from dashboard.forms.data_group import RegisterRecordsFormSet
+from dashboard.tests.factories import DataGroupFactory
 from dashboard.tests.loader import fixtures_standard
 
 
 class DataGroupTest(TestCase):
+    fixtures = ["00_superuser"]
+
     def test_redirect_if_not_logged_in(self):
         response = self.client.get("/datagroups/")
         self.assertEqual(
@@ -14,6 +17,19 @@ class DataGroupTest(TestCase):
             response.url,
             "/login/?next=/datagroups/",
             "User should be sent to login page",
+        )
+
+    def test_headers_on_create_page(self):
+        """Verify the headers from RegisterRecordsFormSet are somewhere visible on the page.
+        These headers are used in the CSV upload
+        """
+        self.client.login(username="Karyn", password="specialP@55word")
+        dg = DataGroupFactory()
+
+        response = self.client.get(f"/datasource/{dg.pk}/datagroup_new/")
+        self.assertIn(
+            ", ".join(RegisterRecordsFormSet.header_cols),
+            response.content.decode("utf-8"),
         )
 
 

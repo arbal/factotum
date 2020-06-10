@@ -63,6 +63,10 @@ class ExtractedHabitsAndPractices(CommonInfo):
     def notes_label(self):
         return self.__get_label("notes")
 
+    class Meta:
+        verbose_name = _("Extracted habits and practices")
+        verbose_name_plural = _("Extracted habits and practices")
+
 
 class ExtractedHabitsAndPracticesToTag(TaggedItemBase, CommonInfo):
     """Many-to-many relationship between ExtractedHabitsAndPractices and Tag

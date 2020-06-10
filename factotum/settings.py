@@ -48,9 +48,10 @@ INSTALLED_APPS = [
     "django_cleanup.apps.CleanupConfig",
     "django_filters",
     "rest_framework",
+    "rest_framework.authtoken",
     "django_mysql",
     "apps_api.api",
-    "apps_api.openapi",
+    "apps_api.openapi.apps.OpenAPIConfig",
     "apps_api.core",
 ]
 
@@ -236,6 +237,9 @@ LOGGING = {
 DJANGO_EXTENSIONS_RESET_DB_MYSQL_ENGINES = ("factotum.db",)
 
 REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "apps_api.core.authentication.ExpiringTokenAuthentication"
+    ],
     "EXCEPTION_HANDLER": "rest_framework_json_api.exceptions.exception_handler",
     "DEFAULT_PAGINATION_CLASS": "rest_framework_json_api.pagination.JsonApiPageNumberPagination",
     "PAGE_SIZE": 100,

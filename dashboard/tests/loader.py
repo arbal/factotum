@@ -122,7 +122,7 @@ def load_model_objects():
         script_type="EX",
     )
     gt = GroupType.objects.create(title="Composition", code="CO")
-    gt2 = GroupType.objects.create(title="HHE Report", code="HH")
+    gt_hh = GroupType.objects.create(title="HHE Report", code="HH")
     dg = DataGroup.objects.create(
         name="Data Group for Test",
         description="Testing...",
@@ -131,6 +131,16 @@ def load_model_objects():
         downloaded_by=user,
         downloaded_at=timezone.now(),
         group_type=gt,
+        url="https://www.epa.gov",
+    )
+    dg_hh = DataGroup.objects.create(
+        name="HH Data Group for Test",
+        description="HH Testing...",
+        data_source=ds,
+        download_script=script,
+        downloaded_by=user,
+        downloaded_at=timezone.now(),
+        group_type=gt_hh,
         url="https://www.epa.gov",
     )
     dt = DocumentType.objects.create(title="MSDS", code="MS")
@@ -191,6 +201,7 @@ def load_model_objects():
             "script": script,
             "exscript": exscript,
             "dg": dg,
+            "dg_hh": dg_hh,
             "doc": doc,
             "p": p,
             "puc": puc,

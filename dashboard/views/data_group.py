@@ -248,7 +248,13 @@ def data_group_create(
     grouptypes = GroupType.objects.all()
     for grouptype in grouptypes:
         grouptype.codes = DocumentType.objects.compatible(grouptype)
-    context = {"form": form, "datasource": datasource, "grouptypes": grouptypes}
+    context = {
+        "form": form,
+        "datasource": datasource,
+        "grouptypes": grouptypes,
+        "csv_headers": RegisterRecordsFormSet.header_cols,
+    }
+
     if request.method == "POST":
         if form.is_valid():
             datagroup = form.save()

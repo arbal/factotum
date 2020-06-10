@@ -154,6 +154,13 @@ class DataGroupDetailTest(TempFileMixin, TestCase):
             "UPC should be created for second Product",
         )
 
+    def test_hh_type_no_bulk_create_products_form(self):
+        response = self.client.get(f"/datagroup/{self.objects.dg_hh.pk}/")
+        self.assertIsNone(
+            response.context["bulkassignprod_form"],
+            "HH documents do not have associated products.",
+        )
+
     def test_upload_note(self):
         response = self.client.get(
             f"/datagroup/{DataGroup.objects.first().id}/"

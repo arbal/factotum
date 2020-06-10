@@ -88,6 +88,10 @@ class ExtractedListPresenceTagAdmin(admin.ModelAdmin):
     list_filter = ("kind",)
 
 
+class ExtractedHabitsAndPracticesTagAdmin(admin.ModelAdmin):
+    list_filter = ("kind",)
+
+
 class PUCToTagAdmin(admin.ModelAdmin):
     list_display = ("content_object", "tag", "assumed")
     list_filter = ("tag",)
@@ -135,6 +139,9 @@ admin.site.register(ExtractedText)
 admin.site.register(ExtractedChemical)
 admin.site.register(ExtractedFunctionalUse)
 admin.site.register(ExtractedHabitsAndPractices)
+admin.site.register(ExtractedHabitsAndPracticesDataType)
+admin.site.register(ExtractedHabitsAndPracticesTagKind)
+admin.site.register(ExtractedHabitsAndPracticesTag, ExtractedHabitsAndPracticesTagAdmin)
 admin.site.register(DSSToxLookup)
 admin.site.register(QAGroup)
 admin.site.register(UnitType)
@@ -150,6 +157,5 @@ admin.site.register(ExtractedListPresence)
 admin.site.register(ExtractedListPresenceTag, ExtractedListPresenceTagAdmin)
 admin.site.register(ExtractedListPresenceToTag, ExtractedListPresenceToTagAdmin)
 admin.site.register(ExtractedListPresenceTagKind)
-admin.site.register(ExtractedHabitsAndPracticesDataType)
 admin.site.register(FunctionalUse)
 admin.site.register(FunctionalUseCategory)

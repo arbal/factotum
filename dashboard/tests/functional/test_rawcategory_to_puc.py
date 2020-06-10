@@ -12,7 +12,7 @@ from dashboard.views import DataSource, PUC, RawCategoryToPUCList
 
 class TestRawCategoryToPUCView(TestCase):
     path_name = "rawcategory_to_puc"
-    minimum_document_count = 50
+    minimum_product_count = 50
     docs = []
 
     @classmethod
@@ -30,7 +30,7 @@ class TestRawCategoryToPUCView(TestCase):
             group_type=cls.dgt,
         )
 
-        for min_visible_datadoc in range(cls.minimum_document_count):
+        for i in range(cls.minimum_product_count):
             cls.doc = DataDocument.objects.create(
                 data_group=cls.dg, raw_category="visible"
             )
@@ -42,7 +42,7 @@ class TestRawCategoryToPUCView(TestCase):
             "data_group__id": cls.dg.pk,
             "data_group__name": cls.dg.name,
             "raw_category": cls.docs[0].raw_category,
-            "document_count": cls.minimum_document_count,
+            "product_count": cls.minimum_product_count,
         }
 
     def test_list_unauthorized(self):
@@ -77,19 +77,6 @@ class TestRawCategoryToPUCView(TestCase):
             self.success_row_context, response.context["object_list"][0]
         )
 
-    def test_list_products_counted_once(self):
-        """Add an additional product to a document.  Verify the document is only counted once
-        """
-        self.client.login(username="Karyn", password="specialP@55word")
-        DataDocument.objects.filter(raw_category="visible").first().product_set.add(
-            Product.objects.create(upc=uuid1())
-        )
-        response = self.client.get(reverse(self.path_name))
-
-        self.assertDictEqual(
-            self.success_row_context, response.context["object_list"][0]
-        )
-
     def test_list_documents_without_products_are_not_counted(self):
         """ Add a document without a product.  Verify it's not counted
         """
@@ -111,14 +98,14 @@ class TestRawCategoryToPUCView(TestCase):
         self.assertEqual(
             0,
             len(response.context["object_list"]),
-            f"Data Groups with less than {self.minimum_document_count} documents should be excluded",
+            f"Data Groups with less than {self.minimum_product_count} documents should be excluded",
         )
 
     def test_list_documents_without_raw_categories_are_excluded(self):
         """ Add raw_categories that are blank and None and verify they are excluded
         """
         self.client.login(username="Karyn", password="specialP@55word")
-        for blank_raw_category in range(self.minimum_document_count):
+        for blank_raw_category in range(self.minimum_product_count):
             doc = DataDocument.objects.create(data_group=self.dg, raw_category="")
             doc.product_set.add(Product.objects.create(upc=uuid1()))
         # Null cases removed from dictionary
@@ -167,7 +154,7 @@ class TestRawCategoryToPUCView(TestCase):
             group_type=self.dgt,
         )
         docs2 = []
-        for min_visible_datadoc in range(self.minimum_document_count):
+        for min_visible_datadoc in range(self.minimum_product_count):
             doc2 = DataDocument.objects.create(data_group=dg2, raw_category="visible 2")
             doc2.product_set.add(Product.objects.create(upc=uuid1()))
             docs2.append(doc2)

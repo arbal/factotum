@@ -1,8 +1,12 @@
+import operator
+
 from django.db.models import Prefetch, Q
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics
+from rest_framework.exceptions import NotFound
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.viewsets import ViewSetMixin
+from rest_framework_json_api.views import RelationshipView, ModelViewSet
 
 from apps_api.api import filters, serializers
 from dashboard import models
@@ -78,17 +82,11 @@ class ChemicalViewSet(viewsets.ReadOnlyModelViewSet):
     preferred chemical name, and preferred CAS.
     """
 
-    lookup_field = "sid"
-    lookup_url_kwarg = "id"
     serializer_class = serializers.ChemicalSerializer
     queryset = models.DSSToxLookup.objects.exclude(
         curated_chemical__isnull=True
     ).order_by("sid")
     filterset_class = filters.ChemicalFilter
-    # Todo:  These are using the default DRF filters and renderer backends.
-    #  These should be removed as the route is made jsonapi compliant
-    filter_backends = [DjangoFilterBackend]
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
 
 
 class ChemicalPresenceViewSet(viewsets.ReadOnlyModelViewSet):
@@ -110,21 +108,33 @@ class ChemicalPresenceViewSet(viewsets.ReadOnlyModelViewSet):
     filterset_fields = {"name", "definition", "kind"}
 
 
-class FunctionalUseViewSet(ViewSetMixin, generics.ListAPIView):
+class FunctionalUseViewSet(ModelViewSet):
     """
     list: Service to retrieve the functional use to chemical connection.
     Query parameter is required, which can be any of ["document", "chemical", "category"]
     """
 
+    http_method_names = ["get", "head", "options"]
     serializer_class = serializers.FunctionalUseSerializer
     queryset = models.FunctionalUse.objects.prefetch_related(
         "chem__extracted_text__data_document", "chem__dsstox"
     ).order_by("id")
     filterset_class = filters.FunctionalUseFilter
-    # Todo:  These are using the default DRF filters and renderer backends.
-    #  These should be removed as the route is made jsonapi compliant
-    filter_backends = [DjangoFilterBackend]
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+
+
+class FunctionalUseRelationshipView(RelationshipView):
+    http_method_names = ["get", "head", "options"]
+    queryset = models.FunctionalUse.objects
+    field_name_mapping = {
+        "chemical": "chem.dsstox",
+        "document": "chem.extracted_text.data_document",
+    }
+
+    def get_related_instance(self):
+        try:
+            return operator.attrgetter(self.get_related_field_name())(self.get_object())
+        except AttributeError:
+            raise NotFound
 
 
 class FunctionUseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -170,3 +180,34 @@ class CompositionViewSet(ViewSetMixin, generics.ListAPIView):
     #  These should be removed as the route is made jsonapi compliant
     filter_backends = [DjangoFilterBackend]
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+
+
+class RawChemViewSet(ViewSetMixin, generics.ListAPIView):
+    """
+    list: Service providing RawChem resources related to a dataDocument resource.
+    """
+
+    serializer_class = serializers.CompositionSerializer
+    queryset = (
+        models.RawChem.objects.all()
+        .exclude(Q(dsstox__isnull=True) | Q(rid__isnull=True) | Q(rid=""))
+        .prefetch_related("dsstox")
+        .order_by("id")
+    )
+
+
+class RawChemRelationshipView(RelationshipView):
+    http_method_names = ["get", "head", "options"]
+    queryset = models.RawChem.objects.exclude(
+        Q(dsstox__isnull=True) | Q(rid__isnull=True) | Q(rid="")
+    )
+    field_name_mapping = {
+        "chemical": "dsstox",
+        "document": "extracted_text.data_document",
+    }
+
+    def get_related_instance(self):
+        try:
+            return operator.attrgetter(self.get_related_field_name())(self.get_object())
+        except AttributeError:
+            raise NotFound

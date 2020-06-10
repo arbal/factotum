@@ -19,7 +19,9 @@ local ModelTemplate = {
   typePlural:: self.type + 's',
   relationships:: [],
   errors:: [],
+  filters:: [],
   hasRelationships:: std.length(self.relationships) > 0,
+  hasFilters:: std.length(self.filters) > 0,
   defaultRelationships:: [relatedObj for relatedObj in self.relationships if relatedObj.default != null],
   allRelationshipsDefault:: std.length(self.defaultRelationships) == std.length(self.relationships),
   relatedTypes:: [relatedObj.object.type for relatedObj in self.relationships],
@@ -152,6 +154,15 @@ local buildParameters(obj) = {
       default: obj.readableAttributes(obj.type),
     },
   },
+  filters:: [
+      {
+        name: 'filter[' + filter_name + ']',
+        'in': 'query',
+        description: '[filter](https://jsonapi.org/format/#fetching-filtering)',
+        example: "value",
+        required: false,
+      } for filter_name in obj.filters
+    ],
   page:: {
     name: 'page',
     'in': 'query',
@@ -193,7 +204,7 @@ local buildParameters(obj) = {
   },
   write:: [self.id],
   read:: [self.id, self.fields],
-  readList:: [self.sort, self.fields, self.page],
+  readList:: [self.sort, self.fields, self.page,] + [obj for obj in self.filters],
 };
 
 local responseCodeDescriptions = {
@@ -432,7 +443,7 @@ local buildLinks(obj) = {
           type: 'string',
           format: 'uri',
           description: 'The link to the resource that represents the relationship itself.',
-          example: std.extVar('baseServer') + '/' + obj.typePlural + '1/' + relatedObjType,
+          example: std.extVar('baseServer') + '/' + obj.typePlural + '/1/' + relatedObjType,
         },
         related: {
           type: 'string',
@@ -442,7 +453,7 @@ local buildLinks(obj) = {
               'The link to the resource representing the related resource objects.'
             else
               'The link to the resource representing the related resource object.',
-          example: std.extVar('baseServer') + '/' + obj.typePlural + '1/relationships' + relatedObjType,
+          example: std.extVar('baseServer') + '/' + obj.typePlural + '/1/relationships/' + relatedObjType,
         },
       },
       required: ['self', 'related'],
@@ -1028,21 +1039,14 @@ local buildSpec(objs, description) = {
   },
   components: {
     securitySchemes: {
-      basicAuth: {
+      tokenAuth: {
         type: 'http',
-        scheme: 'basic',
-        description: '[HTTP basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication).',
-      },
-      cookieAuth: {
-        type: 'apiKey',
-        'in': 'cookie',
-        name: 'sessionid',
-        description: 'A session will be made on the server after the first authenticated response. To mitigate CSRF attacks, the server uses the [strict SameSite policy](https://web.dev/samesite-cookies-explained/) in combination with the CORS policy detailed above.',
+        scheme: 'bearer',
+        description: '[Token Authentication](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication).',
       },
     },
   },
-  # Web Services are currently not authenticated
-  # security: [{ basicAuth: [] }, { cookieAuth: [] }],
+  security: [],
   tags: [
     {
       name: obj.type,
@@ -1056,8 +1060,13 @@ local buildSpec(objs, description) = {
       tags: std.set(std.map((function(x) x.type), std.filter((function(x) x.app == app), patchedObjs))),
     }
     for app in std.set(std.map((function(x) x.app), patchedObjs))
+  ] + [
+    {
+      name: "Authentication",
+      tags: ['tokenAuth']
+    }
   ],
-  paths: std.foldl((function(x, y) x + y), std.map(buildPaths, patchedObjs), {}),
+  paths: std.foldl((function(x, y) x + y), std.map(buildPaths, patchedObjs), {}) + import 'auth.libsonnet'
 };
 
 {

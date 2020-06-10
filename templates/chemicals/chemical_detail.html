@@ -185,12 +185,41 @@
                     <th>Product</th>
                     <th>Associated Document</th>
                     <th>PUC</th>
+                    <th>PUC Kind</th>
                 </tr>
                 </thead>
                 <tbody></tbody>
+
                 <tfoot class="m-0">
                 <tr>
                     <th id="products-info-text" class="m-0"></th>
+                    <th></th>
+                    <th></th>
+                    <th class="m-0 p-0">
+                        {% if puc_kinds|length > 1 %}
+                            <div class="form-group m-0">
+                                <select class="form-control"
+                                        id="puc_kinds_dropdown"
+                                        title="Filter by PUC Kind"
+                                        data-placement="left"
+                                        autocomplete="off">
+                                    <option value="all" selected>
+                                        All
+                                    </option>
+                                    <option value="none">
+                                        No PUC assigned
+                                    </option>
+                                    {% for puc_kind in puc_kinds %}
+                                        <option value="{{ puc_kind.puc_kind_code }}">
+                                            {{ puc_kind.display_name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        {% else %}
+                            All 1 GroupType
+                        {% endif %}
+                    </th>
                 </tr>
                 </tfoot>
             </table>

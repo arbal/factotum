@@ -702,6 +702,15 @@ class RegisterRecordsFormSet(DGFormSet):
     prefix = "register"
     header_fields = ["data_group"]
     serializer = CSVReader
+    header_cols = [
+        "filename",
+        "title",
+        "document_type",
+        "url",
+        "organization",
+        "subtitle",
+        "epa_reg_number",
+    ]
 
     def __init__(self, dg, *args, **kwargs):
         self.dg = dg
@@ -713,17 +722,10 @@ class RegisterRecordsFormSet(DGFormSet):
         before getting to any form-specific errors.
         """
         header = list(self.bulk.fieldnames)
-        header_cols = [
-            "filename",
-            "title",
-            "document_type",
-            "url",
-            "organization",
-            "subtitle",
-            "epa_reg_number",
-        ]
-        if header != header_cols:
-            raise forms.ValidationError(f"CSV column titles should be {header_cols}")
+        if header != self.header_cols:
+            raise forms.ValidationError(
+                f"CSV column titles should be {self.header_cols}"
+            )
         if not any(self.errors):
             values = set()
             for form in self.forms:

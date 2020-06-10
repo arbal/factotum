@@ -360,11 +360,14 @@ def data_document_delete(request, pk):
 def data_document_edit(request, pk):
     datadocument = get_object_or_404(DataDocument, pk=pk)
     form = DataDocumentForm(request.POST or None, instance=datadocument)
+    form.referer = request.META.get("HTTP_REFERER", None)
     if form.is_valid():
         if form.has_changed():
             form.save()
+        if request.POST.get("referer_page"):
+            return redirect(request.POST.get("referer_page"))
         return redirect("data_document", pk=pk)
-    form.referer = request.META.get("HTTP_REFERER", None)
+
     return render(request, "data_document/data_document_form.html", {"form": form})
 
 

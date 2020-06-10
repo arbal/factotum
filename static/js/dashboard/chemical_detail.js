@@ -42,6 +42,11 @@ $(document).ready(function () {
         document_table.ajax.url(get_documents_url() + '&group_type=' + group_type).load(moveText);
         $('#reset-documents').prop('disabled', false);
     });
+    $('#puc_kinds_dropdown').on('change', e => {
+        var puc_kind = $(e.currentTarget).children("option:selected").val();
+        product_table.ajax.url(get_products_url() + '&puc_kind=' + puc_kind).load(moveText);
+        $('#reset-products').prop('disabled', false);
+    });
     $('#reset-documents').on('click', function (e) {
         chemical.data('puc', '');
         chemical.data('pid', '');
@@ -120,6 +125,13 @@ function build_product_table() {
             },
             {
                 data: 2,
+                orderable: true,
+                searchable: true,
+                className: "text-center",
+                width: "30%"
+            },
+            {
+                data: 3,
                 orderable: true,
                 searchable: true,
                 className: "text-center",

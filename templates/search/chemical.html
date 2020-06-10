@@ -1,6 +1,6 @@
 <!-- {{ result }} -->
 {% for hit in result.hits %}
-<div class="row pt-3 pb-3 border-bottom border-top">
+<div class="resultrow row pt-3 pb-3 border-bottom border-top">
     <div class="col-sm">
         <h5>
             <a href="{% url 'chemical' hit.id %}">
@@ -10,47 +10,26 @@
                     data-placement="top"
                     title="{{ hit.source.truechem_dtxsid }}"
                 >
-                {{ hit.source.truechem_dtxsid }}
+                    {{ hit.source.truechem_dtxsid }}
                 </span>
             </a>
         </h5>
-        {% for key, value in hit.highlights.items %}
-        {% if key != 'Title' %}
         <div class="row">
             <div class="col-lg-3 border-right">
-                <small class="text-muted">{{ key }}:</small>
-            </div>
-            <div class="col-lg-9">
-                {% autoescape off %}
-                <small class="text-muted">{{ value|join:'... ' }}</small>
-                {% endautoescape %}
-            </div>
-        </div>
-        {% endif %}
-        {% endfor %}
-
-{% if not hit.highlights|dict_key:'True chemical name'%}
-       <div class="row">
-            <div class="col-lg-3 border-right">
-                <small class="text-muted">True chemical name:</small>
+                <small class="text-muted">Preferred chemical name:</small>
             </div>
             <div class="col-lg-9">
                 <small class="text-muted">{{ hit.source|dict_key:"truechem_name" }}</small>
             </div>
         </div>
-{% endif%}
-{% if not hit.highlights|dict_key:'True chemical CAS'%}
-       <div class="row">
+        <div class="row">
             <div class="col-lg-3 border-right">
-                <small class="text-muted">True chemical CAS:</small>
+                <small class="text-muted">Preferred CAS:</small>
             </div>
             <div class="col-lg-9">
                 <small class="text-muted">{{ hit.source|dict_key:"truechem_cas" }}</small>
             </div>
         </div>
-{% endif%}
-        
-
     </div>
 </div>
 {% endfor %}

@@ -28,6 +28,7 @@ from dashboard.models import (
     ExtractedLMDoc,
     ExtractedHabitsAndPractices,
 )
+from dashboard.models.extracted_hpdoc import ExtractedHPDoc
 
 from dashboard.utils import get_extracted_models
 
@@ -216,8 +217,19 @@ class ExtractedTextForm(forms.ModelForm):
 
 class ExtractedTextHPForm(ExtractedTextForm):
     class Meta:
-        model = ExtractedText
-        fields = ["doc_date", "rev_num"]
+        model = ExtractedHPDoc
+        fields = ["doc_date", "rev_num", "pmid"]
+
+        widgets = {
+            "pmid": forms.TextInput(
+                attrs={
+                    "type": "number",
+                    "min": "0",
+                    "step": "1",
+                    "style": "-moz-appearance: textfield",
+                }
+            )
+        }
 
 
 class ExtractedTextFUForm(ExtractedTextForm):

@@ -59,19 +59,18 @@ class FunctionalUseFilter(filters.FilterSet):
         fields = []
 
     def is_valid(self):
-        if not set(self.request.GET.keys() & self.form.fields.keys()):
-            raise ValidationError(
-                "Request must be filtered by one of these parameters "
-                "['document', 'chemical', 'category']"
-            )
         return super().is_valid()
 
 
 class ChemicalFilter(filters.FilterSet):
     puc = filters.NumberFilter(
         help_text="A PUC ID to filter chemicals against.",
+        label="PUC",
         field_name="curated_chemical__extracted_text__data_document__product__puc__id",
         initial="1",
+    )
+    sid = filters.CharFilter(
+        field_name="sid", label="sid", help_text="A SID to filter chemicals against."
     )
 
     class Meta:

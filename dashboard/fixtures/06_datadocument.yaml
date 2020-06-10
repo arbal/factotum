@@ -6051,7 +6051,7 @@
     title: "Nonflammable Gas Mixture: Acetylene / Hydrogen Cyanide / Nitrogen"
     subtitle: ""
     url: http://www.airgas.com/msds/016375.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6066,7 +6066,7 @@
     title: "Nonflammable Gas Mixture: Carbon Monoxide / Nitrogen / Nitrogen Dioxide"
     subtitle: ""
     url: http://www.airgas.com/msds/016412.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6083,7 +6083,7 @@
       / Isopentane / Metha"
     subtitle: ""
     url: http://www.airgas.com/msds/016421.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6100,7 +6100,7 @@
       / Ethane / Isobutane / Is"
     subtitle: ""
     url: http://www.airgas.com/msds/016424.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6115,7 +6115,7 @@
     title: "Nonflammable Gas Mixture: Carbon Dioxide / Helium / Methane"
     subtitle: ""
     url: http://www.airgas.com/msds/016511.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6130,7 +6130,7 @@
     title: "Flammable Liquid Mixture: Isobutane / N-Pentane / Trans-2-Butene"
     subtitle: ""
     url: http://www.airgas.com/msds/016536.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6147,7 +6147,7 @@
       / Methanol / N-Butane /"
     subtitle: ""
     url: http://www.airgas.com/msds/016547.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6164,7 +6164,7 @@
       / Isopentane / Neopentan"
     subtitle: ""
     url: http://www.airgas.com/msds/016686.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6181,7 +6181,7 @@
       N-Butane / N-Pentane"
     subtitle: ""
     url: http://www.airgas.com/msds/016733.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6196,7 +6196,7 @@
     title: "Flammable Gas Mixture: 1,3-Butadiene / Hydrogen / Isopentane"
     subtitle: ""
     url: http://www.airgas.com/msds/016737.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6213,7 +6213,7 @@
       Butyl Mercaptan"
     subtitle: ""
     url: http://www.airgas.com/msds/016964.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6228,7 +6228,7 @@
     title: "Flammable Gas Mixture: Ethylene / Ethylene Oxide / Methane"
     subtitle: ""
     url: http://www.airgas.com/msds/016973.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6245,7 +6245,7 @@
       Methyl Ether"
     subtitle: ""
     url: http://www.airgas.com/msds/016975.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6262,7 +6262,7 @@
       / Nitrogen / Propane"
     subtitle: ""
     url: http://www.airgas.com/msds/017080.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6277,7 +6277,7 @@
     title: "Flammable Liquid Mixture: Methane 1ppm-10% / Octane 90-99%"
     subtitle: ""
     url: http://www.airgas.com/msds/017139.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6294,7 +6294,7 @@
       Monoxide / Cis-2-Butene"
     subtitle: ""
     url: http://www.airgas.com/msds/017205.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6311,7 +6311,7 @@
       / Methane / Methanol"
     subtitle: ""
     url: http://www.airgas.com/msds/017359.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6328,7 +6328,7 @@
       / Ethane / Ethylene / H"
     subtitle: ""
     url: http://www.airgas.com/msds/017390.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6345,7 +6345,7 @@
       Carbon Dioxide / Carbon Mono"
     subtitle: ""
     url: http://www.airgas.com/msds/017442.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6362,7 +6362,7 @@
       Trichloroethylene / Vinyl Ch"
     subtitle: ""
     url: http://www.airgas.com/msds/017534.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6379,7 +6379,7 @@
       / Ethanol / Isobutane / Isob"
     subtitle: ""
     url: http://www.airgas.com/msds/017553.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6396,7 +6396,7 @@
       / Isopentane / Metha"
     subtitle: ""
     url: http://www.airgas.com/msds/017555.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6413,7 +6413,7 @@
       / Vinyl Acetate"
     subtitle: ""
     url: http://www.airgas.com/msds/017680.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6430,7 +6430,7 @@
       Hydrogen / Isobutane / Metha"
     subtitle: ""
     url: http://www.airgas.com/msds/017684.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6447,7 +6447,7 @@
       N-Pentane / Propane"
     subtitle: ""
     url: http://www.airgas.com/msds/017756.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6464,7 +6464,7 @@
       / Nitrogen"
     subtitle: ""
     url: http://www.airgas.com/msds/017757.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6479,7 +6479,7 @@
     title: "Flammable Liquid Mixture: Benzene / Hexane / Nonane / Toluene"
     subtitle: ""
     url: http://www.airgas.com/msds/017812.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6496,7 +6496,7 @@
       / C"
     subtitle: ""
     url: http://www.airgas.com/msds/017831.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6513,7 +6513,7 @@
       Oxygen"
     subtitle: ""
     url: http://www.airgas.com/msds/017964.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6530,7 +6530,7 @@
       / Methane"
     subtitle: ""
     url: http://www.airgas.com/msds/017993.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6547,7 +6547,7 @@
       / Ethylene / Hydrogen"
     subtitle: ""
     url: http://www.airgas.com/msds/018088.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6564,7 +6564,7 @@
       99%"
     subtitle: ""
     url: http://www.airgas.com/msds/018121.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6581,7 +6581,7 @@
       / Propane"
     subtitle: ""
     url: http://www.airgas.com/msds/018149.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6598,7 +6598,7 @@
       / Methane / Propylene"
     subtitle: ""
     url: http://www.airgas.com/msds/018184.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6615,7 +6615,7 @@
       Nitrogen / Oxygen / Propane"
     subtitle: ""
     url: http://www.airgas.com/msds/018295.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6632,7 +6632,7 @@
       / Ethane / Ethylene / Heliu"
     subtitle: ""
     url: http://www.airgas.com/msds/018439.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6649,7 +6649,7 @@
       / Methanol / Nitrogen"
     subtitle: ""
     url: http://www.airgas.com/msds/018472.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6664,7 +6664,7 @@
     title: "Nonflammable Gas Mixture: 1,1,1-Trichloroethane 1-999ppm / Nitrogen 99.9001-99.9999%"
     subtitle: ""
     url: http://www.airgas.com/msds/018541.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6681,7 +6681,7 @@
       / Nitrogen"
     subtitle: ""
     url: http://www.airgas.com/msds/018577.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6698,7 +6698,7 @@
       / Ethane / Ethylene"
     subtitle: ""
     url: http://www.airgas.com/msds/018580.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6715,7 +6715,7 @@
       Dioxide / Carbon Monoxi"
     subtitle: ""
     url: http://www.airgas.com/msds/018609.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6732,7 +6732,7 @@
       / Hydrogen / Methane /"
     subtitle: ""
     url: http://www.airgas.com/msds/018615.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6747,7 +6747,7 @@
     title: "Flammable Liquefied Gas Mixture: Isobutane / Nonane / Propane / Propylene"
     subtitle: ""
     url: http://www.airgas.com/msds/018632.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6764,7 +6764,7 @@
       / N-Pentane / Propane"
     subtitle: ""
     url: http://www.airgas.com/msds/018696.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6781,7 +6781,7 @@
       Acetone / Cis-2-Butene / Di"
     subtitle: ""
     url: http://www.airgas.com/msds/018702.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6798,7 +6798,7 @@
       Methane / N-Butane / N-Hepta"
     subtitle: ""
     url: http://www.airgas.com/msds/018718.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6815,7 +6815,7 @@
       / Isobutane / Isopenta"
     subtitle: ""
     url: http://www.airgas.com/msds/018843.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6832,7 +6832,7 @@
       / Isopentane / Methane"
     subtitle: ""
     url: http://www.airgas.com/msds/018865.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6849,7 +6849,7 @@
       / Carbon Dioxide / Etha"
     subtitle: ""
     url: http://www.airgas.com/msds/018874.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
@@ -6866,7 +6866,7 @@
       / Furan / Hexane /"
     subtitle: ""
     url: http://www.airgas.com/msds/018908.pdf
-    raw_category: ""
+    raw_category: "Flammable Gases"
     data_group: 47
     document_type: 29
     organization: ""
