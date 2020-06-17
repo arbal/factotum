@@ -1,5 +1,6 @@
 import uuid
 from datetime import datetime
+
 from django.utils import timezone
 
 from django import forms
@@ -700,7 +701,6 @@ class BulkAssignProdForm(forms.Form):
 
 class RegisterRecordsFormSet(DGFormSet):
     prefix = "register"
-    header_fields = ["data_group"]
     serializer = CSVReader
     header_cols = [
         "filename",
@@ -714,6 +714,7 @@ class RegisterRecordsFormSet(DGFormSet):
 
     def __init__(self, dg, *args, **kwargs):
         self.dg = dg
+        self.document_types = self.dg.group_type.groups.all()
         self.form = DataDocumentCSVForm
         super().__init__(*args, **kwargs)
 
@@ -721,6 +722,7 @@ class RegisterRecordsFormSet(DGFormSet):
         """Errors raised here are exposed in non_form_errors() and will be rendered
         before getting to any form-specific errors.
         """
+
         header = list(self.bulk.fieldnames)
         if header != self.header_cols:
             raise forms.ValidationError(
@@ -729,6 +731,7 @@ class RegisterRecordsFormSet(DGFormSet):
         if not any(self.errors):
             values = set()
             for form in self.forms:
+                self._validate_doc_type_compatibility(form)
                 value = form.cleaned_data.get("filename")
                 if value in values:
                     raise forms.ValidationError(
@@ -736,45 +739,41 @@ class RegisterRecordsFormSet(DGFormSet):
                     )
                 values.add(value)
 
+    def _validate_doc_type_compatibility(self, form):
+        """Validates the document_type code provided on the form is valid
+        Replaces the code with the valid document_type on cleaned_data or
+        raises a ValidationError if no valid document_type exists"""
+        doc_type_str = form.cleaned_data.pop("document_type")
+        for valid_type in self.document_types:
+            if doc_type_str == valid_type.code:
+                form.cleaned_data["document_type"] = valid_type
+                return True
+
+        raise forms.ValidationError(
+            f"Document Type {doc_type_str} is not compatible with the {self.dg.group_type.title} Group Type."
+        )
+
     def save(self):
         with transaction.atomic():
             new_docs = []
             now = datetime.now()
             for f in self.forms:
                 f.cleaned_data["created_at"] = now
+                f.cleaned_data["data_group"] = self.dg
                 obj = DataDocument(**f.cleaned_data)
                 new_docs.append(obj)
             DataDocument.objects.bulk_create(new_docs)
         return len(self.forms)
 
 
-class DocTypeFormField(forms.ModelChoiceField):
-    def clean(self, value):
-        if value:
-            try:
-                return DocumentType.objects.get(code=value)
-            except:
-                raise forms.ValidationError(
-                    f"'{value}' is not a valid DocumentType code."
-                )
-        else:
-            return DocumentType.objects.get(code="UN")
-
-
-class DataDocumentCSVForm(forms.ModelForm):
-    class Meta:
-        model = DataDocument
-        fields = [
-            "data_group",
-            "filename",
-            "title",
-            "document_type",
-            "url",
-            "organization",
-            "subtitle",
-            "epa_reg_number",
-        ]
-        field_classes = {"document_type": DocTypeFormField}
+class DataDocumentCSVForm(forms.Form):
+    filename = field_for_model(DataDocument, "filename")
+    title = field_for_model(DataDocument, "title")
+    document_type = forms.CharField()
+    url = field_for_model(DataDocument, "url")
+    organization = field_for_model(DataDocument, "organization")
+    subtitle = field_for_model(DataDocument, "subtitle")
+    epa_reg_number = field_for_model(DataDocument, "epa_reg_number")
 
 
 class FunctionalUseCSVForm(forms.Form):

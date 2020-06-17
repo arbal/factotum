@@ -76,6 +76,9 @@ class GroupTypeFactory(FactotumFactoryBase):
 class UserFactory(FactotumFactoryBase):
     class Meta:
         model = User
+        django_get_or_create = ("username",)
+
+    username = "FactoryUser"
 
 
 class DataGroupFactory(FactotumFactoryBase):

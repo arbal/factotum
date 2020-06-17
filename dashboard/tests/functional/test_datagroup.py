@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from dashboard.forms.data_group import RegisterRecordsFormSet
-from dashboard.tests.factories import DataGroupFactory
+from dashboard.tests.factories import DataSourceFactory
 from dashboard.tests.loader import fixtures_standard
 
 
@@ -24,9 +24,9 @@ class DataGroupTest(TestCase):
         These headers are used in the CSV upload
         """
         self.client.login(username="Karyn", password="specialP@55word")
-        dg = DataGroupFactory()
+        ds = DataSourceFactory()
 
-        response = self.client.get(f"/datasource/{dg.pk}/datagroup_new/")
+        response = self.client.get(f"/datasource/{ds.pk}/datagroup_new/")
         self.assertIn(
             ", ".join(RegisterRecordsFormSet.header_cols),
             response.content.decode("utf-8"),
