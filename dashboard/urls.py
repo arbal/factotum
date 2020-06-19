@@ -207,6 +207,11 @@ urlpatterns = [
     path("dl_puctags/", views.download_PUCTags, name="download_PUCTags"),
     path("dl_lpkeywords/", views.download_LPKeywords, name="download_LPKeywords"),
     path(
+        "dl_functionalusecategories/",
+        views.download_FunctionalUseCategories,
+        name="download_FunctionalUseCategories",
+    ),
+    path(
         "dl_raw_chems_dg/<int:pk>/",
         views.download_raw_chems_dg,
         name="download_raw_chems_dg",
