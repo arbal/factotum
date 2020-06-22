@@ -16,21 +16,23 @@ local description = |||
 // Import models //
 ///////////////////
 
-local functional_use_category = import 'dashboard/functionalUseCategory.libsonnet';
-local chemical_presence = import 'dashboard/chemical_presence.libsonnet';
-local functional_use  = import 'dashboard/functionalUse.libsonnet';
 local chemical  = import 'dashboard/chemical.libsonnet';
+local chemical_presence = import 'dashboard/chemical_presence.libsonnet';
+local composition = import 'dashboard/composition.libsonnet';
 local dataDocument  = import 'dashboard/dataDocument.libsonnet';
+local functional_use  = import 'dashboard/functionalUse.libsonnet';
+local functional_use_category = import 'dashboard/functionalUseCategory.libsonnet';
 
 ////////////////////////
 // List of all models //
 ////////////////////////
 local objs = [
-    chemical_presence,
-    functional_use_category,
-    functional_use,
     chemical,
+    chemical_presence,
+    composition,
     dataDocument,
+    functional_use,
+    functional_use_category,
 ];
 
 // Build spec

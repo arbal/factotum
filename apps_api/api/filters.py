@@ -22,10 +22,16 @@ class PUCFilter(filters.FilterSet):
 
 
 class ProductFilter(filters.FilterSet):
-    chemical = filters.CharFilter(
+    sid = filters.CharFilter(
         help_text="A chemical DTXSID to filter products against.",
         field_name="documents__extractedtext__rawchem__dsstox__sid",
         initial="DTXSID6026296",
+    )
+
+    chemical = filters.NumberFilter(
+        help_text="A chemical id to filter products against.",
+        field_name="documents__extractedtext__rawchem__dsstox",
+        initial=1,
     )
 
     upc = filters.CharFilter(
@@ -57,9 +63,6 @@ class FunctionalUseFilter(filters.FilterSet):
     class Meta:
         model = models.FunctionalUse
         fields = []
-
-    def is_valid(self):
-        return super().is_valid()
 
 
 class ChemicalFilter(filters.FilterSet):
@@ -115,10 +118,15 @@ class CompositionFilter(filters.FilterSet):
         help_text="Document ID to filter composition data against.",
         initial=100000,
     )
-    chemical = filters.CharFilter(
+    sid = filters.CharFilter(
         field_name="dsstox__sid",
         help_text="Chemical sid to filter composition data against.",
         initial="DTXSID9022528",
+    )
+    chemical = filters.NumberFilter(
+        field_name="dsstox__pk",
+        help_text="Chemical id to filter composition data against.",
+        initial=100000,
     )
     rid = filters.CharFilter(
         field_name="rid",
@@ -126,15 +134,7 @@ class CompositionFilter(filters.FilterSet):
         initial="DTXRID001",
     )
     product = filters.NumberFilter(
-        field_name="extracted_text__data_document__products",
+        field_name="extracted_text__data_document__products__pk",
         help_text="Product id to filter composition data against.",
         initial=100000,
     )
-
-    def is_valid(self):
-        if not set(self.request.GET.keys() & self.form.fields.keys()):
-            raise ValidationError(
-                "Request must be filtered by one of these parameters "
-                "['rid', 'product', 'chemical', 'document']"
-            )
-        return super().is_valid()

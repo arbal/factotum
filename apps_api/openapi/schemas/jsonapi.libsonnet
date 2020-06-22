@@ -562,7 +562,7 @@ local buildRelationships(obj, includeLinks=false, required=false, includeDefault
   description: 'Related resources.',
   [if includeDefaults && std.length(obj.defaultRelationships) > 0 then 'default']: buildDefaultRelationships(obj),
   properties: {
-    [relatedObj.object.type]: {
+    [if relatedObj.many then relatedObj.object.typePlural else relatedObj.object.type]: {
       local resourceIdentifier = buildResourceIdentifier(
         relatedObj.object,
         required=true

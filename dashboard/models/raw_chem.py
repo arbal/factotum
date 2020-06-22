@@ -40,6 +40,9 @@ class RawChem(CommonInfo):
 
     tracker = FieldTracker()
 
+    class JSONAPIMeta:
+        resource_name = "chemicals"
+
     def __str__(self):
         return str(self.raw_chem_name) if self.raw_chem_name else ""
 

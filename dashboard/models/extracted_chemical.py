@@ -89,6 +89,9 @@ class ExtractedChemical(RawChem):
     class Meta:
         ordering = (F("ingredient_rank").asc(nulls_last=True),)
 
+    class JSONAPIMeta:
+        resource_name = "composition"
+
     def clean(self):
         error_dict = {}
         ut = bool(self.unit_type_id)
