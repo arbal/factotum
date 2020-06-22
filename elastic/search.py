@@ -141,7 +141,7 @@ class ElasticPaginator:
                     )
         # patch friendly name
         for hit in result:
-            for source_field in hit["highlights"]:
+            for source_field in hit["highlights"].copy():
                 if source_field in FRIENDLY_FIELDS:
                     friendly = FRIENDLY_FIELDS[source_field]
                     hit["highlights"][friendly] = hit["highlights"].pop(source_field)
