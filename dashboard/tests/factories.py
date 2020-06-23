@@ -73,7 +73,7 @@ class GroupTypeFactory(FactotumFactoryBase):
     code = "CO"
 
 
-class UserFactory(FactotumFactoryBase):
+class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
         django_get_or_create = ("username",)
@@ -345,6 +345,9 @@ class ExtractedChemicalFactory(RawChemFactory):
     class Meta:
         model = models.ExtractedChemical
 
+    class Params:
+        add_functional_uses = False
+
     extracted_text = factory.SubFactory(
         ExtractedTextFactory, data_document__data_group__group_type__code="CO"
     )
@@ -356,6 +359,9 @@ class ExtractedChemicalFactory(RawChemFactory):
     ingredient_rank = factory.LazyAttribute(lambda o: random.randint(1, 999))
     lower_wf_analysis = factory.LazyAttribute(lambda o: 0.5 - random.random() / 2)
     upper_wf_analysis = factory.LazyAttribute(lambda o: 0.5 + random.random() / 2)
+
+    if factory.SelfAttribute("add_functional_uses"):
+        factory.SubFactory(FunctionalUseFactory)
 
 
 class ExtractedFunctionalUseFactory(RawChemFactory):
