@@ -109,6 +109,9 @@ class PUC(CommonInfo):
     )
     objects = PUCQuerySet.as_manager()
 
+    class JSONAPIMeta:
+        resource_name = "puc"
+
     def get_unique_puc_kinds():
         kind_choices = PUC.KIND_CHOICES
         puc_kinds = []

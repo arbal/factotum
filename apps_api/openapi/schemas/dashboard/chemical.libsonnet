@@ -7,6 +7,7 @@
     identifier for the chemical substance. Service provides the DTXSID,
     preferred chemical name, and preferred CAS.',
   queryParams: [],
+  filters: ["puc", "sid"],
   attributes: {
     sid: {
       type: 'string',

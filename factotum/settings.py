@@ -236,6 +236,8 @@ LOGGING = {
 
 DJANGO_EXTENSIONS_RESET_DB_MYSQL_ENGINES = ("factotum.db",)
 
+JSON_API_FORMAT_TYPES = "camelize"
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "apps_api.core.authentication.ExpiringTokenAuthentication"

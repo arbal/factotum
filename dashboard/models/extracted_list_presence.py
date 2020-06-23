@@ -111,6 +111,9 @@ class ExtractedListPresenceTag(TagBase, CommonInfo):
         verbose_name_plural = _("Extracted list presence keywords")
         ordering = ("name",)
 
+    class JSONAPIMeta:
+        resource_name = "chemicalPresence"
+
     def get_tagsets(self):
         # Get all ExtractedListPresenceToTag that contain this tag
         # Order by content_object_id and tag_id to verify set is always ordered
