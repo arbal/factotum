@@ -19,21 +19,33 @@
 </dl>
 
 
-<div class="row">
-    <div class="col-12 card-header">
-        <h4>QA Notes</h4>
-    </div>
+<div class="mb-3">
+    <h3>Documents</h3>
 </div>
-{%  if qa_notes %}
-    <dl class="row" id="qa_notes">
-    {%  for qa_note in qa_notes %}
-        <dt class="col-3" id=dd_{{ qa_note.extracted_text_id }}><a href="{% url 'data_document' qa_note.extracted_text_id %}" >{{ qa_note.extracted_text.data_document }}</a></dt>
-        <dd class="col-9">{{ qa_note.qa_notes }}</dd>
-        <dt class="col-12 border-bottom"></dt>
-    {%  endfor %}
-    </dl>
-{%  else %}
-    No QA Notes exist for this Extraction Script
-{%  endif %}
+<table class="table table-striped table-bordered dataTable no-footer table-sm" id="document-table">
+    <thead>
+        <tr>
+            <th>Document</th>
+            <th>QA Note</th>
+            <th>Audit Log</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-center" colspan="3">
+                <i class="fa fa-spinner fa-spin"></i>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="modal" id="document-audit-log-modal" data-backdrop="static"></div>
+
+{% endblock %}
+
+{% block js %}
+
+{{ document_table_url|json_script:"document_table_url" }}
+<script src="{% static 'js/dashboard/extraction_script_summary.js' %}"></script>
 
 {% endblock %}

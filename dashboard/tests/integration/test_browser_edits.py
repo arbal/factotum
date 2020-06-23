@@ -299,11 +299,22 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             )
             self.browser.get(qa_summary_url)
             # print(self.browser.page_source)
-            qa_notes_dd = self.browser.find_element_by_xpath(f'//*[@id="dd_{doc_id}"]')
-            self.assertEqual(
-                qa_notes_dd.text,
+
+            # This ajax call seems to be a little (incredibly) finicky.  Upping the wait to ensure it finishes
+            wait = WebDriverWait(self.browser, 60)
+            wait.until(
+                ec.text_to_be_present_in_element(
+                    (By.XPATH, '//table[@id="document-table"]/tbody'),
+                    et.data_document.title,
+                )
+            )
+            doc_table = self.browser.find_element_by_xpath(
+                '//table[@id="document-table"]/tbody'
+            )
+            self.assertIn(
                 et.data_document.title,
-                "The QA Notes dt element should contain the title of the ExtractedText object's DataDocument",
+                doc_table.text,
+                "The Document table element should contain Documents",
             )
 
         # Return to the index page and confirm that the "Percent QA Checked"

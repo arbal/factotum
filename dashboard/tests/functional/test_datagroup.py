@@ -1,11 +1,11 @@
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 
 from dashboard.forms.data_group import RegisterRecordsFormSet
 from dashboard.tests.factories import DataSourceFactory
 from dashboard.tests.loader import fixtures_standard
 
 
-class DataGroupTest(TestCase):
+class DataGroupTest(TransactionTestCase):
     fixtures = ["00_superuser"]
 
     def test_redirect_if_not_logged_in(self):
