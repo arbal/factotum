@@ -79,6 +79,37 @@
                                 {% endif %}
                             </div>
                         {% endfor %}
+                            {% if form.functional_uses %}
+                            <div class="w-100"></div>
+                            <div class="d-flex flex-wrap functional_uses col-lg-10 ">
+                                {{ form.functional_uses.management_form }}
+                                {{ form.functional_uses.non_form_errors }}
+
+                                {% for nested_form in form.functional_uses.forms %}
+                                    
+                                    {% for nested_field in nested_form.hidden_fields %}
+                                        {{ nested_field }}
+                                    {% endfor %}
+                                    {% for nested_field in nested_form.visible_fields %}
+                                    <div class="factotum-control-row">
+                                        {{ nested_field.label|capfirst }}
+                                        {% if nested_field.errors %}
+                                            {{ nested_field|add_class:"is-invalid detail-control form-control" }}
+                                            <small class="text-danger">
+                                                {{ nested_field.errors.as_text }}
+                                            </small>
+                                        {% else %}
+                                            {% with classes="detail-control form-control "|add:doc.data_group.type %}
+                                                {% render_field nested_field class+=classes %}
+                                            {% endwith %}
+                                        {% endif %}
+                                    </div>
+                                    {% endfor %}
+
+
+                                {% endfor %}
+                            </div>
+                            {% endif %}
                     </div>
                     <div class="card-footer text-right">
                         {% if form.instance.updated_at and form.rawchem_ptr.value %}

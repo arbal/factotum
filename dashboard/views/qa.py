@@ -304,14 +304,13 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
     # child records where qa_flag = True
     if qa_focus == "doc":
         # qs = detail_formset.get_queryset().filter(qa_flag=True)
-        # print(detail_formset._queryset)
         detail_formset._queryset = flagged_qs
 
     note, created = QANotes.objects.get_or_create(extracted_text=extext)
     notesform = QANotesForm(instance=note)
 
     # Allow the user to edit the data document type
-    document_type_form = DocumentTypeForm(request.POST or None, instance=doc)
+    document_type_form = DocumentTypeForm(None, instance=doc)
     qs = DocumentType.objects.compatible(doc)
     document_type_form.fields["document_type"].queryset = qs
     # the form class overrides the label, so over-override it
@@ -333,12 +332,15 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
     if request.method == "POST" and "save" in request.POST:
         # The save action only applies to the child records and QA properties,
         # no need to save the ExtractedText form
+
         ParentForm, ChildForm = create_detail_formset(
-            doc, settings.EXTRA, can_delete=True, exclude=["weight_fraction_type"]
+            doc,
+            settings.EXTRA,
+            can_delete=True,
+            exclude=["weight_fraction_type", "true_cas", "true_chemname", "sid"],
         )
         # extext = extext.pull_out_cp()
         detail_formset = ChildForm(request.POST, instance=extext)
-
         if detail_formset.has_changed():
             if detail_formset.is_valid():
                 detail_formset.save()
@@ -355,6 +357,9 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
 
             context["detail_formset"] = detail_formset
             context["ext_form"] = ext_form
+        else:
+            # the formset has not changed
+            pass
 
     return render(request, template_name, context)
 
