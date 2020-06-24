@@ -6,6 +6,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.keys import Keys
+from django.urls import reverse
 
 
 def log_karyn_in(object):
@@ -20,6 +22,25 @@ def log_karyn_in(object):
     password_input = object.browser.find_element_by_name("password")
     password_input.send_keys("specialP@55word")
     object.browser.find_element_by_class_name("btn").click()
+
+
+class element_has_css_class(object):
+    """An expectation for checking that an element has a particular css class.
+
+  locator - used to find the element
+  returns the WebElement once it has the particular css class
+  """
+
+    def __init__(self, locator, css_class):
+        self.locator = locator
+        self.css_class = css_class
+
+    def __call__(self, driver):
+        element = driver.find_element(*self.locator)  # Finding the referenced element
+        if self.css_class in element.get_attribute("class"):
+            return element
+        else:
+            return False
 
 
 class TestEditsWithSeedData(StaticLiveServerTestCase):
@@ -160,3 +181,43 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 EC.visibility_of_element_located((By.XPATH, "//*[@id='audit-log']"))
             )
             self.assertIn("report_funcuse", datatable.text)
+
+    def test_nested_formset(self):
+        # the pages being tested include all the RawChem subtypes
+        extracted_text = ExtractedText.objects.filter(pk__in=[7, 11, 254780, 5])
+        for et in extracted_text:
+            qa_url = self.live_server_url + reverse(
+                "extracted_text_qa", kwargs={"pk": et.pk}
+            )
+            self.browser.get(qa_url)
+            # open the chemical card
+            chem = et.rawchem.first()
+            self.browser.find_element_by_xpath(
+                f'//*[@id="chem-card-{chem.pk}"]'
+            ).click()
+            # switch to editing mode
+            self.browser.find_element_by_id("btn-toggle-edit").click()
+            wait = WebDriverWait(self.browser, 10)
+
+            fu_input = self.browser.find_element_by_id(
+                "id_rawchem-0-functional_uses-0-report_funcuse"
+            )
+
+            fu_input = wait.until(
+                EC.visibility_of_element_located(
+                    (By.ID, "id_rawchem-0-functional_uses-0-report_funcuse")
+                )
+            )
+            fu_input.send_keys(" edited")
+
+            save_button = wait.until(EC.element_to_be_clickable((By.ID, "save")))
+            save_button.send_keys(Keys.SPACE)
+
+            # the page should reload in non-editing mode
+
+            edit_button = wait.until(
+                EC.visibility_of_element_located((By.ID, "btn-toggle-edit"))
+            )
+            self.assertIn(
+                "toggleDetailEdit(true)", edit_button.get_attribute("onclick")
+            )

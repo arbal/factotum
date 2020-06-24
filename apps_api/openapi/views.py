@@ -20,6 +20,7 @@ class OpenAPIView(View):
     base_spec = jsonnet.evaluate_file(
         os.path.join(os.path.dirname(__file__), "schemas", "schema.jsonnet"),
         ext_vars={"baseServer": "__BASE_SERVER__"},
+        jpathdir=os.path.join(os.path.dirname(__file__), "schemas"),
     )
 
     def get(self, request, *args, **kwargs):
