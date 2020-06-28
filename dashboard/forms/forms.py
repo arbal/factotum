@@ -27,6 +27,7 @@ from dashboard.models import (
     ExtractedHHRec,
     ExtractedLMDoc,
     ExtractedHabitsAndPractices,
+    RawChem,
 )
 from dashboard.models.extracted_hpdoc import ExtractedHPDoc
 
@@ -295,9 +296,59 @@ class DocumentTypeForm(forms.ModelForm):
         self.fields["document_type"].widget.attrs.update({"onchange": "form.submit();"})
 
 
-class ExtractedChemicalFormSet(BaseInlineFormSet):
+class RawChemicalSubclassFormSet(BaseInlineFormSet):
+    """ The formset used for all the subclasses of RawChemical,
+    since it includes the Functional Use records as a nested formset """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    def add_fields(self, form, index):
+        # the super class creates its fields
+        super(RawChemicalSubclassFormSet, self).add_fields(form, index)
+        # add the grandchild formset as the 'functional_uses' property,
+        # only if the form is bound to an instance
+        if not form.instance.pk is None:
+            FunctionalUseFormset = forms.inlineformset_factory(
+                RawChem,
+                FunctionalUse,
+                fields=("id", "category", "report_funcuse", "extraction_script"),
+                extra=0,
+                # widgets={"id": forms.HiddenInput()},
+            )
+            form.functional_uses = FunctionalUseFormset(
+                instance=form.instance,
+                data=form.data if self.is_bound else None,
+                prefix="%s-%s"
+                % (form.prefix, FunctionalUseFormset.get_default_prefix()),
+            )
+
+    def is_valid(self):
+        result = super(RawChemicalSubclassFormSet, self).is_valid()
+        if self.is_bound:
+            for form in self.forms:
+                if hasattr(form, "functional_uses"):
+                    result = result and form.functional_uses.is_valid()
+
+        return result
+
+    def has_changed(self):
+        result = super(RawChemicalSubclassFormSet, self).has_changed()
+        if self.is_bound:
+            for form in self.forms:
+                if hasattr(form, "functional_uses"):
+                    result = result or form.functional_uses.has_changed()
+
+        return result
+
+    def save(self, commit=True):
+        result = super(RawChemicalSubclassFormSet, self).save(commit=commit)
+        for form in self:
+            if hasattr(form, "functional_uses"):
+                for fu in form.functional_uses:
+                    fu.save(commit=commit)
+
+        return result
 
 
 class ExtractedChemicalForm(forms.ModelForm):
@@ -315,6 +366,13 @@ class ExtractedChemicalForm(forms.ModelForm):
             "component",
         ]
 
+class ExtractedLMChemicalForm(forms.ModelForm):
+    class Meta:
+        model = ExtractedChemical
+        fields = [
+            "raw_chem_name",
+            "raw_cas",
+        ]
 
 class ExtractedFunctionalUseForm(forms.ModelForm):
     class Meta:
@@ -407,19 +465,22 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
             extra=extra,
             can_delete=can_delete,
             widgets=widgets,
+            fk_name="extracted_text",
         )
 
     def one():  # for chemicals or unknown
         ChemicalFormSet = make_formset(
             parent_model=parent,
             model=child,
-            formset=ExtractedChemicalFormSet,
+            formset=RawChemicalSubclassFormSet,
             form=ExtractedChemicalForm,
         )
         return (ExtractedTextForm, ChemicalFormSet)
 
     def two():  # for functional_use
-        FunctionalUseFormSet = make_formset(parent, child)
+        FunctionalUseFormSet = make_formset(
+            parent_model=parent, model=child, formset=RawChemicalSubclassFormSet
+        )
         return (ExtractedTextFUForm, FunctionalUseFormSet)
 
     def three():  # for habits_and_practices
@@ -427,7 +488,9 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
         return (ExtractedTextHPForm, HnPFormSet)
 
     def four():  # for extracted_list_presence
-        ListPresenceFormSet = make_formset(parent, child)
+        ListPresenceFormSet = make_formset(
+            parent_model=parent, model=child, formset=RawChemicalSubclassFormSet
+        )
         return (ExtractedCPCatForm, ListPresenceFormSet)
 
     def five():  # for extracted_hh_rec

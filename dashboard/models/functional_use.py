@@ -41,6 +41,7 @@ class FunctionalUse(CommonInfo):
         on_delete=models.CASCADE,
         limit_choices_to={"script_type": "FU"},
         null=True,
+        blank=True,
     )
 
     def __str__(self):

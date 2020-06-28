@@ -110,6 +110,11 @@ urlpatterns = [
         name="qa_extraction_script_summary",
     ),
     path(
+        "qa/compextractionscript/<int:pk>/summary/table",
+        dashboard.views.qa.SummaryTable.as_view(),
+        name="qa_extraction_script_summary_table",
+    ),
+    path(
         "extractionscripts/delete/",
         dashboard.views.extraction_script_delete_list,
         name="extraction_script_delete_list",
@@ -206,6 +211,11 @@ urlpatterns = [
     path("dl_pucs/", views.download_PUCs, name="download_PUCs"),
     path("dl_puctags/", views.download_PUCTags, name="download_PUCTags"),
     path("dl_lpkeywords/", views.download_LPKeywords, name="download_LPKeywords"),
+    path(
+        "dl_functionalusecategories/",
+        views.download_FunctionalUseCategories,
+        name="download_FunctionalUseCategories",
+    ),
     path(
         "dl_raw_chems_dg/<int:pk>/",
         views.download_raw_chems_dg,
@@ -313,6 +323,14 @@ urlpatterns = [
     ),
     path(
         "chemical/<pk>/auditlog/", views.chemical_audit_log, name="chemical_audit_log"
+    ),
+    path(
+        "document/<pk>/auditlog/", views.document_audit_log, name="document_audit_log"
+    ),
+    path(
+        "document/<pk>/auditlog/table",
+        views.DocumentAuditLog.as_view(),
+        name="document_audit_log_table",
     ),
     path(
         "list_presence_tag/delete/<int:doc_pk>/<int:chem_pk>/<int:tag_pk>/",

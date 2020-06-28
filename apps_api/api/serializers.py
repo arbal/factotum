@@ -17,6 +17,7 @@ class PUCSerializer(serializers.ModelSerializer):
             "level_3_category",
             "definition",
             "kind",
+            "url",
         ]
         extra_kwargs = {
             "id": {
@@ -57,7 +58,6 @@ class ChemicalSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.DSSToxLookup
         fields = ["sid", "name", "cas", "url"]
-        resource_name = "chemical"
         extra_kwargs = {
             "sid": {
                 "help_text": "The DSSTox Substance Identifier, a unique identifier associated with a chemical substance.",
@@ -77,26 +77,50 @@ class ChemicalSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    puc_id = serializers.IntegerField(
-        source="uber_puc.id",
-        default=None,
+    included_serializers = {
+        "puc": PUCSerializer,
+        "dataDocuments": "apps_api.api.serializers.DocumentSerializer",
+    }
+
+    url = serializers.HyperlinkedIdentityField(view_name="product-detail")
+    puc = SerializerMethodResourceRelatedField(
+        source="get_uberpuc",
+        model=models.PUC,
         read_only=True,
-        allow_null=True,
-        label="PUC ID",
+        label="PUC with the highest confidence value",
         help_text=" Unique numeric identifier for the product use category assigned to the product \
         (if one has been assigned). Use the PUCs API to obtain additional information on the PUC.",
+        related_link_view_name="product-related",
     )
-    document_id = serializers.IntegerField(
-        source="documents.first.id",
+    dataDocuments = ResourceRelatedField(
+        source="documents",
         read_only=True,
+        many=True,
         label="Document ID",
         help_text="Unique numeric identifier for the original data document associated with \
             the product. Use the Documents API to obtain additional information on the document.",
+        related_link_view_name="product-related",
     )
+
+    def get_uberpuc(self, obj):
+        try:
+            obj = obj.uber_puc
+        except AttributeError:
+            obj = None
+        return obj
 
     class Meta:
         model = models.Product
-        fields = ["id", "name", "upc", "manufacturer", "brand", "puc_id", "document_id"]
+        fields = [
+            "id",
+            "name",
+            "upc",
+            "manufacturer",
+            "brand",
+            "puc",
+            "dataDocuments",
+            "url",
+        ]
         extra_kwargs = {
             "id": {
                 "label": "Product ID",
@@ -130,68 +154,12 @@ class ProductSerializer(serializers.ModelSerializer):
 class RawChemSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.RawChem
-        resource_name = "chemicals"
         fields = ["id", "dsstox", "component"]
 
 
-class ExtractedChemicalSerializer(serializers.ModelSerializer):
-
-    chemical = ChemicalSerializer(
-        label="DTXSID",
-        help_text="The DSSTox Substance Identifier for each chemical included on the document. \
-            May be >1 per document. See the chemicals API for additional information on the \
-            chemical substance.",
-        source="dsstox",
-    )
-
-    class Meta:
-        model = models.ExtractedChemical
-        fields = [
-            "chemical",
-            "component",
-            "lower_weight_fraction",
-            "central_weight_fraction",
-            "upper_weight_fraction",
-            "ingredient_rank",
-        ]
-        extra_kwargs = {
-            "component": {
-                "label": "Component",
-                "help_text": "Subcategory grouping chemical information on the document (may \
-                    or may not be populated). Used when the document provides information on \
-                    chemical make-up of multiple components or portions of a product (e.g. a \
-                    hair care set (product) which contains a bottle of shampoo (component 1) \
-                    and bottle of body wash (component 2)).",
-            },
-            "lower_weight_fraction": {
-                "label": "Weight fraction - lower",
-                "help_text": "Lower bound of weight fraction for the chemical substance in the \
-                    product, if provided on the document. If weight fraction is provided as a range, \
-                    lower and upper values are populated. Values range from 0-1.",
-                "source": "lower_wf_analysis",
-            },
-            "central_weight_fraction": {
-                "label": "Weight fraction - central",
-                "help_text": "Central value for weight fraction for the chemical substance in the \
-                    product, if provided on the document. If weight fraction is provided as a point \
-                    estimate, the central value is populated. Values range from 0-1.",
-                "source": "central_wf_analysis",
-            },
-            "upper_weight_fraction": {
-                "label": "Weight fraction - upper",
-                "help_text": "Upper bound of weight fraction for the chemical substance in the product,\
-                 if provided on the document. If weight fraction is provided as a range, lower and \
-                 upper values are populated. Values range from 0-1.",
-                "source": "upper_wf_analysis",
-            },
-            "ingredient_rank": {
-                "label": "Ingredient rank",
-                "help_text": "Rank of the chemical in the ingredient list or document.",
-            },
-        }
-
-
 class DocumentSerializer(serializers.HyperlinkedModelSerializer):
+    included_serializers = {"products": ProductSerializer}
+
     url = serializers.HyperlinkedIdentityField(view_name="dataDocument-detail")
 
     date = serializers.CharField(
@@ -239,10 +207,16 @@ class DocumentSerializer(serializers.HyperlinkedModelSerializer):
              See the Products API for additional information on the product.",
         many=True,
         read_only=True,
+        related_link_view_name="dataDocument-related",
+        self_link_view_name="dataDocument-relationships",
     )
 
     chemicals = SerializerMethodResourceRelatedField(
-        many=True, read_only=True, source="get_chemicals", model=models.RawChem
+        many=True,
+        read_only=True,
+        source="get_chemicals",
+        model=models.RawChem,
+        self_link_view_name="dataDocument-relationships",
     )
 
     def get_chemicals(self, obj):
@@ -260,7 +234,6 @@ class DocumentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.DataDocument
-        resource_name = "dataDocument"
         fields = [
             "id",
             "title",
@@ -300,6 +273,101 @@ class DocumentSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
+class ExtractedChemicalSerializer(serializers.ModelSerializer):
+    included_serializers = {
+        "chemical": ChemicalSerializer,
+        "dataDocument": DocumentSerializer,
+        "products": ProductSerializer,
+    }
+
+    chemical = ResourceRelatedField(
+        source="dsstox",
+        model=models.DSSToxLookup,
+        allow_null=True,
+        required=False,
+        read_only=True,
+        related_link_view_name="composition-related",
+        self_link_view_name="composition-relationships",
+    )
+
+    dataDocument = ResourceRelatedField(
+        source="extracted_text.data_document",
+        model=models.DataDocument,
+        allow_null=True,
+        required=False,
+        read_only=True,
+        related_link_view_name="composition-related",
+        self_link_view_name="composition-relationships",
+    )
+
+    products = SerializerMethodResourceRelatedField(
+        source="get_products",
+        model=models.Product,
+        read_only=True,
+        many=True,
+        related_link_view_name="composition-related",
+        self_link_view_name="composition-relationships",
+    )
+
+    def get_products(self, obj):
+        try:
+            queryset = obj.extracted_text.data_document.products.all()
+        except AttributeError:
+            queryset = []
+        return queryset
+
+    class Meta:
+        model = models.ExtractedChemical
+        fields = [
+            "chemical",
+            "dataDocument",
+            "products",
+            "rid",
+            "component",
+            "lower_weight_fraction",
+            "central_weight_fraction",
+            "upper_weight_fraction",
+            "ingredient_rank",
+            "url",
+        ]
+        extra_kwargs = {
+            "component": {
+                "label": "Component",
+                "help_text": "Subcategory grouping chemical information on the document (may \
+                    or may not be populated). Used when the document provides information on \
+                    chemical make-up of multiple components or portions of a product (e.g. a \
+                    hair care set (product) which contains a bottle of shampoo (component 1) \
+                    and bottle of body wash (component 2)).",
+            },
+            "lower_weight_fraction": {
+                "label": "Weight fraction - lower",
+                "help_text": "Lower bound of weight fraction for the chemical substance in the \
+                    product, if provided on the document. If weight fraction is provided as a range, \
+                    lower and upper values are populated. Values range from 0-1.",
+                "source": "lower_wf_analysis",
+            },
+            "central_weight_fraction": {
+                "label": "Weight fraction - central",
+                "help_text": "Central value for weight fraction for the chemical substance in the \
+                    product, if provided on the document. If weight fraction is provided as a point \
+                    estimate, the central value is populated. Values range from 0-1.",
+                "source": "central_wf_analysis",
+            },
+            "upper_weight_fraction": {
+                "label": "Weight fraction - upper",
+                "help_text": "Upper bound of weight fraction for the chemical substance in the product,\
+                 if provided on the document. If weight fraction is provided as a range, lower and \
+                 upper values are populated. Values range from 0-1.",
+                "source": "upper_wf_analysis",
+            },
+            "ingredient_rank": {
+                "label": "Ingredient rank",
+                "help_text": "Rank of the chemical in the ingredient list or document.",
+            },
+            "url": {"view_name": "composition-detail"},
+        }
+
+
 class ChemicalPresenceSerializer(serializers.ModelSerializer):
     kind = serializers.CharField(
         required=True,
@@ -312,7 +380,6 @@ class ChemicalPresenceSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.ExtractedListPresenceTag
         # mark the type as chemicalpresence instead of ExtractedListPresenceTag to match the endpoint
-        resource_name = "chemicalpresence"
 
         fields = ["name", "definition", "kind"]
         extra_kwargs = {
@@ -330,7 +397,6 @@ class ChemicalPresenceSerializer(serializers.ModelSerializer):
 class FunctionalUseCategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.FunctionalUseCategory
-        resource_name = "functionalUseCategory"
         fields = ["title", "description"]
         extra_kwargs = {
             "title": {
@@ -348,10 +414,10 @@ class FunctionalUseSerializer(serializers.ModelSerializer):
     included_serializers = {
         "chemical": ChemicalSerializer,
         "category": FunctionalUseCategorySerializer,
-        "document": DocumentSerializer,
+        "dataDocument": DocumentSerializer,
     }
 
-    document = ResourceRelatedField(
+    dataDocument = ResourceRelatedField(
         source="chem.extracted_text.data_document",
         model=models.DataDocument,
         read_only=True,
@@ -378,12 +444,11 @@ class FunctionalUseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.FunctionalUse
-        resource_name = "functionalUse"
         fields = [
             "chemical",
             "rid",
             "category",
-            "document",
+            "dataDocument",
             "report_funcuse",
             "clean_funcuse",
             "url",
@@ -443,33 +508,3 @@ class ChemicalPresenceTagsetSerializer(serializers.ModelSerializer):
         model = models.DSSToxLookup
         fields = ["chemical_id", "keyword_sets"]
         extra_kwargs = {"chemical_id": {"label": "DTXSID", "source": "sid"}}
-
-
-class CompositionSerializer(ExtractedChemicalSerializer):
-    rid = serializers.CharField(
-        help_text="The RID of this composition data.", label="RID"
-    )
-    document = serializers.IntegerField(
-        source="extracted_text.data_document_id",
-        help_text="The Document associated with this composition data.",
-        label="Document",
-    )
-    products = serializers.SerializerMethodField(
-        help_text="List of products associated with this composition data.",
-        label="Products",
-        required=False,
-    )
-
-    def get_products(self, item):
-        return [
-            product.id for product in item.extracted_text.data_document.products.all()
-        ]
-
-    class Meta:
-        model = ExtractedChemicalSerializer.Meta.model
-        fields = ExtractedChemicalSerializer.Meta.fields + [
-            "rid",
-            "document",
-            "products",
-        ]
-        extra_kwargs = ExtractedChemicalSerializer.Meta.extra_kwargs

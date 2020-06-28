@@ -1,12 +1,17 @@
-from django.shortcuts import render, redirect, get_object_or_404
+import json
+
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.db.models import Count, Q
-from django.http import HttpResponse, HttpResponseRedirect
 from django.core.exceptions import ValidationError
+from django.db.models import Count, Q, Max, Case, F, When, OuterRef, Exists
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
-import json
+from django.utils.http import is_safe_url
+from django.utils.timesince import timesince
+from django_datatables_view.base_datatable_view import BaseDatatableView
 
 from dashboard.forms import create_detail_formset, QANotesForm, DocumentTypeForm
 from dashboard.models import (
@@ -18,9 +23,10 @@ from dashboard.models import (
     QANotes,
     QAGroup,
     DocumentType,
+    RawChem,
+    AuditLog,
+    FunctionalUse,
 )
-from django.conf import settings
-from django.utils.http import is_safe_url
 
 
 @login_required()
@@ -106,16 +112,120 @@ def qa_extraction_script_summary(
         .first()
     )
     qa_group = script.get_or_create_qa_group()
-    qa_notes = (
-        QANotes.objects.filter(extracted_text__in=script.extractedtext_set.all())
-        .exclude(qa_notes__isnull=True)
-        .exclude(qa_notes="")
-    )
+
     return render(
         request,
         template_name,
-        {"extractionscript": script, "qa_group": qa_group, "qa_notes": qa_notes},
+        {
+            "extractionscript": script,
+            "qa_group": qa_group,
+            "document_table_url": reverse(
+                "qa_extraction_script_summary_table", args=[pk]
+            ),
+        },
     )
+
+
+class SummaryTable(BaseDatatableView):
+    """This table is focused on extracted texts but built on a specific script's extracted texts.
+    There is no model but each row should refer to an ExtractedText.
+    """
+
+    columns = ["data_document__title", "qanotes__qa_notes", "last_updated"]
+    order_columns = ["data_document__title", "qanotes__qa_notes", "last_updated"]
+
+    def get_filter_method(self):
+        """ Returns preferred filter method """
+        return self.FILTER_ICONTAINS
+
+    def get(self, request, pk, *args, **kwargs):
+        """This PK should be an Script pk"""
+        self.pk = pk
+        return super().get(request, *args, **kwargs)
+
+    def render_column(self, row, column):
+        if column == "data_document__title":
+            return f"""<a href="{reverse("data_document", args=[row.pk])}">
+                            { row.data_document }
+                        </a>"""
+        if column == "qanotes__qa_notes":
+            try:
+                return row.qanotes.qa_notes
+            except QANotes.DoesNotExist:
+                return None
+        elif column == "last_updated":
+            return f"""<a title="audit log" 
+                          href="{reverse("document_audit_log", args=[row.pk])}" 
+                          data-toggle="modal"
+                          data-target="#document-audit-log-modal">
+                            Last updated {timesince(row.last_updated)} ago
+                        </a>"""
+
+        super().render_column(row, column)
+
+    def get_initial_queryset(self):
+        """The values that are used to make up this table are "valid" extracted texts.
+        For an extracted text to be considered valid, it must have one of the following:
+            - A QA Note
+            - A raw chem with an audit log
+        There are checked against the update/create at fields.
+
+        :return: QuerySet of all valid ExtractedText rows
+        """
+        rc_log_subquery = AuditLog.objects.filter(
+            object_key=OuterRef("pk"),
+            model_name__in=[
+                "rawchem",
+                "extractedchemical",
+                "extractedfunctionaluse",
+                "extractedhhrec",
+                "extractedlistpresence",
+                "extractedfuncationaluse",
+            ],
+            action="U",
+        )
+        fu_log_subquery = AuditLog.objects.filter(
+            object_key=OuterRef("pk"), model_name="functionaluse", action="U"
+        )
+
+        qa_subquery = QANotes.objects.filter(extracted_text=OuterRef("pk"))
+        fu_subquery = FunctionalUse.objects.annotate(
+            has_auditlog=Exists(fu_log_subquery)
+        ).filter(chem=OuterRef("pk"), has_auditlog=True)
+        rc_subquery = RawChem.objects.annotate(
+            has_auditlog=Exists(rc_log_subquery), has_fu_auditlog=Exists(fu_subquery)
+        ).filter(
+            Q(has_auditlog=True) | Q(has_fu_auditlog=True),
+            extracted_text=OuterRef("pk"),
+        )
+
+        qs = (
+            Script.objects.get(pk=self.pk)
+            .extractedtext_set.annotate(
+                has_qanotes=Exists(qa_subquery), has_updated_rc=Exists(rc_subquery)
+            )
+            .filter(Q(has_qanotes=True) | Q(has_updated_rc=True))
+            .prefetch_related("rawchem")
+            .select_related("qanotes", "data_document")
+            .annotate(last_updated_rc=Max("rawchem__updated_at"))
+            .annotate(
+                last_updated=Case(
+                    When(
+                        data_document__updated_at__lte=F("last_updated_rc"),
+                        updated_at__lte=F("last_updated_rc"),
+                        then="last_updated_rc",
+                    ),
+                    When(
+                        updated_at__lte=F("data_document__updated_at"),
+                        last_updated_rc__lte=F("data_document__updated_at"),
+                        then="data_document__updated_at",
+                    ),
+                    default=F("updated_at"),
+                )
+            )
+            .all()
+        )
+        return qs
 
 
 @login_required()
@@ -194,14 +304,13 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
     # child records where qa_flag = True
     if qa_focus == "doc":
         # qs = detail_formset.get_queryset().filter(qa_flag=True)
-        # print(detail_formset._queryset)
         detail_formset._queryset = flagged_qs
 
     note, created = QANotes.objects.get_or_create(extracted_text=extext)
     notesform = QANotesForm(instance=note)
 
     # Allow the user to edit the data document type
-    document_type_form = DocumentTypeForm(request.POST or None, instance=doc)
+    document_type_form = DocumentTypeForm(None, instance=doc)
     qs = DocumentType.objects.compatible(doc)
     document_type_form.fields["document_type"].queryset = qs
     # the form class overrides the label, so over-override it
@@ -223,12 +332,15 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
     if request.method == "POST" and "save" in request.POST:
         # The save action only applies to the child records and QA properties,
         # no need to save the ExtractedText form
+
         ParentForm, ChildForm = create_detail_formset(
-            doc, settings.EXTRA, can_delete=True, exclude=["weight_fraction_type"]
+            doc,
+            settings.EXTRA,
+            can_delete=True,
+            exclude=["weight_fraction_type", "true_cas", "true_chemname", "sid"],
         )
         # extext = extext.pull_out_cp()
         detail_formset = ChildForm(request.POST, instance=extext)
-
         if detail_formset.has_changed():
             if detail_formset.is_valid():
                 detail_formset.save()
@@ -245,6 +357,9 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
 
             context["detail_formset"] = detail_formset
             context["ext_form"] = ext_form
+        else:
+            # the formset has not changed
+            pass
 
     return render(request, template_name, context)
 

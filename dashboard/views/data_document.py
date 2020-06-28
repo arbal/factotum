@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.db.models import Q
+from django_datatables_view.base_datatable_view import BaseDatatableView
 
 from dashboard.forms.forms import ExtractedHabitsAndPracticesForm
 from dashboard.forms.tag_forms import ExtractedHabitsAndPracticesTagForm
@@ -16,13 +17,12 @@ from dashboard.forms import (
     DataDocumentForm,
     DocumentTypeForm,
     ExtractedChemicalForm,
+    ExtractedLMChemicalForm,
     ExtractedFunctionalUseForm,
     ExtractedHHRecForm,
     ExtractedListPresenceForm,
-    ExtractedLMDocForm,
 )
 from dashboard.models import (
-    AuditLog,
     DataDocument,
     ExtractedListPresence,
     ExtractedText,
@@ -42,7 +42,7 @@ from django.forms import inlineformset_factory
 
 CHEMICAL_FORMS = {
     "CO": ExtractedChemicalForm,
-    "LM": ExtractedChemicalForm,
+    "LM": ExtractedLMChemicalForm,
     "FU": ExtractedFunctionalUseForm,
     "CP": ExtractedListPresenceForm,
     "HP": ExtractedHabitsAndPracticesForm,
@@ -78,8 +78,8 @@ def data_document_detail(request, pk):
         else:
             chem = (
                 Child.objects.filter(extracted_text__data_document=doc)
-                .prefetch_related("dsstox")
-                .first()
+                    .prefetch_related("dsstox")
+                    .first()
             )
             FuncUseFormSet = inlineformset_factory(
                 RawChem, FunctionalUse, fields=("report_funcuse",), extra=1
@@ -96,8 +96,8 @@ def data_document_detail(request, pk):
     if doc.data_group.group_type.code == "CO":
         script_chem = (
             Child.objects.filter(extracted_text__data_document=doc)
-            .filter(script__isnull=False)
-            .first()
+                .filter(script__isnull=False)
+                .first()
         )
         context["cleaning_script"] = script_chem.script if script_chem else None
     return render(request, template_name, context)
@@ -110,7 +110,9 @@ class ChemCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         doc = DataDocument.objects.get(pk=self.kwargs.get("doc"))
-        extra = 12 if doc.data_group.can_have_multiple_funcuse else 1
+        extra = 12 if doc.data_group.can_have_multiple_funcuse \
+            else 1 if doc.data_group.can_have_funcuse \
+            else 0
         FuncUseFormSet = inlineformset_factory(
             RawChem,
             FunctionalUse,
@@ -161,7 +163,9 @@ class ChemUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         doc = self.object.extracted_text.data_document
-        extra = 12 if doc.data_group.can_have_multiple_funcuse else 1
+        extra = 12 if doc.data_group.can_have_multiple_funcuse \
+            else 1 if doc.data_group.can_have_funcuse \
+            else 0
         FuncUseFormSet = inlineformset_factory(
             RawChem,
             FunctionalUse,
@@ -395,8 +399,8 @@ def list_presence_tag_curation(request):
         DataDocument.objects.filter(
             data_group__group_type__code="CP", extractedtext__rawchem__isnull=False
         )
-        .distinct()
-        .exclude(
+            .distinct()
+            .exclude(
             extractedtext__rawchem__in=ExtractedListPresenceToTag.objects.values(
                 "content_object_id"
             )
@@ -442,6 +446,50 @@ def chemical_audit_log(request, pk):
         request,
         "chemicals/chemical_audit_log.html",
         {"chemical": chemical, "auditlog": auditlog},
+    )
+
+
+class DocumentAuditLog(BaseDatatableView):
+    model = AuditLog
+    columns = ["date_created", "field_name", "old_value", "new_value", "user"]
+    none_string = None
+
+    def get(self, request, pk, *args, **kwargs):
+        self.pk = pk
+        return super().get(request, *args, **kwargs)
+
+    def get_initial_queryset(self):
+        chemicals = (
+            ExtractedText.objects.get(pk=self.pk).rawchem.select_subclasses().all()
+        )
+        chemical_ids = [chem.id for chem in chemicals]
+        fu_keys = [
+            fu.pk for fu in FunctionalUse.objects.filter(chem_id__in=chemical_ids).all()
+        ]
+
+        qs = (
+            self.model.objects.filter(
+                Q(
+                    object_key__in=chemical_ids,
+                    model_name__in=[chemicals[0]._meta.model_name, "rawchem"],
+                    action="U",
+                )
+                | Q(
+                    object_key__in=fu_keys, model_name__in=["functionaluse"], action="U"
+                )
+            )
+            .order_by("-date_created")
+            .all()
+        )
+
+        return qs
+
+
+def document_audit_log(request, pk):
+    return render(
+        request,
+        "data_document/document_audit_log.html",
+        {"table_url": reverse("document_audit_log_table", args=[pk])},
     )
 
 

@@ -1,4 +1,5 @@
 import operator
+import types
 
 from django.db.models import Prefetch, Q
 from django_filters.rest_framework import DjangoFilterBackend
@@ -13,7 +14,7 @@ from dashboard import models
 from django_mysql.models import add_QuerySetMixin
 
 
-class PUCViewSet(viewsets.ReadOnlyModelViewSet):
+class PUCViewSet(ModelViewSet):
     """
     list: Service providing a list of all Product Use Categories (PUCs) in ChemExpoDB.
     The PUCs follow a three-tiered hierarchy (Levels 1-3) for categorizing products.
@@ -22,12 +23,13 @@ class PUCViewSet(viewsets.ReadOnlyModelViewSet):
     <a href="https://www.nature.com/articles/s41370-019-0187-5" target="_blank">Isaacs, 2020</a>.
     """
 
+    http_method_names = ["get", "head", "options"]
     serializer_class = serializers.PUCSerializer
     queryset = models.PUC.objects.all().order_by("id")
     filterset_class = filters.PUCFilter
 
 
-class ProductViewSet(viewsets.ReadOnlyModelViewSet):
+class ProductViewSet(ModelViewSet):
     """
     list: Service providing a list of all products in ChemExpoDB, along with metadata
     describing the product. In ChemExpoDB, a product is defined as an item having a
@@ -37,6 +39,7 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     have different UPCs).
     """
 
+    http_method_names = ["get", "head", "options"]
     serializer_class = serializers.ProductSerializer
     queryset = models.Product.objects.prefetch_pucs().prefetch_related(
         Prefetch("documents", queryset=models.DataDocument.objects.order_by("id"))
@@ -44,7 +47,7 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     filterset_class = filters.ProductFilter
 
 
-class DocumentViewSet(viewsets.ReadOnlyModelViewSet):
+class DocumentViewSet(ModelViewSet):
     """
     list: Service providing a list of all documents in ChemExpoDB, along with
     metadata describing the document. Service also provides the actual data
@@ -52,6 +55,7 @@ class DocumentViewSet(viewsets.ReadOnlyModelViewSet):
     weight fractions may be included for composition documents.
     """
 
+    http_method_names = ["get", "head", "options"]
     serializer_class = serializers.DocumentSerializer
     # By using the STRAIGHT_JOIN directive, the query time is reduced
     # from >2 seconds to ~0.0005 seconds. Pretty big! This is due to
@@ -71,6 +75,27 @@ class DocumentViewSet(viewsets.ReadOnlyModelViewSet):
         .select_related("data_group__group_type", "document_type")
         .order_by("-id")
     )
+
+
+class DocumentRelationshipView(RelationshipView):
+    http_method_names = ["get", "head", "options"]
+    queryset = models.DataDocument.objects
+    field_name_mapping = {
+        "products": "products",
+        "chemicals": "extractedtext.rawchem.select_subclasses",
+    }
+
+    def get_related_instance(self):
+        try:
+            value = operator.attrgetter(self.get_related_field_name())(
+                self.get_object()
+            )
+            # Check to see if mapping is to a method.  If so evaluate. (Specifically for select_subclasses)
+            if isinstance(value, types.MethodType):
+                return value()
+            return value
+        except AttributeError:
+            raise NotFound
 
 
 class ChemicalViewSet(viewsets.ReadOnlyModelViewSet):
@@ -127,7 +152,7 @@ class FunctionalUseRelationshipView(RelationshipView):
     queryset = models.FunctionalUse.objects
     field_name_mapping = {
         "chemical": "chem.dsstox",
-        "document": "chem.extracted_text.data_document",
+        "dataDocument": "chem.extracted_text.data_document",
     }
 
     def get_related_instance(self):
@@ -162,13 +187,13 @@ class ChemicalPresenceTagViewSet(ViewSetMixin, generics.ListAPIView):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
 
 
-class CompositionViewSet(ViewSetMixin, generics.ListAPIView):
+class CompositionViewSet(ModelViewSet):
     """
-    list: Service providing all Composition data in ChemExpoDB.
-    Accepts a required filter for any of ["rid", "product", "chemical", "document"]
+    Service providing all Composition data in ChemExpoDB.
     """
 
-    serializer_class = serializers.CompositionSerializer
+    http_method_names = ["get", "head", "options"]
+    serializer_class = serializers.ExtractedChemicalSerializer
     queryset = (
         models.ExtractedChemical.objects.all()
         .exclude(Q(dsstox__isnull=True) | Q(rid__isnull=True) | Q(rid=""))
@@ -176,10 +201,22 @@ class CompositionViewSet(ViewSetMixin, generics.ListAPIView):
         .order_by("id")
     )
     filterset_class = filters.CompositionFilter
-    # Todo:  These are using the default DRF filters and renderer backends.
-    #  These should be removed as the route is made jsonapi compliant
-    filter_backends = [DjangoFilterBackend]
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+
+
+class ExtractedChemicalRelationshipView(RelationshipView):
+    http_method_names = ["get", "head", "options"]
+    queryset = models.ExtractedChemical.objects
+    field_name_mapping = {
+        "chemical": "dsstox",
+        "dataDocument": "extracted_text.data_document",
+        "products": "extracted_text.data_document.products",
+    }
+
+    def get_related_instance(self):
+        try:
+            return operator.attrgetter(self.get_related_field_name())(self.get_object())
+        except AttributeError:
+            raise NotFound
 
 
 class RawChemViewSet(ViewSetMixin, generics.ListAPIView):
@@ -187,7 +224,7 @@ class RawChemViewSet(ViewSetMixin, generics.ListAPIView):
     list: Service providing RawChem resources related to a dataDocument resource.
     """
 
-    serializer_class = serializers.CompositionSerializer
+    serializer_class = serializers.ExtractedChemicalSerializer
     queryset = (
         models.RawChem.objects.all()
         .exclude(Q(dsstox__isnull=True) | Q(rid__isnull=True) | Q(rid=""))
@@ -203,7 +240,7 @@ class RawChemRelationshipView(RelationshipView):
     )
     field_name_mapping = {
         "chemical": "dsstox",
-        "document": "extracted_text.data_document",
+        "dataDocument": "extracted_text.data_document",
     }
 
     def get_related_instance(self):

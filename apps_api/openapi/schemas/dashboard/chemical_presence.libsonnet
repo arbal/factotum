@@ -8,6 +8,7 @@
     that tag. Multiple tags may be applied to a single source-chemical instance,
     in which case the tags should be interpreted as a group.
   |||,
+  filters: ["name", "kind", "definition"],
   attributes: {
     name: {
       type: 'string',

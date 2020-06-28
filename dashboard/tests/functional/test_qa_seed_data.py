@@ -171,14 +171,13 @@ class TestQaPage(TestCase):
         After editing a detail ("child") record, confirm that
         the save and approval functions work
         """
-
         resp = self.client.get("/qa/extractedtext/7/")
         # import pdb; pdb.set_trace()
         self.assertContains(resp, 'value="dibutyl_phthalate"', status_code=200)
 
         post_context = {
             "csrfmiddlewaretoken": [
-                "BvtzIX6JjC5XkPWmAOduJllMTMdRLoVWeJtneuBVe5Bc3Js35EVsJunvII6vNFAy"
+                "0SDHlf0buywKmeoXDGmX7j8uyXtseF2aPvmFInM1I0NKtoWDyfKwsUyBCtPvhR59"
             ],
             "rawchem-TOTAL_FORMS": ["2"],
             "rawchem-INITIAL_FORMS": ["1"],
@@ -186,29 +185,43 @@ class TestQaPage(TestCase):
             "rawchem-MAX_NUM_FORMS": ["1000"],
             "save": [""],
             "rawchem-0-extracted_text": ["7"],
-            "rawchem-0-true_cas": ["84-74-2"],
-            "rawchem-0-true_chemname": ["dibutyl phthalate"],
-            "rawchem-0-SID": ["DTXSID2021781"],
             "rawchem-0-rawchem_ptr": ["4"],
-            # change the raw_chem_name
             "rawchem-0-raw_chem_name": ["dibutyl phthalate edited"],
             "rawchem-0-raw_cas": ["84-74-2"],
+            "rawchem-0-unit_type": ["1"],
             "rawchem-0-raw_min_comp": ["4"],
             "rawchem-0-raw_central_comp": [""],
             "rawchem-0-raw_max_comp": ["7"],
-            "rawchem-0-unit_type": ["1"],
-            "rawchem-0-report_funcuse": ["swell"],
-            "rawchem-0-ingredient_rank": [""],
+            "rawchem-0-ingredient_rank": ["1"],
+            "rawchem-0-component": [""],
+            "rawchem-0-functional_uses-TOTAL_FORMS": ["2"],
+            "rawchem-0-functional_uses-INITIAL_FORMS": ["1"],
+            "rawchem-0-functional_uses-MIN_NUM_FORMS": ["0"],
+            "rawchem-0-functional_uses-MAX_NUM_FORMS": ["1000"],
+            "rawchem-0-functional_uses-0-id": ["1"],
+            "rawchem-0-functional_uses-0-category": ["1"],
+            "rawchem-0-functional_uses-0-report_funcuse": ["swell"],
+            "rawchem-0-functional_uses-0-extraction_script": ["19"],
+            "rawchem-0-functional_uses-1-category": [""],
+            "rawchem-0-functional_uses-1-report_funcuse": [""],
+            "rawchem-0-functional_uses-1-extraction_script": [""],
             "rawchem-1-extracted_text": ["7"],
             "rawchem-1-rawchem_ptr": [""],
             "rawchem-1-raw_chem_name": [""],
             "rawchem-1-raw_cas": [""],
+            "rawchem-1-unit_type": [""],
             "rawchem-1-raw_min_comp": [""],
             "rawchem-1-raw_central_comp": [""],
             "rawchem-1-raw_max_comp": [""],
-            "rawchem-1-unit_type": [""],
-            "rawchem-1-report_funcuse": [""],
             "rawchem-1-ingredient_rank": [""],
+            "rawchem-1-component": [""],
+            "rawchem-1-functional_uses-TOTAL_FORMS": ["1"],
+            "rawchem-1-functional_uses-INITIAL_FORMS": ["0"],
+            "rawchem-1-functional_uses-MIN_NUM_FORMS": ["0"],
+            "rawchem-1-functional_uses-MAX_NUM_FORMS": ["1000"],
+            "rawchem-1-functional_uses-0-category": [""],
+            "rawchem-1-functional_uses-0-report_funcuse": [""],
+            "rawchem-1-functional_uses-0-extraction_script": [""],
         }
 
         request = self.factory.post(path="/qa/extractedtext/7/", data=post_context)
@@ -220,7 +233,6 @@ class TestQaPage(TestCase):
         # The response has a 200 status code and contains the
         # new edited value
         self.assertContains(resp, 'value="dibutyl phthalate edited"', status_code=200)
-
         # Check the ORM objects here to make sure the editing has proceeded
         # correctly and the qa-related attributes are updated
         et = ExtractedText.objects.get(pk=7)
@@ -314,68 +326,3 @@ class TestQaPage(TestCase):
                 pass
 
             self.assertEqual(response.status_code, 200)
-
-    def test_qa_summary(self):
-        es = Script.objects.get(pk=5)
-        extext = ExtractedText.objects.get(pk=7)
-        response = self.client.get(
-            f"/qa/compextractionscript/{es.pk}/summary"
-        ).content.decode("utf8")
-        response_html = html.fromstring(response)
-        extractedtext_count = response_html.xpath(
-            'string(//*[@id="extractedtext_count"])'
-        )
-        qa_complete_extractedtext_count = response_html.xpath(
-            'string(//*[@id="qa_complete_extractedtext_count"])'
-        )
-        qa_incomplete_extractedtext_count = response_html.xpath(
-            'string(//*[@id="qa_incomplete_extractedtext_count"])'
-        )
-        self.assertEqual(
-            extractedtext_count,
-            "2",
-            "Two total documents should be associated with this script.",
-        )
-        self.assertEqual(
-            qa_complete_extractedtext_count, "0", "0 documents should be approved."
-        )
-        self.assertEqual(
-            qa_incomplete_extractedtext_count, "2", "2 documents should be unapproved."
-        )
-        qa_note_count = int(response_html.xpath('count(//*[@id="qa_notes"])'))
-        self.assertEqual(
-            qa_note_count, 0, "There should be no QA Notes associated with this script."
-        )
-
-        QANotes.objects.create(extracted_text=extext, qa_notes="Test QA Note")
-        extext.qa_checked = True
-        extext.save()
-
-        response = self.client.get(
-            f"/qa/compextractionscript/{es.pk}/summary"
-        ).content.decode("utf8")
-        response_html = html.fromstring(response)
-        extractedtext_count = response_html.xpath(
-            'string(//*[@id="extractedtext_count"])'
-        )
-        qa_complete_extractedtext_count = response_html.xpath(
-            'string(//*[@id="qa_complete_extractedtext_count"])'
-        )
-        qa_incomplete_extractedtext_count = response_html.xpath(
-            'string(//*[@id="qa_incomplete_extractedtext_count"])'
-        )
-        self.assertEqual(
-            extractedtext_count,
-            "2",
-            "Two total documents should be associated with this script.",
-        )
-        self.assertEqual(
-            qa_complete_extractedtext_count, "1", "1 document should now be approved."
-        )
-        self.assertEqual(
-            qa_incomplete_extractedtext_count, "1", "1 document should be unapproved."
-        )
-        qa_note_count = int(response_html.xpath('count(//*[@id="qa_notes"])'))
-        self.assertEqual(
-            qa_note_count, 1, "There should be 1 QA Note associated with this script."
-        )

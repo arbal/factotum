@@ -7,24 +7,45 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0164_funcuse_extraction_script'),
-    ]
+    dependencies = [("dashboard", "0164_funcuse_extraction_script")]
 
     operations = [
         migrations.CreateModel(
-            name='ExtractedHPDoc',
+            name="ExtractedHPDoc",
             fields=[
-                ('extractedtext_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='dashboard.ExtractedText')),
-                ('pmid', models.CharField(blank=True, max_length=20, validators=[django.core.validators.RegexValidator('^[0-9]*$', 'PMID must be numerical')], verbose_name='PMID')),
+                (
+                    "extractedtext_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="dashboard.ExtractedText",
+                    ),
+                ),
+                (
+                    "pmid",
+                    models.CharField(
+                        blank=True,
+                        max_length=20,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                "^[0-9]*$", "PMID must be numerical"
+                            )
+                        ],
+                        verbose_name="PMID",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('dashboard.extractedtext',),
+            options={"abstract": False},
+            bases=("dashboard.extractedtext",),
         ),
         migrations.AlterModelOptions(
-            name='extractedhabitsandpractices',
-            options={'verbose_name': 'Extracted habits and practices', 'verbose_name_plural': 'Extracted habits and practices'},
+            name="extractedhabitsandpractices",
+            options={
+                "verbose_name": "Extracted habits and practices",
+                "verbose_name_plural": "Extracted habits and practices",
+            },
         ),
     ]

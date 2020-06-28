@@ -134,7 +134,7 @@ class DDTests(TempFileMixin, TestCase):
         resp = views.data_group_create(pk=10, request=request)
         # the upload form should be invalid
         self.assertIn(
-            "The document type must be allowed by the parent data group.".encode(),
+            "Document Type HH is not compatible with the Composition Group Type.".encode(),
             resp.content,
         )
 

@@ -37,6 +37,9 @@ class DSSToxLookup(CommonInfo):
     true_cas = models.CharField("True CAS", max_length=50, blank=True)
     true_chemname = models.CharField("True chemical name", max_length=500, blank=True)
 
+    class JSONAPIMeta:
+        resource_name = "chemical"
+
     def __str__(self):
         return self.true_chemname
 

@@ -357,8 +357,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
             self.assertEqual(
                 FunctionalUse.objects.filter(chem_id=chem_pk)
-                .filter(report_funcuse="adhesive")
-                .count(),
+                    .filter(report_funcuse="adhesive")
+                    .count(),
                 1,
             )
 
@@ -402,9 +402,21 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         add_chem_button.click()
 
         save_button = wait.until(ec.element_to_be_clickable((By.ID, "saveChem")))
+
+        self.assertTrue(len(self.browser.find_elements_by_id("id_raw_chem_name")) > 0)
+        self.assertTrue(len(self.browser.find_elements_by_id("id_raw_cas")) > 0)
+        self.assertFalse(len(self.browser.find_elements_by_id("id_raw_min_comp")) > 0)
+        self.assertFalse(len(self.browser.find_elements_by_id("id_raw_central_comp")) > 0)
+        self.assertFalse(len(self.browser.find_elements_by_id("id_raw_max_comp")) > 0)
+        self.assertFalse(len(self.browser.find_elements_by_id("id_unit_type")) > 0)
+        self.assertFalse(len(self.browser.find_elements_by_id("id_ingredient_rank")) > 0)
+        self.assertFalse(len(self.browser.find_elements_by_id("id_weight_fraction_type")) > 0)
+        self.assertFalse(len(self.browser.find_elements_by_id("id_component")) > 0)
+
         self.browser.find_element_by_id("id_raw_chem_name").send_keys(
             "The Rawest Chem Name"
         )
+
         save_button.click()
 
         time.sleep(3)
@@ -453,8 +465,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
         new_fu = (
             FunctionalUse.objects.filter(chem_id=chem.pk)
-            .filter(report_funcuse="adhesive")
-            .first()
+                .filter(report_funcuse="adhesive")
+                .first()
         )
 
         self.assertIsNotNone(new_fu)
@@ -499,8 +511,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
         new_fu = (
             FunctionalUse.objects.filter(chem_id=chem.pk)
-            .filter(report_funcuse="adhesive")
-            .first()
+                .filter(report_funcuse="adhesive")
+                .first()
         )
 
         self.assertIsNotNone(new_fu)

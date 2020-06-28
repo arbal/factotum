@@ -15,6 +15,7 @@ from dashboard.models import (
     ProductToPUC,
     RawChem,
     GroupType,
+    FunctionalUseCategory,
 )
 
 
@@ -288,6 +289,28 @@ def download_LPKeywords(request):
     LPKeywords = ExtractedListPresenceTag.objects.all()
     for keyword in LPKeywords:
         row = [keyword.name, keyword.definition]
+        writer.writerow(row)
+
+    return response
+
+
+def download_FunctionalUseCategories(request):
+    """This view gets called to download all the functional use categories in a csv form.
+    """
+    response = HttpResponse(content_type="text/csv")
+    response[
+        "Content-Disposition"
+    ] = 'attachment; filename="FunctionalUseCategories.csv"'
+    writer = csv.writer(response)
+    cols = ["Title", "Description", "Date Created"]
+    writer.writerow(cols)
+    categories = FunctionalUseCategory.objects.all()
+    for category in categories:
+        row = [
+            category.title,
+            category.description,
+            category.created_at.strftime("%m/%d/%Y %H:%M:%S"),
+        ]
         writer.writerow(row)
 
     return response

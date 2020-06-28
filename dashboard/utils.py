@@ -250,7 +250,8 @@ def update_fields(odict, model):
 
 def field_for_model(model, field, **kwargs):
     """Get a form field from a model."""
-    return model._meta.get_field(field).formfield(**kwargs)
+    field = model._meta.get_field(field)
+    return field.formfield(validators=field.validators, **kwargs)
 
 
 def get_form_for_models(

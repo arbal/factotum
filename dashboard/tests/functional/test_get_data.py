@@ -188,3 +188,9 @@ class TestGetData(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "abrasive")
         self.assertContains(response, "Velit neque aliquam etincidunt.")
+
+    def test_download_functional_use_categories(self):
+        response = self.client.get("/dl_functionalusecategories/")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "fragrance")
+        self.assertContains(response, "surfactant,surfactant")
