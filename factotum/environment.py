@@ -64,6 +64,11 @@ class MetaEnv(type):
         return int(cls._get("FACTOTUM_WS_TOKEN_TTL", default))
 
     @property
+    def FACTOTUM_WS_VERSION_NUMBER(cls):
+        default = "Not Specified"  # 15 minute lifespan by default
+        return cls._get("FACTOTUM_WS_VERSION_NUMBER", default)
+
+    @property
     def SQL_DATABASE(cls):
         default = "factotum" if cls.DEBUG else ""
         return cls._get("SQL_DATABASE", default)

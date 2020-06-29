@@ -261,10 +261,10 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
         # Verify that the sliders have been generated for extracted chemicals in this datadocument
         try:
-            slider = WebDriverWait(self.browser, 5).until(
+            slider = WebDriverWait(self.browser, 10).until(
                 ec.visibility_of_element_located((By.XPATH, '//*[@id="slider856"]'))
             )
-            slider2 = WebDriverWait(self.browser, 5).until(
+            slider2 = WebDriverWait(self.browser, 10).until(
                 ec.visibility_of_element_located((By.XPATH, '//*[@id="slider2"]'))
             )
         except NoSuchElementException:
@@ -357,8 +357,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
             self.assertEqual(
                 FunctionalUse.objects.filter(chem_id=chem_pk)
-                    .filter(report_funcuse="adhesive")
-                    .count(),
+                .filter(report_funcuse="adhesive")
+                .count(),
                 1,
             )
 
@@ -406,11 +406,17 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.assertTrue(len(self.browser.find_elements_by_id("id_raw_chem_name")) > 0)
         self.assertTrue(len(self.browser.find_elements_by_id("id_raw_cas")) > 0)
         self.assertFalse(len(self.browser.find_elements_by_id("id_raw_min_comp")) > 0)
-        self.assertFalse(len(self.browser.find_elements_by_id("id_raw_central_comp")) > 0)
+        self.assertFalse(
+            len(self.browser.find_elements_by_id("id_raw_central_comp")) > 0
+        )
         self.assertFalse(len(self.browser.find_elements_by_id("id_raw_max_comp")) > 0)
         self.assertFalse(len(self.browser.find_elements_by_id("id_unit_type")) > 0)
-        self.assertFalse(len(self.browser.find_elements_by_id("id_ingredient_rank")) > 0)
-        self.assertFalse(len(self.browser.find_elements_by_id("id_weight_fraction_type")) > 0)
+        self.assertFalse(
+            len(self.browser.find_elements_by_id("id_ingredient_rank")) > 0
+        )
+        self.assertFalse(
+            len(self.browser.find_elements_by_id("id_weight_fraction_type")) > 0
+        )
         self.assertFalse(len(self.browser.find_elements_by_id("id_component")) > 0)
 
         self.browser.find_element_by_id("id_raw_chem_name").send_keys(
@@ -465,8 +471,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
         new_fu = (
             FunctionalUse.objects.filter(chem_id=chem.pk)
-                .filter(report_funcuse="adhesive")
-                .first()
+            .filter(report_funcuse="adhesive")
+            .first()
         )
 
         self.assertIsNotNone(new_fu)
@@ -511,8 +517,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
         new_fu = (
             FunctionalUse.objects.filter(chem_id=chem.pk)
-                .filter(report_funcuse="adhesive")
-                .first()
+            .filter(report_funcuse="adhesive")
+            .first()
         )
 
         self.assertIsNotNone(new_fu)

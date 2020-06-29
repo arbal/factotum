@@ -78,8 +78,8 @@ def data_document_detail(request, pk):
         else:
             chem = (
                 Child.objects.filter(extracted_text__data_document=doc)
-                    .prefetch_related("dsstox")
-                    .first()
+                .prefetch_related("dsstox")
+                .first()
             )
             FuncUseFormSet = inlineformset_factory(
                 RawChem, FunctionalUse, fields=("report_funcuse",), extra=1
@@ -96,8 +96,8 @@ def data_document_detail(request, pk):
     if doc.data_group.group_type.code == "CO":
         script_chem = (
             Child.objects.filter(extracted_text__data_document=doc)
-                .filter(script__isnull=False)
-                .first()
+            .filter(script__isnull=False)
+            .first()
         )
         context["cleaning_script"] = script_chem.script if script_chem else None
     return render(request, template_name, context)
@@ -110,9 +110,13 @@ class ChemCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         doc = DataDocument.objects.get(pk=self.kwargs.get("doc"))
-        extra = 12 if doc.data_group.can_have_multiple_funcuse \
-            else 1 if doc.data_group.can_have_funcuse \
+        extra = (
+            12
+            if doc.data_group.can_have_multiple_funcuse
+            else 1
+            if doc.data_group.can_have_funcuse
             else 0
+        )
         FuncUseFormSet = inlineformset_factory(
             RawChem,
             FunctionalUse,
@@ -163,9 +167,13 @@ class ChemUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         doc = self.object.extracted_text.data_document
-        extra = 12 if doc.data_group.can_have_multiple_funcuse \
-            else 1 if doc.data_group.can_have_funcuse \
+        extra = (
+            12
+            if doc.data_group.can_have_multiple_funcuse
+            else 1
+            if doc.data_group.can_have_funcuse
             else 0
+        )
         FuncUseFormSet = inlineformset_factory(
             RawChem,
             FunctionalUse,
@@ -399,8 +407,8 @@ def list_presence_tag_curation(request):
         DataDocument.objects.filter(
             data_group__group_type__code="CP", extractedtext__rawchem__isnull=False
         )
-            .distinct()
-            .exclude(
+        .distinct()
+        .exclude(
             extractedtext__rawchem__in=ExtractedListPresenceToTag.objects.values(
                 "content_object_id"
             )

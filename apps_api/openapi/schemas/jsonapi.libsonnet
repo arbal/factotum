@@ -1030,7 +1030,7 @@ local buildSpec(objs, description) = {
   info: {
     description: description,
     title: 'Factotum API',
-    version: 'v0',
+    version: std.extVar('version'),
     'x-logo': {
       # todo: Add favicon
       # url: std.extVar('baseServer') + '/static/openapi/logo.svg',
