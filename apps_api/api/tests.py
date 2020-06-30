@@ -38,6 +38,12 @@ class TestQueryCount(TestCase):
                 reset_queries()
 
 
+class TestMetrics(TestCase):
+    def tet_metrics_endpoint(self):
+        response = self.get("/metrics")
+        self.assertEqual(response.status_code, 200)
+
+
 class TestPUC(TestCase):
     dtxsid = "DTXSID6026296"
 
