@@ -38,6 +38,11 @@ class MetaEnv(type):
         return cls._get("MAX_UPLOAD_SIZE", default)
 
     @property
+    def DATA_UPLOAD_MAX_NUMBER_FIELDS(cls):
+        default = "10000"
+        return cls._get("DATA_UPLOAD_MAX_NUMBER_FIELDS", default)
+
+    @property
     def MEDIA_ROOT(cls):
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         default = os.path.join(base_dir, "media")

@@ -90,6 +90,11 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         wait.until(
             ec.visibility_of(self.browser.find_element_by_xpath("//*[@id='card-185']"))
         )
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='card-185']/div/div/b"), "hand/body lotion"
+            )
+        )
         self.assertInHTML(
             "hand/body lotion",
             self.browser.find_element_by_xpath("//*[@id='card-185']/div/div/b").text,

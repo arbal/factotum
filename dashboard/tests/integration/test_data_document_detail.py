@@ -273,18 +273,22 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
     def test_chemical_update(self):
         docs = DataDocument.objects.filter(pk__in=[156051, 354786])
         for doc in docs:
+            wait = WebDriverWait(self.browser, 10)
+
             list_url = self.live_server_url + f"/datadocument/{doc.pk}/"
             self.browser.get(list_url)
             chem = doc.extractedtext.rawchem.first()
             chem_pk = chem.pk
-            self.browser.find_element_by_xpath(
-                f'//*[@id="chemical-update-{chem.pk}"]'
+
+            wait.until(
+                ec.element_to_be_clickable(
+                    (By.XPATH, f'//*[@id="chemical-update-{chem.pk}"]')
+                )
             ).click()
 
             # Verify that the modal window appears by finding the Save button
             # The modal window does not immediately appear, so the browser
             # should wait for the button to be clickable
-            wait = WebDriverWait(self.browser, 10)
             save_button = wait.until(
                 ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
             )
@@ -362,8 +366,10 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 1,
             )
 
-            functional_uses_col = self.browser.find_element_by_xpath(
-                f'//*[@id="functional_uses_{chem_pk}"]'
+            functional_uses_col = wait.until(
+                ec.presence_of_element_located(
+                    (By.XPATH, f'//*[@id="functional_uses_{chem_pk}"]')
+                )
             )
             self.assertIn("surfactant", functional_uses_col.text)
 
@@ -391,6 +397,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.browser.find_element_by_id("id_media").send_keys("Lorem ipso fido leash")
         save_button.click()
 
+        # Saving the form triggers a refresh.  Wait until the old save button has become stale before proceeding.
+        wait.until(ec.staleness_of(save_button))
         study_type = wait.until(
             ec.visibility_of_element_located((By.ID, "id_study_type"))
         )
