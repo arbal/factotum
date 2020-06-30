@@ -366,13 +366,12 @@ class ExtractedChemicalForm(forms.ModelForm):
             "component",
         ]
 
+
 class ExtractedLMChemicalForm(forms.ModelForm):
     class Meta:
         model = ExtractedChemical
-        fields = [
-            "raw_chem_name",
-            "raw_cas",
-        ]
+        fields = ["raw_chem_name", "raw_cas"]
+
 
 class ExtractedFunctionalUseForm(forms.ModelForm):
     class Meta:

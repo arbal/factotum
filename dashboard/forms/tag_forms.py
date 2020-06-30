@@ -7,43 +7,45 @@ from dashboard.models import (
     ExtractedHabitsAndPractices,
     ExtractedHabitsAndPracticesTag,
     ExtractedHabitsAndPracticesToTag,
+    ExtractedListPresenceToTag,
 )
 
 
-class ExtractedListPresenceTagForm(autocomplete.FutureModelForm):
-    class Meta:
-        model = ExtractedListPresence
-        fields = ["tags"]
+class TagFormSaveMixin:
+    through_model = None
 
-        widgets = {
-            "tags": autocomplete.TaggitSelect2("list_presence_tags_autocomplete")
-        }
+    def save(self):
+        tags = self.cleaned_data.get("tags")
+        chems = self.cleaned_data.get("chems")
 
-    def __init__(self, *args, **kwargs):
-        super(ExtractedListPresenceTagForm, self).__init__(*args, **kwargs)
-        self.fields["tags"].widget.attrs.update(
-            {"class": "mr-2 ml-2", "style": "width:60%", "data-minimum-input-length": 3}
-        )
-        self.fields["tags"].label = ""
-        self.fields["tags"].help_text = ""
-
-    def clean(self):
-        valid_tag_list = ExtractedListPresenceTag.objects.all().values_list(
-            "name", flat=True
-        )
-        self.invalid_tags = []
-        existing_tags = list(self.instance.tags.values_list("name", flat=True))
-        self.cleaned_data["tags"] += existing_tags
-        for tag in self.cleaned_data["tags"]:
-            if tag in valid_tag_list:
-                pass
-            else:
-                self.invalid_tags.append(tag)
-                self.cleaned_data["tags"].remove(tag)
-                self.add_error("tags", "%s is not a valid keyword" % tag)
+        build_list = []
+        for chem in chems:
+            for tag in tags:
+                if tag not in chem.tags.all():
+                    build_list.append(self.through_model(tag=tag, content_object=chem))
+        self.through_model.objects.bulk_create(build_list)
 
 
-class ExtractedHabitsAndPracticesTagForm(forms.ModelForm):
+class ExtractedListPresenceTagForm(TagFormSaveMixin, forms.Form):
+    tags = forms.ModelMultipleChoiceField(
+        queryset=ExtractedListPresenceTag.objects.all(),
+        label="",
+        widget=autocomplete.ModelSelect2Multiple(
+            url="list_presence_tags_autocomplete",
+            attrs={"data-minimum-input-length": 3, "style": "width: 100%"},
+        ),
+    )
+
+    chems = forms.ModelMultipleChoiceField(
+        queryset=ExtractedListPresence.objects.prefetch_related("tags").all(),
+        label="",
+        widget=forms.MultipleHiddenInput(),
+    )
+
+    through_model = ExtractedListPresenceToTag
+
+
+class ExtractedHabitsAndPracticesTagForm(TagFormSaveMixin, forms.Form):
     tags = forms.ModelMultipleChoiceField(
         queryset=ExtractedHabitsAndPracticesTag.objects.all(),
         label="",
@@ -53,14 +55,10 @@ class ExtractedHabitsAndPracticesTagForm(forms.ModelForm):
         ),
     )
 
-    class Meta:
-        model = ExtractedHabitsAndPractices
-        fields = ["tags"]
+    chems = forms.ModelMultipleChoiceField(
+        queryset=ExtractedHabitsAndPractices.objects.prefetch_related("tags").all(),
+        label="",
+        widget=forms.MultipleHiddenInput(),
+    )
 
-    def save(self, commit=True):
-        """Overridden to add existing tags prior to save.
-        (Keyword saves are non-destructive)
-        """
-        existing_tags = self.instance.tags.all()
-        self.cleaned_data["tags"] = existing_tags | self.cleaned_data["tags"]
-        super().save(commit)
+    through_model = ExtractedHabitsAndPracticesToTag

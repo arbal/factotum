@@ -178,16 +178,7 @@ urlpatterns = [
         views.list_presence_tag_curation,
         name="list_presence_tag_curation",
     ),
-    path(
-        "save_list_presence_tags/<int:pk>/",
-        views.save_list_presence_tag_form,
-        name="save_list_presence_tag_form",
-    ),
-    path(
-        "save_habits_and_practices_tags/<int:pk>/",
-        views.save_habits_and_practices_tag_form,
-        name="save_habits_and_practices_tag_form",
-    ),
+    path("save_tags/<int:pk>/", views.SaveTagForm.as_view(), name="save_tag_form"),
     path(
         "list_presence_tags_autocomplete/",
         views.ListPresenceTagAutocomplete.as_view(),
