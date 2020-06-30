@@ -34,3 +34,7 @@ class RootUrlNoLoginTest(TestCase):
     def test_dashboard_login_not_required(self):
         response = self.c.get("/")
         self.assertEqual(response.status_code, 200, "Should not redirect to login.")
+
+    def test_puc_list_login_not_required(self):
+        response = self.c.get("/pucs/")
+        self.assertEqual(response.status_code, 200, "Should not redirect to login.")

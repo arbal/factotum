@@ -4,7 +4,6 @@ from dashboard.models import PUC
 from django.db.models import Count
 
 
-@login_required()
 def puc_list(request, template_name="puc/puc_list.html"):
     pucs = PUC.objects.all().annotate(num_products=Count("products"))
     data = {}
