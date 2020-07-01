@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "celery_resultsview",
     "django_cleanup.apps.CleanupConfig",
     "django_filters",
+    "django_prometheus",
     "rest_framework",
     "rest_framework.authtoken",
     "django_mysql",
@@ -57,6 +58,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # enclose other middlewares between prometheus before/after middleware
+    "django_prometheus.middleware.PrometheusBeforeMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -66,6 +69,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     "crum.CurrentRequestUserMiddleware",
+    "django_prometheus.middleware.PrometheusAfterMiddleware",
 ]
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -174,6 +178,8 @@ CELERY_BROKER_URL = (
 )
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 CELERY_FILETASK_ROOT = os.path.join(BASE_DIR, "celeryfiles")
+
+PROMETHEUS_EXPORT_MIGRATIONS = False
 
 LOGGING = {
     "version": 1,

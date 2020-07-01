@@ -47,6 +47,7 @@ urlpatterns = [
         view=apiviews.DocumentRelationshipView.as_view(),
         name="dataDocument-relationships",
     ),
+    path("", include("django_prometheus.urls")),
 ]
 
 if settings.DEBUG:
