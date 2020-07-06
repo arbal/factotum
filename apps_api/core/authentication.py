@@ -20,9 +20,9 @@ class ExpiringTokenAuthentication(TokenAuthentication):
         if not token.user.is_active:
             raise exceptions.AuthenticationFailed("User inactive or deleted")
 
-        utc_now = datetime.datetime.utcnow()
+        now = datetime.datetime.now()
 
-        if token.created < utc_now - datetime.timedelta(
+        if token.created < now - datetime.timedelta(
             milliseconds=env.FACTOTUM_WS_TOKEN_TTL
         ):
             raise exceptions.AuthenticationFailed("Token has expired")

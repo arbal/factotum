@@ -14,6 +14,8 @@ local utils = {
 local ModelTemplate = {
   app:: error 'Must set "app"',
   type:: error 'Must set "type"',
+  allowed_methods:: ['fetch', 'list',],
+  allowed_methods_set:: std.set(self.allowed_methods),
   description:: '',
   attributes:: error 'Must set "attributes"',
   typePlural:: self.type + 's',
@@ -60,6 +62,7 @@ local RelationshipTemplate(modelObj) = {
   many:: false,
   default:: null,
   required:: self.default == null,
+  readOnly:: false,
 };
 
 local BaseModelProcessor = {
@@ -557,7 +560,7 @@ local buildDefaultRelationships(obj) = {
   for relatedObj in obj.defaultRelationships
 };
 
-local buildRelationships(obj, includeLinks=false, required=false, includeDefaults=false) = {
+local buildRelationships(obj, includeLinks=false, required=false, includeDefaults=false, excludeReadOnly=false) = {
   type: 'object',
   description: 'Related resources.',
   [if includeDefaults && std.length(obj.defaultRelationships) > 0 then 'default']: buildDefaultRelationships(obj),
@@ -588,7 +591,7 @@ local buildRelationships(obj, includeLinks=false, required=false, includeDefault
         else
           ['data'],
     }
-    for relatedObj in obj.relationships
+    for relatedObj in std.filter((function(obj) (excludeReadOnly && obj.readOnly) == false), obj.relationships)
   },
   [if required then 'required']: [relatedObj.object.type for relatedObj in obj.relationships if relatedObj.required],
 };
@@ -629,7 +632,7 @@ local getResource = {
       properties+: {
         id:: null,
         attributes: $.buildAttributes(attributes),
-        [if obj.hasRelationships then 'relationships']: buildRelationships(obj, includeLinks=false, required=true, includeDefaults=true),
+        [if obj.hasRelationships then 'relationships']: buildRelationships(obj, includeLinks=false, required=true, includeDefaults=true, excludeReadOnly=true),
       },
       required:
         if obj.hasRelationships && !obj.allRelationshipsDefault then
@@ -776,7 +779,7 @@ local buildPaths(obj) =
   local builtErrors = buildErrors(obj);
   {
     ['/' + obj.typePlural + '/{id}']: {
-      get: {
+      [if std.setInter(["fetch"], obj.allowed_methods_set) != [] then "get"]: {
         tags: [obj.type],
         summary: 'Fetch resource',
         parameters: builtParameters.read,
@@ -791,7 +794,7 @@ local buildPaths(obj) =
           },
         },
       },
-      patch:: {
+      [if std.setInter(["update"], obj.allowed_methods_set) != [] then "patch"]: {
         tags: [obj.type],
         summary: 'Update resource',
         parameters: builtParameters.write,
@@ -813,7 +816,7 @@ local buildPaths(obj) =
           },
         },
       },
-      delete:: {
+      [if std.setInter(["delete"], obj.allowed_methods_set) != [] then "delete"]: {
         tags: [obj.type],
         summary: 'Delete resource',
         parameters: builtParameters.write,
@@ -825,7 +828,7 @@ local buildPaths(obj) =
       },
     },
     ['/' + obj.typePlural]: {
-      get: {
+      [if std.setInter(["list"], obj.allowed_methods_set) != [] then "get"]: {
         tags: [obj.type],
         summary: 'List resources',
         parameters: builtParameters.readList,
@@ -840,7 +843,7 @@ local buildPaths(obj) =
           },
         },
       },
-      post:: {
+      [if std.setInter(["create"], obj.allowed_methods_set) != [] then "post"]: {
         tags: [obj.type],
         summary: 'Add resource',
         responses: builtErrors.write {
@@ -862,6 +865,63 @@ local buildPaths(obj) =
         },
       },
     },
+  ['/' + obj.typePlural + '/bulk']: {
+    [if std.setInter(['bulk'], obj.allowed_methods_set) != [] then "post"]: {
+      tags: [obj.type],
+      summary: 'Upload CSV',
+      security: [
+        {
+          tokenAuth: [],
+        }
+      ],
+      responses: builtErrors.write {
+        '202': {
+          description: 'Accepted',
+          content: {
+            'application/vnd.api+json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  data: {
+                    type: 'object',
+                    properties: {
+                      message: {
+                        type: 'string',
+                        description: 'A brief success message'
+                      }
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      requestBody: {
+        content: {
+          'multipart/form-data': {
+            schema: {
+              type: 'object',
+              properties: {
+                csv: {
+                  type: 'file',
+                  description: 'CSV containing the required headers: ' + std.extVar('product_csv_headers')
+                },
+                images: {
+                  type: 'array',
+                  items: {
+                    type: 'file',
+                  },
+                  description: '(Optional) Images matching the image_name in the csv',
+                },
+              },
+              required: ['csv'],
+            },
+          },
+        },
+      },
+    },
+  },
   } + {
     ['/' + obj.typePlural + '/{id}/relationships/' + relatedObj.object.typePlural]: {
       get: {

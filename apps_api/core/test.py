@@ -13,3 +13,22 @@ class TestCase(APITestCase):
         """ Shortcut to get """
         with self.settings(ROOT_URLCONF="factotum.urls.api"):
             return self.client.get(*args, **kwargs).data
+
+    def post(self, *args, authenticate=True, **kwargs):
+        """ Shortcut to post """
+        with self.settings(ROOT_URLCONF="factotum.urls.api"):
+            if authenticate:
+                token = self.client.post(
+                    "/token/",
+                    data={
+                        "data": {
+                            "type": "token",
+                            "attributes": {
+                                "username": "karyn",
+                                "password": "specialP@55word",
+                            },
+                        }
+                    },
+                ).data.get("token")
+                self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
+            return self.client.post(*args, **kwargs)

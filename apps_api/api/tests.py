@@ -1,8 +1,13 @@
+import io
 import uuid
+import base64
 
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import connection, reset_queries
 from django.test.utils import override_settings
 from drf_yasg.generators import EndpointEnumerator
+from rest_framework import status
+from setuptools import glob
 
 from apps_api.api import views
 from apps_api.api.serializers import ExtractedChemicalSerializer
@@ -10,6 +15,7 @@ from apps_api.api.views import ChemicalPresenceTagViewSet
 from apps_api.core.test import TestCase
 
 from dashboard import models
+from dashboard.tests.factories import ProductFactory
 from unittest import skip
 
 
@@ -137,6 +143,206 @@ class TestProduct(TestCase):
         self.assertEqual(count, response["meta"]["pagination"]["count"])
         self.assertEqual(self.upc, response["results"][0]["upc"])
 
+    def test_create(self):
+        # doc = models.DataDocument.objects.first()
+        prod = ProductFactory.build()
+        # filename = "dave_or_grant.png"
+        image_reader = open(
+            "sample_files/images/products/product_image_upload_valid/dave_or_grant.png",
+            "rb",
+        )
+        #
+        image = image_reader.read()
+
+        # encode the image as b64 in order to deliver it inside the request's JSON,
+        # rather than in the multipart FILE. See this comment:
+        # https://github.com/json-api/json-api/issues/246#issuecomment-163569165
+        image_b64 = base64.b64encode(image)
+
+        post_data = {
+            "data": {
+                "attributes": {
+                    "name": f"{prod.title}",
+                    "upc": f"{prod.upc}",
+                    "url": "https://www.turtlewax.com/en-us/",
+                    "manufacturer": f"{prod.manufacturer}",
+                    "color": f"{prod.color}",
+                    "brand": f"{prod.brand_name}",
+                    "size": f"{prod.size}",
+                    "short_description": f"{prod.short_description}",
+                    "long_description": f"{prod.long_description}",
+                    "large_image": f"{prod.image}",
+                    "image": image_b64,
+                },
+                "relationships": {
+                    "dataDocuments": {"data": [{"type": "dataDocument", "id": 155324}]}
+                },
+                "type": "product",
+            }
+        }
+
+        response = self.post(
+            "/products", data=post_data, authenticate=True, format="vnd.api+json"
+        )
+        self.assertTrue(response.status_code, status.HTTP_201_CREATED)
+        # Confirm that the new product was successfully linked to the data document
+        dd = models.DataDocument.objects.get(pk=155324)
+        pd = models.ProductDocument.objects.filter(document=dd).last()
+        self.assertTrue(models.ProductDocument.objects.filter(document=dd).exists())
+        p = pd.product
+
+        # Open source image and newly created image (read binary)
+        sample_file = open(
+            "sample_files/images/products/product_image_upload_valid/dave_or_grant.png",
+            "rb",
+        )
+
+        saved_image = p.image.open(mode="rb")
+        # Verify binary data is identical
+        self.assertEqual(saved_image.read(), sample_file.read())
+
+    def test_create_duplicate_upc_error(self):
+        # doc = models.DataDocument.objects.first()
+        prod = ProductFactory.build()
+        dupe_upc = models.Product.objects.first().upc
+        prod.upc = dupe_upc
+        # change the
+        # filename = "dave_or_grant.png"
+        image_reader = open(
+            "sample_files/images/products/product_image_upload_valid/dave_or_grant.png",
+            "rb",
+        )
+        #
+        image = image_reader.read()
+
+        # encode the image as b64 in order to deliver it inside the request's JSON,
+        # rather than in the multipart FILE. See this comment:
+        # https://github.com/json-api/json-api/issues/246#issuecomment-163569165
+        image_b64 = base64.b64encode(image)
+
+        post_data = {
+            "data": {
+                "attributes": {
+                    "name": f"{prod.title}",
+                    "upc": f"{prod.upc}",
+                    "url": "https://www.turtlewax.com/en-us/",
+                    "manufacturer": f"{prod.manufacturer}",
+                    "color": f"{prod.color}",
+                    "brand": f"{prod.brand_name}",
+                    "size": f"{prod.size}",
+                    "short_description": f"{prod.short_description}",
+                    "long_description": f"{prod.long_description}",
+                    "large_image": f"{prod.image}",
+                    "image": image_b64,
+                },
+                "relationships": {
+                    "dataDocuments": {"data": [{"type": "dataDocument", "id": 155324}]}
+                },
+                "type": "product",
+            }
+        }
+
+        response = self.post(
+            "/products", data=post_data, authenticate=True, format="vnd.api+json"
+        )
+        self.assertContains(
+            response, "product with this upc already exists", status_code=400
+        )
+
+    def test_create_bulk(self):
+        doc = models.DataDocument.objects.first()
+        pre_product_count = doc.products.count()
+
+        sample_csv = (
+            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
+            f"{doc.pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425,url,brand_name,size,color,1,1,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer\n"
+        )
+
+        response = self.post(
+            "/products/bulk", self.get_csv(sample_csv), format="multipart"
+        )
+
+        self.assertTrue(response.status_code, status.HTTP_202_ACCEPTED)
+
+        # Assert one product was created
+        self.assertEqual(doc.products.count(), pre_product_count + 1)
+
+    def test_create_bulk_unauthorized(self):
+        response = self.post("/products/bulk", authenticate=False)
+        self.assertEqual(response.status_code, 401)
+
+    def test_create_bulk_with_images(self):
+        doc = models.DataDocument.objects.first()
+        pre_product_count = doc.products.count()
+
+        sample_csv = (
+            "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
+            f"{doc.pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a,110230011425,url,brand_name,size,color,1,1,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer,dave_or_grant.png\n"
+        )
+
+        response = self.post(
+            "/products/bulk",
+            self.get_csv(sample_csv, image_directory_name="product_image_upload_valid"),
+            format="multipart",
+        )
+
+        # Open source file and newly created file (read binary)
+        sample_file = open(
+            "sample_files/images/products/product_image_upload_valid/dave_or_grant.png",
+            "rb",
+        )
+        saved_image = (
+            models.Product.objects.filter(title="product title a")
+            .get()
+            .image.open(mode="rb")
+        )
+        self.assertTrue(response.status_code, status.HTTP_202_ACCEPTED)
+        # Assert one product was created
+        self.assertEqual(doc.products.count(), pre_product_count + 1)
+        # Verify binary data is identical
+        self.assertEqual(saved_image.read(), sample_file.read())
+
+    def get_csv(self, sample_csv, image_directory_name=""):
+        """
+        For DRY purposes, this method takes a csv string
+        generated above and returns a POST request that includes it
+
+        :param sample_csv - ProductCSVForm
+        :param image_directory_name - str - Name of directory to source images from.
+                                            Searches in sample_files/images/products/
+        """
+        image_directory = []
+        if image_directory_name:
+            for file in glob.glob(
+                f"sample_files/images/products/{image_directory_name}/*"
+            ):
+                with open(file, "rb") as img:
+                    image_bytes = img.read()
+                    image_directory.append(
+                        InMemoryUploadedFile(
+                            io.BytesIO(image_bytes),
+                            field_name="products-bulkformsetimagesupload",
+                            name=file,
+                            content_type="image/png",
+                            size=len(image_bytes),
+                            charset="utf-8",
+                        )
+                    )
+
+        sample_csv_bytes = sample_csv.encode(encoding="UTF-8", errors="strict")
+        in_mem_sample_csv = InMemoryUploadedFile(
+            io.BytesIO(sample_csv_bytes),
+            field_name="products-bulkformsetfileupload",
+            name="clean_product_data.csv",
+            content_type="text/csv",
+            size=len(sample_csv),
+            charset="utf-8",
+        )
+        return {
+            "csv": in_mem_sample_csv,
+            "images": image_directory if image_directory_name else "",
+        }
+
 
 class TestChemical(TestCase):
     qs = models.DSSToxLookup.objects.exclude(curated_chemical__isnull=True)
@@ -259,7 +465,7 @@ class TestFunctionalUse(TestCase):
         count = dataset.count()
         func_use = dataset.first()
 
-        response = self.get("/functionalUses/?filter[document]=%d" % document_id)
+        response = self.get("/functionalUses/?filter[dataDocument]=%d" % document_id)
         self.assertTrue("meta" in response)
         self.assertEqual(count, response["meta"]["pagination"]["count"])
         data = response["results"][0]
@@ -391,7 +597,7 @@ class TestChemicalPresenceTags(TestCase):
         count = dataset.count()
         first_chemical = dataset.first()
         tagsets = first_chemical.get_tags_with_extracted_text(doc_id=document_id)
-        response = self.get("/chemicalpresence/?document=%s" % document_id)
+        response = self.get("/chemicalpresence/?data_document=%s" % document_id)
         data = response["results"][0]
 
         self.assertTrue("meta" in response)
@@ -424,7 +630,7 @@ class TestComposition(TestCase):
         prod_id = 1868
 
         response_rid_filter = self.get(f"/compositions/?filter[rid]={rid}")
-        response_doc_filter = self.get(f"/compositions/?filter[document]={doc_id}")
+        response_doc_filter = self.get(f"/compositions/?filter[dataDocument]={doc_id}")
         response_chem_filter = self.get(f"/compositions/?filter[chemical]={chem_id}")
         response_sid_filter = self.get(f"/compositions/?filter[sid]={chem_sid}")
         response_prod_filter = self.get(f"/compositions/?filter[product]={prod_id}")

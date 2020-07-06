@@ -5,6 +5,7 @@ from django.db import IntegrityError
 import random
 from dashboard import models
 from faker.providers import BaseProvider
+from django.core.files.base import ContentFile
 
 
 class ChemicalProvider(BaseProvider):
@@ -126,6 +127,21 @@ class ProductFactory(FactotumFactoryBase):
         model = models.Product
 
     upc = factory.Faker("ean")
+    title = factory.Faker("word")
+    long_description = factory.Faker("paragraph")
+    short_description = factory.Faker("sentence")
+    manufacturer = factory.Faker("word")
+    brand_name = factory.Faker("word")
+    color = factory.Faker("safe_color_name")
+    item_id = factory.Faker("ean", length=8)
+    epa_reg_number = factory.Faker("ean", length=13)
+
+    image = factory.LazyAttribute(
+        lambda _: ContentFile(
+            factory.django.ImageField()._make_data({"width": 1024, "height": 768}),
+            "example.png",
+        )
+    )
 
 
 class ScriptFactory(FactotumFactoryBase):
