@@ -2,8 +2,9 @@ from lxml import html
 
 from django.test import TestCase, override_settings
 
-from dashboard.models import PUC
+from dashboard.models import PUC, PUCKind
 from dashboard.tests.loader import fixtures_standard
+from django.urls import reverse
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
@@ -67,3 +68,4 @@ class TestPUCDetail(TestCase):
         ProductDocument.objects.create(document=doc, product=p)
         puc = PUC.objects.get(pk=169)
         self.assertEqual(puc.curated_chemical_count, 1)
+

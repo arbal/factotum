@@ -1,13 +1,16 @@
-import json
 import datetime
 
-from django.http import HttpResponse
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.response import Response
+from rest_framework_json_api.parsers import JSONParser
 
 
 class ObtainExpiringAuthToken(ObtainAuthToken):
+    parser_classes = [JSONParser]
+    resource_name = "token"
+
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(
             data=request.data, context={"request": request}
@@ -25,12 +28,10 @@ class ObtainExpiringAuthToken(ObtainAuthToken):
                 token.save()
 
             response_data = {"token": token.key}
-            return HttpResponse(
-                json.dumps(response_data), content_type="application/json"
-            )
+            return Response(response_data, content_type="application/vnd.api+json")
 
-        return HttpResponse(
-            json.dumps(serializer.errors),
-            content_type="application/json",
+        return Response(
+            serializer.errors,
+            content_type="application/vnd.api+json",
             status=status.HTTP_400_BAD_REQUEST,
         )

@@ -7,6 +7,7 @@ from django.urls import reverse
 from dashboard.models import (
     PUC,
     PUCTag,
+    PUCKind,
     PUCToTag,
     Product,
     ProductToPUC,
@@ -101,6 +102,7 @@ class TestProductPuc(TestCase):
                 "gen_cat": "Arts and crafts/Office supplies",
                 "prod_fam": "body paint",
                 "brand_name": "",
+                "kind": 2,
                 "description": "body paints, markers, glitters, play cosmetics, and halloween cosmetics",
                 "tags": "aerosol, foamspray, gel, paste, powder|spray, cartridge",
             },
@@ -339,3 +341,12 @@ class TestProductPuc(TestCase):
         self.assertEqual(
             chems["chem_count"], 1, "There should be 1 record for this puc"
         )
+
+    def test_admin_puc_kind(self):
+        puckind_count = PUCKind.objects.count()
+
+        puckind_response_url = reverse("admin:dashboard_puckind_add")
+        data = {'name': 'Test Kind', 'code': 'TC'}
+        self.client.post(puckind_response_url, data)
+
+        self.assertEqual(PUCKind.objects.count(), puckind_count + 1)

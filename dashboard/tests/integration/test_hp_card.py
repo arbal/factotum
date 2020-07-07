@@ -1,9 +1,6 @@
-from asyncio import wait_for
-
 import factory
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
@@ -40,7 +37,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         log_karyn_in(self)
 
         self.tags = ExtractedHabitsAndPracticesTagFactory.create_batch(3)
-        self.pucs = PUCFactory.create_batch(3, kind="FO")
+        self.pucs = PUCFactory.create_batch(3)
         self.hnp = ExtractedHabitsAndPracticesFactory.create(
             tags=self.tags, PUCs=self.pucs
         )
@@ -173,7 +170,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
 
     def test_habits_and_practice_cards_add_PUC(self):
         # Set up test data
-        new_puc = PUCFactory(kind="FO")
+        new_puc = PUCFactory()
 
         # Open Edit form
         self.browser.get(

@@ -1,5 +1,5 @@
 from django import template
-from dashboard.models import PUC
+from dashboard.models import PUCKind
 
 register = template.Library()
 
@@ -10,11 +10,6 @@ def to_list(*args):
 
 
 @register.inclusion_tag("core/components/puc/bubble_puc_legend.html")
-def show_bubble_puc_legend(pucs, kind, show_filter=False):
-    kind_display = dict(PUC.KIND_CHOICES).get(kind) or ""
-    return {
-        "pucs": pucs,
-        "kind": kind,
-        "kind_display": kind_display,
-        "show_filter": show_filter,
-    }
+def show_bubble_puc_legend(pucs, kind_code, show_filter=False):
+    kind = PUCKind.objects.filter(code=kind_code).first() or ""
+    return {"pucs": pucs, "kind": kind, "show_filter": show_filter}

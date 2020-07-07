@@ -7,7 +7,74 @@ from rest_framework_json_api.relations import (
 from dashboard import models
 
 
+class Base64ImageField(serializers.ImageField):
+    """
+    Field serializer from https://stackoverflow.com/a/28036805
+
+    A Django REST framework field for handling image-uploads through raw post data.
+    It uses base64 for encoding and decoding the contents of the file.
+
+    Heavily based on
+    https://github.com/tomchristie/django-rest-framework/pull/1268
+
+    Updated for Django REST framework 3.
+
+    """
+
+    def to_internal_value(self, data):
+        from django.core.files.base import ContentFile
+        import base64
+        import six
+        import uuid
+
+        # Check if this is a base64 string
+        if isinstance(data, six.string_types):
+            # Check if the base64 string is in the "data:" format
+            if "data:" in data and ";base64," in data:
+                # Break out the header from the base64 content
+                header, data = data.split(";base64,")
+
+            # Try to decode the file. Return validation error if it fails.
+            try:
+                decoded_file = base64.b64decode(data)
+            except TypeError:
+                self.fail("invalid_image")
+
+            # Generate file name:
+            file_name = str(uuid.uuid4())[:12]  # 12 characters are more than enough.
+            # Get the file name extension:
+            file_extension = self.get_file_extension(file_name, decoded_file)
+
+            complete_file_name = "%s.%s" % (file_name, file_extension)
+
+            data = ContentFile(decoded_file, name=complete_file_name)
+
+        return super(Base64ImageField, self).to_internal_value(data)
+
+    def get_file_extension(self, file_name, decoded_file):
+        import imghdr
+
+        extension = imghdr.what(file_name, decoded_file)
+        extension = "jpg" if extension == "jpeg" else extension
+
+        return extension
+
+    def to_representation(self, value):
+        """This is overridden as the server that hosts the image is not the same
+        as the api server.  The media base url could be prepended but for now we are
+        trusting the user to to this."""
+        return value.url if value else None
+
+
 class PUCSerializer(serializers.ModelSerializer):
+    kind = serializers.CharField(
+        required=True,
+        max_length=2,
+        source="kind.code",
+        label="Kind",
+        help_text="A means by which PUCs can be grouped, e.g. 'Formulation' PUCs vs. 'Article' PUCs.",
+    )
+
     class Meta:
         model = models.PUC
         fields = [
@@ -77,9 +144,12 @@ class ChemicalSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    # The related view uses dataDocument but the include parameter parses to data_document
+    #  Until this bug is fixed both includes will exist and point to the same location.
     included_serializers = {
         "puc": PUCSerializer,
         "dataDocuments": "apps_api.api.serializers.DocumentSerializer",
+        "data_documents": "apps_api.api.serializers.DocumentSerializer",
     }
 
     url = serializers.HyperlinkedIdentityField(view_name="product-detail")
@@ -92,9 +162,11 @@ class ProductSerializer(serializers.ModelSerializer):
         (if one has been assigned). Use the PUCs API to obtain additional information on the PUC.",
         related_link_view_name="product-related",
     )
+    image = Base64ImageField(max_length=None, use_url=True)
     dataDocuments = ResourceRelatedField(
         source="documents",
-        read_only=True,
+        # read_only=True,
+        queryset=models.DataDocument.objects,
         many=True,
         label="Document ID",
         help_text="Unique numeric identifier for the original data document associated with \
@@ -120,6 +192,16 @@ class ProductSerializer(serializers.ModelSerializer):
             "puc",
             "dataDocuments",
             "url",
+            "size",
+            "color",
+            "short_description",
+            "long_description",
+            "epa_reg_number",
+            "thumb_image",
+            "medium_image",
+            "large_image",
+            "model_number",
+            "image",
         ]
         extra_kwargs = {
             "id": {
@@ -274,9 +356,12 @@ class DocumentSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ExtractedChemicalSerializer(serializers.ModelSerializer):
+    # The related view uses dataDocument but the include parameter parses to data_document
+    #  Until this bug is fixed both includes will exist and point to the same location.
     included_serializers = {
         "chemical": ChemicalSerializer,
         "dataDocument": DocumentSerializer,
+        "data_document": DocumentSerializer,
         "products": ProductSerializer,
     }
 
@@ -411,10 +496,13 @@ class FunctionalUseCategorySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class FunctionalUseSerializer(serializers.ModelSerializer):
+    # The related view uses dataDocument but the include parameter parses to data_document
+    #  Until this bug is fixed both includes will exist and point to the same location.
     included_serializers = {
         "chemical": ChemicalSerializer,
         "category": FunctionalUseCategorySerializer,
         "dataDocument": DocumentSerializer,
+        "data_document": DocumentSerializer,
     }
 
     dataDocument = ResourceRelatedField(

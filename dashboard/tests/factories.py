@@ -5,6 +5,7 @@ from django.db import IntegrityError
 import random
 from dashboard import models
 from faker.providers import BaseProvider
+from django.core.files.base import ContentFile
 
 
 class ChemicalProvider(BaseProvider):
@@ -54,15 +55,23 @@ class DataSourceFactory(FactotumFactoryBase):
         model = models.DataSource
 
 
+class PUCKindFactory(FactotumFactoryBase):
+    class Meta:
+        model = models.PUCKind
+        django_get_or_create = ("code",)
+
+    code = "FO"
+
+
 class PUCFactory(FactotumFactoryBase):
     class Meta:
         model = models.PUC
 
-    kind = factory.Iterator(choice[0] for choice in models.PUC.KIND_CHOICES)
     gen_cat = factory.Faker("word")
     prod_fam = factory.Faker("word")
     prod_type = factory.Faker("word")
     description = factory.Faker("text")
+    kind = factory.SubFactory(PUCKindFactory)
 
 
 class GroupTypeFactory(FactotumFactoryBase):
@@ -84,6 +93,9 @@ class UserFactory(factory.django.DjangoModelFactory):
 class DataGroupFactory(FactotumFactoryBase):
     class Meta:
         model = models.DataGroup
+
+    name = factory.Faker("word")
+    description = factory.Faker("paragraph")
 
     data_source = factory.SubFactory(DataSourceFactory)
     group_type = factory.SubFactory(GroupTypeFactory)
@@ -126,6 +138,21 @@ class ProductFactory(FactotumFactoryBase):
         model = models.Product
 
     upc = factory.Faker("ean")
+    title = factory.Faker("word")
+    long_description = factory.Faker("paragraph")
+    short_description = factory.Faker("sentence")
+    manufacturer = factory.Faker("word")
+    brand_name = factory.Faker("word")
+    color = factory.Faker("safe_color_name")
+    item_id = factory.Faker("ean", length=8)
+    epa_reg_number = factory.Faker("ean", length=13)
+
+    image = factory.LazyAttribute(
+        lambda _: ContentFile(
+            factory.django.ImageField()._make_data({"width": 1024, "height": 768}),
+            "example.png",
+        )
+    )
 
 
 class ScriptFactory(FactotumFactoryBase):

@@ -22,6 +22,7 @@ local composition = import 'dashboard/composition.libsonnet';
 local dataDocument  = import 'dashboard/dataDocument.libsonnet';
 local functional_use  = import 'dashboard/functionalUse.libsonnet';
 local functional_use_category = import 'dashboard/functionalUseCategory.libsonnet';
+local product = import 'dashboard/product.libsonnet';
 
 ////////////////////////
 // List of all models //
@@ -33,6 +34,7 @@ local objs = [
     dataDocument,
     functional_use,
     functional_use_category,
+    product
 ];
 
 // Build spec
