@@ -67,6 +67,14 @@ class Base64ImageField(serializers.ImageField):
 
 
 class PUCSerializer(serializers.ModelSerializer):
+    kind = serializers.CharField(
+        required=True,
+        max_length=2,
+        source="kind.code",
+        label="Kind",
+        help_text="A means by which PUCs can be grouped, e.g. 'Formulation' PUCs vs. 'Article' PUCs.",
+    )
+
     class Meta:
         model = models.PUC
         fields = [

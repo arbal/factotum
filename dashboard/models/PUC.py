@@ -72,15 +72,8 @@ class PUCQuerySet(models.QuerySet):
 
 
 class PUC(CommonInfo):
-    KIND_CHOICES = (
-        ("UN", "unknown"),
-        ("FO", "Formulation"),
-        ("AR", "Article"),
-        ("OC", "Occupation"),
-    )
-
-    kind = models.CharField(
-        max_length=2, blank=True, default="UN", choices=KIND_CHOICES, help_text="kind"
+    kind = models.ForeignKey(
+        "dashboard.PUCKind", on_delete=models.CASCADE, default=1, help_text="kind"
     )
     gen_cat = models.CharField(max_length=50, blank=False, help_text="general category")
     prod_fam = models.CharField(
@@ -111,15 +104,6 @@ class PUC(CommonInfo):
 
     class JSONAPIMeta:
         resource_name = "puc"
-
-    def get_unique_puc_kinds():
-        kind_choices = PUC.KIND_CHOICES
-        puc_kinds = []
-        for puc_kind in kind_choices:
-            puc_kinds.append(
-                {"puc_kind_code": puc_kind[0], "display_name": puc_kind[1]}
-            )
-        return puc_kinds
 
     class Meta:
         ordering = ["gen_cat", "prod_fam", "prod_type"]
@@ -268,3 +252,15 @@ class PUCTag(TagBase, CommonInfo):
 
     def __str__(self):
         return self.name
+
+
+class PUCKind(CommonInfo):
+    name = models.CharField(max_length=50, unique=True)
+    code = models.CharField(max_length=2, unique=True, null=True, blank=True)
+
+    class Meta:
+        verbose_name = _("PUC kind")
+        verbose_name_plural = _("PUC kinds")
+
+    def __str__(self):
+        return str(self.code)

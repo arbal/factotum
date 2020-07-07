@@ -44,6 +44,10 @@ class PUCAdmin(admin.ModelAdmin):
         return u", ".join(o.name for o in obj.tags.all())
 
 
+class PUCKindAdmin(admin.ModelAdmin):
+    list_display = ("__str__", "name")
+
+
 class HHDocAdmin(admin.ModelAdmin):
     list_display = ("__str__", "hhe_report_number")
 
@@ -78,10 +82,6 @@ class ExtractedListPresenceToTagAdmin(admin.ModelAdmin):
 
     def tag(self, obj):
         return obj.tag
-
-
-class ExtractedListPresenceTagAdmin(admin.ModelAdmin):
-    list_filter = ("kind",)
 
 
 class ExtractedListPresenceTagAdmin(admin.ModelAdmin):
@@ -135,6 +135,7 @@ admin.site.register(ProductToPUC)
 admin.site.register(ProductDocument)
 admin.site.register(SourceCategory)
 admin.site.register(PUC, PUCAdmin)
+admin.site.register(PUCKind, PUCKindAdmin)
 admin.site.register(ExtractedText)
 admin.site.register(ExtractedChemical)
 admin.site.register(ExtractedFunctionalUse)

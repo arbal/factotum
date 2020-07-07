@@ -1,3 +1,40 @@
+- model: dashboard.puckind
+  pk: 1
+  fields:
+    created_at: 2019-10-07 05:28:49
+    updated_at: null
+    created_by: null
+    updated_by: null
+    code: UN
+    name: Unknown
+- model: dashboard.puckind
+  pk: 2
+  fields:
+    created_at: 2019-10-07 05:28:49
+    updated_at: null
+    created_by: null
+    updated_by: null
+    code: FO
+    name: Formulation
+- model: dashboard.puckind
+  pk: 3
+  fields:
+    created_at: 2019-10-07 05:28:49
+    updated_at: null
+    created_by: null
+    updated_by: null
+    code: AR
+    name: Article
+- model: dashboard.puckind
+  pk: 4
+  fields:
+    created_at: 2019-10-07 05:28:49
+    updated_at: null
+    created_by: null
+    updated_by: null
+    code: OC
+    name: Occupation
+
 - model: dashboard.puc
   pk: 1
   fields:
@@ -5,7 +42,7 @@
     updated_at: 2019-04-08 07:01:07.897509
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: body paint
     prod_type: ''
@@ -19,7 +56,7 @@
     updated_at: 2019-04-08 07:01:07.898858
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: children's art and toys
     prod_type: bubble solution
@@ -32,7 +69,7 @@
     updated_at: 2019-04-08 07:01:07.899523
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: children's art and toys
     prod_type: crayons
@@ -45,7 +82,7 @@
     updated_at: 2019-04-08 07:01:07.900159
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: children's art and toys
     prod_type: finger paint
@@ -58,7 +95,7 @@
     updated_at: 2019-04-08 07:01:07.900819
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: children's art and toys
     prod_type: modeling clay
@@ -71,7 +108,7 @@
     updated_at: 2019-04-08 07:01:07.898175
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: children's art and toys
     prod_type: ''
@@ -85,7 +122,7 @@
     updated_at: 2019-04-08 07:01:07.902288
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: fabric treatment and dye
     prod_type: fabric dye
@@ -99,7 +136,7 @@
     updated_at: 2019-04-08 07:01:07.903030
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: fabric treatment and dye
     prod_type: fabric paints and sealers
@@ -112,7 +149,7 @@
     updated_at: 2019-04-08 07:01:07.901480
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: fabric treatment and dye
     prod_type: ''
@@ -126,7 +163,7 @@
     updated_at: 2019-04-08 07:01:07.903655
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: fogger
     prod_type: ''
@@ -139,7 +176,7 @@
     updated_at: 2019-04-08 07:01:07.905090
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: general arts and crafts supplies
     prod_type: arts and crafts adhesive
@@ -153,7 +190,7 @@
     updated_at: 2019-04-08 07:01:07.905821
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: general arts and crafts supplies
     prod_type: arts and crafts cleaner
@@ -167,7 +204,7 @@
     updated_at: 2019-04-08 07:01:07.906525
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: general arts and crafts supplies
     prod_type: arts and crafts finish
@@ -180,7 +217,7 @@
     updated_at: 2019-04-08 07:01:07.907170
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: general arts and crafts supplies
     prod_type: arts and crafts paint
@@ -194,7 +231,7 @@
     updated_at: 2019-04-08 07:01:07.907879
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: general arts and crafts supplies
     prod_type: craft kit
@@ -207,7 +244,7 @@
     updated_at: 2019-04-08 07:01:07.908554
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: general arts and crafts supplies
     prod_type: flocking
@@ -221,7 +258,7 @@
     updated_at: 2019-04-08 07:01:07.904305
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: general arts and crafts supplies
     prod_type: ''
@@ -235,7 +272,7 @@
     updated_at: 2019-04-08 07:01:07.909216
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: home office
     prod_type: ''
@@ -249,7 +286,7 @@
     updated_at: 2019-04-08 07:01:07.911513
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: pottery making
     prod_type: ''
@@ -263,7 +300,7 @@
     updated_at: 2019-04-08 07:01:07.896377
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: ''
     prod_type: ''
@@ -277,7 +314,7 @@
     updated_at: 2019-04-08 07:01:08.082593
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Sports equipment
     prod_fam: gun cleaner
     prod_type: ''
@@ -290,7 +327,7 @@
     updated_at: 2019-04-08 07:01:07.910074
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: home office
     prod_type: pens and markers
@@ -303,7 +340,7 @@
     updated_at: 2019-04-08 07:01:07.910852
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: home office
     prod_type: white out
@@ -317,7 +354,7 @@
     updated_at: 2019-04-08 07:01:07.912134
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Arts and crafts/Office supplies
     prod_fam: pottery making
     prod_type: glaze
@@ -330,7 +367,7 @@
     updated_at: 2019-05-02 10:44:12.532779
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: air freshener
     prod_type: ''
@@ -343,7 +380,7 @@
     updated_at: 2019-04-08 07:01:07.914871
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: bathroom
     prod_type: bathroom cleaner
@@ -356,7 +393,7 @@
     updated_at: 2019-04-08 07:01:07.914056
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: bathroom
     prod_type: ''
@@ -369,7 +406,7 @@
     updated_at: 2019-04-08 07:01:07.916232
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: carpet and floor
     prod_type: carpet cleaner
@@ -383,7 +420,7 @@
     updated_at: 2019-04-08 07:01:07.917033
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: carpet and floor
     prod_type: carpet deodorizer
@@ -396,7 +433,7 @@
     updated_at: 2019-04-08 07:01:07.917798
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: carpet and floor
     prod_type: floor cleaner
@@ -409,7 +446,7 @@
     updated_at: 2019-04-08 07:01:07.918444
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: carpet and floor
     prod_type: floor polish
@@ -422,7 +459,7 @@
     updated_at: 2019-04-08 07:01:07.915612
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: carpet and floor
     prod_type: ''
@@ -435,7 +472,7 @@
     updated_at: 2019-04-08 07:01:07.919738
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: dishwasher and dishes
     prod_type: automatic dishwashing additive
@@ -449,7 +486,7 @@
     updated_at: 2019-08-05 16:22:41.244851
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: dishwasher and dishes
     prod_type: automatic dishwashing detergent
@@ -462,7 +499,7 @@
     updated_at: 2019-04-08 07:01:07.921040
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: dishwasher and dishes
     prod_type: dish soap
@@ -475,7 +512,7 @@
     updated_at: 2019-04-08 07:01:07.919089
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: dishwasher and dishes
     prod_type: ''
@@ -488,7 +525,7 @@
     updated_at: 2019-04-08 07:01:07.921676
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: drain products
     prod_type: ''
@@ -502,7 +539,7 @@
     updated_at: 2019-04-08 07:01:07.926111
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: general household cleaning
     prod_type: surface cleaner
@@ -516,7 +553,7 @@
     updated_at: 2019-04-08 07:01:07.923175
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: general household cleaning
     prod_type: ''
@@ -529,7 +566,7 @@
     updated_at: 2019-04-08 07:01:07.926758
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: hand cleaner
     prod_type: ''
@@ -543,7 +580,7 @@
     updated_at: 2019-04-08 07:01:07.930701
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: laundry and fabric treatment
     prod_type: anti-static spray
@@ -556,7 +593,7 @@
     updated_at: 2019-04-08 07:01:07.930005
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: laundry and fabric treatment
     prod_type: ''
@@ -569,7 +606,7 @@
     updated_at: 2019-04-08 07:01:07.938356
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: metal specific
     prod_type: ''
@@ -582,7 +619,7 @@
     updated_at: 2019-04-08 07:01:07.939799
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: oven
     prod_type: ''
@@ -595,7 +632,7 @@
     updated_at: 2019-04-08 07:01:07.941062
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: shoes
     prod_type: ''
@@ -608,7 +645,7 @@
     updated_at: 2019-04-08 07:01:07.942322
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: upholstery specific
     prod_type: ''
@@ -621,7 +658,7 @@
     updated_at: 2019-04-08 07:01:07.943854
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: wood specific
     prod_type: ''
@@ -634,7 +671,7 @@
     updated_at: 2019-04-08 07:01:07.912745
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: ''
     prod_type: ''
@@ -648,7 +685,7 @@
     updated_at: 2019-04-08 07:01:07.922352
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: fireplace
     prod_type: ''
@@ -662,7 +699,7 @@
     updated_at: 2019-04-08 07:01:07.923932
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: general household cleaning
     prod_type: bleach
@@ -676,7 +713,7 @@
     updated_at: 2019-04-08 07:01:07.924749
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: general household cleaning
     prod_type: disinfectant
@@ -689,7 +726,7 @@
     updated_at: 2019-04-08 07:01:07.925500
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: general household cleaning
     prod_type: glass cleaner
@@ -702,7 +739,7 @@
     updated_at: 2019-04-08 07:01:07.927399
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: heavy duty cleaner
     prod_type: ''
@@ -716,7 +753,7 @@
     updated_at: 2019-04-08 07:01:07.928335
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: houseplant care
     prod_type: ''
@@ -730,7 +767,7 @@
     updated_at: 2019-04-08 07:01:07.929272
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: lamp oil/lighter fluid
     prod_type: ''
@@ -743,7 +780,7 @@
     updated_at: 2019-04-08 07:01:07.931536
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: laundry and fabric treatment
     prod_type: dry cleaner
@@ -756,7 +793,7 @@
     updated_at: 2019-04-08 07:01:07.932282
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: laundry and fabric treatment
     prod_type: dryer sheets
@@ -769,7 +806,7 @@
     updated_at: 2019-04-08 07:01:07.932930
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: laundry and fabric treatment
     prod_type: fabric deodorizer
@@ -782,7 +819,7 @@
     updated_at: 2019-04-08 07:01:07.933594
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: laundry and fabric treatment
     prod_type: fabric protectant
@@ -796,7 +833,7 @@
     updated_at: 2019-04-08 07:01:07.934177
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: laundry and fabric treatment
     prod_type: fabric softener
@@ -810,7 +847,7 @@
     updated_at: 2019-04-08 07:01:07.934803
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: laundry and fabric treatment
     prod_type: laundry detergent
@@ -823,7 +860,7 @@
     updated_at: 2019-04-08 07:01:07.935641
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: laundry and fabric treatment
     prod_type: laundry fragrance
@@ -837,7 +874,7 @@
     updated_at: 2019-08-19 08:50:24.074810
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: laundry and fabric treatment
     prod_type: laundry stain remover
@@ -850,7 +887,7 @@
     updated_at: 2019-04-08 07:01:07.937080
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: laundry and fabric treatment
     prod_type: laundry starch
@@ -864,7 +901,7 @@
     updated_at: 2019-04-08 07:01:07.937719
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: lime remover
     prod_type: ''
@@ -878,7 +915,7 @@
     updated_at: 2019-04-08 07:01:07.938992
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: metal specific
     prod_type: metal polish
@@ -891,7 +928,7 @@
     updated_at: 2019-04-08 07:01:07.940460
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: oven
     prod_type: oven cleaner
@@ -904,7 +941,7 @@
     updated_at: 2019-04-08 07:01:07.941676
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: shoes
     prod_type: shoe polish or protectant
@@ -918,7 +955,7 @@
     updated_at: 2019-04-08 07:01:07.943013
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: upholstery specific
     prod_type: upholstery cleaner
@@ -933,7 +970,7 @@
     updated_at: 2019-04-08 07:01:07.944622
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: wood specific
     prod_type: wood polish
@@ -947,7 +984,7 @@
     updated_at: 2019-04-08 07:01:07.945260
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Electronics/small appliances
     prod_fam: ''
     prod_type: ''
@@ -960,7 +997,7 @@
     updated_at: 2019-04-08 07:01:07.946954
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Electronics/small appliances
     prod_fam: computers and accessories/supplies
     prod_type: printer ink
@@ -973,7 +1010,7 @@
     updated_at: 2019-04-08 07:01:07.947821
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Electronics/small appliances
     prod_fam: computers and accessories/supplies
     prod_type: printer toner
@@ -986,7 +1023,7 @@
     updated_at: 2019-04-08 07:01:07.946088
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Electronics/small appliances
     prod_fam: computers and accessories/supplies
     prod_type: ''
@@ -999,7 +1036,7 @@
     updated_at: 2019-04-08 07:01:07.948498
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Electronics/small appliances
     prod_fam: electronics cleaner
     prod_type: ''
@@ -1013,7 +1050,7 @@
     updated_at: 2019-04-08 07:01:07.949109
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: ''
     prod_type: ''
@@ -1026,7 +1063,7 @@
     updated_at: 2019-04-08 07:01:07.950458
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: adhesives and adhesive removers
     prod_type: adhesive remover
@@ -1040,7 +1077,7 @@
     updated_at: 2019-04-08 07:01:07.951410
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: adhesives and adhesive removers
     prod_type: multipurpose adhesive
@@ -1054,7 +1091,7 @@
     updated_at: 2019-04-08 07:01:07.952181
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: adhesives and adhesive removers
     prod_type: wood adhesive
@@ -1067,7 +1104,7 @@
     updated_at: 2019-04-08 07:01:07.949782
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: adhesives and adhesive removers
     prod_type: ''
@@ -1080,7 +1117,7 @@
     updated_at: 2019-04-08 07:01:07.952854
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: caulk/sealant
     prod_type: ''
@@ -1094,7 +1131,7 @@
     updated_at: 2019-04-08 07:01:07.953672
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: concrete
     prod_type: ''
@@ -1107,7 +1144,7 @@
     updated_at: 2019-04-08 07:01:07.954441
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: corrosion protection
     prod_type: ''
@@ -1121,7 +1158,7 @@
     updated_at: 2019-04-08 07:01:07.955077
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: degreaser
     prod_type: ''
@@ -1135,7 +1172,7 @@
     updated_at: 2019-04-08 07:01:07.955719
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: finish
     prod_type: ''
@@ -1148,7 +1185,7 @@
     updated_at: 2019-04-08 07:01:07.958033
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: insulation
     prod_type: spray foam
@@ -1162,7 +1199,7 @@
     updated_at: 2019-04-08 07:01:07.957262
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: insulation
     prod_type: ''
@@ -1175,7 +1212,7 @@
     updated_at: 2019-04-08 07:01:07.958724
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: lock deicer
     prod_type: ''
@@ -1188,7 +1225,7 @@
     updated_at: 2019-04-08 07:01:07.959422
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: lubricant
     prod_type: ''
@@ -1201,7 +1238,7 @@
     updated_at: 2019-04-08 07:01:07.960082
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: paint/stain and related products
     prod_type: ''
@@ -1214,7 +1251,7 @@
     updated_at: 2019-04-08 07:01:07.960751
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: paint/stain and related products
     prod_type: oil-based paint
@@ -1227,7 +1264,7 @@
     updated_at: 2019-04-08 07:01:07.961386
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: paint/stain and related products
     prod_type: paint
@@ -1241,7 +1278,7 @@
     updated_at: 2019-04-08 07:01:07.966075
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: paint/stain and related products
     prod_type: water-based paint
@@ -1254,7 +1291,7 @@
     updated_at: 2019-04-08 07:01:07.962040
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: paint/stain and related products
     prod_type: paint cleaner
@@ -1267,7 +1304,7 @@
     updated_at: 2019-04-08 07:01:07.962712
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: paint/stain and related products
     prod_type: paint texture
@@ -1280,7 +1317,7 @@
     updated_at: 2019-04-08 07:01:07.963368
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: paint/stain and related products
     prod_type: paint thinner
@@ -1293,7 +1330,7 @@
     updated_at: 2019-04-08 07:01:07.964031
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: paint/stain and related products
     prod_type: primer
@@ -1307,7 +1344,7 @@
     updated_at: 2019-04-08 07:01:07.964719
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: paint/stain and related products
     prod_type: stain
@@ -1321,7 +1358,7 @@
     updated_at: 2019-04-08 07:01:07.965395
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: paint/stain and related products
     prod_type: stripper
@@ -1334,7 +1371,7 @@
     updated_at: 2019-04-08 07:01:07.966713
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: patch and repair
     prod_type: ''
@@ -1347,7 +1384,7 @@
     updated_at: 2019-04-08 07:01:07.968326
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: patch and repair
     prod_type: wall patch and repair
@@ -1361,7 +1398,7 @@
     updated_at: 2019-04-08 07:01:07.967548
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: patch and repair
     prod_type: putty or filler
@@ -1374,7 +1411,7 @@
     updated_at: 2019-04-08 07:01:07.969168
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: plumbing
     prod_type: ''
@@ -1387,7 +1424,7 @@
     updated_at: 2019-04-08 07:01:07.969972
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: refrigerant
     prod_type: ''
@@ -1400,7 +1437,7 @@
     updated_at: 2019-04-08 07:01:07.970802
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: roof
     prod_type: ''
@@ -1414,7 +1451,7 @@
     updated_at: 2019-04-08 07:01:07.971519
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: septic system
     prod_type: ''
@@ -1427,7 +1464,7 @@
     updated_at: 2019-04-08 07:01:07.972126
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: surface sealers
     prod_type: ''
@@ -1441,7 +1478,7 @@
     updated_at: 2019-04-08 07:01:07.972707
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: surface sealers
     prod_type: glass surface sealer
@@ -1454,7 +1491,7 @@
     updated_at: 2019-04-08 07:01:07.973306
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: surface sealers
     prod_type: stone surface sealer
@@ -1467,7 +1504,7 @@
     updated_at: 2019-04-08 07:01:07.974027
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: tiling
     prod_type: ''
@@ -1480,7 +1517,7 @@
     updated_at: 2019-04-08 07:01:07.974731
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: tiling
     prod_type: grout sealer
@@ -1493,7 +1530,7 @@
     updated_at: 2019-04-08 07:01:07.975393
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: tiling
     prod_type: mortar or grout
@@ -1507,7 +1544,7 @@
     updated_at: 2019-04-08 07:01:07.976225
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: welding
     prod_type: ''
@@ -1520,7 +1557,7 @@
     updated_at: 2019-04-08 07:01:07.976975
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: ''
     prod_type: ''
@@ -1533,7 +1570,7 @@
     updated_at: 2019-04-08 07:01:07.977654
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: cleaner
     prod_type: ''
@@ -1548,7 +1585,7 @@
     updated_at: 2019-04-08 07:01:07.978279
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: grill/camping fuel
     prod_type: ''
@@ -1561,7 +1598,7 @@
     updated_at: 2019-04-08 07:01:07.978966
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: herbicide
     prod_type: ''
@@ -1574,7 +1611,7 @@
     updated_at: 2019-04-08 07:01:07.980020
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: lawn fertilizer
     prod_type: ''
@@ -1587,7 +1624,7 @@
     updated_at: 2019-04-08 07:01:07.980957
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: lawnmower
     prod_type: ''
@@ -1600,7 +1637,7 @@
     updated_at: 2019-04-08 07:01:07.981811
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: lawnmower
     prod_type: lawnmower fluids
@@ -1613,7 +1650,7 @@
     updated_at: 2019-04-08 07:01:07.982647
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: plants and garden
     prod_type: ''
@@ -1626,7 +1663,7 @@
     updated_at: 2019-04-08 07:01:07.983641
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: plants and garden
     prod_type: garden care
@@ -1640,7 +1677,7 @@
     updated_at: 2019-04-08 07:01:07.984493
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: plants and garden
     prod_type: garden fertilizer
@@ -1654,7 +1691,7 @@
     updated_at: 2019-04-08 07:01:07.985317
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: plants and garden
     prod_type: mulch
@@ -1668,7 +1705,7 @@
     updated_at: 2019-04-08 07:01:07.986349
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: plants and garden
     prod_type: potting soil
@@ -1682,7 +1719,7 @@
     updated_at: 2019-04-08 07:01:07.987103
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: plants and garden
     prod_type: tree care products
@@ -1696,7 +1733,7 @@
     updated_at: 2019-04-08 07:01:07.987766
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: pool chemicals
     prod_type: ''
@@ -1709,7 +1746,7 @@
     updated_at: 2019-04-08 07:01:07.989261
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: pool chemicals
     prod_type: pool algaecide
@@ -1722,7 +1759,7 @@
     updated_at: 2019-09-03 20:49:56.720838
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: pool chemicals
     prod_type: chlorine and bromine
@@ -1736,7 +1773,7 @@
     updated_at: 2019-04-08 07:01:07.988433
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: pool chemicals
     prod_type: pH control
@@ -1749,7 +1786,7 @@
     updated_at: 2019-04-08 07:01:07.990662
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: pool chemicals
     prod_type: shock
@@ -1762,7 +1799,7 @@
     updated_at: 2019-04-08 07:01:07.991495
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Landscape/Yard
     prod_fam: surface deicer
     prod_type: ''
@@ -1775,7 +1812,7 @@
     updated_at: 2019-04-08 07:01:07.992208
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: ''
     prod_type: ''
@@ -1788,7 +1825,7 @@
     updated_at: 2019-04-08 07:01:07.993648
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: acne treatment
     prod_type: acne spot treatment
@@ -1801,7 +1838,7 @@
     updated_at: 2019-04-08 07:01:07.992819
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: acne treatment
     prod_type: ''
@@ -1814,7 +1851,7 @@
     updated_at: 2019-04-08 07:01:07.994377
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: acne treatment
     prod_type: face scrub
@@ -1828,7 +1865,7 @@
     updated_at: 2019-04-08 07:01:07.995047
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: acne treatment
     prod_type: face wash
@@ -1841,7 +1878,7 @@
     updated_at: 2019-08-23 13:36:30.401595
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: bite relief
     prod_type: ''
@@ -1854,7 +1891,7 @@
     updated_at: 2019-04-08 07:01:07.996345
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: body adhesive
     prod_type: ''
@@ -1867,7 +1904,7 @@
     updated_at: 2019-04-08 07:01:07.997032
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: body care set
     prod_type: ''
@@ -1881,7 +1918,7 @@
     updated_at: 2019-04-08 07:01:07.997836
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: body hygiene
     prod_type: ''
@@ -1894,7 +1931,7 @@
     updated_at: 2019-04-08 07:01:07.998640
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: body hygiene
     prod_type: bar soap
@@ -1907,7 +1944,7 @@
     updated_at: 2019-04-08 07:01:07.999279
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: body hygiene
     prod_type: body scrub
@@ -1920,7 +1957,7 @@
     updated_at: 2019-04-08 07:01:08.000083
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: body hygiene
     prod_type: body wash
@@ -1933,7 +1970,7 @@
     updated_at: 2019-04-08 07:01:08.000813
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: body hygiene
     prod_type: body wipes
@@ -1947,7 +1984,7 @@
     updated_at: 2019-04-08 07:01:08.001447
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: body hygiene
     prod_type: hand sanitizer
@@ -1960,7 +1997,7 @@
     updated_at: 2019-04-08 07:01:08.002070
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: body hygiene
     prod_type: hand soap
@@ -1973,7 +2010,7 @@
     updated_at: 2019-04-08 07:01:08.002737
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: body hygiene
     prod_type: hand wipes
@@ -1986,7 +2023,7 @@
     updated_at: 2019-04-08 07:01:08.003447
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: body oil
     prod_type: ''
@@ -1999,7 +2036,7 @@
     updated_at: 2019-04-08 07:01:08.004088
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: body powder
     prod_type: ''
@@ -2012,7 +2049,7 @@
     updated_at: 2019-04-08 07:01:08.004720
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: child specific
     prod_type: ''
@@ -2025,7 +2062,7 @@
     updated_at: 2019-04-08 07:01:08.005355
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: child specific
     prod_type: baby lotion
@@ -2038,7 +2075,7 @@
     updated_at: 2019-04-08 07:01:08.006161
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: child specific
     prod_type: baby oil
@@ -2051,7 +2088,7 @@
     updated_at: 2019-04-08 07:01:08.006868
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: child specific
     prod_type: baby powder
@@ -2065,7 +2102,7 @@
     updated_at: 2019-04-08 07:01:08.007495
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: child specific
     prod_type: baby shampoo
@@ -2078,7 +2115,7 @@
     updated_at: 2019-04-08 07:01:08.008116
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: child specific
     prod_type: baby wash
@@ -2091,7 +2128,7 @@
     updated_at: 2019-04-08 07:01:08.008815
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: child specific
     prod_type: baby wipes
@@ -2104,7 +2141,7 @@
     updated_at: 2019-07-09 09:41:07.769583
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: child specific
     prod_type: bath paints/crayons
@@ -2117,7 +2154,7 @@
     updated_at: 2019-04-08 07:01:08.010331
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: child specific
     prod_type: diaper cream
@@ -2130,7 +2167,7 @@
     updated_at: 2019-04-08 07:01:08.010962
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: dental care
     prod_type: ''
@@ -2143,7 +2180,7 @@
     updated_at: 2019-04-08 07:01:08.011614
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: dental care
     prod_type: denture adhesive
@@ -2156,7 +2193,7 @@
     updated_at: 2019-08-05 16:22:15.498621
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: dental care
     prod_type: denture cleaner
@@ -2169,7 +2206,7 @@
     updated_at: 2020-03-30 16:13:10.739216
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: dental care
     prod_type: mouthwash
@@ -2182,7 +2219,7 @@
     updated_at: 2019-04-08 07:01:08.013506
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: dental care
     prod_type: teeth whitener
@@ -2195,7 +2232,7 @@
     updated_at: 2019-04-08 07:01:08.014131
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: dental care
     prod_type: toothpaste
@@ -2208,7 +2245,7 @@
     updated_at: 2019-04-08 07:01:08.014797
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: deodorant
     prod_type: ''
@@ -2221,7 +2258,7 @@
     updated_at: 2019-04-08 07:01:08.016249
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: eye care and contacts
     prod_type: contact care
@@ -2234,7 +2271,7 @@
     updated_at: 2019-04-08 07:01:08.015444
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: eye care and contacts
     prod_type: ''
@@ -2247,7 +2284,7 @@
     updated_at: 2019-04-08 07:01:08.016990
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: eye care and contacts
     prod_type: eye cream
@@ -2261,7 +2298,7 @@
     updated_at: 2019-04-08 07:01:08.017644
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: eye care and contacts
     prod_type: eye drops
@@ -2274,7 +2311,7 @@
     updated_at: 2019-04-08 07:01:08.018873
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: eye care and contacts
     prod_type: eyelid spray
@@ -2287,7 +2324,7 @@
     updated_at: 2019-04-08 07:01:08.019530
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: facial cleansing and moisturizing
     prod_type: ''
@@ -2300,7 +2337,7 @@
     updated_at: 2019-04-08 07:01:08.020246
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: facial cleansing and moisturizing
     prod_type: face cleansing wipes
@@ -2314,7 +2351,7 @@
     updated_at: 2019-04-08 07:01:08.020997
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: facial cleansing and moisturizing
     prod_type: face cream/moisturizer
@@ -2328,7 +2365,7 @@
     updated_at: 2019-04-08 07:01:08.021838
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: facial cleansing and moisturizing
     prod_type: face mask
@@ -2341,7 +2378,7 @@
     updated_at: 2019-04-08 07:01:08.022512
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: facial cleansing and moisturizing
     prod_type: face scrub
@@ -2355,7 +2392,7 @@
     updated_at: 2019-04-08 07:01:08.023143
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: facial cleansing and moisturizing
     prod_type: face wash
@@ -2368,7 +2405,7 @@
     updated_at: 2019-04-08 07:01:08.023791
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: foot care
     prod_type: ''
@@ -2382,7 +2419,7 @@
     updated_at: 2019-04-08 07:01:08.024596
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: fragrance
     prod_type: ''
@@ -2395,7 +2432,7 @@
     updated_at: 2019-04-08 07:01:08.025995
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: general moisturizing
     prod_type: hand/body lotion
@@ -2409,7 +2446,7 @@
     updated_at: 2019-04-08 07:01:08.025333
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: general moisturizing
     prod_type: ''
@@ -2422,7 +2459,7 @@
     updated_at: 2019-04-08 07:01:08.026821
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: glitter
     prod_type: ''
@@ -2436,7 +2473,7 @@
     updated_at: 2019-04-08 07:01:08.027523
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair coloring
     prod_type: ''
@@ -2450,7 +2487,7 @@
     updated_at: 2019-04-08 07:01:08.028092
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair coloring
     prod_type: hair bleach
@@ -2463,7 +2500,7 @@
     updated_at: 2019-04-08 07:01:08.028706
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair coloring
     prod_type: hair color - permanent
@@ -2476,7 +2513,7 @@
     updated_at: 2019-04-08 07:01:08.029328
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair coloring
     prod_type: hair color - professional
@@ -2489,7 +2526,7 @@
     updated_at: 2019-04-08 07:01:08.029980
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair coloring
     prod_type: hair color - temporary
@@ -2502,7 +2539,7 @@
     updated_at: 2019-04-08 07:01:08.030828
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair coloring
     prod_type: hair color activator
@@ -2515,7 +2552,7 @@
     updated_at: 2019-04-08 07:01:08.031505
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair coloring
     prod_type: hair color developer
@@ -2528,7 +2565,7 @@
     updated_at: 2019-04-08 07:01:08.032172
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair coloring
     prod_type: hair color toner
@@ -2541,7 +2578,7 @@
     updated_at: 2019-04-08 07:01:08.033540
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair styling and care
     prod_type: dry shampoo
@@ -2554,7 +2591,7 @@
     updated_at: 2019-04-08 07:01:08.032875
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair styling and care
     prod_type: ''
@@ -2567,7 +2604,7 @@
     updated_at: 2019-04-08 07:01:08.034167
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair styling and care
     prod_type: ethnic hair care
@@ -2581,7 +2618,7 @@
     updated_at: 2019-04-08 07:01:08.035491
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair styling and care
     prod_type: hair conditioner - leave-in
@@ -2594,7 +2631,7 @@
     updated_at: 2019-04-08 07:01:08.036141
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair styling and care
     prod_type: hair conditioning treatment
@@ -2607,7 +2644,7 @@
     updated_at: 2019-04-08 07:01:08.036864
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair styling and care
     prod_type: hair conditioning treatment - professional
@@ -2621,7 +2658,7 @@
     updated_at: 2019-04-08 07:01:08.037693
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair styling and care
     prod_type: hair relaxer
@@ -2634,7 +2671,7 @@
     updated_at: 2019-04-08 07:01:08.038414
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair styling and care
     prod_type: hair spray
@@ -2647,7 +2684,7 @@
     updated_at: 2019-05-06 09:18:30.370215
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair styling and care
     prod_type: hair styling
@@ -2660,7 +2697,7 @@
     updated_at: 2019-04-08 07:01:08.039725
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair styling and care
     prod_type: lice shampoo
@@ -2673,7 +2710,7 @@
     updated_at: 2019-04-08 07:01:08.040375
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair styling and care
     prod_type: scalp treatment
@@ -2687,7 +2724,7 @@
     updated_at: 2019-04-08 07:01:08.041098
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair styling and care
     prod_type: shampoo
@@ -2700,7 +2737,7 @@
     updated_at: 2019-04-08 07:01:08.041746
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair styling and care
     prod_type: shampoo - dandruff
@@ -2714,7 +2751,7 @@
     updated_at: 2019-04-08 07:01:08.042502
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: liniment
     prod_type: ''
@@ -2727,7 +2764,7 @@
     updated_at: 2019-04-08 07:01:08.043196
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: ''
@@ -2740,7 +2777,7 @@
     updated_at: 2019-04-08 07:01:08.043876
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: blush/bronzer
@@ -2753,7 +2790,7 @@
     updated_at: 2019-04-08 07:01:08.044549
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: cosmetic tool cleaner
@@ -2766,7 +2803,7 @@
     updated_at: 2019-04-08 07:01:08.045346
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: eye liner
@@ -2779,7 +2816,7 @@
     updated_at: 2019-04-08 07:01:08.046048
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: eye makeup
@@ -2793,7 +2830,7 @@
     updated_at: 2019-04-08 07:01:08.046699
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: eye shadow
@@ -2806,7 +2843,7 @@
     updated_at: 2019-04-08 07:01:08.047383
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: face powder
@@ -2819,7 +2856,7 @@
     updated_at: 2019-04-08 07:01:08.048053
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: foundation/concealer
@@ -2832,7 +2869,7 @@
     updated_at: 2019-04-08 07:01:08.048718
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: lip balm
@@ -2845,7 +2882,7 @@
     updated_at: 2019-04-08 07:01:08.049376
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: lip color
@@ -2858,7 +2895,7 @@
     updated_at: 2019-04-08 07:01:08.050233
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: lip gloss
@@ -2871,7 +2908,7 @@
     updated_at: 2019-04-08 07:01:08.050993
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: lip liner
@@ -2884,7 +2921,7 @@
     updated_at: 2019-04-08 07:01:08.051629
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: makeup primer
@@ -2897,7 +2934,7 @@
     updated_at: 2019-04-08 07:01:08.052235
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: makeup remover
@@ -2910,7 +2947,7 @@
     updated_at: 2019-04-08 07:01:08.052858
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: makeup set
@@ -2924,7 +2961,7 @@
     updated_at: 2019-04-08 07:01:08.053701
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: mascara
@@ -2937,7 +2974,7 @@
     updated_at: 2019-04-08 07:01:08.054445
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: toner
@@ -2950,7 +2987,7 @@
     updated_at: 2019-04-08 07:01:08.055905
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: nails
     prod_type: ''
@@ -2963,7 +3000,7 @@
     updated_at: 2019-04-08 07:01:08.056759
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: nails
     prod_type: nail adhesive
@@ -2976,7 +3013,7 @@
     updated_at: 2019-04-08 07:01:08.057478
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: nails
     prod_type: nail polish
@@ -2990,7 +3027,7 @@
     updated_at: 2019-04-08 07:01:08.058123
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: nails
     prod_type: nail polish remover
@@ -3003,7 +3040,7 @@
     updated_at: 2019-04-08 07:01:08.058839
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: self-tanner
     prod_type: ''
@@ -3016,7 +3053,7 @@
     updated_at: 2019-04-08 07:01:08.059623
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: sexual wellness
     prod_type: ''
@@ -3029,7 +3066,7 @@
     updated_at: 2019-04-08 07:01:08.060296
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: shaving and hair removal
     prod_type: ''
@@ -3042,7 +3079,7 @@
     updated_at: 2019-04-08 07:01:08.060973
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: shaving and hair removal
     prod_type: aftershave
@@ -3056,7 +3093,7 @@
     updated_at: 2019-04-08 07:01:08.061597
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: shaving and hair removal
     prod_type: clipper lubricant/cleaner
@@ -3069,7 +3106,7 @@
     updated_at: 2019-04-08 07:01:08.062193
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: shaving and hair removal
     prod_type: depilatory
@@ -3082,7 +3119,7 @@
     updated_at: 2019-04-08 07:01:08.062858
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: shaving and hair removal
     prod_type: shaving cream
@@ -3095,7 +3132,7 @@
     updated_at: 2019-04-08 07:01:08.063491
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: shaving and hair removal
     prod_type: waxing
@@ -3108,7 +3145,7 @@
     updated_at: 2019-04-08 07:01:08.064120
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: specialized bath products
     prod_type: ''
@@ -3121,7 +3158,7 @@
     updated_at: 2019-04-08 07:01:08.064778
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: specialized bath products
     prod_type: bath oil
@@ -3134,7 +3171,7 @@
     updated_at: 2019-04-08 07:01:08.065510
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: specialized bath products
     prod_type: bath salts
@@ -3148,7 +3185,7 @@
     updated_at: 2019-04-08 07:01:08.066244
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: specialized bath products
     prod_type: bubble bath
@@ -3163,7 +3200,7 @@
     updated_at: 2019-04-08 07:01:08.066928
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: sunscreen
     prod_type: ''
@@ -3176,7 +3213,7 @@
     updated_at: 2019-04-08 07:01:08.067728
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Pesticides
     prod_fam: ''
     prod_type: ''
@@ -3189,7 +3226,7 @@
     updated_at: 2019-04-08 07:01:08.068467
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Pesticides
     prod_fam: animal repellent
     prod_type: ''
@@ -3203,7 +3240,7 @@
     updated_at: 2019-04-08 07:01:08.069081
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Pesticides
     prod_fam: fungicide
     prod_type: ''
@@ -3216,7 +3253,7 @@
     updated_at: 2019-05-02 10:44:34.825412
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Pesticides
     prod_fam: insect repellent
     prod_type: ''
@@ -3230,7 +3267,7 @@
     updated_at: 2019-04-08 07:01:08.070338
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Pesticides
     prod_fam: insect repellent
     prod_type: insect repellent - skin
@@ -3243,7 +3280,7 @@
     updated_at: 2019-04-08 07:01:08.071165
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Pesticides
     prod_fam: insecticide
     prod_type: ''
@@ -3256,7 +3293,7 @@
     updated_at: 2019-04-08 07:01:08.071928
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Pesticides
     prod_fam: rodenticide
     prod_type: ''
@@ -3269,7 +3306,7 @@
     updated_at: 2019-04-08 07:01:08.072576
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Pet care
     prod_fam: ''
     prod_type: ''
@@ -3282,7 +3319,7 @@
     updated_at: 2019-04-08 07:01:08.073182
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Pet care
     prod_fam: all pets
     prod_type: ''
@@ -3295,7 +3332,7 @@
     updated_at: 2019-04-08 07:01:08.073788
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Pet care
     prod_fam: all pets
     prod_type: other pet treatments
@@ -3308,7 +3345,7 @@
     updated_at: 2019-04-08 07:01:08.074408
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Pet care
     prod_fam: all pets
     prod_type: pesticide - pet
@@ -3323,7 +3360,7 @@
     updated_at: 2019-04-08 07:01:08.075045
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Pet care
     prod_fam: all pets
     prod_type: pet shampoo
@@ -3337,7 +3374,7 @@
     updated_at: 2019-04-08 07:01:08.075691
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Pet care
     prod_fam: all pets
     prod_type: pet stain cleaner
@@ -3350,7 +3387,7 @@
     updated_at: 2019-04-08 07:01:08.076317
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Pet care
     prod_fam: cats
     prod_type: ''
@@ -3363,7 +3400,7 @@
     updated_at: 2019-04-08 07:01:08.077126
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Pet care
     prod_fam: cats
     prod_type: cat litter
@@ -3376,7 +3413,7 @@
     updated_at: 2019-04-08 07:01:08.077860
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Pet care
     prod_fam: fish
     prod_type: ''
@@ -3389,7 +3426,7 @@
     updated_at: 2019-04-08 07:01:08.078495
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Pet care
     prod_fam: fish
     prod_type: aquarium
@@ -3402,7 +3439,7 @@
     updated_at: 2019-04-08 07:01:08.079117
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Sports equipment
     prod_fam: ''
     prod_type: ''
@@ -3415,7 +3452,7 @@
     updated_at: 2019-04-08 07:01:08.079803
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Sports equipment
     prod_fam: bicycling
     prod_type: ''
@@ -3428,7 +3465,7 @@
     updated_at: 2019-04-08 07:01:08.080636
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Sports equipment
     prod_fam: bicycling
     prod_type: bicycle cleaner
@@ -3441,7 +3478,7 @@
     updated_at: 2019-04-08 07:01:08.081341
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Sports equipment
     prod_fam: fishing
     prod_type: ''
@@ -3454,7 +3491,7 @@
     updated_at: 2019-04-08 07:01:08.081955
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Sports equipment
     prod_fam: fishing
     prod_type: reel oil
@@ -3467,7 +3504,7 @@
     updated_at: 2019-04-08 07:01:08.083186
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Sports equipment
     prod_fam: skiing
     prod_type: ''
@@ -3480,7 +3517,7 @@
     updated_at: 2019-04-08 07:01:08.083772
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Sports equipment
     prod_fam: skiing
     prod_type: wax
@@ -3493,7 +3530,7 @@
     updated_at: 2019-04-08 07:01:08.084370
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: ''
     prod_type: ''
@@ -3506,7 +3543,7 @@
     updated_at: 2019-04-08 07:01:08.084985
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: auto body work
     prod_type: ''
@@ -3519,7 +3556,7 @@
     updated_at: 2019-04-08 07:01:08.085612
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: auto body work
     prod_type: auto paint
@@ -3532,7 +3569,7 @@
     updated_at: 2019-04-08 07:01:08.086216
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: auto body work
     prod_type: body repair
@@ -3546,7 +3583,7 @@
     updated_at: 2019-04-08 07:01:08.087069
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: auto body work
     prod_type: detailing
@@ -3560,7 +3597,7 @@
     updated_at: 2019-04-08 07:01:08.087835
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: auto body work
     prod_type: windows/windshield
@@ -3573,7 +3610,7 @@
     updated_at: 2019-04-08 07:01:08.088524
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: boat care and maintenance
     prod_type: ''
@@ -3586,7 +3623,7 @@
     updated_at: 2019-04-08 07:01:08.089149
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: boat care and maintenance
     prod_type: boat cleaner - deck care
@@ -3599,7 +3636,7 @@
     updated_at: 2019-04-08 07:01:08.089827
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: boat care and maintenance
     prod_type: boat cleaner - general
@@ -3612,7 +3649,7 @@
     updated_at: 2019-04-08 07:01:08.090653
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: boat care and maintenance
     prod_type: boat cleaner - hull care
@@ -3625,7 +3662,7 @@
     updated_at: 2019-04-08 07:01:08.091398
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: boat care and maintenance
     prod_type: boat engine fluids
@@ -3639,7 +3676,7 @@
     updated_at: 2019-04-08 07:01:08.092757
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: car interior
     prod_type: auto air freshener
@@ -3652,7 +3689,7 @@
     updated_at: 2019-04-08 07:01:08.092093
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: car interior
     prod_type: ''
@@ -3665,7 +3702,7 @@
     updated_at: 2019-04-08 07:01:08.093581
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: car surface treatment
     prod_type: ''
@@ -3679,7 +3716,7 @@
     updated_at: 2019-04-08 07:01:08.094323
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: car surface treatment
     prod_type: body cleaner
@@ -3693,7 +3730,7 @@
     updated_at: 2019-04-08 07:01:08.095142
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: car surface treatment
     prod_type: body wax
@@ -3706,7 +3743,7 @@
     updated_at: 2019-04-08 07:01:08.095933
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: car surface treatment
     prod_type: combination product
@@ -3719,7 +3756,7 @@
     updated_at: 2019-04-08 07:01:08.096592
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: car surface treatment
     prod_type: degreaser
@@ -3732,7 +3769,7 @@
     updated_at: 2019-04-08 07:01:08.097788
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: engine maintenance
     prod_type: ''
@@ -3745,7 +3782,7 @@
     updated_at: 2019-04-08 07:01:08.098457
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: engine maintenance
     prod_type: antifreeze
@@ -3758,7 +3795,7 @@
     updated_at: 2019-04-08 07:01:08.099269
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: engine maintenance
     prod_type: auto fluids and additives
@@ -3772,7 +3809,7 @@
     updated_at: 2019-04-08 07:01:08.100028
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: engine maintenance
     prod_type: auto lubricant
@@ -3785,7 +3822,7 @@
     updated_at: 2019-04-08 07:01:08.100678
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: engine maintenance
     prod_type: auto refrigerant
@@ -3798,7 +3835,7 @@
     updated_at: 2019-04-08 07:01:08.101321
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: engine maintenance
     prod_type: motor oil
@@ -3811,7 +3848,7 @@
     updated_at: 2019-04-08 07:01:07.956443
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Home maintenance
     prod_fam: finish
     prod_type: wood finish
@@ -3824,7 +3861,7 @@
     updated_at: 2019-04-08 07:01:08.034823
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: hair styling and care
     prod_type: hair conditioner
@@ -3838,7 +3875,7 @@
     updated_at: 2019-04-08 07:01:08.018245
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: eye care and contacts
     prod_type: eye products
@@ -3852,7 +3889,7 @@
     updated_at: 2019-04-08 07:01:08.097173
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Vehicle
     prod_fam: car surface treatment
     prod_type: other
@@ -3866,7 +3903,7 @@
     updated_at: 2020-04-13 11:14:42.056277
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: bathroom
     prod_type: urinal cakes and deodorizers
@@ -3880,7 +3917,7 @@
     updated_at: 2019-12-02 15:28:09.985404
     created_by: null
     updated_by: null
-    kind: OC
+    kind: 4
     gen_cat: Industrial ingredients
     prod_fam: ''
     prod_type: ''
@@ -3893,7 +3930,7 @@
     updated_at: 2019-11-25 14:09:36.787202
     created_by: null
     updated_by: null
-    kind: OC
+    kind: 4
     gen_cat: Industrial products
     prod_fam: ''
     prod_type: ''
@@ -3907,7 +3944,7 @@
     updated_at: 2019-12-03 09:14:03.970180
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: jewelry
     prod_type: jewelry cleaner
@@ -3920,7 +3957,7 @@
     updated_at: 2020-02-05 22:24:45.135804
     created_by: null
     updated_by: null
-    kind: FO
+    kind: 2
     gen_cat: Personal care
     prod_fam: body hygiene
     prod_type: feminine hygiene
@@ -3933,7 +3970,7 @@
     updated_at: 2020-04-13 11:20:25.455819
     created_by: null
     updated_by: null
-    kind: AR
+    kind: 3
     gen_cat: Cons. electronics, mech. appliances, and machinery
     prod_fam: ''
     prod_type: ''
@@ -3948,7 +3985,7 @@
     updated_at: 2020-04-13 11:20:54.279035
     created_by: null
     updated_by: null
-    kind: AR
+    kind: 3
     gen_cat: Industrial machinery
     prod_fam: ''
     prod_type: ''
@@ -3961,7 +3998,7 @@
     updated_at: 2020-04-13 11:21:40.247031
     created_by: null
     updated_by: null
-    kind: AR
+    kind: 3
     gen_cat: Road vehicles
     prod_fam: ''
     prod_type: ''
@@ -3974,7 +4011,7 @@
     updated_at: 2020-04-13 11:22:42.174633
     created_by: null
     updated_by: null
-    kind: AR
+    kind: 3
     gen_cat: Other vehicles/mass transit
     prod_fam: ''
     prod_type: ''
@@ -3989,7 +4026,7 @@
     updated_at: 2020-04-13 11:23:56.672927
     created_by: null
     updated_by: null
-    kind: AR
+    kind: 3
     gen_cat: Construction and building materials
     prod_fam: ''
     prod_type: ''
@@ -4004,7 +4041,7 @@
     updated_at: 2020-04-13 11:25:06.550933
     created_by: null
     updated_by: null
-    kind: AR
+    kind: 3
     gen_cat: Toys and children's products
     prod_fam: ''
     prod_type: ''
@@ -4018,7 +4055,7 @@
     updated_at: 2020-04-13 11:26:13.045131
     created_by: null
     updated_by: null
-    kind: AR
+    kind: 3
     gen_cat: Packaging (non-food contact)
     prod_fam: ''
     prod_type: ''
@@ -4032,7 +4069,7 @@
     updated_at: 2020-04-13 11:27:33.199453
     created_by: null
     updated_by: null
-    kind: AR
+    kind: 3
     gen_cat: Food contact items
     prod_fam: ''
     prod_type: ''
@@ -4048,7 +4085,7 @@
     updated_at: 2020-04-13 11:28:33.645470
     created_by: null
     updated_by: null
-    kind: AR
+    kind: 3
     gen_cat: Furniture and Furnishings
     prod_fam: ''
     prod_type: ''
@@ -4062,7 +4099,7 @@
     updated_at: 2020-04-14 14:58:22.049680
     created_by: null
     updated_by: null
-    kind: AR
+    kind: 3
     gen_cat: Other direct contact consumer goods
     prod_fam: ''
     prod_type: ''
@@ -4078,7 +4115,7 @@
     updated_at: 2020-04-13 11:30:48.274240
     created_by: null
     updated_by: null
-    kind: AR
+    kind: 3
     gen_cat: Other indirect contact consumer goods
     prod_fam: ''
     prod_type: ''
@@ -4092,7 +4129,7 @@
     updated_at: 2020-04-13 13:57:18.235801
     created_by: null
     updated_by: null
-    kind: AR
+    kind: 3
     gen_cat: Batteries
     prod_fam: ''
     prod_type: ''

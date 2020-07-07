@@ -32,14 +32,14 @@ def index(request):
     ).count()
     stats["dsstox_sid_count"] = RawChem.objects.values("dsstox__sid").distinct().count()
 
-    pucs = PUC.objects.with_num_products().filter(kind="FO").all().astree()
+    pucs = PUC.objects.with_num_products().filter(kind__code="FO").all().astree()
     for puc_name, puc_obj in pucs.items():
         puc_obj.cumnum_products = sum(
             p.num_products for p in pucs.objects[puc_name].values()
         )
     stats["formulation_pucs"] = pucs
 
-    pucs = PUC.objects.with_num_products().filter(kind="AR").all().astree()
+    pucs = PUC.objects.with_num_products().filter(kind__code="AR").all().astree()
     for puc_name, puc_obj in pucs.items():
         puc_obj.cumnum_products = sum(
             p.num_products for p in pucs.objects[puc_name].values()
@@ -244,7 +244,7 @@ def bubble_PUCs(request):
     else:
         pucs = PUC.objects.all()
     pucs = (
-        pucs.filter(kind=kind)
+        pucs.filter(kind__code=kind)
         .with_num_products()
         .values("id", "gen_cat", "prod_fam", "prod_type", "num_products")
         .filter(num_products__gt=0)
@@ -265,7 +265,7 @@ def collapsible_tree_PUCs(request):
     """
     pucs = (
         PUC.objects.all()
-        .filter(kind="FO")
+        .filter(kind__code="FO")
         .values("id", "gen_cat", "prod_fam", "prod_type")
         .astree()
         .asdict()

@@ -70,7 +70,7 @@ class TestPUC(TestCase):
         del response["url"]
         for key in response:
             source = self.get_source_field(key)
-            self.assertEqual(getattr(puc, source), response[key])
+            self.assertEqual(str(getattr(puc, source)), str(response[key]))
 
     def test_list(self):
         puc = models.PUC.objects.all().order_by("id").first()
@@ -82,7 +82,9 @@ class TestPUC(TestCase):
         del response["results"][0]["url"]
         for key in response["results"][0]:
             source = self.get_source_field(key)
-            self.assertEqual(getattr(puc, source), response["results"][0][key])
+            self.assertEqual(
+                str(getattr(puc, source)), str(response["results"][0][key])
+            )
         # test with filter
         puc = models.PUC.objects.dtxsid_filter(self.dtxsid).all().first()
         count = models.PUC.objects.dtxsid_filter(self.dtxsid).count()
@@ -91,7 +93,9 @@ class TestPUC(TestCase):
         del response["results"][0]["url"]
         for key in response["results"][0]:
             source = self.get_source_field(key)
-            self.assertEqual(getattr(puc, source), response["results"][0][key])
+            self.assertEqual(
+                str(getattr(puc, source)), str(response["results"][0][key])
+            )
 
 
 class TestProduct(TestCase):

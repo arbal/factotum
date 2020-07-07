@@ -24,6 +24,7 @@ from dashboard.models import (
     UnitType,
     WeightFractionType,
     ExtractedHabitsAndPracticesDataType,
+    PUCKind,
 )
 
 fixtures_standard = [
@@ -157,7 +158,7 @@ def load_model_objects():
         prod_type="Test Product Type",
         description="Test Product Description",
         last_edited_by=user,
-        kind="FO",
+        kind=PUCKind.objects.get(code="FO"),
     )
 
     extext = ExtractedText.objects.create(

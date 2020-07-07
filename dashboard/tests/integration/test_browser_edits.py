@@ -406,7 +406,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
     def test_bubble_plot(self):
         pucs = (
-            PUC.objects.filter(kind__in=["FO", "AR"])
+            PUC.objects.filter(kind__code__in=["FO", "AR"])
             .with_num_products()
             .filter(num_products__gt=0)
             .astree()
@@ -440,7 +440,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.assertEqual(child_card.get_attribute("class"), "collapse")
 
     def test_collapsible_tree(self):
-        pucs = PUC.objects.filter(kind="FO").astree()
+        pucs = PUC.objects.filter(kind__code="FO").astree()
         num_pucs = self._n_children(pucs)
         self.browser.get(self.live_server_url)
         wait = WebDriverWait(self.browser, 10)
@@ -456,7 +456,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
         time.sleep(3)
         pucs = (
-            PUC.objects.filter(kind__in=["FO", "AR"])
+            PUC.objects.filter(kind__code__in=["FO", "AR"])
             .dtxsid_filter(dss.sid)
             .with_num_products()
             .filter(num_products__gt=0)

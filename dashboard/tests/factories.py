@@ -55,15 +55,23 @@ class DataSourceFactory(FactotumFactoryBase):
         model = models.DataSource
 
 
+class PUCKindFactory(FactotumFactoryBase):
+    class Meta:
+        model = models.PUCKind
+        django_get_or_create = ("code",)
+
+    code = "FO"
+
+
 class PUCFactory(FactotumFactoryBase):
     class Meta:
         model = models.PUC
 
-    kind = factory.Iterator(choice[0] for choice in models.PUC.KIND_CHOICES)
     gen_cat = factory.Faker("word")
     prod_fam = factory.Faker("word")
     prod_type = factory.Faker("word")
     description = factory.Faker("text")
+    kind = factory.SubFactory(PUCKindFactory)
 
 
 class GroupTypeFactory(FactotumFactoryBase):
