@@ -86,6 +86,9 @@ class DataGroupFactory(FactotumFactoryBase):
     class Meta:
         model = models.DataGroup
 
+    name = factory.Faker("word")
+    description = factory.Faker("paragraph")
+
     data_source = factory.SubFactory(DataSourceFactory)
     group_type = factory.SubFactory(GroupTypeFactory)
     downloaded_by = factory.SubFactory(UserFactory)
