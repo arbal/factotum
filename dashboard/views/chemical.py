@@ -64,7 +64,7 @@ def chemical_detail(request, sid, puc_id=None):
 
 class ChemicalProductListJson(BaseDatatableView):
     model = ProductDocument
-    columns = ["product", "document", "product.uber_puc", "product.uber_puc.kind"]
+    columns = ["product", "document", "product.uber_puc", "product.uber_puc.kind.name"]
 
     def get_filter_method(self):
         return self.FILTER_ICONTAINS
@@ -100,7 +100,7 @@ class ChemicalProductListJson(BaseDatatableView):
                     row.product.uber_puc.get_absolute_url(),
                     value,
                 )
-        if column == "product.uber_puc.kind":
+        if column == "product.uber_puc.kind.name":
             value = self._render_column(row, column)
             if value and hasattr(row, "get_absolute_url"):
                 return format_html("<p>{}</p>", value)
@@ -120,5 +120,5 @@ class ChemicalProductListJson(BaseDatatableView):
             if puc_kind == "none":
                 qs = qs.filter(product__puc__isnull=True)
             else:
-                qs = qs.filter(product__puc__kind=puc_kind)
+                qs = qs.filter(product__puc__kind__code=puc_kind)
         return qs

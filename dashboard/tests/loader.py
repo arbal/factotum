@@ -158,7 +158,7 @@ def load_model_objects():
         prod_type="Test Product Type",
         description="Test Product Description",
         last_edited_by=user,
-        kind=PUCKind.objects.get(code="FO"),
+        kind=PUCKind.objects.create(name="Formulation", code="FO"),
     )
 
     extext = ExtractedText.objects.create(
