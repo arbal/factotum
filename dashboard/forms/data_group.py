@@ -582,7 +582,7 @@ class CleanCompForm(forms.ModelForm):
 
     def clean(self):
         super().clean()
-        params = clean_dict(self.cleaned_data, ExtractedChemical)
+        params = clean_dict(self.cleaned_data, ExtractedChemical, keep_nones=True)
         obj = ExtractedChemical(**params)
         obj.clean()
         # Ensure data is provided.
@@ -620,6 +620,7 @@ class CleanCompFormSet(DGFormSet):
             self.cleaned_ids,
         )
         if bad_ids:
+            bad_ids.sort()
             bad_ids_str = ", ".join(str(i) for i in bad_ids)
             raise forms.ValidationError(
                 f"The following IDs do not exist in ExtractedChemicals for this data group: {bad_ids_str}"

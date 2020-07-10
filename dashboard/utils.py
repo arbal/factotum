@@ -332,6 +332,13 @@ def gather_errors(form_instance, values=False):
             else:
                 i_str = ""
             if i_str:
+                # Sets are orderless.  Cast to list for sorting
+                uniq = list(uniq)
+                # Attempt to sort numerically, if that fails sort alphabetically
+                try:
+                    uniq.sort(key=int)
+                except ValueError:
+                    uniq.sort()
                 errors.append("%s (%s %s)" % (error, i_str, ", ".join(uniq)))
             else:
                 errors.append(error)
