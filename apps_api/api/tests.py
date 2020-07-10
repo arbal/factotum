@@ -1,4 +1,5 @@
 import io
+import operator
 import uuid
 import base64
 
@@ -62,6 +63,8 @@ class TestPUC(TestCase):
             return "prod_type"
         if key == "definition":
             return "description"
+        if key == "kind":
+            return "kind.name"
         return key
 
     def test_retrieve(self):
@@ -70,7 +73,7 @@ class TestPUC(TestCase):
         del response["url"]
         for key in response:
             source = self.get_source_field(key)
-            self.assertEqual(str(getattr(puc, source)), str(response[key]))
+            self.assertEqual(operator.attrgetter(source)(puc), response[key])
 
     def test_list(self):
         puc = models.PUC.objects.all().order_by("id").first()
@@ -83,18 +86,30 @@ class TestPUC(TestCase):
         for key in response["results"][0]:
             source = self.get_source_field(key)
             self.assertEqual(
-                str(getattr(puc, source)), str(response["results"][0][key])
+                operator.attrgetter(source)(puc), response["results"][0][key]
             )
-        # test with filter
+        # test with chemical filter
+        chem_pk = models.DSSToxLookup.objects.get(sid=self.dtxsid).pk
         puc = models.PUC.objects.dtxsid_filter(self.dtxsid).all().first()
         count = models.PUC.objects.dtxsid_filter(self.dtxsid).count()
-        response = self.get("/pucs/", {"filter[chemical]": self.dtxsid})
+        response = self.get("/pucs/", {"filter[chemical]": chem_pk})
         self.assertEqual(count, response["meta"]["pagination"]["count"])
         del response["results"][0]["url"]
         for key in response["results"][0]:
             source = self.get_source_field(key)
             self.assertEqual(
-                str(getattr(puc, source)), str(response["results"][0][key])
+                operator.attrgetter(source)(puc), response["results"][0][key]
+            )
+        # test with sid filter
+        puc = models.PUC.objects.dtxsid_filter(self.dtxsid).all().first()
+        count = models.PUC.objects.dtxsid_filter(self.dtxsid).count()
+        response = self.get("/pucs/", {"filter[sid]": self.dtxsid})
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
+        del response["results"][0]["url"]
+        for key in response["results"][0]:
+            source = self.get_source_field(key)
+            self.assertEqual(
+                operator.attrgetter(source)(puc), response["results"][0][key]
             )
 
 

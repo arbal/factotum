@@ -56,13 +56,13 @@ class Migration(migrations.Migration):
             sql="""INSERT INTO dashboard_puckind (name, code) values ('Unknown','UN');
                 INSERT INTO dashboard_puckind (name, code) values ('Formulation','FO');
                 INSERT INTO dashboard_puckind (name, code) values ('Article','AR');
-                INSERT INTO dashboard_puckind (name, code) values ('Occupation','OC'); """
-            , reverse_sql="DELETE FROM dashboard_puckind;"),
-
+                INSERT INTO dashboard_puckind (name, code) values ('Occupation','OC'); """,
+            reverse_sql="DELETE FROM dashboard_puckind;",
+        ),
         # Converting PUC.kind from char field to FK
         migrations.RunSQL(
-            sql="""ALTER TABLE dashboard_puc CHANGE kind kind_temp VARCHAR(2);"""
-            , reverse_sql=migrations.RunSQL.noop
+            sql="""ALTER TABLE dashboard_puc CHANGE kind kind_temp VARCHAR(2);""",
+            reverse_sql=migrations.RunSQL.noop,
         ),
         migrations.AddField(
             model_name="puc",
@@ -84,8 +84,8 @@ class Migration(migrations.Migration):
                     ELSE NULL
                 END;
                 ALTER TABLE dashboard_puc DROP COLUMN kind_temp;
-                """
-            , reverse_sql="""
+                """,
+            reverse_sql="""
                 ALTER TABLE dashboard_puc ADD kind VARCHAR(2);
                 UPDATE dashboard_puc set kind = 
                     CASE
@@ -95,6 +95,6 @@ class Migration(migrations.Migration):
                         WHEN kind_id = 4 THEN 'OC'
                         ELSE NULL
                     END;
-                """
+                """,
         ),
     ]

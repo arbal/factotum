@@ -124,7 +124,9 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         dd_id = ExtractedChemical.objects.filter(dsstox=dss).first().extracted_text_id
         dd = DataDocument.objects.get(pk=dd_id)
         p = dd.products.create(title="Test Product")
-        p.puc_set.create(kind=PUCKind.objects.get(code="OC"), gen_cat="Test Occupational PUC")
+        p.puc_set.create(
+            kind=PUCKind.objects.get(code="OC"), gen_cat="Test Occupational PUC"
+        )
 
         wait = WebDriverWait(self.browser, 10)
         self.browser.get(self.live_server_url + "/chemical/" + dss.sid)
