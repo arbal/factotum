@@ -1,6 +1,6 @@
 from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from dashboard.models import PUC, DSSToxLookup, Product, DataDocument, ExtractedChemical
+from dashboard.models import PUC, DSSToxLookup, PUCKind, DataDocument, ExtractedChemical
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -90,6 +90,11 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         wait.until(
             ec.visibility_of(self.browser.find_element_by_xpath("//*[@id='card-185']"))
         )
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='card-185']/div/div/b"), "hand/body lotion"
+            )
+        )
         self.assertInHTML(
             "hand/body lotion",
             self.browser.find_element_by_xpath("//*[@id='card-185']/div/div/b").text,
@@ -119,7 +124,9 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         dd_id = ExtractedChemical.objects.filter(dsstox=dss).first().extracted_text_id
         dd = DataDocument.objects.get(pk=dd_id)
         p = dd.products.create(title="Test Product")
-        p.puc_set.create(kind="OC", gen_cat="Test Occupational PUC")
+        p.puc_set.create(
+            kind=PUCKind.objects.get(code="OC"), gen_cat="Test Occupational PUC"
+        )
 
         wait = WebDriverWait(self.browser, 10)
         self.browser.get(self.live_server_url + "/chemical/" + dss.sid)

@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -178,16 +178,7 @@ urlpatterns = [
         views.list_presence_tag_curation,
         name="list_presence_tag_curation",
     ),
-    path(
-        "save_list_presence_tags/<int:pk>/",
-        views.save_list_presence_tag_form,
-        name="save_list_presence_tag_form",
-    ),
-    path(
-        "save_habits_and_practices_tags/<int:pk>/",
-        views.save_habits_and_practices_tag_form,
-        name="save_habits_and_practices_tag_form",
-    ),
+    path("save_tags/<int:pk>/", views.SaveTagForm.as_view(), name="save_tag_form"),
     path(
         "list_presence_tags_autocomplete/",
         views.ListPresenceTagAutocomplete.as_view(),
@@ -226,21 +217,6 @@ urlpatterns = [
         "chemical/<str:sid>/puc/<int:puc_id>/",
         views.chemical_detail,
         name="chemical_puc",
-    ),
-    path(
-        "chemical_product_json/",
-        views.ChemicalProductListJson.as_view(),
-        name="chemical_product_ajax_url",
-    ),
-    path(
-        "chemical_product_json/",
-        views.ChemicalProductListJson.as_view(),
-        name="chemical_product_ajax_url",
-    ),
-    path(
-        "chemical_product_json/",
-        views.ChemicalProductListJson.as_view(),
-        name="chemical_product_ajax_url",
     ),
     path(
         "chemical_product_json/",
@@ -358,6 +334,7 @@ urlpatterns = [
         views.ListPresenceDocumentsJson.as_view(),
         name="lp_documents",
     ),
+    path("", include("django_prometheus.urls")),
 ]
 if settings.DEBUG is True:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

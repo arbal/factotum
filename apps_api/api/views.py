@@ -2,25 +2,31 @@ import operator
 import types
 
 from django.db.models import Prefetch, Q
+from django.template.defaultfilters import pluralize
+from django.utils.datastructures import MultiValueDict
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, generics
+from django_mysql.models import add_QuerySetMixin
+from rest_framework import viewsets, generics, permissions, status
 from rest_framework.exceptions import NotFound
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
+from rest_framework.response import Response
 from rest_framework.viewsets import ViewSetMixin
+from rest_framework.mixins import CreateModelMixin
 from rest_framework_json_api.views import RelationshipView, ModelViewSet
 
 from apps_api.api import filters, serializers
 from dashboard import models
-from django_mysql.models import add_QuerySetMixin
+from dashboard.forms.data_group import ProductBulkCSVFormSet
+from dashboard.utils import gather_errors
 
 
 class PUCViewSet(ModelViewSet):
     """
-    list: Service providing a list of all Product Use Categories (PUCs) in ChemExpoDB.
+    Service providing a list of all Product Use Categories (PUCs) in ChemExpoDB.
     The PUCs follow a three-tiered hierarchy (Levels 1-3) for categorizing products.
     Every combination of Level 1-3 categories is unique, and the combination of Level 1, Level 2,
     and Level 3 categories together define the PUCs. Additional information on PUCs can be found in
-    <a href="https://www.nature.com/articles/s41370-019-0187-5" target="_blank">Isaacs, 2020</a>.
+    Isaacs, 2020. https://www.nature.com/articles/s41370-019-0187-5
     """
 
     http_method_names = ["get", "head", "options"]
@@ -29,7 +35,7 @@ class PUCViewSet(ModelViewSet):
     filterset_class = filters.PUCFilter
 
 
-class ProductViewSet(ModelViewSet):
+class ProductViewSet(ModelViewSet, CreateModelMixin):
     """
     list: Service providing a list of all products in ChemExpoDB, along with metadata
     describing the product. In ChemExpoDB, a product is defined as an item having a
@@ -39,12 +45,60 @@ class ProductViewSet(ModelViewSet):
     have different UPCs).
     """
 
-    http_method_names = ["get", "head", "options"]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    http_method_names = ["get", "post", "head", "options"]
     serializer_class = serializers.ProductSerializer
     queryset = models.Product.objects.prefetch_pucs().prefetch_related(
         Prefetch("documents", queryset=models.DataDocument.objects.order_by("id"))
     )
     filterset_class = filters.ProductFilter
+
+    def create_bulk(self, request, *args, **kwargs):
+        """Custom endpoint specifically for CSV uploads.  Uses ProductBulkCSVFormSet.
+        accepts body files for csv and images and return a 204 on success
+        """
+        management_form = {
+            "products-TOTAL_FORMS": "1",
+            "products-INITIAL_FORMS": "0",
+            "products-MAX_NUM_FORMS": "",
+        }
+        files = self._translate_files(request.FILES)
+        form = ProductBulkCSVFormSet(management_form, files)
+        if form.is_valid():
+            num_saved = form.save()
+            return Response(
+                {
+                    "message": "%d product%s created successfully."
+                    % (num_saved[0], pluralize(num_saved[0]))
+                },
+                status=status.HTTP_202_ACCEPTED,
+            )
+
+        errors = gather_errors(form)
+        error_list = []
+        for e in errors:
+            error_list.append(e)
+        return Response(
+            [
+                {"detail": error, "status": status.HTTP_400_BAD_REQUEST}
+                for error in error_list
+            ],
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    def _translate_files(self, request_files):
+        """Copy the files dictionary into an identical dictionary with
+        the less user friendly names
+        """
+        filemap = {
+            "csv": "products-bulkformsetfileupload",
+            "images": "products-bulkformsetimageupload",
+        }
+        files_dict = {}
+        for name in request_files:
+            if name in filemap.keys():
+                files_dict.update({filemap.get(name): request_files.getlist(name)})
+        return MultiValueDict(files_dict)
 
 
 class DocumentViewSet(ModelViewSet):

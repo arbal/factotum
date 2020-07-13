@@ -204,7 +204,7 @@
             {% if tag_form and request.user.is_authenticated %}
                 <hr>
                 <div>
-                    <form action="{% url tag_form_url doc.id %}"
+                    <form action="{% url 'save_tag_form' doc.id %}"
                           method="post">
                         {% csrf_token %}
                         <div class="d-flex justify-content-between">
@@ -246,7 +246,7 @@
                         <p class="text-right text-muted"><span id="selected">0</span> of <span id="card-count">?</span>
                             Chemicals
                             Selected</p>
-                        <input type="hidden" name="chems" value="" id="id_chems">
+                        <select name="chems" id="id_chems" multiple hidden></select>
                     </form>
                 </div>
             {% endif %}

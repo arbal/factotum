@@ -1,6 +1,8 @@
+let chemInput = $("#id_chems")[0]
+
 $(document).ready(function () {
     $('#id_chems').change(function () {
-        if (this.value) {
+        if (this.childNodes.length) {
             $('#keyword-save').attr('disabled', false)
         } else {
             $('#keyword-save').attr('disabled', true)
@@ -45,36 +47,25 @@ $('#chemical-audit-log-modal').on('show.bs.modal', function (event) {
 
 $('[id^=chem-click-]').click(function (e) {
     // add outline to card and add/remove chemicalID to value string in input
-    var inputs = $("#id_chems")[0];
-    var chemList = inputs.value.split(",");
-    chemList = chemList.filter(function (entry) {
-        return /\S/.test(entry);
-    });
-    var chemId = $(this).attr("data-chem-id");
-    var index = $.inArray(chemId, chemList);
-    if (index == -1) {
+    if (!this.selected) {
         select_chemcard(this)
-        chemList.push(chemId);
     } else {
         deselect_chemcard(this)
-        chemList.splice(index, 1);
     }
-    $('#selected').text(chemList.length);
-    $(inputs).attr("value", chemList.join(","));
+    $('#selected').text(chemInput.childElementCount);
     // with no chems selected, the save buton should be disabled
     $("#id_chems").trigger('change');
 })
 
 $('#select-all-chems').click(function (e) {
     var titulo = $(this).attr("data-original-title")
-    var chemList = [];
-    var inputs = $("#id_chems")[0];
+    while (chemInput.firstChild) {
+        chemInput.removeChild(chemInput.lastChild);
+    }
     if (titulo === "Select All Chemicals") {
         $(this).attr("data-original-title", "Deselect All Chemicals")
         switchIcons(this);
         $('[id^=chem-click-]').each(function (i) {
-            var chemId = $(this).attr("data-chem-id");
-            chemList.push(chemId);
             select_chemcard(this);
         });
     } else {
@@ -84,17 +75,24 @@ $('#select-all-chems').click(function (e) {
             deselect_chemcard(this);
         });
     }
-    $('#selected').text(chemList.length);
-    $(inputs).attr("value", chemList.join(","));
+    $('#selected').text(chemInput.childElementCount);
     $("#id_chems").trigger('change');
 });
 
 function switchIcons(elem) {
     $(elem).find('#select-all').toggleClass('d-none')
     $(elem).find('#select-none').toggleClass('d-none')
-};
+}
 
 function select_chemcard(element) {
+    let chemId = element.getAttribute("data-chem-id")
+    let new_selection = document.createElement('option')
+    new_selection.setAttribute("value", chemId)
+    new_selection.setAttribute("selected", true)
+
+    chemInput.appendChild( new_selection )
+
+    element.selected = true;
     element.classList.remove("shadow");
     element.classList.add("shadow-none");
     element.classList.add("border");
@@ -102,6 +100,16 @@ function select_chemcard(element) {
 }
 
 function deselect_chemcard(element) {
+    let chemId = element.getAttribute("data-chem-id")
+    for (child of chemInput.childNodes) {
+        if (child.value === chemId)
+        {
+            chemInput.removeChild(child);
+            break;
+        }
+    }
+
+    element.selected = false;
     element.classList.add("shadow");
     element.classList.remove("shadow-none");
     element.classList.remove("border");

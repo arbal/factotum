@@ -71,26 +71,31 @@ class ChemicalCurationTests(TestCase):
             )
 
         for row in rows:
-            # All true chemicals in the CSV should exist
-            self.assertEqual(
-                1,
-                DSSToxLookup.objects.filter(sid=row["sid"]).count(),
-                "A matching sid should exist",
-            )
             rawchem = RawChem.objects.select_related("dsstox").get(
                 pk=row["external_id"]
             )
-            # All Raw Chemicals in the CSV should be associated
-            self.assertIsNotNone(
-                rawchem.dsstox,
-                f"RawChem {rawchem.pk} was not associated with any DSSTOX",
-            )
-            # All Raw Chemicals in the CSV should be associated with the correct sid
-            self.assertEqual(
-                rawchem.dsstox.sid,
-                row["sid"],
-                f"RawChem {rawchem.pk} was not associated with {row['sid']}",
-            )
+            # Row 5 is a rid reassign and not a true chemical curation.
+            if row["external_id"] != "5":
+                # All true chemicals in the CSV should exist
+                self.assertEqual(
+                    1,
+                    DSSToxLookup.objects.filter(sid=row["sid"]).count(),
+                    "A matching sid should exist",
+                )
+                # All Raw Chemicals in the CSV should be associated
+                self.assertIsNotNone(
+                    rawchem.dsstox,
+                    f"RawChem {rawchem.pk} was not associated with any DSSTOX",
+                )
+                # All Raw Chemicals in the CSV should be associated with the correct sid
+                self.assertEqual(
+                    rawchem.dsstox.sid,
+                    row["sid"],
+                    f"RawChem {rawchem.pk} was not associated with {row['sid']}",
+                )
+            else:
+                self.assertEquals(rawchem.rid, "DTXRID308032232")
+                self.assertIsNone(rawchem.dsstox)
 
     def test_chem_create_url_resolves_view(self):
         doc = DataDocument.objects.first()

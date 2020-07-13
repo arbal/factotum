@@ -126,6 +126,10 @@ class ProductBulkCSVFormSet(DGFormSet):
     prefix = "products"
     serializer = CSVReader
     form = ProductCSVForm
+    header_cols = [
+        "data_document_id",
+        "data_document_filename",
+    ] + DataGroup().get_product_template_fieldnames()
 
     def clean(self, *args, **kwargs):
         missing_images = []
@@ -177,12 +181,10 @@ class ProductBulkCSVFormSet(DGFormSet):
             report += ", ".join(missing_images)
             raise forms.ValidationError(report)
         header = list(self.bulk.fieldnames)
-        header_cols = [
-            "data_document_id",
-            "data_document_filename",
-        ] + DataGroup.get_product_template_fieldnames(self)
-        if header != header_cols:
-            raise forms.ValidationError(f"CSV column titles should be {header_cols}")
+        if header != self.header_cols:
+            raise forms.ValidationError(
+                f"CSV column titles should be {self.header_cols}"
+            )
 
         # Iterate over the formset to accumulate the UPCs and check for duplicates
         upcs = [f.cleaned_data["upc"] for f in self.forms if f.cleaned_data.get("upc")]
@@ -580,7 +582,7 @@ class CleanCompForm(forms.ModelForm):
 
     def clean(self):
         super().clean()
-        params = clean_dict(self.cleaned_data, ExtractedChemical)
+        params = clean_dict(self.cleaned_data, ExtractedChemical, keep_nones=True)
         obj = ExtractedChemical(**params)
         obj.clean()
         # Ensure data is provided.
@@ -618,6 +620,7 @@ class CleanCompFormSet(DGFormSet):
             self.cleaned_ids,
         )
         if bad_ids:
+            bad_ids.sort()
             bad_ids_str = ", ".join(str(i) for i in bad_ids)
             raise forms.ValidationError(
                 f"The following IDs do not exist in ExtractedChemicals for this data group: {bad_ids_str}"

@@ -7,7 +7,13 @@ from dashboard import models
 
 
 class PUCFilter(filters.FilterSet):
-    chemical = filters.CharFilter(
+    chemical = filters.NumberFilter(
+        help_text="A chemical id to filter products against.",
+        field_name="products__datadocument__extractedtext__rawchem__dsstox__pk",
+        initial="DTXSID6026296",
+    )
+
+    sid = filters.CharFilter(
         help_text="A chemical DTXSID to filter products against.",
         method="dtxsid_filter",
         initial="DTXSID6026296",
@@ -44,7 +50,7 @@ class ProductFilter(filters.FilterSet):
 
 
 class FunctionalUseFilter(filters.FilterSet):
-    document = filters.NumberFilter(
+    data_document = filters.NumberFilter(
         field_name="chem__extracted_text__data_document_id",
         help_text="Document ID to filter the functional use against",
         initial="156051",
@@ -86,7 +92,7 @@ class ChemicalPresenceTagsetFilter(filters.FilterSet):
     keyword = filters.NumberFilter(
         field_name="curated_chemical__extractedlistpresence__tags__pk", distinct=True
     )
-    document = filters.NumberFilter(
+    data_document = filters.NumberFilter(
         field_name="curated_chemical__extracted_text__data_document_id", distinct=True
     )
 
@@ -113,7 +119,7 @@ class ChemicalPresenceFilter(filters.FilterSet):
 
 
 class CompositionFilter(filters.FilterSet):
-    document = filters.NumberFilter(
+    data_document = filters.NumberFilter(
         field_name="extracted_text__data_document_id",
         help_text="Document ID to filter composition data against.",
         initial=100000,

@@ -479,13 +479,18 @@ class TestDynamicDetailFormsets(TestCase):
                     elpt_count = ExtractedListPresenceTag.objects.count()
                     # seed data contains 2 tags for the 50 objects in this document
                     elp2t_count = ExtractedListPresenceToTag.objects.count()
-                    # This post should preseve the 2 existing tags and add 2 more
+                    # This post should preseve the 2 existing tags and add 4 more
                     self.client.post(
-                        path=reverse(
-                            "save_list_presence_tag_form", kwargs={"pk": doc.pk}
-                        ),
+                        path=reverse("save_tag_form", kwargs={"pk": doc.pk}),
                         data={
-                            "tags": "after_shave,agrochemical,flavor,slimicide",
+                            "tags": ExtractedListPresenceTag.objects.filter(
+                                name__in=[
+                                    "after_shave",
+                                    "agrochemical",
+                                    "flavor",
+                                    "slimicide",
+                                ]
+                            ).values_list("pk", flat=True),
                             "chems": doc.extractedtext.rawchem.values_list(
                                 "pk", flat=True
                             ),
@@ -495,12 +500,12 @@ class TestDynamicDetailFormsets(TestCase):
                     self.assertEqual(
                         ExtractedListPresenceTag.objects.count(), elpt_count
                     )
-                    # But the tagged relationships should have increased by 2 * the number of list presence objects
+                    # But the tagged relationships should have increased by 4 * the number of list presence objects
                     self.assertEqual(
                         ExtractedListPresenceToTag.objects.count(),
                         elp2t_count
                         + (
-                            2
+                            4
                             * doc.extractedtext.rawchem.select_subclasses(
                                 "extractedlistpresence"
                             ).count()

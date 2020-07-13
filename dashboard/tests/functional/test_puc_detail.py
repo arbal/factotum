@@ -2,8 +2,9 @@ from lxml import html
 
 from django.test import TestCase, override_settings
 
-from dashboard.models import PUC
+from dashboard.models import PUC, PUCKind
 from dashboard.tests.loader import fixtures_standard
+from django.urls import reverse
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])

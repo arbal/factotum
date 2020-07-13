@@ -38,6 +38,11 @@ class MetaEnv(type):
         return cls._get("MAX_UPLOAD_SIZE", default)
 
     @property
+    def DATA_UPLOAD_MAX_NUMBER_FIELDS(cls):
+        default = "10000"
+        return cls._get("DATA_UPLOAD_MAX_NUMBER_FIELDS", default)
+
+    @property
     def MEDIA_ROOT(cls):
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         default = os.path.join(base_dir, "media")
@@ -62,6 +67,11 @@ class MetaEnv(type):
     def FACTOTUM_WS_TOKEN_TTL(cls):
         default = 1000 * 60 * 15  # 15 minute lifespan by default
         return int(cls._get("FACTOTUM_WS_TOKEN_TTL", default))
+
+    @property
+    def FACTOTUM_WS_VERSION_NUMBER(cls):
+        default = "Not Specified"  # 15 minute lifespan by default
+        return cls._get("FACTOTUM_WS_VERSION_NUMBER", default)
 
     @property
     def SQL_DATABASE(cls):

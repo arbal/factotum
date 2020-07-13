@@ -210,8 +210,8 @@
                                         No PUC assigned
                                     </option>
                                     {% for puc_kind in puc_kinds %}
-                                        <option value="{{ puc_kind.puc_kind_code }}">
-                                            {{ puc_kind.display_name }}
+                                        <option value="{{ puc_kind.code }}">
+                                            {{ puc_kind.name }}
                                         </option>
                                     {% endfor %}
                                 </select>

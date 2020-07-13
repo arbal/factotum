@@ -1,9 +1,6 @@
-from asyncio import wait_for
-
 import factory
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
@@ -36,10 +33,11 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
     def setUp(self):
         super().setUpClass()
         self.browser = load_browser()
+        self.wait = WebDriverWait(self.browser, 10)
         log_karyn_in(self)
 
         self.tags = ExtractedHabitsAndPracticesTagFactory.create_batch(3)
-        self.pucs = PUCFactory.create_batch(3, kind="FO")
+        self.pucs = PUCFactory.create_batch(3)
         self.hnp = ExtractedHabitsAndPracticesFactory.create(
             tags=self.tags, PUCs=self.pucs
         )
@@ -49,7 +47,11 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
             self.live_server_url
             + f"/datadocument/{self.hnp.extracted_text.data_document_id}"
         )
-        hnp_card_text = self.browser.find_element_by_id(f"chem-{self.hnp.pk}").text
+        hnp_card_text = self.wait.until(
+            expected_conditions.presence_of_element_located(
+                (By.ID, f"chem-{self.hnp.pk}")
+            )
+        ).text
         self.assertIn(self.hnp.product_surveyed, hnp_card_text)
         self.assertIn(self.hnp.data_type.title, hnp_card_text)
         self.assertIn(self.hnp.notes, hnp_card_text)
@@ -67,13 +69,13 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
             self.live_server_url
             + f"/datadocument/{self.hnp.extracted_text.data_document_id}"
         )
-        add_hp_button = self.browser.find_element_by_id(
-            "add_chemical"
+        add_hp_button = self.wait.until(
+            expected_conditions.presence_of_element_located((By.ID, "add_chemical"))
         ).find_element_by_xpath("button")
         add_hp_button.send_keys("\n")
 
         # Submit Data to the create form
-        create_form = WebDriverWait(self.browser, 10).until(
+        create_form = self.wait.until(
             expected_conditions.presence_of_element_located((By.ID, "chem-create"))
         )
         create_form.find_element_by_id("id_product_surveyed").send_keys(
@@ -109,13 +111,15 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
             self.live_server_url
             + f"/datadocument/{self.hnp.extracted_text.data_document_id}"
         )
-        edit_hp_button = self.browser.find_element_by_id(
-            f"chemical-update-{self.hnp.pk}"
+        edit_hp_button = self.wait.until(
+            expected_conditions.presence_of_element_located(
+                (By.ID, f"chemical-update-{self.hnp.pk}")
+            )
         )
         ActionChains(self.browser).move_to_element(edit_hp_button).click().perform()
 
         # Submit Data to the create form
-        edit_form = WebDriverWait(self.browser, 10).until(
+        edit_form = self.wait.until(
             expected_conditions.presence_of_element_located((By.ID, "chem-update"))
         )
         edit_form.find_element_by_id("id_product_surveyed").send_keys(
@@ -147,8 +151,12 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
             + f"/datadocument/{self.hnp.extracted_text.data_document_id}"
         )
 
-        # Assert Card Exists
-        self.assertTrue(self.browser.find_elements(By.ID, f"chem-{self.hnp.pk}"))
+        # Verify card exists
+        self.wait.until(
+            expected_conditions.presence_of_element_located(
+                (By.ID, f"chem-{self.hnp.pk}")
+            )
+        )
 
         delete_hp_button = self.browser.find_element_by_id(
             f"chemical_edit_buttons"
@@ -162,20 +170,22 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
 
     def test_habits_and_practice_cards_add_PUC(self):
         # Set up test data
-        new_puc = PUCFactory(kind="FO")
+        new_puc = PUCFactory()
 
         # Open Edit form
         self.browser.get(
             self.live_server_url
             + f"/datadocument/{self.hnp.extracted_text.data_document_id}"
         )
-        edit_hp_button = self.browser.find_element_by_id(
-            f"chemical-update-{self.hnp.pk}"
+        edit_hp_button = self.wait.until(
+            expected_conditions.presence_of_element_located(
+                (By.ID, f"chemical-update-{self.hnp.pk}")
+            )
         )
         ActionChains(self.browser).move_to_element(edit_hp_button).click().perform()
 
         # Select and submit the new PUC to the habits and practice
-        edit_form = WebDriverWait(self.browser, 10).until(
+        edit_form = self.wait.until(
             expected_conditions.presence_of_element_located((By.ID, "chem-update"))
         )
         edit_form.find_element_by_id("id_PUCs").find_element_by_xpath(
@@ -191,14 +201,13 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
 
     def test_habits_and_practice_cards_remove_PUC(self):
         # Open Edit form and assert puc present (self.pucs[0] in this case.)
-        wait = WebDriverWait(self.browser, 10)
         self.browser.get(
             self.live_server_url
             + f"/datadocument/{self.hnp.extracted_text.data_document_id}"
         )
         self.assertIn(
             str(self.pucs[0]),
-            wait.until(
+            self.wait.until(
                 expected_conditions.presence_of_element_located(
                     (By.ID, f"chem-{self.hnp.pk}")
                 )
@@ -210,14 +219,22 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         ActionChains(self.browser).move_to_element(edit_hp_button).click().perform()
 
         # Select and submit the new PUC to the habits and practice
-        edit_form = wait.until(
+        edit_form = self.wait.until(
             expected_conditions.presence_of_element_located((By.ID, "chem-update"))
         )
-        edit_form.find_element_by_xpath(
-            f"//li[@title='{self.pucs[0]}']/span[@role='presentation']"
-        ).click()
+
+        # There should be a front end way of removing an element from select2 autocomplete forms.
+        #  However it's not working.  Nuking the entire selection with JS instead.
+        # edit_form.find_element_by_xpath(
+        #     f"//li[@title='{self.pucs[0]}']/span[@role='presentation']"
+        # ).click()
+        self.browser.execute_script("$('#id_PUCs').val(null).trigger('change');")
+        stale_element = self.browser.find_elements_by_tag_name("html")[0]
         edit_form.submit()
-        wait_for(self._link_has_gone_stale, 10)
+
+        WebDriverWait(self.browser, 60).until(
+            expected_conditions.staleness_of(stale_element)
+        )
 
         # Verify data is not present on card
         self.assertNotIn(
@@ -234,7 +251,11 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
             self.live_server_url
             + f"/datadocument/{self.hnp.extracted_text.data_document_id}"
         )
-        chem_card = self.browser.find_element_by_id(f"chem-click-{self.hnp.pk}")
+        chem_card = self.wait.until(
+            expected_conditions.presence_of_element_located(
+                (By.ID, f"chem-click-{self.hnp.pk}")
+            )
+        )
 
         # Select and submit the new PUC to the habits and practice
         ActionChains(self.browser).move_to_element(chem_card).click().perform()
@@ -244,20 +265,23 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
             self.browser.find_element_by_id("id_chems").get_attribute("value"),
         )
         tagform = self.browser.find_element_by_xpath(
-            "//form[contains(@action,'/save_habits_and_practices_tags/"
+            "//form[contains(@action,'/save_tags/"
             f"{self.hnp.extracted_text.data_document_id}/')]"
         )
         dal_textbox = tagform.find_element_by_xpath("*//span[@role='combobox']")
         dal_textbox.send_keys(new_tag.name)
         # Wait for autocomplete to return
-        WebDriverWait(self.browser, 15).until(
+        WebDriverWait(self.browser, 20).until(
             expected_conditions.text_to_be_present_in_element(
                 (By.ID, "select2-id_tags-results"), new_tag.name
             )
         )
         dal_textbox.send_keys("\n")
+        stale_element = self.browser.find_elements_by_tag_name("html")[0]
         tagform.submit()
-        wait_for(self._link_has_gone_stale, 10)
+        WebDriverWait(self.browser, 60).until(
+            expected_conditions.staleness_of(stale_element)
+        )
 
         # Verify data is present on page
         self.assertIn(
@@ -271,10 +295,12 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
             self.live_server_url
             + f"/datadocument/{self.hnp.extracted_text.data_document_id}"
         )
-        self.assertIn(
-            f"{self.tags[0].kind.name}: {self.tags[0].name}",
-            self.browser.find_element_by_id(f"chem-{self.hnp.pk}").text,
+        card = self.wait.until(
+            expected_conditions.presence_of_element_located(
+                (By.ID, f"chem-{self.hnp.pk}")
+            )
         )
+        self.assertIn(f"{self.tags[0].kind.name}: {self.tags[0].name}", card.text)
 
         # Delete
         tag_delete_button = self.browser.find_element_by_xpath(
@@ -286,24 +312,16 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         self.browser.find_element_by_id(f"hp-modal-save-{self.hnp.pk}").submit()
 
         # Wait for refresh
-        wait_for(self._link_has_gone_stale, 10)
-
-        # Verify data is not present on card
-        self.assertNotIn(
-            f"{self.tags[0].kind.name}: {self.tags[0].name}",
-            self.browser.find_element_by_id(f"chem-{self.hnp.pk}").text,
+        stale_element = self.browser.find_elements_by_tag_name("html")[0]
+        self.browser.refresh()
+        WebDriverWait(self.browser, 60).until(
+            expected_conditions.staleness_of(stale_element)
         )
 
-    def _link_has_gone_stale(self):
-        """
-        This method is a selenium workaround to ensure a page has reloaded.
-        It's an automatic part of the form submission action but
-        as it can be hard to tell when form processing has finished
-        this will instead return true when the page has refreshed itself
-        """
-        try:
-            # poll the link with an arbitrary call
-            self.browser.find_elements_by_tag_name("html")
-            return False
-        except StaleElementReferenceException:
-            return True
+        card = self.wait.until(
+            expected_conditions.presence_of_element_located(
+                (By.ID, f"chem-{self.hnp.pk}")
+            )
+        )
+        # Verify data is not present on card
+        self.assertNotIn(f"{self.tags[0].kind.name}: {self.tags[0].name}", card.text)

@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils.html import format_html
 from django_datatables_view.base_datatable_view import BaseDatatableView
 
-from dashboard.models import DSSToxLookup, PUC, ProductDocument
+from dashboard.models import DSSToxLookup, PUC, ProductDocument, PUCKind
 
 
 def chemical_detail(request, sid, puc_id=None):
@@ -11,10 +11,13 @@ def chemical_detail(request, sid, puc_id=None):
     puc = get_object_or_404(PUC, id=puc_id) if puc_id else None
     keysets = chemical.get_tag_sets()
     group_types = chemical.get_unique_datadocument_group_types_for_dropdown()
-    puc_kinds = PUC.get_unique_puc_kinds()
+    puc_kinds = PUCKind.objects.all()
 
     formulation_pucs = (
-        PUC.objects.filter(kind="FO").dtxsid_filter(sid).with_num_products().astree()
+        PUC.objects.filter(kind__code="FO")
+        .dtxsid_filter(sid)
+        .with_num_products()
+        .astree()
     )
     # get parent PUCs too
     formulation_pucs.merge(
@@ -29,7 +32,10 @@ def chemical_detail(request, sid, puc_id=None):
         )
 
     article_pucs = (
-        PUC.objects.filter(kind="AR").dtxsid_filter(sid).with_num_products().astree()
+        PUC.objects.filter(kind__code="AR")
+        .dtxsid_filter(sid)
+        .with_num_products()
+        .astree()
     )
     # get parent PUCs too
     article_pucs.merge(
@@ -58,7 +64,7 @@ def chemical_detail(request, sid, puc_id=None):
 
 class ChemicalProductListJson(BaseDatatableView):
     model = ProductDocument
-    columns = ["product", "document", "product.uber_puc", "product.uber_puc.kind"]
+    columns = ["product", "document", "product.uber_puc", "product.uber_puc.kind.name"]
 
     def get_filter_method(self):
         return self.FILTER_ICONTAINS
@@ -94,7 +100,7 @@ class ChemicalProductListJson(BaseDatatableView):
                     row.product.uber_puc.get_absolute_url(),
                     value,
                 )
-        if column == "product.uber_puc.kind":
+        if column == "product.uber_puc.kind.name":
             value = self._render_column(row, column)
             if value and hasattr(row, "get_absolute_url"):
                 return format_html("<p>{}</p>", value)
@@ -114,5 +120,5 @@ class ChemicalProductListJson(BaseDatatableView):
             if puc_kind == "none":
                 qs = qs.filter(product__puc__isnull=True)
             else:
-                qs = qs.filter(product__puc__kind=puc_kind)
+                qs = qs.filter(product__puc__kind__code=puc_kind)
         return qs

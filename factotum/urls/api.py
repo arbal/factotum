@@ -47,6 +47,18 @@ urlpatterns = [
         view=apiviews.DocumentRelationshipView.as_view(),
         name="dataDocument-relationships",
     ),
+    # Custom viewset actions
+    path(
+        "products/bulk",
+        view=apiviews.ProductViewSet.as_view(actions={"post": "create_bulk"}),
+        name="product_csv",
+    ),
+    path(
+        "products",
+        view=apiviews.ProductViewSet.as_view(actions={"post": "create"}),
+        name="product",
+    ),
+    path("", include("django_prometheus.urls")),
 ]
 
 if settings.DEBUG:

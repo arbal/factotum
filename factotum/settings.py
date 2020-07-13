@@ -15,6 +15,7 @@ INTERNAL_IPS = ("127.0.0.1",)
 
 FILE_UPLOAD_MAX_MEMORY_SIZE = int(env.MAX_UPLOAD_SIZE)
 DATA_UPLOAD_MAX_MEMORY_SIZE = int(env.MAX_UPLOAD_SIZE)
+DATA_UPLOAD_MAX_NUMBER_FIELDS = int(env.DATA_UPLOAD_MAX_NUMBER_FIELDS) or None
 
 IS_WS_API = True if env.ROOT_URLCONF == "api" else False
 
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     "celery_resultsview",
     "django_cleanup.apps.CleanupConfig",
     "django_filters",
+    "django_prometheus",
     "rest_framework",
     "rest_framework.authtoken",
     "django_mysql",
@@ -56,6 +58,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # enclose other middlewares between prometheus before/after middleware
+    "django_prometheus.middleware.PrometheusBeforeMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -65,6 +69,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     "crum.CurrentRequestUserMiddleware",
+    "django_prometheus.middleware.PrometheusAfterMiddleware",
 ]
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -174,6 +179,8 @@ CELERY_BROKER_URL = (
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 CELERY_FILETASK_ROOT = os.path.join(BASE_DIR, "celeryfiles")
 
+PROMETHEUS_EXPORT_MIGRATIONS = False
+
 LOGGING = {
     "version": 1,
     "filters": {"test_filter": {"()": "factotum.logging.TestFilter"}},
@@ -269,6 +276,7 @@ REST_FRAMEWORK = {
     "SEARCH_PARAM": "filter[search]",
     "TEST_REQUEST_RENDERER_CLASSES": (
         "rest_framework_json_api.renderers.JSONRenderer",
+        "rest_framework.renderers.MultiPartRenderer",
     ),
     "TEST_REQUEST_DEFAULT_FORMAT": "vnd.api+json",
 }

@@ -191,6 +191,4 @@ class TestProductDetail(TestCase):
         response = self.client.get("/product/11/")
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "<dt>PUC Kind:</dt>")
-        self.assertContains(
-            response, Product.objects.get(pk=11).uber_puc.get_kind_display()
-        )
+        self.assertContains(response, Product.objects.get(pk=11).uber_puc.kind)

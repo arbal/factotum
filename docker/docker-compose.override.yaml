@@ -27,6 +27,7 @@ services:
     restart: unless-stopped
     environment: &factotum_env
       ALLOWED_HOSTS: ${ALLOWED_HOSTS:-.epa.gov}
+      DATA_UPLOAD_MAX_NUMBER_FIELDS: ${DATA_UPLOAD_MAX_NUMBER_FIELDS:-10000}
       DEBUG: ${DEBUG:-false}
       ELASTICSEARCH_HOST: elasticsearch
       ELASTICSEARCH_PORT: ${ELASTICSEARCH_PORT:-9200}
@@ -129,7 +130,7 @@ services:
       "
 
   factotum-ws:
-    build: https://github.com/HumanExposure/factotum.git#${FACTOTUM_BRANCH:-master}
+    build: https://github.com/HumanExposure/factotum.git#${FACTOTUM_WS_BRANCH:-master}
     image: factotum-ws
     restart: unless-stopped
     environment:
@@ -141,6 +142,7 @@ services:
       FACTOTUM_WS_GUNICORN_OPTS: ${FACTOTUM_WS_GUNICORN_OPTS:-}
       FACTOTUM_WS_PORT: ${FACTOTUM_WS_PORT:-8001}
       FACTOTUM_WS_SECRET_KEY: ${FACTOTUM_WS_SECRET_KEY}
+      FACTOTUM_WS_VERSION_NUMBER: ${FACTOTUM_WS_VERSION_NUMBER:-}
       GUNICORN_OPTS: ${GUNICORN_OPTS:-}
       LOGSTASH_HOST: logstash
       LOGSTASH_PORT: ${LOGSTASH_PORT:-5959}

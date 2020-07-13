@@ -1,8 +1,11 @@
+from datetime import datetime
+
 from django.contrib import messages
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
 from django.db.models import OuterRef, Subquery
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.views import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.db.models import Q
@@ -64,22 +67,20 @@ def data_document_detail(request, pk):
     Parent, Child = get_extracted_models(doc.data_group.group_type.code)
     ext = Parent.objects.filter(pk=doc.pk).first()
     fufs = []
-    tag_form = tag_form_url = None
+    tag_form = None
 
     if doc.data_group.group_type.code in CHEMICAL_TYPES:
         if Child == ExtractedListPresence:
             tag_form = ExtractedListPresenceTagForm()
-            tag_form_url = "save_list_presence_tag_form"
 
         if Child == ExtractedHabitsAndPractices:
             tag_form = ExtractedHabitsAndPracticesTagForm()
-            tag_form_url = "save_habits_and_practices_tag_form"
 
         else:
             chem = (
                 Child.objects.filter(extracted_text__data_document=doc)
-                    .prefetch_related("dsstox")
-                    .first()
+                .prefetch_related("dsstox")
+                .first()
             )
             FuncUseFormSet = inlineformset_factory(
                 RawChem, FunctionalUse, fields=("report_funcuse",), extra=1
@@ -90,14 +91,13 @@ def data_document_detail(request, pk):
         "doc": doc,
         "extracted_text": ext,
         "edit_text_form": ParentForm(instance=ext),  # empty form if ext is None
-        "tag_form_url": tag_form_url,
         "tag_form": tag_form,
     }
     if doc.data_group.group_type.code == "CO":
         script_chem = (
             Child.objects.filter(extracted_text__data_document=doc)
-                .filter(script__isnull=False)
-                .first()
+            .filter(script__isnull=False)
+            .first()
         )
         context["cleaning_script"] = script_chem.script if script_chem else None
     return render(request, template_name, context)
@@ -110,9 +110,13 @@ class ChemCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         doc = DataDocument.objects.get(pk=self.kwargs.get("doc"))
-        extra = 12 if doc.data_group.can_have_multiple_funcuse \
-            else 1 if doc.data_group.can_have_funcuse \
+        extra = (
+            12
+            if doc.data_group.can_have_multiple_funcuse
+            else 1
+            if doc.data_group.can_have_funcuse
             else 0
+        )
         FuncUseFormSet = inlineformset_factory(
             RawChem,
             FunctionalUse,
@@ -163,9 +167,13 @@ class ChemUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         doc = self.object.extracted_text.data_document
-        extra = 12 if doc.data_group.can_have_multiple_funcuse \
-            else 1 if doc.data_group.can_have_funcuse \
+        extra = (
+            12
+            if doc.data_group.can_have_multiple_funcuse
+            else 1
+            if doc.data_group.can_have_funcuse
             else 0
+        )
         FuncUseFormSet = inlineformset_factory(
             RawChem,
             FunctionalUse,
@@ -292,60 +300,62 @@ def save_ext_form(request, pk):
     return redirect(referer, pk=pk)
 
 
-@login_required()
-def save_list_presence_tag_form(request, pk):
-    referer = request.POST.get("referer", "data_document")
-    extracted_text = get_object_or_404(ExtractedText, pk=pk)
-    tag_form = None
-    values = request.POST.get("chems")
-    chems = [int(chem) for chem in values.split(",")]
-    selected = extracted_text.rawchem.filter(pk__in=chems).select_subclasses()
-    for extracted_list_presence in selected:
-        tag_form = ExtractedListPresenceTagForm(
-            request.POST or None, instance=extracted_list_presence
-        )
+@method_decorator(login_required, name="dispatch")
+class SaveTagForm(View):
+    http_method_names = ["post"]
+    pk = None
+    group_type_code = None
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.pk = kwargs.get("pk")
+        extracted_text = get_object_or_404(ExtractedText, pk=self.pk)
+        self.group_type_code = extracted_text.data_document.data_group.group_type.code
+
+    def post(self, *args, **kwargs):
+        referer = self.request.POST.get("referer", "data_document")
+
+        if self.group_type_code == "CP":
+            tag_form_class = ExtractedListPresenceTagForm
+        elif self.group_type_code == "HP":
+            tag_form_class = ExtractedHabitsAndPracticesTagForm
+        else:
+            messages.error(self.request, "This Group Type does not support tagging")
+            return redirect(referer, pk=self.pk)
+
+        tag_form = tag_form_class(self.request.POST)
         if tag_form.is_valid():
             tag_form.save()
         else:
-            messages.error(request, tag_form.errors["tags"])
-            break
-    if not len(tag_form.errors):
-        messages.success(
-            request,
-            "The following keywords are now associated with these list presence objects: %s"
-            % tag_form["tags"].data,
-        )
-    return redirect(referer, pk=pk)
+            messages.error(self.request, tag_form.errors)
 
+        if not tag_form.errors:
+            tag_string_list = list(
+                map(lambda x: str(x), tag_form.cleaned_data.get("tags"))
+            )
+            chem_string_list = list(
+                map(
+                    lambda x: str(x) if str(x) else "None",
+                    tag_form.cleaned_data.get("chems"),
+                )
+            )
 
-@login_required()
-def save_habits_and_practices_tag_form(request, pk):
-    referer = request.POST.get("referer", "data_document")
-    extracted_text = get_object_or_404(ExtractedText, pk=pk)
-    tag_form = None
-    values = request.POST.get("chems")
-    chems = [int(chem) for chem in values.split(",")]
-    selected = extracted_text.practices.filter(pk__in=chems)
-    tags = ExtractedHabitsAndPracticesTag.objects.filter(
-        pk__in=request.POST.getlist("tags")
-    )
-    for extracted_habits_and_practice in selected:
-        tag_form = ExtractedHabitsAndPracticesTagForm(
-            {"tags": tags}, instance=extracted_habits_and_practice
-        )
-        if tag_form.is_valid():
-            tag_form.save()
-        else:
-            messages.error(request, tag_form.errors["tags"])
-            break
-    if not len(tag_form.errors):
-        messages.success(
-            request,
-            f"Tags [{', '.join([str(tag) for tag in tag_form['tags'].data])}]"
-            " are now connected to practices "
-            f"[{', '.join([str(ehp) for ehp in selected])}]",
-        )
-    return redirect(referer, pk=pk)
+            messages.success(
+                self.request,
+                f"Tags [{', '.join(tag_string_list)}]"
+                " are now connected to "
+                f"[{self._list_to_truncated_string(chem_string_list, 10)}]",
+            )
+        return redirect(referer, pk=self.pk)
+
+    def _list_to_truncated_string(self, string_list, truncation_number):
+        if len(string_list) <= truncation_number:
+            return ", ".join(string_list)
+
+        base_string = ", ".join(string_list[:truncation_number])
+        trunc_string = f" ({str(len(string_list) - truncation_number)} results hidden)"
+
+        return base_string + trunc_string
 
 
 @login_required()
@@ -399,8 +409,8 @@ def list_presence_tag_curation(request):
         DataDocument.objects.filter(
             data_group__group_type__code="CP", extractedtext__rawchem__isnull=False
         )
-            .distinct()
-            .exclude(
+        .distinct()
+        .exclude(
             extractedtext__rawchem__in=ExtractedListPresenceToTag.objects.values(
                 "content_object_id"
             )

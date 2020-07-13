@@ -33,7 +33,7 @@ from .script import Script, QAGroup
 from .dsstox_lookup import DSSToxLookup
 from .unit_type import UnitType
 from .weight_fraction_type import WeightFractionType
-from .PUC import PUC, PUCToTag, PUCTag
+from .PUC import PUC, PUCToTag, PUCTag, PUCKind
 from .product_to_tag import ProductToTag
 from .product_to_puc import ProductToPUC
 from .extracted_habits_and_practices_to_puc import ExtractedHabitsAndPracticesToPUC
