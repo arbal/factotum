@@ -70,7 +70,7 @@ class PUCSerializer(serializers.ModelSerializer):
     kind = serializers.CharField(
         required=True,
         max_length=2,
-        source="kind.code",
+        source="kind.name",
         label="Kind",
         help_text="A means by which PUCs can be grouped, e.g. 'Formulation' PUCs vs. 'Article' PUCs.",
     )

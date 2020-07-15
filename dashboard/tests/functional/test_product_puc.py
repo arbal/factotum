@@ -346,7 +346,7 @@ class TestProductPuc(TestCase):
         puckind_count = PUCKind.objects.count()
 
         puckind_response_url = reverse("admin:dashboard_puckind_add")
-        data = {'name': 'Test Kind', 'code': 'TC'}
+        data = {"name": "Test Kind", "code": "TC"}
         self.client.post(puckind_response_url, data)
 
         self.assertEqual(PUCKind.objects.count(), puckind_count + 1)

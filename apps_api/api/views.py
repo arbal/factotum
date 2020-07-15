@@ -22,11 +22,11 @@ from dashboard.utils import gather_errors
 
 class PUCViewSet(ModelViewSet):
     """
-    list: Service providing a list of all Product Use Categories (PUCs) in ChemExpoDB.
+    Service providing a list of all Product Use Categories (PUCs) in ChemExpoDB.
     The PUCs follow a three-tiered hierarchy (Levels 1-3) for categorizing products.
     Every combination of Level 1-3 categories is unique, and the combination of Level 1, Level 2,
     and Level 3 categories together define the PUCs. Additional information on PUCs can be found in
-    <a href="https://www.nature.com/articles/s41370-019-0187-5" target="_blank">Isaacs, 2020</a>.
+    Isaacs, 2020. https://www.nature.com/articles/s41370-019-0187-5
     """
 
     http_method_names = ["get", "head", "options"]

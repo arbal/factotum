@@ -7,7 +7,13 @@ from dashboard import models
 
 
 class PUCFilter(filters.FilterSet):
-    chemical = filters.CharFilter(
+    chemical = filters.NumberFilter(
+        help_text="A chemical id to filter products against.",
+        field_name="products__datadocument__extractedtext__rawchem__dsstox__pk",
+        initial="DTXSID6026296",
+    )
+
+    sid = filters.CharFilter(
         help_text="A chemical DTXSID to filter products against.",
         method="dtxsid_filter",
         initial="DTXSID6026296",

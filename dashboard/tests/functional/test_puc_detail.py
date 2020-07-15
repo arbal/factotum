@@ -68,4 +68,3 @@ class TestPUCDetail(TestCase):
         ProductDocument.objects.create(document=doc, product=p)
         puc = PUC.objects.get(pk=169)
         self.assertEqual(puc.curated_chemical_count, 1)
-
