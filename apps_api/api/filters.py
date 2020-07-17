@@ -1,9 +1,21 @@
 from functools import partial
 
+from django.core.validators import EMPTY_VALUES
 from django_filters import rest_framework as filters
 from rest_framework.exceptions import ValidationError
 
 from dashboard import models
+
+
+class EmptyStringFilter(filters.BooleanFilter):
+    def filter(self, qs, value):
+        if value in EMPTY_VALUES:
+            return qs
+
+        exclude = self.exclude ^ (value is False)
+        method = qs.exclude if exclude else qs.filter
+
+        return method(**{self.field_name: ""})
 
 
 class PUCFilter(filters.FilterSet):
@@ -85,6 +97,24 @@ class ChemicalFilter(filters.FilterSet):
     class Meta:
         model = models.DSSToxLookup
         fields = []
+
+
+class ChemicalInstanceFilter(filters.FilterSet):
+    chemical = filters.NumberFilter(
+        help_text="A chemical ID to filter chemicals against.",
+        label="chemical_id",
+        field_name="dsstox__pk",
+    )
+    sid = filters.CharFilter(
+        field_name="dsstox__sid",
+        label="sid",
+        help_text="A SID to filter chemicals against.",
+    )
+    rid__isnull = EmptyStringFilter(field_name="rid")
+
+    class Meta:
+        model = models.RawChem
+        fields = ["rid"]
 
 
 class ChemicalPresenceTagsetFilter(filters.FilterSet):

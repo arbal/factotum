@@ -4,6 +4,7 @@ from rest_framework_json_api.relations import (
     SerializerMethodResourceRelatedField,
 )
 
+from apps_api.core.jsonapi_fixes import ModelSerializer
 from dashboard import models
 
 
@@ -66,7 +67,7 @@ class Base64ImageField(serializers.ImageField):
         return value.url if value else None
 
 
-class PUCSerializer(serializers.ModelSerializer):
+class PUCSerializer(ModelSerializer):
     kind = serializers.CharField(
         required=True,
         max_length=2,
@@ -143,13 +144,10 @@ class ChemicalSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
-class ProductSerializer(serializers.ModelSerializer):
-    # The related view uses dataDocument but the include parameter parses to data_document
-    #  Until this bug is fixed both includes will exist and point to the same location.
+class ProductSerializer(ModelSerializer):
     included_serializers = {
         "puc": PUCSerializer,
         "dataDocuments": "apps_api.api.serializers.DocumentSerializer",
-        "data_documents": "apps_api.api.serializers.DocumentSerializer",
     }
 
     url = serializers.HyperlinkedIdentityField(view_name="product-detail")
@@ -233,10 +231,197 @@ class ProductSerializer(serializers.ModelSerializer):
         }
 
 
-class RawChemSerializer(serializers.HyperlinkedModelSerializer):
+class RawChemSerializer(ModelSerializer):
+    included_serializers = {
+        "chemical": "apps_api.api.serializers.ChemicalSerializer",
+        "dataDocument": "apps_api.api.serializers.DocumentSerializer",
+        "products": "apps_api.api.serializers.ProductSerializer",
+    }
+
+    chemical = SerializerMethodResourceRelatedField(
+        source="dsstox",
+        read_only=True,
+        model=models.DSSToxLookup,
+        related_link_view_name="chemicalInstance-related",
+        self_link_view_name="chemicalInstance-relationships",
+    )
+
+    # related_link_view_name breaks when using the polymorphic serializer
+    dataDocument = SerializerMethodResourceRelatedField(
+        source="get_document",
+        model=models.DataDocument,
+        allow_null=True,
+        required=False,
+        read_only=True,
+        # related_link_view_name="chemicalInstance-related",
+        self_link_view_name="chemicalInstance-relationships",
+    )
+
+    # related_link_view_name breaks when using the polymorphic serializer
+    products = SerializerMethodResourceRelatedField(
+        source="get_products",
+        model=models.Product,
+        read_only=True,
+        many=True,
+        # related_link_view_name="chemicalInstance-related",
+        self_link_view_name="chemicalInstance-relationships",
+    )
+
+    def get_document(self, obj):
+        try:
+            doc = obj.extracted_text.data_document
+        except AttributeError:
+            doc = None
+        return doc
+
+    def get_products(self, obj):
+        try:
+            queryset = obj.extracted_text.data_document.products.all()
+        except AttributeError:
+            queryset = []
+        return queryset
+
     class Meta:
         model = models.RawChem
-        fields = ["id", "dsstox", "component"]
+        fields = ["name", "cas", "rid", "chemical", "products", "dataDocument"]
+        extra_kwargs = {
+            "name": {"label": "Raw Chemical Name", "source": "raw_chem_name"},
+            "cas": {"label": "Raw CAS", "source": "raw_cas"},
+        }
+
+
+class ExtractedChemicalSerializer(RawChemSerializer):
+    chemical = SerializerMethodResourceRelatedField(
+        source="dsstox",
+        read_only=True,
+        model=models.DSSToxLookup,
+        related_link_view_name="composition-related",
+        self_link_view_name="composition-relationships",
+    )
+
+    dataDocument = SerializerMethodResourceRelatedField(
+        source="get_document",
+        model=models.DataDocument,
+        allow_null=True,
+        required=False,
+        read_only=True,
+        related_link_view_name="composition-related",
+        self_link_view_name="composition-relationships",
+    )
+
+    products = SerializerMethodResourceRelatedField(
+        source="get_products",
+        model=models.Product,
+        read_only=True,
+        many=True,
+        related_link_view_name="composition-related",
+        self_link_view_name="composition-relationships",
+    )
+
+    class Meta:
+        model = models.ExtractedChemical
+        fields = [
+            "chemical",
+            "dataDocument",
+            "products",
+            "rid",
+            "component",
+            "lower_weight_fraction",
+            "central_weight_fraction",
+            "upper_weight_fraction",
+            "ingredient_rank",
+            "url",
+        ]
+        extra_kwargs = {
+            "component": {
+                "label": "Component",
+                "help_text": "Subcategory grouping chemical information on the document (may \
+                    or may not be populated). Used when the document provides information on \
+                    chemical make-up of multiple components or portions of a product (e.g. a \
+                    hair care set (product) which contains a bottle of shampoo (component 1) \
+                    and bottle of body wash (component 2)).",
+            },
+            "lower_weight_fraction": {
+                "label": "Weight fraction - lower",
+                "help_text": "Lower bound of weight fraction for the chemical substance in the \
+                    product, if provided on the document. If weight fraction is provided as a range, \
+                    lower and upper values are populated. Values range from 0-1.",
+                "source": "lower_wf_analysis",
+            },
+            "central_weight_fraction": {
+                "label": "Weight fraction - central",
+                "help_text": "Central value for weight fraction for the chemical substance in the \
+                    product, if provided on the document. If weight fraction is provided as a point \
+                    estimate, the central value is populated. Values range from 0-1.",
+                "source": "central_wf_analysis",
+            },
+            "upper_weight_fraction": {
+                "label": "Weight fraction - upper",
+                "help_text": "Upper bound of weight fraction for the chemical substance in the product,\
+                 if provided on the document. If weight fraction is provided as a range, lower and \
+                 upper values are populated. Values range from 0-1.",
+                "source": "upper_wf_analysis",
+            },
+            "ingredient_rank": {
+                "label": "Ingredient rank",
+                "help_text": "Rank of the chemical in the ingredient list or document.",
+            },
+            "url": {"view_name": "composition-detail"},
+        }
+
+
+class ExtractedListPresenceSerializer(RawChemSerializer):
+    class Meta:
+        model = models.ExtractedListPresence
+        fields = ["name", "cas", "rid", "chemical", "products", "dataDocument"]
+        extra_kwargs = {
+            "name": {"label": "Raw Chemical Name", "source": "raw_chem_name"},
+            "cas": {"label": "Raw CAS", "source": "raw_cas"},
+        }
+
+
+class ExtractedHHRecSerializer(RawChemSerializer):
+    class Meta:
+        model = models.ExtractedHHRec
+        fields = ["name", "cas", "rid", "chemical", "products", "dataDocument"]
+        extra_kwargs = {
+            "name": {"label": "Raw Chemical Name", "source": "raw_chem_name"},
+            "cas": {"label": "Raw CAS", "source": "raw_cas"},
+        }
+
+
+class ExtractedFunctionalUseSerializer(RawChemSerializer):
+    class Meta:
+        model = models.ExtractedFunctionalUse
+        fields = ["name", "cas", "rid", "chemical", "products", "dataDocument"]
+        extra_kwargs = {
+            "name": {"label": "Raw Chemical Name", "source": "raw_chem_name"},
+            "cas": {"label": "Raw CAS", "source": "raw_cas"},
+        }
+
+
+class ChemicalInstancePolymorphicSerializer(serializers.PolymorphicModelSerializer):
+    polymorphic_serializers = [
+        ExtractedChemicalSerializer,
+        ExtractedListPresenceSerializer,
+        ExtractedHHRecSerializer,
+        ExtractedFunctionalUseSerializer,
+        RawChemSerializer,
+    ]
+
+    # These are never actually evaluated but are needed for the include validation checks
+    # data_document is required as the PolymorphicModelSerializer is built on
+    # ModelSerializer which uses the original version of IncludedResourcesValidationMixin
+    included_serializers = {
+        "chemical": "apps_api.api.serializers.ChemicalSerializer",
+        "data_document": "apps_api.api.serializers.DocumentSerializer",
+        "dataDocument": "apps_api.api.serializers.DocumentSerializer",
+        "products": "apps_api.api.serializers.ProductSerializer",
+    }
+
+    class Meta:
+        model = models.RawChem
+        fields = []
 
 
 class DocumentSerializer(serializers.HyperlinkedModelSerializer):
@@ -355,105 +540,7 @@ class DocumentSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
-class ExtractedChemicalSerializer(serializers.ModelSerializer):
-    # The related view uses dataDocument but the include parameter parses to data_document
-    #  Until this bug is fixed both includes will exist and point to the same location.
-    included_serializers = {
-        "chemical": ChemicalSerializer,
-        "dataDocument": DocumentSerializer,
-        "data_document": DocumentSerializer,
-        "products": ProductSerializer,
-    }
-
-    chemical = ResourceRelatedField(
-        source="dsstox",
-        model=models.DSSToxLookup,
-        allow_null=True,
-        required=False,
-        read_only=True,
-        related_link_view_name="composition-related",
-        self_link_view_name="composition-relationships",
-    )
-
-    dataDocument = ResourceRelatedField(
-        source="extracted_text.data_document",
-        model=models.DataDocument,
-        allow_null=True,
-        required=False,
-        read_only=True,
-        related_link_view_name="composition-related",
-        self_link_view_name="composition-relationships",
-    )
-
-    products = SerializerMethodResourceRelatedField(
-        source="get_products",
-        model=models.Product,
-        read_only=True,
-        many=True,
-        related_link_view_name="composition-related",
-        self_link_view_name="composition-relationships",
-    )
-
-    def get_products(self, obj):
-        try:
-            queryset = obj.extracted_text.data_document.products.all()
-        except AttributeError:
-            queryset = []
-        return queryset
-
-    class Meta:
-        model = models.ExtractedChemical
-        fields = [
-            "chemical",
-            "dataDocument",
-            "products",
-            "rid",
-            "component",
-            "lower_weight_fraction",
-            "central_weight_fraction",
-            "upper_weight_fraction",
-            "ingredient_rank",
-            "url",
-        ]
-        extra_kwargs = {
-            "component": {
-                "label": "Component",
-                "help_text": "Subcategory grouping chemical information on the document (may \
-                    or may not be populated). Used when the document provides information on \
-                    chemical make-up of multiple components or portions of a product (e.g. a \
-                    hair care set (product) which contains a bottle of shampoo (component 1) \
-                    and bottle of body wash (component 2)).",
-            },
-            "lower_weight_fraction": {
-                "label": "Weight fraction - lower",
-                "help_text": "Lower bound of weight fraction for the chemical substance in the \
-                    product, if provided on the document. If weight fraction is provided as a range, \
-                    lower and upper values are populated. Values range from 0-1.",
-                "source": "lower_wf_analysis",
-            },
-            "central_weight_fraction": {
-                "label": "Weight fraction - central",
-                "help_text": "Central value for weight fraction for the chemical substance in the \
-                    product, if provided on the document. If weight fraction is provided as a point \
-                    estimate, the central value is populated. Values range from 0-1.",
-                "source": "central_wf_analysis",
-            },
-            "upper_weight_fraction": {
-                "label": "Weight fraction - upper",
-                "help_text": "Upper bound of weight fraction for the chemical substance in the product,\
-                 if provided on the document. If weight fraction is provided as a range, lower and \
-                 upper values are populated. Values range from 0-1.",
-                "source": "upper_wf_analysis",
-            },
-            "ingredient_rank": {
-                "label": "Ingredient rank",
-                "help_text": "Rank of the chemical in the ingredient list or document.",
-            },
-            "url": {"view_name": "composition-detail"},
-        }
-
-
-class ChemicalPresenceSerializer(serializers.ModelSerializer):
+class ChemicalPresenceSerializer(ModelSerializer):
     kind = serializers.CharField(
         required=True,
         max_length=50,
@@ -495,14 +582,13 @@ class FunctionalUseCategorySerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
-class FunctionalUseSerializer(serializers.ModelSerializer):
+class FunctionalUseSerializer(ModelSerializer):
     # The related view uses dataDocument but the include parameter parses to data_document
     #  Until this bug is fixed both includes will exist and point to the same location.
     included_serializers = {
         "chemical": ChemicalSerializer,
         "category": FunctionalUseCategorySerializer,
         "dataDocument": DocumentSerializer,
-        "data_document": DocumentSerializer,
     }
 
     dataDocument = ResourceRelatedField(
@@ -555,7 +641,7 @@ class FunctionalUseSerializer(serializers.ModelSerializer):
     #     included_resources = ["chemical",]
 
 
-class ExtractedListPresenceTagSerializer(serializers.ModelSerializer):
+class ExtractedListPresenceTagSerializer(ModelSerializer):
     name = serializers.CharField(label="Keyword Name", help_text="")
 
     class Meta:
@@ -588,6 +674,8 @@ class TagsetSerializer(serializers.Serializer):
     related = TagsetRelatedDataSerializer(many=True)
 
 
+# TODO: When this is updated it should be based off of ExtractedListPresence
+#  and should build on the ExtractedListPresenceSerializer.
 class ChemicalPresenceTagsetSerializer(serializers.ModelSerializer):
     # Tagsets come from a partial function that are added through ChemicalPresenceTagsetFilter
     keyword_sets = TagsetSerializer(source="tagsets", many=True)

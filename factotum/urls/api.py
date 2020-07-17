@@ -15,6 +15,9 @@ router.register(r"products", apiviews.ProductViewSet)
 router.register(r"dataDocuments", apiviews.DocumentViewSet, basename="dataDocument")
 router.register(r"chemicals", apiviews.ChemicalViewSet)
 router.register(
+    r"chemicalInstances", apiviews.ChemicalInstanceViewSet, basename="chemicalInstance"
+)
+router.register(
     r"chemicalpresences",
     apiviews.ChemicalPresenceViewSet,
     basename="chemical_presences",
@@ -38,14 +41,22 @@ urlpatterns = [
         name="functionalUse-relationships",
     ),
     path(
-        "compositions/<pk>/relationships/<related_field>",
-        view=apiviews.ExtractedChemicalRelationshipView.as_view(),
-        name="composition-relationships",
-    ),
-    path(
         "dataDocuments/<pk>/relationships/<related_field>",
         view=apiviews.DocumentRelationshipView.as_view(),
         name="dataDocument-relationships",
+    ),
+    # Relationships endpoints chemicalInstance
+    #  For clarity the urls are going to be different but the RelationshipView
+    #  functions the same for all children of the raw chemical model
+    path(
+        "compositions/<pk>/relationships/<related_field>",
+        view=apiviews.ChemicalInstanceRelationshipView.as_view(),
+        name="composition-relationships",
+    ),
+    path(
+        "chemicalInstances/<pk>/relationships/<related_field>",
+        view=apiviews.ChemicalInstanceRelationshipView.as_view(),
+        name="chemicalInstance-relationships",
     ),
     # Custom viewset actions
     path(

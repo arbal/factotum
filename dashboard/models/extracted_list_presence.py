@@ -24,6 +24,9 @@ class ExtractedListPresence(RawChem):
         blank=True,
     )
 
+    class JSONAPIMeta:
+        resource_name = "chemicalPresence"
+
     @classmethod
     def detail_fields(cls):
         """Lists the fields to be displayed on a detail form
