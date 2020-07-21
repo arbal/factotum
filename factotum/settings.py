@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "apps_api.api",
     "apps_api.openapi.apps.OpenAPIConfig",
     "apps_api.core",
+    "django_elasticsearch_dsl",
 ]
 
 MIDDLEWARE = [
@@ -128,6 +129,10 @@ ELASTICSEARCH = {
         "INDEX": "dashboard",
         "HTTP_AUTH": (env.FACTOTUM_ELASTIC_USERNAME, env.FACTOTUM_ELASTIC_PASSWORD),
     }
+}
+
+ELASTICSEARCH_DSL = {
+    "default": {"HOSTS": [env.ELASTICSEARCH_HOST + ":" + env.ELASTICSEARCH_PORT]}
 }
 
 CACHES = {

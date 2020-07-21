@@ -141,6 +141,19 @@
                     <span class="badge badge-light">{{ unique_counts.chemical }}</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link
+                    {%  if unique_counts.tag == 0 %}
+                        disabled
+                    {% endif %}
+                    {% if model == 'tag' %}
+                        active
+                    {% endif %}"
+                 href="{% url 'search-model' 'tag' %}?q={{ encoded_q }}">
+                    Tags
+                    <span class="badge badge-light">{{ unique_counts.tag }}</span>
+                </a>
+            </li>
         </ul>
         <small class="text-muted pb-4" id="total-took">
             {{ result.total }}
@@ -161,6 +174,8 @@
             {% include 'search/puc.html' %}
         {% elif model == 'chemical' %}
             {% include 'search/chemical.html' %}
+        {% elif model == 'tag' %}
+            {% include 'search/tag.html' %}
         {% endif %}
         {% if result.total %}
         <nav class="float-right" aria-label="Paginated navigation">
