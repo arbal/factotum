@@ -3,6 +3,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
+import time
 
 
 def log_karyn_in(object):
@@ -46,4 +47,28 @@ class TestBulkProductPuc(StaticLiveServerTestCase):
         body = self.browser.find_element_by_tag_name("body")
         self.assertIn(
             'products matching "cream" are already associated with a PUC.', body.text
+        )
+
+    def test_bulk_product_puc_dropdown(self):
+        qa_url = self.live_server_url + f"/bulk_product_puc/?q=cream"
+        self.browser.get(qa_url)
+
+        select_all_button = self.browser.find_element_by_class_name("select-checkbox")
+        select_all_button.click()
+
+        dal_textbox = self.browser.find_element_by_xpath("*//span[@role='combobox']")
+        dal_textbox.send_keys("form:Arts and crafts/Office supplies")
+
+        time.sleep(1)
+
+        self.browser.find_element_by_class_name("select2-results__option").click()
+
+
+        self.browser.find_element_by_id("btn-assign-puc").click()
+
+        # Now all these products previously returned should be associated with a "Arts and crafts/Office supplies - children's art and toys" PUC
+        self.browser.get(qa_url)
+        body = self.browser.find_element_by_tag_name("body")
+        self.assertIn(
+            'The 3 products matching "cream" are already associated with a PUC.', body.text
         )

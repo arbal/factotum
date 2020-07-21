@@ -3,8 +3,6 @@ import re
 
 from lxml import html
 
-from dashboard.tests.loader import fixtures_standard
-from django.test import Client
 from django.contrib.auth import get_user_model
 from django.contrib.messages import get_messages
 from dashboard.tests.loader import *
@@ -189,6 +187,7 @@ class TestSearch(TestCase):
         self.client.get("/search/datadocument/" + qs)
         self.client.get("/search/product/" + qs + "&page=2")
         self.client.get("/search/product/" + qs + "&product_brandname=test")
+        self.client.get("/search/tag/" + qs)
         post_count = QueryLog.objects.all().count()
         self.assertTrue(
             post_count - pre_count <= 1, "Only the initial query should be logged."
@@ -356,3 +355,16 @@ class TestSearch(TestCase):
         divs = soup.find_all("div", {"class": "resultrow"})
         self.assertInHTML("Preferred chemical name:", str(divs[0]))
         self.assertInHTML("Preferred CAS:", str(divs[0]))
+
+    def test_search_tag(self):
+        qs = self._get_query_str("abrasive")
+        response = self.client.get("/search/tag/" + qs)
+        response_html = html.fromstring(response.content.decode("utf8"))
+
+        name = "abrasive"
+        self.assertIn(name, str(response.content))
+        tag_link = "/list_presence_tag/1/"
+        self.assertIn(tag_link, str(response.content))
+        expected_total = "1 tags returned in"
+        total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
+        self.assertIn(expected_total, total_took)

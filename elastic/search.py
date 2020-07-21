@@ -6,6 +6,8 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from django.utils import html
 
+from elastic.search_documents import SearchDocuments
+
 FIELD_DICT = {
     "truechem_dtxsid": (
         "rawchem_cas",
@@ -87,7 +89,7 @@ FRIENDLY_FIELDS = {
     "puc_description": "Description",
 }
 
-VALID_MODELS = {"product", "datadocument", "puc", "chemical"}
+VALID_MODELS = {"product", "datadocument", "puc", "chemical", "tag"}
 
 TOTAL_COUNT_AGG = "unique_total_count"
 
@@ -177,8 +179,12 @@ def run_query(
     """
     # make sure the model is valid
     validate_model(model)
+
+    if model == "tag":
+        return SearchDocuments().searchTag(q, size, offset, page)
+
     # get index to search on based on ELASTICSEARCH setting and con
-    index = settings.ELASTICSEARCH.get(connection, {}).get("INDEX", "_all")
+    index = settings.ELASTICSEARCH.get(connection, {}).get("INDEX", "dashboard")
     # get the search object
     s = Search(using=connection, index=index)
     # filter on the facets
@@ -320,9 +326,13 @@ def get_unique_count(q, model, fuzzy=False, connection="default"):
     validate_model(model)
 
     # get index to search on based on ELASTICSEARCH setting and con
-    index = settings.ELASTICSEARCH.get(connection, {}).get("INDEX", "_all")
+    index = settings.ELASTICSEARCH.get(connection, {}).get("INDEX", "dashboard")
     # get the search object
     s = Search(using=connection, index=index)
+
+    if model == "tag":
+        return SearchDocuments().getTagCount(term=q)
+
     # pull relevant fields
     id_field = get_id_field(model)
 
