@@ -9,6 +9,9 @@ from .raw_chem import RawChem
 class ExtractedFunctionalUse(RawChem):
     pass
 
+    class JSONAPIMeta:
+        resource_name = "chemicalFunctionalUse"
+
     @classmethod
     def detail_fields(cls):
         """Lists the fields to be displayed on a detail form

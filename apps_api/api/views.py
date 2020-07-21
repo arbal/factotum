@@ -2,6 +2,7 @@ import operator
 import types
 
 from django.db.models import Prefetch, Q
+from django.http import JsonResponse
 from django.template.defaultfilters import pluralize
 from django.utils.datastructures import MultiValueDict
 from django_filters.rest_framework import DjangoFilterBackend
@@ -31,7 +32,9 @@ class PUCViewSet(ModelViewSet):
 
     http_method_names = ["get", "head", "options"]
     serializer_class = serializers.PUCSerializer
-    queryset = models.PUC.objects.all().order_by("id")
+    queryset = (
+        models.PUC.objects.all().prefetch_related(Prefetch("kind")).order_by("id")
+    )
     filterset_class = filters.PUCFilter
 
 
@@ -168,6 +171,53 @@ class ChemicalViewSet(viewsets.ReadOnlyModelViewSet):
     filterset_class = filters.ChemicalFilter
 
 
+class ChemicalInstanceViewSet(ModelViewSet):
+    """
+    list: Service providing a list of all registered chemical
+    substances linked to data in ChemExpoDB. All chemical data in
+    ChemExpoDB is linked by the DTXSID, or the unique structure based
+    identifier for the chemical substance. Service provides the DTXSID,
+    preferred chemical name, and preferred CAS.
+    """
+
+    http_method_names = ["get", "head", "options"]
+    serializer_class = serializers.ChemicalInstancePolymorphicSerializer
+    queryset = (
+        models.RawChem.objects.all()
+        .prefetch_related("extracted_text__data_document__products", "dsstox")
+        .select_subclasses()
+        .order_by("id")
+    )
+    filterset_class = filters.ChemicalInstanceFilter
+
+    def retrieve(self, request, *args, **kwargs):
+        """Retrieve a model instance.
+        """
+        return JsonResponse(
+            {"message": "This endpoint does not allow fetch requests"},
+            content_type="application/vnd.api+json",
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+
+class ChemicalInstanceRelationshipView(RelationshipView):
+    """This relationship view works as a relationship view for all raw chemical subclasses"""
+
+    http_method_names = ["get", "head", "options"]
+    queryset = models.RawChem.objects
+    field_name_mapping = {
+        "chemical": "dsstox",
+        "dataDocument": "extracted_text.data_document",
+        "products": "extracted_text.data_document.products",
+    }
+
+    def get_related_instance(self):
+        try:
+            return operator.attrgetter(self.get_related_field_name())(self.get_object())
+        except AttributeError:
+            raise NotFound
+
+
 class ChemicalPresenceViewSet(viewsets.ReadOnlyModelViewSet):
     """
     list: Service providing a list of all chemical presence tags in ChemExpoDB.
@@ -255,22 +305,6 @@ class CompositionViewSet(ModelViewSet):
         .order_by("id")
     )
     filterset_class = filters.CompositionFilter
-
-
-class ExtractedChemicalRelationshipView(RelationshipView):
-    http_method_names = ["get", "head", "options"]
-    queryset = models.ExtractedChemical.objects
-    field_name_mapping = {
-        "chemical": "dsstox",
-        "dataDocument": "extracted_text.data_document",
-        "products": "extracted_text.data_document.products",
-    }
-
-    def get_related_instance(self):
-        try:
-            return operator.attrgetter(self.get_related_field_name())(self.get_object())
-        except AttributeError:
-            raise NotFound
 
 
 class RawChemViewSet(ViewSetMixin, generics.ListAPIView):
