@@ -132,7 +132,10 @@ ELASTICSEARCH = {
 }
 
 ELASTICSEARCH_DSL = {
-    "default": {"HOSTS": [env.ELASTICSEARCH_HOST + ":" + env.ELASTICSEARCH_PORT]}
+    "default": {
+        "hosts": [env.ELASTICSEARCH_HOST + ":" + env.ELASTICSEARCH_PORT],
+        "http_auth": (env.FACTOTUM_ELASTIC_USERNAME, env.FACTOTUM_ELASTIC_PASSWORD),
+    }
 }
 
 CACHES = {
