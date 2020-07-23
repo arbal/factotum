@@ -12,6 +12,9 @@ class ExtractedHHRec(RawChem):
     num_measure = models.CharField("Numeric Measure", max_length=50, blank=True)
     num_nondetect = models.CharField("Numeric Nondetect", max_length=50, blank=True)
 
+    class JSONAPIMeta:
+        resource_name = "humanHealthRecord"
+
     @classmethod
     def detail_fields(cls):
         """Lists the fields to be displayed on a detail form

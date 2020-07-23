@@ -6,6 +6,7 @@ from django.forms import BaseInlineFormSet
 
 from django.utils.translation import ugettext_lazy as _
 
+from dashboard.forms.puc_forms import BasePUCForm
 from dashboard.models import (
     DataDocument,
     DataGroup,
@@ -180,7 +181,7 @@ class ProductViewForm(ProductForm):
             self.fields[f].disabled = True
 
 
-class BulkProductPUCForm(forms.ModelForm):
+class BulkProductPUCForm(BasePUCForm):
     id_pks = forms.CharField(
         label="Product Titles", widget=forms.HiddenInput(), required=True
     )

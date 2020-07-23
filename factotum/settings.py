@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "apps_api.api",
     "apps_api.openapi.apps.OpenAPIConfig",
     "apps_api.core",
+    "django_elasticsearch_dsl",
 ]
 
 MIDDLEWARE = [
@@ -127,6 +128,13 @@ ELASTICSEARCH = {
         "HOSTS": [env.ELASTICSEARCH_HOST + ":" + env.ELASTICSEARCH_PORT],
         "INDEX": "dashboard",
         "HTTP_AUTH": (env.FACTOTUM_ELASTIC_USERNAME, env.FACTOTUM_ELASTIC_PASSWORD),
+    }
+}
+
+ELASTICSEARCH_DSL = {
+    "default": {
+        "hosts": [env.ELASTICSEARCH_HOST + ":" + env.ELASTICSEARCH_PORT],
+        "http_auth": (env.FACTOTUM_ELASTIC_USERNAME, env.FACTOTUM_ELASTIC_PASSWORD),
     }
 }
 
@@ -244,6 +252,7 @@ LOGGING = {
 DJANGO_EXTENSIONS_RESET_DB_MYSQL_ENGINES = ("factotum.db",)
 
 JSON_API_FORMAT_TYPES = "camelize"
+# JSON_API_FORMAT_FIELD_NAMES = "camelize"
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -258,7 +267,7 @@ REST_FRAMEWORK = {
         "rest_framework.parsers.MultiPartParser",
     ),
     "DEFAULT_RENDERER_CLASSES": (
-        "rest_framework_json_api.renderers.JSONRenderer",
+        "apps_api.core.jsonapi_fixes.JSONRenderer",
         # If you're performance testing, you will want to use the browseable API
         # without forms, as the forms can generate their own queries.
         # If performance testing, enable:
@@ -275,7 +284,7 @@ REST_FRAMEWORK = {
     ),
     "SEARCH_PARAM": "filter[search]",
     "TEST_REQUEST_RENDERER_CLASSES": (
-        "rest_framework_json_api.renderers.JSONRenderer",
+        "apps_api.core.jsonapi_fixes.JSONRenderer",
         "rest_framework.renderers.MultiPartRenderer",
     ),
     "TEST_REQUEST_DEFAULT_FORMAT": "vnd.api+json",

@@ -17,6 +17,7 @@ local description = |||
 ///////////////////
 
 local chemical  = import 'dashboard/chemical.libsonnet';
+local chemicalInstance  = import 'dashboard/chemicalInstance.libsonnet';
 local chemical_presence = import 'dashboard/chemical_presence.libsonnet';
 local composition = import 'dashboard/composition.libsonnet';
 local dataDocument  = import 'dashboard/dataDocument.libsonnet';
@@ -30,6 +31,7 @@ local puc = import 'dashboard/puc.libsonnet';
 ////////////////////////
 local objs = [
     chemical,
+    chemicalInstance,
     chemical_presence,
     composition,
     dataDocument,

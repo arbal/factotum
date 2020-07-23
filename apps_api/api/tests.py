@@ -1,7 +1,8 @@
 import io
+import json
 import operator
-import uuid
 import base64
+from collections import OrderedDict
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import connection, reset_queries
@@ -11,13 +12,11 @@ from rest_framework import status
 from setuptools import glob
 
 from apps_api.api import views
-from apps_api.api.serializers import ExtractedChemicalSerializer
 from apps_api.api.views import ChemicalPresenceTagViewSet
 from apps_api.core.test import TestCase
 
 from dashboard import models
 from dashboard.tests.factories import ProductFactory
-from unittest import skip
 
 
 class TestQueryCount(TestCase):
@@ -27,14 +26,15 @@ class TestQueryCount(TestCase):
 
     @override_settings(DEBUG=True)
     def test_query_count(self):
-        reset_queries()
         for endpoint in EndpointEnumerator().get_api_endpoints():
+            reset_queries()
             url = endpoint[0]
-            if url == "/token/" or url == "/chemicalpresence/":
-                continue
             # Only hit list endpoints
             if "{" not in url and "}" not in url:
                 result = self.get(url)
+                if "results" not in result:
+                    continue
+
                 max_queries = len(result["results"])
                 num_queries = len(connection.queries)
                 # Number of queries must be less than the number of data objects returned.
@@ -388,6 +388,172 @@ class TestChemical(TestCase):
         self.assertEqual(count, response["meta"]["pagination"]["count"])
 
 
+class TestChemicalInstance(TestCase):
+    qs = models.RawChem.objects.select_subclasses().order_by("id")
+
+    def get_source_field(self, key):
+        if key == "lower_weight_fraction":
+            return "lower_wf_analysis"
+        if key == "central_weight_fraction":
+            return "central_wf_analysis"
+        if key == "upper_weight_fraction":
+            return "upper_wf_analysis"
+        if key == "name":
+            return "raw_chem_name"
+        if key == "cas":
+            return "raw_cas"
+        return key
+
+    # This test was disabled because retrieve now returns a 400.
+    # def test_retrieve(self):
+    #     puc_subquery = models.PUC.objects.filter(pk=OuterRef("pk"))
+    #     product = (
+    #         models.Product.objects.annotate(has_pucs=Exists(puc_subquery))
+    #         .filter(has_pucs=True)
+    #         .first()
+    #     )
+    #     chemical = models.DSSToxLookup.objects.first()
+    #
+    #     chemical_instance_list = [
+    #         factories.ExtractedChemicalFactory(),
+    #         factories.ExtractedListPresenceFactory(),
+    #         factories.ExtractedFunctionalUseFactory(),
+    #         factories.ExtractedHHRecFactory(),
+    #     ]
+    #
+    #     for chemical_instance in chemical_instance_list:
+    #         chemical_instance.extracted_text.data_document.products.add(product)
+    #         chemical_instance.dsstox = chemical
+    #         chemical_instance.save()
+    #
+    #     for chemical_instance in chemical_instance_list:
+    #         with self.settings(ROOT_URLCONF="factotum.urls.api"):
+    #             response = self.client.get(
+    #                 f"/chemicalInstances/{chemical_instance.id}/",
+    #                 {"include": "products,chemical,dataDocument,products.puc"},
+    #             )
+    #         response_data = response.data
+    #         del response_data["url"]
+    #         for key in response_data:
+    #             # Test attributes
+    #             if type(response_data[key]) not in [OrderedDict, list]:
+    #                 source = self.get_source_field(key)
+    #                 value = operator.attrgetter(source)(chemical_instance)
+    #                 if type(value) is float:
+    #                     value = round(value, 15)
+    #                 self.assertEqual(
+    #                     str(value),
+    #                     str(response_data[key]),
+    #                     f"{key} returned incorrect results",
+    #                 )
+    #             # Test Related Resources are included
+    #             elif type(response_data[key]) is list:
+    #                 self.assertEqual(response_data[key][0]["type"], "product")
+    #             else:
+    #                 if response_data[key]["type"] == "chemical":
+    #                     self.assertEqual(
+    #                         response_data[key]["id"], str(chemical_instance.dsstox.pk)
+    #                     )
+    #                 elif response_data[key]["type"] == "dataDocument":
+    #                     self.assertEqual(
+    #                         response_data[key]["id"],
+    #                         str(chemical_instance.extracted_text.data_document_id),
+    #                     )
+    #         # Test Includes - still needed
+
+    def test_retrieve(self):
+        pk = models.RawChem.objects.first().pk
+        with self.settings(ROOT_URLCONF="factotum.urls.api"):
+            resp = self.client.get(f"/chemicalInstances/{pk}/")
+        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_list(self):
+        # test without filter
+        count = self.qs.count()
+        response = self.get("/chemicalInstances/")
+        self.assertTrue("meta" in response)
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
+
+        # test with rid.isnull filters
+        rid_count = self.qs.exclude(rid="").count()
+        blank_rid_count = self.qs.filter(rid="").count()
+        response_rid = self.get("/chemicalInstances/", {"filter[rid.isnull]": "false"})
+        response_blank_rid = self.get(
+            "/chemicalInstances/", {"filter[rid.isnull]": "true"}
+        )
+        self.assertEqual(rid_count, response_rid["meta"]["pagination"]["count"])
+        self.assertEqual(
+            blank_rid_count, response_blank_rid["meta"]["pagination"]["count"]
+        )
+
+        # test with sid and chemical filters
+        curated_chem = self.qs.filter(dsstox__isnull=False).first()
+        count = self.qs.filter(dsstox=curated_chem.dsstox).count()
+        response_chemical = self.get(
+            "/chemicalInstances/", {"filter[chemical]": curated_chem.dsstox.pk}
+        )
+        response_sid = self.get(
+            "/chemicalInstances/", {"filter[sid]": curated_chem.dsstox.sid}
+        )
+        self.assertEqual(count, response_chemical["meta"]["pagination"]["count"])
+        self.assertEqual(count, response_sid["meta"]["pagination"]["count"])
+
+        # test with rid filter
+        rc_with_rid = self.qs.filter(rid__isnull=False).first()
+        with self.settings(ROOT_URLCONF="factotum.urls.api"):
+            response = self.client.get(
+                "/chemicalInstances/",
+                {
+                    "filter[rid]": rc_with_rid.rid,
+                    "include": "dataDocument,products,chemical,products.puc",
+                },
+            )
+        # Get included data
+        included_data = json.loads(response.content)["included"]
+        response = response.data
+        self.assertEqual(
+            1,
+            response["meta"]["pagination"]["count"],
+            f"Multiple results returned for Raw Chemicals with rid {rc_with_rid.rid}",
+        )
+
+        # Test attributes.  This could be removed if the fetch endpoint is readded.
+        #  Using the RID filter because it should return only one result
+        row_one_results = response["results"][0]
+        del row_one_results["url"]
+        for key in row_one_results:
+            # Test attributes
+            if type(row_one_results[key]) not in [OrderedDict, list]:
+                source = self.get_source_field(key)
+                value = operator.attrgetter(source)(rc_with_rid)
+                if type(value) is float:
+                    value = round(value, 15)
+                self.assertEqual(
+                    str(value),
+                    str(row_one_results[key]),
+                    f"{key} returned incorrect results",
+                )
+            # Test Related Resources
+            elif type(row_one_results[key]) is list:
+                self.assertEqual(row_one_results[key][0]["type"], "product")
+            else:
+                if row_one_results[key]["type"] == "chemical":
+                    if rc_with_rid.dsstox:
+                        self.assertEqual(
+                            row_one_results[key]["id"], str(rc_with_rid.dsstox.pk)
+                        )
+                elif row_one_results[key]["type"] == "dataDocument":
+                    self.assertEqual(
+                        row_one_results[key]["id"],
+                        str(rc_with_rid.extracted_text.data_document_id),
+                    )
+        # Test includes
+        self.assertListEqual(
+            ["chemical", "dataDocument", "product", "puc"],
+            [resource["type"] for resource in included_data],
+        )
+
+
 class TestChemicalPresence(TestCase):
     qs = models.ExtractedListPresenceTag.objects.all()
 
@@ -430,44 +596,6 @@ class TestDocument(TestCase):
         self.assertTrue("meta" in response)
         count = models.DataDocument.objects.count()
         self.assertEqual(count, response["meta"]["pagination"]["count"])
-
-
-@skip("This serializer will be replaced")
-class TestExtractedChemicalSerializer(TestCase):
-    def test_serialize(self):
-        et = models.ExtractedText.objects.first()
-        dsstox = models.DSSToxLookup.objects.first()
-        extracted_chemical = models.ExtractedChemical.objects.create(
-            extracted_text=et,
-            component=str(uuid.uuid1()),
-            lower_wf_analysis=0.1,
-            central_wf_analysis=0.2,
-            upper_wf_analysis=0.3,
-            ingredient_rank=1,
-        )
-        extracted_chemical.dsstox = dsstox
-        serialized_extracted_chemical = ExtractedChemicalSerializer(extracted_chemical)
-
-        self.assertEqual(
-            extracted_chemical.component,
-            serialized_extracted_chemical.data["component"],
-        )
-        self.assertEqual(
-            format(extracted_chemical.lower_wf_analysis, ".15f"),
-            serialized_extracted_chemical.data["lower_weight_fraction"],
-        )
-        self.assertEqual(
-            format(extracted_chemical.central_wf_analysis, ".15f"),
-            serialized_extracted_chemical.data["central_weight_fraction"],
-        )
-        self.assertEqual(
-            format(extracted_chemical.upper_wf_analysis, ".15f"),
-            serialized_extracted_chemical.data["upper_weight_fraction"],
-        )
-        self.assertEqual(
-            extracted_chemical.ingredient_rank,
-            serialized_extracted_chemical.data["ingredient_rank"],
-        )
 
 
 class TestFunctionalUse(TestCase):
