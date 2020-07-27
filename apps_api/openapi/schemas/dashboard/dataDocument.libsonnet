@@ -41,12 +41,44 @@
       description: 'Miscellaneous information about the data document'
     },
   },
-#  relationships: [
-#    {
-#      object: import 'chemical.libsonnet',
-#    },
-#    #{ object: import 'product.libsonnet' },
-#  ],
+  relationships: [
+    {
+      object: {
+        app: 'dashboard',
+        type: 'product',
+        typePlural: 'products',
+        hasRelationships: false,
+        attributes: {
+        },
+      },
+      many: true,
+      readOnly: true,
+    },
+    {
+      object: {
+        app: 'dashboard',
+        type: 'dataGroup',
+        typePlural: 'dataGroups',
+        hasRelationships: false,
+        attributes: {
+        },
+      },
+      many: false,
+      readOnly: true,
+    },
+    {
+      object: {
+        app: 'dashboard',
+        type: 'dataSource',
+        typePlural: 'dataSources',
+        hasRelationships: false,
+        attributes: {
+        },
+      },
+      many: false,
+      readOnly: true,
+    },
+  ],
   errors: [
   ],
 }

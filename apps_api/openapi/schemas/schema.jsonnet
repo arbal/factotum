@@ -21,6 +21,8 @@ local chemicalInstance  = import 'dashboard/chemicalInstance.libsonnet';
 local chemical_presence = import 'dashboard/chemical_presence.libsonnet';
 local composition = import 'dashboard/composition.libsonnet';
 local dataDocument  = import 'dashboard/dataDocument.libsonnet';
+local dataGroup = import 'dashboard/dataGroup.libsonnet';
+local dataSource = import 'dashboard/dataSource.libsonnet';
 local functional_use  = import 'dashboard/functionalUse.libsonnet';
 local functional_use_category = import 'dashboard/functionalUseCategory.libsonnet';
 local product = import 'dashboard/product.libsonnet';
@@ -35,6 +37,8 @@ local objs = [
     chemical_presence,
     composition,
     dataDocument,
+    dataGroup,
+    dataSource,
     functional_use,
     functional_use_category,
     product,
