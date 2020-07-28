@@ -926,7 +926,7 @@ local buildPaths(obj) =
     ['/' + obj.typePlural + '/{id}/relationships/' + relatedObj.object.typePlural]: {
       get: {
         tags: [obj.type],
-        summary: 'Fetch related resource identifiers',
+        summary: ['Fetch identifiers for related ' + relatedObj.object.type  + ' resources'],
         parameters: builtParameters.write,
         responses: builtErrors.default {
           '200': {
@@ -996,7 +996,7 @@ local buildPaths(obj) =
     ['/' + obj.typePlural + '/{id}/' + relatedObj.object.typePlural]: {
       get: {
         tags: [obj.type],
-        summary: 'Fetch related resources',
+        summary: ['Fetch related ' + relatedObj.object.type + ' resources'],
         parameters: builtParameters.write,
         responses: builtErrors.default {
           '200': {
@@ -1015,7 +1015,7 @@ local buildPaths(obj) =
     ['/' + obj.typePlural + '/{id}/relationships/' + relatedObj.object.type]: {
       get: {
         tags: [obj.type],
-        summary: 'Fetch related resource identifier',
+        summary: ['Fetch identifier for related ' + relatedObj.object.type + ' resource'],
         parameters: builtParameters.write,
         responses: builtErrors.default {
           '200': {
@@ -1051,7 +1051,7 @@ local buildPaths(obj) =
     ['/' + obj.typePlural + '/{id}/' + relatedObj.object.type]: {
       get: {
         tags: [obj.type],
-        summary: 'Fetch related resource',
+        summary: ['Fetch related ' + relatedObj.object.type + ' resource'],
         parameters: builtParameters.write,
         responses: builtErrors.default {
           '200': {

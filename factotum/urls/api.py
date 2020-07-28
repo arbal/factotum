@@ -12,6 +12,8 @@ router = CustomRelationRouter()
 
 router.register(r"pucs", apiviews.PUCViewSet, basename="puc")
 router.register(r"products", apiviews.ProductViewSet)
+router.register(r"dataGroups", apiviews.DataGroupViewSet, base_name="dataGroup")
+router.register(r"dataSources", apiviews.DataSourceViewSet, base_name="dataSource")
 router.register(r"dataDocuments", apiviews.DocumentViewSet, basename="dataDocument")
 router.register(r"chemicals", apiviews.ChemicalViewSet)
 router.register(
@@ -44,6 +46,11 @@ urlpatterns = [
         "dataDocuments/<pk>/relationships/<related_field>",
         view=apiviews.DocumentRelationshipView.as_view(),
         name="dataDocument-relationships",
+    ),
+    path(
+        "dataGroups/<pk>/relationships/<related_field>",
+        view=apiviews.DataGroupRelationshipView.as_view(),
+        name="dataGroup-relationships",
     ),
     # Relationships endpoints chemicalInstance
     #  For clarity the urls are going to be different but the RelationshipView

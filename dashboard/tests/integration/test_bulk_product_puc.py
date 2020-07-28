@@ -63,12 +63,12 @@ class TestBulkProductPuc(StaticLiveServerTestCase):
 
         self.browser.find_element_by_class_name("select2-results__option").click()
 
-
         self.browser.find_element_by_id("btn-assign-puc").click()
 
         # Now all these products previously returned should be associated with a "Arts and crafts/Office supplies - children's art and toys" PUC
         self.browser.get(qa_url)
         body = self.browser.find_element_by_tag_name("body")
         self.assertIn(
-            'The 3 products matching "cream" are already associated with a PUC.', body.text
+            'The 3 products matching "cream" are already associated with a PUC.',
+            body.text,
         )

@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% block title %}List Presence Tags{% endblock %}
+{% block content %}
+
+    <h1>
+        <span>List Presence Tags</span>
+    </h1>
+
+    <table class="table table-sm table-bordered table-striped">
+        <thead class="table-primary">
+        <th>Name</th>
+        <th>Definition</th>
+        <th>Kind</th>
+        </thead>
+        <tbody>
+        {% for tag in tags %}
+            <tr>
+                <td><a href="{% url 'lp_tag_detail' pk=tag.pk %}"> {{ tag.name }} </a></td>
+                <td>{{ tag.definition }}</td>
+                <td>{{ tag.kind }}</td>
+
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}
+
