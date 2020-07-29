@@ -1,6 +1,7 @@
+import os
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
-from django.test import TestCase, override_settings
+from django.test import TransactionTestCase, TestCase, override_settings
 from django.urls import reverse
 from lxml import html
 
@@ -23,7 +24,7 @@ from dashboard.utils import get_extracted_models
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
-class DataDocumentDetailTest(TestCase):
+class DataDocumentDetailTest(TransactionTestCase):
     fixtures = fixtures_standard
 
     def setUp(self):
@@ -264,20 +265,36 @@ class DataDocumentDetailTest(TestCase):
         self.assertIn("47", hhe_no)
 
     def test_delete(self):
-        """Checks if data document is deleted after POSTing to
-        /datadocument/delete/<pk>
-        """
-        post_uri = "/datadocument/delete/"
-        pk = 354784
+        doc_pk = 354784
+        doc = DataDocument.objects.get(pk=doc_pk)
+        post_uri = reverse("data_document_delete", args=[doc_pk])
 
         def doc_exists():
-            return DataDocument.objects.filter(pk=pk).exists()
+            return DataDocument.objects.filter(pk=doc_pk).exists()
+
+        doc.file.save(
+            name="document_sample_file.pdf",
+            content=open(
+                "sample_files/images/datadocuments/document_sample_file.pdf", "rb"
+            ),
+            save=True,
+        )
 
         self.assertTrue(
             doc_exists(), "Document does not exist prior to delete attempt."
         )
-        self.client.post(post_uri + str(pk) + "/")
-        self.assertTrue(not doc_exists(), "Document still exists after delete attempt.")
+
+        self.assertTrue(
+            os.path.exists(doc.file.path), "the stored file should be in MEDIA_ROOT"
+        )
+
+        self.client.post(post_uri)
+        self.assertFalse(doc_exists(), "Document still exists after delete attempt.")
+
+        self.assertTrue(
+            os.path.exists(doc.file.path),
+            "the stored file should exist in MEDIA_ROOT even after document is deleted.",
+        )
 
     def test_ingredient_rank(self):
         doc = DataDocument.objects.get(pk=254643)

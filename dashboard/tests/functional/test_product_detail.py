@@ -1,12 +1,15 @@
+import os
 from lxml import html
-from django.test import TestCase, override_settings
+from django.urls import reverse
+
+from django.test import TransactionTestCase, override_settings
 from dashboard.models import DataDocument, Product, ProductToPUC
 from dashboard.tests.loader import fixtures_standard
 from django.core.exceptions import ObjectDoesNotExist
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
-class TestProductDetail(TestCase):
+class TestProductDetail(TransactionTestCase):
     fixtures = fixtures_standard
 
     def setUp(self):
@@ -192,3 +195,43 @@ class TestProductDetail(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "<dt>PUC Kind:</dt>")
         self.assertContains(response, Product.objects.get(pk=11).uber_puc.kind)
+
+    def test_image_upload(self):
+        product_pk = 878
+        product = Product.objects.get(pk=product_pk)
+        post_uri = reverse("product_delete", args=[product_pk])
+
+        product.image.save(
+            name="dave_or_grant.png",
+            content=open(
+                "sample_files/images/products/product_image_upload_valid/dave_or_grant.png",
+                "rb",
+            ),
+            save=True,
+        )
+
+        sample_file = open(
+            "sample_files/images/products/product_image_upload_valid/dave_or_grant.png",
+            "rb",
+        )
+        saved_image = product.image.open(mode="rb")
+
+        # Verify binary data is identical
+        self.assertEqual(saved_image.read(), sample_file.read())
+
+        sample_file.close()
+        saved_image.close()
+
+        image_path = product.image.path
+
+        self.assertTrue(
+            os.path.exists(image_path), "the stored file should be in MEDIA_ROOT"
+        )
+
+        # Delete the product
+        self.client.post(post_uri)
+
+        self.assertFalse(
+            os.path.exists(image_path),
+            "the stored file should no longer be in MEDIA_ROOT",
+        )

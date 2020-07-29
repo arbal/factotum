@@ -50,11 +50,9 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
         request = self.factory.post(path="/datagroup/new/", data=form_data)
         request.FILES["csv"] = sample_csv
         request.user = User.objects.get(username="Karyn")
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
+        SessionMiddleware().process_request(request)
         request.session.save()
-        middleware = MessageMiddleware()
-        middleware.process_request(request)
+        MessageMiddleware().process_request(request)
         request.session.save()
         request.session = {}
         request.session["datasource_title"] = "Walmart"
@@ -82,11 +80,9 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
         )
         request = self.factory.post(path="/datagroup/new", data=form_data)
         request.FILES["csv"] = sample_csv
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
+        SessionMiddleware().process_request(request)
         request.session.save()
-        middleware = MessageMiddleware()
-        middleware.process_request(request)
+        MessageMiddleware().process_request(request)
         request.session.save()
         request.user = User.objects.get(username="Karyn")
         request.session = {}
@@ -170,16 +166,15 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
             path="/datagroup/%s" % dg.pk, data={"uploaddocs-submit": "Submit"}
         )
         request.FILES["uploaddocs-documents"] = pdf
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
+        SessionMiddleware().process_request(request)
         request.session.save()
-        middleware = MessageMiddleware()
-        middleware.process_request(request)
+        MessageMiddleware().process_request(request)
         request.session.save()
         request.user = User.objects.get(username="Karyn")
-        resp = views.data_group_detail(request=request, pk=dg.pk)
+        views.data_group_detail(request=request, pk=dg.pk)
         doc.refresh_from_db()
         pdf_path = doc.file.path
+        # print(pdf_path)
         self.assertTrue(
             os.path.exists(pdf_path), "the stored file should be in MEDIA_ROOT"
         )

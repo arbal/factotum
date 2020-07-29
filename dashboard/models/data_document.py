@@ -7,6 +7,7 @@ from django.core.validators import URLValidator
 from .common_info import CommonInfo
 from .document_type import DocumentType
 from dashboard.utils import uuid_file
+from django_cleanup import cleanup
 
 
 def get_default_document_type():
@@ -23,6 +24,7 @@ class DataDocumentManager(models.Manager):
         return self.filter(extractedtext__rawchem__in=dsstox.curated_chemical.all())
 
 
+@cleanup.ignore  # prevents django-cleanup from deleting file when doc object is deleted
 class DataDocument(CommonInfo):
     """
     A DataDocument object is a single source of Factotum data.
