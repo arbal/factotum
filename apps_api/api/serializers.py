@@ -318,6 +318,14 @@ class ExtractedChemicalSerializer(RawChemSerializer):
         self_link_view_name="composition-relationships",
     )
 
+    weight_fraction_type = serializers.CharField(
+        source="weight_fraction_type.title",
+        read_only=True,
+        allow_null=False,
+        label="Weight Fraction Type",
+        help_text="Weight Fraction Type of composition",
+    )
+
     class Meta:
         model = models.ExtractedChemical
         fields = [
@@ -329,6 +337,7 @@ class ExtractedChemicalSerializer(RawChemSerializer):
             "lower_weight_fraction",
             "central_weight_fraction",
             "upper_weight_fraction",
+            "weight_fraction_type",
             "ingredient_rank",
             "url",
         ]

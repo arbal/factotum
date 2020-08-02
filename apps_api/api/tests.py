@@ -833,6 +833,10 @@ class TestComposition(TestCase):
             composition.ingredient_rank,
             response_rid_filter["results"][0]["ingredient_rank"],
         )
+        self.assertEqual(
+            composition.weight_fraction_type.title,
+            response_rid_filter["results"][0]["weight_fraction_type"],
+        )
         self.assertAlmostEqual(
             composition.lower_wf_analysis,
             self._cast_to_float(
