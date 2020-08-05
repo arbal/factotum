@@ -1,8 +1,5 @@
 from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium.webdriver.support.ui import Select, WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
-from selenium.webdriver.common.by import By
 import time
 
 
@@ -37,8 +34,14 @@ class TestBulkProductPuc(StaticLiveServerTestCase):
         select_all_button = self.browser.find_element_by_class_name("select-checkbox")
         select_all_button.click()
 
-        select_puc_dropdown = Select(self.browser.find_element_by_id("id_puc"))
-        select_puc_dropdown.select_by_index(1)
+        dal_textbox = self.browser.find_element_by_xpath("*//span[@role='combobox']")
+        dal_textbox.send_keys("form:Arts and crafts/Office supplies")
+
+        time.sleep(1)
+
+        self.browser.find_element_by_xpath(
+            "//*[@id='select2-id_puc-results']/li[2]"
+        ).click()
 
         self.browser.find_element_by_id("btn-assign-puc").click()
 
