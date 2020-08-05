@@ -141,7 +141,6 @@ class ChemicalListJson(FilterDatatableView):
         return qs
 
 
-@method_decorator(login_required, name="dispatch")
 class ListPresenceTagSetsJson(SingleObjectMixin, View):
     model = ExtractedListPresenceTag
 
@@ -152,11 +151,10 @@ class ListPresenceTagSetsJson(SingleObjectMixin, View):
             tagset_names = []
             for tag in sorted(tagset, key=lambda o: o.name.lower()):
                 tagset_names.append(tag.name)
-            tagsets_list.append([" - ".join(tagset_names)])
+            tagsets_list.append([" ; ".join(tagset_names)])
         return JsonResponse({"data": sorted(tagsets_list)}, safe=False)
 
 
-@method_decorator(login_required, name="dispatch")
 class ListPresenceDocumentsJson(FilterDatatableView):
     model = DataDocument
     columns = ["title"]

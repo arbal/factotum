@@ -2,7 +2,7 @@ import time
 
 from django.contrib.auth.models import User
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait, Select
@@ -258,7 +258,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         dd_pk = 156051
         list_url = self.live_server_url + f"/datadocument/{dd_pk}/"
         self.browser.get(list_url)
-
+        time.sleep(1)
         # Verify that the sliders have been generated for extracted chemicals in this datadocument
         try:
             slider = WebDriverWait(self.browser, 10).until(
@@ -267,7 +267,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             slider2 = WebDriverWait(self.browser, 10).until(
                 ec.visibility_of_element_located((By.XPATH, '//*[@id="slider2"]'))
             )
-        except NoSuchElementException:
+        except (NoSuchElementException, TimeoutException):
             self.fail("Sliders should exist on this page, but does not.")
 
     def test_chemical_update(self):
@@ -484,7 +484,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         )
 
         self.assertIsNotNone(new_fu)
-
+        time.sleep(1)
         functional_uses_col = self.browser.find_element_by_xpath(
             f'//*[@id="functional_uses_{new_fu.id}"]'
         )

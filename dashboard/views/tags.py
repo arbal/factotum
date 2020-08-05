@@ -12,7 +12,6 @@ def list_presence_tag_list(request, template_name="tags/tag_list.html"):
     return render(request, template_name, data)
 
 
-@method_decorator(login_required, name="dispatch")
 class ListPresenceTagView(DetailView):
     template_name = "tags/tag_detail.html"
     model = ExtractedListPresenceTag

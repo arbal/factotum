@@ -1,9 +1,16 @@
-from django.urls import resolve
+from django.urls import resolve, reverse
 from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import AnonymousUser, User
 from dashboard.views import index
-from dashboard.models import DataDocument, DataGroup, DataSource, GroupType
+from dashboard.models import (
+    DataDocument,
+    DataGroup,
+    DataSource,
+    GroupType,
+    ExtractedListPresenceTag,
+    ExtractedListPresenceTagKind,
+)
 
 
 class RootUrlNoLoginTest(TestCase):
@@ -26,6 +33,10 @@ class RootUrlNoLoginTest(TestCase):
         dd = DataDocument.objects.create(
             filename="some.pdf", title="My Document", data_group=dg
         )
+        lptk = ExtractedListPresenceTagKind.objects.create(name="Example kind")
+        lpt = ExtractedListPresenceTag.objects.create(
+            kind=lptk, name="example", slug="example", id=1
+        )
 
     def test_root_url_resolves_to_index_view(self):
         found = resolve("/")
@@ -41,4 +52,9 @@ class RootUrlNoLoginTest(TestCase):
 
     def test_list_presence_tag_list_login_not_required(self):
         response = self.c.get("/list_presence_tags/")
+        self.assertEqual(response.status_code, 200, "Should not redirect to login.")
+
+    def test_list_presence_tag_detail_login_not_required(self):
+        path = reverse("lp_tag_detail", args=[1])
+        response = self.c.get(path)
         self.assertEqual(response.status_code, 200, "Should not redirect to login.")

@@ -1,4 +1,5 @@
 import factory
+import time
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver import ActionChains
@@ -41,6 +42,9 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         self.hnp = ExtractedHabitsAndPracticesFactory.create(
             tags=self.tags, PUCs=self.pucs
         )
+
+    def tearDown(self):
+        self.browser.quit()
 
     def test_habits_and_practice_cards_populate(self):
         self.browser.get(
@@ -87,7 +91,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         create_form.find_element_by_id("id_notes").send_keys(hnp_dict.get("notes"))
         create_form.submit()
         self.browser.refresh()
-
+        time.sleep(1)
         # Verify data is present on page
         self.assertIn(
             hnp_dict.get("product_surveyed"),
@@ -131,7 +135,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         edit_form.find_element_by_id("id_notes").send_keys(hnp_dict.get("notes"))
         edit_form.submit()
         self.browser.refresh()
-
+        time.sleep(1)
         # Verify data is present on page
         self.assertIn(
             hnp_dict.get("product_surveyed"),
@@ -193,7 +197,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         ).click()
         edit_form.submit()
         self.browser.refresh()
-
+        time.sleep(1)
         # Verify data is present on page
         self.assertIn(
             str(new_puc), self.browser.find_element_by_id(f"chem-{self.hnp.pk}").text
@@ -235,7 +239,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         WebDriverWait(self.browser, 60).until(
             expected_conditions.staleness_of(stale_element)
         )
-
+        time.sleep(1)
         # Verify data is not present on card
         self.assertNotIn(
             str(self.pucs[0]),
