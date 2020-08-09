@@ -13,9 +13,10 @@ class PUCAutocomplete(autocomplete.Select2QuerySetView):
             else:
                 puckind = Q()
                 puc = split_q[0]
-            return PUC.objects.filter(puckind,
-                                      Q(gen_cat__icontains=puc) |
-                                      Q(prod_fam__icontains=puc) |
-                                      Q(prod_type__icontains=puc)
-                                      )
+            return PUC.objects.filter(
+                puckind,
+                Q(gen_cat__icontains=puc)
+                | Q(prod_fam__icontains=puc)
+                | Q(prod_type__icontains=puc),
+            )
         return None

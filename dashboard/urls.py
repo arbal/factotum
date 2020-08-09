@@ -320,6 +320,11 @@ urlpatterns = [
     ),
     path("search/<str:model>/", views.search_model, name="search-model"),
     path(
+        "list_presence_tags/",
+        views.list_presence_tag_list,
+        name="list_presence_tag_list",
+    ),
+    path(
         "list_presence_tag/<int:pk>/",
         views.ListPresenceTagView.as_view(),
         name="lp_tag_detail",

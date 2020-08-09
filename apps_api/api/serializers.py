@@ -318,6 +318,14 @@ class ExtractedChemicalSerializer(RawChemSerializer):
         self_link_view_name="composition-relationships",
     )
 
+    weight_fraction_type = serializers.CharField(
+        source="weight_fraction_type.title",
+        read_only=True,
+        allow_null=False,
+        label="Weight Fraction Type",
+        help_text="Weight Fraction Type of composition",
+    )
+
     class Meta:
         model = models.ExtractedChemical
         fields = [
@@ -329,6 +337,7 @@ class ExtractedChemicalSerializer(RawChemSerializer):
             "lower_weight_fraction",
             "central_weight_fraction",
             "upper_weight_fraction",
+            "weight_fraction_type",
             "ingredient_rank",
             "url",
         ]
@@ -424,8 +433,72 @@ class ChemicalInstancePolymorphicSerializer(serializers.PolymorphicModelSerializ
         fields = []
 
 
+class DataSourceSerializer(ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name="dataSource-detail")
+
+    source_url = serializers.CharField(
+        source="url", read_only=True, allow_null=False, label="URL"
+    )
+
+    class Meta:
+        model = models.DataSource
+        fields = [
+            "id",
+            "title",
+            "source_url",
+            "description",
+            "estimated_records",
+            "state",
+            "priority",
+            "url",
+        ]
+
+
+class DataGroupSerializer(ModelSerializer):
+    included_serializers = {"dataSource": DataSourceSerializer}
+
+    url = serializers.HyperlinkedIdentityField(view_name="dataGroup-detail")
+
+    group_type = serializers.CharField(
+        source="group_type.title", read_only=True, allow_null=False, label="Group type"
+    )
+
+    group_type_code = serializers.CharField(
+        source="group_type.code",
+        read_only=True,
+        allow_null=False,
+        label="Group type code",
+    )
+
+    dataSource = ResourceRelatedField(
+        label="Data Source",
+        help_text="The Data Source associated with this data group",
+        read_only=True,
+        source="data_source",
+        related_link_view_name="dataGroup-related",
+        self_link_view_name="dataGroup-relationships",
+    )
+
+    class Meta:
+        model = models.DataGroup
+        fields = [
+            "id",
+            "name",
+            "description",
+            "downloaded_at",
+            "group_type",
+            "group_type_code",
+            "dataSource",
+            "url",
+        ]
+
+
 class DocumentSerializer(serializers.HyperlinkedModelSerializer):
-    included_serializers = {"products": ProductSerializer}
+    included_serializers = {
+        "products": ProductSerializer,
+        "dataGroup": DataGroupSerializer,
+        "dataSource": DataSourceSerializer,
+    }
 
     url = serializers.HyperlinkedIdentityField(view_name="dataDocument-detail")
 
@@ -486,6 +559,23 @@ class DocumentSerializer(serializers.HyperlinkedModelSerializer):
         self_link_view_name="dataDocument-relationships",
     )
 
+    dataGroup = ResourceRelatedField(
+        label="Data Group",
+        help_text="The Data Group associated with this document",
+        read_only=True,
+        source="data_group",
+        related_link_view_name="dataDocument-related",
+        self_link_view_name="dataDocument-relationships",
+    )
+
+    dataSource = SerializerMethodResourceRelatedField(
+        read_only=True,
+        source="data_group.data_source",
+        model=models.DataSource,
+        related_link_view_name="dataDocument-related",
+        self_link_view_name="dataDocument-relationships",
+    )
+
     def get_chemicals(self, obj):
         try:
             queryset = obj.extractedtext.rawchem.all()
@@ -507,6 +597,8 @@ class DocumentSerializer(serializers.HyperlinkedModelSerializer):
             "subtitle",
             "organization",
             "date",
+            "dataGroup",
+            "dataSource",
             "data_type",
             "document_type",
             "url",

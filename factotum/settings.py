@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     "celery_formtask",
     "celery_djangotest",
     "celery_resultsview",
-    "django_cleanup.apps.CleanupConfig",
     "django_filters",
     "django_prometheus",
     "rest_framework",
@@ -56,6 +55,7 @@ INSTALLED_APPS = [
     "apps_api.openapi.apps.OpenAPIConfig",
     "apps_api.core",
     "django_elasticsearch_dsl",
+    "django_cleanup.apps.CleanupConfig",
 ]
 
 MIDDLEWARE = [

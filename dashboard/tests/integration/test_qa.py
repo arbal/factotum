@@ -1,3 +1,5 @@
+from celery_djangotest.integration import TransactionTestCase
+from celery_usertask.models import UserTaskLog
 from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from dashboard.models import ExtractedText, Script
@@ -43,7 +45,7 @@ class element_has_css_class(object):
             return False
 
 
-class TestEditsWithSeedData(StaticLiveServerTestCase):
+class TestEditsWithSeedData(StaticLiveServerTestCase, TransactionTestCase):
     fixtures = fixtures_standard
 
     def setUp(self):
@@ -114,7 +116,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             2, ExtractedText.objects.filter(extraction_script=extraction_script).count()
         )
 
-        qa_url = self.live_server_url + f"/extractionscripts/delete"
+        qa_url = self.live_server_url + f"/extractionscripts/delete/"
+        delete_detail_url = self.live_server_url + f"/extractedtext/delete/5/"
         self.browser.get(qa_url)
 
         self.assertEqual(
@@ -138,6 +141,22 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
         with self.assertRaises(NoSuchElementException):
             self.browser.find_element_by_id("et-delete-button-5")
+
+        # should direct to delete detail page
+        self.assertEqual(self.browser.current_url, delete_detail_url)
+
+        task = UserTaskLog.objects.get(name="extracted_script_delete.5")
+        self.assertIsNotNone(task, "should set up a task")
+
+        task_id = self.browser.find_element_by_id("task_id").get_attribute("value")
+        self.assertEqual(str(task.task), task_id)
+        redirect_to = self.browser.find_element_by_id("redirect_to").get_attribute(
+            "value"
+        )
+        self.assertEqual("/extractionscripts/delete/", redirect_to)
+
+        # wait for task to finish
+        WebDriverWait(self.browser, 30).until(EC.url_changes(delete_detail_url))
 
         extraction_script.refresh_from_db()
         self.assertEqual(

@@ -104,6 +104,32 @@ class ProductViewSet(ModelViewSet, CreateModelMixin):
         return MultiValueDict(files_dict)
 
 
+class DataSourceViewSet(ModelViewSet):
+    http_method_names = ["get", "head", "options"]
+    serializer_class = serializers.DataSourceSerializer
+    queryset = models.DataSource.objects.all().order_by("id")
+
+
+class DataGroupViewSet(ModelViewSet):
+    http_method_names = ["get", "head", "options"]
+    serializer_class = serializers.DataGroupSerializer
+    queryset = (
+        models.DataGroup.objects.all().prefetch_related("group_type").order_by("id")
+    )
+
+
+class DataGroupRelationshipView(RelationshipView):
+    http_method_names = ["get", "head", "options"]
+    queryset = models.DataGroup.objects
+    field_name_mapping = {"dataSource": "data_source"}
+
+    def get_related_instance(self):
+        try:
+            return operator.attrgetter(self.get_related_field_name())(self.get_object())
+        except AttributeError:
+            raise NotFound
+
+
 class DocumentViewSet(ModelViewSet):
     """
     list: Service providing a list of all documents in ChemExpoDB, along with
@@ -129,7 +155,9 @@ class DocumentViewSet(ModelViewSet):
             Prefetch("products"),
         )
         .straight_join()
-        .select_related("data_group__group_type", "document_type")
+        .select_related(
+            "data_group__group_type", "document_type", "data_group__data_source"
+        )
         .order_by("-id")
     )
 
@@ -140,6 +168,8 @@ class DocumentRelationshipView(RelationshipView):
     field_name_mapping = {
         "products": "products",
         "chemicals": "extractedtext.rawchem.select_subclasses",
+        "dataGroup": "data_group",
+        "dataSource": "data_group.data_source",
     }
 
     def get_related_instance(self):

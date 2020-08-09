@@ -585,6 +585,10 @@ class TestDocument(TestCase):
         self.assertEqual(doc.document_type.title, response["document_type"])
         self.assertEqual(doc.file.url, response["document_url"])
         self.assertEqual(doc.note, response["notes"])
+        self.assertEqual(str(doc.data_group.id), response["dataGroup"]["id"])
+        self.assertEqual(
+            str(doc.data_group.data_source.id), response["dataSource"]["id"]
+        )
         self.assertEqual(
             doc.chemicals.filter(dsstox__isnull=False).count(),
             len(response["chemicals"]),
@@ -595,6 +599,41 @@ class TestDocument(TestCase):
         response = self.get("/dataDocuments/")
         self.assertTrue("meta" in response)
         count = models.DataDocument.objects.count()
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
+
+
+class TestDataSource(TestCase):
+    def test_retrieve(self):
+        source = models.DataSource.objects.first()
+        response = self.get("/dataSources/%d/" % source.id)
+        self.assertEqual(response["title"], source.title)
+        self.assertEqual(response["source_url"], source.url)
+        self.assertEqual(response["description"], source.description)
+        self.assertEqual(response["estimated_records"], source.estimated_records)
+        self.assertEqual(response["state"], source.state)
+        self.assertEqual(response["priority"], source.priority)
+
+    def test_list(self):
+        count = models.DataSource.objects.count()
+        response = self.get("/dataSources/")
+        self.assertTrue("meta" in response)
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
+
+
+class TestDataGroup(TestCase):
+    def test_retrieve(self):
+        group = models.DataGroup.objects.first()
+        response = self.get("/dataGroups/%d/" % group.id)
+        self.assertEqual(response["name"], group.name)
+        self.assertEqual(response["description"], group.description)
+        self.assertEqual(response["group_type"], group.group_type.title)
+        self.assertEqual(response["group_type_code"], group.group_type.code)
+        self.assertEqual(response["dataSource"]["id"], str(group.data_source.id))
+
+    def test_list(self):
+        count = models.DataGroup.objects.count()
+        response = self.get("/dataGroups/")
+        self.assertTrue("meta" in response)
         self.assertEqual(count, response["meta"]["pagination"]["count"])
 
 
@@ -793,6 +832,10 @@ class TestComposition(TestCase):
         self.assertEqual(
             composition.ingredient_rank,
             response_rid_filter["results"][0]["ingredient_rank"],
+        )
+        self.assertEqual(
+            composition.weight_fraction_type.title,
+            response_rid_filter["results"][0]["weight_fraction_type"],
         )
         self.assertAlmostEqual(
             composition.lower_wf_analysis,
