@@ -1,9 +1,11 @@
 import json
 
+from celery import shared_task
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.exceptions import ValidationError
+from django.db import transaction
 from django.db.models import Count, Q, Max, Case, F, When, OuterRef, Exists
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
@@ -13,6 +15,7 @@ from django.utils.http import is_safe_url
 from django.utils.timesince import timesince
 from django_datatables_view.base_datatable_view import BaseDatatableView
 
+from celery_usertask.tasks import UserTask, usertask
 from dashboard.forms import create_detail_formset, QANotesForm, DocumentTypeForm
 from dashboard.models import (
     Script,
@@ -390,8 +393,24 @@ def save_qa_notes(request, pk):
         )
 
 
+@shared_task(bind=True, track_started=True, base=UserTask)
+@usertask
+def delete_extracted_script_task(self, pk):
+    extraction_script = Script.objects.get(pk=pk)
+
+    with transaction.atomic():
+        ExtractedText.objects.filter(extraction_script=extraction_script).delete()
+        QAGroup.objects.filter(extraction_script=extraction_script).delete()
+        extraction_script.qa_begun = False
+        extraction_script.save()
+
+    return "task done"
+
+
 @login_required()
-def delete_extracted_text(request, pk):
+def delete_extracted_text(
+    request, pk, template_name="extraction_script/delete_progress.html"
+):
     """
     This is an endpoint that deletes ExtractedText objected associated with the provided Script pk
     It performs the following actions:
@@ -404,18 +423,24 @@ def delete_extracted_text(request, pk):
         e. redirect the browser to the page from which the delete was called
 
     """
-    extraction_script = get_object_or_404(Script, pk=pk)
-    ExtractedText.objects.filter(extraction_script=extraction_script).delete()
-    QAGroup.objects.filter(extraction_script=extraction_script).delete()
-    extraction_script.qa_begun = False
-    extraction_script.save()
+    script = get_object_or_404(Script, pk=pk)
+
     previous_url = request.META.get("HTTP_REFERER")
-    if previous_url.endswith("extractionscripts/delete"):
+    if previous_url is not None and previous_url.endswith("extractionscripts/delete/"):
         redirect_to = "extraction_script_delete_list"
     else:
         redirect_to = "qa_extractionscript_index"
 
-    return HttpResponseRedirect(reverse(redirect_to))
+    # schedule async task as it may take sometime to finish the bulk deletion
+    delete_task = delete_extracted_script_task.apply_async(
+        args=[pk], shadow=f"extracted_script_delete.{pk}"
+    )
+
+    return render(
+        request,
+        template_name,
+        {"script": script, "task": delete_task, "redirect_to": reverse(redirect_to)},
+    )
 
 
 @login_required()
