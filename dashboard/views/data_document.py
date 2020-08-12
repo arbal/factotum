@@ -421,6 +421,24 @@ def list_presence_tag_curation(request):
     )
 
 
+@login_required()
+def data_document_delete_tags(request, pk):
+    doc = get_object_or_404(DataDocument, pk=pk)
+
+    if doc.data_group.is_chemical_presence:
+        ExtractedListPresenceToTag.objects.filter(
+            content_object__extracted_text__data_document_id=pk
+        ).delete()
+
+    if doc.data_group.is_habits_and_practices:
+        ExtractedHabitsAndPracticesToTag.objects.filter(
+            content_object__extracted_text__data_document_id=pk
+        ).delete()
+
+    url = reverse("data_document", args=[pk])
+    return redirect(url)
+
+
 @login_required
 def list_presence_tag_delete(request, doc_pk, chem_pk, tag_pk):
     elp = ExtractedListPresence.objects.get(pk=chem_pk)
