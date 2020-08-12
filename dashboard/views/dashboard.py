@@ -284,11 +284,11 @@ def download_LPKeywords(request):
     response = HttpResponse(content_type="text/csv")
     response["Content-Disposition"] = 'attachment; filename="ListPresenceKeywords.csv"'
     writer = csv.writer(response)
-    cols = ["Keyword", "Definition"]
+    cols = ["Keyword", "Definition", "Kind"]
     writer.writerow(cols)
     LPKeywords = ExtractedListPresenceTag.objects.all()
     for keyword in LPKeywords:
-        row = [keyword.name, keyword.definition]
+        row = [keyword.name, keyword.definition, keyword.kind]
         writer.writerow(row)
 
     return response
