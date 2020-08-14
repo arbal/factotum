@@ -116,6 +116,10 @@ div.search-result-main{
     visibility: hidden;
 }
 
+.btn-group-flex-center {
+    align-items: center;
+}
+
 .flash:hover {
     box-shadow: 4px 4px #b3b1a7;
 }

@@ -89,6 +89,19 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             "Tags should be labelled in card.",
         )
 
+        # test delete all tags
+        delete_tags_button = self.browser.find_element_by_id("delete-all-tags")
+        self.assertIsNotNone(delete_tags_button, "should have a delete all tag button")
+        delete_tags_button.click()
+        model = wait.until(
+            ec.presence_of_element_located((By.ID, "delete-all-tags-modal"))
+        )
+        confirm_btn = model.find_element_by_id("delete-all-tags-delete-btn")
+        confirm_btn.submit()
+        card = wait.until(ec.presence_of_element_located((By.ID, "chem-click-759")))
+        tags = card.find_elements_by_class_name("tag-btn")
+        self.assertEqual(0, len(tags), "Tags should be removed")
+
     def test_datadoc_add_extracted(self):
         """
         Test that when a datadocument has no ExtractedText, the user can add one in the browser

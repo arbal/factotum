@@ -77,6 +77,11 @@ urlpatterns = [
         name="data_document_delete",
     ),
     path(
+        "datadocument/<int:pk>/tags/delete/",
+        views.data_document_delete_tags,
+        name="data_document_delete_tags",
+    ),
+    path(
         "datadocument/note/<int:pk>/",
         views.data_document_note,
         name="data_document_note",
