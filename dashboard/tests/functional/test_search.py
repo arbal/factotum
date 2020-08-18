@@ -357,13 +357,13 @@ class TestSearch(TestCase):
         self.assertInHTML("Preferred CAS:", str(divs[0]))
 
     def test_search_tag(self):
-        qs = self._get_query_str("abrasive")
+        name = "absorbent"
+        qs = self._get_query_str(name)
         response = self.client.get("/search/tag/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
 
-        name = "abrasive"
         self.assertIn(name, str(response.content))
-        tag_link = "/list_presence_tag/1/"
+        tag_link = "/list_presence_tag/2/"
         self.assertIn(tag_link, str(response.content))
         expected_total = "1 tags returned in"
         total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')

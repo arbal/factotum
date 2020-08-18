@@ -297,7 +297,6 @@ class FunctionalUseExtractFileForm(BaseExtractFileForm):
 class CompositionExtractFileForm(BaseExtractFileForm):
     prod_name = field_for_model(ExtractedText, "prod_name")
     rev_num = field_for_model(ExtractedText, "rev_num")
-    weight_fraction_type = forms.IntegerField(required=False)
     raw_min_comp = field_for_model(ExtractedChemical, "raw_min_comp")
     raw_max_comp = field_for_model(ExtractedChemical, "raw_max_comp")
     unit_type = forms.IntegerField(required=False)
@@ -309,7 +308,6 @@ class CompositionExtractFileForm(BaseExtractFileForm):
         super().clean()
         data = self.cleaned_data
         # Rename fields
-        data["weight_fraction_type_id"] = data.pop("weight_fraction_type")
         data["unit_type_id"] = data.pop("unit_type")
         # Validate model
         params = clean_dict(self.cleaned_data, ExtractedChemical)
@@ -340,7 +338,7 @@ class ChemicalPresenceExtractFileForm(BaseExtractFileForm):
 
 class ExtractFileFormSet(FormTaskMixin, DGFormSet):
     prefix = "extfile"
-    header_fields = ["weight_fraction_type", "extraction_script"]
+    header_fields = ["extraction_script"]
     serializer = CSVReader
 
     def __init__(self, *args, dgpk=None, **kwargs):
@@ -352,11 +350,6 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
             self.form = FunctionalUseExtractFileForm
         elif dg.type == "CO":
             self.form = CompositionExtractFileForm
-            self.header_fields.append("weight_fraction_type")
-            # For the template render
-            self.weight_fraction_type_choices = [
-                (str(wf.pk), str(wf)) for wf in WeightFractionType.objects.all()
-            ]
         elif dg.type == "CP":
             self.form = ChemicalPresenceExtractFileForm
         # For the template render
@@ -387,18 +380,6 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
         bad_ids = get_missing_ids(UnitType, unit_type_ids)
         if bad_ids:
             err_str = 'The following "unit_type"s were not found: '
-            err_str += ", ".join("%d" % i for i in bad_ids)
-            err = forms.ValidationError(err_str)
-            validation_errors.append(err)
-        # Check that weight_fraction_type is valid
-        weight_fraction_type_ids = (
-            f.cleaned_data["weight_fraction_type_id"]
-            for f in self.forms
-            if f.cleaned_data.get("weight_fraction_type_id") is not None
-        )
-        bad_ids = get_missing_ids(WeightFractionType, weight_fraction_type_ids)
-        if bad_ids:
-            err_str = 'The following "weight_fraction_type"s were not found: '
             err_str += ", ".join("%d" % i for i in bad_ids)
             err = forms.ValidationError(err_str)
             validation_errors.append(err)
@@ -497,7 +478,7 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
             use_vals = [u.strip() for u in form["report_funcuse"].value().split(";")]
             uses = None
             # Only include children if relevant data is attached
-            if child_params.keys() - {"extracted_text_id", "weight_fraction_type_id"}:
+            if child_params.keys() - {"extracted_text_id"}:
                 child = Child(**child_params)
                 child._meta.created_fields = child_params
                 child._meta.updated_fields = {}
@@ -575,6 +556,7 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
 class CleanCompForm(forms.ModelForm):
     ExtractedChemical_id = forms.IntegerField(required=True)
     script_id = forms.IntegerField(required=True)
+    weight_fraction_type_id = forms.IntegerField(required=True)
 
     class Meta:
         model = ExtractedChemical
@@ -595,7 +577,7 @@ class CleanCompForm(forms.ModelForm):
 
 class CleanCompFormSet(DGFormSet):
     prefix = "cleancomp"
-    header_fields = ["script_id"]
+    header_fields = ["script_id", "weight_fraction_type_id"]
     serializer = CSVReader
     form = CleanCompForm
 
@@ -603,6 +585,9 @@ class CleanCompFormSet(DGFormSet):
         self.dg = dg
         self.script_choices = [
             (str(s.pk), str(s)) for s in Script.objects.filter(script_type="DC")
+        ]
+        self.weight_fraction_type_choices = [
+            (str(wf.pk), str(wf)) for wf in WeightFractionType.objects.all()
         ]
         super().__init__(*args, **kwargs)
 
@@ -632,6 +617,17 @@ class CleanCompFormSet(DGFormSet):
             and not Script.objects.filter(script_type="DC", pk=script_id).exists()
         ):
             raise forms.ValidationError(f"Invalid script selection.")
+        # Check that weight_fraction_type is valid
+        weight_fraction_type_id = self.forms[0].cleaned_data.get(
+            "weight_fraction_type_id"
+        )
+        if (
+            weight_fraction_type_id
+            and not WeightFractionType.objects.filter(
+                pk=weight_fraction_type_id
+            ).exists()
+        ):
+            raise forms.ValidationError(f"Invalid weight fraction type selection.")
 
     def save(self):
         with transaction.atomic():
@@ -646,6 +642,9 @@ class CleanCompFormSet(DGFormSet):
                 chem.central_wf_analysis = form.cleaned_data.get("central_wf_analysis")
                 chem.lower_wf_analysis = form.cleaned_data.get("lower_wf_analysis")
                 chem.script_id = form.cleaned_data["script_id"]
+                chem.weight_fraction_type_id = form.cleaned_data[
+                    "weight_fraction_type_id"
+                ]
                 chem.updated_at = timezone.now()
                 chems.append(chem)
             ExtractedChemical.objects.bulk_update(
@@ -655,6 +654,7 @@ class CleanCompFormSet(DGFormSet):
                     "central_wf_analysis",
                     "lower_wf_analysis",
                     "script_id",
+                    "weight_fraction_type_id",
                     "updated_at",
                 ],
             )

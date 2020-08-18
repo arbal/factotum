@@ -13,10 +13,12 @@ class CleanCompFormTest(TestCase):
     def setUp(self):
         self.extracted_chem = factories.ExtractedChemicalFactory()
         self.script = factories.ScriptFactory()
+        self.weight_fraction_type = factories.WeightFractionTypeFactory()
 
         self.base_form_data = {
             "ExtractedChemical_id": self.extracted_chem.pk,
             "script_id": self.script.pk,
+            "weight_fraction_type_id": self.weight_fraction_type.pk,
             "lower_wf_analysis": "0.0",
             "central_wf_analysis": "",
             "upper_wf_analysis": "1.0",
@@ -36,6 +38,7 @@ class CleanCompFormTest(TestCase):
             {
                 "ExtractedChemical_id": self.extracted_chem.pk,
                 "script_id": self.script.pk,
+                "weight_fraction_type_id": self.weight_fraction_type.pk,
                 "lower_wf_analysis": "",
                 "central_wf_analysis": "0.5",
                 "upper_wf_analysis": "",
