@@ -12,6 +12,7 @@ from dashboard.models import (
     ExtractedHHDoc,
     ExtractedHHRec,
     ExtractedChemical,
+    ExtractedHabitsAndPracticesToTag,
     ExtractedListPresence,
     ExtractedListPresenceToTag,
     ExtractedListPresenceTag,
@@ -646,3 +647,18 @@ class TestDynamicDetailFormsets(TestCase):
             self.assertEqual(
                 response_html.xpath('//*[@id="organization"]')[0].text, doc.organization
             )
+
+    def test_delete_tags(self):
+        doc_id = 53
+        # should have tags assigned initially
+        tags_count = ExtractedHabitsAndPracticesToTag.objects.filter(
+            content_object__extracted_text__data_document_id=doc_id
+        ).count()
+        self.assertTrue(tags_count > 0, "should have tags initially")
+        # delete all tags
+        self.client.post("/datadocument/%i/tags/delete/" % doc_id)
+        # should have no tags assigned now
+        tags_count = ExtractedHabitsAndPracticesToTag.objects.filter(
+            content_object__extracted_text__data_document_id=doc_id
+        ).count()
+        self.assertEqual(0, tags_count, "should removed all tags")

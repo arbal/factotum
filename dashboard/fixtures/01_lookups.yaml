@@ -688,3 +688,12 @@
       title: reported,
       description: "i.e., from an MSDS sheet, as reported by the manufacturer",
     }
+- model: dashboard.weightfractiontype
+  pk: 2
+  fields:
+    {
+      created_at: ! "2018-10-04 12:58:33",
+      updated_at: null,
+      title: predicted,
+      description: "Weight fraction predicted based on ingredient rank",
+    }
