@@ -157,6 +157,7 @@ class UploadExtractedFileTest(TestCase):
         )
         data = {
             "cleancomp-script_id": 17,
+            "cleancomp-weight_fraction_type_id": 2,
             "cleancomp-submit": "Submit",
             "cleancomp-bulkformsetfileupload": in_mem_sample_csv,
         }
@@ -169,6 +170,11 @@ class UploadExtractedFileTest(TestCase):
             ExtractedChemical.objects.filter(script_id=17).count(),
             2,
             "There should be only 2 ExtractedChemical objects",
+        )
+        self.assertEqual(
+            ExtractedChemical.objects.filter(weight_fraction_type_id=2).count(),
+            2,
+            "Weight fraction type properly set",
         )
 
     def test_valid_clean_comp_data_with_BOM_upload(self):
@@ -184,6 +190,7 @@ class UploadExtractedFileTest(TestCase):
         )
         data = {
             "cleancomp-script_id": 17,
+            "cleancomp-weight_fraction_type_id": 1,
             "cleancomp-submit": "Submit",
             "cleancomp-bulkformsetfileupload": in_mem_sample_csv,
         }

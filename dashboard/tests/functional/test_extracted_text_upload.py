@@ -186,11 +186,7 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         gp = soup.find_all(string="Sun INDS (extract)")
         self.assertEqual(gp, [])
 
-        req_data = {
-            "extfile-extraction_script": 5,
-            "extfile-weight_fraction_type": 1,
-            "extfile-submit": "Submit",
-        }
+        req_data = {"extfile-extraction_script": 5, "extfile-submit": "Submit"}
         req_data.update(self.mng_data)
         req_data["extfile-bulkformsetfileupload"] = self.generate_invalid_chem_csv()
         resp = self.c.post("/datagroup/6/", req_data)
