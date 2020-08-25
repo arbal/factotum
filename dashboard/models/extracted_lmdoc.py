@@ -7,7 +7,7 @@ from dashboard.models import ExtractedText
 class ExtractedLMDoc(ExtractedText):
     STUDY_TYPE_CHOICES = (
         ("Targeted", "Targeted"),
-        ("Non-Targeted", "Non-Targeted"),
+        ("Non-targeted or Suspect Screening", "Non-targeted or Suspect Screening"),
         ("Other", "Other"),
     )
 
