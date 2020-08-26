@@ -243,7 +243,6 @@ class DashboardTestWithFixtures(TestCase):
         # Assign a previously unassigned product to a different PUC with a different method
         # and confirm that the count has gone up
         assigned_prods = ProductToPUC.objects.values_list("product_id")
-        # print(assigned_prods)
         prod = Product.objects.exclude(id__in=assigned_prods).first()
         puc21 = PUC.objects.get(id=21)
         p2puc = ProductToPUC.objects.create(

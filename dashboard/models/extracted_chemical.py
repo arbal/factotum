@@ -150,6 +150,7 @@ class ExtractedChemical(RawChem):
             "weight_fraction_type",
             "rawchem_ptr",
             "component",
+            "chem_detected_flag",
         ]
 
     @classmethod

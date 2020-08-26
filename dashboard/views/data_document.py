@@ -547,5 +547,4 @@ def chemical_cards(request, pk):
     else:
         chemicals = chemicals.prefetch_related("dsstox")
         template = "data_document/chemical_cards/chemical_cards.html"
-
     return render(request, template, {"doc": doc, "chemicals": chemicals})

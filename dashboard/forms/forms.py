@@ -370,8 +370,8 @@ class ExtractedChemicalForm(forms.ModelForm):
 
 class ExtractedLMChemicalForm(forms.ModelForm):
     class Meta:
-        model = ExtractedChemical
-        fields = ["raw_chem_name", "raw_cas"]
+        model = RawChem
+        fields = ["raw_chem_name", "raw_cas", "chem_detected_flag"]
 
 
 class ExtractedFunctionalUseForm(forms.ModelForm):
@@ -396,7 +396,7 @@ class ExtractedHabitsAndPracticesForm(forms.ModelForm):
 class ExtractedListPresenceForm(forms.ModelForm):
     class Meta:
         model = ExtractedListPresence
-        fields = ["raw_chem_name", "raw_cas", "component"]
+        fields = ["raw_chem_name", "raw_cas", "component", "chem_detected_flag"]
 
 
 class ExtractedHHRecForm(forms.ModelForm):

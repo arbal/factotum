@@ -250,7 +250,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         AsyncResult(task_id).wait()
 
         logs = AuditLog.objects.all()
-        self.assertEquals(16, len(logs), "Should have log entries")
+        self.assertEquals(21, len(logs), "Should have 21 log entries")
 
         for log in logs:
             self.assertIsNotNone(log.model_name)
@@ -286,7 +286,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         chems.delete()
 
         logs = AuditLog.objects.all()
-        self.assertEquals(16, len(logs), "Should have 10 log entries")
+        self.assertEquals(21, len(logs), "Should have 21 log entries")
 
         for log in logs:
             self.assertIsNotNone(log.model_name)
@@ -346,7 +346,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         )
 
         logs = AuditLog.objects.all()
-        self.assertEquals(6, len(logs), "Should have 4 log entries")
+        self.assertEquals(6, len(logs), "Should have 6 log entries")
         for log in logs:
             self.assertIsNotNone(log.model_name)
             self.assertIsNotNone(log.field_name)

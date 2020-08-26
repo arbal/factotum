@@ -91,7 +91,6 @@ class DataDocumentDetailTest(TransactionTestCase):
             try:
                 ExtractedText.objects.get(data_document=dd)
             except ExtractedText.DoesNotExist:
-                # print(dd.id)
                 self.assertContains(
                     resp, "No Extracted Text exists for this Data Document"
                 )
