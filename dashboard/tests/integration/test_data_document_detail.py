@@ -404,7 +404,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             )
         )
         Select(self.browser.find_element_by_id("id_study_type")).select_by_visible_text(
-            "Targeted"
+            "Non-targeted or Suspect Screening"
         )
         self.browser.find_element_by_id("id_pmid").send_keys("01234567890123456789")
         self.browser.find_element_by_id("id_media").send_keys("Lorem ipso fido leash")
@@ -415,7 +415,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         study_type = wait.until(
             ec.visibility_of_element_located((By.ID, "id_study_type"))
         )
-        self.assertIn("Targeted", study_type.text)
+        self.assertIn("Non-targeted or Suspect Screening", study_type.text)
 
         add_chem_button = wait.until(
             ec.element_to_be_clickable((By.XPATH, "//*[@id='add_chemical']"))
