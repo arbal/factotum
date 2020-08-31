@@ -3,6 +3,7 @@ import json
 import operator
 import base64
 from collections import OrderedDict
+from unittest import skip
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import connection, reset_queries
@@ -220,6 +221,39 @@ class TestProduct(TestCase):
         # Verify binary data is identical
         self.assertEqual(saved_image.read(), sample_file.read())
 
+    def test_create_without_upc(self):
+        name = "test_create_product_without_upc"
+        image_reader = open(
+            "sample_files/images/products/product_image_upload_valid/dave_or_grant.png",
+            "rb",
+        )
+        #
+        image = image_reader.read()
+
+        # encode the image as b64 in order to deliver it inside the request's JSON,
+        # rather than in the multipart FILE. See this comment:
+        # https://github.com/json-api/json-api/issues/246#issuecomment-163569165
+        image_b64 = base64.b64encode(image)
+        post_data = {
+            "data": {
+                "attributes": {"name": name, "image": image_b64},
+                "relationships": {
+                    "dataDocuments": {"data": [{"type": "dataDocument", "id": 155324}]}
+                },
+                "type": "product",
+            }
+        }
+
+        response = self.post(
+            "/products", data=post_data, authenticate=True, format="vnd.api+json"
+        )
+        self.assertTrue(response.status_code, status.HTTP_201_CREATED)
+        product = models.Product.objects.filter(title=name).last()
+        self.assertEqual(
+            product.upc, "stub_" + str(product.id), "should generated a stub upc"
+        )
+
+    @skip("will not be applicable after 1592 is done")
     def test_create_duplicate_upc_error(self):
         # doc = models.DataDocument.objects.first()
         prod = ProductFactory.build()
