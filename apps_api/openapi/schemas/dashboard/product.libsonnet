@@ -25,6 +25,7 @@ local dataDocument = import 'dataDocument.libsonnet';
           UPC may be represented as 'stub#' if the UPC for the product is
           not known.
         |||,
+      required: false,
     },
     size: {
       type: 'string',

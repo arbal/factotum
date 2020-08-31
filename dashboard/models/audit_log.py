@@ -119,3 +119,13 @@ class AuditLog(models.Model):
                 END;
             """
         return trigger_sql
+
+    def verbose(self):
+        return "%s.%s:%s | %s --> %s" % (
+            self.model_name,
+            self.object_key,
+            self.field_name,
+            self.old_value,
+            self.new_value,
+        )
+

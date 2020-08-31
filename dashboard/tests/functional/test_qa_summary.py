@@ -150,7 +150,6 @@ class TestQASummary(TestCase):
             reverse("qa_extraction_script_summary_table", args=[self.script.pk])
         ).content.decode("utf-8")
         updated_response_count = len(json.loads(response).get("data"))
-
         self.assertEqual(updated_response_count, base_response_count + 1)
 
     def test_qa_summary_table_last_updated_et_update(self):

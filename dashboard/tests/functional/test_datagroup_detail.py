@@ -423,7 +423,7 @@ class DataGroupDetailTestWithFixtures(TestCase):
         self.assertEqual(
             str(dg.group_type),
             "Chemical presence list",
-            'Type of DataGroup needs to be "composition" for this test.',
+            'Type of DataGroup needs to be "Chemical presence list" for this test.',
         )
         self.client.get(f"/datagroup/{dg.pk}/")
         self.assertEqual(
@@ -441,6 +441,7 @@ class DataGroupDetailTestWithFixtures(TestCase):
                 "cpcat_code",
                 "cpcat_sourcetype",
                 "component",
+                "chem_detected_flag",
             ],
             "Fieldnames passed are incorrect!",
         )

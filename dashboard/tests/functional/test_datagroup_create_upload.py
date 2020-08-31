@@ -174,7 +174,6 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
         views.data_group_detail(request=request, pk=dg.pk)
         doc.refresh_from_db()
         pdf_path = doc.file.path
-        # print(pdf_path)
         self.assertTrue(
             os.path.exists(pdf_path), "the stored file should be in MEDIA_ROOT"
         )

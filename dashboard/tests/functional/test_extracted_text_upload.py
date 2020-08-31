@@ -255,7 +255,7 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         dg = DataGroup.objects.get(pk=6)
         dg.delete()
 
-    def test_presence_upload(self):
+    def test_chemical_presence_upload(self):
         # Delete the CPCat records that were loaded with the fixtures
         ExtractedCPCat.objects.all().delete()
         self.assertEqual(
@@ -301,8 +301,17 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         self.assertEqual(len(ExtractedCPCat.objects.all()), 2, "Two after upload.")
         chem = ExtractedListPresence.objects.get(raw_cas__icontains="100784-20-1")
         self.assertTrue(chem.raw_cas[0] != " ", "White space should be stripped.")
-        dg = DataGroup.objects.get(pk=49)
-        dg.delete()
+        chem_count = ExtractedListPresence.objects.filter(chem_detected_flag=1).count()
+        self.assertTrue(chem_count == 1, "One chemical should be detected")
+        chem_count = ExtractedListPresence.objects.filter(chem_detected_flag=0).count()
+        self.assertTrue(chem_count == 1, "One chemical should NOT be detected")
+        chem_count = ExtractedListPresence.objects.filter(
+            chem_detected_flag=None
+        ).count()
+        self.assertTrue(
+            chem_count == 1, "One chemical should have an UNKNOWN detected status"
+        )
+        DataGroup.objects.get(pk=49).delete()
 
     def test_functionaluse_upload(self):
         # This action is performed on a data document without extracted text

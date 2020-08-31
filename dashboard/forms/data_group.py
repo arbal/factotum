@@ -238,9 +238,6 @@ class ProductBulkCSVFormSet(DGFormSet):
 
                 rejected_docids.append(f.cleaned_data["data_document_id"].pk)
             else:
-                if not product_dict.get("upc"):
-                    # mint a new stub_x UPC if there was none provided
-                    product_dict["upc"] = Product.objects.next_upc()
                 # add the new product to the database
                 product = Product(**product_dict)
                 # attach the image if there is one
@@ -322,6 +319,7 @@ class ChemicalPresenceExtractFileForm(BaseExtractFileForm):
     cpcat_code = field_for_model(ExtractedCPCat, "cpcat_code")
     cpcat_sourcetype = field_for_model(ExtractedCPCat, "cpcat_sourcetype")
     component = field_for_model(ExtractedListPresence, "component")
+    chem_detected_flag = field_for_model(RawChem, "chem_detected_flag")
 
     def clean(self):
         super().clean()

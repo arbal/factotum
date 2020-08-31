@@ -171,6 +171,14 @@ class ProductSerializer(ModelSerializer):
             the product. Use the Documents API to obtain additional information on the document.",
         related_link_view_name="product-related",
     )
+    upc = serializers.CharField(
+        allow_null=True,
+        allow_blank=True,
+        required=False,
+        label="UPC",
+        help_text="The Universal Product Code, or unique numeric code used for scanning items at the point-of-sale. \
+            UPC may be represented as 'stub#' if the UPC for the product is not known.",
+    )
 
     def get_uberpuc(self, obj):
         try:
@@ -211,13 +219,6 @@ class ProductSerializer(ModelSerializer):
                 "label": "Name",
                 "help_text": "Name of the product.",
                 "source": "title",
-            },
-            "upc": {
-                "label": "UPC",
-                "help_text": "The Universal Product Code, \
-        or unique numeric code used for scanning items at the point-of-sale. \
-            UPC may be represented as 'stub#' if the UPC for the product is \
-            not known.",
             },
             "manufacturer": {
                 "label": "Manufacturer",

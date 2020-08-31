@@ -215,6 +215,7 @@ class ChemicalInstanceViewSet(ModelViewSet):
     queryset = (
         models.RawChem.objects.all()
         .prefetch_related("extracted_text__data_document__products", "dsstox")
+        .select_related("extractedchemical__weight_fraction_type")
         .select_subclasses()
         .order_by("id")
     )
@@ -331,7 +332,9 @@ class CompositionViewSet(ModelViewSet):
     queryset = (
         models.ExtractedChemical.objects.all()
         .exclude(Q(dsstox__isnull=True) | Q(rid__isnull=True) | Q(rid=""))
-        .prefetch_related("extracted_text__data_document__products", "dsstox")
+        .prefetch_related(
+            "extracted_text__data_document__products", "dsstox", "weight_fraction_type"
+        )
         .order_by("id")
     )
     filterset_class = filters.CompositionFilter

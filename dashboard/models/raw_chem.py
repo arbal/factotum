@@ -6,6 +6,8 @@ from .common_info import CommonInfo
 
 
 class RawChem(CommonInfo):
+    CHEM_DETECTED_CHOICES = (("1", "Yes"), ("0", "No"))
+
     extracted_text = models.ForeignKey(
         "ExtractedText",
         related_name="rawchem",
@@ -13,18 +15,14 @@ class RawChem(CommonInfo):
         null=False,
         blank=False,
     )
-
     raw_cas = models.CharField(
         "Raw CAS", max_length=100, blank=True, help_text="Raw CAS"
     )
     raw_chem_name = models.CharField(
         "Raw chemical name", max_length=1300, blank=True, help_text="Raw chemical name"
     )
-    temp_id = models.IntegerField(default=0, null=True, blank=True)
-    temp_obj_name = models.CharField(max_length=255, blank=True)
 
     rid = models.CharField(max_length=50, blank=True, help_text="RID")
-
     dsstox = models.ForeignKey(
         "DSSToxLookup",
         related_name="curated_chemical",
@@ -34,6 +32,15 @@ class RawChem(CommonInfo):
     )
     component = models.CharField(
         "Component", max_length=200, blank=True, help_text="product component"
+    )
+    # Ideally the chem_detected_flag would be a nullable boolean field. However,
+    # bulk_update() seems to have a bug related to nullable booleans
+    chem_detected_flag = models.CharField(
+        "Chemical Detected",
+        max_length=1,
+        choices=CHEM_DETECTED_CHOICES,
+        null=True,
+        blank=True,
     )
 
     objects = InheritanceManager()
@@ -94,4 +101,13 @@ class RawChem(CommonInfo):
         Returns:
             list -- a list of field names
         """
-        return ["raw_cas", "raw_chem_name", "rid", "component"]
+        return ["raw_cas", "raw_chem_name", "rid", "component", "chem_detected_flag"]
+
+    @classmethod
+    def detail_fields(cls):
+        """Lists the fields to be displayed on a detail form
+
+        Returns:
+            list -- a list of field names
+        """
+        return ["extracted_text", "raw_chem_name", "raw_cas", "chem_detected_flag"]
