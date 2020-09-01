@@ -1,6 +1,6 @@
-nestedBubbleChart(500, 500, false, "dl_pucs_json/?kind=FO", "nestedcircles_FO");
-nestedBubbleChart(500, 500, false, "dl_pucs_json/?kind=AR", "nestedcircles_AR");
-collapsibleTree("dl_pucs_json/tree/");
+fobc = new nestedBubbleChart(500, 500, false, "dl_pucs_json/?kind=FO", "nestedcircles_FO");
+arbc = new nestedBubbleChart(500, 500, false, "dl_pucs_json/?kind=AR", "nestedcircles_AR");
+tree = new collapsibleTree("dl_pucs_json/tree/");
 
 // Venn Diagram of SIDs per Group Type combination
 
@@ -17,8 +17,7 @@ $.ajax({
         div_id = "#venn";
         renderVenn(div_id, set_data);
     },
-    error: function (result) {
-    }
+    error: function (result) {}
 })
 
 
@@ -121,8 +120,17 @@ $('#grouptype_table').DataTable({
             return this.grouptype_transform(json.data);
         },
     },
-    "columns": [{"title": "Group Type"},
-        {"title": "Documents (%)"},
-        {"title": "Raw Chemical Records (%)"},
-        {"title": "Curated Chemical Records (%)"},]
+    "columns": [{
+            "title": "Group Type"
+        },
+        {
+            "title": "Documents (%)"
+        },
+        {
+            "title": "Raw Chemical Records (%)"
+        },
+        {
+            "title": "Curated Chemical Records (%)"
+        },
+    ]
 })

@@ -6,8 +6,11 @@ $(document).ready(function () {
     document.querySelectorAll(".puc-nav-title").forEach(title => {
         title.addEventListener('click', event => {
             var puc_id = title.getAttribute('data-puc-id');
-            console.log(puc_id)
+            var puc_kind = title.getAttribute('data-puc-kind');
+            // the Nested Bubble Chart that should change is the one that's associated with the legend
+            // choose fobc or arbc depending on "FO" or "AR"
+            nbc = (puc_kind == "FO" ? fobc : arbc)
+            nbc.zoomToNode(puc_id, nbc)
         })
-
     });
 });
