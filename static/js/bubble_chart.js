@@ -87,6 +87,7 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                     // level 1 pucs are `color`, half opacity
                     // level 2 pucs are `color`, full opacity
                     // level 3 pucs are white, full opacity
+                    console.log(node.data["name"] + " " + (node.data["value"] ? node.data["value"]["id"] : "UNASSIGNED") + " " + node.depth);
                     node.color = node.depth == 3 ? "white" : color;
                     node.opacity = node.depth == 1 ? 0.5 : 1;
                 });
