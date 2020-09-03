@@ -7,7 +7,8 @@ from django.apps import apps
 from django import forms
 from django.core.exceptions import FieldDoesNotExist
 from django.db import connection, transaction
-from django.db.models import Aggregate
+from django.db.models import Aggregate, Lookup
+from django.db.models.fields import Field
 from django.db.models.sql.subqueries import InsertQuery
 from django.forms.models import apply_limit_choices_to_to_formfield
 from django.http import StreamingHttpResponse
@@ -506,3 +507,15 @@ def uuid_file(instance, filename):
     """
     _, ext = os.path.splitext(filename)
     return str(uuid.uuid4()) + ext
+
+
+@Field.register_lookup
+class NotEqual(Lookup):
+    lookup_name = "ne"
+
+    def as_sql(self, compiler, connection):
+        lhs, lhs_params = self.process_lhs(compiler, connection)
+        rhs, rhs_params = self.process_rhs(compiler, connection)
+        params = lhs_params + rhs_params
+        return "%s <> %s" % (lhs, rhs), params
+

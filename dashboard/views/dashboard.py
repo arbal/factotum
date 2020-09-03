@@ -2,7 +2,17 @@ import csv
 import datetime
 
 from dateutil.relativedelta import relativedelta
-from django.db.models import Count, DateField, DateTimeField, F, Q
+from django.db.models import (
+    Count,
+    DateField,
+    DateTimeField,
+    F,
+    Q,
+    Value,
+    Case,
+    When,
+    IntegerField,
+)
 from django.db.models.functions import Trunc
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -246,15 +256,21 @@ def bubble_PUCs(request):
     pucs = (
         pucs.filter(kind__code=kind)
         .with_num_products()
-        .values("id", "gen_cat", "prod_fam", "prod_type", "num_products")
         .filter(num_products__gt=0)
-        .astree()
+        .annotate(
+            level=Case(
+                When(prod_fam="", prod_type="", then=Value(1)),
+                When(prod_fam__ne="", prod_type="", then=Value(2)),
+                default=Value(3),
+                output_field=IntegerField(),
+            )
+        )
     )
-    # We only needed gen_cat, prod_fam, prod_type to build the tree
-    for puc in pucs.values():
-        puc.pop("gen_cat")
-        puc.pop("prod_fam")
-        puc.pop("prod_type")
+
+    # convert the pucs to a simpletree
+    pucs = pucs.values(
+        "id", "gen_cat", "prod_fam", "prod_type", "num_products", "level"
+    ).astree()
 
     return JsonResponse(pucs.asdict())
 
