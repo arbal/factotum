@@ -2,6 +2,7 @@ import io
 import json
 import operator
 import base64
+import uuid
 from collections import OrderedDict
 from unittest import skip
 
@@ -253,8 +254,7 @@ class TestProduct(TestCase):
             product.upc, "stub_" + str(product.id), "should generated a stub upc"
         )
 
-    @skip("will not be applicable after 1592 is done")
-    def test_create_duplicate_upc_error(self):
+    def test_create_duplicate_upc(self):
         # doc = models.DataDocument.objects.first()
         prod = ProductFactory.build()
         dupe_upc = models.Product.objects.first().upc
@@ -272,11 +272,11 @@ class TestProduct(TestCase):
         # rather than in the multipart FILE. See this comment:
         # https://github.com/json-api/json-api/issues/246#issuecomment-163569165
         image_b64 = base64.b64encode(image)
-
+        title = "test_duplicate_upc"
         post_data = {
             "data": {
                 "attributes": {
-                    "name": f"{prod.title}",
+                    "name": title,
                     "upc": f"{prod.upc}",
                     "url": "https://www.turtlewax.com/en-us/",
                     "manufacturer": f"{prod.manufacturer}",
@@ -298,9 +298,15 @@ class TestProduct(TestCase):
         response = self.post(
             "/products", data=post_data, authenticate=True, format="vnd.api+json"
         )
-        self.assertContains(
-            response, "product with this upc already exists", status_code=400
-        )
+        self.assertTrue(response.status_code, status.HTTP_201_CREATED)
+        new_prod = models.Product.objects.filter(title=title).last()
+        self.assertIsNotNone(new_prod)
+        self.assertIsNotNone(new_prod.upc)
+        self.assertNotEqual(new_prod.upc, prod.upc)
+        self.assertEqual(len(new_prod.upc), len(str(uuid.uuid4())))
+        dup_product = models.DuplicateProduct.objects.filter(id=new_prod.id).first()
+        self.assertIsNotNone(dup_product)
+        self.assertEqual(dup_product.source_upc, prod.upc)
 
     def test_create_bulk(self):
         doc = models.DataDocument.objects.first()

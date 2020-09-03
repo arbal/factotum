@@ -1,5 +1,6 @@
 import operator
 import types
+import uuid
 
 from django.db.models import Prefetch, Q
 from django.http import JsonResponse
@@ -55,6 +56,35 @@ class ProductViewSet(ModelViewSet, CreateModelMixin):
         Prefetch("documents", queryset=models.DataDocument.objects.order_by("id"))
     )
     filterset_class = filters.ProductFilter
+
+    def create(self, request, *args, **kwargs):
+        upc = request.data.get("upc")
+        # check if upc is in use
+        if upc and models.Product.objects.filter(upc=upc).first() is not None:
+            # upc already exists, generate uuid as upc
+            request.data["upc"] = str(uuid.uuid4())
+            # store duplicated upc in source_upc
+            request.data["source_upc"] = upc
+            # serialize and save data as DuplicateProduct
+            serializer = self.get_duplicate_product_serializer(data=request.data)
+        else:
+            serializer = self.get_serializer(data=request.data)
+
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
+
+    def get_duplicate_product_serializer(self, *args, **kwargs):
+        """
+        Return the serializer instance that should be used for validating and
+        deserializing DuplicateProduct input, and for serializing output.
+        """
+        serializer_class = serializers.DuplicateProductSerializer
+        kwargs["context"] = self.get_serializer_context()
+        return serializer_class(*args, **kwargs)
 
     def create_bulk(self, request, *args, **kwargs):
         """Custom endpoint specifically for CSV uploads.  Uses ProductBulkCSVFormSet.

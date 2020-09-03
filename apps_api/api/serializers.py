@@ -175,6 +175,7 @@ class ProductSerializer(ModelSerializer):
         allow_null=True,
         allow_blank=True,
         required=False,
+        max_length=60,
         label="UPC",
         help_text="The Universal Product Code, or unique numeric code used for scanning items at the point-of-sale. \
             UPC may be represented as 'stub#' if the UPC for the product is not known.",
@@ -230,6 +231,13 @@ class ProductSerializer(ModelSerializer):
                 "help_text": "Brand name for the product, if known. May be the same as the manufacturer.",
             },
         }
+
+
+class DuplicateProductSerializer(ProductSerializer):
+    class Meta:
+        model = models.DuplicateProduct
+        fields = ProductSerializer.Meta.fields + ["source_upc"]
+        extra_kwargs = ProductSerializer.Meta.extra_kwargs
 
 
 class RawChemSerializer(ModelSerializer):
