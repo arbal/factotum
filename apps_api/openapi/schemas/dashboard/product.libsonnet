@@ -75,6 +75,11 @@ local dataDocument = import 'dataDocument.libsonnet';
       description: 'Manufacturer of the product, if known.',
       required: false,
     },
+    product_url: {
+      type: 'string',
+      description: 'This field corresponds to the "url" model field.',
+      required: false,
+    },
     brand: {
       type: 'string',
       description: 'Brand name for the product, if known. May be the same as the manufacturer.',

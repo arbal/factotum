@@ -185,7 +185,7 @@ class TestProduct(TestCase):
                 "attributes": {
                     "name": f"{prod.title}",
                     "upc": f"{prod.upc}",
-                    "url": "https://www.turtlewax.com/en-us/",
+                    "product_url": "https://www.turtlewax.com/en-us/",
                     "manufacturer": f"{prod.manufacturer}",
                     "color": f"{prod.color}",
                     "brand": f"{prod.brand_name}",
@@ -211,7 +211,10 @@ class TestProduct(TestCase):
         pd = models.ProductDocument.objects.filter(document=dd).last()
         self.assertTrue(models.ProductDocument.objects.filter(document=dd).exists())
         p = pd.product
-
+        product = models.Product.objects.filter(title=prod.title).last()
+        self.assertEqual(
+            product.url, "https://www.turtlewax.com/en-us/"
+        )
         # Open source image and newly created image (read binary)
         sample_file = open(
             "sample_files/images/products/product_image_upload_valid/dave_or_grant.png",

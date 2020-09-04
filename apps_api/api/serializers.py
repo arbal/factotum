@@ -150,7 +150,6 @@ class ProductSerializer(ModelSerializer):
         "dataDocuments": "apps_api.api.serializers.DocumentSerializer",
     }
 
-    url = serializers.HyperlinkedIdentityField(view_name="product-detail")
     puc = SerializerMethodResourceRelatedField(
         source="get_uberpuc",
         model=models.PUC,
@@ -198,7 +197,7 @@ class ProductSerializer(ModelSerializer):
             "brand",
             "puc",
             "dataDocuments",
-            "url",
+            "product_url",
             "size",
             "color",
             "short_description",
@@ -230,6 +229,11 @@ class ProductSerializer(ModelSerializer):
                 "source": "brand_name",
                 "help_text": "Brand name for the product, if known. May be the same as the manufacturer.",
             },
+            "product_url": {
+                "label": "Product URL",
+                "source": "url",
+                "help_text": "This field corresponds to the URL model field.",
+            }
         }
 
 
