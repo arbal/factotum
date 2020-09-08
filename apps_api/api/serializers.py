@@ -150,7 +150,6 @@ class ProductSerializer(ModelSerializer):
         "dataDocuments": "apps_api.api.serializers.DocumentSerializer",
     }
 
-    url = serializers.HyperlinkedIdentityField(view_name="product-detail")
     puc = SerializerMethodResourceRelatedField(
         source="get_uberpuc",
         model=models.PUC,
@@ -175,6 +174,7 @@ class ProductSerializer(ModelSerializer):
         allow_null=True,
         allow_blank=True,
         required=False,
+        max_length=60,
         label="UPC",
         help_text="The Universal Product Code, or unique numeric code used for scanning items at the point-of-sale. \
             UPC may be represented as 'stub#' if the UPC for the product is not known.",
@@ -197,7 +197,7 @@ class ProductSerializer(ModelSerializer):
             "brand",
             "puc",
             "dataDocuments",
-            "url",
+            "product_url",
             "size",
             "color",
             "short_description",
@@ -229,7 +229,19 @@ class ProductSerializer(ModelSerializer):
                 "source": "brand_name",
                 "help_text": "Brand name for the product, if known. May be the same as the manufacturer.",
             },
+            "product_url": {
+                "label": "Product URL",
+                "source": "url",
+                "help_text": "This field corresponds to the URL model field.",
+            }
         }
+
+
+class DuplicateProductSerializer(ProductSerializer):
+    class Meta:
+        model = models.DuplicateProduct
+        fields = ProductSerializer.Meta.fields + ["source_upc"]
+        extra_kwargs = ProductSerializer.Meta.extra_kwargs
 
 
 class RawChemSerializer(ModelSerializer):

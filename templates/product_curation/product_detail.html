@@ -16,7 +16,11 @@
             <span name="title">{{ product.title }}</span>
         </h1>
         <h2>
-            <span name="upc" class="text-secondary">{{ product.upc }}</span>
+            {% if 'stub' in product.upc %}
+            <span name="upc" class="text-secondary"><abbr title="UPC Placeholder">{{ product.upc }}</abbr></span>
+            {% else %}
+            <span name="upc" class="text-secondary"><abbr title="UPC">{{ product.upc }}</abbr></span>
+            {% endif %}
         </h2>
     </div>
 

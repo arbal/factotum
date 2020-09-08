@@ -70,6 +70,7 @@ class TestProductDetail(TransactionTestCase):
                 elem = lxml.xpath(f'//button[@data-tag-name="{tag.name}"]')
             self.assertTrue(len(elem) > 0, "This tag should be on the page.")
             self.assertTrue(len(elem) == 1, "This tag has a duplicated name.")
+            self.assertTrue(elem[0].get("title"), "Element should have tooltip.")
             if tag.definition:
                 self.assertEqual(elem[0].get("title"), tag.definition)
             else:

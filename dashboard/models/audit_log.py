@@ -128,4 +128,3 @@ class AuditLog(models.Model):
             self.old_value,
             self.new_value,
         )
-
