@@ -159,7 +159,7 @@ class ProductSerializer(ModelSerializer):
         (if one has been assigned). Use the PUCs API to obtain additional information on the PUC.",
         related_link_view_name="product-related",
     )
-    image = Base64ImageField(max_length=None, use_url=True)
+    image = Base64ImageField(max_length=None, use_url=True, required=False)
     dataDocuments = ResourceRelatedField(
         source="documents",
         # read_only=True,
