@@ -179,7 +179,7 @@ class SummaryTable(BaseDatatableView):
             object_key=OuterRef("pk"),
             model_name__in=[
                 "rawchem",
-                "extractedchemical",
+                "extractedcomposition",
                 "extractedfunctionaluse",
                 "extractedhhrec",
                 "extractedlistpresence",
@@ -235,7 +235,7 @@ class SummaryTable(BaseDatatableView):
 def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", nextid=0):
     """
     Detailed view of an ExtractedText object, where the user can approve the
-    record, edit its ExtractedChemical objects, skip to the next ExtractedText
+    record, edit its ExtractedComposition objects, skip to the next ExtractedText
     in the QA group, or exit to the index page.
     This view processes objects of different models with different QA workflows. 
     The qa_focus variable is used to indicate whether an ExtractedText object is

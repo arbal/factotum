@@ -11,12 +11,12 @@ class CleanCompFormTest(TestCase):
     Due to this it does not have a "save" function."""
 
     def setUp(self):
-        self.extracted_chem = factories.ExtractedChemicalFactory()
+        self.extracted_chem = factories.ExtractedCompositionFactory()
         self.script = factories.ScriptFactory()
         self.weight_fraction_type = factories.WeightFractionTypeFactory()
 
         self.base_form_data = {
-            "ExtractedChemical_id": self.extracted_chem.pk,
+            "ExtractedComposition_id": self.extracted_chem.pk,
             "script_id": self.script.pk,
             "weight_fraction_type_id": self.weight_fraction_type.pk,
             "lower_wf_analysis": "0.0",
@@ -36,7 +36,7 @@ class CleanCompFormTest(TestCase):
     def test_valid_central_wf(self):
         form = CleanCompForm(
             {
-                "ExtractedChemical_id": self.extracted_chem.pk,
+                "ExtractedComposition_id": self.extracted_chem.pk,
                 "script_id": self.script.pk,
                 "weight_fraction_type_id": self.weight_fraction_type.pk,
                 "lower_wf_analysis": "",
@@ -52,9 +52,9 @@ class CleanCompFormTest(TestCase):
         self.assertIsNotNone(form.errors.get("script_id"))
 
     def test_invalid_chemical(self):
-        form = CleanCompForm(self._update_base_form_data(ExtractedChemical_id=None))
+        form = CleanCompForm(self._update_base_form_data(ExtractedComposition_id=None))
         self.assertFalse(form.is_valid())
-        self.assertIsNotNone(form.errors.get("ExtractedChemical_id"))
+        self.assertIsNotNone(form.errors.get("ExtractedComposition_id"))
 
     def test_invalid_wf_required(self):
         form_missing_wf = CleanCompForm(

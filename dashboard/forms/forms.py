@@ -12,7 +12,7 @@ from dashboard.models import (
     DataGroup,
     DataSource,
     DocumentType,
-    ExtractedChemical,
+    ExtractedComposition,
     ExtractedCPCat,
     ExtractedHHDoc,
     ExtractedText,
@@ -352,9 +352,9 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
         return result
 
 
-class ExtractedChemicalForm(forms.ModelForm):
+class ExtractedCompositionForm(forms.ModelForm):
     class Meta:
-        model = ExtractedChemical
+        model = ExtractedComposition
         fields = [
             "raw_chem_name",
             "raw_cas",
@@ -473,7 +473,7 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
             parent_model=parent,
             model=child,
             formset=RawChemicalSubclassFormSet,
-            form=ExtractedChemicalForm,
+            form=ExtractedCompositionForm,
         )
         return (ExtractedTextForm, ChemicalFormSet)
 

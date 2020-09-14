@@ -198,7 +198,7 @@ def get_extracted_models(t):
 
     # Local import used to avoid circular import
     ExtractedText = apps.get_model("dashboard", "ExtractedText")
-    ExtractedChemical = apps.get_model("dashboard", "ExtractedChemical")
+    ExtractedComposition = apps.get_model("dashboard", "ExtractedComposition")
     ExtractedCPCat = apps.get_model("dashboard", "ExtractedCPCat")
     ExtractedListPresence = apps.get_model("dashboard", "ExtractedListPresence")
     ExtractedFunctionalUse = apps.get_model("dashboard", "ExtractedFunctionalUse")
@@ -212,7 +212,7 @@ def get_extracted_models(t):
     RawChem = apps.get_model("dashboard", "RawChem")
 
     if t == "CO" or t == "UN":
-        return ExtractedText, ExtractedChemical
+        return ExtractedText, ExtractedComposition
     elif t == "FU":
         return ExtractedText, ExtractedFunctionalUse
     elif t == "CP":

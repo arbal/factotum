@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.options import Options
 
 from dashboard.models import (
     ExtractedText,
-    ExtractedChemical,
+    ExtractedComposition,
     ExtractedHabitsAndPractices,
     ExtractedListPresence,
     ExtractedHHRec,
@@ -39,7 +39,7 @@ fixtures_standard = [
     "07b_extractedcpcat",
     "07c_extractedhhdoc",
     "07d_rawchem",
-    "07e_extractedchemical",
+    "07e_extractedcomposition",
     "07f_extractedfunctionaluse",
     "07g_extractedlistpresence",
     "07h_extractedhhrec",
@@ -65,7 +65,7 @@ fixtures_habits_practices = [
     "06_datadocument",
     "07_extractedtext",
     "07d_rawchem",
-    "07e_extractedchemical",
+    "07e_extractedcomposition",
     "08_script",
     "09_productdocument",
     "10_habits_and_practices",
@@ -73,7 +73,7 @@ fixtures_habits_practices = [
 ]
 
 datadocument_models = {
-    "CO": ExtractedChemical,
+    "CO": ExtractedComposition,
     "FU": ExtractedFunctionalUse,
     "HP": ExtractedHabitsAndPractices,
     "CP": ExtractedListPresence,
@@ -168,7 +168,7 @@ def load_model_objects():
     )
     ut = UnitType.objects.create(title="percent composition")
     wft = WeightFractionType.objects.create(title="reported", description="reported")
-    ec = ExtractedChemical.objects.create(
+    ec = ExtractedComposition.objects.create(
         extracted_text=extext,
         unit_type=ut,
         weight_fraction_type=wft,

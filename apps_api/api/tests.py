@@ -212,9 +212,7 @@ class TestProduct(TestCase):
         self.assertTrue(models.ProductDocument.objects.filter(document=dd).exists())
         p = pd.product
         product = models.Product.objects.filter(title=prod.title).last()
-        self.assertEqual(
-            product.url, "https://www.turtlewax.com/en-us/"
-        )
+        self.assertEqual(product.url, "https://www.turtlewax.com/en-us/")
         # Open source image and newly created image (read binary)
         sample_file = open(
             "sample_files/images/products/product_image_upload_valid/dave_or_grant.png",
@@ -458,7 +456,7 @@ class TestChemicalInstance(TestCase):
     #     chemical = models.DSSToxLookup.objects.first()
     #
     #     chemical_instance_list = [
-    #         factories.ExtractedChemicalFactory(),
+    #         factories.ExtractedCompositionFactory(),
     #         factories.ExtractedListPresenceFactory(),
     #         factories.ExtractedFunctionalUseFactory(),
     #         factories.ExtractedHHRecFactory(),

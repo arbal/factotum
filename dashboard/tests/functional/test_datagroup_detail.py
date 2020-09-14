@@ -18,7 +18,7 @@ from dashboard.models import (
     ExtractedText,
     DataGroup,
     GroupType,
-    ExtractedChemical,
+    ExtractedComposition,
 )
 from dashboard.tests.mixins import TempFileMixin
 
@@ -317,11 +317,11 @@ class DataGroupDetailTestWithFixtures(TestCase):
             msg_prefix="a donut with no holes is a danish",
         )
 
-        # Test download on all data groups with ExtractedChemicals, whether
+        # Test download on all data groups with ExtractedCompositions, whether
         # they are CO or UN
         dg_ids = (
             DataDocument.objects.filter(
-                id__in=ExtractedChemical.objects.all().values("extracted_text_id")
+                id__in=ExtractedComposition.objects.all().values("extracted_text_id")
             )
             .order_by()
             .values_list("data_group_id", flat=True)
@@ -334,7 +334,7 @@ class DataGroupDetailTestWithFixtures(TestCase):
             )
             self.assertEqual(resp.status_code, 200)
             # File downloaded must include [specified fields]
-            field_list = "ExtractedChemical_id,raw_cas,raw_chem_name,raw_min_comp,raw_central_comp,raw_max_comp,unit_type"
+            field_list = "ExtractedComposition_id,raw_cas,raw_chem_name,raw_min_comp,raw_central_comp,raw_max_comp,unit_type"
             content = list(i.decode("utf-8") for i in resp.streaming_content)
             self.assertIn(field_list, content[1])
 

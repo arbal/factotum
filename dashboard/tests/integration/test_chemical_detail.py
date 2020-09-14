@@ -1,6 +1,12 @@
 from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from dashboard.models import PUC, DSSToxLookup, PUCKind, DataDocument, ExtractedChemical
+from dashboard.models import (
+    PUC,
+    DSSToxLookup,
+    PUCKind,
+    DataDocument,
+    ExtractedComposition,
+)
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -121,7 +127,9 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         dss = DSSToxLookup.objects.get(sid="DTXSID9022528")
         # add a non-formulation PUC to a product that's related to
         # DTXSID9022528
-        dd_id = ExtractedChemical.objects.filter(dsstox=dss).first().extracted_text_id
+        dd_id = (
+            ExtractedComposition.objects.filter(dsstox=dss).first().extracted_text_id
+        )
         dd = DataDocument.objects.get(pk=dd_id)
         p = dd.products.create(title="Test Product")
         p.puc_set.create(

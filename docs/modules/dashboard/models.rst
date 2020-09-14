@@ -13,7 +13,7 @@ Dashboard Models
 .. automodule:: dashboard.models.extracted_text
     :members:
 
-.. automodule:: dashboard.models.extracted_chemical
+.. automodule:: dashboard.models.extracted_composition
     :members:
 
 .. automodule:: dashboard.models.extracted_cpcat
