@@ -16,7 +16,7 @@ from dashboard.models import (
     TaxonomySource,
     PUC,
     DataDocument,
-    ExtractedChemical,
+    ExtractedComposition,
     ProductDocument,
 )
 from django.db.models import Count
@@ -63,15 +63,17 @@ DataDocument.objects.filter(id__in=random_list).delete()
 ExtractedText.objects.filter(data_document_id__in=random_list).delete()
 
 #
-exchem_list = ExtractedChemical.objects.all().values_list("extracted_text", flat=True)
+exchem_list = ExtractedComposition.objects.all().values_list(
+    "extracted_text", flat=True
+)
 random_list = sample(exchem_list, min(len(exchem_list), 8000))
-ExtractedChemical.objects.filter(id__in=random_list).delete()
+ExtractedComposition.objects.filter(id__in=random_list).delete()
 
 DataDocument.objects.all.count()
 
-# delete the datadocuments that don't have related extractedchemicals
+# delete the datadocuments that don't have related extractedcompositions
 DataDocument.objects.exclude(
-    id__in=ExtractedChemical.objects.all().values("extracted_text")
+    id__in=ExtractedComposition.objects.all().values("extracted_text")
 ).delete()
 
 ######## At the command prompt:
@@ -87,7 +89,7 @@ python manage.py dumpdata dashboard.extractedtext --format=yaml > ./dashboard/fi
 python manage.py dumpdata dashboard.extractedcpcat --format=yaml > ./dashboard/fixtures/07b_extractedcpcat.yaml
 python manage.py dumpdata dashboard.extractedhhdoc --format=yaml > ./dashboard/fixtures/07c_extractedhhdoc.yaml
 python manage.py dumpdata dashboard.rawchem --format=yaml > ./dashboard/fixtures/07d_rawchem.yaml
-python manage.py dumpdata dashboard.extractedchemical --format=yaml > ./dashboard/fixtures/07e_extractedchemical.yaml
+python manage.py dumpdata dashboard.extractedcomposition --format=yaml > ./dashboard/fixtures/07e_extractedcomposition.yaml
 python manage.py dumpdata dashboard.extractedfunctionaluse --format=yaml > ./dashboard/fixtures/07f_extractedfunctionaluse.yaml
 python manage.py dumpdata dashboard.extractedlistpresence --format=yaml > ./dashboard/fixtures/07g_extractedlistpresence.yaml
 python manage.py dumpdata dashboard.extractedhhrec --format=yaml > ./dashboard/fixtures/07h_extractedhhrec.yaml

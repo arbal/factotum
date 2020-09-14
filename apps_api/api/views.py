@@ -245,7 +245,7 @@ class ChemicalInstanceViewSet(ModelViewSet):
     queryset = (
         models.RawChem.objects.all()
         .prefetch_related("extracted_text__data_document__products", "dsstox")
-        .select_related("extractedchemical__weight_fraction_type")
+        .select_related("extractedcomposition__weight_fraction_type")
         .select_subclasses()
         .order_by("id")
     )
@@ -358,9 +358,9 @@ class CompositionViewSet(ModelViewSet):
     """
 
     http_method_names = ["get", "head", "options"]
-    serializer_class = serializers.ExtractedChemicalSerializer
+    serializer_class = serializers.ExtractedCompositionSerializer
     queryset = (
-        models.ExtractedChemical.objects.all()
+        models.ExtractedComposition.objects.all()
         .exclude(Q(dsstox__isnull=True) | Q(rid__isnull=True) | Q(rid=""))
         .prefetch_related(
             "extracted_text__data_document__products", "dsstox", "weight_fraction_type"
@@ -375,7 +375,7 @@ class RawChemViewSet(ViewSetMixin, generics.ListAPIView):
     list: Service providing RawChem resources related to a dataDocument resource.
     """
 
-    serializer_class = serializers.ExtractedChemicalSerializer
+    serializer_class = serializers.ExtractedCompositionSerializer
     queryset = (
         models.RawChem.objects.all()
         .exclude(Q(dsstox__isnull=True) | Q(rid__isnull=True) | Q(rid=""))

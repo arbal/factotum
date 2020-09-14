@@ -368,9 +368,9 @@ class ExtractedHabitsAndPracticesToTagFactory(FactotumFactoryBase):
     tag = factory.SubFactory(ExtractedHabitsAndPracticesTagFactory)
 
 
-class ExtractedChemicalFactory(RawChemFactory):
+class ExtractedCompositionFactory(RawChemFactory):
     class Meta:
-        model = models.ExtractedChemical
+        model = models.ExtractedComposition
 
     class Params:
         add_functional_uses = False

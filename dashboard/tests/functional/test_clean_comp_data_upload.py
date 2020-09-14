@@ -7,7 +7,7 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from dashboard import views
-from dashboard.models import ExtractedChemical, RawChem, DataGroup, FunctionalUse
+from dashboard.models import ExtractedComposition, RawChem, DataGroup, FunctionalUse
 from dashboard.tests.loader import fixtures_standard
 
 
@@ -26,7 +26,7 @@ class UploadExtractedFileTest(TestCase):
 
     def generate_valid_clean_comp_data_csv_string(self):
         csv_string = (
-            "ExtractedChemical_id,lower_wf_analysis,central_wf_analysis,upper_wf_analysis\n"
+            "ExtractedComposition_id,lower_wf_analysis,central_wf_analysis,upper_wf_analysis\n"
             "9,0.7777,,1.0\n"
             "14,,.23,"
         )
@@ -34,7 +34,7 @@ class UploadExtractedFileTest(TestCase):
 
     def generate_valid_clean_comp_data_with_BOM_csv_string(self):
         csv_string = (
-            "\uFEFFExtractedChemical_id,lower_wf_analysis,central_wf_analysis,upper_wf_analysis\n"
+            "\uFEFFExtractedComposition_id,lower_wf_analysis,central_wf_analysis,upper_wf_analysis\n"
             "9,0.7777,,1.0\n"
             "14,,.23,"
         )
@@ -42,7 +42,7 @@ class UploadExtractedFileTest(TestCase):
 
     def generate_invalid_clean_comp_data_csv_string(self):
         csv_string = (
-            "ExtractedChemical_id,lower_wf_analysis,central_wf_analysis,upper_wf_analysis\n"
+            "ExtractedComposition_id,lower_wf_analysis,central_wf_analysis,upper_wf_analysis\n"
             "9,1.7777,.99999999,1.0\n"  # lower_wf_analysis is greater than max allowed value of 1.0
             "14,.44,.23,.88\n"  # if central_wf_analysis is populated, both lower and upper must be blank
             "999,.44,,"  # if central_wf_analysis is blank, both lower and upper must be populated
@@ -167,12 +167,12 @@ class UploadExtractedFileTest(TestCase):
             resp, "2 clean composition data records uploaded successfully."
         )
         self.assertEqual(
-            ExtractedChemical.objects.filter(script_id=17).count(),
+            ExtractedComposition.objects.filter(script_id=17).count(),
             2,
-            "There should be only 2 ExtractedChemical objects",
+            "There should be only 2 ExtractedComposition objects",
         )
         self.assertEqual(
-            ExtractedChemical.objects.filter(weight_fraction_type_id=2).count(),
+            ExtractedComposition.objects.filter(weight_fraction_type_id=2).count(),
             2,
             "Weight fraction type properly set",
         )
@@ -200,9 +200,9 @@ class UploadExtractedFileTest(TestCase):
             resp, "2 clean composition data records uploaded successfully."
         )
         self.assertEqual(
-            ExtractedChemical.objects.filter(script_id=17).count(),
+            ExtractedComposition.objects.filter(script_id=17).count(),
             2,
-            "There should be only 2 ExtractedChemical objects",
+            "There should be only 2 ExtractedComposition objects",
         )
 
     def test_invalid_headers_clean_comp_data_upload(self):
@@ -271,7 +271,7 @@ class UploadExtractedFileTest(TestCase):
         )
         self.assertContains(
             resp,
-            "The following IDs do not exist in ExtractedChemicals for this data group: 999",
+            "The following IDs do not exist in ExtractedCompositions for this data group: 999",
         )
         self.assertContains(
             resp,

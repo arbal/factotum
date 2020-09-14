@@ -24,7 +24,7 @@ from dashboard.forms.data_group import (
 from dashboard.models import (
     ExtractedText,
     Script,
-    ExtractedChemical,
+    ExtractedComposition,
     DataSource,
     DocumentType,
     GroupType,
@@ -63,13 +63,13 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
         "tabledata": tabledata,
         "clean_comp_data_fieldnames": ", ".join(
             [
-                "ExtractedChemical_id" if x == "id" else x
+                "ExtractedComposition_id" if x == "id" else x
                 for x in dg.get_clean_comp_data_fieldnames()
             ]
         ),
         "product_data_fieldnames": ", ".join(
             [
-                "ExtractedChemical_id" if x == "id" else x
+                "ExtractedComposition_id" if x == "id" else x
                 for x in dg.get_product_template_fieldnames()
             ]
         ),
@@ -355,20 +355,20 @@ def download_raw_extracted_records(request, pk):
         "unit_type__title",
     ]
     if et:
-        qs = ExtractedChemical.objects.filter(
+        qs = ExtractedComposition.objects.filter(
             extracted_text__data_document__data_group=datagroup
         ).values(*columnlist)
         return render_to_csv_response(
             qs,
             filename=(datagroup.get_name_as_slug() + "_raw_extracted_records.csv"),
             field_header_map={
-                "id": "ExtractedChemical_id",
+                "id": "ExtractedComposition_id",
                 "unit_type__title": "unit_type",
             },
             use_verbose_names=False,
         )
     else:
-        qs = ExtractedChemical.objects.filter(
+        qs = ExtractedComposition.objects.filter(
             extracted_text__data_document__id=pk
         ).values(*columnlist)
         return render_to_csv_response(

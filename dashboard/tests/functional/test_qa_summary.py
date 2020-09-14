@@ -39,12 +39,12 @@ class TestQASummary(TestCase):
             self.extracted_texts[0].data_document.save()
 
             for ext in self.extracted_texts:
-                factories.ExtractedChemicalFactory(
+                factories.ExtractedCompositionFactory(
                     extracted_text=ext, add_functional_uses=True
                 )
 
         # create data that should not be reflected in results
-        factories.ExtractedChemicalFactory()
+        factories.ExtractedCompositionFactory()
 
     def test_qa_summary(self):
         """This tests the basic data on the page.

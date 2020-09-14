@@ -9,7 +9,7 @@ from dashboard.models import (
     ProductToTag,
     PUCToTag,
     RawChem,
-    ExtractedChemical,
+    ExtractedComposition,
     ExtractedListPresence,
     ExtractedFunctionalUse,
     DataDocument,
@@ -39,7 +39,7 @@ def delete_related_product_tags(sender, **kwargs):
 
 
 @receiver(pre_save, sender=RawChem)
-@receiver(pre_save, sender=ExtractedChemical)
+@receiver(pre_save, sender=ExtractedComposition)
 @receiver(pre_save, sender=ExtractedListPresence)
 @receiver(pre_save, sender=ExtractedFunctionalUse)
 def uncurate(sender, **kwargs):

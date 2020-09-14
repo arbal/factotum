@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.urls import resolve
 
 from dashboard.tests.loader import fixtures_standard
-from dashboard.models import RawChem, DSSToxLookup, DataDocument, ExtractedChemical
+from dashboard.models import RawChem, DSSToxLookup, DataDocument, ExtractedComposition
 from dashboard.forms import ExtractedFunctionalUseForm, ChemicalCurationFormSet
 from ...views import ChemCreateView, ChemUpdateView
 
@@ -103,7 +103,7 @@ class ChemicalCurationTests(TestCase):
         self.assertEquals(view.func.view_class, ChemCreateView)
 
     def test_chem_update_url_resolves_view(self):
-        chem = ExtractedChemical.objects.first()
+        chem = ExtractedComposition.objects.first()
         view = resolve(f"/chemical/{chem.pk}/edit/")
         self.assertEquals(view.func.view_class, ChemUpdateView)
 

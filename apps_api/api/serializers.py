@@ -233,7 +233,7 @@ class ProductSerializer(ModelSerializer):
                 "label": "Product URL",
                 "source": "url",
                 "help_text": "This field corresponds to the URL model field.",
-            }
+            },
         }
 
 
@@ -303,7 +303,7 @@ class RawChemSerializer(ModelSerializer):
         }
 
 
-class ExtractedChemicalSerializer(RawChemSerializer):
+class ExtractedCompositionSerializer(RawChemSerializer):
     chemical = SerializerMethodResourceRelatedField(
         source="dsstox",
         read_only=True,
@@ -340,7 +340,7 @@ class ExtractedChemicalSerializer(RawChemSerializer):
     )
 
     class Meta:
-        model = models.ExtractedChemical
+        model = models.ExtractedComposition
         fields = [
             "chemical",
             "dataDocument",
@@ -424,7 +424,7 @@ class ExtractedFunctionalUseSerializer(RawChemSerializer):
 
 class ChemicalInstancePolymorphicSerializer(serializers.PolymorphicModelSerializer):
     polymorphic_serializers = [
-        ExtractedChemicalSerializer,
+        ExtractedCompositionSerializer,
         ExtractedListPresenceSerializer,
         ExtractedHHRecSerializer,
         ExtractedFunctionalUseSerializer,

@@ -879,7 +879,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         null=True,
                         validators=[
-                            dashboard.models.extracted_chemical.validate_ingredient_rank
+                            dashboard.models.extracted_composition.validate_ingredient_rank
                         ],
                     ),
                 ),
@@ -2655,7 +2655,7 @@ class Migration(migrations.Migration):
                 blank=True,
                 null=True,
                 validators=[
-                    dashboard.models.extracted_chemical.validate_ingredient_rank
+                    dashboard.models.extracted_composition.validate_ingredient_rank
                 ],
                 verbose_name="Ingredient rank",
             ),
@@ -3448,7 +3448,9 @@ class Migration(migrations.Migration):
                 help_text="central weight fraction",
                 max_digits=16,
                 null=True,
-                validators=[dashboard.models.extracted_chemical.validate_wf_analysis],
+                validators=[
+                    dashboard.models.extracted_composition.validate_wf_analysis
+                ],
                 verbose_name="Central weight fraction analysis",
             ),
         ),
@@ -3461,7 +3463,9 @@ class Migration(migrations.Migration):
                 help_text="minimum weight fraction",
                 max_digits=16,
                 null=True,
-                validators=[dashboard.models.extracted_chemical.validate_wf_analysis],
+                validators=[
+                    dashboard.models.extracted_composition.validate_wf_analysis
+                ],
                 verbose_name="Lower weight fraction analysis",
             ),
         ),
@@ -3484,7 +3488,9 @@ class Migration(migrations.Migration):
                 help_text="maximum weight fraction",
                 max_digits=16,
                 null=True,
-                validators=[dashboard.models.extracted_chemical.validate_wf_analysis],
+                validators=[
+                    dashboard.models.extracted_composition.validate_wf_analysis
+                ],
                 verbose_name="Upper weight fraction analysis",
             ),
         ),
@@ -3507,7 +3513,7 @@ class Migration(migrations.Migration):
                 help_text="ingredient rank",
                 null=True,
                 validators=[
-                    dashboard.models.extracted_chemical.validate_ingredient_rank
+                    dashboard.models.extracted_composition.validate_ingredient_rank
                 ],
                 verbose_name="Ingredient rank",
             ),

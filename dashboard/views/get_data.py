@@ -68,7 +68,7 @@ def stats_by_dtxsids(dtxs):
         .order_by()
     )
 
-    wf_ecs = ExtractedChemical.objects.filter(dsstox__sid__in=dtxs).exclude(
+    wf_ecs = ExtractedComposition.objects.filter(dsstox__sid__in=dtxs).exclude(
         Q(raw_max_comp="") & Q(raw_min_comp="") & Q(raw_central_comp="")
     )
     dds_wf_n = (
