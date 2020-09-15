@@ -34,7 +34,9 @@ class TestBulkProductPuc(StaticLiveServerTestCase):
         select_all_button = self.browser.find_element_by_class_name("select-checkbox")
         select_all_button.click()
 
-        dal_textbox = self.browser.find_element_by_xpath("*//span[@role='combobox']")
+        dal_combox = self.browser.find_element_by_xpath("*//span[@role='combobox']")
+        dal_combox.click()
+        dal_textbox = self.browser.find_element_by_xpath("*//input[@role='textbox']")
         dal_textbox.send_keys("form:Arts and crafts/Office supplies")
 
         time.sleep(1)
@@ -59,7 +61,9 @@ class TestBulkProductPuc(StaticLiveServerTestCase):
         select_all_button = self.browser.find_element_by_class_name("select-checkbox")
         select_all_button.click()
 
-        dal_textbox = self.browser.find_element_by_xpath("*//span[@role='combobox']")
+        dal_combox = self.browser.find_element_by_xpath("*//span[@role='combobox']")
+        dal_combox.click()
+        dal_textbox = self.browser.find_element_by_xpath("*//input[@role='textbox']")
         dal_textbox.send_keys("form:Arts and crafts/Office supplies")
 
         time.sleep(1)
