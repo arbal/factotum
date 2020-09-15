@@ -97,9 +97,22 @@
                                 <i class="fa fa-filter icon-secondary"></i>
                             </a>
                             {% endif %}
+
+                                
+
+
+
                             <span class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
                                   data-gen-cat="{{ leaf.name }}">
-                                <b>{{ leaflet.value.cumnum_products }}</b>
+                                {% if leaflet.value.cumnum_products > 0 %}
+                                <span class='puc-zoom-link' onclick=CircleZoom({{ leaflet.value.pk }}) 
+                                title="Zoom circles to PUC"
+                                >
+                                <b>&nbsp;{{ leaflet.value.cumnum_products }}&nbsp;</b>
+                                </span>
+                                {% else %}
+                                    <b>{{ leaflet.value.cumnum_products }}</b>
+                                {% endif %}
                             </span>
                         </div>
                         <div id="accordion-{{ leaflet.value.pk }}"
@@ -133,7 +146,15 @@
                                                 {% endif %}
                                                 <span class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
                                                       data-gen-cat="{{ leaf.name }}">
-                                                    <b>{{ needle.value.cumnum_products }}</b>
+                                                                                    {% if needle.value.cumnum_products > 0 %}
+                                            <span class='puc-zoom-link' onclick=CircleZoom({{ needle.value.pk }}) 
+                                            title="Zoom circles to PUC"
+                                            >
+                                            <b>&nbsp;{{ needle.value.cumnum_products }}&nbsp;</b>
+                                            </span>
+                                            {% else %}
+                                                <b>{{ needle.value.cumnum_products }}</b>
+                                            {% endif %}
                                                 </span>
                                             </div>
                                         </div>
