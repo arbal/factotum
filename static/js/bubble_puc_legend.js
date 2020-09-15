@@ -4,3 +4,4 @@ $(document).ready(function(){
     puc.style.backgroundColor = pucColors.get(gen_cat)
   });
 });
+

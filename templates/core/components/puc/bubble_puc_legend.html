@@ -44,7 +44,15 @@
                     {% endif %}
                     <div class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
                          data-gen-cat="{{ leaf.name }}">
+                    {% if leaf.value.cumnum_products > 0 %}
+                    <span class='puc-zoom-link' onclick=CircleZoom({{ leaf.value.pk }}) 
+                       title="Zoom circles to PUC"
+                       >
+                       <b>&nbsp;{{ leaf.value.cumnum_products }}&nbsp;</b>
+                    </span>
+                    {% else %}
                         <b>{{ leaf.value.cumnum_products }}</b>
+                    {% endif %}
                     </div>
                 </div>
             </div>

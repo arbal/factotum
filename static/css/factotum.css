@@ -1,11 +1,15 @@
-div.search-result-main{
+div.search-result-main {
     display: flex;
     justify-content: space-between;
-    border-top:solid 1px #AEB6BF;
+    border-top: solid 1px #AEB6BF;
 }
-.search-result-main{margin-top: 1em;padding-top:0.5em;}
 
-.search-result-meta li + li::before {
+.search-result-main {
+    margin-top: 1em;
+    padding-top: 0.5em;
+}
+
+.search-result-meta li+li::before {
     content: " | ";
 }
 
@@ -15,41 +19,51 @@ div.search-result-main{
     width: 25px;
     border-radius: 50%;
     display: inline-block;
-    color:white;
-    }
+    color: white;
+}
 
 /* ☺☺☺☺☺☺ feel free to make changes here ☺☺☺☺☺☺ */
 .dot-dg-CO {
     background-color: #808000;
 }
+
 .dot-dg-HP {
     background-color: #469990;
 }
+
 .dot-dg-FU {
     background-color: #9A6324;
 }
+
 .dot-dg-CP {
     background-color: #911eb4;
 }
+
 .dot-dg-HH {
     background-color: #e6194b;
 }
+
 .dot-dg-SU {
     background-color: #000075;
 }
+
 .dot-dg-LM {
     background-color: #0071bc;
 }
+
 .dot-dg-SD {
     background-color: #cd99ff;
 }
+
 .dot-dg-UN {
     background-color: #2F4F4F;
 }
+
 .dot-dg-chem {
     background-color: #868e96;
 }
-.factotum-control-row{
+
+.factotum-control-row {
     padding-left: 1em;
     padding-top: .5em;
     border-width: .2rem;
@@ -57,8 +71,8 @@ div.search-result-main{
 }
 
 .tooltip-inner {
-	min-width: 100px;
-	max-width: 100%; 
+    min-width: 100px;
+    max-width: 100%;
 }
 
 .bubble-chart {
@@ -71,13 +85,14 @@ div.search-result-main{
 /* -----datadocument_detail----- */
 .scroll-div {
     overflow-y: scroll;
-    overflow-x: hidden !important;  
+    overflow-x: hidden !important;
     padding-bottom: 247px;
 }
 
 /* make scrollbar transparent */
 /* works in chrome, but not in FireFox */
-#meta::-webkit-scrollbar, #cards::-webkit-scrollbar {
+#meta::-webkit-scrollbar,
+#cards::-webkit-scrollbar {
     width: 0px;
     background: transparent;
 }
@@ -88,20 +103,24 @@ div.search-result-main{
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 1em;
 }
+
 /* -----datadocument_detail----- */
 /* -----edit buttons----- */
 .hover-danger:hover {
     background: #d9534f;
     color: #f7f7f7;
 }
+
 .hover-info:hover {
     background: #5bc0de;
     color: #f7f7f7;
 }
+
 .hover-success:hover {
     background: #5cb85c;
     color: #f7f7f7;
 }
+
 /* -----edit buttons----- */
 
 .icon-secondary {
@@ -123,8 +142,13 @@ div.search-result-main{
 .flash:hover {
     box-shadow: 4px 4px #b3b1a7;
 }
+
 .flash {
     -webkit-transition: -webkit-box-shadow 0.5s ease-out, opacity 0.5s ease-out;
     -moz-transition: -moz-box-shadow 0.5s ease-out, opacity 0.5s ease-out;
     transition: box-shadow 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+a.puc-loom-link:hover {
+    cursor: pointer;
 }
