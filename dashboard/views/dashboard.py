@@ -6,6 +6,7 @@ from django.db.models import Count, DateField, DateTimeField, F, Q
 from django.db.models.functions import Trunc
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from dashboard.utils import GroupConcat, SimpleTree
 
 from dashboard.models import (
     PUC,
@@ -247,16 +248,23 @@ def bubble_PUCs(request):
         pucs.filter(kind__code=kind)
         .with_num_products()
         .values("id", "gen_cat", "prod_fam", "prod_type", "num_products")
-        .filter(num_products__gt=0)
+        # .filter(num_products__gt=0)
         .astree()
     )
-    # We only needed gen_cat, prod_fam, prod_type to build the tree
-    for puc in pucs.values():
+    keepers = SimpleTree()
+
+    for puc_tree in pucs:
+        puc = pucs[puc_tree]
+        # We only needed gen_cat, prod_fam, prod_type to build the tree - now they are implicit in the structure
         puc.pop("gen_cat")
         puc.pop("prod_fam")
         puc.pop("prod_type")
+        cumulative_count = PUC.objects.get(pk=puc["id"]).cumulative_product_count
+        puc["cumulative_products"] = cumulative_count
+        if cumulative_count > 0:
+            keepers[puc_tree] = puc
 
-    return JsonResponse(pucs.asdict())
+    return JsonResponse(keepers.asdict())
 
 
 def collapsible_tree_PUCs(request):
