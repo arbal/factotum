@@ -100,6 +100,11 @@ class QATest(TestCase):
         response = self.client.get("/qa/compextractionscript/").content.decode("utf8")
         response_html = html.fromstring(response)
         status = response_html.xpath(f'//*[@id="qa-{script.pk}"]/a').pop()
+        self.assertEqual(
+            td.text,
+            "0 %",
+            ("The displayed percentage should match " "what is derived from the model"),
+        )
         self.assertIn(
             "QA Complete",
             status.text,
