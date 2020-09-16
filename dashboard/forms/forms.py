@@ -168,6 +168,7 @@ class ProductForm(forms.ModelForm):
             "short_description",
             "long_description",
             "epa_reg_number",
+            "url",
         ]
 
 
