@@ -247,6 +247,7 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
 
 function CircleZoom(pucid) {
     console.log("Zooming to " + pucid);
-    d = d3v5.select("bubble-" + pucid);
-    console.log(d);
+    d = d3v5.select("#bubble-" + pucid);
+    console.log(d.onClick)
+
 }

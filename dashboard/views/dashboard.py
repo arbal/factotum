@@ -255,14 +255,20 @@ def bubble_PUCs(request):
 
     for puc_tree in pucs:
         puc = pucs[puc_tree]
+
+        # any PUC above the lowest level needs to have its cumulative product count assigned here
+        if puc["prod_type"] == "":
+            cumulative_count = PUC.objects.get(pk=puc["id"]).cumulative_product_count
+        else:
+            cumulative_count = puc["num_products"]
+        puc["cumulative_products"] = cumulative_count
+        if cumulative_count > 0:
+            keepers[puc_tree] = puc
+
         # We only needed gen_cat, prod_fam, prod_type to build the tree - now they are implicit in the structure
         puc.pop("gen_cat")
         puc.pop("prod_fam")
         puc.pop("prod_type")
-        cumulative_count = PUC.objects.get(pk=puc["id"]).cumulative_product_count
-        puc["cumulative_products"] = cumulative_count
-        if cumulative_count > 0:
-            keepers[puc_tree] = puc
 
     return JsonResponse(keepers.asdict())
 
