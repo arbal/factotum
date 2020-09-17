@@ -32,18 +32,20 @@ def index(request):
     ).count()
     stats["dsstox_sid_count"] = RawChem.objects.values("dsstox__sid").distinct().count()
 
-    pucs = PUC.objects.with_num_products().filter(kind__code="FO").all().astree()
-    for puc_name, puc_obj in pucs.items():
-        puc_obj.cumnum_products = sum(
-            p.num_products for p in pucs.objects[puc_name].values()
-        )
+    pucs = (
+        PUC.objects.with_num_products()
+        .filter(kind__code="FO")
+        .filter(cumulative_products__gt=0)
+        .astree()
+    )
     stats["formulation_pucs"] = pucs
 
-    pucs = PUC.objects.with_num_products().filter(kind__code="AR").all().astree()
-    for puc_name, puc_obj in pucs.items():
-        puc_obj.cumnum_products = sum(
-            p.num_products for p in pucs.objects[puc_name].values()
-        )
+    pucs = (
+        PUC.objects.with_num_products()
+        .filter(kind__code="AR")
+        .filter(cumulative_products__gt=0)
+        .astree()
+    )
     stats["article_pucs"] = pucs
 
     return render(request, "dashboard/index.html", stats)
@@ -258,6 +260,11 @@ def bubble_PUCs(request):
         )
         .astree()
     )
+    for puc in pucs.values():
+        # We only needed gen_cat, prod_fam, prod_type to build the tree - now they are implicit in the structure
+        puc.pop("gen_cat")
+        puc.pop("prod_fam")
+        puc.pop("prod_type")
     return JsonResponse(pucs.asdict())
 
 

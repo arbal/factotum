@@ -41,6 +41,8 @@ class PUCQuerySet(models.QuerySet):
         cumulative product count
 
         The product count for the PUC is annotated as 'num_products'
+        The cumulative product count for all PUCs sharing the gen_cat
+        or prod_fam string is rolled up into cumulative_products
         """
         # get a simple aggregation of distinct puc_id per parent field
         products_per_gen_cat = (
@@ -76,13 +78,19 @@ class PUCQuerySet(models.QuerySet):
                 # include their own PUC-specific product counts
                 cumulative_products=Case(
                     # the PUC is a gen_cat (grandparent)
-                    When(Q(prod_type="") & Q(prod_fam=""), then=F("gen_cat_count")),
+                    When(
+                        Q(prod_type__exact="") & Q(prod_fam__exact=""),
+                        then=F("gen_cat_count"),
+                    ),
                     # the PUC is a prod_fam (parent)
-                    When(Q(prod_type="") & ~Q(prod_fam=""), then=F("prod_fam_count")),
+                    When(
+                        Q(prod_type__exact="") & ~Q(prod_fam__exact=""),
+                        then=F("prod_fam_count"),
+                    ),
                     # the PUC is a prod_type (child)
-                    When(~Q(prod_type=""), then=Value("num_products")),
+                    When(~Q(prod_type__exact=""), then=F("num_products")),
                     default=Value(0),
-                    output_field=IntegerField(),
+                    output_field=IntegerField(default=0),
                 )
             )
         )

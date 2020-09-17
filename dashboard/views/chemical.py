@@ -25,11 +25,7 @@ def chemical_detail(request, sid, puc_id=None):
         .annotate(num_products=Value(0, output_field=IntegerField()))
         .astree()
     )
-    # Get cumulative product count, displayed in bubble_puc_legend
-    for puc_name, puc_obj in formulation_pucs.items():
-        puc_obj.cumnum_products = sum(
-            p.num_products for p in formulation_pucs.objects[puc_name].values()
-        )
+
 
     article_pucs = (
         PUC.objects.filter(kind__code="AR")
@@ -43,11 +39,6 @@ def chemical_detail(request, sid, puc_id=None):
         .annotate(num_products=Value(0, output_field=IntegerField()))
         .astree()
     )
-    # Get cumulative product count, displayed in bubble_puc_legend
-    for puc_name, puc_obj in article_pucs.items():
-        puc_obj.cumnum_products = sum(
-            p.num_products for p in article_pucs.objects[puc_name].values()
-        )
 
     context = {
         "chemical": chemical,

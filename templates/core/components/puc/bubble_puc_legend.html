@@ -11,7 +11,7 @@
             <!-- Level 1 -->
             <div class="card-header-sm bg-light">
                 <div class="d-flex align-items-center">
-                    {% if leaf.children %}
+                    {% if leaf.value.cumulative_products > 0%}
                         <button class="handle mr-2 btn btn-light shadow-none"
                                 data-toggle="collapse"
                                 data-target="#accordion-{{ leaf.value.pk }}">
@@ -32,7 +32,7 @@
                        data-placement="top">
                         <i class="fas fa-info-circle icon-secondary"></i>
                     </a>
-                    {% if show_filter and leaf.value.num_products %}
+                    {% if show_filter and leaf.value.cumulative_products  %}
                     <a id="filter-{{ leaf.value.pk }}"
                        class="ml-2"
                        title="Filter table by PUC"
@@ -44,14 +44,14 @@
                     {% endif %}
                     <div class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
                          data-gen-cat="{{ leaf.name }}">
-                    {% if leaf.value.cumnum_products > 0 %}
+                    {% if leaf.value.cumulative_products > 0 %}
                     <span class='puc-zoom-link' onclick=CircleZoom({{ leaf.value.pk }}) 
                        title="Zoom circles to PUC"
                        >
-                       <b>&nbsp;{{ leaf.value.cumnum_products }}&nbsp;</b>
+                       <b>&nbsp;{{ leaf.value.cumulative_products }}&nbsp;</b>
                     </span>
                     {% else %}
-                        <b>{{ leaf.value.cumnum_products }}</b>
+                        <b>{{ leaf.value.cumulative_products }}</b>
                     {% endif %}
                     </div>
                 </div>
@@ -104,14 +104,14 @@
 
                             <span class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
                                   data-gen-cat="{{ leaf.name }}">
-                                {% if leaflet.value.cumnum_products > 0 %}
+                                {% if leaflet.value.cumulative_products > 0 %}
                                 <span class='puc-zoom-link' onclick=CircleZoom({{ leaflet.value.pk }}) 
                                 title="Zoom circles to PUC"
                                 >
-                                <b>&nbsp;{{ leaflet.value.cumnum_products }}&nbsp;</b>
+                                <b>&nbsp;{{ leaflet.value.cumulative_products }}&nbsp;</b>
                                 </span>
                                 {% else %}
-                                    <b>{{ leaflet.value.cumnum_products }}</b>
+                                    <b>{{ leaflet.value.cumulative_products }}</b>
                                 {% endif %}
                             </span>
                         </div>
@@ -146,14 +146,14 @@
                                                 {% endif %}
                                                 <span class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
                                                       data-gen-cat="{{ leaf.name }}">
-                                                                                    {% if needle.value.cumnum_products > 0 %}
+                                                                                    {% if needle.value.cumulative_products > 0 %}
                                             <span class='puc-zoom-link' onclick=CircleZoom({{ needle.value.pk }}) 
                                             title="Zoom circles to PUC"
                                             >
-                                            <b>&nbsp;{{ needle.value.cumnum_products }}&nbsp;</b>
+                                            <b>&nbsp;{{ needle.value.cumulative_products }}&nbsp;</b>
                                             </span>
                                             {% else %}
-                                                <b>{{ needle.value.cumnum_products }}</b>
+                                                <b>{{ needle.value.cumulative_products }}</b>
                                             {% endif %}
                                                 </span>
                                             </div>
