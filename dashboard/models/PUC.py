@@ -1,6 +1,17 @@
 from django.apps import apps
 from django.db import models
-from django.db.models import Count, F, Q
+from django.db.models import (
+    Count,
+    F,
+    Q,
+    Subquery,
+    OuterRef,
+    IntegerField,
+    Case,
+    When,
+    Value,
+)
+
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
@@ -25,11 +36,58 @@ class PUCQuerySet(models.QuerySet):
         )
 
     def with_num_products(self):
-        """ Returns a QuerySet of PUCs with a product count included.
+        """ Returns a QuerySet of PUCs with each PUC's product count
+        and each prod_fam (parent) and gen_cat (grandparent) record's 
+        cumulative product count
 
-        The product count is annotated as 'num_products'
+        The product count for the PUC is annotated as 'num_products'
         """
-        return self.annotate(num_products=Count("products", distinct=True))
+        # get a simple aggregation of distinct puc_id per parent field
+        products_per_gen_cat = (
+            apps.get_model(app_label="dashboard", model_name="ProductToPUC")
+            .objects.exclude(puc__gen_cat="")
+            .values("puc__kind", "puc__gen_cat")
+            .annotate(products_per_gen_cat=Count("product", distinct=True))
+        )
+        products_per_prod_fam = (
+            apps.get_model(app_label="dashboard", model_name="ProductToPUC")
+            .objects.exclude(puc__prod_fam="")
+            .values("puc__kind", "puc__prod_fam")
+            .annotate(products_per_prod_fam=Count("product", distinct=True))
+        )
+
+        # turn that aggregation into a subquery, joining with the parent field as an OuterRef
+        gen_cat_sub = products_per_gen_cat.filter(
+            puc__kind=OuterRef("kind"), puc__gen_cat=OuterRef("gen_cat")
+        ).values("products_per_gen_cat")
+        prod_fam_sub = products_per_prod_fam.filter(
+            puc__kind=OuterRef("kind"), puc__prod_fam=OuterRef("prod_fam")
+        ).values("products_per_prod_fam")
+
+        # annotate the PUC queryset with those aggregate values
+        pucs = (
+            self.annotate(num_products=Count("products", distinct=True))
+            .annotate(gen_cat_count=Subquery(gen_cat_sub, output_field=IntegerField()))
+            .annotate(
+                prod_fam_count=Subquery(prod_fam_sub, output_field=IntegerField())
+            )
+            .annotate(
+                # note that the parent and grandparents' rollup counts already
+                # include their own PUC-specific product counts
+                cumulative_products=Case(
+                    # the PUC is a gen_cat (grandparent)
+                    When(Q(prod_type="") & Q(prod_fam=""), then=F("gen_cat_count")),
+                    # the PUC is a prod_fam (parent)
+                    When(Q(prod_type="") & ~Q(prod_fam=""), then=F("prod_fam_count")),
+                    # the PUC is a prod_type (child)
+                    When(~Q(prod_type=""), then=Value("num_products")),
+                    default=Value(0),
+                    output_field=IntegerField(),
+                )
+            )
+        )
+
+        return pucs
 
     def with_allowed_attributes(self):
         """ Returns a QuerySet of PUCs with an allowed tags string.
