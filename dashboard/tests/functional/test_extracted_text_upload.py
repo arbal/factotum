@@ -13,7 +13,7 @@ from dashboard.models import (
     ExtractedText,
     DataDocument,
     DataGroup,
-    ExtractedChemical,
+    ExtractedComposition,
     ExtractedCPCat,
     ExtractedListPresence,
     ExtractedFunctionalUse,
@@ -206,7 +206,7 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
             raw_category="aerosol hairspray"
         ).count()
         old_rawchem_count = RawChem.objects.filter().count()
-        old_extractedchemical_count = ExtractedChemical.objects.filter().count()
+        old_extractedcomposition_count = ExtractedComposition.objects.filter().count()
         self.assertTrue(
             doc_count == 0, "DataDocument raw category shouldn't exist yet."
         )
@@ -215,14 +215,14 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         resp = self.get_results(resp)
         self.assertContains(resp, '"result": 4,')
         new_rawchem_count = RawChem.objects.filter().count()
-        new_extractedchemical_count = ExtractedChemical.objects.filter().count()
+        new_extractedcomposition_count = ExtractedComposition.objects.filter().count()
         self.assertTrue(
             new_rawchem_count - old_rawchem_count == 3,
             "There should only be 3 new RawChem records",
         )
         self.assertTrue(
-            new_extractedchemical_count - old_extractedchemical_count == 3,
-            "There should only be 3 new ExtractedChemical records",
+            new_extractedcomposition_count - old_extractedcomposition_count == 3,
+            "There should only be 3 new ExtractedComposition records",
         )
         doc_count = DataDocument.objects.filter(
             raw_category="aerosol hairspray"
@@ -232,7 +232,7 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         )
         text_count = ExtractedText.objects.all().count()
         self.assertTrue(text_count == 2, "Should be 2 extracted texts")
-        chem_count = ExtractedChemical.objects.filter(
+        chem_count = ExtractedComposition.objects.filter(
             component="Test Component"
         ).count()
         self.assertTrue(
@@ -240,8 +240,8 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
             "Should be 3 extracted chemical records with the Test Component",
         )
 
-        # Detailed inspection of new ExtractedChemical records
-        new_ex_chems = ExtractedChemical.objects.filter(
+        # Detailed inspection of new ExtractedComposition records
+        new_ex_chems = ExtractedComposition.objects.filter(
             extracted_text__data_document__data_group__id=6
         )
         # Verify multiple report_funcuse upload
@@ -255,7 +255,7 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         dg = DataGroup.objects.get(pk=6)
         dg.delete()
 
-    def test_presence_upload(self):
+    def test_chemical_presence_upload(self):
         # Delete the CPCat records that were loaded with the fixtures
         ExtractedCPCat.objects.all().delete()
         self.assertEqual(
@@ -301,8 +301,17 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         self.assertEqual(len(ExtractedCPCat.objects.all()), 2, "Two after upload.")
         chem = ExtractedListPresence.objects.get(raw_cas__icontains="100784-20-1")
         self.assertTrue(chem.raw_cas[0] != " ", "White space should be stripped.")
-        dg = DataGroup.objects.get(pk=49)
-        dg.delete()
+        chem_count = ExtractedListPresence.objects.filter(chem_detected_flag=1).count()
+        self.assertTrue(chem_count == 1, "One chemical should be detected")
+        chem_count = ExtractedListPresence.objects.filter(chem_detected_flag=0).count()
+        self.assertTrue(chem_count == 1, "One chemical should NOT be detected")
+        chem_count = ExtractedListPresence.objects.filter(
+            chem_detected_flag=None
+        ).count()
+        self.assertTrue(
+            chem_count == 1, "One chemical should have an UNKNOWN detected status"
+        )
+        DataGroup.objects.get(pk=49).delete()
 
     def test_functionaluse_upload(self):
         # This action is performed on a data document without extracted text

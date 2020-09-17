@@ -16,13 +16,26 @@
             <span name="title">{{ product.title }}</span>
         </h1>
         <h2>
-            <span name="upc" class="text-secondary">{{ product.upc }}</span>
+            {% if 'stub' in product.upc %}
+            <span name="upc" class="text-secondary"><abbr title="UPC Placeholder">{{ product.upc }}</abbr></span>
+            {% else %}
+            <span name="upc" class="text-secondary"><abbr title="UPC">{{ product.upc }}</abbr></span>
+            {% endif %}
         </h2>
     </div>
 
     <div class="col-lg-2 d-flex border-bottom">
                 {% if user.is_authenticated %}
                 <div class="btn-group float-lg-right my-auto" role="group" aria-label="Manage Product">
+                    {% if product.url %}
+                        <a class="btn btn-sm btn-light hover-info"
+                           title="View product source (external)"
+                           data-toggle="tooltip"
+                           target="_blank"
+                           href="{{ product.url }}">
+                            <span class="fa fa-fs fa-external-link-alt"></span>
+                        </a>
+                    {% endif %}
                     <a class="btn btn-light btn-sm" role="button" title="edit"
                         href="{% url 'product_edit' pk=product.pk %}">
                         <span class="fa fa-fs fa-edit"></span> </a>
@@ -143,6 +156,8 @@
             <dd class="pl-4">{{ product.color|default:"" }}</dd>
             <dt>EPA Reg. No.</dt>
             <dd class="pl-4">{{ product.epa_reg_number|default:"" }}</dd>
+            <dt>Product URL</dt>
+            <dd class="pl-4">{{ product.url|default:"" }}</dd>
         </dl>
         {{ product.short_description|default:"" }}
         </div>

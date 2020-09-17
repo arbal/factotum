@@ -19,7 +19,7 @@ from dashboard.models import (
     ProductDocument,
     Script,
     DocumentType,
-    ExtractedChemical,
+    ExtractedComposition,
     FunctionalUse,
     FunctionalUseCategory,
     DataGroup,
@@ -238,9 +238,6 @@ class ProductBulkCSVFormSet(DGFormSet):
 
                 rejected_docids.append(f.cleaned_data["data_document_id"].pk)
             else:
-                if not product_dict.get("upc"):
-                    # mint a new stub_x UPC if there was none provided
-                    product_dict["upc"] = Product.objects.next_upc()
                 # add the new product to the database
                 product = Product(**product_dict)
                 # attach the image if there is one
@@ -297,12 +294,12 @@ class FunctionalUseExtractFileForm(BaseExtractFileForm):
 class CompositionExtractFileForm(BaseExtractFileForm):
     prod_name = field_for_model(ExtractedText, "prod_name")
     rev_num = field_for_model(ExtractedText, "rev_num")
-    raw_min_comp = field_for_model(ExtractedChemical, "raw_min_comp")
-    raw_max_comp = field_for_model(ExtractedChemical, "raw_max_comp")
+    raw_min_comp = field_for_model(ExtractedComposition, "raw_min_comp")
+    raw_max_comp = field_for_model(ExtractedComposition, "raw_max_comp")
     unit_type = forms.IntegerField(required=False)
-    ingredient_rank = field_for_model(ExtractedChemical, "ingredient_rank")
-    raw_central_comp = field_for_model(ExtractedChemical, "raw_central_comp")
-    component = field_for_model(ExtractedChemical, "component")
+    ingredient_rank = field_for_model(ExtractedComposition, "ingredient_rank")
+    raw_central_comp = field_for_model(ExtractedComposition, "raw_central_comp")
+    component = field_for_model(ExtractedComposition, "component")
 
     def clean(self):
         super().clean()
@@ -310,8 +307,8 @@ class CompositionExtractFileForm(BaseExtractFileForm):
         # Rename fields
         data["unit_type_id"] = data.pop("unit_type")
         # Validate model
-        params = clean_dict(self.cleaned_data, ExtractedChemical)
-        obj = ExtractedChemical(**params)
+        params = clean_dict(self.cleaned_data, ExtractedComposition)
+        obj = ExtractedComposition(**params)
         obj.clean()
         obj.validate_unique()
 
@@ -322,6 +319,7 @@ class ChemicalPresenceExtractFileForm(BaseExtractFileForm):
     cpcat_code = field_for_model(ExtractedCPCat, "cpcat_code")
     cpcat_sourcetype = field_for_model(ExtractedCPCat, "cpcat_sourcetype")
     component = field_for_model(ExtractedListPresence, "component")
+    chem_detected_flag = field_for_model(RawChem, "chem_detected_flag")
 
     def clean(self):
         super().clean()
@@ -554,18 +552,18 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
 
 
 class CleanCompForm(forms.ModelForm):
-    ExtractedChemical_id = forms.IntegerField(required=True)
+    ExtractedComposition_id = forms.IntegerField(required=True)
     script_id = forms.IntegerField(required=True)
     weight_fraction_type_id = forms.IntegerField(required=True)
 
     class Meta:
-        model = ExtractedChemical
+        model = ExtractedComposition
         fields = ["lower_wf_analysis", "central_wf_analysis", "upper_wf_analysis"]
 
     def clean(self):
         super().clean()
-        params = clean_dict(self.cleaned_data, ExtractedChemical, keep_nones=True)
-        obj = ExtractedChemical(**params)
+        params = clean_dict(self.cleaned_data, ExtractedComposition, keep_nones=True)
+        obj = ExtractedComposition(**params)
         obj.clean()
         # Ensure data is provided.
         central_wf_analysis = self.cleaned_data.get("central_wf_analysis")
@@ -592,14 +590,14 @@ class CleanCompFormSet(DGFormSet):
         super().__init__(*args, **kwargs)
 
     def clean(self):
-        # Ensure ExtractedChemical_id's are valid
+        # Ensure ExtractedComposition_id's are valid
         self.cleaned_ids = [
-            f.cleaned_data["ExtractedChemical_id"]
+            f.cleaned_data["ExtractedComposition_id"]
             for f in self.forms
-            if "ExtractedChemical_id" in f.cleaned_data
+            if "ExtractedComposition_id" in f.cleaned_data
         ]
         bad_ids = get_missing_ids(
-            ExtractedChemical.objects.filter(
+            ExtractedComposition.objects.filter(
                 extracted_text__data_document__data_group=self.dg
             ),
             self.cleaned_ids,
@@ -608,7 +606,7 @@ class CleanCompFormSet(DGFormSet):
             bad_ids.sort()
             bad_ids_str = ", ".join(str(i) for i in bad_ids)
             raise forms.ValidationError(
-                f"The following IDs do not exist in ExtractedChemicals for this data group: {bad_ids_str}"
+                f"The following IDs do not exist in ExtractedCompositions for this data group: {bad_ids_str}"
             )
         # Ensure script ID is valid
         script_id = self.forms[0].cleaned_data.get("script_id")
@@ -631,12 +629,12 @@ class CleanCompFormSet(DGFormSet):
 
     def save(self):
         with transaction.atomic():
-            database_chemicals = ExtractedChemical.objects.select_for_update().in_bulk(
+            database_chemicals = ExtractedComposition.objects.select_for_update().in_bulk(
                 self.cleaned_ids
             )
             chems = []
             for form in self.forms:
-                pk = form.cleaned_data["ExtractedChemical_id"]
+                pk = form.cleaned_data["ExtractedComposition_id"]
                 chem = database_chemicals[pk]
                 chem.upper_wf_analysis = form.cleaned_data.get("upper_wf_analysis")
                 chem.central_wf_analysis = form.cleaned_data.get("central_wf_analysis")
@@ -647,7 +645,7 @@ class CleanCompFormSet(DGFormSet):
                 ]
                 chem.updated_at = timezone.now()
                 chems.append(chem)
-            ExtractedChemical.objects.bulk_update(
+            ExtractedComposition.objects.bulk_update(
                 chems,
                 [
                     "upper_wf_analysis",

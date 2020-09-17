@@ -2,6 +2,7 @@
   pk: 758
   fields:
     qa_flag: false
+    chem_detected_flag: 1
 - model: dashboard.extractedlistpresence
   pk: 759
   fields:
@@ -206,6 +207,7 @@
   pk: 851
   fields:
     qa_flag: false
+    chem_detected_flag: 0
 - model: dashboard.extractedlistpresence
   pk: 852
   fields:

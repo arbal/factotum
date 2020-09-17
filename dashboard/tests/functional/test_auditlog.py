@@ -12,7 +12,7 @@ from celery_djangotest.unit import TransactionTestCase
 from dashboard.models import (
     DataDocument,
     DataGroup,
-    ExtractedChemical,
+    ExtractedComposition,
     ExtractedCPCat,
     ExtractedListPresence,
     ExtractedFunctionalUse,
@@ -116,7 +116,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         logs.delete()
 
         # bulk update fields for 3 chemicals
-        chems = ExtractedChemical.objects.filter(component="Test Component")
+        chems = ExtractedComposition.objects.filter(component="Test Component")
 
         for chemical in chems:
             chemical.raw_min_comp = "min comp"
@@ -151,7 +151,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         self.assertEquals(3, sum(log.field_name == "lower_wf_analysis" for log in logs))
 
         for log in logs:
-            self.assertIn(log.model_name, ("functionaluse", "extractedchemical"))
+            self.assertIn(log.model_name, ("functionaluse", "extractedcomposition"))
             self.assertIsNotNone(log.object_key)
             self.assertIsNotNone(log.field_name)
             self.assertIsNotNone(log.new_value)
@@ -250,7 +250,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         AsyncResult(task_id).wait()
 
         logs = AuditLog.objects.all()
-        self.assertEquals(16, len(logs), "Should have log entries")
+        self.assertEquals(21, len(logs), "Should have 21 log entries")
 
         for log in logs:
             self.assertIsNotNone(log.model_name)
@@ -286,7 +286,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         chems.delete()
 
         logs = AuditLog.objects.all()
-        self.assertEquals(16, len(logs), "Should have 10 log entries")
+        self.assertEquals(21, len(logs), "Should have 21 log entries")
 
         for log in logs:
             self.assertIsNotNone(log.model_name)
@@ -346,7 +346,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         )
 
         logs = AuditLog.objects.all()
-        self.assertEquals(6, len(logs), "Should have 4 log entries")
+        self.assertEquals(6, len(logs), "Should have 6 log entries")
         for log in logs:
             self.assertIsNotNone(log.model_name)
             self.assertIsNotNone(log.field_name)

@@ -19,7 +19,7 @@ from dashboard.forms import (
     create_detail_formset,
     DataDocumentForm,
     DocumentTypeForm,
-    ExtractedChemicalForm,
+    ExtractedCompositionForm,
     ExtractedLMChemicalForm,
     ExtractedFunctionalUseForm,
     ExtractedHHRecForm,
@@ -33,7 +33,7 @@ from dashboard.models import (
     Script,
     ExtractedListPresenceToTag,
     ExtractedListPresenceTag,
-    ExtractedChemical,
+    ExtractedComposition,
     RawChem,
     AuditLog,
     ExtractedHabitsAndPractices,
@@ -44,7 +44,7 @@ from dashboard.models import (
 from django.forms import inlineformset_factory
 
 CHEMICAL_FORMS = {
-    "CO": ExtractedChemicalForm,
+    "CO": ExtractedCompositionForm,
     "LM": ExtractedLMChemicalForm,
     "FU": ExtractedFunctionalUseForm,
     "CP": ExtractedListPresenceForm,
@@ -531,7 +531,7 @@ def chemical_cards(request, pk):
         chemicals = chemicals.prefetch_related("tags", "dsstox")
         template = "data_document/chemical_cards/co_cp_chemical_cards.html"
 
-    elif Child == ExtractedChemical:
+    elif Child == ExtractedComposition:
         chemicals = chemicals.order_by("component", "ingredient_rank").prefetch_related(
             "dsstox"
         )
@@ -547,5 +547,4 @@ def chemical_cards(request, pk):
     else:
         chemicals = chemicals.prefetch_related("dsstox")
         template = "data_document/chemical_cards/chemical_cards.html"
-
     return render(request, template, {"doc": doc, "chemicals": chemicals})

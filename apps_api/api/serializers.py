@@ -150,7 +150,6 @@ class ProductSerializer(ModelSerializer):
         "dataDocuments": "apps_api.api.serializers.DocumentSerializer",
     }
 
-    url = serializers.HyperlinkedIdentityField(view_name="product-detail")
     puc = SerializerMethodResourceRelatedField(
         source="get_uberpuc",
         model=models.PUC,
@@ -160,7 +159,7 @@ class ProductSerializer(ModelSerializer):
         (if one has been assigned). Use the PUCs API to obtain additional information on the PUC.",
         related_link_view_name="product-related",
     )
-    image = Base64ImageField(max_length=None, use_url=True)
+    image = Base64ImageField(max_length=None, use_url=True, required=False)
     dataDocuments = ResourceRelatedField(
         source="documents",
         # read_only=True,
@@ -170,6 +169,15 @@ class ProductSerializer(ModelSerializer):
         help_text="Unique numeric identifier for the original data document associated with \
             the product. Use the Documents API to obtain additional information on the document.",
         related_link_view_name="product-related",
+    )
+    upc = serializers.CharField(
+        allow_null=True,
+        allow_blank=True,
+        required=False,
+        max_length=60,
+        label="UPC",
+        help_text="The Universal Product Code, or unique numeric code used for scanning items at the point-of-sale. \
+            UPC may be represented as 'stub#' if the UPC for the product is not known.",
     )
 
     def get_uberpuc(self, obj):
@@ -189,7 +197,7 @@ class ProductSerializer(ModelSerializer):
             "brand",
             "puc",
             "dataDocuments",
-            "url",
+            "product_url",
             "size",
             "color",
             "short_description",
@@ -212,13 +220,6 @@ class ProductSerializer(ModelSerializer):
                 "help_text": "Name of the product.",
                 "source": "title",
             },
-            "upc": {
-                "label": "UPC",
-                "help_text": "The Universal Product Code, \
-        or unique numeric code used for scanning items at the point-of-sale. \
-            UPC may be represented as 'stub#' if the UPC for the product is \
-            not known.",
-            },
             "manufacturer": {
                 "label": "Manufacturer",
                 "help_text": "Manufacturer of the product, if known.",
@@ -228,7 +229,19 @@ class ProductSerializer(ModelSerializer):
                 "source": "brand_name",
                 "help_text": "Brand name for the product, if known. May be the same as the manufacturer.",
             },
+            "product_url": {
+                "label": "Product URL",
+                "source": "url",
+                "help_text": "This field corresponds to the URL model field.",
+            },
         }
+
+
+class DuplicateProductSerializer(ProductSerializer):
+    class Meta:
+        model = models.DuplicateProduct
+        fields = ProductSerializer.Meta.fields + ["source_upc"]
+        extra_kwargs = ProductSerializer.Meta.extra_kwargs
 
 
 class RawChemSerializer(ModelSerializer):
@@ -290,7 +303,7 @@ class RawChemSerializer(ModelSerializer):
         }
 
 
-class ExtractedChemicalSerializer(RawChemSerializer):
+class ExtractedCompositionSerializer(RawChemSerializer):
     chemical = SerializerMethodResourceRelatedField(
         source="dsstox",
         read_only=True,
@@ -327,7 +340,7 @@ class ExtractedChemicalSerializer(RawChemSerializer):
     )
 
     class Meta:
-        model = models.ExtractedChemical
+        model = models.ExtractedComposition
         fields = [
             "chemical",
             "dataDocument",
@@ -411,7 +424,7 @@ class ExtractedFunctionalUseSerializer(RawChemSerializer):
 
 class ChemicalInstancePolymorphicSerializer(serializers.PolymorphicModelSerializer):
     polymorphic_serializers = [
-        ExtractedChemicalSerializer,
+        ExtractedCompositionSerializer,
         ExtractedListPresenceSerializer,
         ExtractedHHRecSerializer,
         ExtractedFunctionalUseSerializer,

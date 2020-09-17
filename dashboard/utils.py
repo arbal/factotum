@@ -198,7 +198,7 @@ def get_extracted_models(t):
 
     # Local import used to avoid circular import
     ExtractedText = apps.get_model("dashboard", "ExtractedText")
-    ExtractedChemical = apps.get_model("dashboard", "ExtractedChemical")
+    ExtractedComposition = apps.get_model("dashboard", "ExtractedComposition")
     ExtractedCPCat = apps.get_model("dashboard", "ExtractedCPCat")
     ExtractedListPresence = apps.get_model("dashboard", "ExtractedListPresence")
     ExtractedFunctionalUse = apps.get_model("dashboard", "ExtractedFunctionalUse")
@@ -209,9 +209,10 @@ def get_extracted_models(t):
     ExtractedHHDoc = apps.get_model("dashboard", "ExtractedHHDoc")
     ExtractedHHRec = apps.get_model("dashboard", "ExtractedHHRec")
     ExtractedLMDoc = apps.get_model("dashboard", "ExtractedLMDoc")
+    RawChem = apps.get_model("dashboard", "RawChem")
 
     if t == "CO" or t == "UN":
-        return ExtractedText, ExtractedChemical
+        return ExtractedText, ExtractedComposition
     elif t == "FU":
         return ExtractedText, ExtractedFunctionalUse
     elif t == "CP":
@@ -221,7 +222,7 @@ def get_extracted_models(t):
     elif t == "HH":
         return ExtractedHHDoc, ExtractedHHRec
     elif t == "LM":
-        return ExtractedLMDoc, ExtractedChemical
+        return ExtractedLMDoc, RawChem
     else:
         return None, None
 
@@ -505,3 +506,15 @@ def uuid_file(instance, filename):
     """
     _, ext = os.path.splitext(filename)
     return str(uuid.uuid4()) + ext
+
+
+def get_model_next_pk(model):
+    cursor = connection.cursor()
+    schema = connection.settings_dict["NAME"]
+    table_name = model._meta.db_table
+    cursor.execute(
+        f"SELECT Auto_increment FROM information_schema.tables WHERE table_schema = '{schema}' and table_name = '{table_name}'"
+    )
+    row = cursor.fetchone()
+    cursor.close()
+    return row[0]

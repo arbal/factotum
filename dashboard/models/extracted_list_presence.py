@@ -34,7 +34,7 @@ class ExtractedListPresence(RawChem):
         Returns:
             list -- a list of field names
         """
-        return ["raw_cas", "raw_chem_name", "component"]
+        return ["raw_cas", "raw_chem_name", "component", "chem_detected_flag"]
 
     def get_datadocument_url(self):
         """Traverses the relationship to the DataDocument model
@@ -60,8 +60,7 @@ class ExtractedListPresence(RawChem):
 
     @classmethod
     def auditlog_fields(cls):
-        """Needed, else inherited method from RawChem will apply with wrong fields"""
-        return None
+        return ["qa_flag"]
 
 
 class ExtractedListPresenceToTag(TaggedItemBase, CommonInfo):

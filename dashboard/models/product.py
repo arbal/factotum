@@ -11,7 +11,7 @@ from .common_info import CommonInfo
 from .extracted_text import ExtractedText
 from .data_source import DataSource
 from .source_category import SourceCategory
-from dashboard.utils import uuid_file
+from dashboard.utils import uuid_file, get_model_next_pk
 
 
 def validate_product_image_size(image):
@@ -22,8 +22,9 @@ def validate_product_image_size(image):
 
 
 class ProductQuerySet(models.QuerySet):
-    def next_upc(self):
-        return "stub_" + str(Product.objects.all().aggregate(Max("id"))["id__max"] + 1)
+    # This does not work when no product exists
+    # def next_upc(self):
+    #     return "stub_" + str(Product.objects.all().aggregate(Max("id"))["id__max"] + 1)
 
     def prefetch_pucs(self):
         """Prefetch PUCs to make Product.uber_puc use less SQL calls"""
@@ -65,7 +66,9 @@ class Product(CommonInfo):
         unique=True,
         help_text="UPC",
     )
-    url = models.CharField(max_length=500, blank=True, help_text="URL")
+    url = models.CharField(
+        max_length=500, blank=True, verbose_name="Product URL", help_text="Product URL"
+    )
     brand_name = models.CharField(
         db_index=True, max_length=200, blank=True, default="", help_text="brand name"
     )
@@ -83,7 +86,7 @@ class Product(CommonInfo):
     epa_reg_number = models.CharField(
         blank=True,
         max_length=25,
-        verbose_name="EPA reg. no.",
+        verbose_name="EPA Reg. No.",
         help_text="the document's EPA registration number",
     )
     thumb_image = models.CharField(
@@ -148,6 +151,12 @@ class Product(CommonInfo):
     # returns set of valid puc_tags
     def get_puc_tags(self):
         return self.uber_puc.tags.all()
+
+    def save(self, *args, **kwargs):
+        if not self.upc:
+            # mint a new stub_x UPC if there was none provided
+            self.upc = "stub_" + str(get_model_next_pk(Product))
+        super(Product, self).save(*args, **kwargs)
 
     @property
     def rawchems(self):

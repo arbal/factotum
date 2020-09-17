@@ -35,8 +35,9 @@ from dashboard.models import (
 @login_required()
 def qa_extractionscript_index(request, template_name="qa/extraction_script_index.html"):
     extractedtext_count = Count("extractedtext__extraction_script")
+    extractedtext_qa = Count("extractedtext__qa_group")
     qa_complete_count = Count("extractedtext", filter=Q(extractedtext__qa_checked=True))
-    percent_complete = (qa_complete_count / extractedtext_count) * 100
+    percent_complete = (qa_complete_count / extractedtext_qa) * 100
     texts = ExtractedText.objects.exclude(
         data_document__data_group__group_type__code="CP"
     )  # remove the scripts with CP texts that are associated
@@ -179,7 +180,7 @@ class SummaryTable(BaseDatatableView):
             object_key=OuterRef("pk"),
             model_name__in=[
                 "rawchem",
-                "extractedchemical",
+                "extractedcomposition",
                 "extractedfunctionaluse",
                 "extractedhhrec",
                 "extractedlistpresence",
@@ -235,7 +236,7 @@ class SummaryTable(BaseDatatableView):
 def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", nextid=0):
     """
     Detailed view of an ExtractedText object, where the user can approve the
-    record, edit its ExtractedChemical objects, skip to the next ExtractedText
+    record, edit its ExtractedComposition objects, skip to the next ExtractedText
     in the QA group, or exit to the index page.
     This view processes objects of different models with different QA workflows. 
     The qa_focus variable is used to indicate whether an ExtractedText object is

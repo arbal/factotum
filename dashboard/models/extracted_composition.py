@@ -24,7 +24,7 @@ def validate_wf_analysis(value):
         )
 
 
-class ExtractedChemical(RawChem):
+class ExtractedComposition(RawChem):
     raw_min_comp = models.CharField(
         "Minimum", max_length=100, blank=True, help_text="minimum composition"
     )
@@ -150,6 +150,7 @@ class ExtractedChemical(RawChem):
             "weight_fraction_type",
             "rawchem_ptr",
             "component",
+            "chem_detected_flag",
         ]
 
     @classmethod

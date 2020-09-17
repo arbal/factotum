@@ -354,15 +354,13 @@ class UploadProductTest(TempFileMixin, TestCase):
         """
         Each UPC should be made and be unique
         """
-        # Product auto-stub function requires at least 1 product to exist
-        Product.objects.create()
         sample_csv = (
             "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
-            f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product title a\n"
-            f"{self.docs[1].pk},fefd813f-d1e0-4fa7-8c4e-49030eca08a3.pdf,'product title b'\n"
-            f"{self.docs[2].pk},fc5f964c-91e2-42c5-9899-2ff38e37ba89.pdf,'product title c'\n"
-            f"{self.docs[3].pk},f040f93d-1cf3-4eff-85a9-da14d8d2e252.pdf,'product title d'\n"
-            f"{self.docs[4].pk},f040f93d-1cf3-4eff-85a9-da14d8d2e253.pdf,'product title e'"
+            f"{self.docs[0].pk},fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,product without upc a\n"
+            f"{self.docs[1].pk},fefd813f-d1e0-4fa7-8c4e-49030eca08a3.pdf,product without upc b\n"
+            f"{self.docs[2].pk},fc5f964c-91e2-42c5-9899-2ff38e37ba89.pdf,product without upc c\n"
+            f"{self.docs[3].pk},f040f93d-1cf3-4eff-85a9-da14d8d2e252.pdf,product without upc d\n"
+            f"{self.docs[4].pk},f040f93d-1cf3-4eff-85a9-da14d8d2e253.pdf,product without upc e"
         )
         pre_pdcount = ProductDocument.objects.count()
         resp = self.post_csv(sample_csv)
@@ -377,4 +375,10 @@ class UploadProductTest(TempFileMixin, TestCase):
         # The first data_document_id in the csv should now have
         # two Products linked to it, including the new one
         resp = self.c.get(f"/datadocument/%s/" % self.docs[0].pk)
-        self.assertContains(resp, "product title a")
+        self.assertContains(resp, "product without upc a")
+
+        products = Product.objects.filter(title__startswith="product without upc")
+        for product in products:
+            self.assertEqual(
+                product.upc, "stub_" + str(product.id), "should generated a stub upc"
+            )

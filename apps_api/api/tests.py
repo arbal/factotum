@@ -2,7 +2,9 @@ import io
 import json
 import operator
 import base64
+import uuid
 from collections import OrderedDict
+from unittest import skip
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import connection, reset_queries
@@ -183,7 +185,7 @@ class TestProduct(TestCase):
                 "attributes": {
                     "name": f"{prod.title}",
                     "upc": f"{prod.upc}",
-                    "url": "https://www.turtlewax.com/en-us/",
+                    "product_url": "https://www.turtlewax.com/en-us/",
                     "manufacturer": f"{prod.manufacturer}",
                     "color": f"{prod.color}",
                     "brand": f"{prod.brand_name}",
@@ -209,7 +211,8 @@ class TestProduct(TestCase):
         pd = models.ProductDocument.objects.filter(document=dd).last()
         self.assertTrue(models.ProductDocument.objects.filter(document=dd).exists())
         p = pd.product
-
+        product = models.Product.objects.filter(title=prod.title).last()
+        self.assertEqual(product.url, "https://www.turtlewax.com/en-us/")
         # Open source image and newly created image (read binary)
         sample_file = open(
             "sample_files/images/products/product_image_upload_valid/dave_or_grant.png",
@@ -220,7 +223,39 @@ class TestProduct(TestCase):
         # Verify binary data is identical
         self.assertEqual(saved_image.read(), sample_file.read())
 
-    def test_create_duplicate_upc_error(self):
+    def test_create_without_upc(self):
+        name = "test_create_product_without_upc"
+        image_reader = open(
+            "sample_files/images/products/product_image_upload_valid/dave_or_grant.png",
+            "rb",
+        )
+        #
+        image = image_reader.read()
+
+        # encode the image as b64 in order to deliver it inside the request's JSON,
+        # rather than in the multipart FILE. See this comment:
+        # https://github.com/json-api/json-api/issues/246#issuecomment-163569165
+        image_b64 = base64.b64encode(image)
+        post_data = {
+            "data": {
+                "attributes": {"name": name, "image": image_b64},
+                "relationships": {
+                    "dataDocuments": {"data": [{"type": "dataDocument", "id": 155324}]}
+                },
+                "type": "product",
+            }
+        }
+
+        response = self.post(
+            "/products", data=post_data, authenticate=True, format="vnd.api+json"
+        )
+        self.assertTrue(response.status_code, status.HTTP_201_CREATED)
+        product = models.Product.objects.filter(title=name).last()
+        self.assertEqual(
+            product.upc, "stub_" + str(product.id), "should generated a stub upc"
+        )
+
+    def test_create_duplicate_upc(self):
         # doc = models.DataDocument.objects.first()
         prod = ProductFactory.build()
         dupe_upc = models.Product.objects.first().upc
@@ -238,11 +273,11 @@ class TestProduct(TestCase):
         # rather than in the multipart FILE. See this comment:
         # https://github.com/json-api/json-api/issues/246#issuecomment-163569165
         image_b64 = base64.b64encode(image)
-
+        title = "test_duplicate_upc"
         post_data = {
             "data": {
                 "attributes": {
-                    "name": f"{prod.title}",
+                    "name": title,
                     "upc": f"{prod.upc}",
                     "url": "https://www.turtlewax.com/en-us/",
                     "manufacturer": f"{prod.manufacturer}",
@@ -264,9 +299,15 @@ class TestProduct(TestCase):
         response = self.post(
             "/products", data=post_data, authenticate=True, format="vnd.api+json"
         )
-        self.assertContains(
-            response, "product with this upc already exists", status_code=400
-        )
+        self.assertTrue(response.status_code, status.HTTP_201_CREATED)
+        new_prod = models.Product.objects.filter(title=title).last()
+        self.assertIsNotNone(new_prod)
+        self.assertIsNotNone(new_prod.upc)
+        self.assertNotEqual(new_prod.upc, prod.upc)
+        self.assertEqual(len(new_prod.upc), len(str(uuid.uuid4())))
+        dup_product = models.DuplicateProduct.objects.filter(id=new_prod.id).first()
+        self.assertIsNotNone(dup_product)
+        self.assertEqual(dup_product.source_upc, prod.upc)
 
     def test_create_bulk(self):
         doc = models.DataDocument.objects.first()
@@ -415,7 +456,7 @@ class TestChemicalInstance(TestCase):
     #     chemical = models.DSSToxLookup.objects.first()
     #
     #     chemical_instance_list = [
-    #         factories.ExtractedChemicalFactory(),
+    #         factories.ExtractedCompositionFactory(),
     #         factories.ExtractedListPresenceFactory(),
     #         factories.ExtractedFunctionalUseFactory(),
     #         factories.ExtractedHHRecFactory(),

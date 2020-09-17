@@ -87,7 +87,7 @@ class ModelsTest(TempFileMixin, TestCase):
         self.assertTrue(isinstance(self.objects.ds, DataSource))
         self.assertTrue(isinstance(self.objects.script, Script))
         self.assertTrue(isinstance(self.objects.extext, ExtractedText))
-        self.assertTrue(isinstance(self.objects.ec, ExtractedChemical))
+        self.assertTrue(isinstance(self.objects.ec, ExtractedComposition))
         self.assertTrue(isinstance(self.objects.p, Product))
         self.assertTrue(isinstance(self.objects.pd, ProductDocument))
         self.assertTrue(isinstance(self.objects.pt, PUCTag))
@@ -122,7 +122,7 @@ class ModelsTest(TempFileMixin, TestCase):
         self.assertEqual(str(self.objects.extext), "test document")
         # RawChem
         self.assertEqual(str(self.objects.rc), "Test Chem Name")
-        # ExtractedChemical
+        # ExtractedComposition
         self.assertEqual(str(self.objects.ec), "Test Chem Name")
 
     def test_product_attribute(self):

@@ -12,7 +12,7 @@ from dashboard.models import (
     DataGroup,
     DataSource,
     DocumentType,
-    ExtractedChemical,
+    ExtractedComposition,
     ExtractedCPCat,
     ExtractedHHDoc,
     ExtractedText,
@@ -168,6 +168,7 @@ class ProductForm(forms.ModelForm):
             "short_description",
             "long_description",
             "epa_reg_number",
+            "url",
         ]
 
 
@@ -352,9 +353,9 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
         return result
 
 
-class ExtractedChemicalForm(forms.ModelForm):
+class ExtractedCompositionForm(forms.ModelForm):
     class Meta:
-        model = ExtractedChemical
+        model = ExtractedComposition
         fields = [
             "raw_chem_name",
             "raw_cas",
@@ -370,8 +371,8 @@ class ExtractedChemicalForm(forms.ModelForm):
 
 class ExtractedLMChemicalForm(forms.ModelForm):
     class Meta:
-        model = ExtractedChemical
-        fields = ["raw_chem_name", "raw_cas"]
+        model = RawChem
+        fields = ["raw_chem_name", "raw_cas", "chem_detected_flag"]
 
 
 class ExtractedFunctionalUseForm(forms.ModelForm):
@@ -396,7 +397,7 @@ class ExtractedHabitsAndPracticesForm(forms.ModelForm):
 class ExtractedListPresenceForm(forms.ModelForm):
     class Meta:
         model = ExtractedListPresence
-        fields = ["raw_chem_name", "raw_cas", "component"]
+        fields = ["raw_chem_name", "raw_cas", "component", "chem_detected_flag"]
 
 
 class ExtractedHHRecForm(forms.ModelForm):
@@ -473,7 +474,7 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
             parent_model=parent,
             model=child,
             formset=RawChemicalSubclassFormSet,
-            form=ExtractedChemicalForm,
+            form=ExtractedCompositionForm,
         )
         return (ExtractedTextForm, ChemicalFormSet)
 

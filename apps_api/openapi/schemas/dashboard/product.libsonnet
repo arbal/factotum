@@ -25,6 +25,7 @@ local dataDocument = import 'dataDocument.libsonnet';
           UPC may be represented as 'stub#' if the UPC for the product is
           not known.
         |||,
+      required: false,
     },
     size: {
       type: 'string',
@@ -72,6 +73,11 @@ local dataDocument = import 'dataDocument.libsonnet';
     manufacturer: {
       type: 'string',
       description: 'Manufacturer of the product, if known.',
+      required: false,
+    },
+    product_url: {
+      type: 'string',
+      description: 'This field corresponds to the "url" model field.',
       required: false,
     },
     brand: {

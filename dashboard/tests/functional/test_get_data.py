@@ -5,7 +5,7 @@ from django.test.client import Client
 from dashboard.models import (
     DSSToxLookup,
     DataDocument,
-    ExtractedChemical,
+    ExtractedComposition,
     Product,
     ProductDocument,
     ProductToPUC,
@@ -41,9 +41,9 @@ class TestGetData(TestCase):
         self.client.login(username="Karyn", password="specialP@55word")
         # get the associated documents for linking to products
         dds = DataDocument.objects.filter(
-            pk__in=ExtractedChemical.objects.filter(dsstox__sid="DTXSID9022528").values(
-                "extracted_text__data_document"
-            )
+            pk__in=ExtractedComposition.objects.filter(
+                dsstox__sid="DTXSID9022528"
+            ).values("extracted_text__data_document")
         )
         dd = dds[0]
         p = Product.objects.create(
@@ -85,9 +85,9 @@ class TestGetData(TestCase):
         self.client.login(username="Karyn", password="specialP@55word")
         # get the associated documents for linking to products
         dds = DataDocument.objects.filter(
-            pk__in=ExtractedChemical.objects.filter(dsstox__sid="DTXSID9022528").values(
-                "extracted_text__data_document"
-            )
+            pk__in=ExtractedComposition.objects.filter(
+                dsstox__sid="DTXSID9022528"
+            ).values("extracted_text__data_document")
         )
 
         dd = dds[0]
@@ -117,8 +117,8 @@ class TestGetData(TestCase):
             "There should be 1 extracted chemical \
         with weight fraction data associated with ethylparaben",
         )
-        # add weight fraction data to a different extractedchemical
-        ec = ExtractedChemical.objects.get(rawchem_ptr_id=73)
+        # add weight fraction data to a different extractedcomposition
+        ec = ExtractedComposition.objects.get(rawchem_ptr_id=73)
         ec.raw_min_comp = 0.1
         ec.save()
         stats = stats_by_dtxsids(dtxs)
@@ -150,9 +150,9 @@ class TestGetData(TestCase):
         self.client.login(username="Karyn", password="specialP@55word")
         # get the associated documents for linking to products
         dds = DataDocument.objects.filter(
-            pk__in=ExtractedChemical.objects.filter(dsstox__sid="DTXSID9022528").values(
-                "extracted_text__data_document"
-            )
+            pk__in=ExtractedComposition.objects.filter(
+                dsstox__sid="DTXSID9022528"
+            ).values("extracted_text__data_document")
         )
         dd = dds[0]
         p = Product.objects.create(

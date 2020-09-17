@@ -11,7 +11,7 @@ from dashboard.models import (
     ExtractedCPCat,
     ExtractedHHDoc,
     ExtractedHHRec,
-    ExtractedChemical,
+    ExtractedComposition,
     ExtractedHabitsAndPracticesToTag,
     ExtractedListPresence,
     ExtractedListPresenceToTag,
@@ -91,7 +91,6 @@ class DataDocumentDetailTest(TransactionTestCase):
             try:
                 ExtractedText.objects.get(data_document=dd)
             except ExtractedText.DoesNotExist:
-                # print(dd.id)
                 self.assertContains(
                     resp, "No Extracted Text exists for this Data Document"
                 )
@@ -378,7 +377,7 @@ class DataDocumentDetailTest(TransactionTestCase):
         self.assertEqual("fa fa-fs fa-file-pdf", icon_span)
 
     def test_last_updated(self):
-        extracted = ExtractedChemical.objects.filter(updated_at__isnull=False)
+        extracted = ExtractedComposition.objects.filter(updated_at__isnull=False)
         response = self.client.get(
             f"/datadocument/{extracted.first().extracted_text.data_document.pk}/cards"
         )
@@ -390,7 +389,7 @@ class DataDocumentDetailTest(TransactionTestCase):
         )
         self.assertContains(response, "Last updated:")
 
-        extracted = ExtractedChemical.objects.filter(updated_at__isnull=True).first()
+        extracted = ExtractedComposition.objects.filter(updated_at__isnull=True).first()
         self.assertTrue(extracted.updated_at == None)
         extracted.ingredient_rank = 1
         extracted.save()
@@ -598,9 +597,9 @@ class TestDynamicDetailFormsets(TestCase):
 
     def test_chemical_ordering(self):
         data_document = DataDocument.objects.get(pk=170415)
-        exchems = ExtractedChemical.objects.filter(extracted_text_id=170415).order_by(
-            "component", "ingredient_rank"
-        )
+        exchems = ExtractedComposition.objects.filter(
+            extracted_text_id=170415
+        ).order_by("component", "ingredient_rank")
         chem_ids = exchems.values_list("id", flat=True)
         first_id = chem_ids[0]
         second_id = chem_ids[1]

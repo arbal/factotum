@@ -39,12 +39,12 @@ class TestQASummary(TestCase):
             self.extracted_texts[0].data_document.save()
 
             for ext in self.extracted_texts:
-                factories.ExtractedChemicalFactory(
+                factories.ExtractedCompositionFactory(
                     extracted_text=ext, add_functional_uses=True
                 )
 
         # create data that should not be reflected in results
-        factories.ExtractedChemicalFactory()
+        factories.ExtractedCompositionFactory()
 
     def test_qa_summary(self):
         """This tests the basic data on the page.
@@ -150,7 +150,6 @@ class TestQASummary(TestCase):
             reverse("qa_extraction_script_summary_table", args=[self.script.pk])
         ).content.decode("utf-8")
         updated_response_count = len(json.loads(response).get("data"))
-
         self.assertEqual(updated_response_count, base_response_count + 1)
 
     def test_qa_summary_table_last_updated_et_update(self):

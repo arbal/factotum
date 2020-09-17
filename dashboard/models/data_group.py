@@ -91,6 +91,10 @@ class DataGroup(CommonInfo):
     def can_have_multiple_funcuse(self):
         return self.type in ["FU", "CO", "CP"]
 
+    @property
+    def can_have_chem_detected_flag(self):
+        return self.type in ["LM", "CP"]
+
     def matched_docs(self):
         return self.datadocument_set.exclude(file="").count()
 
@@ -147,7 +151,11 @@ class DataGroup(CommonInfo):
                 "cpcat_code",
                 "cpcat_sourcetype",
                 "component",
+                "chem_detected_flag",
             ]
+
+        if self.type == "LM":
+            return extract_fields + ["chem_detected_flag"]
 
     def get_clean_comp_data_fieldnames(self):
         return ["id", "lower_wf_analysis", "central_wf_analysis", "upper_wf_analysis"]

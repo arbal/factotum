@@ -51,6 +51,5 @@ def link_habitsandpractices(
         extracted_habits_and_practices=hnp
     ).values("PUC")
     hnp_puc = PUC.objects.filter(pk__in=linked)
-    # print(hnp_puc)
     context = {"hnp": hnp, "form": form, "hnp_puc": hnp_puc}
     return render(request, template_name, context)
