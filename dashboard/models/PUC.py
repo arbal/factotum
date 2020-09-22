@@ -10,6 +10,7 @@ from django.db.models import (
     Case,
     When,
     Value,
+    Window,
 )
 
 from django.urls import reverse
@@ -42,26 +43,73 @@ class PUCQuerySet(models.QuerySet):
 
         The product count for the PUC is annotated as 'num_products'
         The cumulative product count for all PUCs sharing the gen_cat
-        or prod_fam string is rolled up into cumulative_products
-        """
-        # get a simple aggregation of distinct puc_id per parent field
-        products_per_gen_cat = (
-            apps.get_model(app_label="dashboard", model_name="ProductToPUC")
-            .objects.exclude(puc__gen_cat="")
-            .values("puc__kind", "puc__gen_cat")
-            .annotate(products_per_gen_cat=Count("product", distinct=True))
-        )
-        products_per_prod_fam = (
-            apps.get_model(app_label="dashboard", model_name="ProductToPUC")
-            .objects.exclude(puc__prod_fam="")
-            .values("puc__kind", "puc__prod_fam")
-            .annotate(products_per_prod_fam=Count("product", distinct=True))
-        )
+        or prod_fam string is rolled up into cumulative_products.
 
+        This manager can be applied subsequent to .dtxsid_filter(), as used
+        on the chemical detail page
+        """
+
+        # Counting the products per puc.gen_cat and puc.prod_fam is a Window
+        # query, but window functions were not added to MySQL until version 8.
+        # Factotum currently uses version 5.
+
+        # pucs = apps.get_model(
+        #     app_label="dashboard", model_name="ProductToPUC"
+        # ).objects.annotate(
+        #     cumulative_gc=Window(
+        #         expression=Count("product", distinct=True),
+        #         partition_by=[F("puc__kind"), F("puc__gen_cat")],
+        #         output_field=IntegerField()
+        #     ),
+        #     cumulative_pf=Window(
+        #         expression=Count("product", distinct=True),
+        #         partition_by=[F("puc__kind"), F("puc__gen_cat"), F("puc__prod_fam")],
+        #         output_field=IntegerField()
+        #     )
+        # )
+
+        # The PUC queryset may have already been filtered, so the counts
+        # need to be performed on a set of ProductToPUC records that reflects
+        # only what overlaps with `self`
+        pucs = self
+
+        product_pucs = apps.get_model(
+            app_label="dashboard", model_name="ProductToPUC"
+        ).objects.filter(puc__in=pucs)
+
+        # Perform a separate query for each level of the hierarchy
+
+        # The parent and grandparent queries have to start from scratch because they need
+        # to include any PUCs with no products but whose children have products
+        gen_cats = PUC.objects.filter(
+            Q(prod_type__exact="") & Q(prod_fam__exact="")
+        ).filter(gen_cat__in=product_pucs.puc__gen_cat)
+
+        # get a simple aggregation of distinct puc_id per parent field
+        products_per_gen_cat = product_pucs.values(
+            "puc__kind", "puc__gen_cat"
+        ).annotate(products_per_gen_cat=Count("product", distinct=True))
+        
         # turn that aggregation into a subquery, joining with the parent field as an OuterRef
         gen_cat_sub = products_per_gen_cat.filter(
             puc__kind=OuterRef("kind"), puc__gen_cat=OuterRef("gen_cat")
         ).values("products_per_gen_cat")
+
+
+
+
+        prod_fams = pucs.filter(Q(prod_type__exact="") & ~Q(prod_fam__exact=""))
+
+        # annotate the gen_cat records with their cumulative product counts
+
+        products_per_prod_fam = (
+            product_pucs.exclude(puc__prod_fam="")
+            .values("puc__kind", "puc__prod_fam")
+            .annotate(products_per_prod_fam=Count("product", distinct=True))
+        )
+
+        # turn that aggregation into a subquery, joining with the parent field 
+        # as an OuterRef
         prod_fam_sub = products_per_prod_fam.filter(
             puc__kind=OuterRef("kind"), puc__prod_fam=OuterRef("prod_fam")
         ).values("products_per_prod_fam")
@@ -183,7 +231,7 @@ class PUC(CommonInfo):
         return self.gen_cat
 
     def tag_list(self, obj):
-        return u", ".join(o.name for o in obj.tags.all())
+        return ", ".join(o.name for o in obj.tags.all())
 
     def get_level(self):
         if self.is_level_one:

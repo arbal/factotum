@@ -19,24 +19,11 @@ def chemical_detail(request, sid, puc_id=None):
         .with_num_products()
         .astree()
     )
-    # get parent PUCs too
-    formulation_pucs.merge(
-        PUC.objects.all()
-        .annotate(num_products=Value(0, output_field=IntegerField()))
-        .astree()
-    )
-
 
     article_pucs = (
         PUC.objects.filter(kind__code="AR")
         .dtxsid_filter(sid)
         .with_num_products()
-        .astree()
-    )
-    # get parent PUCs too
-    article_pucs.merge(
-        PUC.objects.all()
-        .annotate(num_products=Value(0, output_field=IntegerField()))
         .astree()
     )
 

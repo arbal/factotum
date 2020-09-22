@@ -11,7 +11,7 @@
             <!-- Level 1 -->
             <div class="card-header-sm bg-light">
                 <div class="d-flex align-items-center">
-                    {% if leaf.value.cumulative_products > 0%}
+                    {% if leaf.children%}
                         <button class="handle mr-2 btn btn-light shadow-none"
                                 data-toggle="collapse"
                                 data-target="#accordion-{{ leaf.value.pk }}">
@@ -44,15 +44,13 @@
                     {% endif %}
                     <div class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
                          data-gen-cat="{{ leaf.name }}">
-                    {% if leaf.value.cumulative_products > 0 %}
+
                     <span class='puc-zoom-link' onclick=CircleZoom({{ leaf.value.pk }}) 
                        title="Zoom circles to PUC"
                        >
                        <b>&nbsp;{{ leaf.value.cumulative_products }}&nbsp;</b>
                     </span>
-                    {% else %}
-                        <b>{{ leaf.value.cumulative_products }}</b>
-                    {% endif %}
+
                     </div>
                 </div>
             </div>
