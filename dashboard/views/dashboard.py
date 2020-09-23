@@ -245,7 +245,7 @@ def bubble_PUCs(request):
         pucs = PUC.objects.dtxsid_filter(dtxsid)
     else:
         pucs = PUC.objects.all()
-    
+
     pucs = (
         pucs.filter(kind__code=kind)
         .with_num_products()
