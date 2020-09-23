@@ -1,5 +1,6 @@
 from django.apps import apps
 from django.db import models
+from itertools import chain
 from django.db.models import (
     Count,
     F,
@@ -83,67 +84,49 @@ class PUCQuerySet(models.QuerySet):
         # to include any PUCs with no products but whose children have products
         gen_cats = PUC.objects.filter(
             Q(prod_type__exact="") & Q(prod_fam__exact="")
-        ).filter(gen_cat__in=product_pucs.puc__gen_cat)
+        ).filter(gen_cat__in=product_pucs.values('puc__gen_cat')).filter(kind__in=pucs.values('kind'))
 
-        # get a simple aggregation of distinct puc_id per parent field
+        # get a simple aggregation of distinct puc_id per grandparent field
         products_per_gen_cat = product_pucs.values(
             "puc__kind", "puc__gen_cat"
-        ).annotate(products_per_gen_cat=Count("product", distinct=True))
+        ).annotate(cumulative_products=Count("product", distinct=True))
         
         # turn that aggregation into a subquery, joining with the parent field as an OuterRef
         gen_cat_sub = products_per_gen_cat.filter(
             puc__kind=OuterRef("kind"), puc__gen_cat=OuterRef("gen_cat")
-        ).values("products_per_gen_cat")
+        ).values("cumulative_products")
 
+        gen_cats = gen_cats.annotate(num_products=Count("products", distinct=True)).annotate(cumulative_products=Subquery(gen_cat_sub, output_field=IntegerField()))
 
+        # Repeat the query at the parent (prod_fam) level
+        prod_fams = pucs.filter(Q(prod_type__exact="") & ~Q(prod_fam__exact="")).filter(prod_fam__in=product_pucs.values('puc__prod_fam')).filter(kind__in=pucs.values('kind'))
 
-
-        prod_fams = pucs.filter(Q(prod_type__exact="") & ~Q(prod_fam__exact=""))
-
-        # annotate the gen_cat records with their cumulative product counts
-
+        # annotate the prod_fam records with their cumulative product counts
         products_per_prod_fam = (
             product_pucs.exclude(puc__prod_fam="")
             .values("puc__kind", "puc__prod_fam")
-            .annotate(products_per_prod_fam=Count("product", distinct=True))
+            .annotate(cumulative_products=Count("product", distinct=True))
         )
 
         # turn that aggregation into a subquery, joining with the parent field 
         # as an OuterRef
         prod_fam_sub = products_per_prod_fam.filter(
             puc__kind=OuterRef("kind"), puc__prod_fam=OuterRef("prod_fam")
-        ).values("products_per_prod_fam")
+        ).values("cumulative_products")
 
-        # annotate the PUC queryset with those aggregate values
-        pucs = (
-            self.annotate(num_products=Count("products", distinct=True))
-            .annotate(gen_cat_count=Subquery(gen_cat_sub, output_field=IntegerField()))
-            .annotate(
-                prod_fam_count=Subquery(prod_fam_sub, output_field=IntegerField())
-            )
-            .annotate(
-                # note that the parent and grandparents' rollup counts already
-                # include their own PUC-specific product counts
-                cumulative_products=Case(
-                    # the PUC is a gen_cat (grandparent)
-                    When(
-                        Q(prod_type__exact="") & Q(prod_fam__exact=""),
-                        then=F("gen_cat_count"),
-                    ),
-                    # the PUC is a prod_fam (parent)
-                    When(
-                        Q(prod_type__exact="") & ~Q(prod_fam__exact=""),
-                        then=F("prod_fam_count"),
-                    ),
-                    # the PUC is a prod_type (child)
-                    When(~Q(prod_type__exact=""), then=F("num_products")),
-                    default=Value(0),
-                    output_field=IntegerField(default=0),
-                )
-            )
-        )
+        # Run the count subquery on all the relevant PUCs, then filter for
+        # just prod_fam level records
+        prod_fams = pucs.annotate(num_products=Count("products", distinct=True)).annotate(cumulative_products=Subquery(prod_fam_sub, output_field=IntegerField())).filter(Q(prod_type__exact="") & ~Q(prod_fam__exact=""))
 
-        return pucs
+        parents = (  gen_cats | prod_fams)
+
+
+        # annotate the child-only PUC queryset with the per-PUC product counts
+        pucs = pucs.filter(~Q(prod_type__exact="")).annotate(num_products=Count("products", distinct=True)).annotate(cumulative_products=Count("products", distinct=True))
+        for puc in pucs:
+            print(f'{puc} :: {puc.cumulative_products} :: {puc.num_products}')
+            print(puc.products)
+        return ( parents | pucs)
 
     def with_allowed_attributes(self):
         """ Returns a QuerySet of PUCs with an allowed tags string.
