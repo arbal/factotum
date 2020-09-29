@@ -1,6 +1,6 @@
-nestedBubbleChart(500, 500, false, "dl_pucs_json/?kind=FO", "nestedcircles_FO");
-nestedBubbleChart(500, 500, false, "dl_pucs_json/?kind=AR", "nestedcircles_AR");
-collapsibleTree("dl_pucs_json/tree/");
+nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=FO", "nestedcircles_FO");
+nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=AR", "nestedcircles_AR");
+collapsibleTree("/dl_pucs_json/tree/");
 
 // Venn Diagram of SIDs per Group Type combination
 
@@ -8,7 +8,7 @@ collapsibleTree("dl_pucs_json/tree/");
 $.ajax({
     type: "GET",
     contentType: "application/json; charset=utf-8",
-    url: 'sid_gt_json',
+    url: '/sid_gt_json',
     dataType: 'json',
     async: true,
     data: "{}",
@@ -97,32 +97,3 @@ function renderVenn(div_id, set_data) {
     //         return d.size
     //     });
 }
-
-
-function grouptype_transform(rows) {
-    for (row of rows) {
-        if (['Habits and practices', 'Unidentified', 'Supplemental documents'].includes(row[0])) {
-            row[2] = '';
-            row[3] = '';
-        }
-    }
-    return rows
-}
-
-$('#grouptype_table').DataTable({
-    "serverSide": false,
-    "info": false,
-    "paging": false,
-    "searching": false,
-    "ordering": false,
-    "ajax": {
-        "url": "grouptype/stats/",
-        "dataSrc": function (json) {
-            return this.grouptype_transform(json.data);
-        },
-    },
-    "columns": [{"title": "Group Type"},
-        {"title": "Documents (%)"},
-        {"title": "Raw Chemical Records (%)"},
-        {"title": "Curated Chemical Records (%)"},]
-})

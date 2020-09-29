@@ -17,3 +17,5 @@ from .chemical_curation import *
 from .tag_autocomplete import *
 from .search import *
 from .tags import *
+from .statistics import *
+from .visualizations import *
