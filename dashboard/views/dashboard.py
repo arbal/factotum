@@ -31,8 +31,9 @@ def get_stats():
         dsstox__isnull=False
     ).count()
     stats["dsstox_sid_count"] = RawChem.objects.values("dsstox__sid").distinct().count()
-    return stats 
-    
+    return stats
+
+
 def index(request):
     stats = get_stats()
 
