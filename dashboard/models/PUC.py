@@ -138,12 +138,12 @@ class PUCQuerySet(models.QuerySet):
             )
         )
 
-        print("prod_fams")
-        print("----")
-        for puc in prod_fams:
-            print(
-                f"{puc.id} :: {puc} :: {puc.cumulative_products} :: {puc.num_products}"
-            )
+        # print("prod_fams")
+        # print("----")
+        # for puc in prod_fams:
+        #     print(
+        #         f"{puc.id} :: {puc} :: {puc.cumulative_products} :: {puc.num_products}"
+        #     )
         # annotate the child-only PUC queryset with the per-PUC product counts
         pucs = (
             pucs.filter(~Q(prod_type__exact=""))
@@ -152,19 +152,19 @@ class PUCQuerySet(models.QuerySet):
             .annotate(cumulative_products=Count("products", distinct=True))
         )
 
-        print("pucs")
-        print("----")
-        for puc in pucs:
-            print(
-                f"{puc.id} :: {puc} :: {puc.cumulative_products} :: {puc.num_products}"
-            )
+        # print("pucs")
+        # print("----")
+        # for puc in pucs:
+        #     print(
+        #         f"{puc.id} :: {puc} :: {puc.cumulative_products} :: {puc.num_products}"
+        #     )
 
-        print("-----------------")
-        print("  gen_cats.union(prod_fams, pucs) ")
-        for puc in gen_cats.union(prod_fams, pucs):
-            print(
-                f"{puc.id} :: {puc} :: {puc.cumulative_products} :: {puc.num_products}"
-            )
+        # print("-----------------")
+        # print("  gen_cats.union(prod_fams, pucs) ")
+        # for puc in gen_cats.union(prod_fams, pucs):
+        #     print(
+        #         f"{puc.id} :: {puc} :: {puc.cumulative_products} :: {puc.num_products}"
+        #     )
 
         # return parents.union(pucs)
         return gen_cats.union(prod_fams, pucs)
