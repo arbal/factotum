@@ -1,6 +1,6 @@
-fobc = new nestedBubbleChart(500, 500, false, "dl_pucs_json/?kind=FO", "nestedcircles_FO");
-arbc = new nestedBubbleChart(500, 500, false, "dl_pucs_json/?kind=AR", "nestedcircles_AR");
-tree = new collapsibleTree("dl_pucs_json/tree/");
+fobc = new nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=FO", "nestedcircles_FO");
+arbc = new nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=AR", "nestedcircles_AR");
+tree = new collapsibleTree("/dl_pucs_json/tree/");
 
 // Venn Diagram of SIDs per Group Type combination
 
@@ -8,7 +8,7 @@ tree = new collapsibleTree("dl_pucs_json/tree/");
 $.ajax({
     type: "GET",
     contentType: "application/json; charset=utf-8",
-    url: 'sid_gt_json',
+    url: '/sid_gt_json',
     dataType: 'json',
     async: true,
     data: "{}",

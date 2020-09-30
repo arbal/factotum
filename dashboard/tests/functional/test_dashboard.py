@@ -33,6 +33,25 @@ class DashboardTest(TestCase):
             response_html.xpath('string(/html/body/nav//a[@href="/"]/text())'),
             "The app name factotum should appear in the public navbar",
         )
+        self.assertIn(
+            "Get Data",
+            response_html.xpath('string(/html/body/nav//a[@href="/get_data/"]/text())'),
+            "Get Data should appear in the public navbar",
+        )
+        self.assertIn(
+            "Statistics",
+            response_html.xpath(
+                'string(/html/body/nav//a[@href="/statistics/"]/text())'
+            ),
+            "Statistics should appear in the public navbar",
+        )
+        self.assertIn(
+            "Visualizations",
+            response_html.xpath(
+                'string(/html/body/nav//a[@href="/visualizations/"]/text())'
+            ),
+            "Visualizations should appear in the public navbar",
+        )
         self.assertNotIn(
             "QA",
             response_html.xpath(

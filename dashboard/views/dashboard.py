@@ -2,9 +2,9 @@ import csv
 import datetime
 
 from dateutil.relativedelta import relativedelta
-from django.db.models import Count, DateField, DateTimeField, F, Q
+from django.db.models import Count, DateField, DateTimeField, F
 from django.db.models.functions import Trunc
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.shortcuts import render
 
 from dashboard.models import (
@@ -19,7 +19,7 @@ from dashboard.models import (
 )
 
 
-def index(request):
+def get_stats():
     stats = {}
     stats["datadocument_count"] = DataDocument.objects.count()
     stats["product_count"] = Product.objects.count()
@@ -31,22 +31,11 @@ def index(request):
         dsstox__isnull=False
     ).count()
     stats["dsstox_sid_count"] = RawChem.objects.values("dsstox__sid").distinct().count()
+    return stats
 
-    pucs = (
-        PUC.objects.with_num_products()
-        .filter(kind__code="FO")
-        .filter(cumulative_products__gt=0)
-        .astree()
-    )
-    stats["formulation_pucs"] = pucs
 
-    pucs = (
-        PUC.objects.with_num_products()
-        .filter(kind__code="AR")
-        .filter(cumulative_products__gt=0)
-        .astree()
-    )
-    stats["article_pucs"] = pucs
+def index(request):
+    stats = get_stats()
 
     return render(request, "dashboard/index.html", stats)
 
@@ -150,49 +139,6 @@ def product_with_puc_count_by_month():
     return product_stats
 
 
-def grouptype_stats(request):
-    """Return a json representation of the stats for GroupType.
-    Returns:
-    json: { "data" : [[ title, documentcount (%), rawchemcount (%), curatedchemcount (%) ], [...], ], }
-    """
-    grouptype_rows = GroupType.objects.annotate(
-        documentcount=Count("datagroup__datadocument", distinct=True),
-        rawchemcount=Count(
-            "datagroup__datadocument__extractedtext__rawchem", distinct=True
-        ),
-        curatedchemcount=Count(
-            "datagroup__datadocument__extractedtext__rawchem",
-            distinct=True,
-            filter=Q(
-                datagroup__datadocument__extractedtext__rawchem__dsstox_id__isnull=False
-            ),
-        ),
-    ).order_by("-documentcount")
-
-    datadocument_total = rawchem_total = curatedchem_total = 0
-    for row in grouptype_rows:
-        datadocument_total += row.documentcount
-        rawchem_total += row.rawchemcount
-        curatedchem_total += row.curatedchemcount
-
-    return JsonResponse(
-        {
-            "data": [
-                [
-                    row.title,
-                    # Document count by grouptype with % total
-                    f"{row.documentcount} ({(row.documentcount / (datadocument_total or 1))*100:.0f}%)",
-                    # Raw chemical counts by grouptype with % total
-                    f"{row.rawchemcount} ({(row.rawchemcount / (rawchem_total or 1))*100:.0f}%)",
-                    # Curated chemical counts by grouptypes with % total
-                    f"{row.curatedchemcount} ({(row.curatedchemcount / (curatedchem_total or 1))*100:.0f}%)",
-                ]
-                for row in grouptype_rows
-            ]
-        }
-    )
-
-
 def download_PUCs(request):
     """This view is used to download all of the PUCs in CSV form.
     """
@@ -234,57 +180,6 @@ def download_PUCs(request):
         ]
         writer.writerow(row)
     return response
-
-
-def bubble_PUCs(request):
-    """This view is used to download all of the PUCs in nested JSON form.
-    """
-    dtxsid = request.GET.get("dtxsid", None)
-    kind = request.GET.get("kind", "FO")
-    if dtxsid:
-        pucs = PUC.objects.dtxsid_filter(dtxsid)
-    else:
-        pucs = PUC.objects.all()
-
-    pucs = (
-        pucs.filter(kind__code=kind)
-        .with_num_products()
-        .filter(cumulative_products__gt=0)
-        .values(
-            "id",
-            "kind",
-            "gen_cat",
-            "prod_fam",
-            "prod_type",
-            "num_products",
-            "cumulative_products",
-        )
-        .astree()
-    )
-    for puc in pucs.values():
-        # We only needed gen_cat, prod_fam, prod_type to build the tree - now they are implicit in the structure
-        puc.pop("gen_cat")
-        puc.pop("prod_fam")
-        puc.pop("prod_type")
-    return JsonResponse(pucs.asdict())
-
-
-def collapsible_tree_PUCs(request):
-    """This view is used to download all of the PUCs in nested JSON form.
-    Regardless of if it is associated with an item
-    """
-    pucs = (
-        PUC.objects.all()
-        .filter(kind__code="FO")
-        .values("id", "gen_cat", "prod_fam", "prod_type")
-        .astree()
-        .asdict()
-    )
-
-    # Name the first element.  Default = Root
-    pucs["name"] = "Formulations"
-
-    return JsonResponse(pucs)
 
 
 def download_LPKeywords(request):
