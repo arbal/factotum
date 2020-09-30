@@ -150,7 +150,6 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                 .attr("id", d => "bubble-" + (d.data.value ? d.data.value.id : ''))
                 .attr("fill", d => d.color)
                 .attr("opacity", d => d.opacity)
-                .attr("pointer-events", d => (!d.children ? "none" : null))
                 .on("mouseover", function () {
                     d3v5.select(this).attr("stroke", "#000");
                 })
@@ -161,6 +160,7 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                     "click",
                     d => focus !== d && (zoom(d), d3v5.event.stopPropagation())
                 );
+
 
             const label = svg
                 .append("g")
@@ -175,8 +175,6 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                 .style("display", d => (d.parent === root ? "inline" : "none"))
                 // Display the name with the cumulative count
                 .text(d => d.data.name + " (" + d.value + ")");
-
-            // (d.data.value ? d.data.value.id : '')
 
             zoomTo([root.x, root.y, root.r * 2]);
 
@@ -221,7 +219,6 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                         ]);
                         return t => zoomTo(i(t));
                     });
-
                 label
                     .filter(function (d) {
                         return (
@@ -230,8 +227,10 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                         );
                     })
                     .transition(transition)
-                    .style("font", d => (d.parent === root ? "0px sans-serif" : "14px sans-serif"))
-                    .style("fill-opacity", d => (d.parent === focus ? 1 : 0))
+                    //.style("font", d => (d.parent === root ? "0px sans-serif" : "14px sans-serif"))
+                    .style("font", d => ("14px sans-serif"))
+                    //.style("fill-opacity", d => (d.parent === focus ? 1 : 0))
+                    .style("fill-opacity", d => (1))
                     .on("start", function (d) {
                         if (d.parent === focus) this.style.display = "inline";
                     })
