@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% block title %}Statistics{% endblock %}
+
+{% block content %}
+
+    <h1>Statistics</h1>
+
+    {% include "statistics/stat_cards.html" %}
+
+    <div class="mt-5">
+        <table class="table table-striped dataTable no-footer table-sm"
+               style="width:100%"
+               id="grouptype_table"
+        >
+            <tr>
+                <td class="text-center" colspan="4"><i class="fas fa-spinner fa-pulse"></i></td>
+            </tr>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+  <script src="{% static 'js/dashboard/statistics.js' %}"></script>
+{% endblock %}
