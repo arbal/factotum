@@ -15,7 +15,7 @@
     <h4 class="mt-5">Products Linked to <a href="/pucs">PUCs</a></h4>
 
     {# Formulation PUCs    #}
-    <div class="row">
+    <div class="row mt-2">
         <div class="col-5 p-0">
             {% show_bubble_puc_legend formulation_pucs "FO" False %}
         </div>
@@ -25,12 +25,22 @@
     </div>
 
     {# Article PUCs    #}
-    <div class="row">
+    <div class="row mt-2">
         <div class="col-5 p-0">
             {% show_bubble_puc_legend article_pucs "AR" False %}
         </div>
         <div class="col-7">
             <svg id="nestedcircles_AR" class="nestedcircles" width="100%" height="500"></svg>
+        </div>
+    </div>
+
+    {# Industrial and Occupational PUCs    #}
+    <div class="row mt-2">
+        <div class="col-5 p-0">
+            {% show_bubble_puc_legend occupation_pucs "OC" False %}
+        </div>
+        <div class="col-7">
+            <svg id="nestedcircles_OC" class="nestedcircles" width="100%" height="500"></svg>
         </div>
     </div>
 

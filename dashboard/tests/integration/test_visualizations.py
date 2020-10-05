@@ -31,7 +31,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
     def test_bubble_plot(self):
         pucs = (
-            PUC.objects.filter(kind__code__in=["FO", "AR"])
+            PUC.objects.filter(kind__code__in=["FO", "AR", "OC"])
             .with_num_products()
             .filter(num_products__gt=0)
             .astree()
@@ -44,24 +44,30 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.assertTrue(num_pucs > 0, "Need more than one PUC")
         self.assertTrue(len(bubbles) > 0, "Need more than one bubble")
         self.assertEqual(
-            num_pucs, len(bubbles), ("There should be a circle" "drawn for every PUC")
+            num_pucs, len(bubbles), "There should be a circle drawn for every PUC"
         )
 
         plots = self.browser.find_elements_by_class_name("nestedcircles")
-        self.assertTrue(len(plots) == 2, "Need more than one bubble")
+        self.assertTrue(len(plots) == 3, "Need more than one bubble")
 
     def test_bubble_legend(self):
         self.browser.get(self.visualization_url)
         wait = WebDriverWait(self.browser, 10)
         wait.until(ec.presence_of_element_located((By.ID, "puc-accordion-FO")))
+
         bubble_legend = self.browser.find_element_by_id("puc-accordion-FO")
-        self.assertTrue(bubble_legend, "Bubble plot legend could not be found")
+        self.assertTrue(bubble_legend, "FO Bubble plot legend could not be found")
         child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-20']")
         self.assertEqual(child_card.get_attribute("class"), "collapse")
 
         bubble_legend = self.browser.find_element_by_id("puc-accordion-AR")
-        self.assertTrue(bubble_legend, "Bubble plot legend could not be found")
+        self.assertTrue(bubble_legend, "AR Bubble plot legend could not be found")
         child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-316']")
+        self.assertEqual(child_card.get_attribute("class"), "collapse")
+
+        bubble_legend = self.browser.find_element_by_id("puc-accordion-OC")
+        self.assertTrue(bubble_legend, "OC Bubble plot legend could not be found")
+        child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-319']")
         self.assertEqual(child_card.get_attribute("class"), "collapse")
 
     def test_collapsible_tree(self):
@@ -80,7 +86,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
         time.sleep(3)
         pucs = (
-            PUC.objects.filter(kind__code__in=["FO", "AR"])
+            PUC.objects.filter(kind__code__in=["FO", "AR", "OC"])
             .dtxsid_filter(dss.sid)
             .with_num_products()
             .filter(num_products__gt=0)
@@ -89,7 +95,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         num_pucs = self._n_children(pucs)
         bubbles = self.browser.find_elements_by_class_name("bubble")
         self.assertEqual(
-            num_pucs, len(bubbles), ("There should be a circle drawn for every PUC")
+            num_pucs, len(bubbles), "There should be a circle drawn for every PUC"
         )
 
     def test_venn_diagram(self):

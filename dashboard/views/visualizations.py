@@ -27,6 +27,14 @@ class Visualizations(View):
                 p.num_products for p in pucs.objects[puc_name].values()
             )
         context["article_pucs"] = pucs
+
+        pucs = PUC.objects.filter(kind__code="OC").with_num_products().all().astree()
+        for puc_name, puc_obj in pucs.items():
+            puc_obj.cumnum_products = sum(
+                p.num_products for p in pucs.objects[puc_name].values()
+            )
+        context["occupation_pucs"] = pucs
+
         return render(request, self.template_name, context)
 
 
