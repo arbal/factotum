@@ -17,12 +17,12 @@ function collapsibleTree(dataurl, width = 1140, dx = 18, dy = 228, margin = ({
     bottom: 10,
     left: 120
 })) {
-    d3v5.json(dataurl)
+    d3.json(dataurl)
         .then(function (data) {
-            const root = d3v5.hierarchy(data);
+            const root = d3.hierarchy(data);
 
-            diagonal = d3v5.linkHorizontal().x(d => d.y).y(d => d.x)
-            tree = d3v5.tree().nodeSize([dx, dy])
+            diagonal = d3.linkHorizontal().x(d => d.y).y(d => d.x)
+            tree = d3.tree().nodeSize([dx, dy])
 
             root.x0 = dy / 2;
             root.y0 = 0;
@@ -32,7 +32,7 @@ function collapsibleTree(dataurl, width = 1140, dx = 18, dy = 228, margin = ({
                 if (d.depth) d.children = null; // Only open one layer deep
             });
 
-            const svg = d3v5.select("#collapsibletree")
+            const svg = d3.select("#collapsibletree")
                 .attr("viewBox", [-margin.left, -margin.top, width, dx])
                 .style("font", "14px sans-serif")
                 .style("user-select", "none");
@@ -48,7 +48,7 @@ function collapsibleTree(dataurl, width = 1140, dx = 18, dy = 228, margin = ({
                 .attr("pointer-events", "all");
 
             function update(source) {
-                const duration = d3v5.event && d3v5.event.altKey ? 2500 : 250;
+                const duration = d3.event.altKey ? 2500 : 250;
                 const nodes = root.descendants().reverse();
                 const links = root.links();
 

@@ -39,11 +39,11 @@ function getRadius(a) {
 // Sets area to ((total product)/(children product))*(packed child area)
 // radius is increased by padding
 function setRadiusFromChildren(node, padding) {
-    d3v5.packSiblings(node.children);
+    d3.packSiblings(node.children);
     node.r = getRadius(
         (node.value / (node.value -
             (node.data.value ? node.data.value.num_products : 0))) *
-        getArea(d3v5.packEnclose(node.children).r)
+        getArea(d3.packEnclose(node.children).r)
     ) + padding;
 }
 
@@ -64,13 +64,13 @@ function translateChild(node) {
 }
 
 function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
-    d3v5.json(dataurl)
+    d3.json(dataurl)
         .then(function (data) {
             var size = Math.min(width, height)
             // load JSON into hierarchy data structure
             // compute cumulative product count
             // sort by cumulative product count
-            var root = d3v5
+            var root = d3
                 .hierarchy(data)
                 .sum(d => (d.value ? d.value.num_products : 0))
                 .sort((a, b) => b.value - a.value);
@@ -126,7 +126,7 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
 
             let focus = root;
             let view;
-            const svg = d3v5
+            const svg = d3
                 .select("#" + svg_id)
                 .attr(
                     "viewBox",
@@ -152,14 +152,14 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                 .attr("opacity", d => d.opacity)
                 .attr("pointer-events", d => (!d.children ? "none" : null))
                 .on("mouseover", function () {
-                    d3v5.select(this).attr("stroke", "#000");
+                    d3.select(this).attr("stroke", "#000");
                 })
                 .on("mouseout", function () {
-                    d3v5.select(this).attr("stroke", null);
+                    d3.select(this).attr("stroke", null);
                 })
                 .on(
                     "click",
-                    d => focus !== d && (zoom(d), d3v5.event.stopPropagation())
+                    d => focus !== d && (zoom(d), self.event.stopPropagation())
                 );
 
             const label = svg
@@ -212,9 +212,9 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                 focus = d;
                 const transition = svg
                     .transition()
-                    .duration(d3v5.event.altKey ? 7500 : 750)
+                    .duration(d3.event.altKey ? 7500 : 750)
                     .tween("zoom", d => {
-                        const i = d3v5.interpolateZoom(view, [
+                        const i = d3.interpolateZoom(view, [
                             focus.x,
                             focus.y,
                             focus.r * 2
@@ -247,7 +247,6 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
 
 function CircleZoom(pucid) {
     console.log("Zooming to " + pucid);
-    d = d3v5.select("#bubble-" + pucid);
+    d = d3.select("#bubble-" + pucid);
     console.log(d.onClick)
-
 }

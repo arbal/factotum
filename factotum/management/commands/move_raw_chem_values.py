@@ -3,9 +3,6 @@ from django.db import connection
 from django.db import transaction
 from django.db.models import Count
 from dashboard.models import (
-    ExtractedChemical,
-    ExtractedFunctionalUse,
-    ExtractedListPresence,
     RawChem,
 )
 
