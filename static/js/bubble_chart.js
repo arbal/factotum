@@ -1,30 +1,49 @@
-var pucColors = new Map([
-    ["Arts and crafts/Office supplies", "#0079B0"],
-    ["Cleaning products and household care", "#FF7B2E"],
-    ["Electronics/small appliances", "#009C3A"],
-    ["Home maintenance", "#E42A32"],
-    ["Landscape/Yard", "#946BB9"],
-    ["Personal care", "#92564E"],
-    ["Pesticides", "#EC7ABF"],
-    ["Pet care", "#7E7E7E"],
-    ["Sports equipment", "#BFB83C"],
-    ["Vehicle", "#00BDCC"],
+function getPucColor(gencat_name) {
+    let pucColors = new Map([
+        // formulation pucs
+        ["Arts and crafts/Office supplies", "#0079B0"],
+        ["Cleaning products and household care", "#FF7B2E"],
+        ["Electronics/small appliances", "#009C3A"],
+        ["Home maintenance", "#E42A32"],
+        ["Landscape/Yard", "#946BB9"],
+        ["Personal care", "#92564E"],
+        ["Pesticides", "#EC7ABF"],
+        ["Pet care", "#7E7E7E"],
+        ["Sports equipment", "#BFB83C"],
+        ["Vehicle", "#00BDCC"],
 
-    ["Industrial ingredients", "#0079B0"],
-    ["Industrial products", "#FF7B2E"],
-    ["Industrial machinery", "#009C3A"],
-    ["Road vehicles", "#E42A32"],
-    ["Other vehicles/mass transit", "#946BB9"],
-    ["Construction and building materials", "#92564E"],
-    ["Toys and children's products", "#EC7ABF"],
-    ["Packaging (non-food contact)", "#7E7E7E"],
-    ["Food contact items", "#BFB83C"],
-    ["Furniture and Furnishings", "#00BDCC"],
-    ["Other direct contact consumer goods", "#0079B0"],
-    ["Other indirect contact consumer goods", "#FF7B2E"],
-    ["Batteries", "#009C3A"],
-    ["Cons. electronics, mech. appliances, and machinery", "#E42A32"]
-]);
+        // article pucs
+        ["Industrial ingredients", "#0079B0"],
+        ["Industrial products", "#FF7B2E"],
+        ["Industrial machinery", "#009C3A"],
+        ["Road vehicles", "#E42A32"],
+        ["Other vehicles/mass transit", "#946BB9"],
+        ["Construction and building materials", "#92564E"],
+        ["Toys and children's products", "#EC7ABF"],
+        ["Packaging (non-food contact)", "#7E7E7E"],
+        ["Food contact items", "#BFB83C"],
+        ["Furniture and Furnishings", "#00BDCC"],
+        ["Other direct contact consumer goods", "#0079B0"],
+        ["Other indirect contact consumer goods", "#FF7B2E"],
+        ["Batteries", "#0079B0"],
+        ["Cons. electronics, mech. appliances, and machinery", "#FF7B2E"],
+
+        // occupation pucs
+        ["Cleaning and Safety", "#0079B0"],
+        ["Laboratory supplies", "#FF7B2E"],
+        ["Manufactured formulations", "#009C3A"],
+        ["Medical/Dental", "#E42A32"],
+        ["Raw materials", "#946BB9"],
+        ["Specialty occupational products", "#92564E"]
+    ]);
+    let pucColorDefault = "#9ACD32";
+
+    let color = pucColors.get(gencat_name);
+    if (!color) {
+         color = pucColorDefault;
+    }
+    return color;
+}
 
 // Gets area from radius
 function getArea(r) {
@@ -80,9 +99,9 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
             root.y = 0;
 
             // set the color and opacity for each node
-            root.children.forEach(gencat_node => {
+            root.children.forEach((gencat_node) => {
                 // color is based on gen_cat name
-                let color = pucColors.get(gencat_node.data.name);
+                let color = getPucColor(gencat_node.data.name);
                 gencat_node.descendants().forEach(node => {
                     // level 1 pucs are `color`, half opacity
                     // level 2 pucs are `color`, full opacity

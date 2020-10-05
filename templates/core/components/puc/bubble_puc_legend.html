@@ -1,6 +1,10 @@
 <div class="card">
     <div class="card-header text-center">
-        <h5><b>{{ kind.name }} PUCs</b></h5>
+        {% if kind.code == "OC" %}
+            <h5><b>Industrial and Occupational PUCs</b></h5>
+        {%  else  %}
+            <h5><b>{{ kind.name }} PUCs</b></h5>
+        {% endif %}
         <small class="card-text font-italic">
             General Category - Product Family - Product Type
         </small>

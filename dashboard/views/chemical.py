@@ -40,12 +40,32 @@ def chemical_detail(request, sid, puc_id=None):
         .astree()
     )
 
+    # occupation pucs bubble plot
+    occupation_pucs = (
+        PUC.objects.filter(kind__code="OC")
+        .dtxsid_filter(sid)
+        .with_num_products()
+        .astree()
+    )
+    # get parent PUCs too
+    occupation_pucs.merge(
+        PUC.objects.all()
+        .annotate(num_products=Value(0, output_field=IntegerField()))
+        .astree()
+    )
+    # Get cumulative product count, displayed in bubble_puc_legend
+    for puc_name, puc_obj in occupation_pucs.items():
+        puc_obj.cumnum_products = sum(
+            p.num_products for p in occupation_pucs.objects[puc_name].values()
+        )
+
     context = {
         "chemical": chemical,
         "keysets": keysets,
         "group_types": group_types,
         "formulation_pucs": formulation_pucs,
         "article_pucs": article_pucs,
+        "occupation_pucs": occupation_pucs,
         "puc": puc,
         "show_filter": True,
         "puc_kinds": puc_kinds,

@@ -55,10 +55,22 @@ class TestProductDetail(TransactionTestCase):
                 "size": "",
                 "color": "",
                 "model_number": "2",
+                "url": "https://www.google.com",
             },
         )
         p.refresh_from_db()
         self.assertEqual(p.title, "x", 'Product 11 should have the title "x"')
+        self.assertEqual(
+            p.url,
+            "https://www.google.com",
+            'Product 11 should have the url "https://www.google.com"',
+        )
+
+    def test_url_detail(self):
+        self.test_product_update()
+        response = self.client.get("/product/11/")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "View product source (external)")
 
     def test_hover_definition(self):
         p = Product.objects.get(pk=11)

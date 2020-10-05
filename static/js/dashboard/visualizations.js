@@ -1,6 +1,7 @@
-fobc = new nestedBubbleChart(500, 500, false, "dl_pucs_json/?kind=FO", "nestedcircles_FO");
-arbc = new nestedBubbleChart(500, 500, false, "dl_pucs_json/?kind=AR", "nestedcircles_AR");
-tree = new collapsibleTree("dl_pucs_json/tree/");
+nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=FO", "nestedcircles_FO");
+nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=AR", "nestedcircles_AR");
+nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=OC", "nestedcircles_OC");
+collapsibleTree("/dl_pucs_json/tree/");
 
 // Venn Diagram of SIDs per Group Type combination
 
@@ -8,7 +9,7 @@ tree = new collapsibleTree("dl_pucs_json/tree/");
 $.ajax({
     type: "GET",
     contentType: "application/json; charset=utf-8",
-    url: 'sid_gt_json',
+    url: '/sid_gt_json',
     dataType: 'json',
     async: true,
     data: "{}",
@@ -17,19 +18,20 @@ $.ajax({
         div_id = "#venn";
         renderVenn(div_id, set_data);
     },
-    error: function (result) {}
+    error: function (result) {
+    }
 })
 
 
 function renderVenn(div_id, set_data) {
 
-    var div = d3.select(div_id)
+    var div = d3v5.select(div_id)
     var diag = venn.VennDiagram()
-    var colours = d3.schemeCategory10;
+    var colours = d3v5.schemeCategory10;
 
     div.datum(set_data).call(diag);
 
-    var areas = d3.selectAll(div_id + " g")
+    var areas = d3v5.selectAll(div_id + " g")
     areas.select("path")
         .filter(function (d) {
             return d.sets.length == 1;
@@ -45,7 +47,7 @@ function renderVenn(div_id, set_data) {
         });
 
     // add a tooltip
-    var tooltip = d3.select("body").append("div")
+    var tooltip = d3v5.select("body").append("div")
         .attr("class", "venntooltip");
 
     // add listeners to all the groups to display tooltip on mouseover
@@ -60,7 +62,7 @@ function renderVenn(div_id, set_data) {
             tooltip.text(ttlabel);
 
             // highlight the current path
-            var selection = d3.select(this).transition("tooltip").duration(400);
+            var selection = d3v5.select(this).transition("tooltip").duration(400);
             selection.select("path")
                 .style("fill-opacity", d.sets.length == 1 ? .4 : .1)
                 .style("stroke-width", "3")
@@ -69,13 +71,13 @@ function renderVenn(div_id, set_data) {
         })
 
         .on("mousemove", function () {
-            tooltip.style("left", (d3.event.pageX) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
+            tooltip.style("left", (d3v5.event.pageX) + "px")
+                .style("top", (d3v5.event.pageY - 28) + "px");
         })
 
         .on("mouseout", function (d, i) {
             tooltip.transition().duration(400).style("opacity", 0);
-            var selection = d3.select(this).transition("tooltip").duration(400);
+            var selection = d3v5.select(this).transition("tooltip").duration(400);
             selection.select("path")
                 .filter(function (d) {
                     return d.sets.length == 1;
@@ -96,41 +98,3 @@ function renderVenn(div_id, set_data) {
     //         return d.size
     //     });
 }
-
-
-function grouptype_transform(rows) {
-    for (row of rows) {
-        if (['Habits and practices', 'Unidentified', 'Supplemental documents'].includes(row[0])) {
-            row[2] = '';
-            row[3] = '';
-        }
-    }
-    return rows
-}
-
-$('#grouptype_table').DataTable({
-    "serverSide": false,
-    "info": false,
-    "paging": false,
-    "searching": false,
-    "ordering": false,
-    "ajax": {
-        "url": "grouptype/stats/",
-        "dataSrc": function (json) {
-            return this.grouptype_transform(json.data);
-        },
-    },
-    "columns": [{
-            "title": "Group Type"
-        },
-        {
-            "title": "Documents (%)"
-        },
-        {
-            "title": "Raw Chemical Records (%)"
-        },
-        {
-            "title": "Curated Chemical Records (%)"
-        },
-    ]
-})

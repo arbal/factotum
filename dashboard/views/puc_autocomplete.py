@@ -20,3 +20,6 @@ class PUCAutocomplete(autocomplete.Select2QuerySetView):
                 | Q(prod_type__icontains=puc),
             )
         return None
+
+    def get_result_label(self, result):
+        return result.kind.code + ": " + result.__str__()

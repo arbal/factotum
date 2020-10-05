@@ -340,9 +340,11 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             self.browser.get(list_url)
             chem = doc.extractedtext.rawchem.first()
             chem_pk = chem.pk
-
-            functional_uses_col = self.browser.find_element_by_xpath(
-                f'//*[@id="functional_uses_{chem_pk}"]'
+            wait = WebDriverWait(self.browser, 10)
+            functional_uses_col = wait.until(
+                ec.presence_of_element_located(
+                    (By.XPATH, f'//*[@id="functional_uses_{chem_pk}"]')
+                )
             )
 
             self.browser.find_element_by_xpath(
@@ -352,7 +354,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             # Verify that the modal window appears by finding the Save button
             # The modal window does not immediately appear, so the browser
             # should wait for the button to be clickable
-            wait = WebDriverWait(self.browser, 10)
             save_button = wait.until(
                 ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
             )
@@ -544,7 +545,10 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
         self.assertIsNotNone(new_fu)
 
-        functional_uses_col = self.browser.find_element_by_xpath(
-            f'//*[@id="functional_uses_{new_fu.id}"]'
+        functional_uses_col = wait.until(
+            ec.element_to_be_clickable(
+                (By.XPATH, f'//*[@id="functional_uses_{new_fu.id}"]')
+            )
         )
+
         self.assertIn("adhesive", functional_uses_col.text)

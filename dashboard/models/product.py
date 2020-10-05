@@ -66,7 +66,9 @@ class Product(CommonInfo):
         unique=True,
         help_text="UPC",
     )
-    url = models.CharField(max_length=500, blank=True, help_text="URL")
+    url = models.CharField(
+        max_length=500, blank=True, verbose_name="Product URL", help_text="Product URL"
+    )
     brand_name = models.CharField(
         db_index=True, max_length=200, blank=True, default="", help_text="brand name"
     )
@@ -84,7 +86,7 @@ class Product(CommonInfo):
     epa_reg_number = models.CharField(
         blank=True,
         max_length=25,
-        verbose_name="EPA reg. no.",
+        verbose_name="EPA Reg. No.",
         help_text="the document's EPA registration number",
     )
     thumb_image = models.CharField(
