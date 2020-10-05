@@ -7,7 +7,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
-from dashboard.models import DataDocument, ExtractedText, RawChem, DSSToxLookup, PUC
+from dashboard.models import DataDocument, ExtractedText, RawChem
 from dashboard.tests.loader import fixtures_standard, load_browser
 
 
@@ -396,76 +396,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 et.prod_name,
                 "The prod_name of the new object should match what was entered",
             )
-
-    def _n_children(self, tree):
-        cnt = len(tree.children)
-        for c in tree.children:
-            cnt += self._n_children(c)
-        return cnt
-
-    def test_bubble_plot(self):
-        pucs = (
-            PUC.objects.filter(kind__code__in=["FO", "AR"])
-            .with_num_products()
-            .filter(num_products__gt=0)
-            .astree()
-        )
-        num_pucs = self._n_children(pucs)
-        self.browser.get(self.live_server_url)
-        wait = WebDriverWait(self.browser, 10)
-        wait.until(ec.presence_of_element_located((By.CLASS_NAME, "bubble")))
-        bubbles = self.browser.find_elements_by_class_name("bubble")
-        self.assertTrue(num_pucs > 0, "Need more than one PUC")
-        self.assertTrue(len(bubbles) > 0, "Need more than one bubble")
-        self.assertEqual(
-            num_pucs, len(bubbles), ("There should be a circle" "drawn for every PUC")
-        )
-
-        plots = self.browser.find_elements_by_class_name("nestedcircles")
-        self.assertTrue(len(plots) == 2, "Need more than one bubble")
-
-    def test_bubble_legend(self):
-        self.browser.get(self.live_server_url)
-        wait = WebDriverWait(self.browser, 10)
-        wait.until(ec.presence_of_element_located((By.ID, "puc-accordion-FO")))
-        bubble_legend = self.browser.find_element_by_id("puc-accordion-FO")
-        self.assertTrue(bubble_legend, "Bubble plot legend could not be found")
-        child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-20']")
-        self.assertEqual(child_card.get_attribute("class"), "collapse")
-
-        bubble_legend = self.browser.find_element_by_id("puc-accordion-AR")
-        self.assertTrue(bubble_legend, "Bubble plot legend could not be found")
-        child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-316']")
-        self.assertEqual(child_card.get_attribute("class"), "collapse")
-
-    def test_collapsible_tree(self):
-        pucs = PUC.objects.filter(kind__code="FO").astree()
-        num_pucs = self._n_children(pucs)
-        self.browser.get(self.live_server_url)
-        wait = WebDriverWait(self.browser, 10)
-        wait.until(ec.presence_of_element_located((By.CLASS_NAME, "tree-node")))
-        nodes = self.browser.find_elements_by_class_name("tree-node")
-        self.assertTrue(num_pucs > 0, "Need more than one PUC")
-        self.assertTrue(len(nodes) > 0, "Need more than one node")
-
-    def test_dtxsid_bubble_plot(self):
-        dss = DSSToxLookup.objects.get(sid="DTXSID9022528")
-        self.browser.get(self.live_server_url + dss.get_absolute_url())
-        import time
-
-        time.sleep(3)
-        pucs = (
-            PUC.objects.filter(kind__code__in=["FO", "AR"])
-            .dtxsid_filter(dss.sid)
-            .with_num_products()
-            .filter(num_products__gt=0)
-            .astree()
-        )
-        num_pucs = self._n_children(pucs)
-        bubbles = self.browser.find_elements_by_class_name("bubble")
-        self.assertEqual(
-            num_pucs, len(bubbles), ("There should be a circle drawn for every PUC")
-        )
 
     def test_delete_dd_from_dg(self):
         """
