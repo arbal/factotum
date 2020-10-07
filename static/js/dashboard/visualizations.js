@@ -25,13 +25,13 @@ $.ajax({
 
 function renderVenn(div_id, set_data) {
 
-    var div = d3v5.select(div_id)
+    var div = d3.select(div_id)
     var diag = venn.VennDiagram()
-    var colours = d3v5.schemeCategory10;
+    var colours = d3.schemeCategory10;
 
     div.datum(set_data).call(diag);
 
-    var areas = d3v5.selectAll(div_id + " g")
+    var areas = d3.selectAll(div_id + " g")
     areas.select("path")
         .filter(function (d) {
             return d.sets.length == 1;
@@ -47,7 +47,7 @@ function renderVenn(div_id, set_data) {
         });
 
     // add a tooltip
-    var tooltip = d3v5.select("body").append("div")
+    var tooltip = d3.select("body").append("div")
         .attr("class", "venntooltip");
 
     // add listeners to all the groups to display tooltip on mouseover
@@ -62,7 +62,7 @@ function renderVenn(div_id, set_data) {
             tooltip.text(ttlabel);
 
             // highlight the current path
-            var selection = d3v5.select(this).transition("tooltip").duration(400);
+            var selection = d3.select(this).transition("tooltip").duration(400);
             selection.select("path")
                 .style("fill-opacity", d.sets.length == 1 ? .4 : .1)
                 .style("stroke-width", "3")
@@ -71,13 +71,13 @@ function renderVenn(div_id, set_data) {
         })
 
         .on("mousemove", function () {
-            tooltip.style("left", (d3v5.event.pageX) + "px")
-                .style("top", (d3v5.event.pageY - 28) + "px");
+            tooltip.style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
         })
 
         .on("mouseout", function (d, i) {
             tooltip.transition().duration(400).style("opacity", 0);
-            var selection = d3v5.select(this).transition("tooltip").duration(400);
+            var selection = d3.select(this).transition("tooltip").duration(400);
             selection.select("path")
                 .filter(function (d) {
                     return d.sets.length == 1;

@@ -149,6 +149,6 @@ div.search-result-main {
     transition: box-shadow 0.5s ease-out, opacity 0.5s ease-out;
 }
 
-a.puc-loom-link:hover {
+span.puc-zoom-link:hover {
     cursor: pointer;
 }
