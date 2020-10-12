@@ -2,7 +2,7 @@
     <div class="card-header text-center">
         {% if kind.code == "OC" %}
             <h5><b>Industrial and Occupational PUCs</b></h5>
-        {%  else  %}
+        {% else %}
             <h5><b>{{ kind.name }} PUCs</b></h5>
         {% endif %}
         <small class="card-text font-italic">
@@ -11,174 +11,168 @@
     </div>
     <div class="accordion" id="puc-accordion-{{ kind }}">
         {% for leaf in pucs.children %}
-        <div id="card-{{ leaf.value.pk }}" class="card">
-            <!-- Level 1 -->
-            <div class="card-header-sm bg-light">
-                <div class="d-flex align-items-center">
-                    {% if leaf.value.cumulative_products > 0%}
-                        <button class="handle mr-2 btn btn-light shadow-none"
-                                data-toggle="collapse"
-                                data-target="#accordion-{{ leaf.value.pk }}">
-                            <i class="fas fa-chevron-circle-right icon-secondary"></i>
-                            <i class="fas fa-chevron-circle-down icon-secondary d-none"></i>
-                        </button>
-                    {% else %}
-                        <button class="hidden btn" disabled>
-                            <i class="fas fa-chevron-circle-right"></i>
-                        </button>
-                        <span class="m-1"></span>
-                    {% endif %}
-                    <b>{{ leaf.name }}</b>
-                    <a href="{{ leaf.value.get_absolute_url }}"
-                       class="ml-2"
-                       title="PUC detail"
-                       data-toggle="tooltip"
-                       data-placement="top">
-                        <i class="fas fa-info-circle icon-secondary"></i>
-                    </a>
-                    {% if show_filter and leaf.value.cumulative_products  %}
-                    <a id="filter-{{ leaf.value.pk }}"
-                       class="ml-2"
-                       title="Filter table by PUC"
-                       data-pk="{{ leaf.value.pk }}"
-                       data-toggle="tooltip"
-                       data-placement="top">
-                        <i class="fa fa-filter icon-secondary"></i>
-                    </a>
-                    {% endif %}
-                    <div class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
-                         data-gen-cat="{{ leaf.name }}">
-                    {% if leaf.value.cumulative_products > 0 %}
-                    <span class='puc-zoom-link' onclick=CircleZoom({{ leaf.value.pk }}) 
-                       title="Zoom circles to PUC"
-                       >
-                       <b>&nbsp;{{ leaf.value.cumulative_products }}&nbsp;</b>
-                    </span>
-                    {% else %}
-                        <b>{{ leaf.value.cumulative_products }}</b>
-                    {% endif %}
-                    </div>
-                </div>
-            </div>
-            <div id="accordion-{{ leaf.value.pk }}"
-                class="collapse">
-                <div class="card-body p-0 puc-link"
-                    data-gen-cat="{{ leaf.name }}">
-                {% if leaf.children %}
-                <div class="accordion ml-3" id="accordion-{{ leaf.value.pk }}">
-                    {% for leaflet in leaf.children %}
-                    <div id="card-{{ leaflet.value.pk }}" class="card">
-                        <!-- Level 2 -->
-                        <div class="card-header-sm bg-light d-flex align-items-center">
-                            {% if leaflet.children %}
-                                <button class="handle mr-2 btn btn-light shadow-none"
+            <div id="card-{{ leaf.value.pk }}" class="card">
+                <!-- Level 1 -->
+                <div class="card-header-sm bg-light">
+                    <div class="d-flex align-items-center">
+                        {% if leaf.value.cumulative_products > 0 %}
+                            <button class="handle mr-2 btn btn-light shadow-none"
                                     data-toggle="collapse"
-                                    data-target="#accordion-{{ leaflet.value.pk }}">
-                                    <i class="fas fa-chevron-circle-right icon-secondary"></i>
-                                    <i class="fas fa-chevron-circle-down icon-secondary d-none"></i>
-                                </button>
-                            {% else %}
-                                <button class="hidden btn" disabled>
-                                    <i class="fas fa-chevron-circle-right"></i>
-                                </button>
-                                <span class="m-1"></span>
-                            {% endif %}
-                            <b>{{ leaflet.name }}</b>
-                            <a href="{{ leaflet.value.get_absolute_url }}"
-                            class="ml-2"
-                            title="PUC detail"
-                            data-toggle="tooltip"
-                            data-placement="top">
-                                <i class="fas fa-info-circle icon-secondary"></i>
-                            </a>
-                            {% if show_filter and leaflet.value.num_products %}
-                            <a id="filter-{{ leaflet.value.pk }}"
-                                class="ml-2"
-                                title="Filter table by PUC"
-                                data-pk="{{ leaflet.value.pk }}"
-                                data-toggle="tooltip"
-                                data-placement="top">
+                                    data-target="#accordion-{{ leaf.value.pk }}">
+                                <i class="fas fa-chevron-circle-right icon-secondary"></i>
+                                <i class="fas fa-chevron-circle-down icon-secondary d-none"></i>
+                            </button>
+                        {% else %}
+                            <button class="hidden btn" disabled>
+                                <i class="fas fa-chevron-circle-right"></i>
+                            </button>
+                            <span class="m-1"></span>
+                        {% endif %}
+                        <b>{{ leaf.name }}</b>
+                        <a href="{{ leaf.value.get_absolute_url }}"
+                           class="ml-2"
+                           title="PUC detail"
+                           data-toggle="tooltip"
+                           data-placement="top">
+                            <i class="fas fa-info-circle icon-secondary"></i>
+                        </a>
+                        {% if show_filter and leaf.value.cumulative_products %}
+                            <a id="filter-{{ leaf.value.pk }}"
+                               class="ml-2"
+                               title="Filter table by PUC"
+                               data-pk="{{ leaf.value.pk }}"
+                               data-toggle="tooltip"
+                               data-placement="top">
                                 <i class="fa fa-filter icon-secondary"></i>
                             </a>
-                            {% endif %}
-
-                                
-
-
-
-                            <span class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
-                                  data-gen-cat="{{ leaf.name }}">
-                                {% if leaflet.value.cumulative_products > 0 %}
-                                <span class='puc-zoom-link' onclick=CircleZoom({{ leaflet.value.pk }}) 
-                                title="Zoom circles to PUC"
-                                >
-                                <b>&nbsp;{{ leaflet.value.cumulative_products }}&nbsp;</b>
+                        {% endif %}
+                        <div class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
+                             data-gen-cat="{{ leaf.name }}">
+                            {% if leaf.value.cumulative_products > 0 %}
+                                <span class="puc-zoom-link" onclick="circleZoom({{ leaf.value.pk }})"
+                                      title="Zoom to '{{ leaf.name }}' PUC">
+                                    <b>&nbsp;{{ leaf.value.cumulative_products }}&nbsp;</b>
                                 </span>
-                                {% else %}
-                                    <b>{{ leaflet.value.cumulative_products }}</b>
-                                {% endif %}
-                            </span>
+                            {% else %}
+                                <b>{{ leaf.value.cumulative_products }}</b>
+                            {% endif %}
                         </div>
-                        <div id="accordion-{{ leaflet.value.pk }}"
-                            class="collapse">
-                            <div class="card-body p-0 puc-link"
-                                data-gen-cat="{{ leaf.name }}">
-                                {% if leaflet.children %}
-                                <div class="ml-3" id="accordion-{{ leaflet.value.pk }}">
-                                    {% for needle in leaflet.children %}
-                                    <div id="card-{{ needle.value.pk }}" class="card">
-                                        <div class="card-header-sm bg-light">
-                                            <div class="text-left d-flex align-items-center">
-                                                <span class="m-4"></span>
-                                                <b>{{ needle.name }}</b>
-                                                <a href="{{ needle.value.get_absolute_url }}"
-                                                    class="ml-2"
-                                                    title="PUC detail"
-                                                    data-toggle="tooltip"
-                                                    data-placement="top">
-                                                    <i class="fas fa-info-circle icon-secondary"></i>
-                                                </a>
-                                                {% if show_filter and needle.value.num_products %}
-                                                <a id="filter-{{ needle.value.pk }}"
-                                                    class="ml-2"
-                                                    title="Filter table by PUC"
-                                                    data-pk="{{ needle.value.pk }}"
-                                                    data-toggle="tooltip"
-                                                    data-placement="top">
+                    </div>
+                </div>
+                <div id="accordion-{{ leaf.value.pk }}"
+                     class="collapse">
+                    <div class="card-body p-0 puc-link"
+                         data-gen-cat="{{ leaf.name }}">
+                        {% if leaf.children %}
+                            <div class="accordion ml-3" id="accordion-{{ leaf.value.pk }}">
+                                {% for leaflet in leaf.children %}
+                                    <div id="card-{{ leaflet.value.pk }}" class="card">
+                                        <!-- Level 2 -->
+                                        <div class="card-header-sm bg-light d-flex align-items-center">
+                                            {% if leaflet.children %}
+                                                <button class="handle mr-2 btn btn-light shadow-none"
+                                                        data-toggle="collapse"
+                                                        data-target="#accordion-{{ leaflet.value.pk }}">
+                                                    <i class="fas fa-chevron-circle-right icon-secondary"></i>
+                                                    <i class="fas fa-chevron-circle-down icon-secondary d-none"></i>
+                                                </button>
+                                            {% else %}
+                                                <button class="hidden btn" disabled>
+                                                    <i class="fas fa-chevron-circle-right"></i>
+                                                </button>
+                                                <span class="m-1"></span>
+                                            {% endif %}
+                                            <b>{{ leaflet.name }}</b>
+                                            <a href="{{ leaflet.value.get_absolute_url }}"
+                                               class="ml-2"
+                                               title="PUC detail"
+                                               data-toggle="tooltip"
+                                               data-placement="top">
+                                                <i class="fas fa-info-circle icon-secondary"></i>
+                                            </a>
+                                            {% if show_filter and leaflet.value.num_products %}
+                                                <a id="filter-{{ leaflet.value.pk }}"
+                                                   class="ml-2"
+                                                   title="Filter table by PUC"
+                                                   data-pk="{{ leaflet.value.pk }}"
+                                                   data-toggle="tooltip"
+                                                   data-placement="top">
                                                     <i class="fa fa-filter icon-secondary"></i>
                                                 </a>
-                                                {% endif %}
-                                                <span class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
-                                                      data-gen-cat="{{ leaf.name }}">
-                                                                                    {% if needle.value.cumulative_products > 0 %}
-                                            <span class='puc-zoom-link' onclick=CircleZoom({{ needle.value.pk }}) 
-                                            title="Zoom circles to PUC"
-                                            >
-                                            <b>&nbsp;{{ needle.value.cumulative_products }}&nbsp;</b>
-                                            </span>
-                                            {% else %}
-                                                <b>{{ needle.value.cumulative_products }}</b>
                                             {% endif %}
-                                                </span>
+                                            <span class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
+                                                  data-gen-cat="{{ leaf.name }}">
+                                                {% if leaflet.value.cumulative_products > 0 %}
+                                                    <span class="puc-zoom-link"
+                                                          onclick="circleZoom({{ leaflet.value.pk }})"
+                                                          title="Zoom to '{{ leaf.name }}' PUC">
+                                                        <b>&nbsp;{{ leaflet.value.cumulative_products }}&nbsp;</b>
+                                                    </span>
+                                                {% else %}
+                                                    <b>{{ leaflet.value.cumulative_products }}</b>
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        <div id="accordion-{{ leaflet.value.pk }}"
+                                             class="collapse">
+                                            <div class="card-body p-0 puc-link"
+                                                 data-gen-cat="{{ leaf.name }}">
+                                                {% if leaflet.children %}
+                                                    <div class="ml-3" id="accordion-{{ leaflet.value.pk }}">
+                                                        {% for needle in leaflet.children %}
+                                                            <div id="card-{{ needle.value.pk }}" class="card">
+                                                                <div class="card-header-sm bg-light">
+                                                                    <div class="text-left d-flex align-items-center">
+                                                                        <span class="m-4"></span>
+                                                                        <b>{{ needle.name }}</b>
+                                                                        <a href="{{ needle.value.get_absolute_url }}"
+                                                                           class="ml-2"
+                                                                           title="PUC detail"
+                                                                           data-toggle="tooltip"
+                                                                           data-placement="top">
+                                                                            <i class="fas fa-info-circle icon-secondary"></i>
+                                                                        </a>
+                                                                        {% if show_filter and needle.value.num_products %}
+                                                                            <a id="filter-{{ needle.value.pk }}"
+                                                                               class="ml-2"
+                                                                               title="Filter table by PUC"
+                                                                               data-pk="{{ needle.value.pk }}"
+                                                                               data-toggle="tooltip"
+                                                                               data-placement="top">
+                                                                                <i class="fa fa-filter icon-secondary"></i>
+                                                                            </a>
+                                                                        {% endif %}
+                                                                        <span class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
+                                                                              data-gen-cat="{{ leaf.name }}">
+                                                                                    {% if needle.value.cumulative_products > 0 %}
+                                                                                        <span class="puc-zoom-link"
+                                                                                              onclick="circleZoom({{ needle.value.pk }})"
+                                                                                              title="Zoom to '{{ leaf.name }}' PUC">
+                                                                                            <b>&nbsp;{{ needle.value.cumulative_products }}&nbsp;</b>
+                                                                                        </span>
+                                                                                    {% else %}F
+                                                                                        <b>{{ needle.value.cumulative_products }}</b>
+                                                                                    {% endif %}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
-                                    {% endfor %}
-                                </div>
-                                {% endif %}
+                                {% endfor %}
                             </div>
-                        </div>
+                        {% endif %}
                     </div>
-                    {% endfor %}
                 </div>
-                {% endif %}
             </div>
-        </div>
-        </div>
         {% empty %}
-        <li class="list-group-item">
-            No PUCs are linked to this chemical
-        </li>
+            <li class="list-group-item">
+                No PUCs are linked to this chemical
+            </li>
         {% endfor %}
     </div>
 </div>

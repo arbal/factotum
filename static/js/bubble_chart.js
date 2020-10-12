@@ -152,7 +152,6 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                     `-${size / 2} -${size / 2} ${size} ${size}`
                 )
                 .style("display", "block")
-                // .style("position", "fixed")
                 .style("background", "#eae9e0")
                 .style("cursor", "pointer")
                 .on("click", () => zoom(root));
@@ -195,19 +194,13 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                 // Display the name with the cumulative count
                 .text(d => d.data.name + " (" + d.value + ")");
 
-            // (d.data.value ? d.data.value.id : '')
-
             zoomTo([root.x, root.y, root.r * 2]);
 
-
-            //This is only working in the context of this function; would like to refactor it into page-specific code
-            chemical_puc = $('#chemical').data('puc');
-            bubble_el = document.getElementById("bubble-" + chemical_puc);
-            if (chemical_puc && bubble_el) {
-                bubble_el.dispatchEvent(new Event('click'));
-                document.getElementById("bubble-label-" + chemical_puc).style.display = "inline";
-                document.getElementById("bubble-label-" + chemical_puc).style.fillOpacity = "1";
-            }
+            // chemical_puc = $('#chemical').data('puc');
+            // if (chemical_puc) {
+            //     alert('zoomCircle!');
+            //     zoomCircle(chemical_puc);
+            // }
 
             function zoomTo(v) {
                 const k = size / v[2];
@@ -249,6 +242,8 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                         );
                     })
                     .transition(transition)
+                    .style("font", d => "14px sans-serif")
+                    .style("fill-opacity", d => (d.parent === focus ? 1 : 0))
                     .style("font", d => (d.parent === root ? "0px sans-serif" : "14px sans-serif"))
                     .style("fill-opacity", d => (d.parent === focus ? 1 : 0))
                     .on("start", function (d) {
@@ -264,8 +259,12 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
         .catch(console.log.bind(console));
 }
 
-function CircleZoom(pucid) {
-    console.log("Zooming to " + pucid);
-    d = d3.select("#bubble-" + pucid);
-    console.log(d.onClick)
+function circleZoom(pucid) {
+    bubble_el = document.getElementById("bubble-" + pucid);
+    if (typeof bubble_el == 'object') {
+        bubble_el.dispatchEvent(new Event('click'));
+        document.getElementById("bubble-label-" + pucid).style.font = "14px sans-serif";
+        document.getElementById("bubble-label-" + pucid).style.display = "inline";
+        document.getElementById("bubble-label-" + pucid).style.fillOpacity = "1";
+    }
 }
