@@ -1,8 +1,14 @@
-from django.http import JsonResponse
-from django.shortcuts import render
 from django.views import View
 
 from dashboard.models import PUC
+from django.db.models import (
+    Value,
+    Case,
+    When,
+    IntegerField,
+)
+from django.http import JsonResponse
+from django.shortcuts import render
 
 
 class Visualizations(View):
@@ -49,16 +55,22 @@ def bubble_PUCs(request):
         pucs = PUC.objects.all()
     pucs = (
         pucs.filter(kind__code=kind)
-        .with_num_products()
-        .values("id", "gen_cat", "prod_fam", "prod_type", "num_products")
-        .filter(num_products__gt=0)
-        .astree()
+            .with_num_products()
+            .filter(num_products__gt=0)
+            .annotate(
+            level=Case(
+                When(prod_fam="", prod_type="", then=Value(1)),
+                When(prod_fam__ne="", prod_type="", then=Value(2)),
+                default=Value(3),
+                output_field=IntegerField(),
+            )
+        )
     )
-    # We only needed gen_cat, prod_fam, prod_type to build the tree
-    for puc in pucs.values():
-        puc.pop("gen_cat")
-        puc.pop("prod_fam")
-        puc.pop("prod_type")
+
+    # convert the pucs to a simpletree
+    pucs = pucs.values(
+        "id", "gen_cat", "prod_fam", "prod_type", "num_products", "level"
+    ).astree()
 
     return JsonResponse(pucs.asdict())
 
@@ -69,10 +81,10 @@ def collapsible_tree_PUCs(request):
     """
     pucs = (
         PUC.objects.all()
-        .filter(kind__code="FO")
-        .values("id", "gen_cat", "prod_fam", "prod_type")
-        .astree()
-        .asdict()
+            .filter(kind__code="FO")
+            .values("id", "gen_cat", "prod_fam", "prod_type")
+            .astree()
+            .asdict()
     )
 
     # Name the first element.  Default = Root

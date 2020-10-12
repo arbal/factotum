@@ -177,7 +177,7 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                 })
                 .on(
                     "click",
-                    d => focus !== d && (zoom(d), self.event.stopPropagation())
+                    d => focus !== d && (zoom(d), d3.event.stopPropagation())
                 );
 
             const label = svg
@@ -196,11 +196,11 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
 
             zoomTo([root.x, root.y, root.r * 2]);
 
-            // chemical_puc = $('#chemical').data('puc');
-            // if (chemical_puc) {
-            //     alert('zoomCircle!');
-            //     zoomCircle(chemical_puc);
-            // }
+            chemical_puc = $('#chemical').data('puc');
+            if (chemical_puc) {
+                alert('zoomCircle!');
+                zoomCircle(chemical_puc);
+            }
 
             function zoomTo(v) {
                 const k = size / v[2];
@@ -220,8 +220,9 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
 
             function zoom(d) {
                 const focus0 = focus;
-
+                console.log('old', focus)
                 focus = d;
+                console.log('new', focus)
                 const transition = svg
                     .transition()
                     .duration(d3.event.altKey ? 7500 : 750)
@@ -242,10 +243,8 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                         );
                     })
                     .transition(transition)
-                    .style("font", d => "14px sans-serif")
-                    .style("fill-opacity", d => (d.parent === focus ? 1 : 0))
-                    .style("font", d => (d.parent === root ? "0px sans-serif" : "14px sans-serif"))
-                    .style("fill-opacity", d => (d.parent === focus ? 1 : 0))
+                    // .style("font", d => (d.parent === root ? "0px sans-serif" : "14px sans-serif"))
+                    // .style("fill-opacity", d => (d.parent === focus ? 1 : 0))
                     .on("start", function (d) {
                         if (d.parent === focus) this.style.display = "inline";
                     })
@@ -261,7 +260,7 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
 
 function circleZoom(pucid) {
     bubble_el = document.getElementById("bubble-" + pucid);
-    if (typeof bubble_el == 'object') {
+    if (pucid && typeof bubble_el == 'object') {
         bubble_el.dispatchEvent(new Event('click'));
         document.getElementById("bubble-label-" + pucid).style.font = "14px sans-serif";
         document.getElementById("bubble-label-" + pucid).style.display = "inline";
