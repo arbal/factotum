@@ -53,19 +53,16 @@ def bubble_PUCs(request):
         pucs = PUC.objects.dtxsid_filter(dtxsid)
     else:
         pucs = PUC.objects.all()
-    pucs = (
-        pucs.filter(kind__code=kind)
-            .with_num_products()
-            .filter(num_products__gt=0)
-            .annotate(
-            level=Case(
-                When(prod_fam="", prod_type="", then=Value(1)),
-                When(prod_fam__ne="", prod_type="", then=Value(2)),
-                default=Value(3),
-                output_field=IntegerField(),
-            )
+    level = Case(
+        When(prod_fam="", prod_type="", then=Value(1)),
+        When(prod_fam__ne="", prod_type="", then=Value(2)),
+        default=Value(3),
+        output_field=IntegerField(),
         )
-    )
+    pucs = pucs.filter(kind__code=kind)\
+        .with_num_products()\
+        .filter(num_products__gt=0)\
+        .annotate(level=level)
 
     # convert the pucs to a simpletree
     pucs = pucs.values(
