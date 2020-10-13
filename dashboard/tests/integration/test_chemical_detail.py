@@ -50,7 +50,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
 
         wait.until(
             ec.text_to_be_present_in_element(
-                (By.XPATH, "//*[@id='products_info']"), "Showing 1 to 3 of 3 entries"
+                (By.XPATH, "//*[@id='products_info']"), "Showing 1 to 4 of 4 entries"
             )
         )
         self.assertInHTML(
