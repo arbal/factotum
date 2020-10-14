@@ -2,7 +2,7 @@ import csv
 import datetime
 
 from django.contrib import messages
-from django.db.models import Value, IntegerField
+from django.db.models import Value, IntegerField, Q
 from django.shortcuts import render, reverse, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import StreamingHttpResponse
@@ -52,16 +52,10 @@ class Echo:
 
 def iterate_rawchems(rows, pseudo_buffer):
     writer = csv.writer(pseudo_buffer)
-    yield pseudo_buffer.write("id,raw_cas,raw_chem_name,rid,datagroup_id\n")
+    yield pseudo_buffer.write("id,raw_cas,raw_chem_name,datagroup_id\n")
     for row in rows:
         yield writer.writerow(
-            [
-                row["id"],
-                row["raw_cas"],
-                row["raw_chem_name"],
-                row["rid"] if row["rid"] else "",
-                row["dg_id"],
-            ]
+            [row["id"], row["raw_cas"], row["raw_chem_name"], row["dg_id"]]
         )
 
 
@@ -71,10 +65,11 @@ def download_raw_chems_dg(request, pk):
 
     # Limit the response to 10,000 records
     uncurated_chems = (
-        RawChem.objects.filter(dsstox_id=None)
+        RawChem.objects.filter(Q(rid=None) | Q(rid=""))
         .filter(extracted_text__data_document__data_group=dg)
+        .order_by("id")
         .annotate(dg_id=Value(pk, IntegerField()))
-        .values("id", "raw_cas", "raw_chem_name", "rid", "dg_id")[0:10000]
+        .values("id", "raw_cas", "raw_chem_name", "dg_id")[0:10000]
     )
     pseudo_buffer = Echo()
     response = StreamingHttpResponse(

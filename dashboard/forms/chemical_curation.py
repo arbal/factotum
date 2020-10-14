@@ -1,5 +1,6 @@
 from django import forms
 from django.db import transaction
+from django.db.models import Q
 from django.utils import timezone
 
 from dashboard.utils import clean_dict
@@ -18,7 +19,7 @@ class DGChoiceField(forms.ModelChoiceField):
 class DataGroupSelector(forms.ModelForm):
     data_group = DGChoiceField(
         queryset=DataGroup.objects.filter(
-            pk__in=RawChem.objects.filter(dsstox__isnull=True).values(
+            pk__in=RawChem.objects.filter(Q(rid=None) | Q(rid="")).values(
                 "extracted_text__data_document__data_group_id"
             )
         ),

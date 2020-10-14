@@ -1,5 +1,6 @@
 from django.apps import apps
 from django.db import models
+from django.db.models import Q
 from django.urls import reverse
 from model_utils import FieldTracker
 from django.core.exceptions import ValidationError
@@ -229,7 +230,7 @@ class DataGroup(CommonInfo):
 
     def uncurated_count(self):
         return (
-            RawChem.objects.filter(dsstox__isnull=True)
+            RawChem.objects.filter(Q(rid=None) | Q(rid=""))
             .filter(extracted_text__data_document__data_group=self)
             .count()
         )
