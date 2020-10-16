@@ -61,6 +61,8 @@ def qa_chemicalpresence_index(request, template_name="qa/chemical_presence_index
                 filter=Q(datadocument__extractedtext__qa_checked=True),
             )
         )
+        .annotate(extracted_count=Count("datadocument__extractedtext"))
+        .filter(extracted_count__gt=0)
     )
 
     return render(request, template_name, {"datagroups": datagroups})
