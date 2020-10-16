@@ -143,9 +143,9 @@ class TestGetData(TestCase):
                 ethylparaben_stats = e
 
         self.assertEqual(
-            4,
+            6,
             ethylparaben_stats["products_n"],
-            "There should be 4 products associated with ethylparaben",
+            "There should be 6 products associated with ethylparaben",
         )
         self.client.login(username="Karyn", password="specialP@55word")
         # get the associated documents for linking to products
@@ -166,9 +166,9 @@ class TestGetData(TestCase):
             if e["sid"] == "DTXSID9022528":
                 ethylparaben_stats = e
         self.assertEqual(
-            6,
+            8,
             ethylparaben_stats["products_n"],
-            "There should now be 7 products associated with ethylparaben",
+            "There should now be 8 products associated with ethylparaben",
         )
 
     def test_habits_and_practices_cards(self):

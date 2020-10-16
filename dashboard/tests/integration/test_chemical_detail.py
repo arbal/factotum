@@ -50,11 +50,11 @@ class TestChemicalDetail(StaticLiveServerTestCase):
 
         wait.until(
             ec.text_to_be_present_in_element(
-                (By.XPATH, "//*[@id='products_info']"), "Showing 1 to 3 of 3 entries"
+                (By.XPATH, "//*[@id='products_info']"), "Showing 1 to 4 of 4 entries"
             )
         )
         self.assertInHTML(
-            "Showing 1 to 3 of 3 entries",
+            "Showing 1 to 4 of 4 entries",
             self.browser.find_element_by_xpath("//*[@id='products_info']").text,
         )
 
@@ -65,11 +65,11 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         wait.until(
             ec.text_to_be_present_in_element(
                 (By.XPATH, "//*[@id='products_info']"),
-                "Showing 1 to 1 of 1 entries (filtered from 3 total entries)",
+                "Showing 1 to 1 of 1 entries (filtered from 4 total entries)",
             )
         )
         self.assertInHTML(
-            "Showing 1 to 1 of 1 entries (filtered from 3 total entries)",
+            "Showing 1 to 1 of 1 entries (filtered from 4 total entries)",
             self.browser.find_element_by_xpath("//*[@id='products_info']").text,
         )
 

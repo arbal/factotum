@@ -8,7 +8,7 @@ var chemical = $('#chemical'),
 
 nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=FO&dtxsid=" + sid, "nestedcircles_FO");
 nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=AR&dtxsid=" + sid, "nestedcircles_AR");
-
+nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=OC&dtxsid=" + sid, "nestedcircles_OC");
 
 $(document).ready(function () {
     document_table = build_document_table().on('draw', moveText);
