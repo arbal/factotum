@@ -46,7 +46,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.assertEqual(
             num_pucs, len(bubbles), "There should be a circle drawn for every PUC"
         )
-
         plots = self.browser.find_elements_by_class_name("nestedcircles")
         self.assertTrue(len(plots) == 3, "Need more than one bubble")
 
@@ -54,17 +53,14 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.browser.get(self.visualization_url)
         wait = WebDriverWait(self.browser, 10)
         wait.until(ec.presence_of_element_located((By.ID, "puc-accordion-FO")))
-
         bubble_legend = self.browser.find_element_by_id("puc-accordion-FO")
         self.assertTrue(bubble_legend, "FO Bubble plot legend could not be found")
         child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-20']")
         self.assertEqual(child_card.get_attribute("class"), "collapse")
-
         bubble_legend = self.browser.find_element_by_id("puc-accordion-AR")
         self.assertTrue(bubble_legend, "AR Bubble plot legend could not be found")
         child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-316']")
         self.assertEqual(child_card.get_attribute("class"), "collapse")
-
         bubble_legend = self.browser.find_element_by_id("puc-accordion-OC")
         self.assertTrue(bubble_legend, "OC Bubble plot legend could not be found")
         child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-319']")
