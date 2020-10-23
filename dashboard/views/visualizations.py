@@ -22,21 +22,21 @@ class Visualizations(View):
         context = {}
         pucs = PUC.objects.with_num_products().filter(kind__code="FO").all().astree()
         for puc_name, puc_obj in pucs.items():
-            puc_obj.cumnum_products = sum(
+            puc_obj.cumulative_products = sum(
                 p.num_products for p in pucs.objects[puc_name].values()
             )
         context["formulation_pucs"] = pucs
 
         pucs = PUC.objects.with_num_products().filter(kind__code="AR").all().astree()
         for puc_name, puc_obj in pucs.items():
-            puc_obj.cumnum_products = sum(
+            puc_obj.cumulative_products = sum(
                 p.num_products for p in pucs.objects[puc_name].values()
             )
         context["article_pucs"] = pucs
 
         pucs = PUC.objects.filter(kind__code="OC").with_num_products().all().astree()
         for puc_name, puc_obj in pucs.items():
-            puc_obj.cumnum_products = sum(
+            puc_obj.cumulative_products = sum(
                 p.num_products for p in pucs.objects[puc_name].values()
             )
         context["occupation_pucs"] = pucs
