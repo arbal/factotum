@@ -196,8 +196,7 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
 
             chemical_puc = $('#chemical').data('puc');
             if (chemical_puc) {
-                alert('zoomCircle!');
-                zoomCircle(chemical_puc);
+                circleZoom(chemical_puc);
             }
 
             function zoomTo(v) {
@@ -241,7 +240,6 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                         if (d.parent === focus) this.style.display = "inline";
                     })
                     .on("end", function (d) {
-                        console.log(d, d.parent);
                         if (d.parent !== focus) this.style.display = "none";
                     });
             }
