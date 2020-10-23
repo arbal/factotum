@@ -40,7 +40,6 @@ class Visualizations(View):
                 p.num_products for p in pucs.objects[puc_name].values()
             )
         context["occupation_pucs"] = pucs
-
         return render(request, self.template_name, context)
 
 

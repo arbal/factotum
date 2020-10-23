@@ -27,10 +27,10 @@ class ChemicalCurationTests(TestCase):
         # Pick one curated and one non-curated RawChem record, and
         # confirm that the downloaded file excludes and includes them,
         # respectively.
-        rc = RawChem.objects.filter(dsstox_id__isnull=True).first()
+        rc = RawChem.objects.filter(rid="").first()
         dg = rc.extracted_text.data_document.data_group
         response = self.client.get(f"/dl_raw_chems_dg/{dg.id}", follow=True)
-        header = "id,raw_cas,raw_chem_name,rid,datagroup_id\n"
+        header = "id,raw_cas,raw_chem_name,datagroup_id\n"
 
         resp = list(response.streaming_content)
         response_header = resp[0].decode("utf-8")
@@ -38,7 +38,7 @@ class ChemicalCurationTests(TestCase):
             header, response_header.split("\r\n")[0], "header fields should match"
         )
 
-        rc_row = f'{rc.id},{rc.raw_cas},{rc.raw_chem_name},{rc.rid if rc.rid else ""},{rc.data_group_id}'
+        rc_row = f"{rc.id},{rc.raw_cas},{rc.raw_chem_name},{rc.data_group_id}"
         self.assertIn(
             bytes(rc_row, "utf-8"),
             b"\t".join(resp),
@@ -51,7 +51,7 @@ class ChemicalCurationTests(TestCase):
         self.assertTrue(response.status_code == 200)
         resp = list(response.streaming_content)
         rc = RawChem.objects.filter(dsstox_id__isnull=False).first()
-        rc_row = f'{rc.id},{rc.raw_cas},{rc.raw_chem_name},{rc.rid if rc.rid else ""},{rc.data_group_id}'
+        rc_row = f"{rc.id},{rc.raw_cas},{rc.raw_chem_name},{rc.data_group_id}"
         self.assertNotIn(
             bytes(rc_row, "utf-8"),
             b"\t".join(resp),

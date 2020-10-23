@@ -61,6 +61,8 @@ def qa_chemicalpresence_index(request, template_name="qa/chemical_presence_index
                 filter=Q(datadocument__extractedtext__qa_checked=True),
             )
         )
+        .annotate(extracted_count=Count("datadocument__extractedtext"))
+        .filter(extracted_count__gt=0)
     )
 
     return render(request, template_name, {"datagroups": datagroups})
@@ -105,6 +107,7 @@ def qa_extraction_script_summary(
     qa_complete_extractedtext_count = Count(
         "extractedtext", filter=Q(extractedtext__qa_checked=True)
     )
+    qa_note_count = Count("extractedtext__qanotes__qa_notes")
     script = (
         Script.objects.filter(pk=pk)
         .annotate(extractedtext_count=datadocument_count)
@@ -113,6 +116,7 @@ def qa_extraction_script_summary(
             qa_incomplete_extractedtext_count=datadocument_count
             - qa_complete_extractedtext_count
         )
+        .annotate(qa_note_count=qa_note_count)
         .first()
     )
     qa_group = script.get_or_create_qa_group()
