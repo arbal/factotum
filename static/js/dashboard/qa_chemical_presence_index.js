@@ -4,7 +4,7 @@ $(document).ready(function () {
   "columnDefs": [
       {
           "targets": 3,
-          "orderable": false
+          "orderable": true
       }
   ],
   dom:"<'row'<'col-md-4 form-inline'l><'col-md-4 form-inline'f>>" +
