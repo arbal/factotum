@@ -40,7 +40,7 @@ function getPucColor(gencat_name) {
 
     let color = pucColors.get(gencat_name);
     if (!color) {
-         color = pucColorDefault;
+        color = pucColorDefault;
     }
     return color;
 }
@@ -171,6 +171,7 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                 .attr("pointer-events", d => (!d.children ? "none" : null))
                 .on("mouseover", function () {
                     d3.select(this).attr("stroke", "#000");
+                    d3.select(this).attr("stroke", "#000");
                 })
                 .on("mouseout", function () {
                     d3.select(this).attr("stroke", null);
@@ -180,19 +181,16 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                     d => focus !== d && (zoom(d), d3.event.stopPropagation())
                 );
 
-            const label = svg
-                .append("g")
+            const label = svg.append("g")
+                .style("font", "12px sans-serif")
                 .attr("pointer-events", "none")
                 .attr("text-anchor", "middle")
                 .selectAll("text")
                 .data(root.descendants())
                 .join("text")
-                .attr("id", d => "bubble-label-" + (d.data.value ? d.data.value.id : ''))
-                .style("font", d => (d.parent === root ? "0px sans-serif" : "14px sans-serif"))
-                .style("fill-opacity", d => (d.parent === focus ? 1 : 0))
-                .style("display", d => (d.parent === root ? "inline" : "none"))
-                // Display the name with the cumulative count
-                .text(d => d.data.name + " (" + d.value + ")");
+                .style("fill-opacity", d => d.parent === root ? 1 : 0)
+                .style("display", d => d.parent === root ? "inline" : "none")
+                .text(d => d.data.name);
 
             zoomTo([root.x, root.y, root.r * 2]);
 
@@ -220,9 +218,7 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
 
             function zoom(d) {
                 const focus0 = focus;
-                console.log('old', focus)
                 focus = d;
-                console.log('new', focus)
                 const transition = svg
                     .transition()
                     .duration(d3.event.altKey ? 7500 : 750)
@@ -237,18 +233,15 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
 
                 label
                     .filter(function (d) {
-                        return (
-                            d.parent === focus ||
-                            this.style.display === "inline"
-                        );
+                        return d.parent === focus || this.style.display === "inline";
                     })
                     .transition(transition)
-                    // .style("font", d => (d.parent === root ? "0px sans-serif" : "14px sans-serif"))
-                    // .style("fill-opacity", d => (d.parent === focus ? 1 : 0))
+                    .style("fill-opacity", d => d.parent === focus ? 1 : 0)
                     .on("start", function (d) {
                         if (d.parent === focus) this.style.display = "inline";
                     })
                     .on("end", function (d) {
+                        console.log(d, d.parent);
                         if (d.parent !== focus) this.style.display = "none";
                     });
             }
@@ -262,8 +255,5 @@ function circleZoom(pucid) {
     bubble_el = document.getElementById("bubble-" + pucid);
     if (pucid && typeof bubble_el == 'object') {
         bubble_el.dispatchEvent(new Event('click'));
-        document.getElementById("bubble-label-" + pucid).style.font = "14px sans-serif";
-        document.getElementById("bubble-label-" + pucid).style.display = "inline";
-        document.getElementById("bubble-label-" + pucid).style.fillOpacity = "1";
     }
 }

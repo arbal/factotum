@@ -54,7 +54,7 @@
                                     <b>&nbsp;{{ leaf.value.cumulative_products }}&nbsp;</b>
                                 </span>
                             {% else %}
-                                <b>{{ leaf.value.cumulative_products }}</b>
+                                <b>0</b>
                             {% endif %}
                         </div>
                     </div>
@@ -104,12 +104,12 @@
                                                   data-gen-cat="{{ leaf.name }}">
                                                 {% if leaflet.value.cumulative_products > 0 %}
                                                     <span class="puc-zoom-link"
-                                                          onclick="circleZoom({{ leaflet.value.pk }})"
+                                                          onclick="circleZoom({{ leaf.value.pk }})"
                                                           title="Zoom to '{{ leaf.name }}' PUC">
                                                         <b>&nbsp;{{ leaflet.value.cumulative_products }}&nbsp;</b>
                                                     </span>
                                                 {% else %}
-                                                    <b>{{ leaflet.value.cumulative_products }}</b>
+                                                    <b>0</b>
                                                 {% endif %}
                                             </span>
                                         </div>
@@ -146,12 +146,12 @@
                                                                               data-gen-cat="{{ leaf.name }}">
                                                                                     {% if needle.value.cumulative_products > 0 %}
                                                                                         <span class="puc-zoom-link"
-                                                                                              onclick="circleZoom({{ needle.value.pk }})"
+                                                                                              onclick="circleZoom({{ leaf.value.pk }})"
                                                                                               title="Zoom to '{{ leaf.name }}' PUC">
                                                                                             <b>&nbsp;{{ needle.value.cumulative_products }}&nbsp;</b>
                                                                                         </span>
-                                                                                    {% else %}F
-                                                                                        <b>{{ needle.value.cumulative_products }}</b>
+                                                                                    {% else %}
+                                                                                        <b>0</b>
                                                                                     {% endif %}
                                                                         </span>
                                                                     </div>
