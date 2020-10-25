@@ -2,9 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import connection
 from django.db import transaction
 from django.db.models import Count
-from dashboard.models import (
-    RawChem,
-)
+from dashboard.models import RawChem
 
 
 class Command(BaseCommand):

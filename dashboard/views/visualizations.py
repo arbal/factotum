@@ -1,12 +1,7 @@
 from django.views import View
 
 from dashboard.models import PUC
-from django.db.models import (
-    Value,
-    Case,
-    When,
-    IntegerField,
-)
+from django.db.models import Value, Case, When, IntegerField
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -57,11 +52,13 @@ def bubble_PUCs(request):
         When(prod_fam__ne="", prod_type="", then=Value(2)),
         default=Value(3),
         output_field=IntegerField(),
-        )
-    pucs = pucs.filter(kind__code=kind)\
-        .with_num_products()\
-        .filter(num_products__gt=0)\
+    )
+    pucs = (
+        pucs.filter(kind__code=kind)
+        .with_num_products()
+        .filter(num_products__gt=0)
         .annotate(level=level)
+    )
 
     # convert the pucs to a simpletree
     pucs = pucs.values(
@@ -77,10 +74,10 @@ def collapsible_tree_PUCs(request):
     """
     pucs = (
         PUC.objects.all()
-            .filter(kind__code="FO")
-            .values("id", "gen_cat", "prod_fam", "prod_type")
-            .astree()
-            .asdict()
+        .filter(kind__code="FO")
+        .values("id", "gen_cat", "prod_fam", "prod_type")
+        .astree()
+        .asdict()
     )
 
     # Name the first element.  Default = Root

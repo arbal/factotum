@@ -124,13 +124,13 @@ class TestProduct(TestCase):
         product = models.Product.objects.get(id=1867)
         response = self.get("/products/%d/" % product.id)
         for key in (
-                "id",
-                "name",
-                "upc",
-                "manufacturer",
-                "brand",
-                "puc",
-                "dataDocuments",
+            "id",
+            "name",
+            "upc",
+            "manufacturer",
+            "brand",
+            "puc",
+            "dataDocuments",
         ):
             self.assertTrue(key in response)
         self.assertEqual(response["id"], product.id)
@@ -353,8 +353,8 @@ class TestProduct(TestCase):
         )
         saved_image = (
             models.Product.objects.filter(title="product title a")
-                .get()
-                .image.open(mode="rb")
+            .get()
+            .image.open(mode="rb")
         )
         self.assertTrue(response.status_code, status.HTTP_202_ACCEPTED)
         # Assert one product was created
@@ -374,7 +374,7 @@ class TestProduct(TestCase):
         image_directory = []
         if image_directory_name:
             for file in glob.glob(
-                    f"sample_files/images/products/{image_directory_name}/*"
+                f"sample_files/images/products/{image_directory_name}/*"
             ):
                 with open(file, "rb") as img:
                     image_bytes = img.read()
@@ -590,7 +590,7 @@ class TestChemicalInstance(TestCase):
                     )
         # Test includes
         self.assertListEqual(
-            ['chemical', 'dataDocument', 'product', 'product', 'puc', 'puc'],
+            ["chemical", "dataDocument", "product", "product", "puc", "puc"],
             [resource["type"] for resource in included_data],
         )
 

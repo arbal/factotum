@@ -519,6 +519,7 @@ def get_model_next_pk(model):
     cursor.close()
     return row[0]
 
+
 @Field.register_lookup
 class NotEqual(Lookup):
     lookup_name = "ne"
@@ -528,5 +529,3 @@ class NotEqual(Lookup):
         rhs, rhs_params = self.process_rhs(compiler, connection)
         params = lhs_params + rhs_params
         return "%s <> %s" % (lhs, rhs), params
-
-

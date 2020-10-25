@@ -16,6 +16,7 @@ class ChemicalDetail(TestCase):
 
     def test_chemical_detail(self):
         dss = next(dss for dss in DSSToxLookup.objects.all() if dss.puc_count > 0)
+        print(dss.get_absolute_url())
         response = self.client.get(dss.get_absolute_url())
         self.assertEqual(
             dss.cumulative_puc_count,
