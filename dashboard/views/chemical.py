@@ -66,7 +66,12 @@ def chemical_detail(request, sid, puc_id=None):
 
 class ChemicalProductListJson(BaseDatatableView):
     model = ProductDocument
-    columns = ["product", "document", "product.uber_puc", "product.uber_puc.kind.name"]
+    columns = [
+        "product.title",
+        "document.title",
+        "product.uber_puc",
+        "product.uber_puc.kind.name",
+    ]
 
     def get_filter_method(self):
         return self.FILTER_ICONTAINS
@@ -82,13 +87,13 @@ class ChemicalProductListJson(BaseDatatableView):
 
     def render_column(self, row, column):
         value = self._render_column(row, column)
-        if column == "product":
+        if column == "product.title":
             return format_html(
                 '<a href="{}" title="Go to Product detail" target="_blank">{}</a>',
                 row.product.get_absolute_url(),
                 value,
             )
-        if column == "document":
+        if column == "document.title":
             return format_html(
                 '<a href="{}" title="Go to Document detail" target="_blank">{}</a>',
                 row.document.get_absolute_url(),
@@ -107,6 +112,76 @@ class ChemicalProductListJson(BaseDatatableView):
             if value and hasattr(row, "get_absolute_url"):
                 return format_html("<p>{}</p>", value)
         return value
+
+    def ordering(self, qs):
+        """ Get parameters from the request and prepare order by clause
+        """
+
+        # Number of columns that are used in sorting
+        sorting_cols = 0
+        if self.pre_camel_case_notation:
+            try:
+                sorting_cols = int(self._querydict.get("iSortingCols", 0))
+            except ValueError:
+                sorting_cols = 0
+        else:
+            sort_key = "order[{0}][column]".format(sorting_cols)
+            while sort_key in self._querydict:
+                sorting_cols += 1
+                sort_key = "order[{0}][column]".format(sorting_cols)
+
+        order = []
+        order_columns = self.get_order_columns()
+
+        for i in range(sorting_cols):
+            # sorting column
+            sort_dir = "asc"
+            try:
+                if self.pre_camel_case_notation:
+                    sort_col = int(self._querydict.get("iSortCol_{0}".format(i)))
+                    # sorting order
+                    sort_dir = self._querydict.get("sSortDir_{0}".format(i))
+                else:
+                    sort_col = int(self._querydict.get("order[{0}][column]".format(i)))
+                    # sorting order
+                    sort_dir = self._querydict.get("order[{0}][dir]".format(i))
+            except ValueError:
+                sort_col = 0
+
+            sdir = "-" if sort_dir == "desc" else ""
+            sortcol = order_columns[sort_col]
+
+            if isinstance(sortcol, list):
+                for sc in sortcol:
+                    order.append("{0}{1}".format(sdir, sc.replace(".", "__")))
+            else:
+                order.append("{0}{1}".format(sdir, sortcol.replace(".", "__")))
+
+        if order:
+            order_column = order[0]
+            if order_column.endswith("product__uber_puc"):
+                reverse_order = order_column.startswith("-")
+                # sort queryset by product uber_puc property
+                qs = sorted(
+                    qs,
+                    key=lambda m: (
+                        m.product.uber_puc.__str__() if m.product.uber_puc else "",
+                    ),
+                    reverse=reverse_order,
+                )
+            elif order_column.endswith("product__uber_puc__kind__name"):
+                reverse_order = order_column.startswith("-")
+                # sort queryset by product uber_puc property's kind name
+                qs = sorted(
+                    qs,
+                    key=lambda m: (
+                        m.product.uber_puc.kind.name if m.product.uber_puc else "",
+                    ),
+                    reverse=reverse_order,
+                )
+            else:
+                return qs.order_by(*order)
+        return qs
 
     def filter_queryset(self, qs):
         puc = self.request.GET.get("category")
