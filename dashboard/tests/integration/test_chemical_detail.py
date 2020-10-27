@@ -1,3 +1,5 @@
+import time
+
 from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from dashboard.models import (
@@ -11,7 +13,6 @@ from dashboard.models import (
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-from selenium.common.exceptions import NoSuchElementException
 
 
 def log_karyn_in(object):
@@ -195,4 +196,53 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         self.assertInHTML(
             "Showing 0 to 0 of 0 entries (filtered from 6 total entries)",
             self.browser.find_element_by_xpath("//*[@id='products_info']").text,
+        )
+
+    def test_product_table_sort(self):
+        chemical = DSSToxLookup.objects.get(sid="DTXSID9022528")
+        wait = WebDriverWait(self.browser, 10)
+        self.browser.get(self.live_server_url + chemical.get_absolute_url())
+
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='products_info']"), "Showing 1 to 4 of 4 entries"
+            )
+        )
+
+        product_header = self.browser.find_element_by_xpath(
+            "//*[@id='products']/thead/tr/th[1]"
+        )
+        # table sort by product ascending by default
+        first_product = self.browser.find_element_by_xpath(
+            "//*[@id='products']/tbody/tr[1]/td[1]"
+        )
+        self.assertEqual("Lemon Clarifying Shampoo", first_product.text)
+
+        # sort by product descending
+        product_header.click()
+        time.sleep(1)
+        first_product = self.browser.find_element_by_xpath(
+            "//*[@id='products']/tbody/tr[1]/td[1]"
+        )
+        self.assertEqual("Rose Whipped Body Lotion", first_product.text)
+
+        puc_header = self.browser.find_element_by_xpath(
+            "//*[@id='products']/thead/tr/th[3]"
+        )
+        # sort by puc ascending
+        puc_header.click()
+        time.sleep(1)
+        first_puc = self.browser.find_element_by_xpath(
+            "//*[@id='products']/tbody/tr[1]/td[3]"
+        )
+        self.assertEqual("", first_puc.text)
+
+        # sort by puc descending
+        puc_header.click()
+        time.sleep(1)
+        first_puc = self.browser.find_element_by_xpath(
+            "//*[@id='products']/tbody/tr[1]/td[3]"
+        )
+        self.assertEqual(
+            "Personal care - hair styling and care - shampoo", first_puc.text
         )
