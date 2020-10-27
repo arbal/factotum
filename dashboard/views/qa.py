@@ -139,8 +139,8 @@ class SummaryTable(BaseDatatableView):
     There is no model but each row should refer to an ExtractedText.
     """
 
-    columns = ["data_document__title", "qanotes__qa_notes", "last_updated"]
-    order_columns = ["data_document__title", "qanotes__qa_notes", "last_updated"]
+    columns = ["data_document__data_group__title", "data_document__title", "qanotes__qa_notes", "data_document__raw_chem", "last_updated", "test"]
+    order_columns = ["data_document__title", "qanotes__qa_notes", "last_updated", "test"]
 
     def get_filter_method(self):
         """ Returns preferred filter method """
@@ -152,6 +152,10 @@ class SummaryTable(BaseDatatableView):
         return super().get(request, *args, **kwargs)
 
     def render_column(self, row, column):
+        if column == "data_group__title":
+            return f"""<a href="{reverse("data_group_detail", args=[row.data_document.data_group.id])}">
+                            { row.data_document.data_group }
+                        </a>"""
         if column == "data_document__title":
             return f"""<a href="{reverse("data_document", args=[row.pk])}">
                             { row.data_document }
@@ -161,9 +165,11 @@ class SummaryTable(BaseDatatableView):
                 return row.qanotes.qa_notes
             except QANotes.DoesNotExist:
                 return None
+        if column == "data_document__raw_chem":
+            return row.data_document.extractedtext.rawchem.count()
         elif column == "last_updated":
-            return f"""<a title="audit log" 
-                          href="{reverse("document_audit_log", args=[row.pk])}" 
+            return f"""<a title="audit log"
+                          href="{reverse("document_audit_log", args=[row.pk])}"
                           data-toggle="modal"
                           data-target="#document-audit-log-modal">
                             Last updated {timesince(row.last_updated)} ago
@@ -242,10 +248,10 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
     Detailed view of an ExtractedText object, where the user can approve the
     record, edit its ExtractedComposition objects, skip to the next ExtractedText
     in the QA group, or exit to the index page.
-    This view processes objects of different models with different QA workflows. 
+    This view processes objects of different models with different QA workflows.
     The qa_focus variable is used to indicate whether an ExtractedText object is
     part of a QA Group, as with Composition records, or if the DataDocument/ExtractedText
-    is its own QA Group, as with ExtractedCPCat and ExtractedHHDoc records.  
+    is its own QA Group, as with ExtractedCPCat and ExtractedHHDoc records.
     """
     extext = get_object_or_404(ExtractedText.objects.select_subclasses(), pk=pk)
 

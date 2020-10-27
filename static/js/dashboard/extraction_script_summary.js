@@ -6,17 +6,25 @@ $(document).ready(function () {
         ajax: document_table_url,
         columns: [
             {
+                data: 'data_group__title',
+                width: "20%",
+            },
+            {
                 data: 'data_document__title',
-                width: "30%",
+                width: "20%",
             },
             {
                 data: 'qanotes__qa_notes',
-                width: "45%",
+                width: "40%",
+            },
+            {
+                data: 'data_document__raw_chem',
+                width: "5%",
             },
             {
                 data: 'last_updated',
                 searchable: false,
-                width: "25%",
+                width: "20%",
             }
         ]
     });
