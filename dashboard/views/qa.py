@@ -139,8 +139,8 @@ class SummaryTable(BaseDatatableView):
     There is no model but each row should refer to an ExtractedText.
     """
 
-    columns = ["data_document__data_group__title", "data_document__title", "qanotes__qa_notes", "data_document__raw_chem", "last_updated", "test"]
-    order_columns = ["data_document__title", "qanotes__qa_notes", "last_updated", "test"]
+    columns = ["data_document__data_group__title", "data_document__title", "qanotes__qa_notes", "data_document__raw_chem", "last_updated"]
+    order_columns = ["data_document__title", "qanotes__qa_notes", "last_updated"]
 
     def get_filter_method(self):
         """ Returns preferred filter method """
