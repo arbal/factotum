@@ -139,8 +139,8 @@ class SummaryTable(BaseDatatableView):
     There is no model but each row should refer to an ExtractedText.
     """
 
-    columns = ["data_document__title", "qanotes__qa_notes", "last_updated"]
-    order_columns = ["data_document__title", "qanotes__qa_notes", "last_updated"]
+    columns = ["data_document__data_group__title", "data_document__title", "qanotes__qa_notes", "data_document__raw_chem", "last_updated", "test"]
+    order_columns = ["data_document__title", "qanotes__qa_notes", "last_updated", "test"]
 
     def get_filter_method(self):
         """ Returns preferred filter method """
@@ -152,6 +152,10 @@ class SummaryTable(BaseDatatableView):
         return super().get(request, *args, **kwargs)
 
     def render_column(self, row, column):
+        if column == "data_group__title":
+            return f"""<a href="{reverse("data_group_detail", args=[row.data_document.data_group.id])}">
+                            { row.data_document.data_group }
+                        </a>"""
         if column == "data_document__title":
             return f"""<a href="{reverse("data_document", args=[row.pk])}">
                             { row.data_document }
@@ -161,6 +165,8 @@ class SummaryTable(BaseDatatableView):
                 return row.qanotes.qa_notes
             except QANotes.DoesNotExist:
                 return None
+        if column == "data_document__raw_chem":
+            return row.data_document.extractedtext.rawchem.count()
         elif column == "last_updated":
             return f"""<a title="audit log" 
                           href="{reverse("document_audit_log", args=[row.pk])}" 
