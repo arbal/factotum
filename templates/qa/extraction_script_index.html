@@ -29,7 +29,7 @@ QA: Composition - Ext. Script</h1>
                  {{ extraction_script.title }}
             {% endif %}
         </td>
-        <td>{{ extraction_script.updated_at | date:"M d, Y" }}</td>
+        <td data-order="{{ extraction_script.updated_at | date:"Y-m-d" }}">{{ extraction_script.updated_at | date:"M d, Y" }}</td>
         <td id="docs-{{extraction_script.id}}">{{ extraction_script.extractedtext_count }}</td>
         <td id="pct-{{extraction_script.id}}">{{ extraction_script.percent_complete|default:"0" }}{{' '}}%</td>
         <td>
