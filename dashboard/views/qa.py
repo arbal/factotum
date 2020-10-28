@@ -307,6 +307,7 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
     )
     # extext = extext.pull_out_cp()
     ext_form = ParentForm(instance=extext)
+    extext.chemical_count = RawChem.objects.filter(extracted_text=extext).count()
     detail_formset = ChildForm(instance=extext)
     # If the document is CPCat or HHE type, the display should only show the
     # child records where qa_flag = True
@@ -402,7 +403,6 @@ def save_qa_notes(request, pk):
 @usertask
 def delete_extracted_script_task(self, pk):
     extraction_script = Script.objects.get(pk=pk)
-
     with transaction.atomic():
         ExtractedText.objects.filter(extraction_script=extraction_script).delete()
         QAGroup.objects.filter(extraction_script=extraction_script).delete()
