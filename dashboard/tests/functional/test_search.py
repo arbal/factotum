@@ -337,11 +337,11 @@ class TestSearch(TestCase):
         resp = self.client.get("/search/datadocument/" + qs)
         soup = bs4.BeautifulSoup(resp.content, features="lxml")
         divs = soup.find_all("div", {"class": "resultrow"})
-        self.assertInHTML("True chemical name:", str(divs[1]))
+        self.assertInHTML("True chemical name:", str(divs[0]))
 
         # The example document 156624 with "water" only in its title
         # should be all the way on the fifth page
-        resp = self.client.get("/search/datadocument/" + qs + "&page=5")
+        resp = self.client.get("/search/datadocument/" + qs + "&page=2")
         self.assertIn("/datadocument/156624/", str(resp.content))
 
     def test_chemical_fields(self):

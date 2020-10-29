@@ -39,7 +39,7 @@
   pk: 1
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.897509
+    updated_at: 2020-07-02 17:02:55.584520
     created_by: null
     updated_by: null
     kind: 2
@@ -47,7 +47,8 @@
     prod_fam: body paint
     prod_type: ''
     description: products placed on the skin for decorative purposes (body paints,
-      markers, glitters, play cosmetics, and Halloween cosmetics)
+      markers, glitters, play cosmetics, Halloween cosmetics, and products such as
+      henna)
     last_edited_by: 1
 - model: dashboard.puc
   pk: 2
@@ -390,14 +391,15 @@
   pk: 27
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.914056
+    updated_at: 2020-05-28 19:13:59.935419
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: bathroom
     prod_type: ''
-    description: ''
+    description: products related to cleaning or care of bathrooms, which do not fit
+      into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 28
@@ -456,14 +458,15 @@
   pk: 32
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.915612
+    updated_at: 2020-05-28 19:16:11.615968
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: carpet and floor
     prod_type: ''
-    description: ''
+    description: cleaning products for carpet or other flooring, which do not fit
+      into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 33
@@ -509,14 +512,15 @@
   pk: 36
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.919089
+    updated_at: 2020-05-28 19:17:12.384270
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: dishwasher and dishes
     prod_type: ''
-    description: ''
+    description: cleaning products used in the dishwasher or on dishes, which do not
+      fit into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 37
@@ -550,14 +554,15 @@
   pk: 39
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.923175
+    updated_at: 2020-05-28 19:18:01.433714
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: general household cleaning
     prod_type: ''
-    description: ''
+    description: cleaning products for general household cleaning, which do not fit
+      into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 40
@@ -590,79 +595,85 @@
   pk: 42
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.930005
+    updated_at: 2020-05-28 19:18:58.098255
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: laundry and fabric treatment
     prod_type: ''
-    description: ''
+    description: Cleaning or care products for laundry and fabric treatment which
+      do not fit into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 43
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.938356
+    updated_at: 2020-05-28 19:19:33.028195
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: metal specific
     prod_type: ''
-    description: ''
+    description: cleaning or care products specific to metals, which do not fit into
+      a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 44
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.939799
+    updated_at: 2020-05-28 19:23:35.014934
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: oven
     prod_type: ''
-    description: ''
+    description: cleaning or other products used in or on ovens that do not fit in
+      a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 45
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.941062
+    updated_at: 2020-05-28 18:42:47.685046
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: shoes
     prod_type: ''
-    description: ''
+    description: Products related to the care of footwear which do not fit into a
+      more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 46
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.942322
+    updated_at: 2020-05-28 19:26:18.622203
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: upholstery specific
     prod_type: ''
-    description: ''
+    description: care or cleaning products for upholstery which do  not fit into a
+      more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 47
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.943854
+    updated_at: 2020-05-28 19:27:04.828148
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: wood specific
     prod_type: ''
-    description: ''
+    description: cleaning or care products specifically for wood, which do not fit
+      into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 48
@@ -803,14 +814,14 @@
   pk: 59
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.932930
+    updated_at: 2020-06-19 14:16:08.395344
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: laundry and fabric treatment
     prod_type: fabric deodorizer
-    description: fabric deodorizers (spray formulation assumed)
+    description: fabric deodorizers
     last_edited_by: 1
 - model: dashboard.puc
   pk: 60
@@ -925,14 +936,14 @@
   pk: 68
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.940460
+    updated_at: 2020-05-21 11:40:13.508493
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Cleaning products and household care
     prod_fam: oven
     prod_type: oven cleaner
-    description: products used to clean grills or ovens
+    description: products used to clean grills, ovens, or range cooktops
     last_edited_by: 1
 - model: dashboard.puc
   pk: 69
@@ -981,14 +992,15 @@
   pk: 72
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.945260
+    updated_at: 2020-05-28 19:28:07.898453
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Electronics/small appliances
     prod_fam: ''
     prod_type: ''
-    description: ''
+    description: formulation products used on or for electronics or small appliances,
+      which do not fit into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 73
@@ -1020,14 +1032,15 @@
   pk: 75
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.946088
+    updated_at: 2020-05-28 19:29:09.576471
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Electronics/small appliances
     prod_fam: computers and accessories/supplies
     prod_type: ''
-    description: ''
+    description: formulation products for use in or on computers and related accessories
+      or supplies, which do not fit into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 76
@@ -1047,14 +1060,15 @@
   pk: 77
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.949109
+    updated_at: 2020-05-28 19:29:47.678235
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Home maintenance
     prod_fam: ''
     prod_type: ''
-    description: ''
+    description: general formulation products used for home maintenance, which do
+      not fit into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 78
@@ -1101,14 +1115,15 @@
   pk: 82
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.949782
+    updated_at: 2020-05-28 19:31:26.047691
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Home maintenance
     prod_fam: adhesives and adhesive removers
     prod_type: ''
-    description: ''
+    description: adhesive and adhesive remover related products which do not fit into
+      a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 84
@@ -1196,14 +1211,15 @@
   pk: 90
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.957262
+    updated_at: 2020-05-28 19:32:56.582897
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Home maintenance
     prod_fam: insulation
     prod_type: ''
-    description: ''
+    description: formulation products related to, or used on or for insulation, which
+      do not fit into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 91
@@ -1235,14 +1251,15 @@
   pk: 93
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.960082
+    updated_at: 2020-05-28 19:38:11.922539
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Home maintenance
     prod_fam: paint/stain and related products
     prod_type: ''
-    description: ''
+    description: paint or stain related products that do not fit into a more refined
+      category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 94
@@ -1368,14 +1385,15 @@
   pk: 103
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.966713
+    updated_at: 2020-05-28 19:39:44.665409
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Home maintenance
     prod_fam: patch and repair
     prod_type: ''
-    description: ''
+    description: products related to patch and repair that do not fit into a more
+      refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 104
@@ -1501,14 +1519,14 @@
   pk: 113
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.974027
+    updated_at: 2020-05-28 19:40:17.710420
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Home maintenance
     prod_fam: tiling
     prod_type: ''
-    description: ''
+    description: products related to tiling which do not fit into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 114
@@ -1554,14 +1572,15 @@
   pk: 117
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.976975
+    updated_at: 2020-05-28 19:41:12.512509
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Landscape/Yard
     prod_fam: ''
     prod_type: ''
-    description: ''
+    description: products related or for use in the outdoor landscape or yard, which
+      do not fit into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 118
@@ -1621,14 +1640,15 @@
   pk: 122
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.980957
+    updated_at: 2020-05-28 19:44:34.742366
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Landscape/Yard
     prod_fam: lawnmower
     prod_type: ''
-    description: ''
+    description: formulation products for use in or with lawnmowers, which do not
+      fit into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 123
@@ -1647,14 +1667,15 @@
   pk: 124
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.982647
+    updated_at: 2020-05-28 19:50:49.813003
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Landscape/Yard
     prod_fam: plants and garden
     prod_type: ''
-    description: ''
+    description: general products for use with plants or in the garden, which do not
+      fit into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 125
@@ -1809,14 +1830,15 @@
   pk: 137
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.992208
+    updated_at: 2020-05-28 19:51:19.037156
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Personal care
     prod_fam: ''
     prod_type: ''
-    description: ''
+    description: general personal care products which do not fit into a more refined
+      category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 138
@@ -1835,14 +1857,15 @@
   pk: 139
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.992819
+    updated_at: 2020-05-28 19:51:48.789026
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Personal care
     prod_fam: acne treatment
     prod_type: ''
-    description: ''
+    description: general products for acne treatment that do not fit into a more refined
+      category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 140
@@ -1915,14 +1938,15 @@
   pk: 145
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:07.997836
+    updated_at: 2020-05-28 19:52:45.252342
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Personal care
     prod_fam: body hygiene
     prod_type: ''
-    description: ''
+    description: products related to body hygiene which do not fit into a more refined
+      category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 146
@@ -2046,14 +2070,15 @@
   pk: 155
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.004720
+    updated_at: 2020-05-28 19:59:01.257444
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Personal care
     prod_fam: child specific
     prod_type: ''
-    description: ''
+    description: personal care products intended for use by children, which do not
+      fit into a more specific category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 156
@@ -2164,14 +2189,15 @@
   pk: 164
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.010962
+    updated_at: 2020-05-28 19:59:56.284393
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Personal care
     prod_fam: dental care
     prod_type: ''
-    description: ''
+    description: personal care products related to dental care, which do not fit into
+      a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 165
@@ -2321,14 +2347,15 @@
   pk: 177
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.019530
+    updated_at: 2020-05-28 20:02:50.167401
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Personal care
     prod_fam: facial cleansing and moisturizing
     prod_type: ''
-    description: ''
+    description: facial cleansing and moisturizing products which do not fit into
+      a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 178
@@ -2443,14 +2470,15 @@
   pk: 186
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.025333
+    updated_at: 2020-05-28 20:11:16.175616
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Personal care
     prod_fam: general moisturizing
     prod_type: ''
-    description: ''
+    description: general moisturizing products which do not fit into a more refined
+      category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 187
@@ -2497,14 +2525,15 @@
   pk: 190
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.028706
+    updated_at: 2020-08-05 15:06:54.504501
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Personal care
     prod_fam: hair coloring
     prod_type: hair color - permanent
-    description: hair colors and dyes characterized as permanent
+    description: hair colors and dyes characterized as permanent, excludes products
+      for use by a professional
     last_edited_by: 1
 - model: dashboard.puc
   pk: 191
@@ -2588,14 +2617,15 @@
   pk: 197
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.032875
+    updated_at: 2020-05-28 20:12:39.949761
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Personal care
     prod_fam: hair styling and care
     prod_type: ''
-    description: ''
+    description: general hair styling or hair care products which do not fit into
+      a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 198
@@ -2761,14 +2791,15 @@
   pk: 213
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.043196
+    updated_at: 2020-05-28 20:13:06.116832
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Personal care
     prod_fam: make-up and related
     prod_type: ''
-    description: ''
+    description: make-up or cosmetic products which do not fit into a more refined
+      category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 214
@@ -3063,14 +3094,15 @@
   pk: 236
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.060296
+    updated_at: 2020-05-28 20:17:40.267638
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Personal care
     prod_fam: shaving and hair removal
     prod_type: ''
-    description: ''
+    description: shaving or hair removal products which do not fit into a more refined
+      category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 237
@@ -3142,14 +3174,14 @@
   pk: 242
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.064120
+    updated_at: 2020-05-28 20:18:13.838244
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Personal care
     prod_fam: specialized bath products
     prod_type: ''
-    description: ''
+    description: specialized bath products that do not fit into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 243
@@ -3210,14 +3242,14 @@
   pk: 247
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.067728
+    updated_at: 2020-05-28 20:18:42.853908
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Pesticides
     prod_fam: ''
     prod_type: ''
-    description: ''
+    description: general pesticide products that do not fit into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 248
@@ -3303,27 +3335,29 @@
   pk: 255
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.072576
+    updated_at: 2020-05-28 20:27:00.010018
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Pet care
     prod_fam: ''
     prod_type: ''
-    description: ''
+    description: products intended for pet care which do not fit into a more refined
+      category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 256
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.073182
+    updated_at: 2020-05-28 20:27:23.399261
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Pet care
     prod_fam: all pets
     prod_type: ''
-    description: ''
+    description: products for pet care which do not fit into a more refined category;
+      specifically those products which can be used on all pets
     last_edited_by: 1
 - model: dashboard.puc
   pk: 257
@@ -3384,14 +3418,15 @@
   pk: 261
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.076317
+    updated_at: 2020-05-28 20:27:47.812753
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Pet care
     prod_fam: cats
     prod_type: ''
-    description: ''
+    description: care products specifically for cats which do not fit into a more
+      refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 262
@@ -3410,14 +3445,15 @@
   pk: 263
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.077860
+    updated_at: 2020-05-28 20:28:10.001506
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Pet care
     prod_fam: fish
     prod_type: ''
-    description: ''
+    description: care products specifically for pet fish, which do not fit into a
+      more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 264
@@ -3436,27 +3472,29 @@
   pk: 265
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.079117
+    updated_at: 2020-05-28 20:28:39.418300
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Sports equipment
     prod_fam: ''
     prod_type: ''
-    description: ''
+    description: formulation products for use in, with, or as sports equipment, which
+      do not fit into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 266
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.079803
+    updated_at: 2020-05-28 20:29:19.805762
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Sports equipment
     prod_fam: bicycling
     prod_type: ''
-    description: ''
+    description: formulation products for use on bicycles, which do not fit into a
+      more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 267
@@ -3475,14 +3513,15 @@
   pk: 268
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.081341
+    updated_at: 2020-05-28 20:29:53.232039
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Sports equipment
     prod_fam: fishing
     prod_type: ''
-    description: ''
+    description: formulation products used for the sport of fishing, which do not
+      fit into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 269
@@ -3501,14 +3540,15 @@
   pk: 270
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.083186
+    updated_at: 2020-05-28 20:30:26.288377
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Sports equipment
     prod_fam: skiing
     prod_type: ''
-    description: ''
+    description: formulation products used for skiing, which do not fit into a more
+      refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 271
@@ -3527,27 +3567,29 @@
   pk: 272
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.084370
+    updated_at: 2020-05-28 20:30:53.182575
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Vehicle
     prod_fam: ''
     prod_type: ''
-    description: ''
+    description: products used in or on vehicles, which do not fit into a more refined
+      category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 273
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.084985
+    updated_at: 2020-05-28 20:31:12.048148
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Vehicle
     prod_fam: auto body work
     prod_type: ''
-    description: ''
+    description: products used for auto body work, which do not fit in a more refined
+      category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 274
@@ -3607,14 +3649,15 @@
   pk: 278
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.088524
+    updated_at: 2020-05-28 20:31:35.428632
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Vehicle
     prod_fam: boat care and maintenance
     prod_type: ''
-    description: ''
+    description: products used for boat care and maintenance, which do not fit in
+      a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 279
@@ -3686,14 +3729,15 @@
   pk: 284
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.092093
+    updated_at: 2020-05-28 20:35:05.371807
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Vehicle
     prod_fam: car interior
     prod_type: ''
-    description: ''
+    description: formulation products used on the interior of cars, which do not fit
+      into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 285
@@ -3766,14 +3810,15 @@
   pk: 290
   fields:
     created_at: 2017-10-07 05:28:49
-    updated_at: 2019-04-08 07:01:08.097788
+    updated_at: 2020-05-28 20:35:29.142236
     created_by: null
     updated_by: null
     kind: 2
     gen_cat: Vehicle
     prod_fam: engine maintenance
     prod_type: ''
-    description: ''
+    description: formulation products used for engine maintenance, which do not fit
+      into a more refined category
     last_edited_by: 1
 - model: dashboard.puc
   pk: 291
@@ -3914,28 +3959,14 @@
   pk: 301
   fields:
     created_at: 2019-11-25 14:09:06.499970
-    updated_at: 2019-12-02 15:28:09.985404
+    updated_at: 2020-07-09 20:34:25.768473
     created_by: null
     updated_by: null
     kind: 4
-    gen_cat: Industrial ingredients
+    gen_cat: Raw materials
     prod_fam: ''
     prod_type: ''
-    description: '''Pure chemicals'', or raw materials, used as components'
-    last_edited_by: 1
-- model: dashboard.puc
-  pk: 302
-  fields:
-    created_at: 2019-11-25 14:09:36.787185
-    updated_at: 2019-11-25 14:09:36.787202
-    created_by: null
-    updated_by: null
-    kind: 4
-    gen_cat: Industrial products
-    prod_fam: ''
-    prod_type: ''
-    description: Products used primary for industrial processes (i.e. products used
-      in a manufacturing setting)
+    description: Pure chemicals or ingredients
     last_edited_by: 1
 - model: dashboard.puc
   pk: 303
@@ -3967,7 +3998,7 @@
   pk: 305
   fields:
     created_at: 2020-04-13 11:16:16.700369
-    updated_at: 2020-04-13 11:20:25.455819
+    updated_at: 2020-05-13 20:23:15.318241
     created_by: null
     updated_by: null
     kind: 3
@@ -3976,7 +4007,9 @@
     prod_type: ''
     description: Including small and large consumer electronics appliances (e.g. refrigerator,
       washing machine, vacuum cleaner, computer, phone, smoke detector, electric tools,
-      lamps)
+      lamps); includes small electronics with direct personal contact such as massagers;
+      excludes electronics specifically intended for use by children; excludes electronics
+      with direct food contact (e.g. electric blender)
     last_edited_by: 1
 - model: dashboard.puc
   pk: 306
@@ -4023,7 +4056,7 @@
   pk: 309
   fields:
     created_at: 2020-04-13 11:23:56.672900
-    updated_at: 2020-04-13 11:23:56.672927
+    updated_at: 2020-05-13 14:12:05.124296
     created_by: null
     updated_by: null
     kind: 3
@@ -4032,13 +4065,13 @@
     prod_type: ''
     description: Materials used for construction (e.g. flooring, tile, sinks, bathtubs,
       mirrors, wall materials/drywall, wall-to-wall carpets, insulation, playground
-      surfaces)
+      surfaces); includes semi-permanent fixtures such as faucets and light fixtures
     last_edited_by: 1
 - model: dashboard.puc
   pk: 310
   fields:
     created_at: 2020-04-13 11:25:06.550906
-    updated_at: 2020-04-13 11:25:06.550933
+    updated_at: 2020-05-13 20:22:32.673719
     created_by: null
     updated_by: null
     kind: 3
@@ -4046,7 +4079,8 @@
     prod_fam: ''
     prod_type: ''
     description: Toys and articles intended for use by children (not including formulations)
-      (e.g. stuffed toys, blankets, games, baby bottles and pacifiers, dolls)
+      (e.g. stuffed toys, blankets, games, baby bottles and pacifiers, dolls); includes
+      electronics specifically intended for use by children
     last_edited_by: 1
 - model: dashboard.puc
   pk: 311
@@ -4066,7 +4100,7 @@
   pk: 312
   fields:
     created_at: 2020-04-13 11:27:33.199429
-    updated_at: 2020-04-13 11:27:33.199453
+    updated_at: 2020-05-13 20:23:38.260884
     created_by: null
     updated_by: null
     kind: 3
@@ -4076,7 +4110,7 @@
     description: Articles intended for food contact, including food-contact packaging
       (e.g. glasses, plates, pots/pans, food storage containers, cloth napkins and
       placemats,cutlery, paper plates and plastic utensils, take-out containers, plastic
-      wrap and foil
+      wrap and foil; includes small electronics with direct food contact (e.g. blender)
     last_edited_by: 1
 - model: dashboard.puc
   pk: 313
@@ -4134,4 +4168,119 @@
     prod_fam: ''
     prod_type: ''
     description: Batteries
+    last_edited_by: 1
+- model: dashboard.puc
+  pk: 317
+  fields:
+    created_at: 2020-06-29 18:02:31.646873
+    updated_at: 2020-07-10 14:45:13.717089
+    created_by: null
+    updated_by: null
+    kind: 4
+    gen_cat: Medical/Dental
+    prod_fam: ''
+    prod_type: ''
+    description: Medical and dental supplies and equipment, e.g. medical equipment
+      used in a hospital or doctor's office setting, at home (e.g. wheelchairs, colostomy
+      bag). Includes clothing and personal protective equipment used in medical settings
+      (e.g. scrubs, face masks, gowns, gloves); excludes medical testing supplies.
+    last_edited_by: 1
+- model: dashboard.puc
+  pk: 318
+  fields:
+    created_at: 2020-07-02 16:35:41.726146
+    updated_at: 2020-07-09 20:29:32.023092
+    created_by: null
+    updated_by: null
+    kind: 4
+    gen_cat: Manufactured formulations
+    prod_fam: ''
+    prod_type: ''
+    description: Formulations used as part of a process, or in a piece of equipment
+      (e.g. lubricants, adhesives, sealants, oils, paints, coatings)
+    last_edited_by: 1
+- model: dashboard.puc
+  pk: 319
+  fields:
+    created_at: 2020-07-02 16:36:27.731064
+    updated_at: 2020-07-09 20:26:26.624913
+    created_by: null
+    updated_by: null
+    kind: 4
+    gen_cat: Cleaning and Safety
+    prod_fam: ''
+    prod_type: ''
+    description: Products used for cleaning or safety in an occupational or industrial
+      setting (e.g. industrial cleaning supplies or laundry detergent, eye wash, spill
+      kits)
+    last_edited_by: 1
+- model: dashboard.puc
+  pk: 320
+  fields:
+    created_at: 2020-07-02 16:37:17.424837
+    updated_at: 2020-07-09 20:35:03.597737
+    created_by: null
+    updated_by: null
+    kind: 4
+    gen_cat: Specialty occupational products
+    prod_fam: ''
+    prod_type: ''
+    description: Specialty products used in a specific occupational setting, by members
+      of that occupation (e.g. firefighting foam, metal working fluids, products used
+      in portable toilets)
+    last_edited_by: 1
+- model: dashboard.puc
+  pk: 321
+  fields:
+    created_at: 2020-07-02 16:38:37.239368
+    updated_at: 2020-07-10 14:44:52.672296
+    created_by: null
+    updated_by: null
+    kind: 4
+    gen_cat: Laboratory supplies
+    prod_fam: ''
+    prod_type: ''
+    description: Products specifically used in a laboratory setting, e.g. laboratory
+      diagnostics or consumables, solvents and reagents used in experiments or laboratory
+      tests, etc. Includes supplies for medical testing. Note that pure chemicals
+      will be included in the 'Raw materials' category.
+    last_edited_by: 1
+- model: dashboard.puc
+  pk: 322
+  fields:
+    created_at: 2020-07-21 18:39:22.559358
+    updated_at: 2020-07-21 18:39:22.559383
+    created_by: null
+    updated_by: null
+    kind: 2
+    gen_cat: Arts and crafts/Office supplies
+    prod_fam: body paint
+    prod_type: tattoo ink
+    description: inks used for permanent tattoos
+    last_edited_by: 1
+- model: dashboard.puc
+  pk: 323
+  fields:
+    created_at: 2020-07-30 13:00:23.262747
+    updated_at: 2020-07-30 19:13:19.985869
+    created_by: null
+    updated_by: null
+    kind: 4
+    gen_cat: Manufactured formulations
+    prod_fam: Flame retardants
+    prod_type: ''
+    description: flame retardants used for various purposes
+    last_edited_by: 1
+- model: dashboard.puc
+  pk: 324
+  fields:
+    created_at: 2020-07-30 14:54:38.536888
+    updated_at: 2020-07-30 19:13:12.235307
+    created_by: null
+    updated_by: null
+    kind: 4
+    gen_cat: Specialty occupational products
+    prod_fam: Firefighting foam
+    prod_type: ''
+    description: specialty product used for extinguishing fires
     last_edited_by: 1

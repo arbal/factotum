@@ -10,6 +10,7 @@ QA: Composition - Ext. Script</h1>
     <table class="table table-striped table-bordered dataTable no-footer" id='extraction_script_table'>
     <thead class="table-primary">
         <th>Extraction Script</th>
+        <th>Script Updated</th>
         <th>Extracted Text</th>
         <th>Percent QA Checked</th>
         <th>QA Summary</th>
@@ -28,6 +29,7 @@ QA: Composition - Ext. Script</h1>
                  {{ extraction_script.title }}
             {% endif %}
         </td>
+        <td data-order="{{ extraction_script.updated_at | date:"Y-m-d" }}">{{ extraction_script.updated_at | date:"M d, Y" }}</td>
         <td id="docs-{{extraction_script.id}}">{{ extraction_script.extractedtext_count }}</td>
         <td id="pct-{{extraction_script.id}}">{{ extraction_script.percent_complete|default:"0" }}{{' '}}%</td>
         <td>

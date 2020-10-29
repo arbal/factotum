@@ -72,6 +72,12 @@ class TestQASummary(TestCase):
             response_html.xpath('//*[@id="qa_complete_extractedtext_count"]')[0].text,
         )
         self.assertIn(
+            str(
+                QANotes.objects.filter(extracted_text__in=self.extracted_texts).count()
+            ),
+            response_html.xpath('//*[@id="qa_notes"]')[0].text,
+        )
+        self.assertIn(
             str(len(self.extracted_texts) - qa_complete_count),
             response_html.xpath('//*[@id="qa_incomplete_extractedtext_count"]')[0].text,
         )

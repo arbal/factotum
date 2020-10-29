@@ -73,6 +73,26 @@
                     Get Data
                 </a>
             </li>
+            <li class="nav-item
+                            {% if '/statistics/' in request.path %}
+                                active
+                            {% endif %}">
+                <a class="nav-link"
+                   href="{% url 'statistics' %}"
+                   title="Statistics">
+                    Statistics
+                </a>
+            </li>
+            <li class="nav-item
+                            {% if '/visualizations/' in request.path %}
+                                active
+                            {% endif %}">
+                <a class="nav-link"
+                   href="{% url 'visualizations' %}"
+                   title="Visualizations">
+                    Visualizations
+                </a>
+            </li>
             {% if user.is_authenticated %}
                 <li class="nav-item
                             {% if '/datasources/' in request.path %}
@@ -242,7 +262,7 @@
 </footer>
 
 {#<!-- jQuery first, then Popper.js, then Bootstrap JS -->#}
-<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'DataTables/datatables.min.js' %}"></script>

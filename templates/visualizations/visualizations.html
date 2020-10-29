@@ -1,0 +1,68 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% load tags %}
+{% block title %}Visualizations{% endblock %}
+
+{% block content %}
+
+    <h1>Visualizations</h1>
+
+    <div class="row mt-5 mb-5">
+        <svg id="collapsibletree" width="100%"></svg>
+    </div>
+
+    <h4 class="mt-5">Products Linked to <a href="/pucs">PUCs</a></h4>
+
+    {# Formulation PUCs    #}
+    <div class="row mt-2">
+        <div class="col-5 p-0">
+            {% show_bubble_puc_legend formulation_pucs "FO" False %}
+        </div>
+        <div class="col-7">
+            <svg id="nestedcircles_FO" class="nestedcircles" width="100%" height="500"></svg>
+        </div>
+    </div>
+
+    {# Article PUCs    #}
+    <div class="row mt-2">
+        <div class="col-5 p-0">
+            {% show_bubble_puc_legend article_pucs "AR" False %}
+        </div>
+        <div class="col-7">
+            <svg id="nestedcircles_AR" class="nestedcircles" width="100%" height="500"></svg>
+        </div>
+    </div>
+
+
+    {# Industrial and Occupational PUCs    #}
+    <div class="row mt-2">
+        <div class="col-5 p-0">
+            {% show_bubble_puc_legend occupation_pucs "OC" False %}
+        </div>
+        <div class="col-7">
+            <svg id="nestedcircles_OC" class="nestedcircles" width="100%" height="500"></svg>
+        </div>
+    </div>
+
+    <div class="row mt-5 mb-5">
+        <h4>SIDs per Group Type</h4>
+
+        <div id="venn"></div>
+    </div>
+
+{% endblock %}
+
+{% block css %}
+    <link href="{% static 'css/dashboard/visualizations.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/d3.v5.min.js' %}"></script>
+    <script src="{% static 'js/d3-selection.v1.min.js' %}"></script>
+    <script src="{% static 'js/bubble_chart.js' %}"></script>
+    <script src="{% static 'js/bubble_puc_legend.js' %}"></script>
+    <script src="{% static 'js/collapsible_tree.js' %}"></script>
+    <script src="{% static 'js/dashboard/venn.min.js' %}"></script>
+  <script src="{% static 'js/dashboard/visualizations.js' %}"></script>
+{% endblock %}
