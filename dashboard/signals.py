@@ -71,6 +71,7 @@ def rm_invalid_doctypes(sender, **kwargs):
 def auto_delete_orphaned_products_on_delete(sender, instance, **kwargs):
     """
     Deletes orphaned products on ProductDocument delete
+    TODO: scale up
     """
     Product.objects.exclude(
         id__in=ProductDocument.objects.values("product_id")

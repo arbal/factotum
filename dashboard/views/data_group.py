@@ -34,6 +34,7 @@ from dashboard.models import (
     DataDocument,
     DataGroup,
     FunctionalUse,
+    ProductDocument,
 )
 from dashboard.utils import gather_errors, zip_stream
 from factotum.environment import env
@@ -63,6 +64,7 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
     }
     context = {
         "datagroup": dg,
+        "hasproducts": dg.get_products().count() > 0,
         "tabledata": tabledata,
         "clean_comp_data_fieldnames": ", ".join(
             [
@@ -326,8 +328,8 @@ def data_group_delete_products(
     datagroup = get_object_or_404(DataGroup, pk=pk)
     if request.method == "POST":
         with transaction.atomic():
-            datagroup.get_products().delete()
-        return redirect("data_group_detail",  args=[pk])
+            ProductDocument.objects.filter(document__data_group_id=pk).delete()
+        return redirect("data_group_detail",  pk=pk)
     return render(request, template_name, {"object": datagroup})
 
 
