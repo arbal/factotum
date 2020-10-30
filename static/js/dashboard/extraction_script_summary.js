@@ -15,10 +15,10 @@ $(document).ready(function () {
             },
             {
                 data: 'qanotes__qa_notes',
-                width: "40%",
+                width: "35%",
             },
             {
-                data: 'data_document__raw_chem',
+                data: 'rawchem_count',
                 width: "5%",
             },
             {

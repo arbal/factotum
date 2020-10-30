@@ -139,8 +139,8 @@ class SummaryTable(BaseDatatableView):
     There is no model but each row should refer to an ExtractedText.
     """
 
-    columns = ["data_document__data_group__title", "data_document__title", "qanotes__qa_notes", "data_document__raw_chem", "last_updated"]
-    order_columns = ["data_document__title", "qanotes__qa_notes", "last_updated"]
+    columns = ["data_document__data_group__title", "data_document__title", "qanotes__qa_notes", "rawchem_count", "last_updated"]
+    order_columns = ["data_document__data_group", "data_document__title", "qanotes__qa_notes","rawchem_count", "last_updated"]
 
     def get_filter_method(self):
         """ Returns preferred filter method """
@@ -165,8 +165,9 @@ class SummaryTable(BaseDatatableView):
                 return row.qanotes.qa_notes
             except QANotes.DoesNotExist:
                 return None
-        if column == "data_document__raw_chem":
-            return row.data_document.extractedtext.rawchem.count()
+        if column == "rawchem_count":
+            # return row.data_document.extractedtext.rawchem.count()
+            return row.rawchem.count()
         elif column == "last_updated":
             return f"""<a title="audit log"
                           href="{reverse("document_audit_log", args=[row.pk])}"
@@ -212,6 +213,7 @@ class SummaryTable(BaseDatatableView):
             Q(has_auditlog=True) | Q(has_fu_auditlog=True),
             extracted_text=OuterRef("pk"),
         )
+        rawchem_count = Count("rawchem")
 
         qs = (
             Script.objects.get(pk=self.pk)
@@ -237,6 +239,7 @@ class SummaryTable(BaseDatatableView):
                     default=F("updated_at"),
                 )
             )
+            .annotate(rawchem_count=rawchem_count)
             .all()
         )
         return qs
