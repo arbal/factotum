@@ -67,6 +67,7 @@ class TestQaPage(TestCase):
         response = self.client.get(f"/qa/extractedtext/254780/")
         self.assertIn("Lorem ipsum dolor".encode(), response.content)
         self.assertIn("A list of chemicals with a subtitle".encode(), response.content)
+        self.assertIn("Total Chemical Records".encode(), response.content)
 
     def test_qa_script_without_ext_text(self):
         # Begin from the QA index page
@@ -326,3 +327,13 @@ class TestQaPage(TestCase):
                 pass
 
             self.assertEqual(response.status_code, 200)
+
+    def test_cp_qa_no_extractedtext(self):
+        # before remove all extractedtext of group 49
+        response = self.client.get(f"/qa/chemicalpresence/")
+        self.assertIn(f"/qa/chemicalpresencegroup/49/".encode(), response.content)
+        # remove extractedtext of group 49
+        ExtractedText.objects.filter(data_document__data_group__id=49).delete()
+        # now this group should not show on page
+        response = self.client.get(f"/qa/chemicalpresence/")
+        self.assertNotIn(f"/qa/chemicalpresencegroup/49/".encode(), response.content)
