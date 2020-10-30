@@ -10,6 +10,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template.defaultfilters import pluralize
 from django_mysql.models import GroupConcat
 from djqscsv import render_to_csv_response
+from celery import shared_task, states
+from celery_usertask.tasks import UserTask, usertask
+from django.db import transaction
 
 from dashboard.forms import DataGroupForm, create_detail_formset
 from dashboard.forms.data_group import (
@@ -316,6 +319,25 @@ def data_group_delete(
         return redirect("data_group_list")
     return render(request, template_name, {"object": datagroup})
 
+@login_required()
+def data_group_delete_products(
+    request, pk, template_name=("data_group/datagroup_confirm_product_delete.html")
+):
+    datagroup = get_object_or_404(DataGroup, pk=pk)
+    if request.method == "POST":
+        with transaction.atomic():
+            datagroup.get_products().delete()
+        return redirect("data_group_detail",  args=[pk])
+    return render(request, template_name, {"object": datagroup})
+
+
+@shared_task(bind=True, track_started=True, base=UserTask)
+@usertask
+def bulk_delete_products_task(self, pk):
+    data_group = DataGroup.objects.get(pk=pk)
+    with transaction.atomic():
+        data_group.get_products().delete()
+    return "task done"
 
 @login_required()
 def habitsandpractices(request, pk, template_name="data_group/habitsandpractices.html"):

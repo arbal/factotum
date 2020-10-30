@@ -1,0 +1,10 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<form method="post">{% csrf_token %}
+    Are you sure you want to delete all the products related to "{{ object }}" ?
+    <input type="submit" value="Submit"/>
+</form>
+
+{% endblock %}
