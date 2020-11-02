@@ -6,23 +6,18 @@ $(document).ready(function () {
         ajax: document_table_url,
         columns: [
             {
-                data: 'data_group__title',
                 width: "20%",
             },
             {
-                data: 'data_document__title',
                 width: "20%",
             },
             {
-                data: 'qanotes__qa_notes',
                 width: "35%",
             },
             {
-                data: 'rawchem_count',
                 width: "5%",
             },
             {
-                data: 'last_updated',
                 searchable: false,
                 width: "20%",
             }
