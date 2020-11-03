@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block title %}QA Summary For Data Group {{datagroup.id}}: {{datagroup.name}}{% endblock %}
+
+{% block content %}
+<h1>QA Summary: {{ datagroup.name }}</h1>
+<br>
+<dl class="row">
+    <dt class="col-3">QA Group</dt>
+    <dd class="col-9">{{ datagroup.name }}</dd>
+    <dt class="col-3">Total Documents</dt>
+    <dd class="col-9" id="document_count">{{ datagroup.document_count }}</dd>
+    <dt class="col-3">Total Approved Documents</dt>
+    <dd class="col-9" id="qa_complete_count">{{ datagroup.qa_complete_count }}</dd>
+    <dt class="col-3">Total QA Notes</dt>
+    <dd class="col-9" id="qa_notes">{{ datagroup.qa_note_count }}</dd>
+    <dt class="col-3">Total Remaining Documents</dt>
+    <dd class="col-9" id="qa_incomplete_count">{{ datagroup.qa_incomplete_count }}</dd>
+</dl>
+
+{% include 'qa/qa_summary_table.html' %}
+
+{% endblock %}
+
+{% block js %}
+
+{{ document_table_url|json_script:"document_table_url" }}
+<script src="{% static 'js/dashboard/qa_summary_table.js' %}"></script>
+
+{% endblock %}
