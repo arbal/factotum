@@ -73,9 +73,13 @@ def auto_delete_orphaned_products_on_delete(sender, instance, **kwargs):
     Deletes orphaned products on ProductDocument delete
     TODO: scale up
     """
+    import time
+    start = time.time()
     Product.objects.exclude(
         id__in=ProductDocument.objects.values("product_id")
     ).delete()
+    end = time.time()
+    print(f'bulk Product delete took {end - start}s')
 
 
 @receiver(connection_created)
