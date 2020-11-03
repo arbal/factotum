@@ -6,17 +6,20 @@ $(document).ready(function () {
         ajax: document_table_url,
         columns: [
             {
-                data: 'data_document__title',
-                width: "30%",
+                width: "20%",
             },
             {
-                data: 'qanotes__qa_notes',
-                width: "45%",
+                width: "20%",
             },
             {
-                data: 'last_updated',
+                width: "35%",
+            },
+            {
+                width: "5%",
+            },
+            {
                 searchable: false,
-                width: "25%",
+                width: "20%",
             }
         ]
     });
