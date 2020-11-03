@@ -308,7 +308,9 @@
                 </form>
                 <div class="text-muted small text-center">
                   {% if datagroup.can_have_chem_detected_flag == True %}
-                  <span class="fa fa-info-circle mr-2"></span>NOTE: You must include 0,1, or null in your chem_detected_flag field if applicable<br>
+                      <span class="fa fa-info-circle mr-2"></span>
+                      NOTE: Choices for chem_detected_flag field are:<br/>
+                      0 (undetected), 1 (detected), or leave it blank if unknown
                   {% endif %}
                 </div>
               </div>
