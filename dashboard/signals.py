@@ -70,14 +70,19 @@ def rm_invalid_doctypes(sender, **kwargs):
 @receiver(models.signals.post_delete, sender=ProductDocument)
 def auto_delete_orphaned_products_on_delete(sender, instance, **kwargs):
     """
-    Deletes orphaned products on ProductDocument delete
+    Checks for orphaned products on ProductDocument delete.
+    Because products can be associated with multiple data documents,
+    this check needs to make sure there are no other ProductDocument
+    relationships before deleting the Product
     """
-    try:
-        instance.product.delete()
-    except Product.ObjectDoesNotExist:
-        pass
-    else:
-        pass
+    pid = instance.product_id
+    if ProductDocument.objects.filter(product_id=pid).count() == 0:
+        try:
+            instance.product.delete()
+        except Product.DoesNotExist:
+            pass
+        else:
+            pass
 
 
 @receiver(connection_created)
