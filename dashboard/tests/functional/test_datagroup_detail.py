@@ -8,6 +8,7 @@ from dashboard.tests.loader import load_model_objects, fixtures_standard
 from django.core.files import File
 from django.contrib.auth.models import User
 from django.db.models import Count, Max
+from django.urls import reverse
 
 from dashboard.forms.data_group import ExtractFileFormSet
 
@@ -21,6 +22,46 @@ from dashboard.models import (
     ExtractedComposition,
 )
 from dashboard.tests.mixins import TempFileMixin
+from dashboard.tests import factories
+
+@tag("factory")
+class DataGroupDetailTestWithFactories(TestCase):
+    def setUp(self):
+        self.objects = load_model_objects()
+        self.client.login(username="Karyn", password="specialP@55word")
+
+    def test_bulk_product_creation_and_deletion(self):
+        dg = factories.DataGroupFactory()
+        docs = factories.DataDocumentFactory.create_batch(10, data_group=dg)
+
+        self.assertEqual(
+            dg.get_products().count(),
+            0,
+            "Data Group doesn't have zero products",
+        )
+
+        response = self.client.post(
+            reverse("data_group_detail",args=[dg.id]), {"bulkassignprod-submit": 1}, follow=True
+        )
+        self.assertEqual(
+            dg.get_products().count(),
+            10,
+            "Data Group doesn't have ten products",
+        )
+
+        bulk_delete_url = reverse("data_group_delete_products",args=[dg.id])
+        print(bulk_delete_url)
+        response = self.client.get(
+            bulk_delete_url,  follow=True
+        )
+        print(response.content)
+        self.assertEqual(
+            dg.get_products().count(),
+            0,
+            "Data Group doesn't have zero products after bulk delete",
+        )
+
+
 
 
 @tag("loader")

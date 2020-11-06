@@ -323,19 +323,26 @@ def data_group_delete(
 
 @login_required()
 def data_group_delete_products(
-    request, pk, template_name=("data_group/datagroup_confirm_product_delete.html")
+    request, pk, template_name="data_group/product_delete_progress.html"
 ):
+    """
+    This is an endpoint that deletes Product objects associated with the Data Group
+    """
     datagroup = get_object_or_404(DataGroup, pk=pk)
-    if request.method == "POST":
-        with transaction.atomic():
-            ProductDocument.objects.filter(document__data_group_id=pk).delete()
-        return redirect("data_group_detail",  pk=pk)
-    return render(request, template_name, {"object": datagroup})
+    # schedule async task as it may take sometime to finish the bulk deletion
+    delete_task = delete_data_group_prodcuts_task.apply_async(
+        args=[pk], shadow=f"data_group_products_delete.{pk}"
+    )
 
+    return render(
+        request,
+        template_name,
+        {"data_group": datagroup, "task": delete_task, "redirect_to": reverse("data_group_detail",args=[pk])},
+    )
 
 @shared_task(bind=True, track_started=True, base=UserTask)
 @usertask
-def bulk_delete_products_task(self, pk):
+def delete_data_group_prodcuts_task(self, pk):
     data_group = DataGroup.objects.get(pk=pk)
     with transaction.atomic():
         data_group.get_products().delete()
