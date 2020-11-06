@@ -3,7 +3,7 @@ $(document).ready(function () {
   // "lengthMenu": [ 10, 25, 50, 75, 100 ], // change number of records shown
   "columnDefs": [
       {
-          "targets": [1, 4],
+          "targets": [1, 4, 5],
           "orderable": false
       }
   ],
