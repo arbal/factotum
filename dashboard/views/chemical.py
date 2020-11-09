@@ -1,4 +1,4 @@
-from django.db.models import Value, IntegerField, Q
+from django.db.models import Value, IntegerField, Q, F
 from django.shortcuts import render, get_object_or_404
 from django.utils.html import format_html
 from django_datatables_view.base_datatable_view import BaseDatatableView
@@ -87,8 +87,8 @@ class ChemicalProductListJson(BaseDatatableView):
     columns = [
         "product.title",
         "document.title",
-        "product.uber_puc",
-        "product.uber_puc.kind.name",
+        "product.product_uber_puc.puc",
+        "product.product_uber_puc.puc.kind.name",
     ]
 
     def get_filter_method(self):
@@ -117,15 +117,15 @@ class ChemicalProductListJson(BaseDatatableView):
                 row.document.get_absolute_url(),
                 value,
             )
-        if column == "product.uber_puc":
+        if column == "product.product_uber_puc.puc":
             value = self._render_column(row, column)
             if value and hasattr(row, "get_absolute_url"):
                 return format_html(
                     '<a href="{}" title="Go to PUC detail" target="_blank">{}</a>',
-                    row.product.uber_puc.get_absolute_url(),
+                    row.product.product_uber_puc.puc.get_absolute_url(),
                     value,
                 )
-        if column == "product.uber_puc.kind.name":
+        if column == "product.product_uber_puc.puc.kind.name":
             value = self._render_column(row, column)
             if value and hasattr(row, "get_absolute_url"):
                 return format_html("<p>{}</p>", value)
@@ -177,26 +177,39 @@ class ChemicalProductListJson(BaseDatatableView):
 
         if order:
             order_column = order[0]
-            if order_column.endswith("product__uber_puc"):
+            if order_column.endswith("product_uber_puc__puc"):
+                # sort PUC data with nulls at bottom
                 reverse_order = order_column.startswith("-")
-                # sort queryset by product uber_puc property
-                qs = sorted(
-                    qs,
-                    key=lambda m: (
-                        m.product.uber_puc.__str__() if m.product.uber_puc else "",
-                    ),
-                    reverse=reverse_order,
-                )
-            elif order_column.endswith("product__uber_puc__kind__name"):
+                if reverse_order:
+                    qs = qs.order_by(
+                        F("product__product_uber_puc__puc__gen_cat").desc(
+                            nulls_last=True
+                        ),
+                        *order
+                    )
+                else:
+                    qs = qs.order_by(
+                        F("product__product_uber_puc__puc__gen_cat").asc(
+                            nulls_last=True
+                        ),
+                        *order
+                    )
+                return qs
+            elif order_column.endswith("puc__kind__name"):
+                # sort PUC data with nulls at bottom
                 reverse_order = order_column.startswith("-")
-                # sort queryset by product uber_puc property's kind name
-                qs = sorted(
-                    qs,
-                    key=lambda m: (
-                        m.product.uber_puc.kind.name if m.product.uber_puc else "",
-                    ),
-                    reverse=reverse_order,
-                )
+                if reverse_order:
+                    qs = qs.order_by(
+                        F("product__product_uber_puc__puc__kind__name").desc(
+                            nulls_last=True
+                        )
+                    )
+                else:
+                    qs = qs.order_by(
+                        F("product__product_uber_puc__puc__kind__name").asc(
+                            nulls_last=True
+                        )
+                    )
             else:
                 return qs.order_by(*order)
         return qs

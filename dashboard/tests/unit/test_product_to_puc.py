@@ -1,15 +1,54 @@
 from django.db.utils import IntegrityError
 from django.test import TestCase, tag
 
-from dashboard.models import ProductToPUC
+from dashboard.models import PUC, ProductToPUC, ProductUberPuc, PUCKind
 from dashboard.tests.loader import load_model_objects
 from dashboard.views.product_curation import ProductForm
+
+import time
 
 
 @tag("loader")
 class ProductToPUCTest(TestCase):
     def setUp(self):
         self.objects = load_model_objects()
+
+    def test_uber_puc_view(self):
+        prod = self.objects.p
+        # confirm that the new relationship returns None
+        self.assertTrue(prod.product_uber_puc == None)
+
+        # Create a three-part PUC hierarchy
+        puc1 = PUC.objects.create(
+            gen_cat="Grandparent gencat",
+            prod_fam="",
+            prod_type="",
+            description="Grandparent",
+            last_edited_by=self.objects.user,
+            kind=PUCKind.objects.get_or_create(name="Formulation", code="FO")[0],
+        )
+
+        puc2 = PUC.objects.create(
+            gen_cat="Grandparent gencat",
+            prod_fam="Parent prodfam",
+            prod_type="",
+            description="Parent",
+            last_edited_by=self.objects.user,
+            kind=PUCKind.objects.get_or_create(name="Formulation", code="FO")[0],
+        )
+
+        # assign the Grandparent PUC as a low-confidence "AU" classification_method
+        pp1 = ProductToPUC.objects.create(product=prod, puc=puc1, classification_method="AU")
+        prod.refresh_from_db()
+
+        self.assertTrue(prod.product_uber_puc.puc == puc1)
+
+        # assign a higher-confidence method and check the uber puc
+
+        pp2 = ProductToPUC.objects.create(product=prod, puc=puc2, classification_method="MB")
+        prod.refresh_from_db()
+        self.assertTrue(prod.product_uber_puc.puc == puc2)
+
 
     def test_uber_puc(self):
         # Test that when the product has no assigned PUC, the getter returns
@@ -110,7 +149,7 @@ class ProductToPUCTest(TestCase):
         # classification method should be Automatic since Bulk Assignment was deleted
         self.assertEqual(_str, str(classification_method))
 
-    # it seems to be necessary to us the __dict__ and instance in order to load
+    # it seems to be necessary to use the __dict__ and instance in order to load
     # the form for testing, w/o I don't think the fields are bound, which will
     # never validate!
     def test_ProductForm_invalid(self):
@@ -125,7 +164,7 @@ class ProductToPUCTest(TestCase):
         form = ProductForm(self.objects.p.__dict__, instance=self.objects.p)
         self.assertTrue(form.is_valid())
 
-    def test_unique_constaint(self):
+    def test_unique_constraint(self):
         self.ppuc1 = ProductToPUC.objects.create(
             product=self.objects.p,
             puc=self.objects.puc,

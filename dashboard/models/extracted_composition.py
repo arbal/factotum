@@ -87,7 +87,10 @@ class ExtractedComposition(RawChem):
     )
 
     class Meta:
-        ordering = (F("ingredient_rank").asc(nulls_last=True),)
+        ordering = (
+            F("component").asc(nulls_last=True),
+            F("ingredient_rank").asc(nulls_last=True),
+        )
 
     class JSONAPIMeta:
         resource_name = "composition"
