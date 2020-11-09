@@ -321,6 +321,7 @@ def data_group_delete(
         return redirect("data_group_list")
     return render(request, template_name, {"object": datagroup})
 
+
 @login_required()
 def data_group_delete_products(
     request, pk, template_name="data_group/product_delete_progress.html"
@@ -330,23 +331,29 @@ def data_group_delete_products(
     """
     datagroup = get_object_or_404(DataGroup, pk=pk)
     # schedule async task as it may take sometime to finish the bulk deletion
-    delete_task = delete_data_group_prodcuts_task.apply_async(
+    delete_task = delete_data_group_products_task.apply_async(
         args=[pk], shadow=f"data_group_products_delete.{pk}"
     )
 
     return render(
         request,
         template_name,
-        {"data_group": datagroup, "task": delete_task, "redirect_to": reverse("data_group_detail",args=[pk])},
+        {
+            "data_group": datagroup,
+            "task": delete_task,
+            "redirect_to": reverse("data_group_detail", args=[pk]),
+        },
     )
+
 
 @shared_task(bind=True, track_started=True, base=UserTask)
 @usertask
-def delete_data_group_prodcuts_task(self, pk):
+def delete_data_group_products_task(self, pk):
     data_group = DataGroup.objects.get(pk=pk)
     with transaction.atomic():
         data_group.get_products().delete()
     return "task done"
+
 
 @login_required()
 def habitsandpractices(request, pk, template_name="data_group/habitsandpractices.html"):

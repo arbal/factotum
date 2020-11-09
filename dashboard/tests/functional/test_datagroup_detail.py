@@ -23,6 +23,8 @@ from dashboard.models import (
 )
 from dashboard.tests.mixins import TempFileMixin
 from dashboard.tests import factories
+from celery.result import AsyncResult
+
 
 @tag("factory")
 class DataGroupDetailTestWithFactories(TestCase):
@@ -35,33 +37,38 @@ class DataGroupDetailTestWithFactories(TestCase):
         docs = factories.DataDocumentFactory.create_batch(10, data_group=dg)
 
         self.assertEqual(
-            dg.get_products().count(),
-            0,
-            "Data Group doesn't have zero products",
+            dg.get_products().count(), 0, "Data Group doesn't have zero products"
         )
 
         response = self.client.post(
-            reverse("data_group_detail",args=[dg.id]), {"bulkassignprod-submit": 1}, follow=True
+            reverse("data_group_detail", args=[dg.id]),
+            {"bulkassignprod-submit": 1},
+            follow=True,
         )
+
         self.assertEqual(
-            dg.get_products().count(),
-            10,
-            "Data Group doesn't have ten products",
+            dg.get_products().count(), 10, "Data Group doesn't have ten products"
         )
 
-        bulk_delete_url = reverse("data_group_delete_products",args=[dg.id])
-        print(bulk_delete_url)
-        response = self.client.get(
-            bulk_delete_url,  follow=True
-        )
-        print(response.content)
-        self.assertEqual(
-            dg.get_products().count(),
-            0,
-            "Data Group doesn't have zero products after bulk delete",
-        )
+        bulk_delete_url = reverse("data_group_delete_products", args=[dg.id])
 
+        response = self.client.get(bulk_delete_url, follow=True)
+        # the response should include the progress spinner
+        self.assertContains(response, "fa-spinner")
 
+        # Test the async task
+        task_id = response.context["task"]
+        print(task_id)
+
+        # this causes an error
+        res = AsyncResult(id=task_id)
+
+        # The products will not be gone until the task completes
+        # self.assertEqual(
+        #     dg.get_products().count(),
+        #     0,
+        #     "Data Group doesn't have zero products after bulk delete",
+        # )
 
 
 @tag("loader")

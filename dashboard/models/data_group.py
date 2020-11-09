@@ -100,7 +100,6 @@ class DataGroup(CommonInfo):
     def get_products(self):
         return Product.objects.filter(documents__in=self.datadocument_set.all())
 
-
     def matched_docs(self):
         return self.datadocument_set.exclude(file="").count()
 

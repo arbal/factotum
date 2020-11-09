@@ -53,7 +53,7 @@ class FactotumFactoryBase(factory.django.DjangoModelFactory):
 class DataSourceFactory(FactotumFactoryBase):
     class Meta:
         model = models.DataSource
-    
+
     title = factory.Faker("word")
 
 
