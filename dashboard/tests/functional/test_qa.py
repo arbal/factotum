@@ -123,4 +123,4 @@ class QATest(TestCase):
         component_text = response_html.xpath(
             f'//*[@id="component-{rawchem.id}"]/text()'
         )
-        self.assertIn(component, component_text)
+        self.assertIn(component, "Test Component")

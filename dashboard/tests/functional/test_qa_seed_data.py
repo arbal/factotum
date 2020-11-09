@@ -67,6 +67,7 @@ class TestQaPage(TestCase):
         response = self.client.get(f"/qa/extractedtext/254780/")
         self.assertIn("Lorem ipsum dolor".encode(), response.content)
         self.assertIn("A list of chemicals with a subtitle".encode(), response.content)
+        self.assertIn("Total Chemical Records".encode(), response.content)
 
     def test_qa_script_without_ext_text(self):
         # Begin from the QA index page

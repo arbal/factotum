@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "apps_api.core",
     "django_elasticsearch_dsl",
     "django_cleanup.apps.CleanupConfig",
+    "django_db_views",
 ]
 
 MIDDLEWARE = [

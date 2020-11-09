@@ -445,3 +445,4 @@ class DataGroupDetailTestWithFixtures(TestCase):
             ],
             "Fieldnames passed are incorrect!",
         )
+        self.assertEqual(dg.can_have_chem_detected_flag, True)
