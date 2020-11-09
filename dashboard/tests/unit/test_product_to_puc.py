@@ -38,17 +38,20 @@ class ProductToPUCTest(TestCase):
         )
 
         # assign the Grandparent PUC as a low-confidence "AU" classification_method
-        pp1 = ProductToPUC.objects.create(product=prod, puc=puc1, classification_method="AU")
+        pp1 = ProductToPUC.objects.create(
+            product=prod, puc=puc1, classification_method="AU"
+        )
         prod.refresh_from_db()
 
         self.assertTrue(prod.product_uber_puc.puc == puc1)
 
         # assign a higher-confidence method and check the uber puc
 
-        pp2 = ProductToPUC.objects.create(product=prod, puc=puc2, classification_method="MB")
+        pp2 = ProductToPUC.objects.create(
+            product=prod, puc=puc2, classification_method="MB"
+        )
         prod.refresh_from_db()
         self.assertTrue(prod.product_uber_puc.puc == puc2)
-
 
     def test_uber_puc(self):
         # Test that when the product has no assigned PUC, the getter returns

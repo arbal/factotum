@@ -262,7 +262,7 @@ class DataGroupDetailTest(TempFileMixin, TestCase):
         pk = self.objects.dg.pk
         response = self.client.get(f"/datagroup/{pk}/").content.decode("utf8")
         self.assertIn(
-            '<th class="text-center">Product</th>',
+            '<th class="text-center">Product',
             response,
             "Data Group should have Product column.",
         )
@@ -270,7 +270,7 @@ class DataGroupDetailTest(TempFileMixin, TestCase):
         self.objects.dg.group_type = fu
         self.objects.dg.save()
         response = self.client.get(f"/datagroup/{pk}/")
-        self.assertNotContains(response, '<th class="text-center">Product</th>')
+        self.assertNotContains(response, '<th class="text-center">Product')
 
     def test_detail_table_media_document_link(self):
         dg = self.objects.dg
