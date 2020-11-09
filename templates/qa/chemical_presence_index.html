@@ -14,6 +14,7 @@ QA Chemical Presence</h1>
         <th>URL</th>
         <th>Document Count</th>
         <th>Percent QA Checked</th>
+        <th>QA Summary</th>
         <th></th>
         </tr>
     </thead>
@@ -29,6 +30,12 @@ QA Chemical Presence</h1>
         <td>{{ datagroup.datadocument_count }}</td>
         {% widthratio datagroup.approved_count datagroup.datadocument_count 100 as pct_complete %}
         <td>{{  pct_complete|default:"0" }}%</td>
+        <td>
+            <a href="{% url 'qa_chemical_presence_summary' datagroup.id %}"
+               title="Link to {{ datagroup.name }} Summary" id="{{datagroup.id}}">
+                <span class="fa fa-tasks"></span>
+            </a>
+        </td>
         <td>
          {% if datagroup.datadocument_count > 0 %}
           <a class="btn btn-info btn-sm" role="button" title="QA on {{ datagroup.name }}"

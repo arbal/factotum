@@ -12,10 +12,10 @@ $(document).ready(function () {
                 width: "20%",
             },
             {
-                width: "35%",
+                width: "30%",
             },
             {
-                width: "5%",
+                width: "10%",
             },
             {
                 searchable: false,
