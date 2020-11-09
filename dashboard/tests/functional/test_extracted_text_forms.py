@@ -5,7 +5,6 @@ from django.utils.timezone import now
 from dashboard.forms import create_detail_formset
 from dashboard.forms.forms import ExtractedTextFUForm, ExtractedTextHPForm
 from dashboard.models import DataDocument, GroupType, DataGroup, DataSource
-from dashboard.tests.factories import DataDocumentFactory
 from dashboard.tests.loader import load_model_objects
 
 

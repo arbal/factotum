@@ -72,6 +72,11 @@ urlpatterns = [
         "datagroup/delete/<int:pk>/", views.data_group_delete, name="data_group_delete"
     ),
     path(
+        "datagroup/<int:pk>/delete_products",
+        views.data_group_delete_products,
+        name="data_group_delete_products",
+    ),
+    path(
         "datadocument/delete/<int:pk>/",
         views.data_document_delete,
         name="data_document_delete",

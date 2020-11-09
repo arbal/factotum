@@ -446,7 +446,12 @@
             {% endif %}
           {% endif %}
           {% if datagroup.is_composition %}
-          <th class="text-center">Product</th>
+          <th class="text-center">Product
+            {% if hasproducts %}  
+            <a href="{% url 'data_group_delete_products' datagroup.id %}" class="hover-info"
+              title="Delete all products">&nbsp;<span class="fa fa-trash"></span></a>
+            {% endif  %}
+          </th>
           <th class="text-center">Hidden</th>
           {% endif %}
         </tr>

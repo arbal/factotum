@@ -4,10 +4,13 @@ import io
 from lxml import html
 
 from django.test import TestCase, tag
+
+from celery_djangotest.unit import TransactionTestCase
 from dashboard.tests.loader import load_model_objects, fixtures_standard
 from django.core.files import File
 from django.contrib.auth.models import User
 from django.db.models import Count, Max
+from django.urls import reverse
 
 from dashboard.forms.data_group import ExtractFileFormSet
 
@@ -21,6 +24,52 @@ from dashboard.models import (
     ExtractedComposition,
 )
 from dashboard.tests.mixins import TempFileMixin
+from dashboard.tests import factories
+from celery.result import AsyncResult
+
+
+@tag("factory")
+class DataGroupDetailTestWithFactories(TransactionTestCase):
+    def setUp(self):
+        self.objects = load_model_objects()
+        self.client.login(username="Karyn", password="specialP@55word")
+
+    def test_bulk_product_creation_and_deletion(self):
+        dg = factories.DataGroupFactory()
+        docs = factories.DataDocumentFactory.create_batch(10, data_group=dg)
+
+        self.assertEqual(
+            dg.get_products().count(), 0, "Data Group doesn't have zero products"
+        )
+
+        response = self.client.post(
+            reverse("data_group_detail", args=[dg.id]),
+            {"bulkassignprod-submit": 1},
+            follow=True,
+        )
+
+        self.assertEqual(
+            dg.get_products().count(), 10, "Data Group doesn't have ten products"
+        )
+
+        bulk_delete_url = reverse("data_group_delete_products", args=[dg.id])
+
+        response = self.client.get(bulk_delete_url, follow=True)
+        # the response should include the progress spinner
+        self.assertContains(response, "fa-spinner")
+
+        # Test the async task
+        task_id = response.context["task"].id
+
+        # wait for the task to finish
+        AsyncResult(id=task_id).wait(propagate=False)
+
+        # The products will not be gone until the task completes
+        self.assertEqual(
+            dg.get_products().count(),
+            0,
+            "Data Group doesn't have zero products after bulk delete",
+        )
 
 
 @tag("loader")
@@ -213,7 +262,7 @@ class DataGroupDetailTest(TempFileMixin, TestCase):
         pk = self.objects.dg.pk
         response = self.client.get(f"/datagroup/{pk}/").content.decode("utf8")
         self.assertIn(
-            '<th class="text-center">Product</th>',
+            '<th class="text-center">Product',
             response,
             "Data Group should have Product column.",
         )
@@ -221,7 +270,7 @@ class DataGroupDetailTest(TempFileMixin, TestCase):
         self.objects.dg.group_type = fu
         self.objects.dg.save()
         response = self.client.get(f"/datagroup/{pk}/")
-        self.assertNotContains(response, '<th class="text-center">Product</th>')
+        self.assertNotContains(response, '<th class="text-center">Product')
 
     def test_detail_table_media_document_link(self):
         dg = self.objects.dg
