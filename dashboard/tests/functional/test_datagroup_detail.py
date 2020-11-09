@@ -4,6 +4,8 @@ import io
 from lxml import html
 
 from django.test import TestCase, tag
+
+from celery_djangotest.unit import TransactionTestCase
 from dashboard.tests.loader import load_model_objects, fixtures_standard
 from django.core.files import File
 from django.contrib.auth.models import User
@@ -27,7 +29,7 @@ from celery.result import AsyncResult
 
 
 @tag("factory")
-class DataGroupDetailTestWithFactories(TestCase):
+class DataGroupDetailTestWithFactories(TransactionTestCase):
     def setUp(self):
         self.objects = load_model_objects()
         self.client.login(username="Karyn", password="specialP@55word")
@@ -57,18 +59,17 @@ class DataGroupDetailTestWithFactories(TestCase):
         self.assertContains(response, "fa-spinner")
 
         # Test the async task
-        task_id = response.context["task"]
-        print(task_id)
+        task_id = response.context["task"].id
 
-        # this causes an error
-        res = AsyncResult(id=task_id)
+        # wait for the task to finish
+        AsyncResult(id=task_id).wait(propagate=False)
 
         # The products will not be gone until the task completes
-        # self.assertEqual(
-        #     dg.get_products().count(),
-        #     0,
-        #     "Data Group doesn't have zero products after bulk delete",
-        # )
+        self.assertEqual(
+            dg.get_products().count(),
+            0,
+            "Data Group doesn't have zero products after bulk delete",
+        )
 
 
 @tag("loader")
