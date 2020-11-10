@@ -2,7 +2,7 @@ import json
 
 from django.test import TestCase, override_settings
 from dashboard.tests.loader import fixtures_standard
-from dashboard.models import Product
+from dashboard.models import Product, PUC
 
 params = (
     "draw=1&columns[0][data]=0&columns[0][name]=&columns[0][searchable]=true"
@@ -125,3 +125,24 @@ class TestAjax(TestCase):
             ]
         }
         self.assertEqual(payload, expected_payload)
+
+    def test_products_by_puc(self):
+        # Product 1866 in the seed data is assigned to four PUCs
+        # but only 185 is manually assigned, and is therefore the uberpuc
+        prod = Product.objects.get(id=1866)
+        pucs = PUC.objects.filter(products__in=[prod])
+        uberpuc = prod.product_uber_puc.puc
+        for puc in pucs:
+            response = self.client.get(f"/p_json/?puc={puc.id}")
+
+            # try to get the first item of the first item
+            # from the data[] object of each response
+            try:
+                prodlink = response.json().get("data")[0][0]
+            except IndexError:
+                prodlink = ""
+
+            if puc == uberpuc:
+                self.assertTrue(prod.title in prodlink)
+            else:
+                self.assertFalse(prod.title in prodlink)

@@ -45,7 +45,7 @@ class ProductListJson(FilterDatatableView):
         qs = super().get_initial_queryset()
         puc = self.request.GET.get("puc")
         if puc:
-            return qs.filter(Q(puc=puc))
+            return qs.filter(Q(product_uber_puc__puc=puc))
         return qs
 
 
