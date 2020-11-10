@@ -146,6 +146,7 @@ services:
       GUNICORN_OPTS: ${GUNICORN_OPTS:-}
       LOGSTASH_HOST: logstash
       LOGSTASH_PORT: ${LOGSTASH_PORT:-5959}
+      MEDIA_ROOT: /app/media
       MEDIA_URL: ${MEDIA_URL:-http://factotum.epa.gov/media/}
       ROOT_URLCONF: ${ROOT_URLCONF:-api}
       SQL_DATABASE: ${SQL_DATABASE:-prod_factotum}
@@ -153,6 +154,8 @@ services:
       SQL_PASSWORD: ${SQL_PASSWORD}
       SQL_PORT: ${SQL_PORT:-3306}
       SQL_USER: ${SQL_USER:-dave}
+    volumes:
+      - ${MEDIA_ROOT}:/app/media
 
   celery:
     build: https://github.com/HumanExposure/factotum.git#${FACTOTUM_BRANCH:-master}
