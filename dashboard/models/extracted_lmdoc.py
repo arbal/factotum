@@ -7,12 +7,12 @@ from dashboard.models import ExtractedText
 class ExtractedLMDoc(ExtractedText):
     STUDY_TYPE_CHOICES = (
         ("Targeted", "Targeted"),
-        ("Non-Targeted", "Non-Targeted"),
+        ("Non-Targeted or Suspect Screening", "Non-Targeted or Suspect Screening"),
         ("Other", "Other"),
     )
 
     study_type = models.CharField(
-        "Study Type", choices=STUDY_TYPE_CHOICES, max_length=12, blank=True
+        "Study Type", choices=STUDY_TYPE_CHOICES, max_length=40, blank=True
     )
 
     pmid = models.CharField(
