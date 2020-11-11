@@ -260,8 +260,8 @@ REST_FRAMEWORK = {
         "apps_api.core.authentication.ExpiringTokenAuthentication"
     ],
     "EXCEPTION_HANDLER": "rest_framework_json_api.exceptions.exception_handler",
-    "DEFAULT_PAGINATION_CLASS": "rest_framework_json_api.pagination.JsonApiPageNumberPagination",
-    "PAGE_SIZE": 1000,
+    "DEFAULT_PAGINATION_CLASS": "apps_api.api.custom_pagination.LargeJsonApiPageNumberPagination",
+    "PAGE_SIZE": 100,
     "DEFAULT_PARSER_CLASSES": (
         "rest_framework_json_api.parsers.JSONParser",
         "rest_framework.parsers.FormParser",
