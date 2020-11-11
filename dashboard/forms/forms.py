@@ -269,7 +269,7 @@ class ExtractedLMDocForm(ExtractedTextForm):
         fields = ["doc_date", "study_type", "pmid", "media"]
 
         widgets = {
-            "study_type":forms.Select(attrs={'style': 'width:300px'}),
+            "study_type": forms.Select(attrs={"style": "width:320px"}),
             "media": forms.Textarea(attrs={"rows": 4, "cols": 25}),
             "pmid": forms.TextInput(
                 attrs={

@@ -12,7 +12,7 @@ class ExtractedLMDoc(ExtractedText):
     )
 
     study_type = models.CharField(
-        "Study Type", choices=STUDY_TYPE_CHOICES, max_length=40, blank=True
+        "Study Type", choices=STUDY_TYPE_CHOICES, max_length=12, blank=True
     )
 
     pmid = models.CharField(
