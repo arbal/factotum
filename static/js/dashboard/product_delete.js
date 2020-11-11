@@ -17,6 +17,17 @@ $(document).ready(function () {
             }
         }
 
+        async function deleteTask(task_id) {
+            if (task_id) {
+                await fetch(`/api/tasks/${task_id}/`, {
+                    method: "DELETE",
+                    headers: { "X-CSRFToken": Cookies.get("csrftoken") }
+                }).then(res => console.log(res.ok));
+            } else {
+                return null;
+            }
+        }
+
         function taskDone(task) {
             // task considered done when success or fail
             return ["SUCCESS", "FAILURE"].includes(
@@ -36,6 +47,8 @@ $(document).ready(function () {
                 if (taskDone(task)) {
                     // task done, clear the pull interval
                     clearInterval(taskSchedule);
+                    // delete this task
+                    await deleteTask(task_id);
                     // direct to the originated url
                     window.location.href = redict_to;
                 }
