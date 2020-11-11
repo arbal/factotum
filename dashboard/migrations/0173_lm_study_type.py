@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='extractedlmdoc',
             name='study_type',
-            field=models.CharField(blank=True, choices=[('Targeted', 'Targeted'), ('Non-Targeted or Suspect Screening', 'Non-Targeted or Suspect Screening'), ('Other', 'Other')], max_length=40, verbose_name='Study Type'),
+            field=models.CharField(blank=True, choices=[('Targeted', 'Targeted'), ('Non-Targeted', 'Non-Targeted or Suspect Screening'), ('Other', 'Other')], max_length=40, verbose_name='Study Type'),
         ),
     ]

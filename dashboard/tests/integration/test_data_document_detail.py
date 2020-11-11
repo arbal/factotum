@@ -416,7 +416,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         study_type = wait.until(
             ec.visibility_of_element_located((By.ID, "id_study_type"))
         )
-        self.assertIn("Non-Targeted or Suspect Screening", study_type.text)
+        self.assertIn("Non-Targeted", study_type.text)
 
         add_chem_button = wait.until(
             ec.element_to_be_clickable((By.XPATH, "//*[@id='add_chemical']"))
