@@ -235,6 +235,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         first_puc = self.browser.find_element_by_xpath(
             "//*[@id='products']/tbody/tr[1]/td[3]"
         )
+
         self.assertEqual("Manufactured formulations", first_puc.text)
         # puc null should be at bottom
         last_puc = self.browser.find_element_by_xpath(
@@ -251,8 +252,10 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         self.assertEqual(
             "Personal care - hair styling and care - shampoo", first_puc.text
         )
+
         # puc null should be at bottom
         last_puc = self.browser.find_element_by_xpath(
             "//*[@id='products']/tbody/tr[4]/td[3]"
         )
         self.assertEqual("", last_puc.text)
+
