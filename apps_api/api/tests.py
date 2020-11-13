@@ -590,7 +590,7 @@ class TestChemicalInstance(TestCase):
                     )
         # Test includes
         self.assertListEqual(
-            ["chemical", "dataDocument", "product", "puc"],
+            ["chemical", "dataDocument", "product", "product", "puc", "puc"],
             [resource["type"] for resource in included_data],
         )
 

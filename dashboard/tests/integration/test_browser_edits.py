@@ -456,3 +456,64 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.assertEqual(
             banner.text, "Showing 1 to 3 of 3 entries (filtered from 4 total entries)"
         )
+
+    def test_chemical_presence_summary_page(self):
+        doc_id = 254781
+        extractedtext = ExtractedText.objects.get(pk=doc_id)
+        datagroup_id = extractedtext.data_document.data_group.id
+        qa_notes = "test notes"
+
+        # QA Page
+        qa_url = self.live_server_url + f"/qa/extractedtext/{doc_id}/"
+        self.browser.get(qa_url)
+        wait = WebDriverWait(self.browser, 10)
+
+        # add QA note
+        self.browser.find_element_by_xpath('//*[@id="qa-notes-textarea"]').send_keys(
+            qa_notes
+        )
+        self.browser.find_element_by_xpath('//*[@id="btn-save-notes"]').click()
+
+        # approve it
+        self.browser.find_element_by_xpath('//*[@id="approve"]').send_keys("\n")
+
+        # verify the summary page
+        self.browser.get(
+            self.live_server_url + f"/qa/chemicalpresencegroup/{datagroup_id}/summary"
+        )
+        wait.until(ec.visibility_of(self.browser.find_element_by_id("document-table")))
+        self.assertEqual("3", self.browser.find_element_by_id("document_count").text)
+        self.assertEqual("1", self.browser.find_element_by_id("qa_complete_count").text)
+        self.assertEqual(
+            "2", self.browser.find_element_by_id("qa_incomplete_count").text
+        )
+        self.assertEqual(
+            extractedtext.data_document.data_group.name,
+            self.browser.find_element_by_xpath(
+                '//table[@id="document-table"]/tbody/tr[1]/td[1]'
+            ).text,
+        )
+        self.assertEqual(
+            extractedtext.data_document.title,
+            self.browser.find_element_by_xpath(
+                '//table[@id="document-table"]/tbody/tr[1]/td[2]'
+            ).text,
+        )
+        self.assertEqual(
+            qa_notes,
+            self.browser.find_element_by_xpath(
+                '//table[@id="document-table"]/tbody/tr[1]/td[3]'
+            ).text,
+        )
+        self.assertEqual(
+            "50",
+            self.browser.find_element_by_xpath(
+                '//table[@id="document-table"]/tbody/tr[1]/td[4]'
+            ).text,
+        )
+        self.assertIn(
+            "Last updated",
+            self.browser.find_element_by_xpath(
+                '//table[@id="document-table"]/tbody/tr[1]/td[5]'
+            ).text,
+        )

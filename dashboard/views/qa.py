@@ -82,6 +82,41 @@ def qa_chemicalpresence_group(request, pk, template_name="qa/chemical_presence.h
 
 
 @login_required()
+def qa_chemicalpresence_summary(
+    request, pk, template_name="qa/chemical_presence_summary.html"
+):
+    datagroup = DataGroup.objects.get(pk=pk)
+    if datagroup.group_type.code != "CP":
+        raise ValidationError("This DataGroup is not of a ChemicalPresence type")
+
+    datagroup = (
+        DataGroup.objects.filter(pk=pk)
+        .annotate(document_count=Count("datadocument"))
+        .annotate(
+            qa_complete_count=Count(
+                "datadocument__extractedtext",
+                filter=Q(datadocument__extractedtext__qa_checked=True),
+            )
+        )
+        .annotate(qa_note_count=Count("datadocument__extractedtext__qanotes__qa_notes"))
+    ).first()
+    datagroup.qa_incomplete_count = (
+        datagroup.document_count - datagroup.qa_complete_count
+    )
+
+    return render(
+        request,
+        template_name,
+        {
+            "datagroup": datagroup,
+            "document_table_url": reverse(
+                "qa_chemical_presence_summary_table", args=[pk]
+            ),
+        },
+    )
+
+
+@login_required()
 def qa_extraction_script(request, pk, template_name="qa/extraction_script.html"):
     """
     The user reviews the extracted text and checks whether it was properly converted to data
@@ -139,19 +174,26 @@ class SummaryTable(BaseDatatableView):
     There is no model but each row should refer to an ExtractedText.
     """
 
-    columns = ["data_document__title", "qanotes__qa_notes", "last_updated"]
-    order_columns = ["data_document__title", "qanotes__qa_notes", "last_updated"]
+    columns = [
+        "data_document__data_group__name",
+        "data_document__title",
+        "qanotes__qa_notes",
+        "rawchem_count",
+        "last_updated",
+    ]
+
+    class Meta:
+        abstract = True
 
     def get_filter_method(self):
         """ Returns preferred filter method """
         return self.FILTER_ICONTAINS
 
-    def get(self, request, pk, *args, **kwargs):
-        """This PK should be an Script pk"""
-        self.pk = pk
-        return super().get(request, *args, **kwargs)
-
     def render_column(self, row, column):
+        if column == "data_document__data_group__name":
+            return f"""<a href="{reverse("data_group_detail", args=[row.data_document.data_group.id])}">
+                            { row.data_document.data_group }
+                        </a>"""
         if column == "data_document__title":
             return f"""<a href="{reverse("data_document", args=[row.pk])}">
                             { row.data_document }
@@ -161,9 +203,11 @@ class SummaryTable(BaseDatatableView):
                 return row.qanotes.qa_notes
             except QANotes.DoesNotExist:
                 return None
+        if column == "rawchem_count":
+            return row.rawchem_count
         elif column == "last_updated":
-            return f"""<a title="audit log" 
-                          href="{reverse("document_audit_log", args=[row.pk])}" 
+            return f"""<a title="audit log"
+                          href="{reverse("document_audit_log", args=[row.pk])}"
                           data-toggle="modal"
                           data-target="#document-audit-log-modal">
                             Last updated {timesince(row.last_updated)} ago
@@ -208,8 +252,8 @@ class SummaryTable(BaseDatatableView):
         )
 
         qs = (
-            Script.objects.get(pk=self.pk)
-            .extractedtext_set.annotate(
+            self.get_extractedtext_queryset()
+            .annotate(
                 has_qanotes=Exists(qa_subquery), has_updated_rc=Exists(rc_subquery)
             )
             .filter(Q(has_qanotes=True) | Q(has_updated_rc=True))
@@ -231,9 +275,30 @@ class SummaryTable(BaseDatatableView):
                     default=F("updated_at"),
                 )
             )
+            .annotate(rawchem_count=Count("rawchem"))
             .all()
         )
         return qs
+
+
+class ScriptSummaryTable(SummaryTable):
+    def get(self, request, pk, *args, **kwargs):
+        """This PK should be an Script pk"""
+        self.pk = pk
+        return super().get(request, *args, **kwargs)
+
+    def get_extractedtext_queryset(self):
+        return Script.objects.get(pk=self.pk).extractedtext_set
+
+
+class ChemicalPresenceSummaryTable(SummaryTable):
+    def get(self, request, pk, *args, **kwargs):
+        """This PK should be a chemical presence data group pk"""
+        self.pk = pk
+        return super().get(request, *args, **kwargs)
+
+    def get_extractedtext_queryset(self):
+        return ExtractedText.objects.filter(data_document__data_group__id=self.pk)
 
 
 @login_required()
@@ -242,10 +307,10 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
     Detailed view of an ExtractedText object, where the user can approve the
     record, edit its ExtractedComposition objects, skip to the next ExtractedText
     in the QA group, or exit to the index page.
-    This view processes objects of different models with different QA workflows. 
+    This view processes objects of different models with different QA workflows.
     The qa_focus variable is used to indicate whether an ExtractedText object is
     part of a QA Group, as with Composition records, or if the DataDocument/ExtractedText
-    is its own QA Group, as with ExtractedCPCat and ExtractedHHDoc records.  
+    is its own QA Group, as with ExtractedCPCat and ExtractedHHDoc records.
     """
     extext = get_object_or_404(ExtractedText.objects.select_subclasses(), pk=pk)
 

@@ -166,6 +166,30 @@ class TestProductPuc(TestCase):
             "The DataTable should display the matching products on successful search",
         )
 
+    def test_bulk_product_puc_exclude_assgined(self):
+        product_response_url = reverse("bulk_product_puc")
+        response = self.client.get(product_response_url + "?q=product+5")
+        response_html = response.content.decode("utf8")
+        self.assertIn("1879", response_html, "product 5 should return")
+        self.assertIn("1924", response_html, "product 50 should return")
+        self.assertIn(
+            "Manufactured formulations",
+            response_html,
+            "predicted puc of product 50 should show",
+        )
+        # bulk assign puc 1 to product 5
+        self.client.post(product_response_url, {"puc": "1", "id_pks": "1879"})
+        # product 5 should not be returned any more
+        response = self.client.get(product_response_url + "?q=product+5")
+        response_html = response.content.decode("utf8")
+        self.assertNotIn("1879", response_html, "product 5 should not return")
+        self.assertIn("1924", response_html, "product 50 should return")
+        self.assertIn(
+            "Manufactured formulations",
+            response_html,
+            "predicted puc of product 50 should show",
+        )
+
     def test_datagroup_rawcategory_params(self):
         products = factories.ProductFactory.create_batch(10)
         doc = factories.DataDocumentFactory(product=products, raw_category="test")

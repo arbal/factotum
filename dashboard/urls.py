@@ -72,6 +72,11 @@ urlpatterns = [
         "datagroup/delete/<int:pk>/", views.data_group_delete, name="data_group_delete"
     ),
     path(
+        "datagroup/<int:pk>/delete_products",
+        views.data_group_delete_products,
+        name="data_group_delete_products",
+    ),
+    path(
         "datadocument/delete/<int:pk>/",
         views.data_document_delete,
         name="data_document_delete",
@@ -116,7 +121,7 @@ urlpatterns = [
     ),
     path(
         "qa/compextractionscript/<int:pk>/summary/table",
-        dashboard.views.qa.SummaryTable.as_view(),
+        dashboard.views.qa.ScriptSummaryTable.as_view(),
         name="qa_extraction_script_summary_table",
     ),
     path(
@@ -143,6 +148,16 @@ urlpatterns = [
         "qa/chemicalpresencegroup/<int:pk>/",
         views.qa_chemicalpresence_group,
         name="qa_chemical_presence_group",
+    ),
+    path(
+        "qa/chemicalpresencegroup/<int:pk>/summary/",
+        views.qa_chemicalpresence_summary,
+        name="qa_chemical_presence_summary",
+    ),
+    path(
+        "qa/chemicalpresencegroup/<int:pk>/summary/table",
+        dashboard.views.qa.ChemicalPresenceSummaryTable.as_view(),
+        name="qa_chemical_presence_summary_table",
     ),
     path(
         "bulk_product_puc/", views.bulk_assign_puc_to_product, name="bulk_product_puc"
