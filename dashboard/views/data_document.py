@@ -463,12 +463,7 @@ def habits_and_practices_tag_delete(request, doc_pk, chem_pk, tag_pk):
 
 def chemical_audit_log(request, pk):
     chemical = RawChem.objects.filter(pk=pk).select_subclasses().first()
-    fu_keys = FunctionalUse.objects.filter(chem_id=pk).values_list("id", flat=True)
-
-    auditlog = AuditLog.objects.filter(
-        Q(object_key=pk, model_name__in=[chemical._meta.model_name, "rawchem"])
-        | Q(object_key__in=fu_keys, model_name__in=["functionaluse"])
-    ).order_by("-date_created")
+    auditlog = AuditLog.objects.filter(rawchem_id=pk).order_by("-date_created")
 
     return render(
         request,
@@ -479,7 +474,7 @@ def chemical_audit_log(request, pk):
 
 class DocumentAuditLog(BaseDatatableView):
     model = AuditLog
-    columns = ["date_created", "field_name", "old_value", "new_value", "user"]
+    columns = ["date_created", "field_name", "old_value", "new_value", "action", "user"]
     none_string = None
 
     def get(self, request, pk, *args, **kwargs):
@@ -487,25 +482,8 @@ class DocumentAuditLog(BaseDatatableView):
         return super().get(request, *args, **kwargs)
 
     def get_initial_queryset(self):
-        chemicals = (
-            ExtractedText.objects.get(pk=self.pk).rawchem.select_subclasses().all()
-        )
-        chemical_ids = [chem.id for chem in chemicals]
-        fu_keys = [
-            fu.pk for fu in FunctionalUse.objects.filter(chem_id__in=chemical_ids).all()
-        ]
-
         qs = (
-            self.model.objects.filter(
-                Q(
-                    object_key__in=chemical_ids,
-                    model_name__in=[chemicals[0]._meta.model_name, "rawchem"],
-                    action="U",
-                )
-                | Q(
-                    object_key__in=fu_keys, model_name__in=["functionaluse"], action="U"
-                )
-            )
+            self.model.objects.filter(extracted_text_id=self.pk)
             .order_by("-date_created")
             .all()
         )
