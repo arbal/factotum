@@ -126,7 +126,11 @@ def qa_extraction_script(request, pk, template_name="qa/extraction_script.html")
     if ExtractedText.objects.filter(extraction_script=script).count() == 0:
         return redirect("/qa/compextractionscript/")
     qa_group = script.get_or_create_qa_group()
-    texts = ExtractedText.objects.filter(qa_group=qa_group, qa_checked=False)
+    texts = (
+        ExtractedText.objects.filter(qa_group=qa_group, qa_checked=False)
+        .annotate(chemical_count=Count("rawchem"))
+        .annotate(chemical_updated_at=Max("rawchem__updated_at"))
+    )
     return render(
         request,
         template_name,
@@ -192,11 +196,11 @@ class SummaryTable(BaseDatatableView):
     def render_column(self, row, column):
         if column == "data_document__data_group__name":
             return f"""<a href="{reverse("data_group_detail", args=[row.data_document.data_group.id])}">
-                            { row.data_document.data_group }
+                            {row.data_document.data_group}
                         </a>"""
         if column == "data_document__title":
             return f"""<a href="{reverse("data_document", args=[row.pk])}">
-                            { row.data_document }
+                            {row.data_document}
                         </a>"""
         if column == "qanotes__qa_notes":
             try:
