@@ -27,7 +27,7 @@
         <form class="search-form-container" action="" method="get" >
             <div class="icon-addon addon-lg">
                 <input type="text" size="40" placeholder="Search For Products"
-                       class="form-control" name="q" id="q" value="{{ q }}" autocomplete="off">
+                       class="form-control" name="q" id="q-product" value="{{ q }}" autocomplete="off">
                 <div id="selction-ajax"></div>
             </div>
         </form>
@@ -49,6 +49,7 @@
               <th>Product Title</th>
               <th>Brand Name</th>
               <th>pk</th>
+              <th>Predicted PUC Assignment</th>
           </tr>
       </thead>
       <tbody>
@@ -58,6 +59,7 @@
             <td><a href="{% url "product_detail" product.id %}"> {{ product.title }}</a></td>
             <td>{{ product.brand_name }}</td>
             <td>{{ product.pk }}</td>
+            <td>{{ product.product_to_predicted_puc.puc }}</td>
         </tr>
       {% endfor %}
       </tbody>
@@ -70,6 +72,8 @@
         <br><br>
         <br><br>
         <p id="puc_result">The {{ full_p_count }} products matching "{{ q }}" are already associated with a PUC.</p>
+    {% elif datagroup and rawcategory and full_p_count > 0 %}
+        <p>The {{ full_p_count }} products are already associated with a PUC.</p>
     {% else %}
         <br><br>
         <br><br>

@@ -1,0 +1,26 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% block title %}PUC Assignment Reconciliation{% endblock %}
+{% block content %}
+
+
+
+<h1 class="col-sm-12">
+    <span>Resolve PUC conflicts</span>
+</h1>
+<table class="table table-striped table-bordered dataTable no-footer table-sm" id="assigned-pucs">
+  <thead class="table-primary">
+      <th>Product ID</th>
+      <th>Product</th>
+      <th>PUC</th>
+      <th>PUC Assignment Method</th>
+      <!-- <th>Unassign</th> -->
+      <th>PUC Assignment Confidence</th>
+  </thead>
+</table>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/dashboard/product_puc_reconciliation.js' %}"></script>
+{% endblock %}

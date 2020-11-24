@@ -73,7 +73,9 @@ class TestQASummary(TestCase):
         )
         self.assertIn(
             str(
-                QANotes.objects.filter(extracted_text__in=self.extracted_texts).count()
+                QANotes.objects.filter(extracted_text__in=self.extracted_texts)
+                .exclude(qa_notes="")
+                .count()
             ),
             response_html.xpath('//*[@id="qa_notes"]')[0].text,
         )
