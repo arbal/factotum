@@ -128,7 +128,9 @@ class QATest(TestCase):
 
     def test_qa_compextractionscript(self):
         script = Script.objects.get(pk=12)
-        text = ExtractedText.objects.filter(qa_group=script.get_or_create_qa_group(), qa_checked=False).first()
+        text = ExtractedText.objects.filter(
+            qa_group=script.get_or_create_qa_group(), qa_checked=False
+        ).first()
 
         rawchem = RawChem.objects.filter(extracted_text=text).first()
         rawchem.raw_cas = "12345"
