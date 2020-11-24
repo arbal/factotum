@@ -124,3 +124,10 @@ class QATest(TestCase):
             f'//*[@id="component-{rawchem.id}"]/text()'
         )
         self.assertIn(component, "Test Component")
+
+    def test_qa_pdf_download(self):
+        data_document = DataDocument.objects.get(pk=354787)
+        response = self.client.get("/qa/extractedtext/%i/" % data_document.pk)
+        response_html = html.fromstring(response.content)
+        filename = data_document.filename
+        self.assertTrue(response_html.xpath(f'//a[@title="{filename}"]'))
