@@ -258,4 +258,3 @@ class TestChemicalDetail(StaticLiveServerTestCase):
             "//*[@id='products']/tbody/tr[4]/td[3]"
         )
         self.assertEqual("", last_puc.text)
-

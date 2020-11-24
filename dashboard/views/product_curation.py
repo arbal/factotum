@@ -385,3 +385,12 @@ def product_list(request):
     data = {}
     data["products"] = {}
     return render(request, template_name, data)
+
+
+@login_required()
+def product_puc_reconciliation(
+    request, template_name="product_curation/product_puc_reconciliation.html"
+):
+    data = {}
+    data["products"] = {}
+    return render(request, template_name, data)

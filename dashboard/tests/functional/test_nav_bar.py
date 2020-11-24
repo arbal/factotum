@@ -57,6 +57,20 @@ class NavBarTest(TestCase):
             ),
             "The Data Curation dropdown should appear in the navbar.",
         )
+        self.assertIn(
+            "Chemical Curation",
+            response_html.xpath(
+                'string(//*[@id="navbarCollapse"]/ul[1]/li[5]/div/a[1]/text())'
+            ),
+            "The Chemical Curation link should appear in the dropdown.",
+        )
+        self.assertIn(
+            "Resolve PUC Conflicts",
+            response_html.xpath(
+                'string(//*[@id="navbarCollapse"]/ul[1]/li[5]/div/a[4]/text())'
+            ),
+            "The PUC reconciliation link should appear in the dropdown.",
+        )
 
     def test_delete_extractedtext_link(self):
         self.client.login(username="Karyn", password="specialP@55word")

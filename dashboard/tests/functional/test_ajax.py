@@ -3,6 +3,8 @@ import json
 from django.test import TestCase, override_settings
 from dashboard.tests.loader import fixtures_standard
 from dashboard.models import Product, PUC
+from django.urls import reverse
+from django.db.models import Count
 
 params = (
     "draw=1&columns[0][data]=0&columns[0][name]=&columns[0][searchable]=true"
@@ -146,3 +148,32 @@ class TestAjax(TestCase):
                 self.assertTrue(prod.title in prodlink)
             else:
                 self.assertFalse(prod.title in prodlink)
+
+    def test_duplicate_puc(self):
+        prod_puc_url = reverse("p_puc_ajax_url")
+        response = self.client.get(prod_puc_url)
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        # identify a product with multiple PUCs assigned
+        p = (
+            Product.objects.annotate(puc_count=Count("producttopuc"))
+            .filter(puc_count__gte=2)
+            .order_by("id")
+            .first()
+        )
+
+        first_json = data["data"][0]
+        # the first value in the json object should be the Product ID
+        self.assertEqual(
+            first_json[0],
+            str(p.id),
+            f"The Product ID {p.id} was not found in {first_json}",
+        )
+
+        # delete all but one PUC linkage - the product should no longer appear
+        p.producttopuc_set.all().exclude(classification_method="MA").delete()
+
+        # reload the JSON
+        response = self.client.get(prod_puc_url)
+        data = json.loads(response.content)
+        self.assertEqual(0, len(data["data"]), "Not PUC conflicts found")
