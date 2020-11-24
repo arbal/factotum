@@ -6,7 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.db import transaction
-from django.db.models import Count, Q, Max, Case, F, When, OuterRef, Exists
+from django.db.models import Count, Q, Max, OuterRef, Exists
+from django.db.models.functions import Greatest, Coalesce
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -28,7 +29,6 @@ from dashboard.models import (
     DocumentType,
     RawChem,
     AuditLog,
-    FunctionalUse,
 )
 
 
@@ -228,57 +228,26 @@ class SummaryTable(BaseDatatableView):
         :return: QuerySet of all valid ExtractedText rows
         """
         rc_log_subquery = AuditLog.objects.filter(
-            object_key=OuterRef("pk"),
-            model_name__in=[
-                "rawchem",
-                "extractedcomposition",
-                "extractedfunctionaluse",
-                "extractedhhrec",
-                "extractedlistpresence",
-                "extractedfuncationaluse",
-            ],
-            action="U",
-        )
-        fu_log_subquery = AuditLog.objects.filter(
-            object_key=OuterRef("pk"), model_name="functionaluse", action="U"
-        )
-
-        qa_subquery = QANotes.objects.filter(extracted_text=OuterRef("pk"))
-        fu_subquery = FunctionalUse.objects.annotate(
-            has_auditlog=Exists(fu_log_subquery)
-        ).filter(chem=OuterRef("pk"), has_auditlog=True)
-        rc_subquery = RawChem.objects.annotate(
-            has_auditlog=Exists(rc_log_subquery), has_fu_auditlog=Exists(fu_subquery)
-        ).filter(
-            Q(has_auditlog=True) | Q(has_fu_auditlog=True),
-            extracted_text=OuterRef("pk"),
-        )
+            extracted_text_id=OuterRef("pk"), action__in=["U", "D"]
+        ).values("id")
+        qa_subquery = QANotes.objects.filter(extracted_text=OuterRef("pk")).values("id")
 
         qs = (
             self.get_extractedtext_queryset()
-            .annotate(
-                has_qanotes=Exists(qa_subquery), has_updated_rc=Exists(rc_subquery)
-            )
+            .annotate(has_qanotes=Exists(qa_subquery))
+            .annotate(has_updated_rc=Exists(rc_log_subquery))
             .filter(Q(has_qanotes=True) | Q(has_updated_rc=True))
             .prefetch_related("rawchem")
             .select_related("qanotes", "data_document")
             .annotate(last_updated_rc=Max("rawchem__updated_at"))
             .annotate(
-                last_updated=Case(
-                    When(
-                        data_document__updated_at__lte=F("last_updated_rc"),
-                        updated_at__lte=F("last_updated_rc"),
-                        then="last_updated_rc",
-                    ),
-                    When(
-                        updated_at__lte=F("data_document__updated_at"),
-                        last_updated_rc__lte=F("data_document__updated_at"),
-                        then="data_document__updated_at",
-                    ),
-                    default=F("updated_at"),
+                last_updated=Greatest(
+                    "updated_at",
+                    Coalesce("data_document__updated_at", "updated_at"),
+                    Coalesce("last_updated_rc", "updated_at"),
                 )
             )
-            .annotate(rawchem_count=Count("rawchem"))
+            .annotate(rawchem_count=Count("rawchem", distinct=True))
             .all()
         )
         return qs

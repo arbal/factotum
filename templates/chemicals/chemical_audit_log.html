@@ -17,21 +17,20 @@
                     <th>Field</th>
                     <th>Old Value</th>
                     <th>New Value</th>
+                    <th>Action</th>
                     <th>User</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for log_entry in auditlog %}
-                    {# filter out white noise audit log records #}
-                    {%  if log_entry.old_value != '' and log_entry.new_value != None  %}
                     <tr>
                         <td>{{ log_entry.date_created }}</td>
                         <td>{{ log_entry.field_name }}</td>
                         <td>{{ log_entry.old_value }}</td>
                         <td>{{ log_entry.new_value }}</td>
+                        <td>{{ log_entry.action }}</td>
                         <td>{{ log_entry.user }}</td>
                     </tr>
-                    {%  endif %}
                 {% endfor %}
                 </tbody>
             </table>

@@ -1,4 +1,5 @@
 import json
+import time
 from datetime import datetime, timedelta
 from unittest import mock
 
@@ -7,7 +8,7 @@ from django.urls import reverse
 from django.utils.timesince import timesince
 from lxml import html
 
-from dashboard.models import QANotes
+from dashboard.models import QANotes, AuditLog, RawChem
 from dashboard.tests import factories
 
 
@@ -92,6 +93,9 @@ class TestQASummary(TestCase):
             reverse("qa_extraction_script_summary_table", args=[self.script.pk])
         ).content.decode("utf-8")
         response_json = json.loads(response).get("data")
+        chem_count = RawChem.objects.filter(
+            extracted_text_id=self.extracted_texts[0].pk
+        ).count()
 
         self.assertIn(self.extracted_texts[0].qanotes.qa_notes, response)
 
@@ -107,7 +111,7 @@ class TestQASummary(TestCase):
             self.extracted_texts[0].data_document.get_absolute_url(), table_row[1]
         )
         self.assertEqual(self.extracted_texts[0].qanotes.qa_notes, table_row[2])
-        self.assertEqual(1, table_row[3])
+        self.assertEqual(chem_count, table_row[3])
         self.assertIn(timesince(self.extracted_texts[0].updated_at), table_row[4])
         self.assertIn(
             reverse("document_audit_log", args=[self.extracted_texts[0].pk]),
@@ -216,8 +220,8 @@ class TestQASummary(TestCase):
         )
 
     def test_document_audit_log(self):
-        """Only updates to the rawchem should show up in the audit log"""
         extracted_chem = self.extracted_texts[0].rawchem.select_subclasses().get()
+        time.sleep(1)
         extracted_chem.ingredient_rank = "1"
         extracted_chem.save()
 
@@ -225,10 +229,13 @@ class TestQASummary(TestCase):
             reverse("document_audit_log_table", args=[self.extracted_texts[0].pk])
         ).content.decode("utf-8")
         response_json = json.loads(response).get("data")
+        audit_log = AuditLog.objects.filter(
+            extracted_text_id=self.extracted_texts[0].pk
+        )
+        audit_page_count = 10 if audit_log.count() > 10 else audit_log.count()
 
-        # Only one change was made (inserts are filtered)
-        self.assertEqual(1, len(response_json))
-        # The new ingredient rank is represented
+        self.assertEqual(audit_page_count, len(response_json))
+        # ordered in reverse order
         self.assertIn("ingredient_rank", response_json[0])
         self.assertIn("1", response_json[0])
 
