@@ -88,20 +88,22 @@
                     <th>PDF</th>
                     <td id="pdf">
                         <a class="btn btn-sm btn-outline-secondary hover-info"
-                        role="button"
-                        title="{{ doc.filename }}"
-                        download="{{ doc.filename }}"
-                        target="_blank"
-                        href="{{ doc.file.url }}">
-                        <span class="fa fa-fs {{ doc.filename|fileicon }}"></span>
-                     </a>
-                     <small><i>Click the icon to download PDF. Click <a target="_blank" href="{{ doc.file.url }}">here</a> to open link in new window.</i></small>
+                           role="button"
+                           title="{{ doc.filename }}"
+                           download="{{ doc.filename }}"
+                           target="_blank"
+                           href="{{ doc.file.url }}">
+                            <span class="fa fa-fs {{ doc.filename|fileicon }}"></span>
+                        </a>
+                        <small><i>Click the icon to download PDF. Click
+                            <a target="_blank" title="{{ doc.filename }}" href="{{ doc.file.url }}">here</a>
+                            to open link in new window.</i></small>
                     </td>
                 </tr>
             {% endif %}
             <tr>
                 <th>Total Chemical Records</th>
-                <td id="chem"> 
+                <td id="chem">
                     {{ extracted_text.chemical_count }}
                 </td>
             </tr>
