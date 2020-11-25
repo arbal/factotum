@@ -143,3 +143,10 @@ class QATest(TestCase):
             f'//*[@id="date_updated_{text.pk}"]/text()'
         )[0]
         self.assertIn(date.today().strftime("%b %d, %Y"), date_updated_text)
+
+    def test_qa_pdf_download(self):
+        data_document = DataDocument.objects.get(pk=354787)
+        response = self.client.get("/qa/extractedtext/%i/" % data_document.pk)
+        response_html = html.fromstring(response.content)
+        filename = data_document.filename
+        self.assertTrue(response_html.xpath(f'//a[@title="{filename}"]'))
