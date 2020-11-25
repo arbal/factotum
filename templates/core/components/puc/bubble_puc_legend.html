@@ -28,7 +28,7 @@
                         </button>
                         <span class="m-1"></span>
                     {% endif %}
-                    <b>{{ leaf.name }}</b>
+                    <b id="puc-{{ leaf.value.pk }}">{{ leaf.name }}</b>
                     <a href="{{ leaf.value.get_absolute_url }}"
                        class="ml-2"
                        title="PUC detail"
@@ -75,7 +75,7 @@
                                 </button>
                                 <span class="m-1"></span>
                             {% endif %}
-                            <b>{{ leaflet.name }}</b>
+                            <b id="puc-{{ leaflet.value.pk }}">{{ leaflet.name }}</b>
                             <a href="{{ leaflet.value.get_absolute_url }}"
                             class="ml-2"
                             title="PUC detail"
@@ -109,7 +109,7 @@
                                         <div class="card-header-sm bg-light">
                                             <div class="text-left d-flex align-items-center">
                                                 <span class="m-4"></span>
-                                                <b>{{ needle.name }}</b>
+                                                <b id="puc-{{ needle.value.pk }}">{{ needle.name }}</b>
                                                 <a href="{{ needle.value.get_absolute_url }}"
                                                     class="ml-2"
                                                     title="PUC detail"
