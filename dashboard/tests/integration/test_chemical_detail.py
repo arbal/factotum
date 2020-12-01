@@ -66,11 +66,11 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         wait.until(
             ec.text_to_be_present_in_element(
                 (By.XPATH, "//*[@id='products_info']"),
-                "Showing 1 to 1 of 1 entries (filtered from 4 total entries)",
+                "Showing 1 to 1 of 1 entries (filtered from 4 total products)",
             )
         )
         self.assertInHTML(
-            "Showing 1 to 1 of 1 entries (filtered from 4 total entries)",
+            "Showing 1 to 1 of 1 entries (filtered from 4 total products)",
             self.browser.find_element_by_xpath("//*[@id='products_info']").text,
         )
 
@@ -167,7 +167,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
             )
         )
         self.assertInHTML(
-            "Showing 1 to 3 of 3 entries (filtered from 8 total entries)",
+            "Showing 1 to 3 of 3 entries (filtered from 8 total documents)",
             self.browser.find_element_by_xpath("//*[@id='documents_info']").text,
         )
 
@@ -194,7 +194,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
             )
         )
         self.assertInHTML(
-            "Showing 0 to 0 of 0 entries (filtered from 6 total entries)",
+            "Showing 0 to 0 of 0 entries (filtered from 6 total products)",
             self.browser.find_element_by_xpath("//*[@id='products_info']").text,
         )
 
@@ -258,3 +258,112 @@ class TestChemicalDetail(StaticLiveServerTestCase):
             "//*[@id='products']/tbody/tr[4]/td[3]"
         )
         self.assertEqual("", last_puc.text)
+
+    def test_filter_by_puc(self):
+        """
+        All the Products and Documents associated with the Chemical
+        should be returned via ajax calls and included in the tables
+        """
+        chemical = DSSToxLookup.objects.get(sid="DTXSID6026296")
+        wait = WebDriverWait(self.browser, 10)
+        self.browser.get(self.live_server_url + chemical.get_absolute_url())
+
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='products_info']"), "Showing 1 to 6 of 6 entries"
+            )
+        )
+        # filter by puc
+        puc_filter = self.browser.find_element_by_id("filter-137")
+        puc_filter.click()
+        time.sleep(1)
+
+        self.assertEqual(
+            puc_filter.get_attribute("data-original-title"), "Clear filter table by PUC"
+        )
+        puc_filter_icon = puc_filter.find_element_by_class_name("icon-primary")
+        self.assertIsNotNone(puc_filter_icon)
+
+        # Documents table
+        self.assertInHTML(
+            "Showing 1 to 1 of 1 entries related to PUC Personal care (filtered from 18 total documents)",
+            self.browser.find_element_by_xpath("//*[@id='documents_info']").text,
+        )
+        # Products table
+        self.assertInHTML(
+            "Showing 1 to 1 of 1 entries related to PUC Personal care (filtered from 6 total products)",
+            self.browser.find_element_by_xpath("//*[@id='products_info']").text,
+        )
+
+        # Clear filter by puc
+        puc_filter.click()
+        time.sleep(1)
+
+        self.assertEqual(
+            puc_filter.get_attribute("data-original-title"), "Filter table by PUC"
+        )
+        puc_filter_icon = puc_filter.find_element_by_class_name("icon-secondary")
+        self.assertIsNotNone(puc_filter_icon)
+
+        print(self.browser.find_element_by_xpath("//*[@id='documents_info']").text)
+        # Documents table
+        self.assertInHTML(
+            "Showing 1 to 10 of 18 entries",
+            self.browser.find_element_by_xpath("//*[@id='documents_info']").text,
+        )
+        # Products table
+        self.assertInHTML(
+            "Showing 1 to 6 of 6 entries",
+            self.browser.find_element_by_xpath("//*[@id='products_info']").text,
+        )
+
+    def test_filter_by_keyword(self):
+        """
+        All the Products and Documents associated with the Chemical
+        should be returned via ajax calls and included in the tables
+        """
+        chemical = DSSToxLookup.objects.get(sid="DTXSID9020584")
+        wait = WebDriverWait(self.browser, 10)
+        self.browser.get(self.live_server_url + chemical.get_absolute_url())
+
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='documents_info']"), "Showing 1 to 8 of 8 entries"
+            )
+        )
+        # filter by keyword
+        keyword_filter = self.browser.find_element_by_id("keywords-1")
+        keyword_filter.click()
+        time.sleep(1)
+
+        self.assertEqual(
+            keyword_filter.get_attribute("data-original-title"),
+            "Clear filter table by Keyword Set",
+        )
+        keyword_filter_icon = keyword_filter.find_element_by_class_name("icon-primary")
+        self.assertIsNotNone(keyword_filter_icon)
+
+        # Documents table
+        self.assertInHTML(
+            "Showing 1 to 1 of 1 entries related to Keyword { wine, wood, writing } (filtered from 8 total documents)",
+            self.browser.find_element_by_xpath("//*[@id='documents_info']").text,
+        )
+
+        # Clear filter by keyword
+        keyword_filter.click()
+        time.sleep(1)
+
+        self.assertEqual(
+            keyword_filter.get_attribute("data-original-title"),
+            "Filter table by Keyword Set",
+        )
+        keyword_filter_icon = keyword_filter.find_element_by_class_name(
+            "icon-secondary"
+        )
+        self.assertIsNotNone(keyword_filter_icon)
+
+        # Documents table
+        self.assertInHTML(
+            "Showing 1 to 8 of 8 entries",
+            self.browser.find_element_by_xpath("//*[@id='documents_info']").text,
+        )

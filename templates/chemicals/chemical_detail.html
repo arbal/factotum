@@ -93,33 +93,33 @@
                                     <small><b>{{ keyset.count }}</b></small>
                                 </span>
                                 <button class="btn btn-light"
-                                        {% if keyset.keywords|join:' , '|length <= 80 %}
+                                        {% if keyset.keywords|join:', '|length <= 80 %}
                                         disabled
                                         {% endif %}
                                         type="button"
                                         data-toggle="collapse"
                                         data-target="#pid-{{ keyset.presence_id }}" aria-expanded="true"
                                         aria-controls="collapseOne">
-                                    <b>{ {{ keyset.keywords|join:" , "|truncatechars:80 }} }</b>
+                                    <b id="keyset-{{ keyset.presence_id }}">{ {{ keyset.keywords|join:", "|truncatechars:80 }} }</b>
                                 </button>
                                 <a id="keywords-{{ forloop.counter }}"
                                    class="float-right rounded mr-2 my-1 p-1"
                                    title="Filter table by Keyword Set"
                                    data-presence-id={{ keyset.presence_id }}
-                                           data-toggle="tooltip"
+                                   data-toggle="tooltip"
                                    data-placement="top">
                                     <i class="fa fa-filter fa-lg icon-secondary"></i>
                                 </a>
                         </span>
 
                                 </div>
-                                {% if keyset.keywords|join:" , "|length > 80 %}
+                                {% if keyset.keywords|join:", "|length > 80 %}
                                     <div id="pid-{{ keyset.presence_id }}"
                                          class="collapse"
                                          aria-labelledby="keyCard"
                                          data-parent="#keyAccordion">
                                         <div class="card-body py-0">
-                                            <b>{ {{ keyset.keywords|join:" , " }} }</b>
+                                            <b id="keyset-{{ keyset.presence_id }}">{ {{ keyset.keywords|join:", " }} }</b>
                                         </div>
                                     </div>
                                 {% endif %}

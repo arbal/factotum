@@ -85,9 +85,8 @@ class DocumentListJson(FilterDatatableView):
         if puc:
             qs = qs.filter(Q(products__puc=puc))
         if group_type:
-            if group_type == "-1":
-                return qs
-            qs = qs.filter(data_group__group_type__id=group_type)
+            if group_type != "-1":
+                qs = qs.filter(data_group__group_type__id=group_type)
         if pid:
             ep = ExtractedListPresence.objects.get(pk=pid)
             lp_querysets = []
