@@ -71,7 +71,7 @@ class TestPUCViews(TestCase):
         self.assertEqual(puc.curated_chemical_count, 1)
 
     def test_puc_list(self):
-        
+
         response = self.client.get("/pucs/").content.decode("utf8")
         response_html = html.fromstring(response)
         tabledata = response_html.xpath('//*[@id="tabledata"]/text()')
@@ -79,7 +79,11 @@ class TestPUCViews(TestCase):
         puc_json = json.loads(tabledata[0])
 
         # Find a PUC with multiple products
-        puc = PUC.objects.annotate(prod_count=Count("products")).filter(prod_count__gte=3).first()
+        puc = (
+            PUC.objects.annotate(prod_count=Count("products"))
+            .filter(prod_count__gte=3)
+            .first()
+        )
         puc_id = puc.id
 
         # find its element in the dict
@@ -88,6 +92,3 @@ class TestPUCViews(TestCase):
                 puc_dict = p
         # confirm that the table's source data matches the ORM object
         self.assertEqual(puc.product_count, puc_dict["num_products"])
-
-
-
