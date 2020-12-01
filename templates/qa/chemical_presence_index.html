@@ -37,13 +37,17 @@ QA Chemical Presence</h1>
             </a>
         </td>
         <td>
-         {% if datagroup.datadocument_count > 0 %}
-          <a class="btn btn-info btn-sm" role="button" title="QA on {{ datagroup.name }}"
-           href='{% url "qa_chemical_presence_group" datagroup.id %}'> View Chemical Presence Lists
-          </a>
-          {% else %}
+        {% if datagroup.datadocument_count > 0 %}
+            {% if pct_complete == "100" %}
+              <a class="btn btn-light btn-sm" disabled role="button" title="QA Complete">QA Complete</a>
+            {% else %}
+              <a class="btn btn-info btn-sm" role="button" title="QA on {{ datagroup.name }}"
+               href='{% url "qa_chemical_presence_group" datagroup.id %}'> View Chemical Presence Lists
+              </a>
+            {% endif %}
+        {% else %}
             <i>No DataDocuments exist in this Datagroup</i>
-         {% endif %}
+        {% endif %}
         </td>
       </tr>
     {% endfor %}
