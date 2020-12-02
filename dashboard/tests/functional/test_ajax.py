@@ -6,6 +6,7 @@ from dashboard.models import Product, PUC
 from django.urls import reverse
 from django.db.models import Count
 
+
 params = (
     "draw=1&columns[0][data]=0&columns[0][name]=&columns[0][searchable]=true"
     "&columns[0][orderable]=true&columns[0][search][value]="
