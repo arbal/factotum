@@ -1,5 +1,7 @@
 from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from dashboard.models import Product
+from django.db.models import Count
 import time
 
 
@@ -81,3 +83,18 @@ class TestBulkProductPuc(StaticLiveServerTestCase):
             'The 3 products matching "cream" are already associated with a PUC.',
             body.text,
         )
+
+    def test_puc_conflict_page(self):
+        prod_puc_url = self.live_server_url + f"/product_puc_reconciliation/"
+        self.browser.get(prod_puc_url)
+        time.sleep(1)
+        p = (
+            Product.objects.annotate(puc_count=Count("producttopuc"))
+            .filter(puc_count__gte=2)
+            .order_by("id")
+            .first()
+        )
+        prod_cell = self.browser.find_element_by_xpath(
+            '//*[@id="assigned-pucs"]/tbody/tr[1]/td[2]'
+        )
+        self.assertIn(p.title, prod_cell.text)

@@ -4,7 +4,7 @@ from django.views import View
 from django.views.generic.detail import SingleObjectMixin
 from django_datatables_view.base_datatable_view import BaseDatatableView
 from django.http import JsonResponse
-from django.db.models import Q
+from django.db.models import Q, Count, Subquery
 from django.utils.html import format_html
 from django.views.decorators.cache import cache_page
 from django.template.defaultfilters import truncatechars
@@ -12,6 +12,7 @@ from django.template.defaultfilters import truncatechars
 from dashboard.utils import GroupConcat
 from dashboard.models import (
     Product,
+    ProductToPUC,
     GroupType,
     DataDocument,
     DSSToxLookup,
@@ -84,9 +85,8 @@ class DocumentListJson(FilterDatatableView):
         if puc:
             qs = qs.filter(Q(products__puc=puc))
         if group_type:
-            if group_type == "-1":
-                return qs
-            qs = qs.filter(data_group__group_type__id=group_type)
+            if group_type != "-1":
+                qs = qs.filter(data_group__group_type__id=group_type)
         if pid:
             ep = ExtractedListPresence.objects.get(pk=pid)
             lp_querysets = []
@@ -228,3 +228,47 @@ def sids_by_grouptype_ajax(request):
         sets.append({"sets": set_groups, "size": set_cnt})
 
     return JsonResponse({"data": sets})
+
+
+class ProductPUCReconciliationJson(FilterDatatableView):
+    model = ProductToPUC
+    columns = [
+        "product_id",
+        "product__title",
+        "puc",
+        "classification_method",
+        "classification_confidence",
+    ]
+
+    def render_column(self, row, column):
+        value = self._render_column(row, column)
+        if column == "product__title":
+            return format_html(
+                '<a href="{}" title="Go to Product detail" target="_blank">{}</a>',
+                row.product.get_absolute_url(),
+                row.product.title,
+            )
+        if column == "puc":
+            return format_html(
+                '<a href="{}" title="Go to PUC detail" target="_blank">{}</a>',
+                row.puc.get_absolute_url(),
+                value,
+            )
+        # if column == "unassign":
+        #     return format_html(
+        #         '<a href="unassign?puc={}&product={}" title="Remove assignment" target="_blank">Unassign</a>',
+        #         row.puc_id,
+        #         row.product_id,
+        #     )
+        return value
+
+    def get_initial_queryset(self):
+        dupes = (
+            ProductToPUC.objects.values("product_id")
+            .annotate(puc_count=Count("puc_id"))
+            .filter(puc_count__gte=2)
+        )
+        qs = ProductToPUC.objects.filter(
+            product_id__in=Subquery(dupes.values("product_id"))
+        ).order_by("product_id")
+        return qs

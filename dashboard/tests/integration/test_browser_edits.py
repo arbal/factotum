@@ -487,6 +487,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.assertEqual(
             "2", self.browser.find_element_by_id("qa_incomplete_count").text
         )
+        time.sleep(2)
+
         self.assertEqual(
             extractedtext.data_document.data_group.name,
             self.browser.find_element_by_xpath(

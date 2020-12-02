@@ -447,9 +447,17 @@
           {% endif %}
           {% if datagroup.is_composition %}
           <th class="text-center">Product
-            {% if hasproducts %}  
-            <a href="{% url 'data_group_delete_products' datagroup.id %}" class="hover-info"
-              title="Delete all products">&nbsp;<span class="fa fa-trash"></span></a>
+            {% if hasproducts %}
+            <button type="button"
+                    id="Delete"
+                    title="Delete all products"
+                    data-toggle="modal"
+                    data-target="#delete-all-products-modal"
+                    class="btn btn-sm btn-outline-secondary hover"
+                    name="danger"
+                    style="border:none;">
+                <i class="fa fa-fs fa-trash"></i>
+            </button>
             {% endif  %}
           </th>
           <th class="text-center">Hidden</th>
@@ -477,6 +485,45 @@
   </div>
 </div>
 {% endif %}
+
+<div class="modal fade"
+    id="delete-all-products-modal"
+    tabindex="-1" role="dialog"
+    aria-labelledby="deleteAllProductsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="deleteAllProductsModalLabel">Delete all products</h5>
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{% url 'data_group_delete_products' datagroup.id %}" method="post">
+                {% csrf_token %}
+                <div class="modal-body">
+                    Are you sure you want to delete all products associated with documents in "{{ datagroup.name }}"?
+                </div>
+                <div class="modal-footer">
+                    <button id="delete-all-products-cancel-btn"
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button id="delete-all-products-delete-btn"
+                            type="submit"
+                            class="btn btn-danger">
+                        Delete
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block js %}

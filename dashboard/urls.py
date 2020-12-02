@@ -92,6 +92,11 @@ urlpatterns = [
         name="data_document_note",
     ),
     path("product_curation/", views.product_curation_index, name="product_curation"),
+    path(
+        "product_puc_reconciliation/",
+        views.product_puc_reconciliation,
+        name="product_puc_reconciliation",
+    ),
     path("chemical_curation/", views.chemical_curation_index, name="chemical_curation"),
     path(
         "category_assignment/<int:pk>/",
@@ -211,6 +216,11 @@ urlpatterns = [
     ),
     path("d_json/", views.DocumentListJson.as_view(), name="d_ajax_url"),
     path("p_json/", views.ProductListJson.as_view(), name="p_ajax_url"),
+    path(
+        "p_puc_json/",
+        views.ProductPUCReconciliationJson.as_view(),
+        name="p_puc_ajax_url",
+    ),
     path("c_json/", views.ChemicalListJson.as_view(), name="c_ajax_url"),
     path("sid_gt_json", views.sids_by_grouptype_ajax, name="sid_gt_json_url"),
     path("pucs/", views.puc_list, name="puc_list"),

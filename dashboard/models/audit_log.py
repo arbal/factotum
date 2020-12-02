@@ -5,19 +5,25 @@ from django.db import models
 
 
 class AuditLog(models.Model):
+    extracted_text = models.ForeignKey(
+        "ExtractedText",
+        to_field="data_document_id",
+        related_name="auditlogs",
+        on_delete=models.DO_NOTHING,
+        null=True,
+        db_constraint=False,
+    )
+    rawchem_id = models.PositiveIntegerField(null=True, db_index=True)
     object_key = models.PositiveIntegerField(null=True)
     model_name = models.CharField(max_length=128)
-    field_name = models.CharField(max_length=128, db_index=True)
+    field_name = models.CharField(max_length=128)
     old_value = models.TextField(null=True)
     new_value = models.TextField(null=True)
     date_created = models.DateTimeField(auto_now_add=True, db_index=True)
     action = models.CharField(max_length=1)
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.PROTECT
+        settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.SET_NULL
     )
-
-    class Meta:
-        indexes = [models.Index(fields=["object_key", "model_name", "field_name"])]
 
     @classmethod
     def remove_trigger_sql(cls):
@@ -64,20 +70,24 @@ class AuditLog(models.Model):
         for model in auditlog_fields:
             table_name = app_label + "_" + model
             id = apps.get_model(app_label, model_name=model)._meta.pk.attname
+            rawchem_audit_field = cls.get_extracted_text_audit_field(model, False)
+            rawchem_audit_field_insert = cls.get_extracted_text_audit_field(model, True)
+            rawchem_field = "chem_id" if model == "functionaluse" else id
+
             trigger_sql += f"""
-                    CREATE TRIGGER  {table_name}_update_auditlog_trigger
-                    AFTER UPDATE ON {table_name}
-                    FOR EACH ROW
-                    BEGIN
+                CREATE TRIGGER  {table_name}_update_auditlog_trigger
+                AFTER UPDATE ON {table_name}
+                FOR EACH ROW
+                BEGIN
             """
             for field in auditlog_fields[model]:
                 trigger_sql += f"""
-                    IF (NEW.{field} <> OLD.{field} or
-                        (OLD.{field} IS NULL and NEW.{field} IS NOT NULL) or
-                        (OLD.{field} IS NOT NULL and NEW.{field} IS NULL)) THEN
-                        insert into dashboard_auditlog (object_key, model_name, field_name, date_created,
+                    IF IFNULL(NEW.{field}, '') <> IFNULL(OLD.{field}, '') THEN
+                        insert into dashboard_auditlog (extracted_text_id, rawchem_id,
+                            object_key, model_name, field_name, date_created, 
                             old_value, new_value, action, user_id)
-                        values (NEW.{id}, '{model}', '{field}', UTC_TIMESTAMP(),
+                        values ({rawchem_audit_field}, NEW.{rawchem_field},
+                            NEW.{id}, '{model}', '{field}', now(),
                             OLD.{field}, NEW.{field}, 'U', @current_user);
                     END IF;
                 """
@@ -91,10 +101,12 @@ class AuditLog(models.Model):
             """
             for field in auditlog_fields[model]:
                 trigger_sql += f"""
-                    IF NEW.{field} IS NOT NULL THEN
-                        insert into dashboard_auditlog (object_key, model_name, field_name, date_created,
+                    IF IFNULL(NEW.{field}, '') <> '' THEN
+                        insert into dashboard_auditlog (extracted_text_id, rawchem_id,
+                            object_key, model_name, field_name, date_created,
                             old_value, new_value, action, user_id)
-                        values (NEW.{id}, '{model}', '{field}', UTC_TIMESTAMP(),
+                        values ({rawchem_audit_field_insert}, NEW.{rawchem_field},
+                            NEW.{id}, '{model}', '{field}', now(),
                             null, NEW.{field}, 'I', @current_user);
                     END IF;
                 """
@@ -108,10 +120,12 @@ class AuditLog(models.Model):
             """
             for field in auditlog_fields[model]:
                 trigger_sql += f"""
-                    IF OLD.{field} IS NOT NULL THEN
-                        insert into dashboard_auditlog (object_key, model_name, field_name, date_created,
+                    IF IFNULL(OLD.{field}, '') <> '' THEN
+                        insert into dashboard_auditlog (extracted_text_id, rawchem_id,
+                            object_key, model_name, field_name, date_created,
                             old_value, new_value, action, user_id)
-                        values (OLD.{id}, '{model}', '{field}', UTC_TIMESTAMP(),
+                        values ({rawchem_audit_field}, OLD.{rawchem_field},
+                            OLD.{id}, '{model}', '{field}', now(),
                             OLD.{field}, null, 'D', @current_user);
                     END IF;
                 """
@@ -119,6 +133,20 @@ class AuditLog(models.Model):
                 END;
             """
         return trigger_sql
+
+    @classmethod
+    def get_extracted_text_audit_field(cls, model, insert):
+        prefix = "NEW" if insert else "OLD"
+
+        if model == "rawchem":
+            return f"{prefix}.extracted_text_id"
+
+        if model == "functionaluse":
+            rawchem_join_field = "chem_id"
+        else:
+            rawchem_join_field = "rawchem_ptr_id"
+
+        return f"(select extracted_text_id from dashboard_rawchem where id = {prefix}.{rawchem_join_field})"
 
     def verbose(self):
         return "%s.%s:%s | %s --> %s" % (

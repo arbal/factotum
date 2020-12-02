@@ -1,14 +1,15 @@
 from lxml import html
+import json
 
 from django.test import TestCase, override_settings
 
-from dashboard.models import PUC, PUCKind
+from dashboard.models import PUC
+from django.db.models import Count
 from dashboard.tests.loader import fixtures_standard
-from django.urls import reverse
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
-class TestPUCDetail(TestCase):
+class TestPUCViews(TestCase):
     fixtures = fixtures_standard
 
     def test_puc_not_specified(self):
@@ -68,3 +69,26 @@ class TestPUCDetail(TestCase):
         ProductDocument.objects.create(document=doc, product=p)
         puc = PUC.objects.get(pk=169)
         self.assertEqual(puc.curated_chemical_count, 1)
+
+    def test_puc_list(self):
+
+        response = self.client.get("/pucs/").content.decode("utf8")
+        response_html = html.fromstring(response)
+        tabledata = response_html.xpath('//*[@id="tabledata"]/text()')
+
+        puc_json = json.loads(tabledata[0])
+
+        # Find a PUC with multiple products
+        puc = (
+            PUC.objects.annotate(prod_count=Count("products"))
+            .filter(prod_count__gte=3)
+            .first()
+        )
+        puc_id = puc.id
+
+        # find its element in the dict
+        for p in puc_json:
+            if p["id"] == puc_id:
+                puc_dict = p
+        # confirm that the table's source data matches the ORM object
+        self.assertEqual(puc.product_count, puc_dict["num_products"])
