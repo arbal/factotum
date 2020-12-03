@@ -1,0 +1,18 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div style="width: 100%; text-align: center;">
+        <div>Deleting {{ data_group.get_product_count }} product record(s) from data group {{ data_group.name }}, please wait...</div>
+        <input type="hidden" id="task_id" value="{{ task.id }}"/>
+        <input type="hidden" id="redirect_to" value="{{ redirect_to }}"/>
+        <div style="padding-top: 50px;">
+            <div class="fas fa-4x fa-spinner fa-spin"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/js.cookie.min.js' %}"></script>
+    <script src="{% static 'js/dashboard/product_delete.js' %}"></script>
+{% endblock %}

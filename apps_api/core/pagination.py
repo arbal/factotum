@@ -3,6 +3,13 @@ from collections import OrderedDict
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.utils.urls import remove_query_param, replace_query_param
+from rest_framework_json_api.pagination import JsonApiPageNumberPagination
+
+
+class CustomJsonApiPageNumberPagination(JsonApiPageNumberPagination):
+    # Customize the max page size to 1000, was 100
+    max_page_size = 1000
+
 
 # Todo: This is unused and has been replaced by the drf-jsonapi standard
 class StandardPagination(PageNumberPagination):

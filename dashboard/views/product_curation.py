@@ -238,7 +238,13 @@ def bulk_assign_puc_to_product(
     if q > "":
         p = Product.objects.filter(
             Q(title__icontains=q) | Q(brand_name__icontains=q)
-        ).exclude(id__in=(ProductToPUC.objects.values_list("product_id", flat=True)))[
+        ).exclude(
+            id__in=(
+                ProductToPUC.objects.filter(~Q(classification_method="AU")).values_list(
+                    "product_id", flat=True
+                )
+            )
+        )[
             :max_products_returned
         ]
         full_p_count = Product.objects.filter(
@@ -251,10 +257,21 @@ def bulk_assign_puc_to_product(
                 datadocument__data_group__pk=datagroup_pk,
                 datadocument__raw_category=rawcategory,
             )
+        ).exclude(
+            id__in=(
+                ProductToPUC.objects.filter(~Q(classification_method="AU")).values_list(
+                    "product_id", flat=True
+                )
+            )
         )
         datagroup = DataGroup.objects.get(pk=datagroup_pk)
         context.update({"datagroup": datagroup, "rawcategory": rawcategory})
-        full_p_count = p.count()
+        full_p_count = Product.objects.filter(
+            Q(
+                datadocument__data_group__pk=datagroup_pk,
+                datadocument__raw_category=rawcategory,
+            )
+        ).count()
     else:
         p = {}
         full_p_count = 0
@@ -365,6 +382,15 @@ def product_delete(request, pk):
 
 def product_list(request):
     template_name = "product_curation/products.html"
+    data = {}
+    data["products"] = {}
+    return render(request, template_name, data)
+
+
+@login_required()
+def product_puc_reconciliation(
+    request, template_name="product_curation/product_puc_reconciliation.html"
+):
     data = {}
     data["products"] = {}
     return render(request, template_name, data)

@@ -9,6 +9,7 @@ from django.core.validators import URLValidator
 from .common_info import CommonInfo
 from .group_type import GroupType
 from .raw_chem import RawChem
+from .product import Product
 
 
 # DEPRECATED: migration 0009_auto_20171212_1405.py expects its existence
@@ -95,6 +96,9 @@ class DataGroup(CommonInfo):
     @property
     def can_have_chem_detected_flag(self):
         return self.type in ["LM", "CP"]
+
+    def get_products(self):
+        return Product.objects.filter(documents__in=self.datadocument_set.all())
 
     def matched_docs(self):
         return self.datadocument_set.exclude(file="").count()

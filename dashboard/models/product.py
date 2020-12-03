@@ -111,6 +111,9 @@ class Product(CommonInfo):
     def get_absolute_url(self):
         return reverse("product_detail", kwargs={"pk": self.pk})
 
+    def product_to_predicted_puc(self):
+        return self.producttopuc_set.filter(classification_method="AU").first()
+
     @property
     def get_producttopuc(self):
         """Returns the "producttopuc" for this product.

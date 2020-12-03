@@ -54,6 +54,8 @@ class DataSourceFactory(FactotumFactoryBase):
     class Meta:
         model = models.DataSource
 
+    title = factory.Faker("word")
+
 
 class PUCKindFactory(FactotumFactoryBase):
     class Meta:
@@ -120,6 +122,9 @@ class DataDocumentFactory(FactotumFactoryBase):
 
     data_group = factory.SubFactory(DataGroupFactory)
     document_type = factory.SubFactory(DocumentTypeFactory)
+    title = factory.Faker("word")
+    note = factory.Faker("sentence")
+    subtitle = factory.Faker("word")
 
     @factory.post_generation
     def product(self, create, extracted, **kwargs):

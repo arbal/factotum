@@ -1,34 +1,35 @@
 {% extends 'core/base.html' %}
+{% load staticfiles %}
 {% block title %}Product Use Categories (PUCs){% endblock %}
 {% block content %}
 
     <h1>
         <span>Product Use Categories (PUCs)</span>
     </h1>
+    <div class="header">
+        <input type="text" id="filter-text-box" placeholder="Search..." oninput="onFilterTextBoxChanged()"/>
+        <button onclick="clearFilters()" class="btn btn-primary btn-sm">Reset Filters</button>
+    </div>
+    <div id="pucGrid" class="ag-theme-balham" ></div>
+    <div>
+        Page Size:
+        <select autocomplete="off" id="page-size" onchange="onPageSizeChanged()">
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50" selected>50</option>
+          <option value="100">100</option>
+          <option value="All">Show All</option>
+        </select>
+    </div>
 
-    <table class="table table-sm table-bordered table-striped">
-        <thead class="table-primary">
-        <th>Kind</th>
-        <th>Gen Cat</th>
-        <th>Prod Fam</th>
-        <th>Prod Type</th>
-        <th>Product Count</th>
-        <th>View Detail</th>
-        </thead>
-        <tbody>
-        {% for puc in pucs %}
-            <tr>
-                <td>{{ puc.kind.name}}</td>
-                <td>{{ puc.gen_cat }}</td>
-                <td>{{ puc.prod_fam }}</td>
-                <td>{{ puc.prod_type }}</td>
-                <td>{{ puc.num_products }}</td>
-                <td class="text-center">&nbsp;<a class="btn btn-primary btn-sm" role="button" title="View PUC Detail"
-                           href="{% url 'puc_detail' pk=puc.pk %}">
-                            <span class="fa fa-sitemap"></span>&nbsp; </a>
-            </tr>
-        {% endfor %}
+{% endblock %}
 
-        </tbody>
-    </table>
+{% block css %}
+    <link href="{% static 'css/dashboard/puc_list.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+    {{ form.media }}
+    {{ pucs|json_script:"tabledata" }}
+    <script src="{% static 'js/dashboard/puc_list.js' %}"></script>
 {% endblock %}

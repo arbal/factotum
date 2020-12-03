@@ -1,4 +1,5 @@
 from lxml import html
+from datetime import date
 
 from django.test import TestCase, tag
 
@@ -124,3 +125,28 @@ class QATest(TestCase):
             f'//*[@id="component-{rawchem.id}"]/text()'
         )
         self.assertIn(component, "Test Component")
+
+    def test_qa_compextractionscript(self):
+        script = Script.objects.get(pk=12)
+        text = ExtractedText.objects.filter(
+            qa_group=script.get_or_create_qa_group(), qa_checked=False
+        ).first()
+
+        rawchem = RawChem.objects.filter(extracted_text=text).first()
+        rawchem.raw_cas = "12345"
+        rawchem.save()
+
+        response = self.client.get("/qa/compextractionscript/%i/" % script.pk)
+        response_html = html.fromstring(response.content)
+
+        date_updated_text = response_html.xpath(
+            f'//*[@id="date_updated_{text.pk}"]/text()'
+        )[0]
+        self.assertIn(date.today().strftime("%b %d, %Y"), date_updated_text)
+
+    def test_qa_pdf_download(self):
+        data_document = DataDocument.objects.get(pk=354787)
+        response = self.client.get("/qa/extractedtext/%i/" % data_document.pk)
+        response_html = html.fromstring(response.content)
+        filename = data_document.filename
+        self.assertTrue(response_html.xpath(f'//a[@title="{filename}"]'))
