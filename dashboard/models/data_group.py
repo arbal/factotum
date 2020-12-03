@@ -6,6 +6,7 @@ from model_utils import FieldTracker
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
 
+from .qa_notes import QASummaryNote
 from .common_info import CommonInfo
 from .group_type import GroupType
 from .raw_chem import RawChem
@@ -29,7 +30,7 @@ def csv_upload_path(instance, filename):
     return name
 
 
-class DataGroup(CommonInfo):
+class DataGroup(CommonInfo, QASummaryNote):
     """A container for registered and extracted documents, all of which
     share a common extraction script. Inherits from `CommonInfo`
     """

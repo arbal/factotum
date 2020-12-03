@@ -7,7 +7,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
-from dashboard.models import DataDocument, ExtractedText, RawChem
+from dashboard.models import DataDocument, ExtractedText, RawChem, DataGroup, Script
 from dashboard.tests.loader import fixtures_standard, load_browser
 
 
@@ -518,3 +518,35 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 '//table[@id="document-table"]/tbody/tr[1]/td[5]'
             ).text,
         )
+
+    def test_edit_qa_summary_note(self):
+        wait = WebDriverWait(self.browser, 10)
+        # edit script summary note
+        script = Script.objects.first()
+        self.browser.get(
+            self.live_server_url + f"/qa/compextractionscript/{script.pk}/summary"
+        )
+        save_button = wait.until(
+            ec.element_to_be_clickable((By.XPATH, "//*[@id='btn-save-notes']"))
+        )
+        note = "this is a test note"
+        self.browser.find_element_by_id("qa-summary-note-textarea").send_keys(note)
+        save_button.click()
+        time.sleep(1)
+        script = Script.objects.get(pk=script.pk)
+        self.assertEqual(note, script.qa_summary_note)
+
+        # edit cp summary note
+        datagroup = DataGroup.objects.filter(group_type__code="CP").first()
+        self.browser.get(
+            self.live_server_url + f"/qa/chemicalpresencegroup/{datagroup.pk}/summary"
+        )
+        save_button = wait.until(
+            ec.element_to_be_clickable((By.XPATH, "//*[@id='btn-save-notes']"))
+        )
+        note = "this is a another test note"
+        self.browser.find_element_by_id("qa-summary-note-textarea").send_keys(note)
+        save_button.click()
+        time.sleep(1)
+        datagroup = DataGroup.objects.get(pk=datagroup.pk)
+        self.assertEqual(note, datagroup.qa_summary_note)

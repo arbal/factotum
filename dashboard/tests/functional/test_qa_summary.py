@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.utils.timesince import timesince
 from lxml import html
 
-from dashboard.models import QANotes, AuditLog, RawChem
+from dashboard.models import QANotes, AuditLog, RawChem, Script, DataGroup
 from dashboard.tests import factories
 
 
@@ -238,6 +238,33 @@ class TestQASummary(TestCase):
         # ordered in reverse order
         self.assertIn("ingredient_rank", response_json[0])
         self.assertIn("1", response_json[0])
+
+    def test_qa_summary_note(self):
+        # script summary note
+        script = Script.objects.first()
+        note = "this is a test note"
+        data = {"qa_summary_note": note}
+        response = self.client.post(
+            reverse("edit_qa_summary_note", args=["script", script.pk]), data
+        )
+        script = Script.objects.get(pk=script.pk)
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(note, script.qa_summary_note)
+
+        # data group summary note
+        datagroup = DataGroup.objects.first()
+        response = self.client.post(
+            reverse("edit_qa_summary_note", args=["datagroup", datagroup.pk]), data
+        )
+        datagroup = DataGroup.objects.get(pk=datagroup.pk)
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(note, datagroup.qa_summary_note)
+
+        # invalid model should generate error
+        response = self.client.post(
+            reverse("edit_qa_summary_note", args=["not_exist", 1]), data
+        )
+        self.assertEqual(400, response.status_code)
 
     def _match_table_row(self, response_json, qa_note):
         """Matches a row in the response table by the qa_note and returns it.

@@ -5,9 +5,10 @@ from django.core.validators import URLValidator, MaxValueValidator, MinValueVali
 from .common_info import CommonInfo
 from .data_document import DataDocument
 from .extracted_text import ExtractedText
+from .qa_notes import QASummaryNote
 
 
-class Script(CommonInfo):
+class Script(CommonInfo, QASummaryNote):
 
     TYPE_CHOICES = (
         ("DL", "download"),
