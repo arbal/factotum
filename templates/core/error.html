@@ -3,5 +3,20 @@
 {% block title %}Factotum Error: Status {{ status }}{% endblock %}
 
 {% block content %}
-    <img src="/static/images/{{ status }}.png">
+    <div class="section">
+        <img alt="Error Status {{ status }} Image" src="/static/images/{{ status }}.png">
+    </div>
+{% endblock %}
+
+{%  block css %}
+    <style type="text/css">
+        .section {
+            padding: 1em;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%)
+        }
+    </style>
 {% endblock %}
