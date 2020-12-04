@@ -18,6 +18,7 @@ from django_datatables_view.base_datatable_view import BaseDatatableView
 
 from celery_usertask.tasks import UserTask, usertask
 from dashboard.forms import create_detail_formset, QANotesForm, DocumentTypeForm
+from dashboard.forms.forms import QASummaryNoteForm
 from dashboard.models import (
     Script,
     DataGroup,
@@ -103,7 +104,7 @@ def qa_chemicalpresence_summary(
     datagroup.qa_incomplete_count = (
         datagroup.document_count - datagroup.qa_complete_count
     )
-
+    noteform = QASummaryNoteForm(instance=datagroup)
     return render(
         request,
         template_name,
@@ -112,6 +113,7 @@ def qa_chemicalpresence_summary(
             "document_table_url": reverse(
                 "qa_chemical_presence_summary_table", args=[pk]
             ),
+            "noteform": noteform,
         },
     )
 
@@ -162,6 +164,7 @@ def qa_extraction_script_summary(
         .first()
     )
     qa_group = script.get_or_create_qa_group()
+    noteform = QASummaryNoteForm(instance=script)
 
     return render(
         request,
@@ -172,6 +175,7 @@ def qa_extraction_script_summary(
             "document_table_url": reverse(
                 "qa_extraction_script_summary_table", args=[pk]
             ),
+            "noteform": noteform,
         },
     )
 
@@ -436,6 +440,45 @@ def save_qa_notes(request, pk):
     else:
         return HttpResponse(
             json.dumps({"not a POST request": "this will not happen"}),
+            content_type="application/json",
+        )
+
+
+@login_required()
+def edit_qa_summary_note(request, model, pk):
+    """
+    This is an endpoint that serves the AJAX call
+    """
+    if request.method == "POST":
+        qa_summary_note = request.POST.get("qa_summary_note")
+        response_data = {}
+        if model == "datagroup":
+            instance = DataGroup.objects.get(pk=pk)
+        elif model == "script":
+            instance = Script.objects.get(pk=pk)
+        else:
+            instance = None
+
+        if instance is None:
+            return HttpResponse(
+                json.dumps(
+                    {
+                        "result": "Error: model is invalid. Model must be in [datagroup, script]"
+                    }
+                ),
+                status=400,
+                content_type="application/json",
+            )
+        else:
+            instance.qa_summary_note = qa_summary_note
+            instance.save()
+            response_data["result"] = "QA Summary Note saved successfully"
+
+        return HttpResponse(json.dumps(response_data), content_type="application/json")
+    else:
+        return HttpResponse(
+            json.dumps({"result": "Error: request method must be POST"}),
+            status=400,
             content_type="application/json",
         )
 

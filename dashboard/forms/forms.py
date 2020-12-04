@@ -29,6 +29,7 @@ from dashboard.models import (
     ExtractedLMDoc,
     ExtractedHabitsAndPractices,
     RawChem,
+    QASummaryNote,
 )
 from dashboard.models.extracted_hpdoc import ExtractedHPDoc
 
@@ -126,6 +127,17 @@ class QANotesForm(forms.ModelForm):
         fields = ["qa_notes"]
         widgets = {"qa_notes": forms.Textarea(attrs={"id": "qa-notes-textarea"})}
         labels = {"qa_notes": _("QA Notes (required if approving edited records)")}
+
+
+class QASummaryNoteForm(forms.ModelForm):
+    class Meta:
+        model = QASummaryNote
+        fields = ["qa_summary_note"]
+        widgets = {
+            "qa_summary_note": forms.Textarea(
+                attrs={"id": "qa-summary-note-textarea", "rows": 4}
+            )
+        }
 
 
 class ExtractedTextQAForm(forms.ModelForm):
