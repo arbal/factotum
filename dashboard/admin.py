@@ -48,6 +48,10 @@ class PUCKindAdmin(admin.ModelAdmin):
     list_display = ("__str__", "name")
 
 
+class ProductToPucClassificationMethodAdmin(admin.ModelAdmin):
+    list_display = ("rank","code", "name")
+
+
 class HHDocAdmin(admin.ModelAdmin):
     list_display = ("__str__", "hhe_report_number")
 
@@ -132,6 +136,7 @@ admin.site.register(DataDocument)
 admin.site.register(Script, ScriptAdmin)
 admin.site.register(Product)
 admin.site.register(ProductToPUC)
+admin.site.register(ProductToPucClassificationMethod, ProductToPucClassificationMethodAdmin)
 admin.site.register(ProductDocument)
 admin.site.register(SourceCategory)
 admin.site.register(PUC, PUCAdmin)
