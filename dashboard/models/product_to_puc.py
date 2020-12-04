@@ -35,7 +35,10 @@ class ProductToPUC(CommonInfo):
 
 class ProductToPucClassificationMethod(CommonInfo):
     code = models.CharField(
-        max_length=3, primary_key=True, verbose_name="classification method code", db_column='classification_method'
+        max_length=3,
+        primary_key=True,
+        verbose_name="classification method code",
+        db_column="classification_method",
     )
     name = models.CharField(
         max_length=100, unique=True, verbose_name="classification method name"
