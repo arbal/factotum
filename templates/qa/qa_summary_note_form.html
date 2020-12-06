@@ -1,0 +1,15 @@
+{% load widget_tweaks %}
+
+<form action="{% url "edit_qa_summary_note" model pk %}"
+      method="POST"
+      id="qa-summary-note-form">
+    {% csrf_token %}
+    {% render_field noteform.qa_summary_note class="form-control" %}
+    <div class="pt-2">
+        <input type="submit" id="btn-save-notes"
+               value="Save Note"
+               class="btn btn-sm btn-primary">
+        &nbsp;&nbsp;<span id="results"></span>
+    </div>
+</form>
+

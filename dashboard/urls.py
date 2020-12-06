@@ -296,6 +296,11 @@ urlpatterns = [
     ),
     path("qanotes/save/<int:pk>/", views.save_qa_notes, name="save_qa_notes"),
     path(
+        "qasummarynote/edit/<str:model>/<int:pk>/",
+        views.edit_qa_summary_note,
+        name="edit_qa_summary_note",
+    ),
+    path(
         "extractedtext/approve/<int:pk>/",
         views.approve_extracted_text,
         name="approve_extracted_text",

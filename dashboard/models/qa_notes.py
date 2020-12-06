@@ -1,9 +1,9 @@
 from django.db import models
+
 from .common_info import CommonInfo
+from .extracted_text import ExtractedText
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
-
-from dashboard.models import ExtractedText
 
 
 class QANotes(CommonInfo):
@@ -22,3 +22,10 @@ class QANotes(CommonInfo):
                     "Before approving, please add a note explaining your edits to the extracted data"
                 )
             )
+
+
+class QASummaryNote(models.Model):
+    qa_summary_note = models.TextField(blank=True, null=True)
+
+    class Meta:
+        abstract = True
