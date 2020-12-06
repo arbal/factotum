@@ -1,0 +1,241 @@
+[{
+    "model": "dashboard.producttopuc",
+    "pk": 2,
+    "fields": {
+        "created_at": "2018-08-30T18:38:10.868",
+        "updated_at": "2018-08-30T18:38:10.868",
+        "created_by": null,
+        "updated_by": null,
+        "product": 878,
+        "puc": 245,
+        "puc_assigned_usr": null,
+        "puc_assigned_script": null,
+        "classification_method": "(MA,)",
+        "classification_confidence": "1.000"
+    }
+}, {
+    "model": "dashboard.producttopuc",
+    "pk": 5,
+    "fields": {
+        "created_at": "2018-10-04T10:55:10.319",
+        "updated_at": "2018-10-04T10:55:10.319",
+        "created_by": null,
+        "updated_by": null,
+        "product": 11,
+        "puc": 1,
+        "puc_assigned_usr": null,
+        "puc_assigned_script": null,
+        "classification_method": "MA,",
+        "classification_confidence": "1.000"
+    }
+}, {
+    "model": "dashboard.producttopuc",
+    "pk": 6,
+    "fields": {
+        "created_at": "2019-05-10T13:58:44.365",
+        "updated_at": "2019-05-10T13:58:44.365",
+        "created_by": null,
+        "updated_by": null,
+        "product": 1861,
+        "puc": 169,
+        "puc_assigned_usr": 1,
+        "puc_assigned_script": null,
+        "classification_method": "MA",
+        "classification_confidence": "1.000"
+    }
+}, {
+    "model": "dashboard.producttopuc",
+    "pk": 7,
+    "fields": {
+        "created_at": "2019-05-10T13:59:12.842",
+        "updated_at": "2019-05-10T13:59:12.842",
+        "created_by": null,
+        "updated_by": null,
+        "product": 1868,
+        "puc": 210,
+        "puc_assigned_usr": 1,
+        "puc_assigned_script": null,
+        "classification_method": "MA",
+        "classification_confidence": "1.000"
+    }
+}, {
+    "model": "dashboard.producttopuc",
+    "pk": 8,
+    "fields": {
+        "created_at": "2019-05-10T13:59:50.414",
+        "updated_at": "2019-05-10T13:59:50.415",
+        "created_by": null,
+        "updated_by": null,
+        "product": 1862,
+        "puc": 185,
+        "puc_assigned_usr": 1,
+        "puc_assigned_script": null,
+        "classification_method": "MA",
+        "classification_confidence": "1.000"
+    }
+}, {
+    "model": "dashboard.producttopuc",
+    "pk": 9,
+    "fields": {
+        "created_at": "2019-05-10T14:00:07.463",
+        "updated_at": "2019-05-10T14:00:07.463",
+        "created_by": null,
+        "updated_by": null,
+        "product": 1854,
+        "puc": 185,
+        "puc_assigned_usr": 1,
+        "puc_assigned_script": null,
+        "classification_method": "MA",
+        "classification_confidence": "1.000"
+    }
+}, {
+    "model": "dashboard.producttopuc",
+    "pk": 10,
+    "fields": {
+        "created_at": "2019-05-10T14:05:11.997",
+        "updated_at": "2019-05-10T14:05:11.997",
+        "created_by": null,
+        "updated_by": null,
+        "product": 1865,
+        "puc": 137,
+        "puc_assigned_usr": 1,
+        "puc_assigned_script": null,
+        "classification_method": "MA",
+        "classification_confidence": "1.000"
+    }
+}, {
+    "model": "dashboard.producttopuc",
+    "pk": 11,
+    "fields": {
+        "created_at": "2019-05-10T14:11:14.569",
+        "updated_at": "2019-05-10T14:11:14.569",
+        "created_by": null,
+        "updated_by": null,
+        "product": 1867,
+        "puc": 145,
+        "puc_assigned_usr": 1,
+        "puc_assigned_script": null,
+        "classification_method": "MA",
+        "classification_confidence": "1.000"
+    }
+}, {
+    "model": "dashboard.producttopuc",
+    "pk": 12,
+    "fields": {
+        "created_at": "2019-05-10T14:44:34.283",
+        "updated_at": "2019-05-10T14:44:34.283",
+        "created_by": null,
+        "updated_by": null,
+        "product": 1870,
+        "puc": 197,
+        "puc_assigned_usr": 1,
+        "puc_assigned_script": null,
+        "classification_method": "MA",
+        "classification_confidence": "1.000"
+    }
+}, {
+    "model": "dashboard.producttopuc",
+    "pk": 13,
+    "fields": {
+        "created_at": "2019-05-10T14:45:30.667",
+        "updated_at": "2019-05-10T14:45:30.667",
+        "created_by": null,
+        "updated_by": null,
+        "product": 1866,
+        "puc": 185,
+        "puc_assigned_usr": 1,
+        "puc_assigned_script": null,
+        "classification_method": "MA",
+        "classification_confidence": "1.000"
+    }
+}, {
+    "model": "dashboard.producttopuc",
+    "pk": 14,
+    "fields": {
+        "created_at": "2019-05-10T14:45:56.307",
+        "updated_at": "2019-05-10T14:45:56.307",
+        "created_by": null,
+        "updated_by": null,
+        "product": 1859,
+        "puc": 137,
+        "puc_assigned_usr": 1,
+        "puc_assigned_script": null,
+        "classification_method": "MA",
+        "classification_confidence": "1.000"
+    }
+}, {
+    "model": "dashboard.producttopuc",
+    "pk": 15,
+    "fields": {
+        "created_at": "2019-11-06T12:12:39.603",
+        "updated_at": "2019-11-06T12:12:39.603",
+        "created_by": null,
+        "updated_by": null,
+        "product": 1842,
+        "puc": 48,
+        "puc_assigned_usr": 1,
+        "puc_assigned_script": null,
+        "classification_method": "MA",
+        "classification_confidence": "1.000"
+    }
+}, {
+    "model": "dashboard.producttopuc",
+    "pk": 16,
+    "fields": {
+        "created_at": "2019-11-06T12:12:39.603",
+        "updated_at": "2019-11-06T12:12:39.603",
+        "created_by": null,
+        "updated_by": null,
+        "product": 1866,
+        "puc": 310,
+        "puc_assigned_usr": 1,
+        "puc_assigned_script": null,
+        "classification_method": "MB",
+        "classification_confidence": "1.000"
+    }
+}, {
+    "model": "dashboard.producttopuc",
+    "pk": 17,
+    "fields": {
+        "created_at": "2019-11-06T12:12:39.603",
+        "updated_at": "2019-11-06T12:12:39.603",
+        "created_by": null,
+        "updated_by": null,
+        "product": 1866,
+        "puc": 311,
+        "puc_assigned_usr": 1,
+        "puc_assigned_script": null,
+        "classification_method": "BA",
+        "classification_confidence": "1.000"
+    }
+}, {
+    "model": "dashboard.producttopuc",
+    "pk": 18,
+    "fields": {
+        "created_at": "2019-11-06T12:12:39.603",
+        "updated_at": "2019-11-06T12:12:39.603",
+        "created_by": null,
+        "updated_by": null,
+        "product": 1866,
+        "puc": 312,
+        "puc_assigned_usr": 1,
+        "puc_assigned_script": null,
+        "classification_method": "AU",
+        "classification_confidence": "1.000"
+    }
+}, {
+    "model": "dashboard.producttopuc",
+    "pk": 19,
+    "fields": {
+        "created_at": "2019-11-06T12:12:39.603",
+        "updated_at": "2019-11-06T12:12:39.603",
+        "created_by": null,
+        "updated_by": null,
+        "product": 1924,
+        "puc": 318,
+        "puc_assigned_usr": 1,
+        "puc_assigned_script": null,
+        "classification_method": "AU",
+        "classification_confidence": "1.000"
+    }
+}]

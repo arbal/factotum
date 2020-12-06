@@ -33,6 +33,11 @@ class ProductToPUC(CommonInfo):
         unique_together = ("product", "puc", "classification_method")
 
 
+class ProductToPucClassificationMethodManager(models.Manager):
+    def get_by_natural_key(self, code):
+        return self.get(code=code)
+
+
 class ProductToPucClassificationMethod(CommonInfo):
     code = models.CharField(
         max_length=3,
@@ -46,6 +51,12 @@ class ProductToPucClassificationMethod(CommonInfo):
     rank = models.PositiveSmallIntegerField(
         unique=True, verbose_name="classification method rank"
     )
+    def natural_key(self):
+        return (self.code,)
+    def get_by_natural_key(self, code):
+        return self.get(code=code)
+
+    objects = ProductToPucClassificationMethodManager()
 
     class Meta:
         ordering = ["rank"]

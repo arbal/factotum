@@ -95,7 +95,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="producttopuc",
             name="classification_method",
-            
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.PROTECT,
                 to="dashboard.ProductToPucClassificationMethod",

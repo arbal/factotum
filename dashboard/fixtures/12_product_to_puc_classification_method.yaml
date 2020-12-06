@@ -1,0 +1,29 @@
+- model: dashboard.producttopucclassificationmethod
+  pk: MA
+  fields:
+    name: Manual
+    rank: 1
+
+- model: dashboard.producttopucclassificationmethod
+  pk: AU
+  fields:
+    name: Automatic
+    rank: 2
+
+- model: dashboard.producttopucclassificationmethod
+  pk: RB
+  fields:
+    name: Rule Based
+    rank: 3
+
+- model: dashboard.producttopucclassificationmethod
+  pk: MB
+  fields:
+    name: Manual Batch
+    rank: 4
+
+- model: dashboard.producttopucclassificationmethod
+  pk: BA
+  fields:
+    name: Bulk Assignment
+    rank: 5
