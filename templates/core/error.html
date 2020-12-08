@@ -1,10 +1,14 @@
 {% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load tags %}
 
 {% block title %}Factotum Error: Status {{ status }}{% endblock %}
 
 {% block content %}
     <div class="section">
-        <img alt="Error Status {{ status }} Image" src="/static/images/{{ status }}.png">
+        {% with image_path='images/'|concat_string:status|concat_string:'.png' %}
+            <img alt="Error Status {{ status }} Image" src="{% static image_path %}">
+        {% endwith %}
     </div>
 {% endblock %}
 
