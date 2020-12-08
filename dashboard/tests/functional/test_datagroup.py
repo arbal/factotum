@@ -1,4 +1,4 @@
-from django.test import TestCase, TransactionTestCase
+from django.test import TestCase
 
 from dashboard.forms import DataGroupForm
 from dashboard.forms.data_group import RegisterRecordsFormSet
@@ -6,7 +6,7 @@ from dashboard.tests.factories import DataSourceFactory, DataGroupFactory
 from dashboard.tests.loader import fixtures_standard
 
 
-class DataGroupTest(TransactionTestCase):
+class DataGroupTest(TestCase):
     fixtures = ["00_superuser"]
 
     def test_redirect_if_not_logged_in(self):
@@ -34,8 +34,7 @@ class DataGroupTest(TransactionTestCase):
         )
 
     def test_datasource_change(self):
-        """Verify that a data group's data source can be changed without breaking functionality.
-        """
+        """Verify that a data group's data source can be changed without breaking functionality."""
         self.client.login(username="Karyn", password="specialP@55word")
 
         datasource_original = DataSourceFactory()

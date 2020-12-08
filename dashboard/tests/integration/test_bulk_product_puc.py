@@ -1,4 +1,4 @@
-from dashboard.tests.loader import fixtures_standard, load_browser
+from dashboard.tests.loader import fixtures_standard, load_browser, load_producttopuc
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from dashboard.models import Product
 from django.db.models import Count
@@ -20,16 +20,19 @@ def log_karyn_in(object):
 
 
 class TestBulkProductPuc(StaticLiveServerTestCase):
+    serialized_rollback = True
     fixtures = fixtures_standard
 
     def setUp(self):
         self.browser = load_browser()
         log_karyn_in(self)
+        load_producttopuc()
 
     def tearDown(self):
         self.browser.quit()
 
     def test_select_all(self):
+
         qa_url = self.live_server_url + f"/bulk_product_puc/?q=cream"
         self.browser.get(qa_url)
 

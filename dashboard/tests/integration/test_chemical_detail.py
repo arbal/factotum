@@ -1,6 +1,6 @@
 import time
 
-from dashboard.tests.loader import fixtures_standard, load_browser
+from dashboard.tests.loader import fixtures_standard, load_browser, load_producttopuc
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from dashboard.models import (
     PUC,
@@ -35,6 +35,11 @@ class TestChemicalDetail(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = load_browser()
         log_karyn_in(self)
+
+    @classmethod
+    def setUpTestData(cls):
+        # Set up data for the whole TestCase
+        load_producttopuc()
 
     def tearDown(self):
         self.browser.quit()
@@ -149,7 +154,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         All the Products and Documents associated with the Chemical
         should be returned via ajax calls and included in the tables
 
-        For the purpose of this test, the SID coresponds to Ethanol 
+        For the purpose of this test, the SID coresponds to Ethanol
         """
         chemical = DSSToxLookup.objects.get(sid="DTXSID9020584")
         wait = WebDriverWait(self.browser, 10)

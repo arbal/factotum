@@ -1,7 +1,7 @@
 import os
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
-from django.test import TransactionTestCase, TestCase, override_settings
+from django.test import TestCase, override_settings
 from django.urls import reverse
 from lxml import html
 
