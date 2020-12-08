@@ -377,13 +377,6 @@ urlpatterns = [
         name="lp_documents",
     ),
     path("", include("django_prometheus.urls")),
-    path("error_test/<int:status>", views.error_handler, name="error_test"),
 ]
 if settings.DEBUG is True:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-# These error handlers, to display pretty errors, only get invoked when DEBUG=False
-handler401 = dashboard.views.error_handler401
-handler403 = dashboard.views.error_handler403
-handler404 = dashboard.views.error_handler404
-handler500 = dashboard.views.error_handler500
