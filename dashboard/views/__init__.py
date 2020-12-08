@@ -19,3 +19,4 @@ from .search import *
 from .tags import *
 from .statistics import *
 from .visualizations import *
+from .errors import *

@@ -13,3 +13,8 @@ def to_list(*args):
 def show_bubble_puc_legend(pucs, kind_code, show_filter=False):
     kind = PUCKind.objects.filter(code=kind_code).first() or ""
     return {"pucs": pucs, "kind": kind, "show_filter": show_filter}
+
+
+@register.filter
+def concat_string(value_1, value_2):
+    return str(value_1) + str(value_2)
