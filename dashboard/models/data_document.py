@@ -3,6 +3,7 @@ from django.apps import apps
 from django.urls import reverse
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
+from django.core.validators import RegexValidator
 
 from .common_info import CommonInfo
 from .document_type import DocumentType
@@ -98,6 +99,12 @@ class DataDocument(CommonInfo):
     )
     note = models.TextField(
         blank=True, verbose_name="note", help_text="Long-form notes about the document"
+    )
+    pmid = models.CharField(
+        "PMID",
+        validators=[RegexValidator("^[0-9]*$", "PMID must be numerical")],
+        max_length=20,
+        blank=True,
     )
 
     objects = DataDocumentManager()
