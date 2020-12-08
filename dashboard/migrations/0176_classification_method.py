@@ -3,6 +3,8 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
+import django_db_views.migration_functions
+import django_db_views.operations
 
 
 def populate_methods(apps, schema_editor):
@@ -11,10 +13,10 @@ def populate_methods(apps, schema_editor):
     )
     method_choices = {
         "MA": ["Manual", 1],
-        "AU": ["Automatic", 2],
-        "RU": ["Rule Based", 3],
-        "MB": ["Manual Batch", 4],
-        "BA": ["Bulk Assignment", 5],
+        "RU": ["Rule Based", 2],
+        "MB": ["Manual Batch", 3],
+        "BA": ["Bulk Assignment", 4],
+        "AU": ["Automatic", 5],
     }
     for methodcode, methoddetails in method_choices.items():
         ProductToPucClassificationMethod.objects.create(
@@ -31,7 +33,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ("dashboard", "0174_auditlog_extracted_text"),
+        ("dashboard", "0175_qa_summary_note"),
     ]
 
     operations = [
@@ -98,7 +100,37 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.PROTECT,
                 to="dashboard.ProductToPucClassificationMethod",
-                db_column="classification_method",
             ),
+        ),
+        django_db_views.operations.ViewRunPython(
+            code=django_db_views.migration_functions.ForwardViewMigration(
+                """
+                SELECT 
+                    ptp.*
+                FROM
+                    (SELECT 
+                        id, product_id, puc_id, classification_method_id, rank
+                    FROM
+                        dashboard_producttopuc
+                    LEFT JOIN dashboard_producttopucclassificationmethod ON dashboard_producttopucclassificationmethod.classification_method = dashboard_producttopuc.classification_method_id) ptp
+                        LEFT JOIN
+                    (SELECT 
+                        product_id, puc_id, classification_method_id, rank
+                    FROM
+                        dashboard_producttopuc
+                    LEFT JOIN dashboard_producttopucclassificationmethod ON dashboard_producttopucclassificationmethod.classification_method = dashboard_producttopuc.classification_method_id) ptp_rank ON ptp.product_id = ptp_rank.product_id
+                        AND ptp.rank > ptp_rank.rank
+                WHERE
+                    ptp_rank.rank IS NULL
+                    
+                    ORDER BY product_id, rank
+    """,
+                "product_uber_puc",
+            ),
+            reverse_code=django_db_views.migration_functions.BackwardViewMigration(
+                "select id, product_id, puc_id\n          from dashboard_producttopuc\n          where (product_id, classification_method) in (\n            select product_id,\n              case\n                when min(uber_order) = 1 then 'MA'\n                when min(uber_order) = 2 then 'RU'\n                when min(uber_order) = 3 then 'MB'\n                when min(uber_order) = 4 then 'BA'\n                when min(uber_order) = 5 then 'AU'\n                else 'MA'\n              end as classification_method\n            from\n              (select product_id,\n                case\n                  when classification_method = 'MA' then 1\n                  when classification_method = 'RU' then 2\n                  when classification_method = 'MB' then 3\n                  when classification_method = 'BA' then 4\n                  when classification_method = 'AU' then 5\n                  else 1\n                end as uber_order  \n              from dashboard_producttopuc) temp\n              group by product_id\n              having min(uber_order)\n            )",
+                "product_uber_puc",
+            ),
+            atomic=False,
         ),
     ]

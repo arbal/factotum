@@ -11,13 +11,18 @@ from dashboard.models import (
     ProductToPUC,
     PUC,
 )
-from dashboard.tests.loader import fixtures_standard
+from dashboard.tests.loader import fixtures_standard, load_producttopuc
 from dashboard.views.get_data import stats_by_dtxsids
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
 class TestGetData(TestCase):
     fixtures = fixtures_standard
+
+    @classmethod
+    def setUpTestData(cls):
+        # Set up data for the whole TestCase
+        load_producttopuc()
 
     def setUp(self):
         self.client = Client()
@@ -60,6 +65,7 @@ class TestGetData(TestCase):
         ppuc = ProductToPUC.objects.create(
             product=Product.objects.get(pk=pid),
             puc=puc,
+            classification_method_id="MA",
             puc_assigned_usr=User.objects.get(username="Karyn"),
         )
         ppuc.refresh_from_db()

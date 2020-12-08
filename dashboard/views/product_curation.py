@@ -228,7 +228,7 @@ def bulk_assign_puc_to_product(
             ProductToPUC.objects.update_or_create(
                 puc=puc,
                 product=product,
-                classification_method="MB",
+                classification_method_id="MB",
                 puc_assigned_usr=request.user,
             )
         messages.success(request, f"{len(product_ids)} products added to PUC - {puc}")
@@ -240,9 +240,9 @@ def bulk_assign_puc_to_product(
             Q(title__icontains=q) | Q(brand_name__icontains=q)
         ).exclude(
             id__in=(
-                ProductToPUC.objects.filter(~Q(classification_method="AU")).values_list(
-                    "product_id", flat=True
-                )
+                ProductToPUC.objects.filter(
+                    ~Q(classification_method_id="AU")
+                ).values_list("product_id", flat=True)
             )
         )[
             :max_products_returned
@@ -259,9 +259,9 @@ def bulk_assign_puc_to_product(
             )
         ).exclude(
             id__in=(
-                ProductToPUC.objects.filter(~Q(classification_method="AU")).values_list(
-                    "product_id", flat=True
-                )
+                ProductToPUC.objects.filter(
+                    ~Q(classification_method_id="AU")
+                ).values_list("product_id", flat=True)
             )
         )
         datagroup = DataGroup.objects.get(pk=datagroup_pk)
@@ -293,7 +293,7 @@ def category_assign_puc_to_product(
     request, ds_pk, pk, template_name=("product_curation/" "product_puc.html")
 ):
     p = Product.objects.get(pk=pk)
-    p2p = ProductToPUC.objects.filter(classification_method="MA", product=p).first()
+    p2p = ProductToPUC.objects.filter(classification_method_id="MA", product=p).first()
     form = ProductPUCForm(request.POST or None, instance=p2p)
     if form.is_valid():
         if p2p:
@@ -303,7 +303,7 @@ def category_assign_puc_to_product(
             p2p = ProductToPUC.objects.create(
                 puc=puc,
                 product=p,
-                classification_method="MA",
+                classification_method_id="MA",
                 puc_assigned_usr=request.user,
             )
         return redirect("category_assignment", pk=ds_pk)
@@ -316,7 +316,8 @@ def product_assign_puc_to_product(
     request, pk, template_name=("product_curation/" "product_puc.html")
 ):
     p = Product.objects.get(pk=pk)
-    p2p = ProductToPUC.objects.filter(classification_method="MA", product=p).first()
+    # if the PUC has already been manually assigned
+    p2p = ProductToPUC.objects.filter(classification_method_id="MA", product=p).first()
     form = ProductPUCForm(request.POST or None, instance=p2p)
     if form.is_valid():
         if p2p:
@@ -326,7 +327,7 @@ def product_assign_puc_to_product(
             p2p = ProductToPUC.objects.create(
                 puc=puc,
                 product=p,
-                classification_method="MA",
+                classification_method_id="MA",
                 puc_assigned_usr=request.user,
             )
         return redirect("product_detail", pk=pk)
@@ -340,7 +341,7 @@ def product_detail(request, pk):
     tagform = ProductTagForm(request.POST or None, instance=p)
     tagform["tags"].label = ""
     puc = p.uber_puc
-    classification_method = p.get_classification_method
+    classification_method_id = p.get_classification_method
     assumed_tags = puc.get_assumed_tags() if puc else PUCTag.objects.none()
     if request.user.is_authenticated and tagform.is_valid():
         tagform.save()
@@ -354,7 +355,7 @@ def product_detail(request, pk):
             "tagform": tagform,
             "docs": docs,
             "assumed_tags": assumed_tags,
-            "classification_method": classification_method,
+            "classification_method": classification_method_id,
         },
     )
 

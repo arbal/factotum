@@ -116,18 +116,16 @@ class Product(CommonInfo):
 
     @property
     def get_producttopuc(self):
-        """Returns the "producttopuc" for this product.
+        """Returns the "producttopuc" for this product with the
+        lowest `classification_method.rank` value. If there are
+        multiple product-to-puc assignments with the same low-scoring
+        classification method, the `first()` will return an arbitrary
+        choice. There is no tiebreaking logic yet.
 
         To reduce SQL calls, prefetch this result with
             Product.objects.prefetch_pucs()
         """
-        uberpuc_order = ("MA", "RU", "MB", "BA", "AU")
-        producttopucs = self.producttopuc_set.all()
-        for classification_method in uberpuc_order:
-            for producttopuc in producttopucs:
-                if producttopuc.classification_method == classification_method:
-                    return producttopuc
-        return None
+        return self.producttopuc_set.order_by("classification_method__rank").first()
 
     @property
     def uber_puc(self):
@@ -140,7 +138,7 @@ class Product(CommonInfo):
     def get_classification_method(self):
         producttopuc = self.get_producttopuc
         if producttopuc:
-            return producttopuc.get_classification_method_display()
+            return producttopuc.classification_method
         return None
 
     def get_tag_list(self):
@@ -153,7 +151,10 @@ class Product(CommonInfo):
 
     # returns set of valid puc_tags
     def get_puc_tags(self):
-        return self.uber_puc.tags.all()
+        if self.uber_puc:
+            return self.uber_puc.tags.all()
+        else:
+            return []
 
     def save(self, *args, **kwargs):
         if not self.upc:

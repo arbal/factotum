@@ -4,7 +4,7 @@ from lxml import html
 from django.test import TestCase
 
 from dashboard.models import DSSToxLookup, ProductDocument, PUC, ProductToPUC
-from dashboard.tests.loader import fixtures_standard
+from dashboard.tests.loader import fixtures_standard, load_producttopuc
 
 
 class ChemicalDetail(TestCase):
@@ -13,6 +13,7 @@ class ChemicalDetail(TestCase):
 
     def setUp(self):
         self.client.login(username="Karyn", password="specialP@55word")
+        load_producttopuc()
 
     def test_chemical_detail(self):
         dss = next(dss for dss in DSSToxLookup.objects.all() if dss.puc_count > 0)

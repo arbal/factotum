@@ -5,12 +5,17 @@ from django.test import TestCase, override_settings
 
 from dashboard.models import PUC
 from django.db.models import Count
-from dashboard.tests.loader import fixtures_standard
+from dashboard.tests.loader import fixtures_standard, load_producttopuc
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
 class TestPUCViews(TestCase):
     fixtures = fixtures_standard
+
+    @classmethod
+    def setUpTestData(cls):
+        # Set up data for the whole TestCase
+        load_producttopuc()
 
     def test_puc_not_specified(self):
         response = self.client.get("/puc/20/").content.decode("utf8")

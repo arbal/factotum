@@ -16,7 +16,11 @@ from dashboard.models import (
     DataDocument,
     DSSToxLookup,
 )
-from dashboard.tests.loader import load_model_objects, fixtures_standard
+from dashboard.tests.loader import (
+    load_model_objects,
+    fixtures_standard,
+    load_producttopuc,
+)
 
 
 @tag("loader")
@@ -182,8 +186,7 @@ class DashboardTest(TestCase):
         )
 
     def test_PUCTag_download(self):
-        """check the PUCTag that would be downloaded from the loader
-        """
+        """check the PUCTag that would be downloaded from the loader"""
         pt = self.objects.pt
         response = self.client.get("/dl_puctags/")
         self.assertEqual(response.status_code, 200)
@@ -196,6 +199,11 @@ class DashboardTest(TestCase):
 
 class DashboardTestWithFixtures(TestCase):
     fixtures = fixtures_standard
+
+    @classmethod
+    def setUpTestData(cls):
+        # Set up data for the whole TestCase
+        load_producttopuc()
 
     def test_chemical_card(self):
         response = self.client.get("/").content.decode("utf8")
@@ -244,7 +252,7 @@ class DashboardTestWithFixtures(TestCase):
         # and confirm that the count has not changed
         p2puc = ProductToPUC.objects.first()
         p2puc.id = None
-        p2puc.classification_method = "MB"
+        p2puc.classification_method_id = "MB"
         p2puc.puc_id = 21
         p2puc.save()
 
@@ -265,7 +273,7 @@ class DashboardTestWithFixtures(TestCase):
         prod = Product.objects.exclude(id__in=assigned_prods).first()
         puc21 = PUC.objects.get(id=21)
         p2puc = ProductToPUC.objects.create(
-            product=prod, puc=puc21, classification_method="MA"
+            product=prod, puc=puc21, classification_method_id="MA"
         )
         p2puc.save()
 

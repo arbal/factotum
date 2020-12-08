@@ -1,7 +1,7 @@
 import json
 
 from django.test import TestCase, override_settings
-from dashboard.tests.loader import fixtures_standard
+from dashboard.tests.loader import fixtures_standard, load_producttopuc
 from dashboard.models import Product, PUC
 from django.urls import reverse
 from django.db.models import Count
@@ -23,6 +23,7 @@ class TestAjax(TestCase):
 
     @classmethod
     def setUpTestData(cls):
+        load_producttopuc()
         cls.all_product_count = Product.objects.all().count()
 
     def test_anonymous_read(self):
@@ -135,9 +136,9 @@ class TestAjax(TestCase):
         prod = Product.objects.get(id=1866)
         pucs = PUC.objects.filter(products__in=[prod])
         uberpuc = prod.product_uber_puc.puc
+
         for puc in pucs:
             response = self.client.get(f"/p_json/?puc={puc.id}")
-
             # try to get the first item of the first item
             # from the data[] object of each response
             try:
@@ -172,7 +173,7 @@ class TestAjax(TestCase):
         )
 
         # delete all but one PUC linkage - the product should no longer appear
-        p.producttopuc_set.all().exclude(classification_method="MA").delete()
+        p.producttopuc_set.all().exclude(classification_method_id="MA").delete()
 
         # reload the JSON
         response = self.client.get(prod_puc_url)

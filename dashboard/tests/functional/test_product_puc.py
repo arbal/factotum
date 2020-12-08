@@ -1,7 +1,7 @@
 from django.test import TestCase, override_settings
 
 from dashboard.tests import factories
-from dashboard.tests.loader import fixtures_standard
+from dashboard.tests.loader import fixtures_standard, load_producttopuc
 from lxml import html
 from django.urls import reverse
 from dashboard.models import (
@@ -22,6 +22,11 @@ from dashboard.models.raw_chem import RawChem
 class TestProductPuc(TestCase):
     fixtures = fixtures_standard
 
+    @classmethod
+    def setUpTestData(cls):
+        # Set up data for the whole TestCase
+        load_producttopuc()
+
     def setUp(self):
         self.client.login(username="Karyn", password="specialP@55word")
 
@@ -41,11 +46,13 @@ class TestProductPuc(TestCase):
             ),
             "The column Tag List should exist on the PUC admin table",
         )
+        elem = response_html.xpath(
+            "/html/body/div[1]/div[3]/div/div/form/div[2]/table/tbody/tr[2]/td[2]"
+        )
+
         self.assertIn(
             "aerosol",
-            response_html.xpath(
-                "string(/html/body/div[1]/div[3]/div/div/form/div[2]/table/tbody/tr[2]/td[2])"
-            ),
+            elem[0].text,
             "The tag aerosol should exist in the tag list column for PUC 1",
         )
         response = self.client.get(reverse("admin:dashboard_puctotag_changelist"))
@@ -222,7 +229,7 @@ class TestProductPuc(TestCase):
         )
 
         p2p = ProductToPUC.objects.filter(
-            product=product, puc=puc, classification_method="MB"
+            product=product, puc=puc, classification_method_id="MB"
         )
         self.assertTrue(
             p2p,
@@ -230,7 +237,7 @@ class TestProductPuc(TestCase):
         )
 
         duplicate_record = ProductToPUC(
-            product=product, puc=puc, classification_method="MB"
+            product=product, puc=puc, classification_method_id="MB"
         )
         self.assertRaises(ValidationError, duplicate_record.full_clean)
 
@@ -238,7 +245,7 @@ class TestProductPuc(TestCase):
         product = Product.objects.get(pk=11)
         puc = PUC.objects.get(pk=1)
         p2p = ProductToPUC.objects.filter(
-            product=product, puc=puc, classification_method="MA"
+            product=product, puc=puc, classification_method_id="MA"
         ).first()
         updated_at = p2p.updated_at
         self.assertTrue(

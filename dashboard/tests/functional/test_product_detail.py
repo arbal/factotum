@@ -2,18 +2,23 @@ import os
 from lxml import html
 from django.urls import reverse
 
-from django.test import TransactionTestCase, override_settings
-from dashboard.models import DataDocument, Product, ProductToPUC
-from dashboard.tests.loader import fixtures_standard
+from django.test import TransactionTestCase, override_settings, TestCase
+from dashboard.models import DataDocument, Product, ProductToPUC, PUC
+from dashboard.tests.loader import fixtures_standard, load_producttopuc
 from django.core.exceptions import ObjectDoesNotExist
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
-class TestProductDetail(TransactionTestCase):
+class TestProductDetail(TestCase):
     fixtures = fixtures_standard
 
     def setUp(self):
         self.client.login(username="Karyn", password="specialP@55word")
+
+    @classmethod
+    def setUpTestData(cls):
+        # Set up data for the whole TestCase
+        load_producttopuc()
 
     def test_anonymous_read(self):
         self.client.logout()
@@ -89,6 +94,7 @@ class TestProductDetail(TransactionTestCase):
                 self.assertEqual(elem[0].get("title"), "No definition")
 
     def test_link_to_puc(self):
+
         response = self.client.get(f"/product/1862/")
         self.assertIn(b"/puc/185", response.content)
 
@@ -112,8 +118,9 @@ class TestProductDetail(TransactionTestCase):
             "Currently assigned PUC:",
             msg_prefix="Assigned PUC should not be visible",
         )
-        # Assign PUC 96
-        self.client.post(f"/product_puc/{p.pk}/", {"puc": "96"})
+        # Assign a PUC
+        puc = PUC.objects.first()
+        self.client.post(f"/product_puc/{p.pk}/", {"puc": f"{puc.id}"})
 
         response = self.client.get(f"/product_puc/{p.pk}/?").content.decode("utf8")
         self.assertIn(
@@ -122,14 +129,15 @@ class TestProductDetail(TransactionTestCase):
 
         # PUC is assigned....check that an edit will updated the record
         self.assertTrue(
-            ProductToPUC.objects.filter(puc_id=96, product_id=p.pk).exists(),
+            ProductToPUC.objects.filter(puc_id=puc.id, product_id=p.pk).exists(),
             "PUC link should exist in table",
         )
 
-        # Assign PUC 47, check that it replaces 96
-        self.client.post(f"/product_puc/{p.pk}/", {"puc": "47"})
+        # Assign a new PUC, check that it replaces the old one
+        newpuc = PUC.objects.all()[2]
+        self.client.post(f"/product_puc/{p.pk}/", {"puc": f"{newpuc.id}"})
         self.assertTrue(
-            ProductToPUC.objects.filter(product=p).filter(puc_id=47).exists(),
+            ProductToPUC.objects.filter(product=p).filter(puc_id=newpuc.id).exists(),
             "PUC link should be updated in table",
         )
         p.refresh_from_db()
@@ -208,6 +216,14 @@ class TestProductDetail(TransactionTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "<dt>PUC Kind:</dt>")
         self.assertContains(response, Product.objects.get(pk=11).uber_puc.kind)
+
+
+@override_settings(ALLOWED_HOSTS=["testserver"])
+class TestProductImage(TransactionTestCase):
+    fixtures = fixtures_standard
+
+    def setUp(self):
+        self.client.login(username="Karyn", password="specialP@55word")
 
     def test_image_upload(self):
         product_pk = 878

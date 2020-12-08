@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from dashboard.tests.factories import *
 
 from dashboard.models import (
     ExtractedText,
@@ -47,13 +48,64 @@ fixtures_standard = [
     "09_productdocument",
     "10_habits_and_practices",
     "11_habits_and_practices_to_puc",
-    "12_product_to_puc",
+    # "12_product_to_puc",
     "13_puc_tag",
     "14_list_presence_tag",
     "15_list_presence_to_tag",
     "17_taxonomy",
     "18_functional_use",
 ]
+
+
+def load_producttopuc():
+    ProductToPUCFactory.create(
+        product_id=878, puc_id=245, classification_method_id="MA"
+    )
+    ProductToPUCFactory.create(product_id=11, puc_id=1, classification_method_id="MA")
+    ProductToPUCFactory.create(
+        product_id=1861, puc_id=169, classification_method_id="MA"
+    )
+    ProductToPUCFactory.create(
+        product_id=1868, puc_id=210, classification_method_id="MA"
+    )
+    ProductToPUCFactory.create(
+        product_id=1862, puc_id=185, classification_method_id="MA"
+    )
+    ProductToPUCFactory.create(
+        product_id=1854, puc_id=185, classification_method_id="MA"
+    )
+    ProductToPUCFactory.create(
+        product_id=1865, puc_id=137, classification_method_id="MA"
+    )
+    ProductToPUCFactory.create(
+        product_id=1870, puc_id=197, classification_method_id="MA"
+    )
+    ProductToPUCFactory.create(
+        product_id=1866, puc_id=185, classification_method_id="MA"
+    )
+    ProductToPUCFactory.create(
+        product_id=1859, puc_id=137, classification_method_id="MA"
+    )
+    ProductToPUCFactory.create(
+        product_id=1842, puc_id=48, classification_method_id="MA"
+    )
+    ProductToPUCFactory.create(
+        product_id=1867, puc_id=145, classification_method_id="MA"
+    )
+    ProductToPUCFactory.create(
+        product_id=1866, puc_id=310, classification_method_id="MB"
+    )
+    ProductToPUCFactory.create(
+        product_id=1866, puc_id=311, classification_method_id="BA"
+    )
+    ProductToPUCFactory.create(
+        product_id=1866, puc_id=312, classification_method_id="AU"
+    )
+    ProductToPUCFactory.create(
+        product_id=1924, puc_id=318, classification_method_id="AU"
+    )
+    return
+
 
 fixtures_habits_practices = [
     "00_superuser",

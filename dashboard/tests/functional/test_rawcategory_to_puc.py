@@ -46,20 +46,17 @@ class TestRawCategoryToPUCView(TestCase):
         }
 
     def test_list_unauthorized(self):
-        """ Verify that the list page is unavailable to users who are not logged in
-        """
+        """Verify that the list page is unavailable to users who are not logged in"""
         response = self.client.get(reverse(self.path_name), follow=True)
         self.assertRedirects(response, "/login/?next=" + reverse(self.path_name))
 
     def test_post_unauthorized(self):
-        """ Verify that the list page is unavailable to users who are not logged in
-        """
+        """Verify that the list page is unavailable to users who are not logged in"""
         response = self.client.post(reverse(self.path_name), follow=True)
         self.assertRedirects(response, "/login/?next=" + reverse(self.path_name))
 
     def test_list_success(self):
-        """ Test that GET requests to class return a page built using correct templates and contains correct data.
-        """
+        """Test that GET requests to class return a page built using correct templates and contains correct data."""
         self.client.login(username="Karyn", password="specialP@55word")
         response = self.client.get(reverse(self.path_name))
 
@@ -78,8 +75,7 @@ class TestRawCategoryToPUCView(TestCase):
         )
 
     def test_list_documents_without_products_are_not_counted(self):
-        """ Add a document without a product.  Verify it's not counted
-        """
+        """Add a document without a product.  Verify it's not counted"""
         self.client.login(username="Karyn", password="specialP@55word")
         DataDocument.objects.create(data_group=self.dg, raw_category="visible")
         response = self.client.get(reverse(self.path_name))
@@ -89,8 +85,7 @@ class TestRawCategoryToPUCView(TestCase):
         )
 
     def test_list_groups_under_minimum_not_shown(self):
-        """Add an additional product to a document.  Verify the document is only counted once
-        """
+        """Add an additional product to a document.  Verify the document is only counted once"""
         self.client.login(username="Karyn", password="specialP@55word")
         DataDocument.objects.filter(raw_category="visible").first().delete()
         response = self.client.get(reverse(self.path_name))
@@ -102,8 +97,7 @@ class TestRawCategoryToPUCView(TestCase):
         )
 
     def test_list_documents_without_raw_categories_are_excluded(self):
-        """ Add raw_categories that are blank and None and verify they are excluded
-        """
+        """Add raw_categories that are blank and None and verify they are excluded"""
         self.client.login(username="Karyn", password="specialP@55word")
         for blank_raw_category in range(self.minimum_product_count):
             doc = DataDocument.objects.create(data_group=self.dg, raw_category="")
@@ -121,8 +115,7 @@ class TestRawCategoryToPUCView(TestCase):
         )
 
     def test_post_success_single_group(self):
-        """ Verify products are attached to pucs for provided datagroup
-        """
+        """Verify products are attached to pucs for provided datagroup"""
         self.client.login(username="Karyn", password="specialP@55word")
         response = self.client.post(
             reverse(self.path_name),
@@ -144,8 +137,7 @@ class TestRawCategoryToPUCView(TestCase):
         self.assertEqual(len(response.context["success_messages"]), 1)
 
     def test_post_success_multiple_groups(self):
-        """ Verify products are attached to pucs for multiple provided datagroups
-        """
+        """Verify products are attached to pucs for multiple provided datagroups"""
         dg2 = DataGroup.objects.create(
             downloaded_at=now(),
             data_source=self.ds,
@@ -186,8 +178,7 @@ class TestRawCategoryToPUCView(TestCase):
         self.assertEqual(len(response.context["success_messages"]), 2)
 
     def test_post_required_fields(self):
-        """ Verify errors are returned if required forms are not provided
-        """
+        """Verify errors are returned if required forms are not provided"""
         self.client.login(username="Karyn", password="specialP@55word")
         response_no_datagroup = self.client.post(
             reverse(self.path_name), {}, follow=True
@@ -215,8 +206,7 @@ class TestRawCategoryToPUCView(TestCase):
         )
 
     def test_post_already_attached(self):
-        """ Verify products are attached to pucs for provided datagroup
-        """
+        """Verify products are attached to pucs for provided datagroup"""
         self.client.login(username="Karyn", password="specialP@55word")
         self.client.post(
             reverse(self.path_name),
@@ -243,7 +233,7 @@ class TestRawCategoryToPUCView(TestCase):
             self._assertProductToPucCreated(products, puc2)
 
     def _assertProductToPucCreated(self, products, puc=None):
-        """ Private method that checks to see that all products were attached
+        """Private method that checks to see that all products were attached
         to a specific PUC
 
         :param products: Queryset or List of products to be checked
@@ -258,4 +248,4 @@ class TestRawCategoryToPUCView(TestCase):
             f"PUC with primary key {puc.pk} != PUC with primary key {products[0].puc_set.first().pk}",
         )
         self.assertEqual(product_to_puc.count(), 1)
-        self.assertEqual(product_to_puc[0].classification_method, "BA")
+        self.assertEqual(product_to_puc[0].classification_method_id, "BA")

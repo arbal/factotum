@@ -39,7 +39,7 @@ class ProductToPUCTest(TestCase):
 
         # assign the Grandparent PUC as a low-confidence "AU" classification_method
         pp1 = ProductToPUC.objects.create(
-            product=prod, puc=puc1, classification_method="AU"
+            product=prod, puc=puc1, classification_method_id="AU"
         )
         prod.refresh_from_db()
 
@@ -48,9 +48,10 @@ class ProductToPUCTest(TestCase):
         # assign a higher-confidence method and check the uber puc
 
         pp2 = ProductToPUC.objects.create(
-            product=prod, puc=puc2, classification_method="MB"
+            product=prod, puc=puc2, classification_method_id="MB"
         )
         prod.refresh_from_db()
+
         self.assertTrue(prod.product_uber_puc.puc == puc2)
 
     def test_uber_puc(self):
@@ -62,6 +63,7 @@ class ProductToPUCTest(TestCase):
             product=self.objects.p,
             puc=self.objects.puc,
             puc_assigned_usr=self.objects.user,
+            classification_method_id="MA",
         )
 
         # Test that the get_uber_product_to_puc method returns expected values
@@ -84,34 +86,34 @@ class ProductToPUCTest(TestCase):
             product=self.objects.p,
             puc=self.objects.puc,
             puc_assigned_usr=self.objects.user,
-            classification_method="RU",
+            classification_method_id="RU",
         )
 
         self.manual_assignment_ppuc = ProductToPUC.objects.create(
             product=self.objects.p,
             puc=self.objects.puc,
             puc_assigned_usr=self.objects.user,
-            classification_method="MA",
+            classification_method_id="MA",
         )
 
         self.manual_batch_ppuc = ProductToPUC.objects.create(
             product=self.objects.p,
             puc=self.objects.puc,
             puc_assigned_usr=self.objects.user,
-            classification_method="MB",
+            classification_method_id="MB",
         )
         self.automatic_ppuc = ProductToPUC.objects.create(
             product=self.objects.p,
             puc=self.objects.puc,
             puc_assigned_usr=self.objects.user,
-            classification_method="AU",
+            classification_method_id="AU",
         )
 
         self.bulk_assignment_ppuc = ProductToPUC.objects.create(
             product=self.objects.p,
             puc=self.objects.puc,
             puc_assigned_usr=self.objects.user,
-            classification_method="BA",
+            classification_method_id="BA",
         )
 
         # Order of confidence:
@@ -126,31 +128,31 @@ class ProductToPUCTest(TestCase):
         classification_method = self.objects.p.get_classification_method
         _str = "Manual"
         # classification method should be Manual (highest confidence)
-        self.assertEqual(_str, str(classification_method))
+        self.assertEqual(_str, str(classification_method.name))
 
         self.manual_assignment_ppuc.delete()
         classification_method = self.objects.p.get_classification_method
         _str = "Rule Based"
         # classification method should be Rule Based since Manual was deleted
-        self.assertEqual(_str, str(classification_method))
+        self.assertEqual(_str, str(classification_method.name))
 
         self.rule_based_ppuc.delete()
         classification_method = self.objects.p.get_classification_method
         _str = "Manual Batch"
         # classification method should be Manual Batch since Rule Based was deleted
-        self.assertEqual(_str, str(classification_method))
+        self.assertEqual(_str, str(classification_method.name))
 
         self.manual_batch_ppuc.delete()
         classification_method = self.objects.p.get_classification_method
         _str = "Bulk Assignment"
         # classification method should be Bulk Assignment since Manual Batch was deleted
-        self.assertEqual(_str, str(classification_method))
+        self.assertEqual(_str, str(classification_method.name))
 
         self.bulk_assignment_ppuc.delete()
         classification_method = self.objects.p.get_classification_method
         _str = "Automatic"
         # classification method should be Automatic since Bulk Assignment was deleted
-        self.assertEqual(_str, str(classification_method))
+        self.assertEqual(_str, str(classification_method.name))
 
     # it seems to be necessary to use the __dict__ and instance in order to load
     # the form for testing, w/o I don't think the fields are bound, which will
@@ -171,6 +173,7 @@ class ProductToPUCTest(TestCase):
         self.ppuc1 = ProductToPUC.objects.create(
             product=self.objects.p,
             puc=self.objects.puc,
+            classification_method_id="MA",
             puc_assigned_usr=self.objects.user,
         )
 
@@ -178,5 +181,6 @@ class ProductToPUCTest(TestCase):
             self.ppuc2 = ProductToPUC.objects.create(
                 product=self.objects.p,
                 puc=self.objects.puc,
+                classification_method_id="MA",
                 puc_assigned_usr=self.objects.user,
             )
