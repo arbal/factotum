@@ -50,4 +50,4 @@ class ExtractedTextFormsTest(TestCase):
         form, _ = create_detail_formset(self.hp_doc)
         self.assertEqual(form, ExtractedTextHPForm)
         fields = form.base_fields.keys()
-        self.assertEquals(set(fields), {"doc_date", "rev_num", "pmid"})
+        self.assertEquals(set(fields), {"doc_date", "rev_num"})

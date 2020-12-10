@@ -1,6 +1,5 @@
 from django.test import RequestFactory, TestCase, override_settings
 
-from dashboard.models import *
 from dashboard.tests.loader import *
 from dashboard.tests.mixins import DashboardFormFieldTestMixin
 from dashboard.forms import DataDocumentForm
@@ -26,6 +25,7 @@ class DataDocumentDetailFormTest(TestCase, DashboardFormFieldTestMixin):
                 "raw_category",
                 "organization",
                 "epa_reg_number",
+                "pmid",
             ]
         )
 
@@ -37,3 +37,12 @@ class DataDocumentDetailFormTest(TestCase, DashboardFormFieldTestMixin):
         self.post_field("/datadocument/edit/", "url", "http://www.epa.gov", pk=8)
         self.post_field("/datadocument/edit/", "raw_category", "raw category", pk=8)
         self.post_field("/datadocument/edit/", "organization", "organization", pk=53)
+
+        # PMID should exist for a document belong to datagroup type LM
+        self.post_field("/datadocument/edit/", "pmid", "12345678901234567890", pk=53)
+
+        # PMID should not exist for a document belong to datagroup type HE
+        with self.assertRaises(AssertionError):
+            self.post_field(
+                "/datadocument/edit/", "pmid", "12345678901234567890", pk=354784
+            )

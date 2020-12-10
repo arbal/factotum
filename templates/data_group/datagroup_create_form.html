@@ -1,50 +1,6 @@
 {% extends 'core/base.html' %}
 {% load staticfiles %}
 
-{% block nav %}
-<div class="nav-item active">
-  <div class="dropdown  allow-focus">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      CODE menu<span class="sr-only">Toggle Dropdown</span>
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <div class="accordion" id="codeAccordion">
-          {% for grouptype in grouptypes %}
-          <div class="card">
-            <div class="card-header-sm bg-light" id="headingOne">
-              <h4>
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#dg-{{grouptype.code}}" aria-expanded="true" aria-controls="collapseOne">
-                    <span class="dot mr-1 dot-dg-{{ grouptype.code }}"><small><b>{{ grouptype.code }}</b></small></span>
-                      <b>{{grouptype.title}}</b>
-                </button>
-              </h4>
-            </div>
-            <div id="dg-{{grouptype.code}}" class="collapse {% if grouptype.code == 'CO' %} show {% endif %}" aria-labelledby="headingOne" data-parent="#codeAccordion">
-              <div class="card-body">
-                  <table class="table table-sm table-bordered text-center">
-                      <thead class="bg-light">
-                        <th class="text-center">code</th>
-                        <th class="text-center">title</th>
-                      </thead>
-                      <tbody>
-                        {% for doc_type in grouptype.codes %}
-                        <tr>
-                          <td>{{doc_type.code}}</td>
-                          <td>{{doc_type.title}}</td>
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table>
-              </div>
-            </div>
-          </div>
-          {% endfor %} 
-        </div>
-    </div>
-  </div>
-</div>
-{% endblock %}
-
 {% block content %}
     <h2 class="col-sm-12">
         <span name="title">
@@ -94,6 +50,42 @@
       </div>
       <div class="col-md-3">
       </div>
+    </div>
+
+    <h3>CODE Menu</h3>
+    <div class="accordion" id="codeAccordion">
+      {% for grouptype in grouptypes %}
+      <div class="card">
+        <div class="card-header-sm bg-light" id="headingOne">
+          <h4>
+            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#dg-{{grouptype.code}}" aria-expanded="true" aria-controls="collapseOne">
+                <span class="dot mr-1 dot-dg-{{ grouptype.code }}"><small><b>{{ grouptype.code }}</b></small></span>
+                  <b>{{grouptype.title}}</b>
+            </button>
+          </h4>
+        </div>
+        <div id="dg-{{grouptype.code}}" class="collapse" aria-labelledby="headingOne" data-parent="#codeAccordion">
+          <div class="card-body">
+              <table class="table table-sm table-bordered text-center">
+                  <thead class="bg-light">
+                    <th class="text-center">code</th>
+                    <th class="text-center">title</th>
+                    <th class="text-center">description</th>
+                  </thead>
+                  <tbody>
+                    {% for doc_type in grouptype.codes %}
+                    <tr>
+                      <td>{{doc_type.code}}</td>
+                      <td>{{doc_type.title}}</td>
+                      <td>{{doc_type.description}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
     </div>
 {% endblock %}
 
