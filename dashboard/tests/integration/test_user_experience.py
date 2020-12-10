@@ -1,6 +1,12 @@
 from dashboard.tests.loader import load_browser, load_model_objects
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from dashboard.models import DataSource, DataGroup, PUCToTag, ProductToPUC
+from dashboard.models import (
+    DataSource,
+    DataGroup,
+    PUCToTag,
+    ProductToPUC,
+    ProductToPucClassificationMethod,
+)
 from django.test import tag
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
@@ -119,7 +125,11 @@ class TestIntegration(StaticLiveServerTestCase):
         puc = self.objects.puc
         tag = self.objects.pt
         PUCToTag.objects.create(content_object=puc, tag=tag)
-        ProductToPUC.objects.create(product=p, puc=puc)
+        ProductToPucClassificationMethod.objects.create(
+            code="MA", name="Manual", rank=1
+        )
+        # why hasn't the data migration brought the lookup records in?
+        ProductToPUC.objects.create(product=p, puc=puc, classification_method_id="MA")
         url = self.live_server_url + f"/product/{p.pk}/"
         self.browser.get(url)
         submit = self.browser.find_element_by_id("tag_submit")

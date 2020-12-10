@@ -7,7 +7,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
 from dashboard.models import DSSToxLookup, PUC
-from dashboard.tests.loader import fixtures_standard, load_browser
+from dashboard.tests.loader import fixtures_standard, load_browser, load_producttopuc
 
 
 class TestEditsWithSeedData(StaticLiveServerTestCase):
@@ -16,6 +16,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         return cls.live_server_url + "/visualizations"
 
     fixtures = fixtures_standard
+    serialized_rollback = True
 
     def setUp(self):
         self.browser = load_browser()
@@ -30,6 +31,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         return cnt
 
     def test_bubble_plot(self):
+        load_producttopuc()
         pucs = (
             PUC.objects.filter(kind__code__in=["FO", "AR", "OC"])
             .with_num_products()
@@ -50,6 +52,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.assertTrue(len(plots) == 3, "Need more than one bubble")
 
     def test_bubble_legend(self):
+        load_producttopuc()
         self.browser.get(self.visualization_url)
         wait = WebDriverWait(self.browser, 10)
         wait.until(ec.presence_of_element_located((By.ID, "puc-accordion-FO")))
@@ -67,6 +70,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.assertEqual(child_card.get_attribute("class"), "collapse")
 
     def test_collapsible_tree(self):
+        load_producttopuc()
         pucs = PUC.objects.filter(kind__code="FO").astree()
         num_pucs = self._n_children(pucs)
         self.browser.get(self.visualization_url)
@@ -77,6 +81,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.assertTrue(len(nodes) > 0, "Need more than one node")
 
     def test_dtxsid_bubble_plot(self):
+        load_producttopuc()
         dss = DSSToxLookup.objects.get(sid="DTXSID9022528")
         self.browser.get(self.live_server_url + dss.get_absolute_url())
 
@@ -95,6 +100,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         )
 
     def test_venn_diagram(self):
+        load_producttopuc()
         self.browser.get(self.visualization_url)
         wait = WebDriverWait(self.browser, 10)
         wait.until(ec.presence_of_element_located((By.ID, "venn")))

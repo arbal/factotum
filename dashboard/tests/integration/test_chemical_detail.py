@@ -4,6 +4,7 @@ from dashboard.tests.loader import fixtures_standard, load_browser, load_product
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from dashboard.models import (
     PUC,
+    ProductToPUC,
     DSSToxLookup,
     PUCKind,
     DataDocument,
@@ -31,14 +32,11 @@ def log_karyn_in(object):
 
 class TestChemicalDetail(StaticLiveServerTestCase):
     fixtures = fixtures_standard
+    serialized_rollback = True
 
     def setUp(self):
         self.browser = load_browser()
         log_karyn_in(self)
-
-    @classmethod
-    def setUpTestData(cls):
-        # Set up data for the whole TestCase
         load_producttopuc()
 
     def tearDown(self):
@@ -97,7 +95,6 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         self.browser.get(
             self.live_server_url + "/chemical/" + chemical.sid + "/puc/" + str(puc.pk)
         )
-
         # Test the Bubble Plot Legend Zoom occurred
         wait.until(
             ec.visibility_of(self.browser.find_element_by_xpath("//*[@id='card-185']"))
@@ -138,9 +135,8 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         )
         dd = DataDocument.objects.get(pk=dd_id)
         p = dd.products.create(title="Test Product")
-        p.puc_set.create(
-            kind=PUCKind.objects.get(code="OC"), gen_cat="Test Occupational PUC"
-        )
+        puc = PUC(kind=PUCKind.objects.get(code="OC"), gen_cat="Test Occupational PUC")
+        pp = ProductToPUC(puc=puc, product=p, classification_method_id="MA")
 
         wait = WebDriverWait(self.browser, 10)
         self.browser.get(self.live_server_url + "/chemical/" + dss.sid)

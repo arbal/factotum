@@ -1,4 +1,4 @@
-from dashboard.tests.loader import fixtures_standard, load_browser
+from dashboard.tests.loader import fixtures_standard, load_browser, load_producttopuc
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from dashboard.models import PUC
 
@@ -24,17 +24,19 @@ def log_karyn_in(object):
 
 class TestPUCProductAndDocumentTables(StaticLiveServerTestCase):
     fixtures = fixtures_standard
+    serialized_rollback = True
 
     def setUp(self):
         self.browser = load_browser()
         log_karyn_in(self)
+        load_producttopuc()
 
     def tearDown(self):
         self.browser.quit()
 
     def test_puc_product_datatable(self):
         """
-        All the Products, Chemicals, and Documents associated with the PUC 
+        All the Products, Chemicals, and Documents associated with the PUC
         should be returned via ajax calls and included in the tables
         """
         puc = PUC.objects.get(pk=185)
