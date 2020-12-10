@@ -18,6 +18,7 @@ class ProductToPUC(CommonInfo):
     )
     classification_method = models.ForeignKey(
         "ProductToPucClassificationMethod",
+        max_length=3,
         on_delete=models.PROTECT,
         null=False,
         blank=False,
@@ -43,7 +44,7 @@ class ProductToPucClassificationMethod(CommonInfo):
         max_length=3,
         primary_key=True,
         verbose_name="classification method code",
-        db_column="classification_method",
+        db_column="id",
     )
     name = models.CharField(
         max_length=100, unique=True, verbose_name="classification method name"
