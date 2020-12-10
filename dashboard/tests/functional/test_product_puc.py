@@ -49,10 +49,10 @@ class TestProductPuc(TestCase):
         elem = response_html.xpath(
             "/html/body/div[1]/div[3]/div/div/form/div[2]/table/tbody/tr[2]/td[2]"
         )
-
+        taglist = elem[0].text
         self.assertIn(
             "aerosol",
-            elem[0].text,
+            taglist,
             "The tag aerosol should exist in the tag list column for PUC 1",
         )
         response = self.client.get(reverse("admin:dashboard_puctotag_changelist"))
