@@ -23,16 +23,16 @@ class ProductUberPuc(DBView):
             ptp.*
         FROM
             (SELECT 
-                id, product_id, puc_id, classification_method_id, rank
+                dashboard_producttopuc.id, product_id, puc_id, classification_method_id, rank
             FROM
                 dashboard_producttopuc
-            LEFT JOIN dashboard_producttopucclassificationmethod ON dashboard_producttopucclassificationmethod.classification_method = dashboard_producttopuc.classification_method_id) ptp
+            LEFT JOIN dashboard_producttopucclassificationmethod ON dashboard_producttopucclassificationmethod.id = dashboard_producttopuc.classification_method_id) ptp
                 LEFT JOIN
             (SELECT 
                 product_id, puc_id, classification_method_id, rank
             FROM
                 dashboard_producttopuc
-            LEFT JOIN dashboard_producttopucclassificationmethod ON dashboard_producttopucclassificationmethod.classification_method = dashboard_producttopuc.classification_method_id) ptp_rank ON ptp.product_id = ptp_rank.product_id
+            LEFT JOIN dashboard_producttopucclassificationmethod ON dashboard_producttopucclassificationmethod.id = dashboard_producttopuc.classification_method_id) ptp_rank ON ptp.product_id = ptp_rank.product_id
                 AND ptp.rank > ptp_rank.rank
         WHERE
             ptp_rank.rank IS NULL
