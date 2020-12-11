@@ -304,6 +304,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         )
         puc_filter_icon = puc_filter.find_element_by_class_name("icon-secondary")
         self.assertIsNotNone(puc_filter_icon)
+
         # Documents table
         self.assertInHTML(
             "Showing 1 to 10 of 18 entries",
