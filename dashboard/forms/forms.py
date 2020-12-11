@@ -29,6 +29,7 @@ from dashboard.models import (
     ExtractedLMDoc,
     ExtractedHabitsAndPractices,
     RawChem,
+    QASummaryNote,
 )
 from dashboard.models.extracted_hpdoc import ExtractedHPDoc
 
@@ -128,6 +129,17 @@ class QANotesForm(forms.ModelForm):
         labels = {"qa_notes": _("QA Notes (required if approving edited records)")}
 
 
+class QASummaryNoteForm(forms.ModelForm):
+    class Meta:
+        model = QASummaryNote
+        fields = ["qa_summary_note"]
+        widgets = {
+            "qa_summary_note": forms.Textarea(
+                attrs={"id": "qa-summary-note-textarea", "rows": 4}
+            )
+        }
+
+
 class ExtractedTextQAForm(forms.ModelForm):
     required_css_class = "required"  # adds to label tag
 
@@ -221,18 +233,7 @@ class ExtractedTextForm(forms.ModelForm):
 class ExtractedTextHPForm(ExtractedTextForm):
     class Meta:
         model = ExtractedHPDoc
-        fields = ["doc_date", "rev_num", "pmid"]
-
-        widgets = {
-            "pmid": forms.TextInput(
-                attrs={
-                    "type": "number",
-                    "min": "0",
-                    "step": "1",
-                    "style": "-moz-appearance: textfield",
-                }
-            )
-        }
+        fields = ["doc_date", "rev_num"]
 
 
 class ExtractedTextFUForm(ExtractedTextForm):
@@ -266,19 +267,11 @@ class ExtractedHHDocForm(ExtractedTextForm):
 class ExtractedLMDocForm(ExtractedTextForm):
     class Meta:
         model = ExtractedLMDoc
-        fields = ["doc_date", "study_type", "pmid", "media"]
+        fields = ["doc_date", "study_type", "media"]
 
         widgets = {
             "study_type": forms.Select(attrs={"style": "width:320px"}),
             "media": forms.Textarea(attrs={"rows": 4, "cols": 25}),
-            "pmid": forms.TextInput(
-                attrs={
-                    "type": "number",
-                    "min": "0",
-                    "step": "1",
-                    "style": "-moz-appearance: textfield",
-                }
-            ),
         }
 
 
@@ -531,7 +524,18 @@ class DataDocumentForm(forms.ModelForm):
             "raw_category",
             "organization",
             "epa_reg_number",
+            "pmid",
         ]
+        widgets = {
+            "pmid": forms.TextInput(
+                attrs={
+                    "type": "number",
+                    "min": "0",
+                    "step": "1",
+                    "style": "-moz-appearance: textfield",
+                }
+            )
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -539,3 +543,5 @@ class DataDocumentForm(forms.ModelForm):
         self.fields["document_type"].queryset = DocumentType.objects.compatible(
             self.instance
         )
+        if self.instance.data_group.type not in ["LM", "HP", "LP"]:
+            del self.fields["pmid"]

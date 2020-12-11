@@ -396,6 +396,10 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         with self.assertRaises(NoSuchElementException):
             self.browser.find_element_by_id("add_product_button")
 
+        # LM modal should no longer contain a pmid field
+        with self.assertRaises(NoSuchElementException):
+            self.browser.find_element_by_id("id_pmid")
+
         self.browser.find_element_by_xpath(
             '//*[@id="btn-add-or-edit-extracted-text"]'
         ).click()
@@ -407,7 +411,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         Select(self.browser.find_element_by_id("id_study_type")).select_by_visible_text(
             "Non-Targeted or Suspect Screening"
         )
-        self.browser.find_element_by_id("id_pmid").send_keys("01234567890123456789")
         self.browser.find_element_by_id("id_media").send_keys("Lorem ipso fido leash")
         save_button.click()
 
