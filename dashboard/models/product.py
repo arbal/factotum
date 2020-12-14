@@ -112,7 +112,7 @@ class Product(CommonInfo):
         return reverse("product_detail", kwargs={"pk": self.pk})
 
     def product_to_predicted_puc(self):
-        return self.producttopuc_set.filter(classification_method="AU").first()
+        return self.producttopuc_set.filter(classification_method_id="AU").first()
 
     @property
     def get_producttopuc(self):
@@ -138,7 +138,7 @@ class Product(CommonInfo):
     def get_classification_method(self):
         producttopuc = self.get_producttopuc
         if producttopuc:
-            return producttopuc.classification_method
+            return producttopuc.classification_method_id
         return None
 
     def get_tag_list(self):
