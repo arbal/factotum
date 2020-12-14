@@ -4,7 +4,6 @@ import operator
 import base64
 import uuid
 from collections import OrderedDict
-from unittest import skip
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import connection, reset_queries
@@ -56,6 +55,7 @@ class TestMetrics(TestCase):
 
 class TestPUC(TestCase):
     dtxsid = "DTXSID6026296"
+    serialized_rollback = True
 
     def get_source_field(self, key):
         if key == "level_1_category":
@@ -71,7 +71,6 @@ class TestPUC(TestCase):
         return key
 
     def test_retrieve(self):
-        serialized_rollback = True
         load_producttopuc()
         puc = models.PUC.objects.all().order_by("id").first()
         response = self.get("/pucs/%d/" % puc.id)
@@ -81,7 +80,6 @@ class TestPUC(TestCase):
             self.assertEqual(operator.attrgetter(source)(puc), response[key])
 
     def test_list(self):
-        serialized_rollback = True
         load_producttopuc()
         puc = models.PUC.objects.all().order_by("id").first()
         count = models.PUC.objects.all().count()
@@ -121,12 +119,12 @@ class TestPUC(TestCase):
 
 
 class TestProduct(TestCase):
+    serialized_rollback = True
     chem_id = 8
     dtxsid = "DTXSID6026296"
     upc = "stub_1872"
 
     def test_retrieve(self):
-        serialized_rollback = True
         load_producttopuc()
         product = models.Product.objects.get(id=1867)
         response = self.get("/products/%d/" % product.id)
