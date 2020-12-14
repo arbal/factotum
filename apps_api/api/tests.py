@@ -19,6 +19,7 @@ from apps_api.core.test import TestCase
 
 from dashboard import models
 from dashboard.tests.factories import ProductFactory
+from dashboard.tests.loader import load_producttopuc
 
 
 class TestQueryCount(TestCase):
@@ -70,6 +71,8 @@ class TestPUC(TestCase):
         return key
 
     def test_retrieve(self):
+        serialized_rollback = True
+        load_producttopuc()
         puc = models.PUC.objects.all().order_by("id").first()
         response = self.get("/pucs/%d/" % puc.id)
         del response["url"]
@@ -78,6 +81,8 @@ class TestPUC(TestCase):
             self.assertEqual(operator.attrgetter(source)(puc), response[key])
 
     def test_list(self):
+        serialized_rollback = True
+        load_producttopuc()
         puc = models.PUC.objects.all().order_by("id").first()
         count = models.PUC.objects.all().count()
         # test without filter
@@ -121,6 +126,8 @@ class TestProduct(TestCase):
     upc = "stub_1872"
 
     def test_retrieve(self):
+        serialized_rollback = True
+        load_producttopuc()
         product = models.Product.objects.get(id=1867)
         response = self.get("/products/%d/" % product.id)
         for key in (
@@ -509,6 +516,8 @@ class TestChemicalInstance(TestCase):
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_list(self):
+        serialized_rollback = True
+        load_producttopuc()
         # test without filter
         count = self.qs.count()
         response = self.get("/chemicalInstances/")
@@ -541,6 +550,7 @@ class TestChemicalInstance(TestCase):
 
         # test with rid filter
         rc_with_rid = self.qs.filter(rid__isnull=False).first()
+
         with self.settings(ROOT_URLCONF="factotum.urls.api"):
             response = self.client.get(
                 "/chemicalInstances/",
