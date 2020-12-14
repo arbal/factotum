@@ -138,7 +138,7 @@ class Product(CommonInfo):
     def get_classification_method(self):
         producttopuc = self.get_producttopuc
         if producttopuc:
-            return producttopuc.classification_method_id
+            return producttopuc.classification_method
         return None
 
     def get_tag_list(self):

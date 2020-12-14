@@ -341,7 +341,7 @@ def product_detail(request, pk):
     tagform = ProductTagForm(request.POST or None, instance=p)
     tagform["tags"].label = ""
     puc = p.uber_puc
-    classification_method_id = p.get_classification_method
+    classification_method_id = p.get_classification_method.code
     assumed_tags = puc.get_assumed_tags() if puc else PUCTag.objects.none()
     if request.user.is_authenticated and tagform.is_valid():
         tagform.save()
