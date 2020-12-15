@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django import views
 
@@ -18,6 +19,7 @@ class Comment(views.View):
 
         if form.is_valid():
             form.save()
-            return redirect("feedback:comment")
+            messages.success(request, 'Comment received - thank you for your input.')
+            return redirect("/")
 
         return render(request, self.template_name, {"form": form}, status=422)
