@@ -19,25 +19,18 @@ class ProductUberPuc(DBView):
         return f"{self.product} --> {self.puc}"
 
     view_definition = """
-        SELECT 
-            ptp.*
-        FROM
-            (SELECT 
-                dashboard_producttopuc.id, product_id, puc_id, classification_method_id, rank
-            FROM
-                dashboard_producttopuc
-            LEFT JOIN dashboard_producttopucclassificationmethod ON dashboard_producttopucclassificationmethod.id = dashboard_producttopuc.classification_method_id) ptp
-                LEFT JOIN
-            (SELECT 
-                product_id, puc_id, classification_method_id, rank
-            FROM
-                dashboard_producttopuc
-            LEFT JOIN dashboard_producttopucclassificationmethod ON dashboard_producttopucclassificationmethod.id = dashboard_producttopuc.classification_method_id) ptp_rank ON ptp.product_id = ptp_rank.product_id
-                AND ptp.rank > ptp_rank.rank
-        WHERE
-            ptp_rank.rank IS NULL
-            
-            ORDER BY product_id, rank
+        SELECT ptp.*
+        FROM (
+            SELECT ptp.id, product_id, puc_id, classification_method_id, rank
+            FROM dashboard_producttopuc ptp
+            LEFT JOIN dashboard_producttopucclassificationmethod cm ON cm.id = ptp.classification_method_id
+        ) ptp
+        LEFT JOIN (
+            SELECT product_id, puc_id, classification_method_id, rank
+            FROM dashboard_producttopuc ptp
+            LEFT JOIN dashboard_producttopucclassificationmethod cm ON cm.id = ptp.classification_method_id 
+        ) ptp_rank ON ptp.product_id = ptp_rank.product_id AND ptp.rank > ptp_rank.rank
+        WHERE ptp_rank.rank IS NULL
       """
 
     class Meta:
