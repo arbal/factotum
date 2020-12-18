@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic.detail import SingleObjectMixin
@@ -150,7 +151,7 @@ class ListPresenceTagSetsJson(SingleObjectMixin, View):
         for tagset in tagsets:
             tagset_names = []
             for tag in sorted(tagset, key=lambda o: o.name.lower()):
-                tagset_names.append(tag.name)
+                tagset_names.append(f"<a href='{reverse('lp_tag_detail', args=[tag.id])}' title='{tag.definition or 'No Definition'}'>{tag.name}</a>")
             tagsets_list.append([" ; ".join(tagset_names)])
         return JsonResponse({"data": sorted(tagsets_list)}, safe=False)
 

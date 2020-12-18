@@ -144,20 +144,34 @@
         {% endif %}
         <div class="form-group border p-2">
         <dl>
+            {% if product.brand_name %}
             <dt>Brand Name</dt>
             <dd class="pl-4">{{ product.brand_name|default:"" }}</dd>
+            {% endif %}
+            {% if product.manufacturer %}
             <dt>Manufacturer</dt>
             <dd class="pl-4">{{ product.manufacturer|default:"" }}</dd>
+            {% endif %}
+            {% if product.model_number %}
             <dt>Model Number</dt>
             <dd class="pl-4">{{ product.model_number|default:"" }}</dd>
+            {% endif %}
+            {% if product.size %}
             <dt>Size</dt>
             <dd class="pl-4">{{ product.size|default:"" }}</dd>
+            {% endif %}
+            {% if product.color %}
             <dt>Color</dt>
             <dd class="pl-4">{{ product.color|default:"" }}</dd>
+            {% endif %}
+            {% if product.epa_reg_number %}
             <dt>EPA Reg. No.</dt>
             <dd class="pl-4">{{ product.epa_reg_number|default:"" }}</dd>
+            {% endif %}
+            {% if product.url %}
             <dt>Product URL</dt>
             <dd class="pl-4">{{ product.url|default:"" }}</dd>
+            {% endif %}
         </dl>
         {{ product.short_description|default:"" }}
         </div>

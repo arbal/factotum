@@ -43,6 +43,9 @@ class RawChem(CommonInfo):
         blank=True,
     )
 
+    class Meta:
+        indexes = [models.Index(fields=["extracted_text", "dsstox", "component"])]
+
     objects = InheritanceManager()
 
     tracker = FieldTracker()
