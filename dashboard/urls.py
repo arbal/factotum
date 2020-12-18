@@ -135,6 +135,16 @@ urlpatterns = [
         name="extraction_script_delete_list",
     ),
     path(
+        "duplicate_chemicals/",
+        dashboard.views.duplcate_chemicals,
+        name="duplicate_chemicals",
+    ),
+    path(
+        "duplicate_chemicals_json/",
+        dashboard.views.DuplicateChemicalsJson.as_view(),
+        name="duplicate_chemicals_ajax_url",
+    ),
+    path(
         "qa/extractedtext/<int:pk>/",
         dashboard.views.qa.extracted_text_qa,
         name="extracted_text_qa",

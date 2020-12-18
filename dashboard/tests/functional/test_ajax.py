@@ -178,3 +178,14 @@ class TestAjax(TestCase):
         response = self.client.get(prod_puc_url)
         data = json.loads(response.content)
         self.assertEqual(0, len(data["data"]), "Not PUC conflicts found")
+
+    def test_duplicate_chemicals(self):
+        duplicate_chemicals_url = reverse("duplicate_chemicals_ajax_url")
+        response = self.client.get(duplicate_chemicals_url)
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEquals(1, data["recordsTotal"])
+        first_chem = data["data"][0]
+        self.assertIn("Sun_INDS_89", first_chem[0])
+        self.assertIn("/datadocument/156051/", first_chem[0])
+        self.assertIn("DTXSID9022528", first_chem[1])
