@@ -20,6 +20,6 @@ class Comment(views.View):
         if form.is_valid():
             form.save()
             messages.success(request, "Comment received - thank you for your input.")
-            return redirect("/")
+            return redirect("index")
 
         return render(request, self.template_name, {"form": form}, status=422)
