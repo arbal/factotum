@@ -136,7 +136,7 @@ urlpatterns = [
     ),
     path(
         "duplicate_chemicals/",
-        dashboard.views.duplcate_chemicals,
+        dashboard.views.duplicate_chemical_records,
         name="duplicate_chemicals",
     ),
     path(
