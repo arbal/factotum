@@ -228,7 +228,7 @@ def bulk_assign_puc_to_product(
             ProductToPUC.objects.update_or_create(
                 puc=puc,
                 product=product,
-                classification_method="MB",
+                classification_method_id="MB",
                 puc_assigned_usr=request.user,
             )
         messages.success(request, f"{len(product_ids)} products added to PUC - {puc}")

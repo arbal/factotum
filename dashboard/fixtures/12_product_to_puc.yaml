@@ -7,7 +7,7 @@
     puc: 245
     puc_assigned_usr: null
     puc_assigned_script: null
-    classification_method: MA
+    classification_method_id: MA
     classification_confidence: '1.000'
 - model: dashboard.producttopuc
   pk: 5
@@ -18,7 +18,7 @@
     puc: 1
     puc_assigned_usr: null
     puc_assigned_script: null
-    classification_method: MA
+    classification_method_id: MA
     classification_confidence: '1.000'
 - model: dashboard.producttopuc
   pk: 6
@@ -29,7 +29,7 @@
     puc: 169
     puc_assigned_usr: 1
     puc_assigned_script: null
-    classification_method: MA
+    classification_method_id: MA
     classification_confidence: '1.000'
 - model: dashboard.producttopuc
   pk: 7
@@ -40,7 +40,7 @@
     puc: 210
     puc_assigned_usr: 1
     puc_assigned_script: null
-    classification_method: MA
+    classification_method_id: MA
     classification_confidence: '1.000'
 - model: dashboard.producttopuc
   pk: 8
@@ -51,7 +51,7 @@
     puc: 185
     puc_assigned_usr: 1
     puc_assigned_script: null
-    classification_method: MA
+    classification_method_id: MA
     classification_confidence: '1.000'
 - model: dashboard.producttopuc
   pk: 9
@@ -62,7 +62,7 @@
     puc: 185
     puc_assigned_usr: 1
     puc_assigned_script: null
-    classification_method: MA
+    classification_method_id: MA
     classification_confidence: '1.000'
 - model: dashboard.producttopuc
   pk: 10
@@ -73,7 +73,7 @@
     puc: 137
     puc_assigned_usr: 1
     puc_assigned_script: null
-    classification_method: MA
+    classification_method_id: MA
     classification_confidence: '1.000'
 - model: dashboard.producttopuc
   pk: 11
@@ -84,7 +84,7 @@
     puc: 145
     puc_assigned_usr: 1
     puc_assigned_script: null
-    classification_method: MA
+    classification_method_id: MA
     classification_confidence: '1.000'
 - model: dashboard.producttopuc
   pk: 12
@@ -95,7 +95,7 @@
     puc: 197
     puc_assigned_usr: 1
     puc_assigned_script: null
-    classification_method: MA
+    classification_method_id: MA
     classification_confidence: '1.000'
 - model: dashboard.producttopuc
   pk: 13
@@ -106,7 +106,7 @@
     puc: 185
     puc_assigned_usr: 1
     puc_assigned_script: null
-    classification_method: MA
+    classification_method_id: MA
     classification_confidence: '1.000'
 - model: dashboard.producttopuc
   pk: 14
@@ -117,7 +117,7 @@
     puc: 137
     puc_assigned_usr: 1
     puc_assigned_script: null
-    classification_method: MA
+    classification_method_id: MA
     classification_confidence: '1.000'
 - model: dashboard.producttopuc
   pk: 15
@@ -128,7 +128,7 @@
     puc: 48
     puc_assigned_usr: 1
     puc_assigned_script: null
-    classification_method: MA
+    classification_method_id: MA
     classification_confidence: '1.000'
 - model: dashboard.producttopuc
   pk: 16
@@ -141,7 +141,7 @@
     puc: 310
     puc_assigned_usr: 1
     puc_assigned_script: null
-    classification_method: MB
+    classification_method_id: MB
     classification_confidence: '1.000'
 - model: dashboard.producttopuc
   pk: 17
@@ -154,7 +154,7 @@
     puc: 311
     puc_assigned_usr: 1
     puc_assigned_script: null
-    classification_method: BA
+    classification_method_id: BA
     classification_confidence: '1.000'
 - model: dashboard.producttopuc
   pk: 18
@@ -167,7 +167,7 @@
     puc: 312
     puc_assigned_usr: 1
     puc_assigned_script: null
-    classification_method: AU
+    classification_method_id: AU
     classification_confidence: '1.000'
 - model: dashboard.producttopuc
   pk: 19
@@ -180,5 +180,5 @@
     puc: 318
     puc_assigned_usr: 1
     puc_assigned_script: null
-    classification_method: AU
+    classification_method_id: AU
     classification_confidence: '1.000'
