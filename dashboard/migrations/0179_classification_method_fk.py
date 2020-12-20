@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ("dashboard", "0176_move_pmid_to_datadocument"),
+        ("dashboard", "0178_add_rawchem_index"),
     ]
 
     operations = [
