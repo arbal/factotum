@@ -31,6 +31,7 @@ def log_karyn_in(object):
 
 class TestChemicalDetail(StaticLiveServerTestCase):
     fixtures = fixtures_standard
+    serialized_rollback = True
 
     def setUp(self):
         self.browser = load_browser()
@@ -149,7 +150,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         All the Products and Documents associated with the Chemical
         should be returned via ajax calls and included in the tables
 
-        For the purpose of this test, the SID coresponds to Ethanol 
+        For the purpose of this test, the SID coresponds to Ethanol
         """
         chemical = DSSToxLookup.objects.get(sid="DTXSID9020584")
         wait = WebDriverWait(self.browser, 10)

@@ -5,6 +5,8 @@ from .common_info import CommonInfo
 from .product import Product
 from django.utils.translation import ugettext_lazy as _
 
+DEFAULT_CLASSIFICATION_METHOD_CODE = "MA"
+
 
 class ProductToPUC(CommonInfo):
 
@@ -22,6 +24,7 @@ class ProductToPUC(CommonInfo):
         on_delete=models.PROTECT,
         null=False,
         blank=False,
+        default=DEFAULT_CLASSIFICATION_METHOD_CODE,
     )
     classification_confidence = models.DecimalField(
         max_digits=6, decimal_places=3, default=1, null=True, blank=True

@@ -27,6 +27,7 @@ from dashboard.utils import get_extracted_models
 @override_settings(ALLOWED_HOSTS=["testserver"])
 class DataDocumentDetailTest(TransactionTestCase):
     fixtures = fixtures_standard
+    serialized_rollback = True
 
     def setUp(self):
         self.client.login(username="Karyn", password="specialP@55word")
@@ -420,9 +421,9 @@ class TestDynamicDetailFormsets(TestCase):
         self.client.login(username="Karyn", password="specialP@55word")
 
     def test_extractedsubclasses(self):
-        """ Confirm that the inheritance manager is returning appropriate
-            subclass objects and ExtractedText base class objects
-         """
+        """Confirm that the inheritance manager is returning appropriate
+        subclass objects and ExtractedText base class objects
+        """
         for doc in DataDocument.objects.all():
             try:
                 extsub = ExtractedText.objects.get_subclass(data_document=doc)
@@ -475,8 +476,7 @@ class TestDynamicDetailFormsets(TestCase):
             self.assertIn(field, acceptable_fields)
 
     def test_listpresence_tags_form(self):
-        """'Assure that the list presence keywords appear for correct doc types and tags save
-        """
+        """'Assure that the list presence keywords appear for correct doc types and tags save"""
         for code, model in datadocument_models.items():
             if DataDocument.objects.filter(
                 data_group__group_type__code=code, extractedtext__isnull=False
@@ -539,7 +539,7 @@ class TestDynamicDetailFormsets(TestCase):
 
     def test_listpresence_tag_curation(self):
         """'Assure that the list presence keyword link appears in nav,
-            and correct docs are listed on the page
+        and correct docs are listed on the page
         """
         response = self.client.get(reverse("index"))
         self.assertContains(

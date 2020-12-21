@@ -240,9 +240,9 @@ def bulk_assign_puc_to_product(
             Q(title__icontains=q) | Q(brand_name__icontains=q)
         ).exclude(
             id__in=(
-                ProductToPUC.objects.filter(~Q(classification_method="AU")).values_list(
-                    "product_id", flat=True
-                )
+                ProductToPUC.objects.filter(
+                    ~Q(classification_method_id="AU")
+                ).values_list("product_id", flat=True)
             )
         )[
             :max_products_returned
@@ -259,9 +259,9 @@ def bulk_assign_puc_to_product(
             )
         ).exclude(
             id__in=(
-                ProductToPUC.objects.filter(~Q(classification_method="AU")).values_list(
-                    "product_id", flat=True
-                )
+                ProductToPUC.objects.filter(
+                    ~Q(classification_method_id="AU")
+                ).values_list("product_id", flat=True)
             )
         )
         datagroup = DataGroup.objects.get(pk=datagroup_pk)
@@ -293,7 +293,7 @@ def category_assign_puc_to_product(
     request, ds_pk, pk, template_name=("product_curation/" "product_puc.html")
 ):
     p = Product.objects.get(pk=pk)
-    p2p = ProductToPUC.objects.filter(classification_method="MA", product=p).first()
+    p2p = ProductToPUC.objects.filter(classification_method_id="MA", product=p).first()
     form = ProductPUCForm(request.POST or None, instance=p2p)
     if form.is_valid():
         if p2p:
@@ -303,7 +303,7 @@ def category_assign_puc_to_product(
             p2p = ProductToPUC.objects.create(
                 puc=puc,
                 product=p,
-                classification_method="MA",
+                classification_method_id="MA",
                 puc_assigned_usr=request.user,
             )
         return redirect("category_assignment", pk=ds_pk)
@@ -316,7 +316,7 @@ def product_assign_puc_to_product(
     request, pk, template_name=("product_curation/" "product_puc.html")
 ):
     p = Product.objects.get(pk=pk)
-    p2p = ProductToPUC.objects.filter(classification_method="MA", product=p).first()
+    p2p = ProductToPUC.objects.filter(classification_method_id="MA", product=p).first()
     form = ProductPUCForm(request.POST or None, instance=p2p)
     if form.is_valid():
         if p2p:
@@ -326,7 +326,7 @@ def product_assign_puc_to_product(
             p2p = ProductToPUC.objects.create(
                 puc=puc,
                 product=p,
-                classification_method="MA",
+                classification_method_id="MA",
                 puc_assigned_usr=request.user,
             )
         return redirect("product_detail", pk=pk)

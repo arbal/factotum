@@ -30,6 +30,8 @@ from celery.result import AsyncResult
 
 @tag("factory")
 class DataGroupDetailTestWithFactories(TransactionTestCase):
+    serialized_rollback = True
+
     def setUp(self):
         self.objects = load_model_objects()
         self.client.login(username="Karyn", password="specialP@55word")
