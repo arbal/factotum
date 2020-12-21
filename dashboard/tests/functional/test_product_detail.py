@@ -11,7 +11,6 @@ from django.core.exceptions import ObjectDoesNotExist
 @override_settings(ALLOWED_HOSTS=["testserver"])
 class TestProductDetail(TransactionTestCase):
     fixtures = fixtures_standard
-    serialized_rollback = True
 
     def setUp(self):
         self.client.login(username="Karyn", password="specialP@55word")

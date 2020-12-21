@@ -47,7 +47,6 @@ class element_has_css_class(object):
 
 class TestEditsWithSeedData(StaticLiveServerTestCase, TransactionTestCase):
     fixtures = fixtures_standard
-    serialized_rollback = True
 
     def setUp(self):
         self.browser = load_browser()

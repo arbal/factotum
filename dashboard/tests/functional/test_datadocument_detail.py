@@ -27,7 +27,6 @@ from dashboard.utils import get_extracted_models
 @override_settings(ALLOWED_HOSTS=["testserver"])
 class DataDocumentDetailTest(TransactionTestCase):
     fixtures = fixtures_standard
-    serialized_rollback = True
 
     def setUp(self):
         self.client.login(username="Karyn", password="specialP@55word")

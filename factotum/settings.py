@@ -22,9 +22,9 @@ IS_WS_API = True if env.ROOT_URLCONF == "api" else False
 INSTALLED_APPS = [
     "dal",
     "dal_select2",
+    "django.contrib.contenttypes",
     "django.contrib.admin",
     "django.contrib.auth",
-    "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
@@ -323,9 +323,3 @@ SILENCED_SYSTEM_CHECKS = [
     "django_mysql.W003",
     "django_mysql.W004",
 ]
-
-# Using serialized_rollback=True causes django.db.utils.IntegrityError
-# in the content_types app unless that app is excluded from the rollback emulation
-
-# https://docs.djangoproject.com/en/3.1/ref/settings/#test-non-serialized-apps
-TEST_NON_SERIALIZED_APPS = ["django.contrib.contenttypes", "django.contrib.auth"]

@@ -21,7 +21,6 @@ def log_karyn_in(object):
 
 class TestBulkProductPuc(StaticLiveServerTestCase):
     fixtures = fixtures_standard
-    serialized_rollback = True
 
     def setUp(self):
         self.browser = load_browser()

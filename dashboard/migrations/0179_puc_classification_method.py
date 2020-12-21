@@ -129,6 +129,7 @@ class Migration(migrations.Migration):
             model_name="producttopuc",
             name="classification_method",
             field=models.ForeignKey(
+                default="MA",
                 max_length=3,
                 on_delete=django.db.models.deletion.PROTECT,
                 to="dashboard.ProductToPucClassificationMethod",

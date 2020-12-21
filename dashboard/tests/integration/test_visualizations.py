@@ -15,7 +15,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
     def visualization_url(cls):
         return cls.live_server_url + "/visualizations"
 
-    serialized_rollback = True
     fixtures = fixtures_standard
 
     def setUp(self):
