@@ -328,4 +328,4 @@ SILENCED_SYSTEM_CHECKS = [
 # in the content_types app unless that app is excluded from the rollback emulation
 
 # https://docs.djangoproject.com/en/3.1/ref/settings/#test-non-serialized-apps
-TEST_NON_SERIALIZED_APPS = ["django.contrib.contenttypes"]
+TEST_NON_SERIALIZED_APPS = ["django.contrib.contenttypes", "django.contrib.auth"]
