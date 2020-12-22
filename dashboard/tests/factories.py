@@ -160,6 +160,15 @@ class ProductFactory(FactotumFactoryBase):
     )
 
 
+class ProductToPUCFactory(FactotumFactoryBase):
+    class Meta:
+        model = models.ProductToPUC
+
+    product = factory.SubFactory(ProductFactory)
+    puc = factory.SubFactory(PUCFactory)
+    classification_confidence = 1.0
+
+
 class ScriptFactory(FactotumFactoryBase):
     class Meta:
         model = models.Script

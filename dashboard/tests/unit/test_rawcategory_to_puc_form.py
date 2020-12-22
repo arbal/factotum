@@ -36,8 +36,7 @@ class TestRawCategoryToPUCForm(TestCase):
         cls.puc = PUC.objects.create(last_edited_by=cls.user)
 
     def test_successful_form(self):
-        """Test form can be validated and saved with valid data
-        """
+        """Test form can be validated and saved with valid data"""
         form = RawCategoryToPUCForm(
             {
                 "datagroup": self.dg.pk,
@@ -52,8 +51,7 @@ class TestRawCategoryToPUCForm(TestCase):
         self.assertEqual(saved_response["products_affected"], 1)
 
     def test_successful_form_duplicate_request(self):
-        """New form submissions should override previous submissions
-        """
+        """New form submissions should override previous submissions"""
         form = RawCategoryToPUCForm(
             {
                 "datagroup": self.dg.pk,
@@ -229,7 +227,7 @@ class TestRawCategoryToPUCForm(TestCase):
         )
 
     def _assertProductToPucCreated(self, products, puc=None):
-        """ Private method that checks to see that all products were attached
+        """Private method that checks to see that all products were attached
         to a specific PUC
 
         :param products: Queryset or List of products to be checked
@@ -244,4 +242,4 @@ class TestRawCategoryToPUCForm(TestCase):
             f"PUC with primary key {puc.pk} != PUC with primary key {products[0].puc_set.first().pk}",
         )
         self.assertEqual(product_to_puc.count(), 1)
-        self.assertEqual(product_to_puc[0].classification_method, "BA")
+        self.assertEqual(product_to_puc[0].classification_method_id, "BA")

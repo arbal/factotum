@@ -29,9 +29,9 @@ def log_karyn_in(object):
 class element_has_css_class(object):
     """An expectation for checking that an element has a particular css class.
 
-  locator - used to find the element
-  returns the WebElement once it has the particular css class
-  """
+    locator - used to find the element
+    returns the WebElement once it has the particular css class
+    """
 
     def __init__(self, locator, css_class):
         self.locator = locator
@@ -56,7 +56,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase, TransactionTestCase):
         self.browser.quit()
 
     def test_document_attribute_edit(self):
-        """The user should be able to open the document-editing screen from the 
+        """The user should be able to open the document-editing screen from the
         QA page, and the Submit and Cancel buttons should return the user to the
         original QA page.
         Fields include:

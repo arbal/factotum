@@ -19,32 +19,18 @@ class ProductUberPuc(DBView):
         return f"{self.product} --> {self.puc}"
 
     view_definition = """
-          select id, product_id, puc_id
-          from dashboard_producttopuc
-          where (product_id, classification_method) in (
-            select product_id,
-              case
-                when min(uber_order) = 1 then 'MA'
-                when min(uber_order) = 2 then 'RU'
-                when min(uber_order) = 3 then 'MB'
-                when min(uber_order) = 4 then 'BA'
-                when min(uber_order) = 5 then 'AU'
-                else 'MA'
-              end as classification_method
-            from
-              (select product_id,
-                case
-                  when classification_method = 'MA' then 1
-                  when classification_method = 'RU' then 2
-                  when classification_method = 'MB' then 3
-                  when classification_method = 'BA' then 4
-                  when classification_method = 'AU' then 5
-                  else 1
-                end as uber_order  
-              from dashboard_producttopuc) temp
-              group by product_id
-              having min(uber_order)
-            )
+         SELECT ptp.*
+         FROM (
+             SELECT ptp.id, product_id, puc_id, classification_method_id, rank
+             FROM dashboard_producttopuc ptp
+             LEFT JOIN dashboard_producttopucclassificationmethod cm ON cm.id = ptp.classification_method_id
+         ) ptp
+         LEFT JOIN (
+             SELECT product_id, puc_id, classification_method_id, rank
+             FROM dashboard_producttopuc ptp
+             LEFT JOIN dashboard_producttopucclassificationmethod cm ON cm.id = ptp.classification_method_id 
+         ) ptp_rank ON ptp.product_id = ptp_rank.product_id AND ptp.rank > ptp_rank.rank
+         WHERE ptp_rank.rank IS NULL
       """
 
     class Meta:
