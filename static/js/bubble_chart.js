@@ -153,7 +153,7 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                 )
                 .style("display", "block")
                 // .style("position", "fixed")
-                .style("background", "#eae9e0")
+                // .style("background", "#eae9e0")
                 .style("cursor", "pointer")
                 .on("click", () => zoom(root));
             if (fixed === true) {
@@ -170,6 +170,9 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                 .attr("fill", d => d.color)
                 .attr("opacity", d => d.opacity)
                 .attr("pointer-events", d => (!d.children ? "none" : null))
+                .style("stroke", d => d.depth == 3 ? d.parent.color : null)
+                .style("stroke-opacity", d => d.depth == 3 ? 0.5 : 1)
+                .style("stroke-width", d => d.depth == 3 ?  4 : 1)
                 .on("mouseover", function () {
                     d3v5.select(this).attr("stroke", "#000");
                 })
