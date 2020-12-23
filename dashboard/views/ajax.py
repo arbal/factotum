@@ -151,7 +151,9 @@ class ListPresenceTagSetsJson(SingleObjectMixin, View):
         for tagset in tagsets:
             tagset_names = []
             for tag in sorted(tagset, key=lambda o: o.name.lower()):
-                tagset_names.append(f"<a href='{reverse('lp_tag_detail', args=[tag.id])}' title='{tag.definition or 'No Definition'}'>{tag.name}</a>")
+                tagset_names.append(
+                    f"<a href='{reverse('lp_tag_detail', args=[tag.id])}' title='{tag.definition or 'No Definition'}'>{tag.name}</a>"
+                )
             tagsets_list.append([" ; ".join(tagset_names)])
         return JsonResponse({"data": sorted(tagsets_list)}, safe=False)
 

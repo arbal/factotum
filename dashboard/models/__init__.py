@@ -35,7 +35,7 @@ from .unit_type import UnitType
 from .weight_fraction_type import WeightFractionType
 from .PUC import PUC, PUCToTag, PUCTag, PUCKind
 from .product_to_tag import ProductToTag
-from .product_to_puc import ProductToPUC
+from .product_to_puc import ProductToPUC, ProductToPucClassificationMethod
 from .extracted_habits_and_practices_to_puc import ExtractedHabitsAndPracticesToPUC
 from .qa_notes import QANotes, QASummaryNote
 from .raw_chem import RawChem

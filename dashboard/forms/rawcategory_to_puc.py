@@ -24,7 +24,7 @@ class RawCategoryToPUCForm(forms.Form):
         raw_category = cleaned_data.get("raw_category")
 
         product_to_puc_queryset = ProductToPUC.objects.filter(
-            classification_method="BA"
+            classification_method_id="BA"
         )
         self.documents = (
             datagroup.datadocument_set.filter(raw_category=raw_category)
@@ -66,7 +66,9 @@ class RawCategoryToPUCForm(forms.Form):
                 product_to_puc_requires_update.append(product_to_puc)
             except IndexError:
                 product_to_puc_requires_create.append(
-                    ProductToPUC(product=product, classification_method="BA", puc=puc)
+                    ProductToPUC(
+                        product=product, classification_method_id="BA", puc=puc
+                    )
                 )
 
         ProductToPUC.objects.bulk_create(product_to_puc_requires_create)
