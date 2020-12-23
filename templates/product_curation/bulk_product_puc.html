@@ -34,9 +34,8 @@
         </span>
     </h1>
 
-    <br><br>
+    <br>
     <p>Locate products to associate with PUCs using the Search bar above.</p>
-    <br><br>
 
     <form action='' method="post">
         {% csrf_token %}
@@ -68,10 +67,10 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <br><br>
+            <br>
             <p>To limit search results by PUC kind, use Kind: (search term), e.g. Article: (PUC search term) to limit
-                results to Article PUCs.</p>
-            <br><br>
+                results to Article PUCs.
+            </p>
             {{ form.id_pks }}
             <p class="text-center">{{ form.puc.label_tag }} {{ form.puc }}
                 <button type="submit" id="btn-assign-puc" class="btn btn-primary">Submit</button>
