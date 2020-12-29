@@ -63,9 +63,9 @@ class ChemicalDetail(TestCase):
         response_for_water = self.client.get("/chemical/DTXSID6026296/")
         self.assertEqual(
             cumulative_sum,
-            response_for_water.context["pucs"].children[0].value.cumnum_products,
+            response_for_water.context["pucs"].children[0].value.cumulative_products,
             f'Water sid ("DTXSID6026296") should have {cumulative_sum} associated products '
-            + f"but returns {response_for_water.context['pucs'].children[0].value.cumnum_products}",
+            + f"but returns {response_for_water.context['pucs'].children[0].value.cumulative_products}",
         )
 
     def _n_children(self, children):

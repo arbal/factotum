@@ -48,7 +48,7 @@
                     {% endif %}
                     <div class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
                          data-gen-cat="{{ leaf.name }}">
-                        <b>{{ leaf.value.cumnum_products }}</b>
+                        <b>{{ leaf.value.cumulative_products }}</b>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                             {% endif %}
                             <span class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
                                   data-gen-cat="{{ leaf.name }}">
-                                <b>{{ leaflet.value.cumnum_products }}</b>
+                                <b>{{ leaflet.value.cumulative_products }}</b>
                             </span>
                         </div>
                         <div id="accordion-{{ leaflet.value.pk }}"
@@ -129,7 +129,7 @@
                                                 {% endif %}
                                                 <span class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
                                                       data-gen-cat="{{ leaf.name }}">
-                                                    <b>{{ needle.value.cumnum_products }}</b>
+                                                    <b>{{ needle.value.cumulative_products }}</b>
                                                 </span>
                                             </div>
                                         </div>

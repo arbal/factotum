@@ -35,7 +35,7 @@ def chemical_detail(request, sid, puc_id=None):
     )
     # Get cumulative product count, displayed in bubble_puc_legend
     for puc_name, puc_obj in formulation_pucs.items():
-        puc_obj.cumnum_products = sum(
+        puc_obj.cumulative_products = sum(
             p.num_products for p in formulation_pucs.objects[puc_name].values()
         )
 
@@ -53,7 +53,7 @@ def chemical_detail(request, sid, puc_id=None):
     )
     # Get cumulative product count, displayed in bubble_puc_legend
     for puc_name, puc_obj in article_pucs.items():
-        puc_obj.cumnum_products = sum(
+        puc_obj.cumulative_products = sum(
             p.num_products for p in article_pucs.objects[puc_name].values()
         )
 
@@ -72,7 +72,7 @@ def chemical_detail(request, sid, puc_id=None):
     )
     # Get cumulative product count, displayed in bubble_puc_legend
     for puc_name, puc_obj in occupation_pucs.items():
-        puc_obj.cumnum_products = sum(
+        puc_obj.cumulative_products = sum(
             p.num_products for p in occupation_pucs.objects[puc_name].values()
         )
 

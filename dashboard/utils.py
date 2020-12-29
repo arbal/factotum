@@ -7,7 +7,7 @@ from django.apps import apps
 from django import forms
 from django.core.exceptions import FieldDoesNotExist
 from django.db import connection, transaction
-from django.db.models import Aggregate
+from django.db.models import Aggregate, Lookup, Field
 from django.db.models.sql.subqueries import InsertQuery
 from django.forms.models import apply_limit_choices_to_to_formfield
 from django.http import StreamingHttpResponse
@@ -518,3 +518,13 @@ def get_model_next_pk(model):
     row = cursor.fetchone()
     cursor.close()
     return row[0]
+    
+@Field.register_lookup
+class NotEqual(Lookup):
+    lookup_name = "ne"
+
+    def as_sql(self, compiler, connection):
+        lhs, lhs_params = self.process_lhs(compiler, connection)
+        rhs, rhs_params = self.process_rhs(compiler, connection)
+        params = lhs_params + rhs_params
+        return "%s <> %s" % (lhs, rhs), params
