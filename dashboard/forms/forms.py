@@ -338,7 +338,6 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
         return result
 
     def save(self, commit=True):
-        
         for form in self:
             if hasattr(form, "functional_uses"):
                 for fu in form.functional_uses:

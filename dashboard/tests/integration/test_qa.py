@@ -242,7 +242,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase, TransactionTestCase):
             )
 
     def test_list_presence_chem_delete(self):
-        # make sure that deleting an ExtractedListPresence record doesn't fail 
+        # make sure that deleting an ExtractedListPresence record doesn't fail
         # if it has related Functional Use
         wait = WebDriverWait(self.browser, 10)
         et = ExtractedText.objects.get(pk=254780)
@@ -252,37 +252,24 @@ class TestEditsWithSeedData(StaticLiveServerTestCase, TransactionTestCase):
             "extracted_text_qa", kwargs={"pk": et.pk}
         )
         self.browser.get(qa_url)
-        accordion = wait.until(
-            EC.visibility_of_element_located((By.ID, "accordion"))
-        )
+        accordion = wait.until(EC.visibility_of_element_located((By.ID, "accordion")))
 
-        self.assertIn(
-            chem.raw_chem_name, accordion.text
-        )
+        self.assertIn(chem.raw_chem_name, accordion.text)
         # open the first chemical card
-        
-        self.browser.find_element_by_xpath(
-            f'//*[@id="chem-card-{chem.pk}"]'
-        ).click()
+
+        self.browser.find_element_by_xpath(f'//*[@id="chem-card-{chem.pk}"]').click()
         # switch to editing mode
         self.browser.find_element_by_id("btn-toggle-edit").click()
-        
 
         # delete the first RawChem/ExtractedListPresence record
-        delcheck = wait.until(EC.element_to_be_clickable((By.ID, "id_rawchem-0-DELETE")))
+        delcheck = wait.until(
+            EC.element_to_be_clickable((By.ID, "id_rawchem-0-DELETE"))
+        )
         delcheck.click()
         # save the page
         save_button = wait.until(EC.element_to_be_clickable((By.ID, "save")))
         save_button.send_keys(Keys.SPACE)
-        
+
         # the reopened page should not contain the chemical
-
-        accordion = wait.until(
-            EC.visibility_of_element_located((By.ID, "accordion"))
-        )
-
-        self.assertNotIn(
-            chem.raw_chem_name, accordion.text
-        )
-
-
+        accordion = wait.until(EC.visibility_of_element_located((By.ID, "accordion")))
+        self.assertNotIn(chem.raw_chem_name, accordion.text)
