@@ -304,7 +304,7 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
         super(RawChemicalSubclassFormSet, self).add_fields(form, index)
         # add the grandchild formset as the 'functional_uses' property,
         # only if the form is bound to an instance
-        if not form.instance.pk is None:
+        if form.instance.pk is not None:
             FunctionalUseFormset = forms.inlineformset_factory(
                 RawChem,
                 FunctionalUse,
@@ -441,7 +441,7 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
         formset_fields = model.detail_fields()
         if exclude:
             formset_fields = [
-                in_field for in_field in formset_fields if not in_field in exclude
+                in_field for in_field in formset_fields if in_field not in exclude
             ]
         # set fields to hidden if so specified
         widgets = dict(
