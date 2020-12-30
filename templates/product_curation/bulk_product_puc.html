@@ -39,7 +39,6 @@
 
     <form action='' method="post">
         {% csrf_token %}
-
         {% if datagroup and rawcategory %}
             <p>Products for Data Group - <b>{{ datagroup }}</b> and Raw Category - <b>{{ rawcategory }}</b></p>
         {% endif %}
