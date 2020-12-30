@@ -1,6 +1,7 @@
-nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=FO", "nestedcircles_FO");
-nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=AR", "nestedcircles_AR");
-nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=OC", "nestedcircles_OC");
+fobc = new nestedBubbleChart(500, 500, false, "dl_pucs_json/?kind=FO", "nestedcircles_FO");
+arbc = new nestedBubbleChart(500, 500, false, "dl_pucs_json/?kind=AR", "nestedcircles_AR");
+ocbc = new nestedBubbleChart(500, 500, false, "dl_pucs_json/?kind=OC", "nestedcircles_OC");
+tree = new collapsibleTree("dl_pucs_json/tree/");
 collapsibleTree("/dl_pucs_json/tree/");
 
 // Venn Diagram of SIDs per Group Type combination

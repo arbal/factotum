@@ -42,7 +42,7 @@ class ProductUberPuc(DBView):
 class ProductsPerPuc(DBView):
     puc = models.ForeignKey(PUC, on_delete=models.DO_NOTHING)
     product_count = models.IntegerField()
-    
+
     def __str__(self):
         return f"{self.puc}: {self.product_count} "
 
@@ -55,7 +55,7 @@ class ProductsPerPuc(DBView):
             left join dashboard_puckind on kind_id = dashboard_puckind.id
             ;
             """
-            
+
     class Meta:
         managed = False
         db_table = "products_per_puc"
@@ -70,16 +70,37 @@ class CumulativeProductsPerPucQuerySet(models.QuerySet):
             names = tuple(
                 n for n in (p.puc.gen_cat, p.puc.prod_fam, p.puc.prod_type) if n
             )
-            tree[names] = {
-                "puc_id":p.puc.id, 
-                "kind":p.puc.kind.code, 
-                "gen_cat":p.puc.gen_cat,
-                "prod_fam":p.puc.prod_fam,
-                "prod_type":p.puc.prod_type,
-                "product_count":p.product_count, 
-                "cumulative_product_count":p.cumulative_product_count
-                }
+            tree[names] = p
+            # tree[names] = {
+            #     "puc_id":p.puc.id,
+            #     "kind":p.puc.kind.code,
+            #     "gen_cat":p.puc.gen_cat,
+            #     "prod_fam":p.puc.prod_fam,
+            #     "prod_type":p.puc.prod_type,
+            #     "product_count":p.product_count,
+            #     "cumulative_product_count":p.cumulative_product_count
+            #     }
         return tree
+
+    def flatdictastree(self, include=None):
+        """ Returns a SimpleTree representation of the version 
+        of the queryset used in the bubble plots, that's been flattened 
+        to remove the instance__puc relationship.
+
+        This approach of using two different methods depending on the 
+        format of the PUC records contrasts with the approach taken in 
+        PUCQuerySet, which uses `if isinstance(puc, ...):` to test whether
+        the incoming data is a PUC object or a dict.
+            
+        """
+        tree = SimpleTree()
+        for p in self:
+            names = tuple(
+                n for n in (p["gen_cat"], p["prod_fam"], p["prod_type"]) if n
+            )
+            tree[names] = p
+        return tree
+
 
 
 class CumulativeProductsPerPuc(DBView):
@@ -147,7 +168,7 @@ class CumulativeProductsPerPuc(DBView):
             prod_fams.prod_fam = products_per_puc.prod_fam AND products_per_puc.prod_fam <> ""
         ;
             """
-            
+
     class Meta:
         managed = False
         db_table = "cumulative_products_per_puc"

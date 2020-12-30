@@ -266,3 +266,8 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
         })
         .catch(console.log.bind(console));
 }
+
+nestedBubbleChart.prototype.zoomToNode = function (puc_id, nbc) {
+    console.log("Zooming to PUC " + puc_id + " on the bubble plot");
+    console.log(nbc)
+} 

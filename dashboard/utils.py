@@ -518,7 +518,8 @@ def get_model_next_pk(model):
     row = cursor.fetchone()
     cursor.close()
     return row[0]
-    
+
+
 @Field.register_lookup
 class NotEqual(Lookup):
     lookup_name = "ne"
