@@ -1,6 +1,10 @@
 from django.views import View
 
-from dashboard.models import PUC, CumulativeProductsPerPuc
+from dashboard.models import (
+    PUC,
+    CumulativeProductsPerPuc,
+    CumulativeProductsPerPucAndSid,
+)
 from django.db.models import Value, Case, When, IntegerField, F
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -45,18 +49,34 @@ def bubble_PUCs(request):
     kind = request.GET.get("kind", "FO")
     if dtxsid:
         # filter by products by a related DSSTOX
-        pucs = PUC.objects.dtxsid_filter(dtxsid)
+        if kind:
+            pucs = (
+                CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup__sid=dtxsid)
+                .filter(puc__kind__code=kind)
+                .filter(cumulative_product_count__gt=0)
+            )
+        else:
+            pucs = CumulativeProductsPerPuc.objects.filter(
+                dsstoxlookup__sid=dtxsid
+            ).filter(cumulative_product_count__gt=0)
+
         pucs = (
-            pucs.filter(kind__code=kind)
-            .with_num_products()
-            .values("id", "gen_cat", "prod_fam", "prod_type", "num_products")
-            .filter(num_products__gt=0)
-            .annotate(level=level)
+            pucs.annotate(
+                gen_cat=F("puc__gen_cat"),
+                prod_fam=F("puc__prod_fam"),
+                prod_type=F("puc__prod_type"),
+            )  # change the nested __puc field names
+            .values(
+                "id",
+                "gen_cat",
+                "prod_fam",
+                "prod_type",
+                "product_count",
+                "cumulative_product_count",
+                "puc_level",
+            )
+            .flatdictastree()
         )
-        # convert the pucs to a simpletree
-        pucs = pucs.values(
-            "id", "gen_cat", "prod_fam", "prod_type", "num_products", "level"
-        ).astree()
     else:
         if kind:
             pucs = CumulativeProductsPerPuc.objects.filter(puc__kind__code=kind).filter(
@@ -84,7 +104,6 @@ def bubble_PUCs(request):
             )
             .flatdictastree()
         )
-
 
     return JsonResponse(pucs.asdict())
 

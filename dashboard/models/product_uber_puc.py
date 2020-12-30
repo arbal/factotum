@@ -71,15 +71,7 @@ class CumulativeProductsPerPucQuerySet(models.QuerySet):
                 n for n in (p.puc.gen_cat, p.puc.prod_fam, p.puc.prod_type) if n
             )
             tree[names] = p
-            # tree[names] = {
-            #     "puc_id":p.puc.id,
-            #     "kind":p.puc.kind.code,
-            #     "gen_cat":p.puc.gen_cat,
-            #     "prod_fam":p.puc.prod_fam,
-            #     "prod_type":p.puc.prod_type,
-            #     "product_count":p.product_count,
-            #     "cumulative_product_count":p.cumulative_product_count
-            #     }
+
         return tree
 
     def flatdictastree(self, include=None):
@@ -170,18 +162,20 @@ class CumulativeProductsPerPuc(DBView):
         managed = False
         db_table = "cumulative_products_per_puc"
 
+
 class ProductsPerPucAndSid(DBView):
     puc = models.ForeignKey(PUC, on_delete=models.DO_NOTHING)
-    sid = models.ForeignKey(DSSToxLookup, on_delete=models.DO_NOTHING)
+    dsstoxlookup = models.ForeignKey(DSSToxLookup, on_delete=models.DO_NOTHING)
     product_count = models.IntegerField()
 
     def __str__(self):
-        return f"{self.puc} | {self.sid}: {self.product_count} "
+        return f"{self.puc} | {self.dsstoxlookup.sid}: {self.product_count} "
 
     view_definition = """
         SELECT 
+            1 as id,
             product_uber_puc.puc_id AS puc_id,
-            dashboard_dsstoxlookup.sid as dsstoxlookup_id ,
+            dashboard_dsstoxlookup.id as dsstoxlookup_id ,
             count(product_uber_puc.product_id) AS product_count
         FROM
             product_uber_puc
@@ -193,10 +187,96 @@ class ProductsPerPucAndSid(DBView):
             dashboard_rawchem ON (dashboard_datadocument.id = dashboard_rawchem.extracted_text_id)
                 INNER JOIN
             dashboard_dsstoxlookup ON (dashboard_rawchem.dsstox_id = dashboard_dsstoxlookup.id)
-            GROUP BY product_uber_puc.puc_id, sid
+            GROUP BY product_uber_puc.puc_id, dashboard_dsstoxlookup.id
             ;
             """
 
     class Meta:
         managed = False
         db_table = "products_per_puc_and_sid"
+
+
+class CumulativeProductsPerPucAndSid(DBView):
+    puc = models.ForeignKey(PUC, on_delete=models.DO_NOTHING)
+    dsstoxlookup = models.ForeignKey(DSSToxLookup, on_delete=models.DO_NOTHING)
+    product_count = models.IntegerField()
+    cumulative_product_count = models.IntegerField()
+    puc_level = models.IntegerField()
+    objects = CumulativeProductsPerPucQuerySet.as_manager()
+
+    def __str__(self):
+        return f"{self.puc} | {self.dsstoxlookup.sid}: {self.product_count} "
+
+    view_definition = """
+        SELECT 
+        products_per_puc_and_sid.id,
+        products_per_puc_and_sid.dsstoxlookup_id,
+        products_per_puc_and_sid.puc_id AS puc_id,
+        products_per_puc_and_sid.product_count AS product_count,
+        prod_fams.prod_fam_count AS prod_fam_count,
+        gen_cats.gen_cat_count AS gen_cat_count,
+        (CASE
+            WHEN
+                ((ISNULL(dashboard_puc.prod_type)
+                    OR (dashboard_puc.prod_type = ''))
+                    AND (dashboard_puc.prod_fam IS NOT NULL)
+                    AND (dashboard_puc.prod_fam <> ''))
+            THEN
+                prod_fams.prod_fam_count
+            WHEN
+                (ISNULL(dashboard_puc.prod_fam)
+                    OR (dashboard_puc.prod_fam = ''))
+            THEN
+                gen_cats.gen_cat_count
+            ELSE products_per_puc_and_sid.product_count
+        END) AS cumulative_product_count,
+        (CASE
+            WHEN
+                ((ISNULL(dashboard_puc.prod_type)
+                    OR (dashboard_puc.prod_type = ''))
+                    AND (dashboard_puc.prod_fam IS NOT NULL)
+                    AND (dashboard_puc.prod_fam <> ''))
+            THEN
+                2
+            WHEN
+                (ISNULL(dashboard_puc.prod_fam)
+                    OR (dashboard_puc.prod_fam = ''))
+            THEN
+                1
+            ELSE 3
+        END) AS puc_level
+    FROM
+        ((products_per_puc_and_sid
+        LEFT JOIN
+            dashboard_puc on dashboard_puc.id = products_per_puc_and_sid.puc_id
+        LEFT JOIN (SELECT 
+            kind_id ,
+             gen_cat ,
+                SUM(products_per_puc_and_sid.product_count) AS gen_cat_count
+        FROM
+            products_per_puc_and_sid
+            LEFT JOIN
+            dashboard_puc on dashboard_puc.id = products_per_puc_and_sid.puc_id
+        GROUP BY kind_id , gen_cat) gen_cats ON (((gen_cats.kind_id = dashboard_puc.kind_id)
+            AND (gen_cats.gen_cat = dashboard_puc.gen_cat))))
+        LEFT JOIN (SELECT 
+            kind_id,
+            gen_cat,
+            prod_fam,
+                SUM(products_per_puc_and_sid.product_count) AS prod_fam_count
+        FROM
+            products_per_puc_and_sid
+            INNER JOIN
+            dashboard_puc on dashboard_puc.id = products_per_puc_and_sid.puc_id
+        WHERE
+            ((prod_fam IS NOT NULL)
+                AND (prod_fam <> ''))
+        GROUP BY dashboard_puc.kind_id , dashboard_puc.gen_cat , dashboard_puc.prod_fam) prod_fams ON (((prod_fams.kind_id = dashboard_puc.kind_id)
+            AND (prod_fams.gen_cat = dashboard_puc.gen_cat)
+            AND (prod_fams.prod_fam = dashboard_puc.prod_fam)
+            AND (dashboard_puc.prod_fam <> ''))))
+            """
+
+    class Meta:
+        managed = False
+        db_table = "cumulative_products_per_puc_and_sid"

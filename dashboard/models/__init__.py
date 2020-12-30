@@ -45,5 +45,11 @@ from .taxonomy_to_PUC import TaxonomyToPUC
 from .audit_log import AuditLog
 from .functional_use import FunctionalUse
 from .functional_use_category import FunctionalUseCategory
-from .product_uber_puc import ProductUberPuc, ProductsPerPuc, CumulativeProductsPerPuc
+from .product_uber_puc import (
+    ProductUberPuc,
+    ProductsPerPuc,
+    CumulativeProductsPerPuc,
+    ProductsPerPucAndSid,
+    CumulativeProductsPerPucAndSid,
+)
 from .duplicate_chemicals import DuplicateChemicals
