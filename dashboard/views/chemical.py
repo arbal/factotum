@@ -1,9 +1,17 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import Value, IntegerField, Q, F
 from django.shortcuts import render, get_object_or_404
 from django.utils.html import format_html
 from django_datatables_view.base_datatable_view import BaseDatatableView
 
-from dashboard.models import DSSToxLookup, PUC, ProductDocument, PUCKind
+from dashboard.models import (
+    DSSToxLookup,
+    PUC,
+    ProductDocument,
+    PUCKind,
+    RawChem,
+    DuplicateChemicals,
+)
 
 
 def chemical_detail(request, sid, puc_id=None):
@@ -80,6 +88,45 @@ def chemical_detail(request, sid, puc_id=None):
         "puc_kinds": puc_kinds,
     }
     return render(request, "chemicals/chemical_detail.html", context)
+
+
+@login_required()
+def duplicate_chemical_records(
+    request, template_name="chemicals/duplicate_chemicals.html"
+):
+    data = {"chemicals": {}}
+    return render(request, template_name, data)
+
+
+class DuplicateChemicalsJson(BaseDatatableView):
+    model = RawChem
+    columns = ["extracted_text__data_document__title", "dsstox__sid"]
+
+    def get_filter_method(self):
+        return self.FILTER_ICONTAINS
+
+    def get_initial_queryset(self):
+        qs = (
+            DuplicateChemicals.objects.filter(
+                extracted_text__data_document__data_group__group_type__code="CO"
+            )
+        ).values(
+            "extracted_text__data_document",
+            "extracted_text__data_document__title",
+            "dsstox__sid",
+        )
+        return qs
+
+    def render_column(self, row, column):
+        value = self._render_column(row, column)
+
+        if column == "extracted_text__data_document__title":
+            return format_html(
+                '<a href="{}" title="Go to Document detail" target="_blank">{}</a>',
+                "/datadocument/{}/".format(row["extracted_text__data_document"]),
+                value,
+            )
+        return value
 
 
 class ChemicalProductListJson(BaseDatatableView):

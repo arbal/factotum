@@ -551,3 +551,16 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         time.sleep(1)
         datagroup = DataGroup.objects.get(pk=datagroup.pk)
         self.assertEqual(note, datagroup.qa_summary_note)
+
+    def test_duplicate_chemicals_page(self):
+        duplicate_chemicals_url = self.live_server_url + "/duplicate_chemicals/"
+        self.browser.get(duplicate_chemicals_url)
+        time.sleep(1)
+        document_cell = self.browser.find_element_by_xpath(
+            '//*[@id="duplicate-chemicals"]/tbody/tr[1]/td[1]'
+        )
+        sid_cell = self.browser.find_element_by_xpath(
+            '//*[@id="duplicate-chemicals"]/tbody/tr[1]/td[2]'
+        )
+        self.assertIn("Sun_INDS_89", document_cell.text)
+        self.assertIn("DTXSID9022528", sid_cell.text)

@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% block title %}Duplicate Chemical Records{% endblock %}
+{% block content %}
+
+<h1 class="col-sm-12">
+    <span>Duplicate Chemical Records</span>
+</h1>
+<table class="table table-striped table-bordered dataTable no-footer table-sm" id="duplicate-chemicals">
+  <thead class="table-primary">
+      <th>Document</th>
+      <th>DTXSID</th>
+  </thead>
+</table>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/dashboard/duplicate_chemicals.js' %}"></script>
+{% endblock %}
