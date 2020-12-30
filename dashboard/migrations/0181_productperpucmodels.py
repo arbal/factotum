@@ -5,33 +5,41 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0180_productperpucviews'),
-    ]
+    dependencies = [("dashboard", "0180_productperpucviews")]
 
     operations = [
         migrations.CreateModel(
-            name='CumulativeProductsPerPuc',
+            name="CumulativeProductsPerPuc",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('product_count', models.IntegerField()),
-                ('cumulative_product_count', models.IntegerField()),
-                ('puc_level', models.IntegerField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("product_count", models.IntegerField()),
+                ("cumulative_product_count", models.IntegerField()),
+                ("puc_level", models.IntegerField()),
             ],
-            options={
-                'db_table': 'cumulative_products_per_puc',
-                'managed': False,
-            },
+            options={"db_table": "cumulative_products_per_puc", "managed": False},
         ),
         migrations.CreateModel(
-            name='ProductsPerPuc',
+            name="ProductsPerPuc",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('product_count', models.IntegerField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("product_count", models.IntegerField()),
             ],
-            options={
-                'db_table': 'products_per_puc',
-                'managed': False,
-            },
+            options={"db_table": "products_per_puc", "managed": False},
         ),
     ]
