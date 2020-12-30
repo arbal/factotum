@@ -95,12 +95,9 @@ class CumulativeProductsPerPucQuerySet(models.QuerySet):
         """
         tree = SimpleTree()
         for p in self:
-            names = tuple(
-                n for n in (p["gen_cat"], p["prod_fam"], p["prod_type"]) if n
-            )
+            names = tuple(n for n in (p["gen_cat"], p["prod_fam"], p["prod_type"]) if n)
             tree[names] = p
         return tree
-
 
 
 class CumulativeProductsPerPuc(DBView):
@@ -146,19 +143,19 @@ class CumulativeProductsPerPuc(DBView):
                 ELSE 3
             END as puc_level
         FROM
-            factotum.products_per_puc
+            products_per_puc
         LEFT JOIN
             (SELECT 
                 kind_id, gen_cat, SUM(product_count) gen_cat_count
             FROM
-                factotum.products_per_puc
+                products_per_puc
             GROUP BY kind_id, gen_cat) gen_cats 
             ON gen_cats.kind_id = products_per_puc.kind_id AND gen_cats.gen_cat = products_per_puc.gen_cat
         LEFT JOIN
             (SELECT 
                 kind_id, gen_cat, prod_fam, SUM(product_count) prod_fam_count
             FROM
-                factotum.products_per_puc
+                products_per_puc
             WHERE
                 prod_fam IS NOT NULL AND products_per_puc.prod_fam <> ""
             GROUP BY kind_id, gen_cat, prod_fam) prod_fams 
