@@ -286,11 +286,11 @@ class PUCModelTest(TestCase):
 
     def test_product_counts(self):
         """Make sure the product_count property
-        returns the same thing as the num_products annotation"""
-        pucs = PUC.objects.all().annotate(num_products=Count("products"))
+        returns the same thing as the product_count annotation"""
+        pucs = PUC.objects.all().annotate(product_count=Count("products"))
         # pucs 1-3 have products associated with them
         self.assertEqual(
-            pucs.get(pk=1).num_products, PUC.objects.get(pk=1).product_count
+            pucs.get(pk=1).product_count, PUC.objects.get(pk=1).product_count
         )
 
     def test_document_counts(self):

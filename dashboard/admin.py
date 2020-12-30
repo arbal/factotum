@@ -12,12 +12,12 @@ class PUCAdminForm(forms.ModelForm):
     class Meta:
         model = PUC
         fields = ["gen_cat", "prod_fam", "prod_type", "description", "tags", "kind"]
-        readonly_fields = ("num_products",)
+        readonly_fields = ("product_count",)
         widgets = {"tags": LabelWidget(model=PUCTag)}
 
 
 class PUCAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "tag_list", "num_products")
+    list_display = ("__str__", "tag_list", "product_count")
     list_filter = ("kind",)
     form = PUCAdminForm
 
@@ -31,14 +31,14 @@ class PUCAdmin(admin.ModelAdmin):
             super(PUCAdmin, self)
             .get_queryset(request)
             .prefetch_related("tags")
-            .annotate(num_products=Count("products"))
+            .annotate(product_count=Count("products"))
         )
 
-    def num_products(self, obj):
-        return obj.num_products
+    def product_count(self, obj):
+        return obj.product_count
 
-    num_products.short_description = "Product Count"
-    num_products.admin_order_field = "num_products"
+    product_count.short_description = "Product Count"
+    product_count.admin_order_field = "product_count"
 
     def tag_list(self, obj):
         return u", ".join(o.name for o in obj.tags.all())

@@ -24,12 +24,12 @@ class PUCQuerySet(models.QuerySet):
             products__datadocument__extractedtext__rawchem__dsstox__sid=sid
         )
 
-    def with_num_products(self):
+    def with_product_count(self):
         """ Returns a QuerySet of PUCs with a product count included.
 
-        The product count is annotated as 'num_products'
+        The product count is annotated as 'product_count'
         """
-        return self.annotate(num_products=Count("products", distinct=True))
+        return self.annotate(product_count=Count("products", distinct=True))
 
     def with_allowed_attributes(self):
         """ Returns a QuerySet of PUCs with an allowed tags string.

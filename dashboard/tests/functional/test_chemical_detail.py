@@ -56,10 +56,10 @@ class ChemicalDetail(TestCase):
         # Check cumulative product count
         pucs = (
             PUC.objects.dtxsid_filter("DTXSID6026296")
-            .with_num_products()
+            .with_product_count()
             .filter(gen_cat="Arts and Crafts/Office supplies")
         )
-        cumulative_sum = sum(puc.num_products for puc in pucs)
+        cumulative_sum = sum(puc.product_count for puc in pucs)
         response_for_water = self.client.get("/chemical/DTXSID6026296/")
         self.assertEqual(
             cumulative_sum,

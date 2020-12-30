@@ -32,8 +32,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
     def test_bubble_plot(self):
         pucs = (
             PUC.objects.filter(kind__code__in=["FO", "AR", "OC"])
-            .with_num_products()
-            .filter(num_products__gt=0)
+            .with_product_count()
+            .filter(product_count__gt=0)
             .astree()
         )
         num_pucs = self._n_children(pucs)
@@ -84,8 +84,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         pucs = (
             PUC.objects.filter(kind__code__in=["FO", "AR", "OC"])
             .dtxsid_filter(dss.sid)
-            .with_num_products()
-            .filter(num_products__gt=0)
+            .with_product_count()
+            .filter(product_count__gt=0)
             .astree()
         )
         num_pucs = self._n_children(pucs)
