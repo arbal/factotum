@@ -1,7 +1,7 @@
 from django_db_views.db_view import DBView
 from django.db import models
 
-from dashboard.models import PUC, Product
+from dashboard.models import PUC, Product, DSSToxLookup
 from dashboard.utils import GroupConcat, SimpleTree
 from dashboard.models.custom_onetoone_field import CustomOneToOneField
 
@@ -169,3 +169,34 @@ class CumulativeProductsPerPuc(DBView):
     class Meta:
         managed = False
         db_table = "cumulative_products_per_puc"
+
+class ProductsPerPucAndSid(DBView):
+    puc = models.ForeignKey(PUC, on_delete=models.DO_NOTHING)
+    sid = models.ForeignKey(DSSToxLookup, on_delete=models.DO_NOTHING)
+    product_count = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.puc} | {self.sid}: {self.product_count} "
+
+    view_definition = """
+        SELECT 
+            product_uber_puc.puc_id AS puc_id,
+            dashboard_dsstoxlookup.sid as dsstoxlookup_id ,
+            count(product_uber_puc.product_id) AS product_count
+        FROM
+            product_uber_puc
+            INNER JOIN
+            dashboard_productdocument ON (product_uber_puc.product_id = dashboard_productdocument.product_id)
+                INNER JOIN
+            dashboard_datadocument ON (dashboard_productdocument.document_id = dashboard_datadocument.id)
+                INNER JOIN
+            dashboard_rawchem ON (dashboard_datadocument.id = dashboard_rawchem.extracted_text_id)
+                INNER JOIN
+            dashboard_dsstoxlookup ON (dashboard_rawchem.dsstox_id = dashboard_dsstoxlookup.id)
+            GROUP BY product_uber_puc.puc_id, sid
+            ;
+            """
+
+    class Meta:
+        managed = False
+        db_table = "products_per_puc_and_sid"
