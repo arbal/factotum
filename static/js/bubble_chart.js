@@ -61,7 +61,7 @@ function setRadiusFromChildren(node, padding) {
     d3v5.packSiblings(node.children);
     node.r = getRadius(
         (node.value / (node.value -
-            (node.data.value ? node.data.value.num_products : 0))) *
+            (node.data.value ? node.data.value.product_count : 0))) *
         getArea(d3v5.packEnclose(node.children).r)
     ) + padding;
 }
@@ -91,9 +91,12 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
             // sort by cumulative product count
             var root = d3v5
                 .hierarchy(data)
-                .sum(d => (d.value ? d.value.num_products : 0))
+                .sum(d => (d.value ? d.value.product_count : 0))
                 .sort((a, b) => b.value - a.value);
-
+            // if the root has no children, bail
+            if (typeof root.children == 'undefined'){
+                return false;
+            }
             // center our root
             root.x = 0;
             root.y = 0;
