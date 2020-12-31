@@ -4,6 +4,7 @@ from dashboard.models import (
     PUC,
     CumulativeProductsPerPuc,
     CumulativeProductsPerPucAndSid,
+    DSSToxLookup,
 )
 from django.db.models import Value, Case, When, IntegerField, F
 from django.http import JsonResponse
@@ -48,16 +49,18 @@ def bubble_PUCs(request):
     dtxsid = request.GET.get("dtxsid", None)
     kind = request.GET.get("kind", "FO")
     if dtxsid:
+        # avoid joining in the subsequent queryset by looking up the pk once
+        dss_pk = DSSToxLookup.objects.filter(sid=dtxsid).first().pk
         # filter by products by a related DSSTOX
         if kind:
             pucs = (
-                CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup__sid=dtxsid)
+                CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup_id=dss_pk)
                 .filter(puc__kind__code=kind)
                 .filter(cumulative_product_count__gt=0)
             )
         else:
             pucs = CumulativeProductsPerPuc.objects.filter(
-                dsstoxlookup__sid=dtxsid
+                dsstoxlookup_id=dss_pk
             ).filter(cumulative_product_count__gt=0)
 
         pucs = (
@@ -114,9 +117,7 @@ def collapsible_tree_PUCs(request):
     """
     pucs = (
         PUC.objects.all()
-        .annotate(
-                puc_id=F("id"),
-            ) 
+        .annotate(puc_id=F("id"))
         .filter(kind__code="FO")
         .values("puc_id", "gen_cat", "prod_fam", "prod_type")
         .astree()

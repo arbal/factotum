@@ -25,19 +25,22 @@ def chemical_detail(request, sid, puc_id=None):
     formulation_pucs = (
         CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup__sid=sid)
         .filter(puc__kind__code="FO")
-        .filter(cumulative_product_count__gt=0).astree()
+        .filter(cumulative_product_count__gt=0)
+        .astree()
     )
 
     article_pucs = (
         CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup__sid=sid)
         .filter(puc__kind__code="AR")
-        .filter(cumulative_product_count__gt=0).astree()
+        .filter(cumulative_product_count__gt=0)
+        .astree()
     )
 
     occupation_pucs = (
         CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup__sid=sid)
         .filter(puc__kind__code="OC")
-        .filter(cumulative_product_count__gt=0).astree()
+        .filter(cumulative_product_count__gt=0)
+        .astree()
     )
 
     context = {
