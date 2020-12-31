@@ -169,7 +169,7 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                 .data(root.descendants().slice(1))
                 .join("circle")
                 .attr("class", "bubble")
-                .attr("id", d => "bubble-" + (d.data.value ? d.data.value.id : ''))
+                .attr("id", d => "bubble-" + (d.data.value ? d.data.value.puc_id : ''))
                 .attr("fill", d => d.color)
                 .attr("opacity", d => d.opacity)
                 .attr("pointer-events", d => (!d.children ? "none" : null))

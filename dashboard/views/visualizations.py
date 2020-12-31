@@ -67,7 +67,7 @@ def bubble_PUCs(request):
                 prod_type=F("puc__prod_type"),
             )  # change the nested __puc field names
             .values(
-                "id",
+                "puc_id",
                 "gen_cat",
                 "prod_fam",
                 "prod_type",
@@ -94,7 +94,7 @@ def bubble_PUCs(request):
                 prod_type=F("puc__prod_type"),
             )  # change the nested __puc field names
             .values(
-                "id",
+                "puc_id",
                 "gen_cat",
                 "prod_fam",
                 "prod_type",
@@ -114,8 +114,11 @@ def collapsible_tree_PUCs(request):
     """
     pucs = (
         PUC.objects.all()
+        .annotate(
+                puc_id=F("id"),
+            ) 
         .filter(kind__code="FO")
-        .values("id", "gen_cat", "prod_fam", "prod_type")
+        .values("puc_id", "gen_cat", "prod_fam", "prod_type")
         .astree()
         .asdict()
     )

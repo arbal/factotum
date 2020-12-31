@@ -6,9 +6,10 @@ var chemical = $('#chemical'),
     document_table,
     product_table;
 
-nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=FO&dtxsid=" + sid, "nestedcircles_FO");
-nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=AR&dtxsid=" + sid, "nestedcircles_AR");
-nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=OC&dtxsid=" + sid, "nestedcircles_OC");
+fobc = new nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=FO&dtxsid=" + sid, "nestedcircles_FO");
+arbc = new nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=AR&dtxsid=" + sid, "nestedcircles_AR");
+ocbc = nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=OC&dtxsid=" + sid, "nestedcircles_OC");
+
 
 $(document).ready(function () {
     document_table = build_document_table().on('draw', moveText);

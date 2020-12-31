@@ -11,6 +11,7 @@ from dashboard.models import (
     PUCKind,
     RawChem,
     DuplicateChemicals,
+    CumulativeProductsPerPucAndSid,
 )
 
 
@@ -22,59 +23,22 @@ def chemical_detail(request, sid, puc_id=None):
     puc_kinds = PUCKind.objects.all()
 
     formulation_pucs = (
-        PUC.objects.filter(kind__code="FO")
-        .dtxsid_filter(sid)
-        .with_product_count()
-        .astree()
+        CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup__sid=sid)
+        .filter(puc__kind__code="FO")
+        .filter(cumulative_product_count__gt=0).astree()
     )
-    # get parent PUCs too
-    formulation_pucs.merge(
-        PUC.objects.all()
-        .annotate(product_count=Value(0, output_field=IntegerField()))
-        .astree()
-    )
-    # Get cumulative product count, displayed in bubble_puc_legend
-    for puc_name, puc_obj in formulation_pucs.items():
-        puc_obj.cumulative_products = sum(
-            p.product_count for p in formulation_pucs.objects[puc_name].values()
-        )
 
     article_pucs = (
-        PUC.objects.filter(kind__code="AR")
-        .dtxsid_filter(sid)
-        .with_product_count()
-        .astree()
+        CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup__sid=sid)
+        .filter(puc__kind__code="AR")
+        .filter(cumulative_product_count__gt=0).astree()
     )
-    # get parent PUCs too
-    article_pucs.merge(
-        PUC.objects.all()
-        .annotate(product_count=Value(0, output_field=IntegerField()))
-        .astree()
-    )
-    # Get cumulative product count, displayed in bubble_puc_legend
-    for puc_name, puc_obj in article_pucs.items():
-        puc_obj.cumulative_products = sum(
-            p.product_count for p in article_pucs.objects[puc_name].values()
-        )
 
-    # occupation pucs bubble plot
     occupation_pucs = (
-        PUC.objects.filter(kind__code="OC")
-        .dtxsid_filter(sid)
-        .with_product_count()
-        .astree()
+        CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup__sid=sid)
+        .filter(puc__kind__code="OC")
+        .filter(cumulative_product_count__gt=0).astree()
     )
-    # get parent PUCs too
-    occupation_pucs.merge(
-        PUC.objects.all()
-        .annotate(product_count=Value(0, output_field=IntegerField()))
-        .astree()
-    )
-    # Get cumulative product count, displayed in bubble_puc_legend
-    for puc_name, puc_obj in occupation_pucs.items():
-        puc_obj.cumulative_products = sum(
-            p.product_count for p in occupation_pucs.objects[puc_name].values()
-        )
 
     context = {
         "chemical": chemical,

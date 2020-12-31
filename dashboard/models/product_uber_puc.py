@@ -209,72 +209,60 @@ class CumulativeProductsPerPucAndSid(DBView):
 
     view_definition = """
         SELECT 
-        products_per_puc_and_sid.id,
-        products_per_puc_and_sid.dsstoxlookup_id,
-        products_per_puc_and_sid.puc_id AS puc_id,
-        products_per_puc_and_sid.product_count AS product_count,
-        prod_fams.prod_fam_count AS prod_fam_count,
-        gen_cats.gen_cat_count AS gen_cat_count,
-        (CASE
-            WHEN
-                ((ISNULL(dashboard_puc.prod_type)
-                    OR (dashboard_puc.prod_type = ''))
-                    AND (dashboard_puc.prod_fam IS NOT NULL)
-                    AND (dashboard_puc.prod_fam <> ''))
-            THEN
-                prod_fams.prod_fam_count
-            WHEN
-                (ISNULL(dashboard_puc.prod_fam)
-                    OR (dashboard_puc.prod_fam = ''))
-            THEN
-                gen_cats.gen_cat_count
-            ELSE products_per_puc_and_sid.product_count
-        END) AS cumulative_product_count,
-        (CASE
-            WHEN
-                ((ISNULL(dashboard_puc.prod_type)
-                    OR (dashboard_puc.prod_type = ''))
-                    AND (dashboard_puc.prod_fam IS NOT NULL)
-                    AND (dashboard_puc.prod_fam <> ''))
-            THEN
-                2
-            WHEN
-                (ISNULL(dashboard_puc.prod_fam)
-                    OR (dashboard_puc.prod_fam = ''))
-            THEN
-                1
-            ELSE 3
-        END) AS puc_level
-    FROM
-        ((products_per_puc_and_sid
-        LEFT JOIN
-            dashboard_puc on dashboard_puc.id = products_per_puc_and_sid.puc_id
-        LEFT JOIN (SELECT 
-            kind_id ,
-             gen_cat ,
-                SUM(products_per_puc_and_sid.product_count) AS gen_cat_count
-        FROM
-            products_per_puc_and_sid
-            LEFT JOIN
-            dashboard_puc on dashboard_puc.id = products_per_puc_and_sid.puc_id
-        GROUP BY kind_id , gen_cat) gen_cats ON (((gen_cats.kind_id = dashboard_puc.kind_id)
-            AND (gen_cats.gen_cat = dashboard_puc.gen_cat))))
-        LEFT JOIN (SELECT 
-            kind_id,
-            gen_cat,
-            prod_fam,
-                SUM(products_per_puc_and_sid.product_count) AS prod_fam_count
-        FROM
-            products_per_puc_and_sid
-            INNER JOIN
-            dashboard_puc on dashboard_puc.id = products_per_puc_and_sid.puc_id
-        WHERE
-            ((prod_fam IS NOT NULL)
-                AND (prod_fam <> ''))
-        GROUP BY dashboard_puc.kind_id , dashboard_puc.gen_cat , dashboard_puc.prod_fam) prod_fams ON (((prod_fams.kind_id = dashboard_puc.kind_id)
-            AND (prod_fams.gen_cat = dashboard_puc.gen_cat)
-            AND (prod_fams.prod_fam = dashboard_puc.prod_fam)
-            AND (dashboard_puc.prod_fam <> ''))))
+            1 as id, 
+            counts.dsstoxlookup_id ,
+            dashboard_puc.id as puc_id,
+            product_count,
+            cumulative_product_count,
+            puc_level
+            from
+            (SELECT products_per_puc_and_sid.dsstoxlookup_id,
+                    dashboard_puc.kind_id , 
+                            dashboard_puc.gen_cat , 
+                            "" as prod_fam,
+                            "" as prod_type,
+                            product_count,
+                            SUM(products_per_puc_and_sid.product_count) AS cumulative_product_count ,
+                            1 as puc_level 
+                    FROM
+                    products_per_puc_and_sid
+                    LEFT JOIN dashboard_puc ON dashboard_puc.id = products_per_puc_and_sid.puc_id
+                    GROUP BY products_per_puc_and_sid.dsstoxlookup_id, dashboard_puc.kind_id , dashboard_puc.gen_cat, product_count, puc_level
+            UNION 
+            SELECT products_per_puc_and_sid.dsstoxlookup_id,
+                    dashboard_puc.kind_id , 
+                            dashboard_puc.gen_cat , 
+                            prod_fam,
+                            "" as prod_type,
+                            product_count,
+                            SUM(products_per_puc_and_sid.product_count) AS cumulative_product_count ,
+                            2 as puc_level
+                    FROM
+                    products_per_puc_and_sid
+                    LEFT JOIN dashboard_puc ON dashboard_puc.id = products_per_puc_and_sid.puc_id
+                    GROUP BY products_per_puc_and_sid.dsstoxlookup_id, dashboard_puc.kind_id , dashboard_puc.gen_cat, dashboard_puc.prod_fam, product_count, puc_level
+            UNION 
+            SELECT products_per_puc_and_sid.dsstoxlookup_id,
+                    dashboard_puc.kind_id , 
+                            dashboard_puc.gen_cat , 
+                            prod_fam,
+                            prod_type,
+                            product_count,
+                            product_count AS cumulative_product_count ,
+                            3 as puc_level
+                    FROM
+                    products_per_puc_and_sid
+                    LEFT JOIN dashboard_puc ON dashboard_puc.id = products_per_puc_and_sid.puc_id
+                    WHERE dashboard_puc.prod_type <> ""
+                    ) counts 
+            INNER JOIN 
+            dashboard_puc on dashboard_puc.kind_id = counts.kind_id 
+            AND dashboard_puc.gen_cat = counts.gen_cat
+            AND dashboard_puc.prod_fam = counts.prod_fam
+            AND dashboard_puc.prod_type = counts.prod_type
+            ORDER BY
+            dsstoxlookup_id, dashboard_puc.id
+
             """
 
     class Meta:
