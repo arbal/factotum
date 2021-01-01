@@ -23,6 +23,7 @@ class Visualizations(View):
         pucs = (
             CumulativeProductsPerPuc.objects.filter(puc__kind__code="FO")
             .filter(cumulative_product_count__gt=0)
+            .select_related('puc')
             .astree()
         )
         context["formulation_pucs"] = pucs
@@ -30,6 +31,7 @@ class Visualizations(View):
         pucs = (
             CumulativeProductsPerPuc.objects.filter(puc__kind__code="AR")
             .filter(cumulative_product_count__gt=0)
+            .select_related('puc')
             .astree()
         )
         context["article_pucs"] = pucs
@@ -37,6 +39,7 @@ class Visualizations(View):
         pucs = (
             CumulativeProductsPerPuc.objects.filter(puc__kind__code="OC")
             .filter(cumulative_product_count__gt=0)
+            .select_related('puc')
             .astree()
         )
         context["occupation_pucs"] = pucs
@@ -57,11 +60,12 @@ def bubble_PUCs(request):
                 CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup_id=dss_pk)
                 .filter(puc__kind__code=kind)
                 .filter(cumulative_product_count__gt=0)
+                .select_related('puc')
             )
         else:
             pucs = CumulativeProductsPerPuc.objects.filter(
                 dsstoxlookup_id=dss_pk
-            ).filter(cumulative_product_count__gt=0)
+            ).filter(cumulative_product_count__gt=0).select_related('puc')
 
         pucs = (
             pucs.annotate(
@@ -84,11 +88,11 @@ def bubble_PUCs(request):
         if kind:
             pucs = CumulativeProductsPerPuc.objects.filter(puc__kind__code=kind).filter(
                 cumulative_product_count__gt=0
-            )
+            ).select_related('puc')
         else:
             pucs = CumulativeProductsPerPuc.objects.filter(
                 cumulative_product_count__gt=0
-            )
+            ).select_related('puc')
 
         pucs = (
             pucs.annotate(

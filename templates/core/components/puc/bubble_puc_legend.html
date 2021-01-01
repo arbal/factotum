@@ -48,7 +48,7 @@
                        data-placement="top">
                         <i class="fas fa-info-circle icon-secondary"></i>
                     </a>
-                    {% if show_filter and leaf.value.puc.cumulative_product_count %}
+                    {% if show_filter and leaf.value.cumulative_product_count %}
                     <a id="filter-{{ leaf.value.puc.pk }}"
                        class="ml-2"
                        title="Filter table by PUC"
@@ -60,7 +60,7 @@
                     {% endif %}
                     <div class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
                          data-gen-cat="{{ leaf.name }}">
-                        <b>{{ leaf.value.puc.cumulative_product_count }}</b>
+                        <b>{{ leaf.value.cumulative_product_count }}</b>
                     </div>
                 </div>
             </div>
@@ -119,7 +119,7 @@
                             {% endif %}
                             <span class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
                                   data-gen-cat="{{ leaf.name }}">
-                                <b>{{ leaflet.value.puc.cumulative_product_count }}</b>
+                                <b>{{ leaflet.value.cumulative_product_count }}</b>
                             </span>
                         </div>
                         <div id="accordion-{{ leaflet.value.puc.pk }}"
@@ -165,7 +165,7 @@
                                                 {% endif %}
                                                 <span class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
                                                       data-gen-cat="{{ leaf.name }}">
-                                                    <b>{{ needle.value.puc.cumulative_product_count }}</b>
+                                                    <b>{{ needle.value.cumulative_product_count }}</b>
                                                 </span>
                                             </div>
                                         </div>

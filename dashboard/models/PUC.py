@@ -174,13 +174,9 @@ class PUC(CommonInfo):
 
     @property
     def cumulative_product_count(self):
-        ProductToPUC = apps.get_model("dashboard", "ProductToPUC")
-        if self.is_level_one:
-            return ProductToPUC.objects.filter(puc__gen_cat=self.gen_cat).count()
-        if self.is_level_two:
-            return ProductToPUC.objects.filter(puc__prod_fam=self.prod_fam).count()
-        if self.is_level_three:
-            return ProductToPUC.objects.filter(puc=self).count()
+        CumulativeProductsPerPuc = apps.get_model("dashboard", "ProductToPUC")
+        return CumulativeProductsPerPuc.get(puc=self).cumulative_product_count
+        
 
     @property
     def curated_chemical_count(self):
