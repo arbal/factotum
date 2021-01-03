@@ -10,12 +10,6 @@
     <link rel="stylesheet" href="{% static 'css/dashboard/full_width_container.css' %}">
 {% endblock %}
 
-{% block css %}
-    <link rel="stylesheet" href="{% static 'css/dashboard/anchored_footer.css' %}">
-    <link rel="stylesheet" href="{% static 'bootstrap-slider/css/bootstrap-slider.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/dashboard/data_document_detail.css' %}">
-{% endblock %}
-
 {% block content %}
 
     <div class="row">
@@ -501,7 +495,14 @@
     <script src="{% static 'js/dashboard/toggle_text.js' %}"></script>
     <script src="{% static 'bootstrap-slider/bootstrap-slider.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail_card_selector.js' %}"></script>
     <script type="module" src="{% static 'js/dashboard/datadocument_detail_ajax.js' %}"></script>
-
     <script src="{% static 'js/jquery.form.js' %}"></script>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/dashboard/anchored_footer.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-slider/css/bootstrap-slider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap_slider_overrides.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard/data_document_detail.css' %}">
 {% endblock %}

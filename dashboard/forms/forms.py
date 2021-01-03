@@ -308,9 +308,8 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
             FunctionalUseFormset = forms.inlineformset_factory(
                 RawChem,
                 FunctionalUse,
-                fields=("id", "category", "report_funcuse", "extraction_script"),
+                fields=("id", "report_funcuse"),
                 extra=0,
-                # widgets={"id": forms.HiddenInput()},
             )
             form.functional_uses = FunctionalUseFormset(
                 instance=form.instance,

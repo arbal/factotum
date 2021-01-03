@@ -1,39 +1,88 @@
 $(document).ready(function () {
-    //toggleDetailEdit(unsaved);
+
+    var title_height = $('#title').height();
+    var scroll_height = $(window).height() - (title_height + 80);
+    $('.scroll-div').css('max-height', scroll_height);
+
+    //create static slider for each chemical card
+    document.querySelectorAll(".wf-analysis").forEach(wf_analysis => {
+        var chemical_pk = wf_analysis.getAttribute('data-chemical-pk');
+        var lower = wf_analysis.getAttribute('data-lower-wf-analysis');
+        var central = wf_analysis.getAttribute('data-central-wf-analysis');
+        var upper = wf_analysis.getAttribute('data-upper-wf-analysis');
+        var input_id = 'wf_slider_' + chemical_pk;
+        if (central) {
+            range = false;
+            value = [parseFloat(central), parseFloat(central)];
+        } else {
+            range = true;
+            value = [parseFloat(lower.length === 0 ? '0' : lower),
+                     parseFloat(upper.length === 0 ? '0' : upper)];
+        }
+        $('#' + input_id)
+            .slider({
+                id: "slider" + chemical_pk,
+                min: 0,
+                max: 1,
+                step: .00001,
+                ticks: [0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1],
+                ticks_labels: ['0', '', '', '', '', '', '', '', '', '', '1'],
+                range: range,
+                value: value,
+                enabled: false,
+                precision: 15,
+                formatter: function (value) {
+                    return 'Weight fraction analysis: ' + ((value[0] === value[1]) ? value[0] : value[0] + ' - ' + value[1]);
+                }
+            });
+    })
 });
 
-function toggleDetailEdit(enable = true) {
-    // set the detail fields to editable
-    // show the notes box
-    if (enable) {
-        // enter edit mode
-        console.log("enabling editor");
-        // show the Save button
-        $('#save').removeClass('disabled');
-        $('#save').show();
-        $('#btn-toggle-edit').addClass('btn-warning');
-        $('#btn-toggle-edit').attr("onclick", "toggleDetailEdit(false)");
-        // TODO: change the button's label to read "Stop Editing"
-        $('.detail-control').addClass('unlocked');
-        $('.detail-control').prop('disabled', false);
-        //$('.extext-control').addClass('unlocked');
-        //$('.extext-control').prop('disabled', false);
-    } else {
-        // exit edit mode
-        $('#btn-toggle-edit').attr("onclick", "toggleDetailEdit(true)");
-        // hide the Save button
-        $('#save').addClass('disabled');
-        $('#save').hide();
-        $('#btn-toggle-edit').removeClass('btn-warning');
-        $('.detail-control').removeClass('unlocked');
-        $('.detail-control').prop('disabled', true);
-        //$('.extext-control').removeClass('unlocked');
-        //$('.extext-control').prop('disabled', true);
-        //console.log("Has disabled class been added to controls?");
-        //console.log($('.detail-control').hasClass('disabled'));
+$('[id^=chem-click-]').click(function (e) {
+    // add click event to bring active element into focus when many chems
+    scrollNav = $("#scroll-nav");
+    scrollNav.animate({
+        scrollTop: $(".active p").offset().top - scrollNav.offset().top + scrollNav.scrollTop() - 47
+    });
+})
 
+// update location for the reload that happens when editing chemical
+$("#chem-scrollspy").ready(function () {
+    var chem = location.href.split("#").length
+    if (chem > 1) {
+        location.href = location.href
     }
-}
+});
+
+// add color to elements on hover...
+$('.hover').mouseover(function () {
+    $(this).removeClass("btn-outline-secondary");
+    $(this).addClass("btn-" + this.name);
+})
+
+$('.hover').mouseout(function () {
+    $(this).removeClass("btn-" + this.name);
+    $(this).addClass("btn-outline-secondary");
+})
+
+var request = $.get("/datadocument/" + doc.text + "/cards", function(data) {
+    let domparser = new DOMParser()
+    let doc = domparser.parseFromString(data, "text/html")
+
+    let card_count = doc.querySelectorAll("[id^=chem-click-]").length
+
+    $("#chemical-card-panel").html(doc.querySelector("#cards"))
+    $("#card-count").text(card_count)
+
+    $("#scrollspy-panel").html(doc.querySelector("#scroll-nav"))
+
+    let scripts = doc.querySelectorAll('script')
+    for (var n = 0; n < scripts.length; n++)
+        $.getScript(scripts[n].src)
+}).fail(function(jqXHR, textStatus, errorThrown) {
+    $("#card-loading-text").text("Cards Failed to Load")
+})
+
 
 // Save notes on submit
 $('#qa-notes-form').on('submit', function (event) {

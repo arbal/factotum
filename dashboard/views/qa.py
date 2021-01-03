@@ -19,6 +19,7 @@ from django_datatables_view.base_datatable_view import BaseDatatableView
 from celery_usertask.tasks import UserTask, usertask
 from dashboard.forms import create_detail_formset, QANotesForm, DocumentTypeForm
 from dashboard.forms.forms import QASummaryNoteForm
+from dashboard.views.data_document import chemical_cards
 from dashboard.models import (
     Script,
     DataGroup,
@@ -381,6 +382,7 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
         "referer": referer,
         "document_type_form": document_type_form,
         "unsaved": "false",
+        "chemical_cards": chemical_cards(request, doc.pk).content.decode("utf8"),
     }
 
     if request.method == "POST" and "save" in request.POST:

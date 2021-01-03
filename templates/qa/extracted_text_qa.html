@@ -1,14 +1,11 @@
 {% extends "core/base.html" %}
 {% load widget_tweaks %}
 {% load staticfiles %}
+{% load humanize %}
 
 {% block title %}QA Data Document {{ doc.id }}: {{ doc.title }}{% endblock %}
 
-
-{% load humanize %}
-
 {% block content %}
-
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             {% if doc.data_group.type == "CP" %}
@@ -27,10 +24,9 @@
     </nav>
 
     <div class="card">
-        <h3 class="card-header ">
+        <h3 class="card-header">
             <a href="{% url "data_document" doc.pk %}" target="_blank"
                title="Data Document Detail Page">Data Document: {{ doc.title }}</a>
-            {% if request.user.is_authenticated %}
                 <a class="btn btn-outline-secondary btn-sm hover-success float-right"
                    title="Edit Data Document"
                    id="edit_document"
@@ -38,196 +34,201 @@
                    href="{% url "data_document_edit" doc.id %}">
                     <span class="fa fa-fs fa-edit"></span>
                 </a>
-            {% endif %}
         </h3>
 
-        <table class="table table-bordered">
-            <tr>
-                <th>Data Group</th>
-                <td id="data_group">
-                    <a title="Data Group"
-                       href="{% url "data_group_detail" doc.data_group.id %}"> {{ doc.data_group }}
-                    </a>
-                </td>
-            </tr>
+        <div class="row m-0 border-bottom">
+            <div class="col-3 border-right my-auto p-2 font-weight-bold">Data Group</div>
+            <div class="col-9 p-2" id="data_group">
+                <a title="Data Group"
+                   href="{% url "data_group_detail" doc.data_group.id %}"> {{ doc.data_group }}
+                </a>
+            </div>
+        </div>
 
+        <div class="row m-0 border-bottom">
+            <div class="col-3 border-right my-auto p-2 font-weight-bold">Document Type</div>
             <form method="post" action="{% url "save_doc_form" doc.pk %}" novalidate>
                 <input id="document_type_selector" type="hidden" name="referer" value="{{ request.path }}"/>
                 {% csrf_token %}
-                {{ document_type_form }}
-            </form>
-
-            <tr>
-                <th>Subtitle</th>
-                <td id="subtitle">
-                    {{ doc.subtitle }}
-                </td>
-            </tr>
-
-            <tr>
-                <th>Raw Category</th>
-                <td id="raw_category">
-                    {{ doc.raw_category }}
-                </td>
-            </tr>
-
-            <tr>
-                <th>URL</th>
-                <td id="url">
-                    {{ doc.url }}
-                </td>
-            </tr>
-            <tr>
-                <th>Note</th>
-                <td id="note">
-                    {{ doc.note }}
-                </td>
-            </tr>
-            {% if doc.matched %}
-                <tr>
-                    <th>PDF</th>
-                    <td id="pdf">
-                        <a class="btn btn-sm btn-outline-secondary hover-info"
-                           role="button"
-                           title="{{ doc.filename }}"
-                           download="{{ doc.filename }}"
-                           target="_blank"
-                           href="{{ doc.file.url }}">
-                            <span class="fa fa-fs {{ doc.filename|fileicon }}"></span>
-                        </a>
-                        <small><i>Click the icon to download PDF. Click
-                            <a target="_blank" title="{{ doc.filename }}" href="{{ doc.file.url }}">here</a>
-                            to open link in new window.</i></small>
-                    </td>
-                </tr>
-            {% endif %}
-            <tr>
-                <th>Total Chemical Records</th>
-                <td id="chem">
-                    {{ extracted_text.chemical_count }}
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-header form-inline">
-                    <h3 class="col-9">Extracted Text</h3>
-                </div> <!-- card-header -->
-
-                <!-- control list -->
-                <ul class="list-inline factotum-control-row" role="group" aria-label="Extracted Text editing controls">
-                    <li class="list-inline-item">
-                        <a id="btn-edit-extracted-text" class="btn btn-secondary" href="" role="button"
-                           title="edit extracted text"
-                           data-toggle="modal"
-                           data-target="#extextModal">
-                            Edit Extracted Text
-                            <span class="fa fa-fs fa-edit"></span>
-                        </a>
-                    </li>
-                </ul>
-
-                <div class="card-body">
-                    <!-- Extracted text form with modal editor -->
-                    {% include "forms/extracted_text_form_rows.html" with form=ext_form colspan="col-6" %}
-                    <!-- Extracted Text Modal -->
-                    {% include "forms/extracted_text_modal.html" with form=ext_form colspan="col-8" %}
-                    <!-- Extracted Record Formset -->
-                    {% include "forms/extracted_formset_table.html" %}
-                </div> <!-- card-body -->
-
-                <div class="card">
-                    <div class="card-header form-inline">
-                        <h3 class="col-9">QA Review
-                        </h3>
-                    </div>
-                    <div class="row card-body">
-
-                        <div class="col-sm-6">
-                            <form action="{% url "approve_extracted_text" doc.pk %}" method="post" id="approve-form">
-                                {% csrf_token %}
-                                <input type="hidden" name="referer" value="{{ request.path }}"/>
-                                <button type="submit" id="approve" name="approve"
-                                        class="btn btn-success btn-lg btn-block" role="button">Approve
-                                </button>
-                                {% if referer == "qa_extraction_script" and doc.data_group.type != "CP" %}
-                                    <br>
-                                    {% if nextid > 0 %}
-                                        <a class="btn btn-warning btn-lg btn-block"
-                                           href="{% url "extracted_text_qa" nextid %}" name="skip"
-                                           role="button">Skip</a>
-                                    {% else %}
-                                        <button type="button"
-                                                title="All the other documents in this QA group have been approved"
-                                                name="skip" class="btn btn-secondary btn-lg btn-block"
-                                                aria-disabled="true" disabled>Skip
-                                        </button>
-                                    {% endif %}
-                                {% endif %}
-                                <br>
-                                {% if referer == "qa_extraction_script" %}
-                                    <a class="btn btn-secondary btn-lg btn-block"
-                                       href="{% url referer doc.extractedtext.extraction_script_id %}" role="button">Exit</a>
-                                {% else %}
-                                    <a class="btn btn-secondary btn-lg btn-block" href="{{ referer }}" role="button">Exit</a>
-                                {% endif %}
-                            </form>
-                        </div>
-
-
-                        <div class="col-sm-6 text-center">
-                            <form action="{% url "save_qa_notes" doc.pk %}" method="POST" id="qa-notes-form">
-                                {% csrf_token %}
-                                <b>{{ notesform.qa_notes.label_tag }}</b>&nbsp;<input type="submit" id="btn-save-notes"
-                                                                                      value="Save Note"
-                                                                                      class="btn btn-sm btn-primary">
-                                <br>
-                                {% if notesform.is_bound %}
-                                    {% if notesform.errors %}
-                                        {{ notesform.qa_notes.errors }}
-                                        {% render_field notesform.qa_notes class="form-control is-invalid" %}
-                                        {% for k, error in notesform.errors.items %}
-                                            <div class="invalid-feedback">
-                                                {{ error }}
-                                            </div>
-                                        {% endfor %}
-                                    {% else %}
-                                        {% render_field notesform.qa_notes class="form-control is-valid" %}
-                                    {% endif %}
-                                {% else %}
-                                    {% render_field notesform.qa_notes class="form-control" %}
-                                {% endif %}
-                            </form>
-                        </div>
-                    </div>
-                    <p class="card-footer"> {{ stats }}</p>
+                <div class="col-9 p-2">
+                    {{ document_type_form.document_type }}
                 </div>
+            </form>
+        </div>
+        <div class="row m-0 border-bottom">
+            <div class="col-3 border-right my-auto p-2 font-weight-bold">Subtitle</div>
+            <div class="col-9 p-2" id="subtitle">
+                {{ doc.subtitle }}
             </div>
         </div>
+
+        <div class="row m-0 border-bottom">
+            <div class="col-3 border-right my-auto p-2 font-weight-bold">Raw Category</div>
+            <div class="col-9 p-2" id="raw_category">
+                {{ doc.raw_category }}
+            </div>
+        </div>
+
+        <div class="row m-0 border-bottom">
+            <div class="col-3 border-right my-auto p-2 font-weight-bold">URL</div>
+            <div class="col-9 p-2" id="url">
+                {{ doc.url }}
+            </div>
+        </div>
+
+        <div class="row m-0 border-bottom">
+            <div class="col-3 border-right my-auto p-2 font-weight-bold">Note</div>
+            <div class="col-9 p-2" id="note">
+                {{ doc.note }}
+            </div>
+        </div>
+
+        {% if doc.matched %}
+            <div class="row m-0 border-bottom">
+                <div class="col-3 border-right my-auto p-2 font-weight-bold">PDF</div>
+                <div class="col-9 p-1 pl-2" id="pdf">
+                    <a class="btn btn-sm btn-outline-secondary hover-info"
+                       role="button"
+                       title="{{ doc.filename }}"
+                       download="{{ doc.filename }}"
+                       target="_blank"
+                       href="{{ doc.file.url }}">
+                        <span class="fa fa-fs {{ doc.filename|fileicon }}"></span>
+                    </a>
+                    <small><i>Click the icon to download PDF. Click
+                        <a target="_blank" title="{{ doc.filename }}" href="{{ doc.file.url }}">here</a>
+                        to open link in new window.</i></small>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row m-0 border-bottom">
+            <div class="col-3 p-2 border-right my-auto font-weight-bold">Total Chemical Records</div>
+            <div class="col-9 p-2" id="chem">
+                <select name="chems" id="id_chems" multiple hidden></select>
+                {{ extracted_text.chemical_count }}
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3 class="card-header">
+            Extracted Text
+            <a class="btn btn-outline-secondary btn-sm hover-success float-right"
+               title="Edit Extracted Text"
+               id="btn-edit-extracted-text"
+               data-toggle="modal"
+               data-target="#extextModal">
+                <span class="fa fa-fs fa-edit"></span>
+            </a>
+        </h3>
+        {% for field in ext_form.visible_fields %}
+            <div class="row m-0 border-bottom">
+                <div class="col-3 p-2 border-right my-auto font-weight-bold">{{ field.label }}</div>
+                <div class="col-9 p-2" id="{{ field.id_for_label }}">
+                    {% if field.id_for_label == "id_study_type" and field.value %}
+                        {{ extracted_text.get_study_type_display }}
+                    {% elif field.value %}
+                        {{ field.value }}
+                    {% else %}
+                        <small class="pl-3 pr-3">
+                            <i class="text-muted">
+                                ...No value
+                            </i>
+                        </small>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        {% include "forms/extracted_text_modal.html" with form=ext_form colspan="col-8" %}
+    </div>
+
+    <div class="card">
+        <h3 class="card-header">
+            {{ doc.data_group.group_type }} Records
+        </h3>
+        <div class="card-body">
+            {{ chemical_cards | safe }}
+        </div>
+    </div>
+
+    <div class="card">
+        <h3 class="card-header">QA Review</h3>
+        <div class="row card-body">
+            <div class="col-6">
+                <form action="{% url "approve_extracted_text" doc.pk %}" method="post"
+                      id="approve-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="referer" value="{{ request.path }}"/>
+                    <button type="submit" id="approve" name="approve"
+                            class="btn btn-success btn-lg btn-block" role="button">Approve
+                    </button>
+                    {% if referer == "qa_extraction_script" and doc.data_group.type != "CP" %}
+                        <br>
+                        {% if nextid > 0 %}
+                            <a class="btn btn-warning btn-lg btn-block"
+                               href="{% url "extracted_text_qa" nextid %}" name="skip"
+                               role="button">Skip</a>
+                        {% else %}
+                            <button type="button"
+                                    title="All the other documents in this QA group have been approved"
+                                    name="skip" class="btn btn-secondary btn-lg btn-block"
+                                    aria-disabled="true" disabled>Skip
+                            </button>
+                        {% endif %}
+                    {% endif %}
+                    <br>
+                    {% if referer == "qa_extraction_script" %}
+                        <a class="btn btn-secondary btn-lg btn-block"
+                           href="{% url referer doc.extractedtext.extraction_script_id %}"
+                           role="button">Exit</a>
+                    {% else %}
+                        <a class="btn btn-secondary btn-lg btn-block" href="{{ referer }}"
+                           role="button">Exit</a>
+                    {% endif %}
+                </form>
+            </div>
+
+            <div class="col-6 text-center">
+                <form action="{% url "save_qa_notes" doc.pk %}" method="POST" id="qa-notes-form">
+                    {% csrf_token %}
+                    <b>{{ notesform.qa_notes.label_tag }}</b>&nbsp;<input type="submit"
+                                                                          id="btn-save-notes"
+                                                                          value="Save Note"
+                                                                          class="btn btn-sm btn-primary">
+                    <br>
+                    {% if notesform.is_bound %}
+                        {% if notesform.errors %}
+                            {{ notesform.qa_notes.errors }}
+                            {% render_field notesform.qa_notes class="form-control is-invalid" %}
+                            {% for k, error in notesform.errors.items %}
+                                <div class="invalid-feedback">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            {% render_field notesform.qa_notes class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field notesform.qa_notes class="form-control" %}
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+        <p class="card-footer"> {{ stats }}</p>
     </div>
 {% endblock %}
 
 {% block js %}
+    {{ doc.id|json_script:"doc" }}
     <script src="{% static "js/dashboard/qa_extracted_text.js" %}"></script>
-    <script type="text/javascript">
-        toggleDetailEdit({{unsaved}});
-    </script>
+    <script src="{% static 'bootstrap-slider/bootstrap-slider.min.js' %}"></script>
+{#    <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail.js' %}"></script>#}
+{#    <script type="module" src="{% static 'js/dashboard/datadocument_detail_ajax.js' %}"></script>#}
 {% endblock %}
 
 {% block css %}
-    <style type="text/css">
-        .chemical-card .card-header {
-            padding: 0 2.25rem;
-        }
-
-        .chemical-card .card-footer {
-            padding: 0 2.25rem 1.75rem 0;
-            background-color: rgba(0, 0, 0, 0);
-            border-top: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'bootstrap-slider/css/bootstrap-slider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap_slider_overrides.css' %}">
 {% endblock %}
 
