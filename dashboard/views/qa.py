@@ -382,7 +382,7 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
         "referer": referer,
         "document_type_form": document_type_form,
         "unsaved": "false",
-        "chemical_cards": chemical_cards(request, doc.pk).content.decode("utf8"),
+        # "chemical_cards": chemical_cards(request, doc.pk).content.decode("utf8"),
     }
 
     if request.method == "POST" and "save" in request.POST:

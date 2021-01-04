@@ -1,8 +1,6 @@
 $(document).ready(function () {
 
-    var title_height = $('#title').height();
-    var scroll_height = $(window).height() - (title_height + 80);
-    $('.scroll-div').css('max-height', scroll_height);
+    $('#scroll-nav').remove(); //scrollspy not currently used on qa page
 
     //create static slider for each chemical card
     document.querySelectorAll(".wf-analysis").forEach(wf_analysis => {
@@ -11,6 +9,7 @@ $(document).ready(function () {
         var central = wf_analysis.getAttribute('data-central-wf-analysis');
         var upper = wf_analysis.getAttribute('data-upper-wf-analysis');
         var input_id = 'wf_slider_' + chemical_pk;
+        console.log(input_id, central);
         if (central) {
             range = false;
             value = [parseFloat(central), parseFloat(central)];

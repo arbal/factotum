@@ -27,13 +27,13 @@
         <h3 class="card-header">
             <a href="{% url "data_document" doc.pk %}" target="_blank"
                title="Data Document Detail Page">Data Document: {{ doc.title }}</a>
-                <a class="btn btn-outline-secondary btn-sm hover-success float-right"
-                   title="Edit Data Document"
-                   id="edit_document"
-                   data-toggle="tooltip"
-                   href="{% url "data_document_edit" doc.id %}">
-                    <span class="fa fa-fs fa-edit"></span>
-                </a>
+            <a class="btn btn-outline-secondary btn-sm hover-success float-right"
+               title="Edit Data Document"
+               id="edit_document"
+               data-toggle="tooltip"
+               href="{% url "data_document_edit" doc.id %}">
+                <span class="fa fa-fs fa-edit"></span>
+            </a>
         </h3>
 
         <div class="row m-0 border-bottom">
@@ -144,12 +144,12 @@
     </div>
 
     <div class="card">
-        <h3 class="card-header">
-            {{ doc.data_group.group_type }} Records
-        </h3>
-        <div class="card-body">
-            {{ chemical_cards | safe }}
-        </div>
+    <h3 class="card-header">
+        {{ doc.data_group.group_type }} Records
+    </h3>
+    <div id="chemical-card-panel" class="card-body">
+        <h5 id="card-loading-text" class="mt-3 text-center">Loading Cards...</h5>
+    </div>
     </div>
 
     <div class="card">
@@ -223,8 +223,8 @@
     {{ doc.id|json_script:"doc" }}
     <script src="{% static "js/dashboard/qa_extracted_text.js" %}"></script>
     <script src="{% static 'bootstrap-slider/bootstrap-slider.min.js' %}"></script>
-{#    <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail.js' %}"></script>#}
-{#    <script type="module" src="{% static 'js/dashboard/datadocument_detail_ajax.js' %}"></script>#}
+    {#    <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail.js' %}"></script>#}
+    <script type="module" src="{% static 'js/dashboard/datadocument_detail_ajax.js' %}"></script>
 {% endblock %}
 
 {% block css %}
