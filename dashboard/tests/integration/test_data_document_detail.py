@@ -221,7 +221,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         """A Composition data group should display links to
         both the data document detail page and the pdf file.
         A Supplemental data group should only display links
-        to the stored pdf files in the /media/ folder """
+        to the stored pdf files in the /media/ folder"""
 
         # First check 'CO' link first to see if one exists
         dg_pk = 30

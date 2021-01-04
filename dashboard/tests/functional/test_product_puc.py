@@ -222,7 +222,7 @@ class TestProductPuc(TestCase):
         )
 
         p2p = ProductToPUC.objects.filter(
-            product=product, puc=puc, classification_method="MB"
+            product=product, puc=puc, classification_method_id="MB"
         )
         self.assertTrue(
             p2p,
@@ -230,7 +230,7 @@ class TestProductPuc(TestCase):
         )
 
         duplicate_record = ProductToPUC(
-            product=product, puc=puc, classification_method="MB"
+            product=product, puc=puc, classification_method_id="MB"
         )
         self.assertRaises(ValidationError, duplicate_record.full_clean)
 
@@ -238,7 +238,7 @@ class TestProductPuc(TestCase):
         product = Product.objects.get(pk=11)
         puc = PUC.objects.get(pk=1)
         p2p = ProductToPUC.objects.filter(
-            product=product, puc=puc, classification_method="MA"
+            product=product, puc=puc, classification_method_id="MA"
         ).first()
         updated_at = p2p.updated_at
         self.assertTrue(

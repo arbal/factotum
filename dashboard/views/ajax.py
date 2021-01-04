@@ -268,7 +268,7 @@ class ProductPUCReconciliationJson(FilterDatatableView):
     def get_initial_queryset(self):
         dupes = (
             ProductToPUC.objects.values("product_id")
-            .annotate(puc_count=Count("puc_id"))
+            .annotate(puc_count=Count("puc_id", distinct=True))
             .filter(puc_count__gte=2)
         )
         qs = ProductToPUC.objects.filter(

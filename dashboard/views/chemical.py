@@ -91,9 +91,10 @@ def chemical_detail(request, sid, puc_id=None):
 
 
 @login_required()
-def duplcate_chemicals(request, template_name="chemicals/duplicate_chemicals.html"):
-    data = {}
-    data["chemicals"] = {}
+def duplicate_chemical_records(
+    request, template_name="chemicals/duplicate_chemicals.html"
+):
+    data = {"chemicals": {}}
     return render(request, template_name, data)
 
 

@@ -18,13 +18,13 @@
             {% endfor %}
         </ul>
     {% endif %}
-{%  endblock %}
+{% endblock %}
 
 {% block content %}
     <h1>
         <span>Bulk Assign Products to PUCs</span>
         <span class="float-lg-right">
-        <form class="search-form-container" action="" method="get" >
+        <form class="search-form-container" action="" method="get">
             <div class="icon-addon addon-lg">
                 <input type="text" size="40" placeholder="Search For Products"
                        class="form-control" name="q" id="q-product" value="{{ q }}" autocomplete="off">
@@ -33,53 +33,56 @@
         </form>
         </span>
     </h1>
-    <form action='' method="post" >
-    {% csrf_token %}
 
+    <br>
+    <p>Locate products to associate with PUCs using the Search bar above.</p>
 
-    {% if datagroup and rawcategory %}
-        <p>Products for Data Group - <b>{{datagroup}}</b> and Raw Category - <b>{{rawcategory}}</b></p>
-    {% endif %}
+    <form action='' method="post">
+        {% csrf_token %}
+        {% if datagroup and rawcategory %}
+            <p>Products for Data Group - <b>{{ datagroup }}</b> and Raw Category - <b>{{ rawcategory }}</b></p>
+        {% endif %}
 
-    {% if products %}
-    <table class="table table-striped table-bordered dataTable no-footer table-sm" id="products">
-      <thead class="table-primary">
-          <tr>
-              <th></th>
-              <th>Product Title</th>
-              <th>Brand Name</th>
-              <th>pk</th>
-              <th>Predicted PUC Assignment</th>
-          </tr>
-      </thead>
-      <tbody>
-      {% for product in products %}
-        <tr>
-            <td></td>
-            <td><a href="{% url "product_detail" product.id %}"> {{ product.title }}</a></td>
-            <td>{{ product.brand_name }}</td>
-            <td>{{ product.pk }}</td>
-            <td>{{ product.product_to_predicted_puc.puc }}</td>
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-    <br><br>
-        {{ form.id_pks }}
-        <p>{{ form.puc.label_tag }} {{ form.puc }}</p>
-        <button type="submit" id="btn-assign-puc" class="btn btn-primary">Submit</button>
-    {% elif q > '' and full_p_count > 0 %}
-        <br><br>
-        <br><br>
-        <p id="puc_result">The {{ full_p_count }} products matching "{{ q }}" are already associated with a PUC.</p>
-    {% elif datagroup and rawcategory and full_p_count > 0 %}
-        <p>The {{ full_p_count }} products are already associated with a PUC.</p>
-    {% else %}
-        <br><br>
-        <br><br>
-        <p>Locate products to associate with PUCs using the Search bar above.</p>
-        <p>To limit search results by PUC kind, use Kind: (search term), e.g. Article: (PUC search term) to limit results to Article PUCs.</p>
-    {% endif %}
+        {% if products %}
+            <table class="table table-striped table-bordered dataTable no-footer table-sm" id="products">
+                <thead class="table-primary">
+                <tr>
+                    <th></th>
+                    <th>Product Title</th>
+                    <th>Brand Name</th>
+                    <th>pk</th>
+                    <th>Predicted PUC Assignment</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td></td>
+                        <td><a href="{% url "product_detail" product.id %}"> {{ product.title }}</a></td>
+                        <td>{{ product.brand_name }}</td>
+                        <td>{{ product.pk }}</td>
+                        <td>{{ product.product_to_predicted_puc.puc }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <br>
+            <p>To limit search results by PUC kind, use Kind: (search term), e.g. Article: (PUC search term) to limit
+                results to Article PUCs.
+            </p>
+            {{ form.id_pks }}
+            <p class="text-center">{{ form.puc.label_tag }} {{ form.puc }}
+                <button type="submit" id="btn-assign-puc" class="btn btn-primary">Submit</button>
+            </p>
+        {% elif q > '' and full_p_count > 0 %}
+            <br><br>
+            <br><br>
+            <p id="puc_result">The {{ full_p_count }} products matching "{{ q }}" are already associated with a PUC.</p>
+        {% elif datagroup and rawcategory and full_p_count > 0 %}
+            <br><br>
+            <br><br>
+            <p>The {{ full_p_count }} products are already associated with a PUC.</p>
+        {% endif %}
     </form>
 {% endblock %}
 
@@ -91,5 +94,5 @@
 
 {% block css %}
     <link href="{% static 'css/dashboard/bulk_product_puc.css' %}" type="text/css"
-          media="all" rel="stylesheet" />
+          media="all" rel="stylesheet"/>
 {% endblock %}

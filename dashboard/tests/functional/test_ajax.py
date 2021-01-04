@@ -177,7 +177,29 @@ class TestAjax(TestCase):
         # reload the JSON
         response = self.client.get(prod_puc_url)
         data = json.loads(response.content)
-        self.assertEqual(0, len(data["data"]), "Not PUC conflicts found")
+        self.assertEqual(0, len(data["data"]), "No PUC conflicts found")
+
+        # add a new PUC assignment that has the same PUC
+        p.producttopuc_set.create(classification_method_id="BA", puc_id=185)
+        p.save()
+        response = self.client.get(prod_puc_url)
+        data = json.loads(response.content)
+        # it should not be considered an error
+        self.assertEqual(0, len(data["data"]), "No PUC conflicts found")
+
+        # change the new producttopuc record so that the same assignment
+        # method records two different PUCs
+        p2p = p.producttopuc_set.first()
+        p2p.puc_id = 310
+        p2p.save()
+        response = self.client.get(prod_puc_url)
+        data = json.loads(response.content)
+        first_json = data["data"][0]
+        self.assertEqual(
+            first_json[0],
+            str(p.id),
+            f"The Product ID {p.id} was not found in {first_json}",
+        )
 
     def test_duplicate_chemicals(self):
         duplicate_chemicals_url = reverse("duplicate_chemicals_ajax_url")

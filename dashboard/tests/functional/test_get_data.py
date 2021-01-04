@@ -61,6 +61,7 @@ class TestGetData(TestCase):
             product=Product.objects.get(pk=pid),
             puc=puc,
             puc_assigned_usr=User.objects.get(username="Karyn"),
+            classification_method_id="MA",
         )
         ppuc.refresh_from_db()
         stats = stats_by_dtxsids(dtxs)
