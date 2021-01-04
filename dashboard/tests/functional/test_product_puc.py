@@ -1,5 +1,7 @@
-from django.test import TestCase, override_settings
+import json
 
+from django.test import TestCase, override_settings
+from django.shortcuts import get_object_or_404
 from dashboard.tests import factories
 from dashboard.tests.loader import fixtures_standard
 from lxml import html
@@ -12,6 +14,10 @@ from dashboard.models import (
     Product,
     ProductToPUC,
     ProductDocument,
+    ProductUberPuc,
+    DSSToxLookup,
+    CumulativeProductsPerPuc,
+    CumulativeProductsPerPucAndSid,
 )
 from django.core.exceptions import ValidationError
 from django.db.models import Count, Sum
@@ -24,6 +30,70 @@ class TestProductPuc(TestCase):
 
     def setUp(self):
         self.client.login(username="Karyn", password="specialP@55word")
+
+    def test_cumulative_views(self):
+        """
+        Bubble bath, PUC 245, should have one product assigned
+        Specialized bath products, PUC 242, should have zero products and one cumulative count
+        """
+        response_url = reverse("bubble_PUCs")
+        response = self.client.get(response_url)
+        data = json.loads(response.content)
+
+        # Make sure that the cumulative product count in the json response matches
+        # what's calculated from the ORM
+        personal_care_puc_id = 137
+        for child in data["children"]:
+            if child["value"]["puc_id"] == personal_care_puc_id:
+                # Compare the reported json counts for "Personal care"
+                # to the counts in the cumulative_products_per_puc view
+                dbview_rec = CumulativeProductsPerPuc.objects.filter(
+                    puc_id=personal_care_puc_id
+                ).first()
+                self.assertEqual(
+                    child["value"]["product_count"], dbview_rec.product_count
+                )
+                self.assertEqual(
+                    child["value"]["cumulative_product_count"],
+                    str(dbview_rec.cumulative_product_count),
+                )
+                # Check the view's numbers by deriving them from the ORM
+                puc = PUC.objects.filter(id=personal_care_puc_id).first()
+                puc_count = ProductUberPuc.objects.filter(puc_id=puc.id).count()
+                self.assertEqual(puc_count, child["value"]["product_count"])
+
+                pucs = PUC.objects.filter(gen_cat="Personal care")
+                gen_cat_count = ProductUberPuc.objects.filter(puc_id__in=pucs).count()
+                self.assertEqual(
+                    str(gen_cat_count), child["value"]["cumulative_product_count"]
+                )
+
+        # Test the chemical view
+        sid = "DTXSID9022528"
+        chemical = get_object_or_404(DSSToxLookup, sid=sid)
+        dss_pk = chemical.pk
+
+        response_url = reverse("bubble_PUCs")
+        response = self.client.get(response_url + "?kind=FO&dtxsid=DTXSID9022528")
+        data = json.loads(response.content)
+
+        for child in data["children"]:
+            if child["value"]["puc_id"] == personal_care_puc_id:
+                # "Personal care"
+                dbview_rec = (
+                    CumulativeProductsPerPucAndSid.objects.filter(
+                        dsstoxlookup_id=dss_pk
+                    )
+                    .filter(puc_id=personal_care_puc_id)
+                    .first()
+                )
+                self.assertEqual(
+                    child["value"]["product_count"], dbview_rec.product_count
+                )
+                self.assertEqual(
+                    child["value"]["cumulative_product_count"],
+                    str(dbview_rec.cumulative_product_count),
+                )
 
     def test_admin_puc_tag_column_exists(self):
         self.assertEqual(

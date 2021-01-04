@@ -176,7 +176,6 @@ class PUC(CommonInfo):
     def cumulative_product_count(self):
         CumulativeProductsPerPuc = apps.get_model("dashboard", "ProductToPUC")
         return CumulativeProductsPerPuc.get(puc=self).cumulative_product_count
-        
 
     @property
     def curated_chemical_count(self):

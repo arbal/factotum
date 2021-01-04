@@ -23,7 +23,7 @@ class Visualizations(View):
         pucs = (
             CumulativeProductsPerPuc.objects.filter(puc__kind__code="FO")
             .filter(cumulative_product_count__gt=0)
-            .select_related('puc')
+            .select_related("puc")
             .astree()
         )
         context["formulation_pucs"] = pucs
@@ -31,7 +31,7 @@ class Visualizations(View):
         pucs = (
             CumulativeProductsPerPuc.objects.filter(puc__kind__code="AR")
             .filter(cumulative_product_count__gt=0)
-            .select_related('puc')
+            .select_related("puc")
             .astree()
         )
         context["article_pucs"] = pucs
@@ -39,7 +39,7 @@ class Visualizations(View):
         pucs = (
             CumulativeProductsPerPuc.objects.filter(puc__kind__code="OC")
             .filter(cumulative_product_count__gt=0)
-            .select_related('puc')
+            .select_related("puc")
             .astree()
         )
         context["occupation_pucs"] = pucs
@@ -60,20 +60,24 @@ def bubble_PUCs(request):
                 CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup_id=dss_pk)
                 .filter(puc__kind__code=kind)
                 .filter(cumulative_product_count__gt=0)
-                .select_related('puc')
+                .select_related("puc")
             )
         else:
-            pucs = CumulativeProductsPerPuc.objects.filter(
-                dsstoxlookup_id=dss_pk
-            ).filter(cumulative_product_count__gt=0).select_related('puc')
+            pucs = (
+                CumulativeProductsPerPuc.objects.filter(dsstoxlookup_id=dss_pk)
+                .filter(cumulative_product_count__gt=0)
+                .select_related("puc")
+            )
 
         pucs = (
             pucs.annotate(
+                kind_id=F("puc__kind_id"),
                 gen_cat=F("puc__gen_cat"),
                 prod_fam=F("puc__prod_fam"),
                 prod_type=F("puc__prod_type"),
             )  # change the nested __puc field names
             .values(
+                "kind_id",
                 "puc_id",
                 "gen_cat",
                 "prod_fam",
@@ -86,21 +90,25 @@ def bubble_PUCs(request):
         )
     else:
         if kind:
-            pucs = CumulativeProductsPerPuc.objects.filter(puc__kind__code=kind).filter(
-                cumulative_product_count__gt=0
-            ).select_related('puc')
+            pucs = (
+                CumulativeProductsPerPuc.objects.filter(puc__kind__code=kind)
+                .filter(cumulative_product_count__gt=0)
+                .select_related("puc")
+            )
         else:
             pucs = CumulativeProductsPerPuc.objects.filter(
                 cumulative_product_count__gt=0
-            ).select_related('puc')
+            ).select_related("puc")
 
         pucs = (
             pucs.annotate(
+                kind_id=F("puc__kind_id"),
                 gen_cat=F("puc__gen_cat"),
                 prod_fam=F("puc__prod_fam"),
                 prod_type=F("puc__prod_type"),
             )  # change the nested __puc field names
             .values(
+                "kind_id",
                 "puc_id",
                 "gen_cat",
                 "prod_fam",
@@ -123,7 +131,7 @@ def collapsible_tree_PUCs(request):
         PUC.objects.all()
         .annotate(puc_id=F("id"))
         .filter(kind__code="FO")
-        .values("puc_id", "gen_cat", "prod_fam", "prod_type")
+        .values("kind_id", "puc_id", "gen_cat", "prod_fam", "prod_type")
         .astree()
         .asdict()
     )
