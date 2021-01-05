@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models import Value, IntegerField, Q, F
+from django.db.models import Q, F
 from django.shortcuts import render, get_object_or_404
 from django.utils.html import format_html
 from django_datatables_view.base_datatable_view import BaseDatatableView
