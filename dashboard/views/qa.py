@@ -99,7 +99,12 @@ def qa_chemicalpresence_summary(
                 filter=Q(datadocument__extractedtext__qa_checked=True),
             )
         )
-        .annotate(qa_note_count=Count("datadocument__extractedtext__qanotes__qa_notes"))
+        .annotate(
+            qa_note_count=Count(
+                "datadocument__extractedtext__qanotes__qa_notes",
+                filter=~Q(datadocument__extractedtext__qanotes__qa_notes=""),
+            )
+        )
     ).first()
     datagroup.qa_incomplete_count = (
         datagroup.document_count - datagroup.qa_complete_count
