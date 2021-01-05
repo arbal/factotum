@@ -284,15 +284,6 @@ class PUCModelTest(TestCase):
         self.assertTrue(puc.prod_fam == "")
         self.assertTrue(puc.prod_type == "")
 
-    def test_product_counts(self):
-        """Make sure the product_count property
-        returns the same thing as the product_count annotation"""
-        pucs = PUC.objects.all().annotate(product_count=Count("products"))
-        # pucs 1-3 have products associated with them
-        self.assertEqual(
-            pucs.get(pk=1).product_count, PUC.objects.get(pk=1).product_count
-        )
-
     def test_document_counts(self):
         """Make sure that documents with multiple product linkages
         are not being double-counted."""

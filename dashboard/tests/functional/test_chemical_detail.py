@@ -54,18 +54,18 @@ class ChemicalDetail(TestCase):
         )
 
         # Check cumulative product count
-        pucs = (
-            PUC.objects.dtxsid_filter("DTXSID6026296")
-            .with_product_count()
-            .filter(gen_cat="Arts and Crafts/Office supplies")
+        pucs = PUC.objects.dtxsid_filter("DTXSID6026296").filter(
+            gen_cat="Arts and Crafts/Office supplies"
         )
         cumulative_sum = sum(puc.product_count for puc in pucs)
         response_for_water = self.client.get("/chemical/DTXSID6026296/")
         self.assertEqual(
             cumulative_sum,
-            response_for_water.context["pucs"].children[0].value.cumulative_products,
+            response_for_water.context["pucs"]
+            .children[0]
+            .value.cumulative_product_count,
             f'Water sid ("DTXSID6026296") should have {cumulative_sum} associated products '
-            + f"but returns {response_for_water.context['pucs'].children[0].value.cumulative_products}",
+            + f"but returns {response_for_water.context['pucs'].children[0].value.cumulative_product_count}",
         )
 
     def _n_children(self, children):
@@ -76,11 +76,15 @@ class ChemicalDetail(TestCase):
         return cnt
 
     def test_puc_bubble_query(self):
+        """
+        The JSON root should have as many children as there are PUCs with cumulative_product_count > 0
+        """
         dss = next(dss for dss in DSSToxLookup.objects.all() if dss.puc_count > 0)
         response = self.client.get(f"/dl_pucs_json/?dtxsid={dss.sid}")
         d = json.loads(response.content)
+
         self.assertEqual(
-            dss.puc_count,
+            dss.cumulative_puc_count,
             self._n_children(d["children"]),
             f"DSSTox pk={dss.pk} should have {dss.puc_count} PUCs in the JSON",
         )

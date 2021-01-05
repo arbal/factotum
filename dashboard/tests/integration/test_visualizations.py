@@ -10,7 +10,7 @@ from dashboard.models import DSSToxLookup, PUC
 from dashboard.tests.loader import fixtures_standard, load_browser
 
 
-class TestEditsWithSeedData(StaticLiveServerTestCase):
+class TestVisualizations(StaticLiveServerTestCase):
     @classproperty
     def visualization_url(cls):
         return cls.live_server_url + "/visualizations"
@@ -32,7 +32,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
     def test_bubble_plot(self):
         pucs = (
             PUC.objects.filter(kind__code__in=["FO", "AR", "OC"])
-            .with_product_count()
             .filter(product_count__gt=0)
             .astree()
         )
@@ -84,8 +83,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         pucs = (
             PUC.objects.filter(kind__code__in=["FO", "AR", "OC"])
             .dtxsid_filter(dss.sid)
-            .with_product_count()
-            .filter(product_count__gt=0)
+            .filter(cumulativeproductsperpucandsid__cumulative_product_count__gt=0)
             .astree()
         )
         num_pucs = self._n_children(pucs)

@@ -2,7 +2,7 @@ from django_db_views.db_view import DBView
 from django.db import models
 
 from dashboard.models import PUC, Product, DSSToxLookup
-from dashboard.utils import GroupConcat, SimpleTree
+from dashboard.utils import SimpleTree
 from dashboard.models.custom_onetoone_field import CustomOneToOneField
 
 
@@ -40,7 +40,13 @@ class ProductUberPuc(DBView):
 
 
 class ProductsPerPuc(DBView):
-    puc = models.ForeignKey(PUC, on_delete=models.DO_NOTHING)
+    puc = CustomOneToOneField(
+        PUC,
+        on_delete=models.DO_NOTHING,
+        related_name="products_per_puc",
+        null=True,
+        blank=True,
+    )
     product_count = models.IntegerField()
 
     def __str__(self):
@@ -93,7 +99,13 @@ class CumulativeProductsPerPucQuerySet(models.QuerySet):
 
 
 class CumulativeProductsPerPuc(DBView):
-    puc = models.ForeignKey(PUC, on_delete=models.DO_NOTHING)
+    puc = CustomOneToOneField(
+        PUC,
+        on_delete=models.DO_NOTHING,
+        related_name="cumulative_products_per_puc",
+        null=True,
+        blank=True,
+    )
     product_count = models.IntegerField()
     cumulative_product_count = models.IntegerField()
     puc_level = models.IntegerField()

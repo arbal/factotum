@@ -24,13 +24,6 @@ class PUCQuerySet(models.QuerySet):
             products__datadocument__extractedtext__rawchem__dsstox__sid=sid
         )
 
-    def with_product_count(self):
-        """ Returns a QuerySet of PUCs with a product count included.
-
-        The product count is annotated as 'product_count'
-        """
-        return self.annotate(product_count=Count("products", distinct=True))
-
     def with_allowed_attributes(self):
         """ Returns a QuerySet of PUCs with an allowed tags string.
 
@@ -168,14 +161,13 @@ class PUC(CommonInfo):
 
     @property
     def product_count(self):
-        """Don't use this in large querysets. It uses a SQL query for each 
-        PUC record. """
-        return self.products.count()
+        """ 
+        """
+        return self.products_per_puc.product_count
 
     @property
     def cumulative_product_count(self):
-        CumulativeProductsPerPuc = apps.get_model("dashboard", "ProductToPUC")
-        return CumulativeProductsPerPuc.get(puc=self).cumulative_product_count
+        return self.cumulative_products_per_puc.cumulative_product_count
 
     @property
     def curated_chemical_count(self):
