@@ -231,9 +231,23 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                 node.attr("r", d => d.r * k);
             }
 
+            function updateLegend(d) {
+                console.log("updating legend to " + d.data.value.puc_id);
+                // collapse #accordion-20 for puc_id 20
+                acc = document.getElementById("accordion-" + d.data.value.puc_id)
+                console.log(acc);
+                $(acc).collapse('toggle');
+                
+                // console.log(acc_el);
+
+            }
+
             function zoom(d) {
                 const focus0 = focus;
-
+                if (d.data.value){
+                    updateLegend(d);
+                };
+                
                 focus = d;
                 const transition = svg
                     .transition()
@@ -271,7 +285,7 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
 }
 
 nestedBubbleChart.prototype.zoomToNode = function (puc_id, nbc) {
-    console.log("Zooming to PUC " + puc_id + " on the bubble plot");
+    // console.log("Navigating via legend to PUC " + puc_id + " on the bubble plot");
     bubble_el = document.getElementById("bubble-" + puc_id);
     if (puc_id && typeof bubble_el == 'object') {
         bubble_el.dispatchEvent(new Event('click'));
