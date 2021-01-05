@@ -102,7 +102,7 @@ class Script(CommonInfo, QASummaryNote):
         if len(texts) >= 100:
             import math
 
-            # Otherwise sample 20% of them
+            # Otherwise sample X% of them
             random_sample = math.ceil(len(texts) * QA_COMPLETE_PERCENTAGE)
             pks = list(
                 texts.values_list("pk", flat=True).order_by("?")[:random_sample]
