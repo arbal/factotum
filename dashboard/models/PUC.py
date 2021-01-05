@@ -1,6 +1,5 @@
-from django.apps import apps
 from django.db import models
-from django.db.models import Count, F, Q
+from django.db.models import F, Q
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager

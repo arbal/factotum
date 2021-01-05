@@ -32,7 +32,7 @@ class TestVisualizations(StaticLiveServerTestCase):
     def test_bubble_plot(self):
         pucs = (
             PUC.objects.filter(kind__code__in=["FO", "AR", "OC"])
-            .filter(product_count__gt=0)
+            .filter(cumulative_products_per_puc__cumulative_product_count__gt=0)
             .astree()
         )
         num_pucs = self._n_children(pucs)
@@ -58,12 +58,13 @@ class TestVisualizations(StaticLiveServerTestCase):
         self.assertEqual(child_card.get_attribute("class"), "collapse")
         bubble_legend = self.browser.find_element_by_id("puc-accordion-AR")
         self.assertTrue(bubble_legend, "AR Bubble plot legend could not be found")
-        child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-316']")
-        self.assertEqual(child_card.get_attribute("class"), "collapse")
-        bubble_legend = self.browser.find_element_by_id("puc-accordion-OC")
-        self.assertTrue(bubble_legend, "OC Bubble plot legend could not be found")
-        child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-319']")
-        self.assertEqual(child_card.get_attribute("class"), "collapse")
+        # we are no longer displaying legend items with no circles
+        # child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-316']")
+        # self.assertEqual(child_card.get_attribute("class"), "collapse")
+        # bubble_legend = self.browser.find_element_by_id("puc-accordion-OC")
+        # self.assertTrue(bubble_legend, "OC Bubble plot legend could not be found")
+        # child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-319']")
+        # self.assertEqual(child_card.get_attribute("class"), "collapse")
 
     def test_collapsible_tree(self):
         pucs = PUC.objects.filter(kind__code="FO").astree()
@@ -83,7 +84,7 @@ class TestVisualizations(StaticLiveServerTestCase):
         pucs = (
             PUC.objects.filter(kind__code__in=["FO", "AR", "OC"])
             .dtxsid_filter(dss.sid)
-            .filter(cumulativeproductsperpucandsid__cumulative_product_count__gt=0)
+            .filter(cumulative_products_per_puc_and_sid__cumulative_product_count__gt=0)
             .astree()
         )
         num_pucs = self._n_children(pucs)

@@ -177,7 +177,7 @@ class CumulativeProductsPerPuc(DBView):
 
 
 class ProductsPerPucAndSid(DBView):
-    puc = models.ForeignKey(PUC, on_delete=models.DO_NOTHING)
+    puc = models.ForeignKey(PUC, on_delete=models.DO_NOTHING, related_name="products_per_puc_and_sid")
     dsstoxlookup = models.ForeignKey(DSSToxLookup, on_delete=models.DO_NOTHING)
     product_count = models.IntegerField()
 
@@ -210,7 +210,7 @@ class ProductsPerPucAndSid(DBView):
 
 
 class CumulativeProductsPerPucAndSid(DBView):
-    puc = models.ForeignKey(PUC, on_delete=models.DO_NOTHING)
+    puc = models.ForeignKey(PUC, on_delete=models.DO_NOTHING, related_name="cumulative_products_per_puc_and_sid")
     dsstoxlookup = models.ForeignKey(DSSToxLookup, on_delete=models.DO_NOTHING)
     cumulative_product_count = models.IntegerField()
     product_count = models.IntegerField()
