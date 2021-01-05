@@ -39,7 +39,8 @@ class Script(CommonInfo, QASummaryNote):
 
     def get_qa_group_count(self):
         return DataDocument.objects.filter(
-            extractedtext__qa_group__isnull=False, extractedtext__extraction_script=self.pk
+            extractedtext__qa_group__isnull=False,
+            extractedtext__extraction_script=self.pk,
         ).count()
 
     def get_qa_complete_extractedtext_count(self):
