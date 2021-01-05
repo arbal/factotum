@@ -18,10 +18,6 @@ class Script(CommonInfo, QASummaryNote):
         ("FU", "functional use cleaning"),
     )
 
-    # Specify the share of a script's ExtractedText objects that must be
-    # approved in order for the script's QA sat
-    QA_COMPLETE_PERCENTAGE = 0.2
-
     title = models.CharField(max_length=50)
     url = models.CharField(max_length=225, blank=True, validators=[URLValidator()])
     qa_begun = models.BooleanField(default=False)
@@ -41,9 +37,9 @@ class Script(CommonInfo, QASummaryNote):
     def get_absolute_url(self):
         return reverse("extraction_script_edit", kwargs={"pk": self.pk})
 
-    def get_datadocument_count(self):
+    def get_qa_group_count(self):
         return DataDocument.objects.filter(
-            extractedtext__extraction_script=self.pk
+            extractedtext__qa_group__isnull=False, extractedtext__extraction_script=self.pk
         ).count()
 
     def get_qa_complete_extractedtext_count(self):
@@ -52,30 +48,29 @@ class Script(CommonInfo, QASummaryNote):
         ).count()
 
     def get_pct_checked(self, numeric=False):
-        count = self.get_datadocument_count()
+        qa_group_count = self.get_qa_group_count()
         pct = (
             0
-            if count == 0
-            else (self.get_qa_complete_extractedtext_count() / count * 100)
+            if qa_group_count == 0
+            else (self.get_qa_complete_extractedtext_count() / qa_group_count * 100)
         )
         if numeric:
             return pct
         return f"{pct:.0f} %"
 
     def qa_button_text(self):
-        if self.get_qa_status():
+        if self.qa_completed():
             return "QA Complete"
         elif self.qa_begun:
             return "Continue QA"
         else:
             return "Begin QA"
 
-    def get_qa_status(self):
+    def qa_completed(self):
         """
-        Compare the derived percent checked against the threshold constant
-        Return true when the percent checked is above the threshold
+        Return true when the percent checked is 100% of QA Group count
         """
-        return self.get_pct_checked(numeric=True) >= self.QA_COMPLETE_PERCENTAGE * 100
+        return self.get_pct_checked(numeric=True) == 100
 
     def get_or_create_qa_group(self):
         qa_group = QAGroup.objects.filter(
@@ -93,17 +88,23 @@ class Script(CommonInfo, QASummaryNote):
         Use all the related ExtractedText records or, if there are more than 100,
         select 20% of them. 
         """
+        # Specify the share of a script's ExtractedText objects (in percentage) that must be
+        # approved in order for the script's QA sat
+        QA_COMPLETE_PERCENTAGE = 0.2
+
         qa_group = QAGroup.objects.create(extraction_script=self)
+
         # Set the qa_group attribute of each ExtractedText record to the new QA Group
         texts = ExtractedText.objects.filter(extraction_script=self, qa_checked=False)
+
         # If fewer than 100 related records, they make up the entire QA Group
         if len(texts) >= 100:
             import math
 
             # Otherwise sample 20% of them
-            random_20 = math.ceil(len(texts) * 0.2)
+            random_sample = math.ceil(len(texts) * QA_COMPLETE_PERCENTAGE)
             pks = list(
-                texts.values_list("pk", flat=True).order_by("?")[:random_20]
+                texts.values_list("pk", flat=True).order_by("?")[:random_sample]
             )  # ? used for random selection
             texts = ExtractedText.objects.filter(pk__in=pks)
 

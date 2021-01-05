@@ -46,6 +46,7 @@ def qa_extractionscript_index(request, template_name="qa/extraction_script_index
         Script.objects.filter(extractedtext__in=texts, script_type="EX")
         .exclude(title="Manual (dummy)")
         .annotate(extractedtext_count=extractedtext_count)
+        .annotate(extractedtext_qa=extractedtext_qa)
         .annotate(percent_complete=percent_complete)
     )
     return render(request, template_name, {"extraction_scripts": extraction_scripts})
@@ -99,7 +100,12 @@ def qa_chemicalpresence_summary(
                 filter=Q(datadocument__extractedtext__qa_checked=True),
             )
         )
-        .annotate(qa_note_count=Count("datadocument__extractedtext__qanotes__qa_notes"))
+        .annotate(
+            qa_note_count=Count(
+                "datadocument__extractedtext__qanotes__qa_notes",
+                filter=~Q(datadocument__extractedtext__qanotes__qa_notes=""),
+            )
+        )
     ).first()
     datagroup.qa_incomplete_count = (
         datagroup.document_count - datagroup.qa_complete_count
