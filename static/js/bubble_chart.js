@@ -194,26 +194,15 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
                 .selectAll("text")
                 .data(root.descendants())
                 .join("text")
-                .attr("id", d => "bubble-label-" + (d.data.value ? d.data.value.id : ''))
+                .attr("id", d => "bubble-label-" + (d.data.value ? d.data.value.puc_id : ''))
                 .style("font", d => (d.parent === root ? "0px sans-serif" : "14px sans-serif"))
                 .style("fill-opacity", d => (d.parent === focus ? 1 : 0))
                 .style("display", d => (d.parent === root ? "inline" : "none"))
                 // Display the name with the cumulative count
                 .text(d => d.data.name + " (" + d.value + ")");
 
-            // (d.data.value ? d.data.value.id : '')
 
             zoomTo([root.x, root.y, root.r * 2]);
-
-
-            //This is only working in the context of this function; would like to refactor it into page-specific code
-            chemical_puc = $('#chemical').data('puc');
-            bubble_el = document.getElementById("bubble-" + chemical_puc);
-            if (chemical_puc && bubble_el) {
-                bubble_el.dispatchEvent(new Event('click'));
-                document.getElementById("bubble-label-" + chemical_puc).style.display = "inline";
-                document.getElementById("bubble-label-" + chemical_puc).style.fillOpacity = "1";
-            }
 
             function zoomTo(v) {
                 const k = size / v[2];
@@ -287,7 +276,7 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
         .catch(console.log.bind(console));
 }
 
-nestedBubbleChart.prototype.zoomToNode = function (puc_id, nbc) {
+nestedBubbleChart.prototype.zoomToNode = function (puc_id) {
     // console.log("Navigating via legend to PUC " + puc_id + " on the bubble plot");
     bubble_el = document.getElementById("bubble-" + puc_id);
     if (puc_id && typeof bubble_el == 'object') {

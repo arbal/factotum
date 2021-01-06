@@ -8,8 +8,19 @@ var chemical = $('#chemical'),
 
 fobc = new nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=FO&dtxsid=" + sid, "nestedcircles_FO");
 arbc = new nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=AR&dtxsid=" + sid, "nestedcircles_AR");
-ocbc = nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=OC&dtxsid=" + sid, "nestedcircles_OC");
+ocbc = new nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=OC&dtxsid=" + sid, "nestedcircles_OC");
 
+$( window ).on( "load", function() {
+    if (puc) {
+        // which chart does the specified PUC appear on?
+        bubble_el = document.getElementById("bubble-" + puc);
+        console.log(bubble_el);
+        chart_el = bubble_el.closest(".nestedcircles");
+        nbc = (chart_el.id == "nestedcircles_FO" ? fobc : (chart_el.id == "nestedcircles_AR" ? arbc : ocbc))
+        fobc.zoomToNode(puc);
+    }
+
+});
 
 $(document).ready(function () {
     document_table = build_document_table().on('draw', moveText);
@@ -23,7 +34,6 @@ $(document).ready(function () {
     if (puc) {
         $('#reset-documents').prop('disabled', false);
         $('#reset-products').prop('disabled', false);
-
     }
 
     $('a[id^="filter-"]').on('click', e => {
