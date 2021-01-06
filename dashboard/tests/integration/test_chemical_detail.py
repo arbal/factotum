@@ -87,7 +87,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
 
     def test_chemical_detail_with_puc(self):
         chemical = DSSToxLookup.objects.get(sid="DTXSID9022528")
-        puc = PUC.objects.get(pk=185)
+        puc = PUC.objects.get(pk=186)
         wait = WebDriverWait(self.browser, 10)
         self.browser.get(
             self.live_server_url + "/chemical/" + chemical.sid + "/puc/" + str(puc.pk)
@@ -95,16 +95,26 @@ class TestChemicalDetail(StaticLiveServerTestCase):
 
         # Test the Bubble Plot Legend Zoom occurred
         wait.until(
-            ec.visibility_of(self.browser.find_element_by_xpath("//*[@id='card-185']"))
+            ec.visibility_of(self.browser.find_element_by_xpath("//*[@id='card-186']"))
         )
         wait.until(
             ec.text_to_be_present_in_element(
-                (By.XPATH, "//*[@id='zoom-to-185']/b"), "hand/body lotion"
+                (By.XPATH, "//*[@id='zoom-to-186']/b"), "general moisturizing"
             )
         )
+        wait.until(
+            ec.visibility_of(
+                self.browser.find_element_by_xpath("//*[@id='bubble-186']")
+            )
+        )
+        # The legend should have expanded to show the links for 185 and 186
         self.assertInHTML(
             "hand/body lotion",
-            self.browser.find_element_by_xpath("//*[@id='zoom-to-185']/b").text,
+            self.browser.find_element_by_xpath("//*[@id='puc-185']").text,
+        )
+        self.assertInHTML(
+            "general moisturizing",
+            self.browser.find_element_by_xpath("//*[@id='puc-186']").text,
         )
         self.assertFalse(
             self.browser.find_element_by_xpath(
@@ -113,6 +123,8 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         )
 
         # Test that Bubble Plot zoom occurred
+        # (the label of 185, the child of 186 should be shown)
+        print(self.browser.find_element_by_xpath("//*[@id='bubble-186']").text)
         self.assertTrue(
             self.browser.find_element_by_xpath(
                 "//*[@id='bubble-label-185']"
