@@ -151,9 +151,10 @@ class ProductSerializer(ModelSerializer):
     }
 
     puc = SerializerMethodResourceRelatedField(
-        source="get_uberpuc",
+        source="product_uber_puc.puc",
         model=models.PUC,
         read_only=True,
+        default=None,
         label="PUC with the highest confidence value",
         help_text=" Unique numeric identifier for the product use category assigned to the product \
         (if one has been assigned). Use the PUCs API to obtain additional information on the PUC.",
@@ -789,3 +790,9 @@ class ChemicalPresenceTagsetSerializer(serializers.ModelSerializer):
         model = models.DSSToxLookup
         fields = ["chemical_id", "keyword_sets"]
         extra_kwargs = {"chemical_id": {"label": "DTXSID", "source": "sid"}}
+
+
+class ClassificationMethodSerializer(ModelSerializer):
+    class Meta:
+        model = models.ProductToPucClassificationMethod
+        fields = ["code", "name", "rank"]

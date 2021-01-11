@@ -4,7 +4,6 @@ import operator
 import base64
 import uuid
 from collections import OrderedDict
-from unittest import skip
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import connection, reset_queries
@@ -933,3 +932,18 @@ class TestComposition(TestCase):
             return float(value)
         except TypeError:
             return value
+
+
+class TestClassificationMethod(TestCase):
+    def test_retrieve(self):
+        cm = models.ProductToPucClassificationMethod.objects.first()
+        response = self.get("/classificationMethods/%s/" % cm.pk)
+        self.assertEqual(response["code"], cm.code)
+        self.assertEqual(response["name"], cm.name)
+        self.assertEqual(response["rank"], cm.rank)
+
+    def test_list(self):
+        count = models.ProductToPucClassificationMethod.objects.count()
+        response = self.get("/classificationMethods/")
+        self.assertTrue("meta" in response)
+        self.assertEqual(count, response["meta"]["pagination"]["count"])

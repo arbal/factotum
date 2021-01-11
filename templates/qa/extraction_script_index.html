@@ -40,7 +40,7 @@ QA: Composition - Ext. Script</h1>
         </td>
         <td id="qa-{{extraction_script.id}}">
          {% if extraction_script.extractedtext_count > 0 %}
-            {% if not extraction_script.qa_button_text == "QA Complete" %}
+            {% if extraction_script.qa_button_text != "QA Complete" %}
               <a class="btn btn-primary btn-sm col-12" role="button"
                 title="{{ extraction_script.qa_button_text }} on {{ extraction_script.title }}"
            href='{% url "qa_extraction_script" extraction_script.id %}'> {{ extraction_script.qa_button_text }}

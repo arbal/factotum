@@ -30,6 +30,11 @@ router.register(
 router.register(r"functionalUseCategories", apiviews.FunctionUseCategoryViewSet)
 router.register(r"chemicalpresence", apiviews.ChemicalPresenceTagViewSet)
 router.register(r"compositions", apiviews.CompositionViewSet, basename="composition")
+router.register(
+    r"classificationMethods",
+    apiviews.ClassificationMethodViewSet,
+    base_name="classificationMethod",
+)
 
 urlpatterns = [
     path("openapi.json/", docsviews.OpenAPIView.as_view(), name="openapi-schema"),
