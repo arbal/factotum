@@ -223,8 +223,8 @@
     {{ doc.id|json_script:"doc" }}
     <script src="{% static "js/dashboard/qa_extracted_text.js" %}"></script>
     <script src="{% static 'bootstrap-slider/bootstrap-slider.min.js' %}"></script>
-    {#    <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail.js' %}"></script>#}
     <script type="module" src="{% static 'js/dashboard/datadocument_detail_ajax.js' %}"></script>
+    <script src="{% static 'js/jquery.form.js' %}"></script>
 {% endblock %}
 
 {% block css %}

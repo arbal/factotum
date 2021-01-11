@@ -195,12 +195,12 @@
                     {% endif %}
                 </div>
             {% endif %}
-            {% if tag_form and request.user.is_authenticated %}
-                <hr>
-                <div>
-                    <form action="{% url 'save_tag_form' doc.id %}"
-                          method="post">
-                        {% csrf_token %}
+            <hr>
+            <div>
+                <form action="{% url 'save_tag_form' doc.id %}"
+                      method="post">
+                    {% csrf_token %}
+                    {% if tag_form and request.user.is_authenticated %}
                         <div class="d-flex justify-content-between">
                             <h5>
                                 {% if doc.data_group.is_chemical_presence %}
@@ -246,13 +246,13 @@
                         <div class="d-flex mt-2">
                             {{ tag_form }}
                         </div>
-                        <p class="text-right text-muted"><span id="selected">0</span> of <span id="card-count">?</span>
-                            Chemicals
-                            Selected</p>
-                        <select name="chems" id="id_chems" multiple hidden></select>
-                    </form>
-                </div>
-            {% endif %}
+                    {% endif %}
+                    <p class="text-right text-muted"><span id="selected">0</span> of <span id="card-count">?</span>
+                        Chemicals
+                        Selected</p>
+                    <select name="chems" id="id_chems" multiple hidden></select>
+                </form>
+            </div>
             {% if doc.data_group.can_have_products %}
                 <hr>
                 <div>
@@ -439,10 +439,10 @@
                 </div>
 
                 <div class="modal fade"
-                    id="delete-all-tags-modal"
-                    tabindex="-1" role="dialog"
-                    aria-labelledby="deleteAllTagsModalLabel"
-                    aria-hidden="true">
+                     id="delete-all-tags-modal"
+                     tabindex="-1" role="dialog"
+                     aria-labelledby="deleteAllTagsModalLabel"
+                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -495,7 +495,7 @@
     <script src="{% static 'js/dashboard/toggle_text.js' %}"></script>
     <script src="{% static 'bootstrap-slider/bootstrap-slider.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail_card_selector.js' %}"></script>
+    {#    <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail_card_selector.js' %}"></script>#}
     <script type="module" src="{% static 'js/dashboard/datadocument_detail_ajax.js' %}"></script>
     <script src="{% static 'js/jquery.form.js' %}"></script>
 {% endblock %}

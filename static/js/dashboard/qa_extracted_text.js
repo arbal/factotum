@@ -9,7 +9,6 @@ $(document).ready(function () {
         var central = wf_analysis.getAttribute('data-central-wf-analysis');
         var upper = wf_analysis.getAttribute('data-upper-wf-analysis');
         var input_id = 'wf_slider_' + chemical_pk;
-        console.log(input_id, central);
         if (central) {
             range = false;
             value = [parseFloat(central), parseFloat(central)];
@@ -121,8 +120,6 @@ function save_qa_notes() {
 // Todo: This function now contained within csrf_ajax.
 // This code could be replaced with `import csrf_ajax from '../modules/csrf_ajax.js'`
 $(function () {
-
-
     // This function gets cookie with a given name
     function getCookie(name) {
         var cookieValue = null;
