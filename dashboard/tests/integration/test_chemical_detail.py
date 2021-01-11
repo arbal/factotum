@@ -102,12 +102,9 @@ class TestChemicalDetail(StaticLiveServerTestCase):
                 (By.XPATH, "//*[@id='zoom-to-186']/b"), "general moisturizing"
             )
         )
-        wait.until(
-            ec.visibility_of(
-                self.browser.find_element_by_xpath("//*[@id='bubble-186']")
-            )
-        )
+        wait.until(ec.element_to_be_clickable((By.ID, "bubble-186")))
         # The legend should have expanded to show the links for 185 and 186
+
         self.assertInHTML(
             "hand/body lotion",
             self.browser.find_element_by_xpath("//*[@id='puc-185']").text,
@@ -122,18 +119,11 @@ class TestChemicalDetail(StaticLiveServerTestCase):
             ).is_displayed()
         )
 
-        # Test that Bubble Plot zoom occurred
-        # (the label of 185, the child of 186 should be shown)
-        print(self.browser.find_element_by_xpath("//*[@id='bubble-186']").text)
-        self.assertTrue(
+        self.assertInHTML(
+            "hand/body lotion (1)",
             self.browser.find_element_by_xpath(
                 "//*[@id='bubble-label-185']"
-            ).is_displayed()
-        )
-        self.assertFalse(
-            self.browser.find_element_by_xpath(
-                "//*[@id='bubble-label-210']"
-            ).is_displayed()
+            ).get_attribute("outerHTML"),
         )
 
     def test_only_formulations(self):
