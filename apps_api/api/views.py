@@ -52,8 +52,9 @@ class ProductViewSet(ModelViewSet, CreateModelMixin):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     http_method_names = ["get", "post", "head", "options"]
     serializer_class = serializers.ProductSerializer
-    queryset = models.Product.objects.prefetch_pucs().prefetch_related(
-        Prefetch("documents", queryset=models.DataDocument.objects.order_by("id"))
+    queryset = models.Product.objects.prefetch_related(
+        "product_uber_puc",
+        Prefetch("documents", queryset=models.DataDocument.objects.order_by("id")),
     )
     filterset_class = filters.ProductFilter
 
@@ -399,3 +400,9 @@ class RawChemRelationshipView(RelationshipView):
             return operator.attrgetter(self.get_related_field_name())(self.get_object())
         except AttributeError:
             raise NotFound
+
+
+class ClassificationMethodViewSet(ModelViewSet):
+    http_method_names = ["get", "head", "options"]
+    serializer_class = serializers.ClassificationMethodSerializer
+    queryset = models.ProductToPucClassificationMethod.objects.all().order_by("rank")
