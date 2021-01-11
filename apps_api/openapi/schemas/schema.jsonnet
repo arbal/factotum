@@ -27,6 +27,7 @@ local functional_use  = import 'dashboard/functionalUse.libsonnet';
 local functional_use_category = import 'dashboard/functionalUseCategory.libsonnet';
 local product = import 'dashboard/product.libsonnet';
 local puc = import 'dashboard/puc.libsonnet';
+local classificationMethod = import 'dashboard/classificationMethod.libsonnet';
 
 ////////////////////////
 // List of all models //
@@ -35,6 +36,7 @@ local objs = [
     chemical,
     chemicalInstance,
     chemical_presence,
+    classificationMethod,
     composition,
     dataDocument,
     dataGroup,
