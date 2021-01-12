@@ -13,6 +13,7 @@ from djqscsv import render_to_csv_response
 from celery import shared_task, states
 from celery_usertask.tasks import UserTask, usertask
 from django.db import transaction
+from django.db.models import Count
 
 from dashboard.forms import DataGroupForm, create_detail_formset
 from dashboard.forms.data_group import (
@@ -41,15 +42,15 @@ from factotum.environment import env
 
 
 @login_required()
-def data_group_list(request, code=None, template_name="data_group/datagroup_list.html"):
+def data_group_list(request, code=None, template_name="data_group/datagroup_list2.html"):
     if code:
         group = get_object_or_404(GroupType, code=code)
-        datagroup = DataGroup.objects.filter(group_type=group)
+        datagroups = DataGroup.objects.filter(group_type=group).values("group_type__title", "name", "data_source", "data_source__title", "id", "downloaded_by__username", "downloaded_at", "download_script", "download_script__url", "download_script__title").annotate(num_extracted=Count("datadocument__extractedtext")).order_by("name")
     else:
-        datagroup = DataGroup.objects.all()
-    data = {"object_list": datagroup}
+        datagroups = DataGroup.objects.all().values("group_type__title", "name", "data_source", "data_source__title", "id", "downloaded_by__username", "downloaded_at", "download_script", "download_script__url", "download_script__title").annotate(num_extracted=Count("datadocument__extractedtext")).order_by("name")
+    data = {}
+    data["datagroups"] = list(datagroups)
     return render(request, template_name, data)
-
 
 @login_required()
 def data_group_detail(request, pk, template_name="data_group/datagroup_detail.html"):

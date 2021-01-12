@@ -1,52 +1,108 @@
-$(document).ready(function () {
-  var table = $('#groups').DataTable({
-  "lengthMenu": [ 25, 50, 75, 100 ], // change number of records shown
-  "columnDefs": [
-      {
-          "targets": 5, // sixth column is edit/delete links
-          "orderable": false
-      },
-      {
-          "orderDataType": "dom-select",
-          "targets": 3, // third column is select input
-          "type": "string",
-      },
-  ],
-  dom:"<'row'<'col-md-4 form-inline'l><'col-md-4 form-inline'f><'col-md-4'B>>" +
-      "<'row'<'col-sm-12'tr>>" +
-      "<'row'<'col-sm-5'i><'col-sm-7'p>>", // order the control divs
-  buttons: [{
-    extend: 'csv',
-    text: 'Download CSV',
-    title: 'Data_Sources_Factotum',
-    exportOptions : {
-      columns: [ 0, 1, 2, 3, 4 ],
-      format: {
-        body: function( data, row, col, node ) {
-          if (col == 3) {
-            return table
-              .cell( {row: row, column: col} )
-              .nodes()
-              .to$()
-              .find(':selected')
-              .text()
-           } else {
-              return table
-                .cell( {row: row, column: col} )
-                .nodes()
-                .to$()
-                .text()
-                .replace(/\n/g, '')
-            }
-          }
+var rows = JSON.parse(document.getElementById('tabledata').textContent);
+
+var columnDefs = [
+  {headerName: "Group Type", field: "group_type__title"},
+  {headerName: "Name", field: "name"},
+  {headerName: "Data Source", field: "data_source",
+        cellRenderer: function (params) {
+            return '<a target="_blank" href="/datasource/' + params.data.data_source + '">' + params.data.data_source__title + '</a>';
         }
-      },
-    }]
-  });
-});
-// this grabs the val out of the select tag (Priority) in the form for sorting
-$.fn.dataTable.ext.order['dom-select'] = function (settings, col) {
-return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
-    return $('select', td).val();
-});
+  },
+  {headerName: "Download By", field: "downloaded_by__username"},
+  {headerName: "Downloaded At", field: "downloaded_at",
+        cellRenderer: (params) => {
+            return moment(params.data.downloaded_at).format('ll');
+      }
+  },
+  {headerName: "Extracted Documents", field: "num_extracted"},
+  {headerName: "Link to Download Script", field: "download_script",
+        cellRenderer: function (params) {
+            return '<a target="_blank" href="' + params.data.download_script__url + '">' + params.data.download_script__title + '</a>';
+        }
+  },
+  {headerName: "Options", cellRenderer: "detailRenderer"},
+];
+
+var rowData = rows;
+
+// let the grid know which columns and what data to use
+var gridOptions = {
+  defaultColDef: {
+    sortable: true,
+    resizable: true,
+    filter: true,
+  },
+  columnDefs: columnDefs,
+  rowData: rowData,
+  components: {
+    'detailRenderer': DetailRenderer,
+  },
+  domLayout: 'autoHeight',
+  pagination: true,
+  paginationPageSize: 50,
+  onGridReady: function (params) {
+    // Enable column resize on load
+    params.api.sizeColumnsToFit();
+
+    // Enable column resize on page size changepaginationPageSize
+    window.addEventListener('resize', function() {
+      setTimeout(function() {
+        params.api.sizeColumnsToFit();
+      })
+    })
+  },
 };
+
+// cell renderer class
+function DetailRenderer() {}
+
+// init method gets the details of the cell to be rendered
+DetailRenderer.prototype.init = function(params) {
+    this.eGui = document.createElement('div');
+    this.eGui.classList.add('d-flex', 'justify-content-between');
+    var text = (
+
+        '<a class="btn btn-info btn-sm" role="button" title="Details" href="/datagroup/' + params.data.id + '">' +
+            '<i class="fa fa-fs fa-info-circle"></i>' +
+        '</a>' +
+        '<a class="btn btn-success btn-sm" role="button" title="Edit" href="/datagroup/edit/' + params.data.id + '">' +
+            '<i class="fa fa-fs fa-edit"></i>' +
+        '</a>' +
+        '<a class="btn btn-danger btn-sm" role="button" title="Delete" href="/datagroup/delete/' + params.data.id + '">' +
+            '<i class="fa fa-fs fa-trash"></i>' +
+        '</a>'
+
+    );
+    this.eGui.innerHTML = text;
+};
+
+DetailRenderer.prototype.getGui = function() {
+    return this.eGui;
+};
+
+//Clear all filters
+function clearFilters() {
+  gridOptions.api.setFilterModel(null);
+}
+
+//Filter search box
+function onFilterTextBoxChanged() {
+    gridOptions.api.setQuickFilter(document.getElementById('filter-text-box').value);
+}
+
+//Change the amount of rows to paginate table
+function onPageSizeChanged(newPageSize) {
+  var value = document.getElementById('page-size').value;
+  if(value == "All"){
+      // this.clearFilters()
+      value = gridOptions.api.paginationGetRowCount()
+  }
+  gridOptions.api.paginationSetPageSize(Number(value));
+}
+
+// setup the grid after the page has finished loading
+document.addEventListener('DOMContentLoaded', function() {
+    var gridDiv = document.querySelector('#datagroupGrid');
+    new agGrid.Grid(gridDiv, gridOptions);
+});
+
