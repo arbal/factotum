@@ -1,4 +1,5 @@
 {% extends 'core/base.html' %}
+{% load staticfiles %}
 {% block title %}List Presence Tags{% endblock %}
 {% block content %}
 
@@ -6,23 +7,30 @@
         <span>List Presence Tags</span>
     </h1>
 
-    <table class="table table-sm table-bordered table-striped">
-        <thead class="table-primary">
-        <th>Name</th>
-        <th>Definition</th>
-        <th>Kind</th>
-        </thead>
-        <tbody>
-        {% for tag in tags %}
-            <tr>
-                <td><a href="{% url 'lp_tag_detail' pk=tag.pk %}"> {{ tag.name }} </a></td>
-                <td>{{ tag.definition }}</td>
-                <td>{{ tag.kind }}</td>
+    <div class="header">
+        <input type="text" id="filter-text-box" placeholder="Search..." oninput="onFilterTextBoxChanged()"/>
+        <button onclick="clearFilters()" class="btn btn-primary btn-sm">Reset Filters</button>
+    </div>
+    <div id="tagGrid" class="ag-theme-balham"></div>
+    <div>
+        Page Size:
+        <select autocomplete="off" id="page-size">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50" selected>50</option>
+            <option value="100">100</option>
+            <option value="All">Show All</option>
+        </select>
+    </div>
+{% endblock %}
 
-            </tr>
-        {% endfor %}
+{% block css %}
+    <link href="{% static 'css/dashboard/grid_list.css' %}" rel="stylesheet">
+{% endblock %}
 
-        </tbody>
-    </table>
+{% block js %}
+    {{ form.media }}
+    {{ tags|json_script:"tabledata" }}
+    <script src="{% static 'js/dashboard/tag_list.js' %}"></script>
 {% endblock %}
 
