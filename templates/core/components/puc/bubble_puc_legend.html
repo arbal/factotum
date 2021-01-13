@@ -11,14 +11,14 @@
     </div>
     <div class="accordion" id="puc-accordion-{{ kind }}">
         {% for leaf in pucs.children %}
-        <div id="card-{{ leaf.value.puc.pk }}" class="card">
+        <div id="card-{{ leaf.value.puc_id }}" class="card">
             <!-- Level 1 -->
             <div class="card-header-sm bg-light">
                 <div class="d-flex align-items-center">
                     {% if leaf.children %}
                         <button class="handle mr-2 btn btn-light shadow-none"
                                 data-toggle="collapse"
-                                data-target="#accordion-{{ leaf.value.puc.pk }}">
+                                data-target="#accordion-{{ leaf.value.puc_id }}">
                             <i class="fas fa-chevron-circle-right icon-secondary"></i>
                             <i class="fas fa-chevron-circle-down icon-secondary d-none"></i>
                         </button>
@@ -31,14 +31,14 @@
 
                     <span 
                        class = "puc-nav-title"
-                       data-puc-id="{{ leaf.value.puc.pk }}"
+                       data-puc-id="{{ leaf.value.puc_id }}"
                        data-puc-kind="{{ kind }}"
-                       id = "zoom-to-{{ leaf.value.puc.pk }}"
+                       id = "zoom-to-{{ leaf.value.puc_id }}"
                        title="Zoom chart to {{ leaf.name }} "
                        data-toggle="tooltip"
                        data-placement="top">
                         
-                       <b id="puc-{{ leaf.value.puc.pk }}">{{ leaf.name }}</b>
+                       <b id="puc-{{ leaf.value.puc_id }}">{{ leaf.name }}</b>
                     </span>
                     
                     <a href="{{ leaf.value.puc.get_absolute_url }}"
@@ -49,10 +49,10 @@
                         <i class="fas fa-info-circle icon-secondary"></i>
                     </a>
                     {% if show_filter and leaf.value.cumulative_product_count %}
-                    <a id="filter-{{ leaf.value.puc.pk }}"
+                    <a id="filter-{{ leaf.value.puc_id }}"
                        class="ml-2"
                        title="Filter table by PUC"
-                       data-pk="{{ leaf.value.puc.pk }}"
+                       data-pk="{{ leaf.value.puc_id }}"
                        data-toggle="tooltip"
                        data-placement="top">
                         <i class="fa fa-filter icon-secondary"></i>
@@ -64,20 +64,20 @@
                     </div>
                 </div>
             </div>
-            <div id="accordion-{{ leaf.value.puc.pk }}"
+            <div id="accordion-{{ leaf.value.puc_id }}"
                 class="collapse">
                 <div class="card-body p-0 puc-link"
                     data-gen-cat="{{ leaf.name }}">
                 {% if leaf.children %}
-                <div class="accordion ml-3" id="accordion-{{ leaf.value.puc.pk }}">
+                <div class="accordion ml-3" id="accordion-{{ leaf.value.puc_id }}">
                     {% for leaflet in leaf.children %}
-                    <div id="card-{{ leaflet.value.puc.pk }}" class="card">
+                    <div id="card-{{ leaflet.value.puc_id }}" class="card">
                         <!-- Level 2 -->
                         <div class="card-header-sm bg-light d-flex align-items-center">
                             {% if leaflet.children %}
                                 <button class="handle mr-2 btn btn-light shadow-none"
                                     data-toggle="collapse"
-                                    data-target="#accordion-{{ leaflet.value.puc.pk }}">
+                                    data-target="#accordion-{{ leaflet.value.puc_id }}">
                                     <i class="fas fa-chevron-circle-right icon-secondary"></i>
                                     <i class="fas fa-chevron-circle-down icon-secondary d-none"></i>
                                 </button>
@@ -90,14 +90,14 @@
                             
                             <span 
                                 class = "puc-nav-title"
-                                data-puc-id="{{ leaflet.value.puc.pk }}"
+                                data-puc-id="{{ leaflet.value.puc_id }}"
                                 data-puc-kind="{{ kind }}"
-                                id = "zoom-to-{{ leaflet.value.puc.pk }}"
+                                id = "zoom-to-{{ leaflet.value.puc_id }}"
                                 title="Zoom chart to {{ leaflet.name }} "
                                 data-toggle="tooltip"
                                 data-placement="top">
                                 
-                                <b id="puc-{{ leaflet.value.puc.pk }}">{{ leaflet.name }}</b>
+                                <b id="puc-{{ leaflet.value.puc_id }}">{{ leaflet.name }}</b>
                             </span>
 
                             <a href="{{ leaflet.value.puc.get_absolute_url }}"
@@ -108,10 +108,10 @@
                                 <i class="fas fa-info-circle icon-secondary"></i>
                             </a>
                             {% if show_filter and leaflet.value.product_count %}
-                            <a id="filter-{{ leaflet.value.puc.pk }}"
+                            <a id="filter-{{ leaflet.value.puc_id }}"
                                 class="ml-2"
                                 title="Filter table by PUC"
-                                data-pk="{{ leaflet.value.puc.pk }}"
+                                data-pk="{{ leaflet.value.puc_id }}"
                                 data-toggle="tooltip"
                                 data-placement="top">
                                 <i class="fa fa-filter icon-secondary"></i>
@@ -122,28 +122,28 @@
                                 <b>{{ leaflet.value.cumulative_product_count }}</b>
                             </span>
                         </div>
-                        <div id="accordion-{{ leaflet.value.puc.pk }}"
+                        <div id="accordion-{{ leaflet.value.puc_id }}"
                             class="collapse">
                             <div class="card-body p-0 puc-link"
                                 data-gen-cat="{{ leaf.name }}">
                                 {% if leaflet.children %}
-                                <div class="ml-3" id="accordion-{{ leaflet.value.puc.pk }}">
+                                <div class="ml-3" id="accordion-{{ leaflet.value.puc_id }}">
                                     {% for needle in leaflet.children %}
-                                    <div id="card-{{ needle.value.puc.pk }}" class="card">
+                                    <div id="card-{{ needle.value.puc_id }}" class="card">
                                         <div class="card-header-sm bg-light">
                                             <div class="text-left d-flex align-items-center">
                                                 <span class="m-4"></span>
                                                     
                                                 <span 
                                                     class = "puc-nav-title"
-                                                    data-puc-id="{{ needle.value.puc.pk }}"
+                                                    data-puc-id="{{ needle.value.puc_id }}"
                                                     data-puc-kind="{{ kind }}"
-                                                    id = "zoom-to-{{ needle.value.puc.pk }}"
+                                                    id = "zoom-to-{{ needle.value.puc_id }}"
                                                     title="Zoom chart to {{ needle.name }} "
                                                     data-toggle="tooltip"
                                                     data-placement="top">
                                                     
-                                                    <b id="puc-{{ needle.value.puc.pk }}">{{ needle.name }}</b>
+                                                    <b id="puc-{{ needle.value.puc_id }}">{{ needle.name }}</b>
                                                 </span>
 
                                                 <a href="{{ needle.value.puc.get_absolute_url }}"
@@ -153,11 +153,11 @@
                                                     data-placement="top">
                                                     <i class="fas fa-info-circle icon-secondary"></i>
                                                 </a>
-                                                {% if show_filter and needle.value.puc.cumulative_product_count %}
-                                                <a id="filter-{{ needle.value.puc.pk }}"
+                                                {% if show_filter and needle.value.cumulative_product_count %}
+                                                <a id="filter-{{ needle.value.puc_id }}"
                                                     class="ml-2"
                                                     title="Filter table by PUC"
-                                                    data-pk="{{ needle.value.puc.pk }}"
+                                                    data-pk="{{ needle.value.puc_id }}"
                                                     data-toggle="tooltip"
                                                     data-placement="top">
                                                     <i class="fa fa-filter icon-secondary"></i>
