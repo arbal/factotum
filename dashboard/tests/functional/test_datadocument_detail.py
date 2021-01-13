@@ -622,7 +622,7 @@ class TestDynamicDetailFormsets(TestCase):
         data_document = DataDocument.objects.get(pk=5)
         response = self.client.get("/datadocument/%i/" % data_document.pk)
 
-        self.assertTemplateUsed("data_document/functional_use_chemical_cards.html")
+        self.assertTemplateUsed("data_document/functional_use_cards.html")
 
     def test_organization_presence(self):
         for doc_id in [

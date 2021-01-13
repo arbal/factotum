@@ -148,7 +148,8 @@
         {{ doc.data_group.group_type }} Records
     </h3>
     <div id="chemical-card-panel" class="card-body">
-        <h5 id="card-loading-text" class="mt-3 text-center">Loading Cards...</h5>
+        {{ chemical_cards | safe }}
+        {#        <h5 id="card-loading-text" class="mt-3 text-center">Loading Cards...</h5>#}
     </div>
     </div>
 

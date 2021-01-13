@@ -499,30 +499,35 @@ def document_audit_log(request, pk):
     )
 
 
-def chemical_cards(request, pk):
+def data_document_cards(request, pk):
     doc = get_object_or_404(DataDocument, pk=pk)
     _, Child = get_extracted_models(doc.data_group.group_type.code)
+    card_qs = Child.objects.filter(extracted_text__data_document=doc)
 
-    chemicals = Child.objects.filter(extracted_text__data_document=doc)
+    return cards_detail(request, doc, card_qs)
+
+
+def cards_detail(request, doc, card_qs):
+    _, Child = get_extracted_models(doc.data_group.group_type.code)
 
     if Child == ExtractedListPresence:
-        chemicals = chemicals.prefetch_related("tags", "dsstox")
-        template = "data_document/chemical_cards/co_cp_chemical_cards.html"
+        card_qs = card_qs.prefetch_related("tags", "dsstox")
+        template = "data_document/cards/co_cp_cards.html"
 
     elif Child == ExtractedComposition:
-        chemicals = chemicals.order_by("component", "ingredient_rank").prefetch_related(
+        card_qs = card_qs.order_by("component", "ingredient_rank").prefetch_related(
             "dsstox"
         )
-        template = "data_document/chemical_cards/co_cp_chemical_cards.html"
+        template = "data_document/cards/co_cp_cards.html"
 
     elif Child == ExtractedHabitsAndPractices:
-        chemicals = chemicals.prefetch_related("tags")
-        template = "data_document/chemical_cards/hp_cards.html"
+        card_qs = card_qs.prefetch_related("tags")
+        template = "data_document/cards/hp_cards.html"
 
     elif Child == ExtractedFunctionalUse:
-        template = "data_document/chemical_cards/functional_use_chemical_cards.html"
+        template = "data_document/cards/functional_use_cards.html"
 
     else:
-        chemicals = chemicals.prefetch_related("dsstox")
-        template = "data_document/chemical_cards/chemical_cards.html"
-    return render(request, template, {"doc": doc, "chemicals": chemicals})
+        card_qs = card_qs.prefetch_related("dsstox")
+        template = "data_document/cards/cards.html"
+    return render(request, template, {"doc": doc, "cards": card_qs})
