@@ -8,7 +8,7 @@ var columnDefs = [
             return '<a target="_blank" href="/datasource/' + params.data.data_source + '">' + params.data.data_source__title + '</a>';
         }
   },
-  {headerName: "Download By", field: "downloaded_by__username"},
+  {headerName: "Downloaded By", field: "downloaded_by__username"},
   {headerName: "Downloaded At", field: "downloaded_at",
         cellRenderer: (params) => {
             return moment(params.data.downloaded_at).format('ll');
@@ -71,10 +71,10 @@ DetailRenderer.prototype.init = function(params) {
         '<a class="btn btn-info btn-sm" role="button" title="Details" href="/datagroup/' + params.data.id + '">' +
             '<i class="fa fa-fs fa-info-circle"></i>' +
         '</a>' +
-        '<a class="btn btn-success btn-sm" role="button" title="Edit" href="/datagroup/edit/' + params.data.id + '">' +
+        '<a class="btn btn-info btn-sm" role="button" title="Edit" href="/datagroup/edit/' + params.data.id + '">' +
             '<i class="fa fa-fs fa-edit"></i>' +
         '</a>' +
-        '<a class="btn btn-danger btn-sm" role="button" title="Delete" href="/datagroup/delete/' + params.data.id + '">' +
+        '<a class="btn btn-info btn-sm" role="button" title="Delete" href="/datagroup/delete/' + params.data.id + '">' +
             '<i class="fa fa-fs fa-trash"></i>' +
         '</a>'
 
