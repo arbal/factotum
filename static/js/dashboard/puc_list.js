@@ -5,8 +5,8 @@ var columnDefs = [
   {headerName: "Gen Cat", field: "gen_cat"},
   {headerName: "Prod Fam", field: "prod_fam"},
   {headerName: "Prod Type", field: "prod_type"},
-  {headerName: "Product Count", field: "num_products"},
-  {headerName: "View Detail", cellRenderer: "detailRenderer"},
+  {headerName: "Product Count", field: "num_products", maxWidth: 180},
+  {headerName: "View Detail", cellRenderer: "detailRenderer", sortable: false, filter: false, maxWidth: 120},
 ];
 
 var rowData = rows;
@@ -17,6 +17,9 @@ var gridOptions = {
     sortable: true,
     resizable: true,
     filter: true,
+    wrapText: true,
+    autoHeight: true,
+    cellStyle: {'white-space': 'normal'},
   },
   columnDefs: columnDefs,
   rowData: rowData,
@@ -26,6 +29,9 @@ var gridOptions = {
   domLayout: 'autoHeight',
   pagination: true,
   paginationPageSize: 50,
+  onColumnResized: function (params) {
+    params.api.resetRowHeights();
+  },
   onGridReady: function (params) {
     // Enable column resize on load
     params.api.sizeColumnsToFit();
