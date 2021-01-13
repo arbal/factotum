@@ -42,15 +42,48 @@ from factotum.environment import env
 
 
 @login_required()
-def data_group_list(request, code=None, template_name="data_group/datagroup_list2.html"):
+def data_group_list(request, code=None, template_name="data_group/datagroup_list.html"):
     if code:
         group = get_object_or_404(GroupType, code=code)
-        datagroups = DataGroup.objects.filter(group_type=group).values("group_type__title", "name", "data_source", "data_source__title", "id", "downloaded_by__username", "downloaded_at", "download_script", "download_script__url", "download_script__title").annotate(num_extracted=Count("datadocument__extractedtext")).order_by("name")
+        datagroups = (
+            DataGroup.objects.filter(group_type=group)
+            .values(
+                "group_type__title",
+                "name",
+                "data_source",
+                "data_source__title",
+                "id",
+                "downloaded_by__username",
+                "downloaded_at",
+                "download_script",
+                "download_script__url",
+                "download_script__title",
+            )
+            .annotate(num_extracted=Count("datadocument__extractedtext"))
+            .order_by("name")
+        )
     else:
-        datagroups = DataGroup.objects.all().values("group_type__title", "name", "data_source", "data_source__title", "id", "downloaded_by__username", "downloaded_at", "download_script", "download_script__url", "download_script__title").annotate(num_extracted=Count("datadocument__extractedtext")).order_by("name")
+        datagroups = (
+            DataGroup.objects.all()
+            .values(
+                "group_type__title",
+                "name",
+                "data_source",
+                "data_source__title",
+                "id",
+                "downloaded_by__username",
+                "downloaded_at",
+                "download_script",
+                "download_script__url",
+                "download_script__title",
+            )
+            .annotate(num_extracted=Count("datadocument__extractedtext"))
+            .order_by("name")
+        )
     data = {}
     data["datagroups"] = list(datagroups)
     return render(request, template_name, data)
+
 
 @login_required()
 def data_group_detail(request, pk, template_name="data_group/datagroup_detail.html"):
