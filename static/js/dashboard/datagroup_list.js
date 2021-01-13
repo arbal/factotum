@@ -31,6 +31,9 @@ var gridOptions = {
     sortable: true,
     resizable: true,
     filter: true,
+    wrapText: true,
+    autoHeight: true,
+    cellStyle: {'white-space': 'normal'},
   },
   columnDefs: columnDefs,
   rowData: rowData,
@@ -40,6 +43,9 @@ var gridOptions = {
   domLayout: 'autoHeight',
   pagination: true,
   paginationPageSize: 50,
+  onColumnResized: function (params) {
+        params.api.resetRowHeights();
+  },
   onGridReady: function (params) {
     // Enable column resize on load
     params.api.sizeColumnsToFit();
