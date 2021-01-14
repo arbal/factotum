@@ -361,7 +361,6 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
     detail_formset = ChildForm(instance=extext)
     if qa_focus == "script":
         flagged_qs =  detail_formset.get_queryset()
-        print(flagged_qs)
     ext_form = ParentForm(instance=extext)
     extext.chemical_count = RawChem.objects.filter(extracted_text=extext).count()
 

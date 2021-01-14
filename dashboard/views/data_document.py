@@ -530,4 +530,4 @@ def cards_detail(request, doc, card_qs):
     else:
         card_qs = card_qs.prefetch_related("dsstox")
         template = "data_document/cards/cards.html"
-    return render(request, template, {"doc": doc, "cards": card_qs})
+    return render(request, template, {"doc": doc, "chemicals": card_qs})
