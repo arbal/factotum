@@ -31,7 +31,7 @@ class FilterDatatableView(BaseDatatableView):
 
 class ProductListJson(FilterDatatableView):
     model = Product
-    columns = ["title", "brand_name"]
+    columns = ["title", "brand_name", "product_uber_puc.classification_method.name"]
 
     def render_column(self, row, column):
         value = self._render_column(row, column)

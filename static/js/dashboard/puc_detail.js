@@ -15,6 +15,11 @@ $(document).ready(function () {
                     data: 1,
                     orderable: true,
                     searchable: true,
+                },
+                {
+                    data: 2,
+                    orderable: true,
+                    searchable: true,
                 }
             ],
             destroy: true,
