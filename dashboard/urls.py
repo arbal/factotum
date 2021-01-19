@@ -232,7 +232,6 @@ urlpatterns = [
         name="p_puc_ajax_url",
     ),
     path("c_json/", views.ChemicalListJson.as_view(), name="c_ajax_url"),
-    path("prod_json/", views.ProductListPUCDetailJson.as_view(), name="prod_ajax_url"),
     path("sid_gt_json", views.sids_by_grouptype_ajax, name="sid_gt_json_url"),
     path("pucs/", views.puc_list, name="puc_list"),
     path("puc/<int:pk>/", views.puc_detail, name="puc_detail"),

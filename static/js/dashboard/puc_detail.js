@@ -27,7 +27,7 @@ $(document).ready(function () {
             serverSide: true,
             ordering: true,
             stateSave: true,
-            ajax: "/prod_json/?puc=" + puc,
+            ajax: "/p_json/?puc=" + puc,
         });
     });
 
