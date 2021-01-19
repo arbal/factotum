@@ -36,9 +36,9 @@ from dashboard.models import (
 @login_required()
 def qa_extractionscript_index(request, template_name="qa/extraction_script_index.html"):
     extractedtext_count = Count("extractedtext__extraction_script")
-    extractedtext_qa = Count("extractedtext__qa_group")
+    qa_group_count = Count("extractedtext__qa_group")
     qa_complete_count = Count("extractedtext", filter=Q(extractedtext__qa_checked=True))
-    percent_complete = (qa_complete_count / extractedtext_qa) * 100
+    percent_complete = (qa_complete_count / qa_group_count) * 100
     texts = ExtractedText.objects.exclude(
         data_document__data_group__group_type__code="CP"
     )  # remove the scripts with CP texts that are associated
@@ -47,6 +47,7 @@ def qa_extractionscript_index(request, template_name="qa/extraction_script_index
         .exclude(title="Manual (dummy)")
         .annotate(extractedtext_count=extractedtext_count)
         .annotate(percent_complete=percent_complete)
+        .annotate(qa_group_count=qa_group_count)
     )
     return render(request, template_name, {"extraction_scripts": extraction_scripts})
 
