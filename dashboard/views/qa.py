@@ -405,7 +405,7 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
             if detail_formset.is_valid():
                 detail_formset.save()
                 for form in detail_formset:
-                    if 'DELETE' in form.changed_data:
+                    if "DELETE" in form.changed_data:
                         messages.warning(request, "Chemical deleted")
                 extext.qa_edited = True
                 extext.save()
