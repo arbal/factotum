@@ -30,6 +30,28 @@ class FilterDatatableView(BaseDatatableView):
 
 
 class ProductListJson(FilterDatatableView):
+    model = Product
+    columns = ["title", "brand_name"]
+
+    def render_column(self, row, column):
+        value = self._render_column(row, column)
+        if column == "title":
+            return format_html(
+                '<a href="{}" title="Go to Product detail" target="_blank">{}</a>',
+                row.get_absolute_url(),
+                value,
+            )
+        return value
+
+    def get_initial_queryset(self):
+        qs = super().get_initial_queryset()
+        puc = self.request.GET.get("puc")
+        if puc:
+            return qs.filter(Q(product_uber_puc__puc=puc))
+        return qs
+
+
+class ProductListPUCDetailJson(FilterDatatableView):
     model = ProductToPUC
     columns = ["product.title", "product.brand_name", "classification_method.name"]
 
