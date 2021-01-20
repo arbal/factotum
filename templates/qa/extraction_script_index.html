@@ -12,7 +12,8 @@ QA: Composition - Ext. Script</h1>
         <th>Extraction Script</th>
         <th>Script Updated</th>
         <th>Extracted Text</th>
-        <th>Percent QA Checked</th>
+        <th>QA Group Documents</th>
+        <th>Percent of QA Group Checked</th>
         <th>QA Summary</th>
         <th>QA Status</th>
     </thead>
@@ -31,6 +32,7 @@ QA: Composition - Ext. Script</h1>
         </td>
         <td data-order="{{ extraction_script.updated_at | date:"Y-m-d" }}">{{ extraction_script.updated_at | date:"M d, Y" }}</td>
         <td id="docs-{{extraction_script.id}}">{{ extraction_script.extractedtext_count }}</td>
+        <td id="qa-group-count">{{ extraction_script.qa_group_count }}</td>
         <td id="pct-{{extraction_script.id}}">{{ extraction_script.percent_complete|default:"0" }}{{' '}}%</td>
         <td>
             <a href="{% url 'qa_extraction_script_summary' extraction_script.id %}"
