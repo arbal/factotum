@@ -1,7 +1,7 @@
 from django_db_views.db_view import DBView
 from django.db import models
 
-from dashboard.models import PUC, Product
+from dashboard.models import PUC, Product, ProductToPucClassificationMethod
 from dashboard.models.custom_onetoone_field import CustomOneToOneField
 
 
@@ -15,13 +15,20 @@ class ProductUberPuc(DBView):
     )
     puc = models.ForeignKey(PUC, on_delete=models.DO_NOTHING)
 
+    classification_method = models.ForeignKey(
+        ProductToPucClassificationMethod, on_delete=models.DO_NOTHING
+    )
+    classification_confidence = models.DecimalField(
+        max_digits=6, decimal_places=3, default=1, null=True, blank=True
+    )
+
     def __str__(self):
         return f"{self.product} --> {self.puc}"
 
     view_definition = """
          SELECT ptp.*
          FROM (
-             SELECT ptp.id, product_id, puc_id, classification_method_id, rank
+             SELECT ptp.*, cm.rank
              FROM dashboard_producttopuc ptp
              LEFT JOIN dashboard_producttopucclassificationmethod cm ON cm.id = ptp.classification_method_id
          ) ptp
@@ -32,6 +39,9 @@ class ProductUberPuc(DBView):
          ) ptp_rank ON ptp.product_id = ptp_rank.product_id AND ptp.rank > ptp_rank.rank
          WHERE ptp_rank.rank IS NULL
       """
+
+    class JSONAPIMeta:
+        resource_name = "productToPuc"
 
     class Meta:
         managed = False

@@ -7,6 +7,7 @@ from collections import OrderedDict
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import connection, reset_queries
+from django.db.models import Count
 from django.test.utils import override_settings
 from drf_yasg.generators import EndpointEnumerator
 from rest_framework import status
@@ -128,7 +129,7 @@ class TestProduct(TestCase):
             "upc",
             "manufacturer",
             "brand",
-            "puc",
+            "productUberPuc",
             "dataDocuments",
         ):
             self.assertTrue(key in response)
@@ -136,7 +137,9 @@ class TestProduct(TestCase):
         self.assertEqual(response["name"], product.title)
         self.assertEqual(response["upc"], product.upc)
         self.assertEqual(response["dataDocuments"][0]["id"], "130169")
-        self.assertEqual(response["puc"]["id"], str(product.uber_puc.id))
+        self.assertEqual(
+            response["productUberPuc"]["id"], str(product.product_uber_puc.id)
+        )
 
     def test_page_size(self):
         response = self.get("/products/?page[size]=35")
@@ -470,7 +473,7 @@ class TestChemicalInstance(TestCase):
     #         with self.settings(ROOT_URLCONF="factotum.urls.api"):
     #             response = self.client.get(
     #                 f"/chemicalInstances/{chemical_instance.id}/",
-    #                 {"include": "products,chemical,dataDocument,products.puc"},
+    #                 {"include": "products,chemical,dataDocument,products.productUberPuc.puc"},
     #             )
     #         response_data = response.data
     #         del response_data["url"]
@@ -539,13 +542,22 @@ class TestChemicalInstance(TestCase):
         self.assertEqual(count, response_sid["meta"]["pagination"]["count"])
 
         # test with rid filter
-        rc_with_rid = self.qs.filter(rid__isnull=False).first()
+        rc_with_rid = (
+            self.qs.annotate(
+                product_count=Count("extracted_text__data_document__products"),
+                puc_count=Count(
+                    "extracted_text__data_document__products__product_uber_puc"
+                ),
+            )
+            .filter(dsstox__isnull=False, product_count=1, puc_count=1)
+            .first()
+        )
         with self.settings(ROOT_URLCONF="factotum.urls.api"):
             response = self.client.get(
                 "/chemicalInstances/",
                 {
                     "filter[rid]": rc_with_rid.rid,
-                    "include": "dataDocument,products,chemical,products.puc",
+                    "include": "dataDocument,products,chemical,products.productUberPuc.puc",
                 },
             )
         # Get included data
@@ -589,7 +601,7 @@ class TestChemicalInstance(TestCase):
                     )
         # Test includes
         self.assertListEqual(
-            ["chemical", "dataDocument", "product", "product", "puc", "puc"],
+            ["chemical", "dataDocument", "product", "productToPuc", "puc"],
             [resource["type"] for resource in included_data],
         )
 

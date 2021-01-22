@@ -79,7 +79,7 @@ class TestIntegration(StaticLiveServerTestCase):
     def test_datagroup(self):
         list_url = self.live_server_url + "/datagroups/"
         self.browser.get(list_url)
-        self.browser.find_element_by_xpath('//*[@title="edit"]').click()
+        self.browser.find_element_by_xpath('//*[@title="Edit"]').click()
         btn = self.browser.find_element_by_name("cancel")
         self.assertEqual(
             btn.get_attribute("href"),
