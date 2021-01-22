@@ -35,6 +35,7 @@ router.register(
     apiviews.ClassificationMethodViewSet,
     base_name="classificationMethod",
 )
+
 router.register(r"productToPucs", apiviews.ProductToPucViewSet, basename="productToPuc")
 
 urlpatterns = [
