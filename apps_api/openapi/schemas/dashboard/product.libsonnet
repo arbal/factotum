@@ -93,23 +93,23 @@ local dataDocument = import 'dataDocument.libsonnet';
         type: 'dataDocument',
         typePlural: 'dataDocuments',
         hasRelationships: false,
-          attributes: {
-            },
+        attributes: {
+        },
       },
       many: true,
     },
     {
       object: {
         app: 'dashboard',
-        type: 'puc',
-        typePlural: 'puc',
+        type: 'productUberPuc',
+        typePlural: 'productUberPuc',
         hasRelationships: false,
-          attributes: {
-            },
+        attributes: {
+        },
       },
-      many: true,
+      many: false,
       readOnly: true,
-    }
+    },
   ],
   errors: [],
 }

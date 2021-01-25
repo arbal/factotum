@@ -135,6 +135,39 @@ class ProductViewSet(ModelViewSet, CreateModelMixin):
         return MultiValueDict(files_dict)
 
 
+class ProductRelationshipView(RelationshipView):
+    http_method_names = ["get", "head", "options"]
+    queryset = models.Product.objects
+    field_name_mapping = {
+        "productUberPuc": "product_uber_puc",
+        "dataDocuments": "documents",
+    }
+
+    def get_related_instance(self):
+        try:
+            return operator.attrgetter(self.get_related_field_name())(self.get_object())
+        except AttributeError:
+            raise NotFound
+
+
+class ProductToPucViewSet(ModelViewSet):
+    http_method_names = ["get", "head", "options"]
+    serializer_class = serializers.ProductToPucSerializer
+    queryset = models.ProductToPUC.objects.all().order_by("id")
+
+
+class ProductToPucRelationshipView(RelationshipView):
+    http_method_names = ["get", "head", "options"]
+    queryset = models.ProductToPUC.objects
+    field_name_mapping = {"puc": "puc", "classificationMethod": "classification_method"}
+
+    def get_related_instance(self):
+        try:
+            return operator.attrgetter(self.get_related_field_name())(self.get_object())
+        except AttributeError:
+            raise NotFound
+
+
 class DataSourceViewSet(ModelViewSet):
     http_method_names = ["get", "head", "options"]
     serializer_class = serializers.DataSourceSerializer

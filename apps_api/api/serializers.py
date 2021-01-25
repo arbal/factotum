@@ -146,19 +146,24 @@ class ChemicalSerializer(serializers.HyperlinkedModelSerializer):
 
 class ProductSerializer(ModelSerializer):
     included_serializers = {
-        "puc": PUCSerializer,
+        "productUberPuc": "apps_api.api.serializers.ProductToPucSerializer",
+        # to resolve the included field issue, seems related to camelCase vs underscore
+        "product_uber_puc": "apps_api.api.serializers.ProductToPucSerializer",
         "dataDocuments": "apps_api.api.serializers.DocumentSerializer",
     }
 
-    puc = SerializerMethodResourceRelatedField(
-        source="product_uber_puc.puc",
-        model=models.PUC,
+    url = serializers.HyperlinkedIdentityField(view_name="product-detail")
+
+    productUberPuc = SerializerMethodResourceRelatedField(
+        model=models.ProductToPUC,
+        source="product_uber_puc",
         read_only=True,
         default=None,
-        label="PUC with the highest confidence value",
-        help_text=" Unique numeric identifier for the product use category assigned to the product \
-        (if one has been assigned). Use the PUCs API to obtain additional information on the PUC.",
+        label="Product Uber Puc",
+        help_text="Unique numeric identifier for the uber PUC assignment to the product (if one has been \
+            assigned). Use the ProductToPucs API to obtain additional information on the assignment.",
         related_link_view_name="product-related",
+        self_link_view_name="product-relationships",
     )
     image = Base64ImageField(max_length=None, use_url=True, required=False)
     dataDocuments = ResourceRelatedField(
@@ -170,6 +175,7 @@ class ProductSerializer(ModelSerializer):
         help_text="Unique numeric identifier for the original data document associated with \
             the product. Use the Documents API to obtain additional information on the document.",
         related_link_view_name="product-related",
+        self_link_view_name="product-relationships",
     )
     upc = serializers.CharField(
         allow_null=True,
@@ -181,13 +187,6 @@ class ProductSerializer(ModelSerializer):
             UPC may be represented as 'stub#' if the UPC for the product is not known.",
     )
 
-    def get_uberpuc(self, obj):
-        try:
-            obj = obj.uber_puc
-        except AttributeError:
-            obj = None
-        return obj
-
     class Meta:
         model = models.Product
         fields = [
@@ -196,7 +195,7 @@ class ProductSerializer(ModelSerializer):
             "upc",
             "manufacturer",
             "brand",
-            "puc",
+            "productUberPuc",
             "dataDocuments",
             "product_url",
             "size",
@@ -209,6 +208,7 @@ class ProductSerializer(ModelSerializer):
             "large_image",
             "model_number",
             "image",
+            "url",
         ]
         extra_kwargs = {
             "id": {
@@ -793,6 +793,55 @@ class ChemicalPresenceTagsetSerializer(serializers.ModelSerializer):
 
 
 class ClassificationMethodSerializer(ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name="classificationMethod-detail")
+
     class Meta:
         model = models.ProductToPucClassificationMethod
-        fields = ["code", "name", "rank"]
+        fields = ["code", "name", "rank", "url"]
+
+
+class ProductToPucSerializer(ModelSerializer):
+    included_serializers = {
+        "puc": PUCSerializer,
+        "classificationMethod": ClassificationMethodSerializer,
+    }
+
+    url = serializers.HyperlinkedIdentityField(view_name="productToPuc-detail")
+
+    puc = ResourceRelatedField(
+        model=models.PUC,
+        read_only=True,
+        default=None,
+        label="PUC with the highest confidence value",
+        help_text="Unique numeric identifier for the product use category assigned to the product \
+            (if one has been assigned). Use the PUCs API to obtain additional information on the PUC.",
+        related_link_view_name="productToPuc-related",
+        self_link_view_name="productToPuc-relationships",
+    )
+    classificationMethod = ResourceRelatedField(
+        model=models.ProductToPucClassificationMethod,
+        source="classification_method",
+        read_only=True,
+        default=None,
+        label="Classification Method",
+        help_text="Unique identifier for the classification method used to assign uber puc to the product (if one has \
+                been assigned). Use the ClassificationMethods API to obtain additional information on the method.",
+        related_link_view_name="productToPuc-related",
+        self_link_view_name="productToPuc-relationships",
+    )
+
+    class Meta:
+        model = models.ProductUberPuc
+        fields = [
+            "id",
+            "puc",
+            "classificationMethod",
+            "classification_confidence",
+            "url",
+        ]
+        extra_kwargs = {
+            "classification_confidence": {
+                "label": "Classification Confidence",
+                "help_text": "A decimal value assigned as classification confidence",
+            }
+        }
