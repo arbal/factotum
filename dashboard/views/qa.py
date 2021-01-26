@@ -15,6 +15,7 @@ from django.utils import timezone
 from django.utils.http import is_safe_url
 from django.utils.timesince import timesince
 from django_datatables_view.base_datatable_view import BaseDatatableView
+from django_mysql.models import add_QuerySetMixin
 
 from celery_usertask.tasks import UserTask, usertask
 from dashboard.forms import create_detail_formset, QANotesForm, DocumentTypeForm
@@ -43,7 +44,8 @@ def qa_extractionscript_index(request, template_name="qa/extraction_script_index
         data_document__data_group__group_type__code="CP"
     )  # remove the scripts with CP texts that are associated
     extraction_scripts = (
-        Script.objects.filter(extractedtext__in=texts, script_type="EX")
+        add_QuerySetMixin(Script.objects.all())
+        .filter(extractedtext__in=texts, script_type="EX")
         .exclude(title="Manual (dummy)")
         .annotate(extractedtext_count=extractedtext_count)
         .annotate(percent_complete=percent_complete)

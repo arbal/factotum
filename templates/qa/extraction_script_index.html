@@ -41,17 +41,23 @@ QA: Composition - Ext. Script</h1>
             </a>
         </td>
         <td id="qa-{{extraction_script.id}}">
-         {% if extraction_script.extractedtext_count > 0 %}
-            {% if extraction_script.qa_button_text != "QA Complete" %}
+        {% if extraction_script.extractedtext_count > 0 %}
+            {% if extraction_script.percent_complete == 100 %}
+              <a class="btn btn-light btn-sm col-12" disabled role="button"
+                title="QA Complete on {{ extraction_script.title }}"> QA Complete
+                </a>
+            {% elif extraction_script.percent_complete == 0 %}
               <a class="btn btn-primary btn-sm col-12" role="button"
-                title="{{ extraction_script.qa_button_text }} on {{ extraction_script.title }}"
-           href='{% url "qa_extraction_script" extraction_script.id %}'> {{ extraction_script.qa_button_text }}
+                title="Begin QA on {{ extraction_script.title }}"
+           href='{% url "qa_extraction_script" extraction_script.id %}'> Begin QA
                 </a>
             {% else %}
-              <a class="btn btn-light btn-sm col-12" disabled role="button">
-                {{ extraction_script.qa_button_text }}</a>
+              <a class="btn btn-primary btn-sm col-12" role="button"
+                title="QA started on {{ extraction_script.title }}"
+           href='{% url "qa_extraction_script" extraction_script.id %}'> Continue QA
+                </a>
             {% endif %}
-         {% endif %}
+        {% endif %}
         </td>
       </tr>
     {% endfor %}
