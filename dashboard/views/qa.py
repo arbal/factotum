@@ -15,7 +15,6 @@ from django.utils import timezone
 from django.utils.http import is_safe_url
 from django.utils.timesince import timesince
 from django_datatables_view.base_datatable_view import BaseDatatableView
-from django_mysql.models import add_QuerySetMixin
 
 from celery_usertask.tasks import UserTask, usertask
 from dashboard.forms import create_detail_formset, QANotesForm, DocumentTypeForm
@@ -40,16 +39,14 @@ def qa_extractionscript_index(request, template_name="qa/extraction_script_index
     qa_group_count = Count("extractedtext__qa_group")
     qa_complete_count = Count("extractedtext", filter=Q(extractedtext__qa_checked=True))
     percent_complete = (qa_complete_count / qa_group_count) * 100
-    texts = ExtractedText.objects.exclude(
-        data_document__data_group__group_type__code="CP"
-    )  # remove the scripts with CP texts that are associated
     extraction_scripts = (
-        add_QuerySetMixin(Script.objects.all())
-        .filter(extractedtext__in=texts, script_type="EX")
+        Script.objects.filter(script_type="EX")
+        .exclude(extractedtext__data_document__data_group__group_type__code="CP")
         .exclude(title="Manual (dummy)")
         .annotate(extractedtext_count=extractedtext_count)
         .annotate(percent_complete=percent_complete)
         .annotate(qa_group_count=qa_group_count)
+        .filter(extractedtext_count__gt=0)
     )
     return render(request, template_name, {"extraction_scripts": extraction_scripts})
 

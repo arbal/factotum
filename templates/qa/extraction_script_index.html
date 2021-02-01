@@ -46,15 +46,15 @@ QA: Composition - Ext. Script</h1>
               <a class="btn btn-light btn-sm col-12" disabled role="button"
                 title="QA Complete on {{ extraction_script.title }}"> QA Complete
                 </a>
-            {% elif extraction_script.percent_complete == 0 %}
-              <a class="btn btn-primary btn-sm col-12" role="button"
-                title="Begin QA on {{ extraction_script.title }}"
-           href='{% url "qa_extraction_script" extraction_script.id %}'> Begin QA
+            {% elif extraction_script.qa_begun %}
+                <a class="btn btn-primary btn-sm col-12" role="button"
+                   title="QA started on {{ extraction_script.title }}"
+                   href='{% url "qa_extraction_script" extraction_script.id %}'> Continue QA
                 </a>
             {% else %}
               <a class="btn btn-primary btn-sm col-12" role="button"
-                title="QA started on {{ extraction_script.title }}"
-           href='{% url "qa_extraction_script" extraction_script.id %}'> Continue QA
+                 title="Begin QA on {{ extraction_script.title }}"
+                 href='{% url "qa_extraction_script" extraction_script.id %}'> Begin QA
                 </a>
             {% endif %}
         {% endif %}
