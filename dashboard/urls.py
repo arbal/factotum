@@ -1,7 +1,6 @@
 from django.urls import path, re_path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.decorators.cache import cache_page
 
 import dashboard.views.data_group
 import dashboard.views.qa
@@ -236,7 +235,7 @@ urlpatterns = [
     path("sid_gt_json", views.sids_by_grouptype_ajax, name="sid_gt_json_url"),
     path("pucs/", views.puc_list, name="puc_list"),
     path("puc/<int:pk>/", views.puc_detail, name="puc_detail"),
-    path("dl_pucs_json/", cache_page(60 * 60)(views.bubble_PUCs), name="bubble_PUCs"),
+    path("dl_pucs_json/", views.bubble_PUCs, name="bubble_PUCs"),
     path(
         "dl_pucs_json/tree/", views.collapsible_tree_PUCs, name="collapsible_tree_PUCs"
     ),
@@ -261,7 +260,7 @@ urlpatterns = [
     ),
     path(
         "chemical_product_json/",
-        cache_page(60 * 60)(views.ChemicalProductListJson.as_view()),
+        views.ChemicalProductListJson.as_view(),
         name="chemical_product_ajax_url",
     ),
     path(
@@ -278,7 +277,7 @@ urlpatterns = [
     path("statistics/", views.Statistics.as_view(), name="statistics"),
     path(
         "visualizations/",
-        cache_page(60 * 60)(views.Visualizations.as_view()),
+        views.Visualizations.as_view(),
         name="visualizations",
     ),
     path("bulk_documents/", views.BulkDocuments.as_view(), name="bulk_documents"),
