@@ -234,14 +234,14 @@ class ChemicalProductListJson(BaseDatatableView):
         s = self.request.GET.get("search[value]", None)
         puc_kind = self.request.GET.get("puc_kind")
         if puc:
-            qs = qs.filter(Q(product__puc=puc)).distinct()
+            qs = qs.filter(Q(product__product_uber_puc__puc_id=puc))
         if s:
             qs = qs.filter(
                 Q(product__title__icontains=s) | Q(document__title__icontains=s)
             ).distinct()
         if puc_kind and puc_kind != "all":
             if puc_kind == "none":
-                qs = qs.filter(product__puc__isnull=True)
+                qs = qs.filter(product__product_uber_puc__isnull=True)
             else:
-                qs = qs.filter(product__puc__kind__code=puc_kind)
+                qs = qs.filter(product__product_uber_puc__kind__code=puc_kind)
         return qs
