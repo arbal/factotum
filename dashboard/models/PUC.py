@@ -1,4 +1,5 @@
 from django.db import models
+from django.apps import apps
 from django.db.models import F, Q
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
@@ -166,7 +167,14 @@ class PUC(CommonInfo):
 
     @property
     def cumulative_product_count(self):
-        return self.cumulative_products_per_puc.cumulative_product_count
+        # return self.cumulative_products_per_puc.cumulative_product_count
+        ProductToPUC = apps.get_model("dashboard", "ProductUberPuc")
+        if self.is_level_one:
+            return ProductToPUC.objects.filter(puc__gen_cat=self.gen_cat).count()
+        if self.is_level_two:
+            return ProductToPUC.objects.filter(puc__prod_fam=self.prod_fam).count()
+        if self.is_level_three:
+            return ProductToPUC.objects.filter(puc=self).count()
 
     @property
     def curated_chemical_count(self):

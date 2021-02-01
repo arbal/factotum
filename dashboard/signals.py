@@ -1,7 +1,7 @@
 from crum import get_current_user
 from django.db import models
 from django.db.backends.signals import connection_created
-from django.db.models.signals import post_delete, pre_save, pre_delete
+from django.db.models.signals import post_delete, pre_save, pre_delete, post_save
 from django.dispatch import receiver
 
 from dashboard.models import (
@@ -25,6 +25,19 @@ from dashboard.models import (
 def delete_product_puc_tags(sender, **kwargs):
     instance = kwargs["instance"]
     ProductToTag.objects.filter(content_object=instance.product).delete()
+
+
+# When dissociating a product from a PUC, update the uberpuc for that product ID
+@receiver(post_delete, sender=ProductToPUC)
+def update_uber_puc_on_delete(sender, **kwargs):
+    instance = kwargs["instance"]
+    instance.update_uber_puc()
+
+
+@receiver(post_save, sender=ProductToPUC)
+def update_uber_puc_on_save(sender, **kwargs):
+    instance = kwargs["instance"]
+    instance.update_uber_puc()
 
 
 # When dissociating a puc from a tag, also disocciate any puc-related products from that tag

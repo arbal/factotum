@@ -1,7 +1,12 @@
 from django_db_views.db_view import DBView
 from django.db import models
 
-from dashboard.models import PUC, Product, DSSToxLookup, ProductToPucClassificationMethod
+from dashboard.models import (
+    PUC,
+    Product,
+    DSSToxLookup,
+    ProductToPucClassificationMethod,
+)
 from dashboard.utils import SimpleTree
 
 from dashboard.models.custom_onetoone_field import CustomOneToOneField
@@ -28,18 +33,7 @@ class ProductUberPuc(DBView):
         return f"{self.product} --> {self.puc}"
 
     view_definition = """
-         SELECT ptp.*
-         FROM (
-             SELECT ptp.*, cm.rank
-             FROM dashboard_producttopuc ptp
-             LEFT JOIN dashboard_producttopucclassificationmethod cm ON cm.id = ptp.classification_method_id
-         ) ptp
-         LEFT JOIN (
-             SELECT product_id, puc_id, classification_method_id, rank
-             FROM dashboard_producttopuc ptp
-             LEFT JOIN dashboard_producttopucclassificationmethod cm ON cm.id = ptp.classification_method_id 
-         ) ptp_rank ON ptp.product_id = ptp_rank.product_id AND ptp.rank > ptp_rank.rank
-         WHERE ptp_rank.rank IS NULL
+         SELECT * from dashboard_producttopuc where is_uber_puc = TRUE
       """
 
     class JSONAPIMeta:
