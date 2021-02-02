@@ -79,7 +79,7 @@ class TestIntegration(StaticLiveServerTestCase):
     def test_datagroup(self):
         list_url = self.live_server_url + "/datagroups/"
         self.browser.get(list_url)
-        self.browser.find_element_by_xpath('//*[@title="edit"]').click()
+        self.browser.find_element_by_xpath('//*[@title="Edit"]').click()
         btn = self.browser.find_element_by_name("cancel")
         self.assertEqual(
             btn.get_attribute("href"),
@@ -144,17 +144,17 @@ class TestIntegration(StaticLiveServerTestCase):
         self.browser.get(qa_url)
         with self.assertRaises(NoSuchElementException):
             self.browser.find_element_by_xpath(
-                '//*[@id="id_rawchem-0-weight_fraction_type"]'
+                '//*[@id="id_weight_fraction_type"]'
             )
         with self.assertRaises(NoSuchElementException):
-            self.browser.find_element_by_xpath('//*[@id="id_rawchem-0-true_cas"]')
+            self.browser.find_element_by_xpath('//*[@id="id_true_cas"]')
         with self.assertRaises(NoSuchElementException):
-            self.browser.find_element_by_xpath('//*[@id="id_rawchem-0-true_chemname"]')
+            self.browser.find_element_by_xpath('//*[@id="id_true_chemname"]')
         with self.assertRaises(NoSuchElementException):
-            self.browser.find_element_by_xpath('//*[@id="id_rawchem-0-SID"]')
+            self.browser.find_element_by_xpath('//*[@id="id_SID"]')
         # make sure the test can pick up one that should be there
         try:
-            self.browser.find_element_by_xpath('//*[@id="id_rawchem-0-raw_cas"]')
+            self.browser.find_element_by_xpath('//*[@id="id_raw_cas"]')
         except NoSuchElementException:
             self.fail("Absence of raw_cas element raised exception")
         # The element should appear in the chemical update page

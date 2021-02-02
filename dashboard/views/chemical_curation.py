@@ -90,4 +90,4 @@ def chemical_delete(request, doc_pk, chem_pk):
     _, Chemical = get_extracted_models(doc.data_group.group_type.code)
     chem = Chemical.objects.get(pk=chem_pk)
     chem.delete()
-    return redirect(doc)
+    return redirect(request.headers.get("Referer", "") or doc)

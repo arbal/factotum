@@ -344,7 +344,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
 
         # Documents table
         self.assertInHTML(
-            "Showing 1 to 1 of 1 entries related to Keyword { wine, wood, writing } (filtered from 8 total documents)",
+            "Showing 1 to 1 of 1 entries related to Keyword",
             self.browser.find_element_by_xpath("//*[@id='documents_info']").text,
         )
 

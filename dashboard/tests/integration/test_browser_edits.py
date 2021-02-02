@@ -48,15 +48,20 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         for et in ets_with_curation:
             doc_qa_link = f"/qa/extractedtext/{et.data_document_id}/"
             self.browser.get(self.live_server_url + doc_qa_link)
-            self.browser.find_element_by_id(f"chem-card-{et.rawchem.last().id}").click()
-            rc_id = self.browser.find_element_by_id(
-                "id_rawchem-0-rawchem_ptr"
-            ).get_attribute("value")
-            self.browser.find_element_by_id("btn-toggle-edit").send_keys("\n")
-            raw_cas_input = self.browser.find_element_by_id("id_rawchem-0-raw_cas")
-            raw_cas_input.send_keys("changed cas")
-            self.browser.find_element_by_id("save").click()
+            rc_id = et.rawchem.last().id
+            btn_edit = self.browser.find_element_by_id(f"chemical-update-{rc_id}")
+            btn_edit.click()
+            save_button = wait.until(
+                ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
+            )
+            self.browser.find_element_by_id("id_raw_cas").send_keys("changed cas")
+            save_button.click()
+            wait.until(
+                ec.element_to_be_clickable((By.XPATH, "//*[@id='approve']"))
+            )
+            time.sleep(1)
             rc = RawChem.objects.get(pk=rc_id)  # reload the rawchem record
+            print(rc.dsstox)
             self.assertEqual(
                 None,
                 rc.dsstox,
@@ -78,38 +83,30 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         for et in ets_with_curation:
             doc_qa_link = f"/qa/extractedtext/{et.data_document_id}/"
             self.browser.get(self.live_server_url + doc_qa_link)
-            self.browser.find_element_by_id(f"chem-card-None").click()
-            self.browser.find_element_by_xpath('//*[@id="btn-toggle-edit"]').send_keys(
-                "\n"
-            )
+            self.browser.find_element_by_id(f"chemical-add-btn").click()
             # wait for the Save button to be clickable
             wait = WebDriverWait(self.browser, 10)
             save_button = wait.until(
-                ec.element_to_be_clickable((By.XPATH, "//*[@id='save']"))
+                ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
             )
             # edit the Raw CAS field
             raw_cas_input = self.browser.find_element_by_xpath(
-                '//*[@id="id_rawchem-1-raw_cas"]'
+                '//*[@id="id_raw_cas"]'
             )
             raw_cas_input.send_keys("test raw cas")
 
             raw_min_comp_input = self.browser.find_element_by_xpath(
-                '//*[@id="id_rawchem-1-raw_min_comp"]'
+                '//*[@id="id_raw_min_comp"]'
             )
             raw_min_comp_input.send_keys("1")
 
             raw_max_comp_input = self.browser.find_element_by_xpath(
-                '//*[@id="id_rawchem-1-raw_max_comp"]'
+                '//*[@id="id_raw_max_comp"]'
             )
             raw_min_comp_input.send_keys("1")
-            # # This time, set a unit_type
-            # unit_type_select = Select(
-            #     self.browser.find_element_by_xpath('//*[@id="id_rawchem-0-unit_type"]')
-            # )
-            # unit_type_select.select_by_index(0)
 
-            # Save the edits
             save_button.send_keys("\n")
+
             # Check for the error message after clicking Save
             wait.until(ec.visibility_of(self.browser.find_element_by_id("chem-card-")))
             self.browser.find_element_by_id("chem-card-").click()
@@ -124,33 +121,30 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
             # Try editing a new record correctly
             self.browser.get(self.live_server_url + doc_qa_link)
-            self.browser.find_element_by_id("chem-card-None").click()
-            self.browser.find_element_by_xpath('//*[@id="btn-toggle-edit"]').send_keys(
-                "\n"
-            )
+
             # wait for the Save button to be clickable
             wait = WebDriverWait(self.browser, 10)
             save_button = wait.until(
-                ec.element_to_be_clickable((By.XPATH, "//*[@id='save']"))
+                ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
             )
             raw_cas_input = self.browser.find_element_by_xpath(
-                '//*[@id="id_rawchem-1-raw_cas"]'
+                '//*[@id="id_raw_cas"]'
             )
             raw_cas_input.send_keys("test raw cas")
             raw_min_comp_input = self.browser.find_element_by_xpath(
-                '//*[@id="id_rawchem-1-raw_min_comp"]'
+                '//*[@id="id_min_comp"]'
             )
             raw_min_comp_input.send_keys("1")
             # This time, set a unit_type
             unit_type_select = Select(
-                self.browser.find_element_by_xpath('//*[@id="id_rawchem-1-unit_type"]')
+                self.browser.find_element_by_xpath('//*[@id="id_unit_type"]')
             )
             unit_type_select.select_by_index(1)
 
             save_button.send_keys("\n")
             # Check for the absence of an error message after clicking Save
             parent_div = self.browser.find_element_by_xpath(
-                '//*[@id="id_rawchem-1-raw_cas"]/parent::*'
+                '//*[@id="id_raw_cas"]/parent::*'
             )
             card_div = parent_div.find_element_by_xpath("../..")
             self.assertFalse(
@@ -204,15 +198,12 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             qa_url = self.live_server_url + f"/qa/extractedtext/{doc_id}/"
             self.browser.get(qa_url)
             # Activate the edit mode
-            edit_button = self.browser.find_element_by_xpath(
-                '//*[@id="btn-toggle-edit"]'
-            )
             wait = WebDriverWait(self.browser, 10)
             # For CP groups only 30 raw chems (set in ExtractedCPCat.prep_cp_for_qa()) are
             # designated for review.  Find the first and edit that.
             btn_accordion = wait.until(
                 ec.element_to_be_clickable(
-                    (By.XPATH, f"//*[starts-with(@id, 'chem-card-')]")
+                    (By.XPATH, f"//*[starts-with(@id, 'chem-')]")
                 )
             )
             btn_accordion.click()
@@ -223,7 +214,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             regex = re.compile("chem-card-\d+")
             chem_card = next(c for c in chem_cards if regex.match(c.get_property("id")))
             chem_card.click()
-            edit_button.send_keys("\n")
 
             # Wait for the field to be editable
 

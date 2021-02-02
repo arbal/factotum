@@ -44,7 +44,6 @@ class DataDocumentDetailTest(TransactionTestCase):
         self.assertFalse(page.xpath('//*[@id="delete_document"]'))
         self.assertFalse(page.xpath('//*[@id="btn-add-or-edit-extracted-text"]'))
         self.assertIsNone(page.xpath('//*[@id="qa_icon_unchecked"]')[0].get("href"))
-        self.assertFalse(page.xpath('//*[@id="chemical_edit_buttons"]'))
         self.assertFalse(page.xpath('//*[@id="add_chemical"]'))
         self.assertIsNone(page.xpath('//*[@id="datasource_link"]')[0].get("href"))
         self.assertIsNone(page.xpath('//*[@id="datagroup_link"]')[0].get("href"))

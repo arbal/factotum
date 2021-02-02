@@ -51,7 +51,7 @@
                         </h3>
                         {% if doc.detail_page_editable and request.user.is_authenticated %}
                             <div class="btn-group btn-group-sm float-right"
-                                 id="chemical_edit_buttons">
+                                 id="chem-{{ chemical.pk }}-buttons">
                                 <button class="btn btn-outline-secondary hover-success"
                                         id="chemical-update-{{ chemical.pk }}"
                                         title="edit"
@@ -188,6 +188,7 @@
             <div class="card m-4 p-0"
                  id="add_chemical">
                 <button class="btn m-0 p-0 btn-outline-secondary hover-success"
+                        id="chemical-add-btn"
                         data-toggle="modal"
                         data-target="#chemical-add-modal"
                         style="z-index: 290;"> <!-- z-index workaround for selenium/webdriver bug -->

@@ -19,7 +19,7 @@
                 </h3>
                 {% if doc.detail_page_editable and request.user.is_authenticated %}
                 <div class="btn-group btn-group-sm"
-                     id="chemical_edit_buttons">
+                     id="chem-{{ hp.pk }}-buttons">
                     <button class="btn btn-outline-secondary hover-success"
                             id="chemical-update-{{ hp.pk }}"
                             title="edit"
@@ -110,6 +110,7 @@
     <div class="card m-4 p-0"
          id="add_chemical">
         <button class="btn m-0 p-0 btn-outline-secondary hover-success"
+                id="chemical-add-btn"
                 data-toggle="modal"
                 data-target="#chemical-add-modal">
             <div class="card-body shadow rounded p-0 m-0 text-center"

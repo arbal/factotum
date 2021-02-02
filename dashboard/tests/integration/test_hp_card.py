@@ -163,7 +163,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         )
 
         delete_hp_button = self.browser.find_element_by_id(
-            f"chemical_edit_buttons"
+            f"chem-{{ self.hnp.pk }}-buttons"
         ).find_element_by_xpath(f"button[@data-target='#chem-delete-{self.hnp.pk}']")
         ActionChains(self.browser).move_to_element(delete_hp_button).click().perform()
         # Confirm Delete
@@ -263,10 +263,13 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
 
         # Select and submit the new PUC to the habits and practice
         ActionChains(self.browser).move_to_element(chem_card).click().perform()
+
+        self.browser.implicitly_wait(10)
+
         # Verify the card was selected
         self.assertEqual(
             str(self.hnp.pk),
-            self.browser.find_element_by_id("id_chems").get_attribute("value"),
+            Select(self.browser.find_element_by_id("id_chems")).options[0].value,
         )
         tagform = self.browser.find_element_by_xpath(
             "//form[contains(@action,'/save_tags/"
