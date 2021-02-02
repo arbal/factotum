@@ -193,7 +193,9 @@ class PUC(CommonInfo):
 
     @property
     def document_count(self):
-        return DataDocument.objects.filter(Q(products__puc=self)).distinct().count()
+        return DataDocument.objects.filter(
+            Q(products__product_uber_puc__puc=self)
+        ).count()
 
     @property
     def admin_url(self):
