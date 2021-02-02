@@ -84,6 +84,27 @@ class Migration(migrations.Migration):
             name="is_uber_puc",
             field=models.BooleanField(default=False),
         ),
+        migrations.RunSQL(
+            sql="""
+            UPDATE
+                dashboard_producttopuc ptp
+            LEFT JOIN
+                dashboard_producttopucclassificationmethod cm ON cm.id = ptp.classification_method_id
+            LEFT JOIN (
+                SELECT 
+                    ptp.product_id AS product_id,
+                    ptp.puc_id AS puc_id,
+                    ptp.classification_method_id AS classification_method_id,
+                    cm.rank AS rank
+                FROM
+                    dashboard_producttopuc ptp
+                LEFT JOIN dashboard_producttopucclassificationmethod cm ON cm.id = ptp.classification_method_id
+            ) ptp_rank ON ptp.product_id = ptp_rank.product_id AND cm.rank > ptp_rank.rank
+            SET is_uber_puc = ptp_rank.rank IS NULL
+            WHERE ptp.id <> 0
+            """,
+            reverse_sql=migrations.RunSQL.noop,
+        ),
         migrations.AlterField(
             model_name="puc",
             name="gen_cat",
