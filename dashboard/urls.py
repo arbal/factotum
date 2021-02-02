@@ -275,11 +275,7 @@ urlpatterns = [
     ),
     path("get_data/", views.get_data, name="get_data"),
     path("statistics/", views.Statistics.as_view(), name="statistics"),
-    path(
-        "visualizations/",
-        views.Visualizations.as_view(),
-        name="visualizations",
-    ),
+    path("visualizations/", views.Visualizations.as_view(), name="visualizations"),
     path("bulk_documents/", views.BulkDocuments.as_view(), name="bulk_documents"),
     path(
         "bulk_rawcategory/",
