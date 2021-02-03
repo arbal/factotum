@@ -53,6 +53,7 @@ fixtures_standard = [
     "15_list_presence_to_tag",
     "17_taxonomy",
     "18_functional_use",
+    "19_curation_step",
 ]
 
 fixtures_habits_practices = [

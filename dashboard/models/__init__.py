@@ -53,3 +53,4 @@ from .product_uber_puc import (
     CumulativeProductsPerPucAndSid,
 )
 from .duplicate_chemicals import DuplicateChemicals
+from .data_group_curation_workflow import CurationStep, DataGroupCurationWorkflow

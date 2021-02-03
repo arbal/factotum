@@ -264,6 +264,7 @@ class DataDocumentDetailTest(TransactionTestCase):
         hhe_no = response_html.xpath('//*[@id="id_hhe_report_number"]')[0].text
         self.assertIn("47", hhe_no)
 
+
     def test_delete(self):
         doc_pk = 354784
         doc = DataDocument.objects.get(pk=doc_pk)
@@ -617,6 +618,30 @@ class TestDynamicDetailFormsets(TestCase):
         cards = response_html.find_class("card")
         # the new first card should match the second ID
         self.assertEqual(cards[0].get("id"), f"chem-{second_id}")
+        self.client.post(
+                path=reverse("detected_flag_toggle_yes", kwargs={"doc_pk": 170415}),
+                data={
+                    'chems': ['93','557'],
+                },
+        )
+        self.assertEqual(exchems.get(id=93).chem_detected_flag,'1')
+        self.assertEqual(exchems.get(id=557).chem_detected_flag,'1')
+        self.client.post(
+                path=reverse("detected_flag_toggle_no", kwargs={"doc_pk": 170415}),
+                data={
+                    'chems': ['93','557'],
+                },
+        )
+        self.assertEqual(exchems.get(id=93).chem_detected_flag,'0')
+        self.assertEqual(exchems.get(id=557).chem_detected_flag,'0')
+        self.client.post(
+                path=reverse("detected_flag_reset", kwargs={"doc_pk": 170415}),
+                data={
+                    'chems': ['93','557'],
+                },
+        )
+        self.assertEqual(exchems.get(id=93).chem_detected_flag,None)
+        self.assertEqual(exchems.get(id=557).chem_detected_flag,None)
 
     def test_functional_use_chemical_cards(self):
         data_document = DataDocument.objects.get(pk=5)
@@ -660,3 +685,4 @@ class TestDynamicDetailFormsets(TestCase):
             content_object__extracted_text__data_document_id=doc_id
         ).count()
         self.assertEqual(0, tags_count, "should removed all tags")
+

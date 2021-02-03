@@ -7,10 +7,9 @@ from django.db.models import Exists, F, OuterRef
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.template.defaultfilters import pluralize
-from django_mysql.models import GroupConcat
+from django.template.defaultfilters import pluralize, register
 from djqscsv import render_to_csv_response
-from celery import shared_task, states
+from celery import shared_task
 from celery_usertask.tasks import UserTask, usertask
 from django.db import transaction
 from django.db.models import Count
@@ -25,6 +24,7 @@ from dashboard.forms.data_group import (
     ProductBulkCSVFormSet,
     FunctionalUseBulkCSVFormSet,
 )
+from dashboard.forms.forms import DataGroupWorkflowForm
 from dashboard.models import (
     ExtractedText,
     Script,
@@ -35,7 +35,8 @@ from dashboard.models import (
     DataDocument,
     DataGroup,
     FunctionalUse,
-    ProductDocument,
+    DataGroupCurationWorkflow,
+    CurationStep,
 )
 from dashboard.utils import gather_errors, zip_stream
 from factotum.environment import env
@@ -551,3 +552,40 @@ def download_raw_functional_use_records(request, pk):
         },
         use_verbose_names=False,
     )
+
+
+@login_required()
+def data_group_tracking(request, template_name="data_group/data_group_tracking.html"):
+    datagroups = (
+        DataGroup.objects.all()
+        .select_related("data_source", "group_type")
+        .prefetch_related("curation_steps")
+        .order_by("name")
+    )
+    curationsteps = CurationStep.objects.all().values("name", "id")
+    data = {"datagroups": list(datagroups), "curationsteps": list(curationsteps)}
+
+    return render(request, template_name, data)
+
+
+@login_required()
+def edit_data_group_tracking(
+    request, dg_pk, template_name="data_group/data_group_tracking_edit.html"
+):
+    datagroup = get_object_or_404(DataGroup, pk=dg_pk)
+    form = DataGroupWorkflowForm(request.POST or None, instance=datagroup)
+    data = {"datagroup": datagroup, "form": form}
+
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect("data_group_tracking")
+    return render(request, template_name, data)
+
+
+@register.filter(name="get_current_step_status")
+def get_current_step_status(datagroup, step_id):
+    for step in datagroup.curation_steps.all():
+        if step.curation_step.id == step_id:
+            return step.step_status
+    return "I"

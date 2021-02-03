@@ -1,10 +1,8 @@
 import csv
 import io
 import os
-from django.conf import settings
 from django.core.files import File
 from django.core.exceptions import ValidationError
-from django.utils import timezone
 from django.test import TestCase, tag
 from django.db.utils import IntegrityError
 from django.db.models import Count, Q
@@ -231,7 +229,7 @@ class ModelsTest(TempFileMixin, TestCase):
             )
 
 
-class PUCModelTest(TestCase):
+class ModelTestWithFixtures(TestCase):
 
     fixtures = fixtures_standard
 
@@ -259,7 +257,7 @@ class PUCModelTest(TestCase):
                 fld, model_fields, f'"{fld}"" field should be in PUCTag model.'
             )
 
-    def test_get_children(self):
+    def test_puc_get_children(self):
         """Level 1 and 2 PUCs should accumulate lower level PUCs.
         """
         puc = PUC.objects.get(pk=20)  # PUC w/ only gen_cat value
@@ -284,7 +282,16 @@ class PUCModelTest(TestCase):
         self.assertTrue(puc.prod_fam == "")
         self.assertTrue(puc.prod_type == "")
 
-    def test_document_counts(self):
+    def test_product_counts(self):
+        """Make sure the product_count property
+        returns the same thing as the num_products annotation"""
+        pucs = PUC.objects.all().annotate(num_products=Count("products"))
+        # pucs 1-3 have products associated with them
+        self.assertEqual(
+            pucs.get(pk=1).num_products, PUC.objects.get(pk=1).product_count
+        )
+
+    def test_puc_document_counts(self):
         """Make sure that documents with multiple product linkages
         are not being double-counted."""
         puc = PUC.objects.get(pk=185)
@@ -292,13 +299,7 @@ class PUCModelTest(TestCase):
         distinct_doc_count = docs.count()
         self.assertEqual(puc.document_count, distinct_doc_count)
 
-
-class DataDocumentTest(TestCase):
-
-    fixtures = fixtures_standard
-
     def test_datadocument_note(self):
-
         datadocument = DataDocument(
             filename="MyFile.pdf",
             title="My Title",
@@ -308,12 +309,7 @@ class DataDocumentTest(TestCase):
         datadocument.save()
         self.assertTrue(datadocument.note, "Some long note.")
 
-
-class DocumentTypeTest(TestCase):
-
-    fixtures = fixtures_standard
-
-    def test_unique_title(self):
+    def test_document_type_unique_title(self):
         doctype = DocumentType.objects.first()
         new_doctype = DocumentType(title=doctype.title, code="YO")
         err_msg = (
@@ -322,7 +318,7 @@ class DocumentTypeTest(TestCase):
         )
         self.assertRaises(IntegrityError, new_doctype.save, err_msg)
 
-    def test_unique_code(self):
+    def test_document_type_unique_code(self):
         doctype = DocumentType.objects.first()
         new_doctype = DocumentType(title="lol", code=doctype.code)
         err_msg = (
@@ -331,7 +327,7 @@ class DocumentTypeTest(TestCase):
         )
         self.assertRaises(IntegrityError, new_doctype.save, err_msg)
 
-    def test_rm_signal(self):
+    def test_document_type_rm_signal(self):
         document_type_id = 15
         group_type_id = 7
         qs = DataDocument.objects.filter(
@@ -358,10 +354,6 @@ class DocumentTypeTest(TestCase):
             "Too many DataDocument.document_types nullified",
         )
 
-
-class FunctionalUseModelTest(TestCase):
-    fixtures = fixtures_standard
-
     def test_funcuse_fields(self):
         fields = ["chem", "category", "report_funcuse", "clean_funcuse"]
         model_fields = [f.name for f in FunctionalUse._meta.get_fields()]
@@ -370,7 +362,7 @@ class FunctionalUseModelTest(TestCase):
                 fld, model_fields, f'"{fld}"" field should be in FunctionalUse model.'
             )
 
-    def test_functionaluse(self):
+    def test_functionaluse_update(self):
         # read
         fc = FunctionalUse.objects.filter(pk=1).first()
         self.assertEquals(fc.report_funcuse, "swell")
@@ -392,21 +384,7 @@ class FunctionalUseModelTest(TestCase):
         funcuse = FunctionalUse(report_funcuse="", clean_funcuse="")
         self.assertRaises(ValidationError, funcuse.clean_fields)
 
-
-class FunctionalUseCategoryModelTest(TestCase):
-    fixtures = fixtures_standard
-
-    def test_funcuse_fields(self):
-        fields = ["title", "description", "created_at", "updated_at"]
-        model_fields = [f.name for f in FunctionalUseCategory._meta.get_fields()]
-        for field in fields:
-            self.assertIn(
-                field,
-                model_fields,
-                f'"{field}"" field should be in FunctionalUseCategory model.',
-            )
-
-    def test_functionalusecatetory(self):
+    def test_functionalusecatetory_crud(self):
         # read
         fuc = FunctionalUseCategory.objects.filter(pk=1).first()
         self.assertEquals(fuc.title, "surfactant")
@@ -430,3 +408,17 @@ class FunctionalUseCategoryModelTest(TestCase):
         # funcationaluse associated should set to null now
         fu = FunctionalUse.objects.filter(category=1).first()
         self.assertIsNone(fu)
+
+    def test_datagroupcurationworkflow(self):
+        dg = DataGroup.objects.all().first()
+        step = CurationStep.objects.all().first()
+        DataGroupCurationWorkflow.objects.create(
+            data_group=dg, curation_step=step, step_status="I"
+        )
+        dg = DataGroup.objects.filter(pk=dg.id).first()
+        self.assertIsNotNone(dg.curation_steps)
+        self.assertEqual(1, dg.curation_steps.count())
+        step1 = dg.curation_steps.first()
+        self.assertFalse(step1.data_group.workflow_complete)
+        self.assertEqual(step1.curation_step.name, step.name)
+        self.assertEqual(step1.curation_step.step_number, 1)
