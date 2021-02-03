@@ -1,0 +1,40 @@
+- model: dashboard.curationstep
+  pk: 1
+  fields:
+    name: Extraction Completed
+    step_number: 1
+- model: dashboard.curationstep
+  pk: 2
+  fields:
+    name: QA Completed
+    step_number: 2
+- model: dashboard.curationstep
+  pk: 3
+  fields:
+    name: Composition Cleaned
+    step_number: 3
+- model: dashboard.curationstep
+  pk: 4
+  fields:
+    name: Funct. Use Cleaned
+    step_number: 4
+- model: dashboard.curationstep
+  pk: 5
+  fields:
+    name: Products Created
+    step_number: 5
+- model: dashboard.curationstep
+  pk: 6
+  fields:
+    name: PUC Assigned
+    step_number: 6
+- model: dashboard.curationstep
+  pk: 7
+  fields:
+    name: Keyword Tagged
+    step_number: 7
+- model: dashboard.curationstep
+  pk: 8
+  fields:
+    name: Chemicals Curated
+    step_number: 8

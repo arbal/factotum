@@ -47,6 +47,7 @@ class DataGroup(CommonInfo, QASummaryNote):
     data_source = models.ForeignKey("DataSource", on_delete=models.CASCADE)
     group_type = models.ForeignKey(GroupType, on_delete=models.SET_DEFAULT, default=1)
     url = models.CharField(max_length=150, blank=True, validators=[URLValidator()])
+    workflow_complete = models.BooleanField(default=False)
 
     tracker = FieldTracker()
 

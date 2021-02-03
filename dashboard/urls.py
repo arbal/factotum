@@ -386,6 +386,16 @@ urlpatterns = [
         views.ListPresenceDocumentsJson.as_view(),
         name="lp_documents",
     ),
+    path(
+        "data_group_tracking/",
+        dashboard.views.data_group_tracking,
+        name="data_group_tracking",
+    ),
+    path(
+        "data_group_tracking/edit/<int:dg_pk>/",
+        dashboard.views.edit_data_group_tracking,
+        name="data_group_tracking_edit",
+    ),
     path("", include("django_prometheus.urls")),
 ]
 if settings.DEBUG is True:

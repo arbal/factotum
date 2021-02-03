@@ -1,0 +1,70 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% block title %}Data Group Tracking{% endblock %}
+{% block content %}
+
+    <h1>
+        <span>Data Group Tracking</span>
+    </h1>
+
+    <p class="alert-success" id="result-message"></p>
+
+    <table class="table table-striped table-bordered dataTable no-footer table-sm" id="datagroups">
+        <thead class="table-primary">
+        <th>Data Source</th>
+        <th>Data Group</th>
+        <th>Group Type</th>
+        <th>Date Updated</th>
+        {% for step in curationsteps %}
+            <th>{{ step.name }}</th>
+        {% endfor %}
+        <th>Workflow Complete</th>
+        <th></th>
+        </thead>
+        <tbody>
+        {% for datagroup in datagroups %}
+            <tr>
+                <td>{{ datagroup.data_source.title }} </td>
+                <td>
+                    <a title="details" target="_blank"
+                       href="{% url "data_group_detail" datagroup.id %}"> {{ datagroup.name }}
+                    </a>
+                </td>
+                <td>{{ datagroup.group_type.title }} </td>
+                <td data-order="{{ datagroup.updated_at|date:"c" }}">
+                    {{ datagroup.updated_at|date:"M d, Y" }}
+                </td>
+                {% for step in curationsteps %}
+                    <td>
+                        {% with datagroup|get_current_step_status:step.id as current_status %}
+                            {% if current_status == "C" %}
+                                Complete
+                            {% elif current_status == "N" %}
+                                N/A
+                            {% else %}
+                                Incomplete
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+                {% endfor %}
+                <td>
+                    {{ datagroup.workflow_complete|yesno:"Yes, No" }}
+                </td>
+                <td class="float-sm-center">
+                    <div class="btn-group">
+                        <a class="btn btn-success btn-sm" role="button" title="edit"
+                           href="{% url "data_group_tracking_edit" datagroup.id %}">
+                            <span class="fa fa-fs fa-edit"></span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/dashboard/data_group_tracking.js' %}"></script>
+{% endblock %}
+

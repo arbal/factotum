@@ -30,6 +30,8 @@ from dashboard.models import (
     ExtractedHabitsAndPractices,
     RawChem,
     QASummaryNote,
+    DataGroupCurationWorkflow,
+    CurationStep,
 )
 from dashboard.models.extracted_hpdoc import ExtractedHPDoc
 
@@ -544,3 +546,49 @@ class DataDocumentForm(forms.ModelForm):
         )
         if self.instance.data_group.type not in ["LM", "HP", "LP"]:
             del self.fields["pmid"]
+
+
+class DataGroupWorkflowForm(forms.ModelForm):
+    class Meta:
+        model = DataGroup
+        fields = ["workflow_complete"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        curation_steps = CurationStep.objects.all()
+        for step in curation_steps:
+            current_status = DataGroupCurationWorkflow.objects.filter(
+                data_group_id=self.instance.id, curation_step_id=step.id
+            ).first()
+            field_name = "step_%d" % (step.id,)
+            self.fields[field_name] = forms.ChoiceField(
+                required=False,
+                choices=DataGroupCurationWorkflow.STEP_STATUS_CHOICES,
+                initial=current_status.step_status
+                if current_status is not None
+                else "I",
+                label=step.name,
+            )
+        # move this field to bottom
+        wc = self.fields.pop("workflow_complete")
+        self.fields["workflow_complete"] = wc
+        self.fields["workflow_complete"].label = "Workflow Complete"
+
+    def save(self):
+        datagroup = self.instance
+        datagroup.workflow_complete = self.cleaned_data["workflow_complete"]
+        datagroup.save()
+        # save/create each step
+        curation_steps = CurationStep.objects.all()
+        for step in curation_steps:
+            field_name = "step_%d" % (step.id,)
+            current_status = DataGroupCurationWorkflow.objects.filter(
+                data_group_id=self.instance.id, curation_step_id=step.id
+            ).first()
+            if current_status is None:
+                current_status = DataGroupCurationWorkflow(
+                    data_group=self.instance, curation_step=step
+                )
+            current_status.step_status = self.cleaned_data[field_name]
+            current_status.save()
