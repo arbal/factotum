@@ -2,7 +2,9 @@ function cards_init() {
 
     let chemInput = $("#id_chems")[0]
 
-    // $(document).ready(function () {
+let toggle_chems = $()[0]
+
+$(document).ready(function () {
     $('#id_chems').change(function () {
         if (this.childNodes.length) {
             $('#keyword-save').attr('disabled', false)
@@ -119,3 +121,9 @@ function deselect_chemcard(element) {
     element.classList.remove("border");
     element.classList.remove("border-primary");
 }
+
+$('#toggle-flags-modal').on('show.bs.modal', function (event) {
+    $("#id_chems").clone().appendTo($('#chem_toggle_clear'))
+    $("#id_chems").clone().appendTo($('#chem_toggle_detected'))
+    $("#id_chems").clone().appendTo($('#chem_toggle_non_detected'))
+});

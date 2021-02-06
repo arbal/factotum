@@ -36,6 +36,8 @@ router.register(
     base_name="classificationMethod",
 )
 
+router.register(r"productToPucs", apiviews.ProductToPucViewSet, basename="productToPuc")
+
 urlpatterns = [
     path("openapi.json/", docsviews.OpenAPIView.as_view(), name="openapi-schema"),
     path("token/", coreviews.ObtainExpiringAuthToken.as_view(), name="token"),
@@ -80,6 +82,16 @@ urlpatterns = [
         "products",
         view=apiviews.ProductViewSet.as_view(actions={"post": "create"}),
         name="product",
+    ),
+    path(
+        "products/<pk>/relationships/<related_field>",
+        view=apiviews.ProductRelationshipView.as_view(),
+        name="product-relationships",
+    ),
+    path(
+        "productToPucs/<pk>/relationships/<related_field>",
+        view=apiviews.ProductToPucRelationshipView.as_view(),
+        name="productToPuc-relationships",
     ),
     path("", include("django_prometheus.urls")),
 ]

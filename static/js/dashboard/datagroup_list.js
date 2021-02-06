@@ -17,7 +17,9 @@ var columnDefs = [
   {headerName: "Extracted Documents", field: "num_extracted"},
   {headerName: "Link to Download Script", field: "download_script",
         cellRenderer: function (params) {
-            return '<a target="_blank" href="' + params.data.download_script__url + '">' + params.data.download_script__title + '</a>';
+            if(params.data.download_script) {
+                return '<a target="_blank" href="' + params.data.download_script__url + '">' + params.data.download_script__title + '</a>';
+            }
         }
   },
   {headerName: "Options", cellRenderer: "detailRenderer"},

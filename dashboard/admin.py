@@ -118,7 +118,7 @@ class DataGroupAdmin(admin.ModelAdmin):
 class GroupTypeInline(admin.TabularInline):
     model = DocumentType.group_types.through
     extra = 0
-    can_delete = False
+    can_delete = True
     verbose_name = _("Compatible Group Type")
     verbose_name_plural = _("Compatible Group Types")
 
@@ -167,3 +167,4 @@ admin.site.register(ExtractedListPresenceToTag, ExtractedListPresenceToTagAdmin)
 admin.site.register(ExtractedListPresenceTagKind)
 admin.site.register(FunctionalUse)
 admin.site.register(FunctionalUseCategory)
+admin.site.register(CurationStep)

@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% block title %}Edit Data Group Workflow{% endblock %}
+{% block content %}
+    <h2 class="col-sm-12">
+        <span name="title">
+          {{ datagroup }}
+        </span>
+    </h2>
+    <h3 class="col-sm-12">
+        <span name="group_type">
+          {{ datagroup.group_type }}
+        </span>
+    </h3>
+    <br/>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% include 'core/bs4_form.html' with form=form colspan='col-4' %}
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a class="btn btn-secondary" href="{% url 'data_group_tracking' %}" name='cancel'>Cancel</a>
+        </div>
+    </form>
+    <br/>
+{% endblock %}

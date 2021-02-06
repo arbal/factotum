@@ -1,7 +1,6 @@
 import io
 from lxml import html
 
-from django.utils import timezone
 from django.test import RequestFactory, TestCase, override_settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.contrib.messages.middleware import MessageMiddleware
@@ -140,3 +139,35 @@ class DataGroupFormTest(TestCase):
             " &#39;document_type&#39;, &#39;url&#39;, &#39;organization&#39;,"
             " &#39;subtitle&#39;, &#39;epa_reg_number&#39;]",
         )
+
+    def test_datagroup_tracking_edit_form(self):
+        dg = DataGroup.objects.first()
+        steps = CurationStep.objects.all()
+        data = {}
+
+        response = self.client.get(
+            f"/data_group_tracking/edit/{str(dg.pk)}/"
+        ).content.decode("utf8")
+        response_html = html.fromstring(response)
+
+        self.assertIsNotNone(
+            '//*[@id="id_workflow_complete"]', "workflow field should exist"
+        )
+        for step in steps:
+            step_field_id = "id_step_" + str(step.id)
+            step_field = response_html.xpath(f'//*[@id="{step_field_id}"]')
+            self.assertIsNotNone(step_field, "step field should exist")
+            data["step_" + str(step.id)] = "C"
+
+        data["workflow_complete"] = True
+        # post data
+        response = self.client.post(
+            f"/data_group_tracking/edit/{dg.pk}/", data, follow=True
+        )
+
+        html.fromstring(response.content.decode("utf8"))
+        datagroup = DataGroup.objects.filter(pk=dg.pk).first()
+        self.assertTrue(datagroup.workflow_complete, "workflow status should saved")
+        self.assertEqual(steps.count(), datagroup.curation_steps.count())
+        for step in datagroup.curation_steps.all():
+            self.assertEqual("C", step.step_status, "step status should saved")
