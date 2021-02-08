@@ -42,6 +42,7 @@ from dashboard.models import (
     ExtractedListPresenceTagKind,
     FunctionalUse,
     FunctionalUseCategory,
+    CurationStep,
 )
 
 

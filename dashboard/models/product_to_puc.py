@@ -30,7 +30,7 @@ class ProductToPUC(CommonInfo):
     classification_confidence = models.DecimalField(
         max_digits=6, decimal_places=3, default=1, null=True, blank=True
     )
-    is_uber_puc = models.BooleanField(default=False)
+    is_uber_puc = models.BooleanField(default=False, db_index=True)
 
     def __str__(self):
         return f"{self.product} --> {self.puc}"

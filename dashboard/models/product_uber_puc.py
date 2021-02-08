@@ -193,22 +193,16 @@ class ProductsPerPucAndSid(DBView):
 
     view_definition = """
         SELECT 
-            1 as id,
-            product_uber_puc.puc_id AS puc_id,
-            dashboard_dsstoxlookup.id as dsstoxlookup_id ,
-            count(product_uber_puc.product_id) AS product_count
-        FROM
-            product_uber_puc
-            INNER JOIN
-            dashboard_productdocument ON (product_uber_puc.product_id = dashboard_productdocument.product_id)
-                INNER JOIN
-            dashboard_datadocument ON (dashboard_productdocument.document_id = dashboard_datadocument.id)
-                INNER JOIN
-            dashboard_rawchem ON (dashboard_datadocument.id = dashboard_rawchem.extracted_text_id)
-                INNER JOIN
-            dashboard_dsstoxlookup ON (dashboard_rawchem.dsstox_id = dashboard_dsstoxlookup.id)
-            GROUP BY product_uber_puc.puc_id, dashboard_dsstoxlookup.id
-            ;
+                1 AS id,
+                ptp.puc_id AS puc_id,
+                chem.dsstox_id AS dsstoxlookup_id,
+                COUNT(ptp.product_id) AS product_count
+            FROM
+                (select product_id, puc_id FROM dashboard_producttopuc where dashboard_producttopuc.is_uber_puc = TRUE) ptp
+                JOIN dashboard_productdocument ON ptp.product_id = dashboard_productdocument.product_id
+                JOIN (select extracted_text_id, dsstox_id from dashboard_rawchem where dsstox_id is not null) chem ON 
+                dashboard_productdocument.id = chem.extracted_text_id
+            GROUP BY ptp.puc_id , chem.dsstox_id
             """
 
     class Meta:
