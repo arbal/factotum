@@ -1,4 +1,5 @@
 from django.views import View
+from cacheops import cached, cached_view
 
 from dashboard.models import (
     PUC,
@@ -46,6 +47,7 @@ class Visualizations(View):
         return render(request, self.template_name, context)
 
 
+@cached_view(timeout=60 * 60 * 24)
 def bubble_PUCs(request):
     """This view is used to download all of the PUCs in nested JSON form.
     """

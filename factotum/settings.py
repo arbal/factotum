@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "django_elasticsearch_dsl",
     "django_cleanup.apps.CleanupConfig",
     "django_db_views",
+    "django-cacheops",
 ]
 
 MIDDLEWARE = [
@@ -148,6 +149,7 @@ CACHES = {
 }
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
+
 
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "America/New_York"
