@@ -19,6 +19,7 @@ $(document).ready(function () {
             value = [parseFloat(lower.length === 0 ? '0' : lower),
                 parseFloat(upper.length === 0 ? '0' : upper)];
         }
+        console.log(input_id)
         $('#' + input_id)
             .slider({
                 id: "slider" + chemical_pk,

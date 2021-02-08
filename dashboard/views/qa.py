@@ -360,7 +360,7 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
 
     detail_formset = ChildForm(instance=extext)
     if qa_focus == "script":
-        flagged_qs =  detail_formset.get_queryset()
+        flagged_qs = detail_formset.get_queryset()
     ext_form = ParentForm(instance=extext)
     extext.chemical_count = RawChem.objects.filter(extracted_text=extext).count()
 
@@ -369,7 +369,9 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
 
     # Allow the user to edit the data document type
     document_type_form = DocumentTypeForm(None, instance=doc)
-    document_type_form.fields["document_type"].queryset = DocumentType.objects.compatible(doc)
+    document_type_form.fields[
+        "document_type"
+    ].queryset = DocumentType.objects.compatible(doc)
     document_type_form.fields["document_type"].label = "Data Document Type:"
 
     context = {

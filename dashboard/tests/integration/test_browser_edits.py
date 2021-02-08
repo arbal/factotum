@@ -52,6 +52,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         ets_with_curation = ExtractedText.objects.filter(
             rawchem__dsstox__isnull=False
         ).filter(pk=245401)
+        wait = WebDriverWait(self.browser, 10)
         for et in ets_with_curation:
             doc_qa_link = f"/qa/extractedtext/{et.data_document_id}/"
             self.browser.get(self.live_server_url + doc_qa_link)
@@ -63,9 +64,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             )
             self.browser.find_element_by_id("id_raw_cas").send_keys("changed cas")
             save_button.click()
-            wait.until(
-                ec.element_to_be_clickable((By.XPATH, "//*[@id='approve']"))
-            )
+            wait.until(ec.element_to_be_clickable((By.XPATH, "//*[@id='approve']")))
             time.sleep(1)
             rc = RawChem.objects.get(pk=rc_id)  # reload the rawchem record
             print(rc.dsstox)
@@ -97,9 +96,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
             )
             # edit the Raw CAS field
-            raw_cas_input = self.browser.find_element_by_xpath(
-                '//*[@id="id_raw_cas"]'
-            )
+            raw_cas_input = self.browser.find_element_by_xpath('//*[@id="id_raw_cas"]')
             raw_cas_input.send_keys("test raw cas")
 
             raw_min_comp_input = self.browser.find_element_by_xpath(
@@ -134,9 +131,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             save_button = wait.until(
                 ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
             )
-            raw_cas_input = self.browser.find_element_by_xpath(
-                '//*[@id="id_raw_cas"]'
-            )
+            raw_cas_input = self.browser.find_element_by_xpath('//*[@id="id_raw_cas"]')
             raw_cas_input.send_keys("test raw cas")
             raw_min_comp_input = self.browser.find_element_by_xpath(
                 '//*[@id="id_min_comp"]'
@@ -216,18 +211,15 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             btn_accordion.click()
             # Find chemical card, not chem-card-None (i.e. "Add new chemical")
             chem_cards = self.browser.find_elements_by_xpath(
-                "//*[starts-with(@id, 'chem-card-')]"
+                "//*[starts-with(@id, 'chem-')]"
             )
-            regex = re.compile("chem-card-\d+")
+            regex = re.compile("chem-\d+")
             chem_card = next(c for c in chem_cards if regex.match(c.get_property("id")))
             chem_card.click()
 
             # Wait for the field to be editable
-
             raw_chem_name_field = wait.until(
-                ec.element_to_be_clickable(
-                    (By.XPATH, "//*[@id='id_rawchem-0-raw_chem_name']")
-                )
+                ec.element_to_be_clickable((By.XPATH, "//*[@id='id_raw_chem_name']"))
             )
 
             old_raw_chem_name = raw_chem_name_field.get_attribute("value")

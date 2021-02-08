@@ -1,10 +1,8 @@
 function cards_init() {
-
     let chemInput = $("#id_chems")[0]
+    let toggle_chems = $()[0]
 
-let toggle_chems = $()[0]
-
-$(document).ready(function () {
+// $(document).ready(function () {
     $('#id_chems').change(function () {
         if (this.childNodes.length) {
             $('#keyword-save').attr('disabled', false)

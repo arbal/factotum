@@ -9,6 +9,8 @@ from dashboard.models import (
 )
 from django.test import tag
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
 
@@ -139,13 +141,25 @@ class TestIntegration(StaticLiveServerTestCase):
 
     def test_field_exclusion(self):
         doc = self.objects.doc
+        chem = doc.extractedtext.rawchem.first()
+        wait = WebDriverWait(self.browser, 10)
+
         # The element should not appear on the QA page
         qa_url = self.live_server_url + f"/qa/extractedtext/{doc.pk}/"
         self.browser.get(qa_url)
-        with self.assertRaises(NoSuchElementException):
-            self.browser.find_element_by_xpath(
-                '//*[@id="id_weight_fraction_type"]'
+
+        wait.until(
+            ec.element_to_be_clickable(
+                (By.XPATH, f'//*[@id="chemical-update-{chem.pk}"]')
             )
+        ).click()
+
+        wait.until(
+            ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
+        )
+
+        with self.assertRaises(NoSuchElementException):
+            self.browser.find_element_by_xpath('//*[@id="id_weight_fraction_type"]')
         with self.assertRaises(NoSuchElementException):
             self.browser.find_element_by_xpath('//*[@id="id_true_cas"]')
         with self.assertRaises(NoSuchElementException):
@@ -160,7 +174,7 @@ class TestIntegration(StaticLiveServerTestCase):
         # The element should appear in the chemical update page
         dd_url = (
             self.live_server_url
-            + f"/chemical/{doc.extractedtext.rawchem.first().pk}/edit/"
+            + f"/chemical/{chem.pk}/edit/"
         )
         self.browser.get(dd_url)
         try:

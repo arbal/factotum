@@ -24,7 +24,7 @@ urlpatterns = [
         "datadocument/detected/<int:doc_pk>/",
         views.detected_flag,
         name="detected_flag_toggle_yes",
-    ),    
+    ),
     path(
         "datadocument/non_detected/<int:doc_pk>/",
         views.detected_flag,
@@ -219,7 +219,9 @@ urlpatterns = [
     path("products/", views.product_list, name="product_list"),
     path("datadocument/<int:pk>/", views.data_document_detail, name="data_document"),
     path(
-        "datadocument/<int:pk>/cards", views.data_document_cards, name="data_document_cards"
+        "datadocument/<int:pk>/cards",
+        views.data_document_cards,
+        name="data_document_cards",
     ),
     path("save_type/<int:pk>/", views.save_doc_form, name="save_doc_form"),
     path("save_ext/<int:pk>/", views.save_ext_form, name="save_ext_form"),

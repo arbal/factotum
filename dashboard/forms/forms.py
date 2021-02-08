@@ -308,10 +308,7 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
         # only if the form is bound to an instance
         if form.instance.pk is not None:
             FunctionalUseFormset = forms.inlineformset_factory(
-                RawChem,
-                FunctionalUse,
-                fields=("id", "report_funcuse"),
-                extra=0,
+                RawChem, FunctionalUse, fields=("id", "report_funcuse"), extra=0
             )
             form.functional_uses = FunctionalUseFormset(
                 instance=form.instance,

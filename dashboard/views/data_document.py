@@ -136,8 +136,8 @@ class ChemCreateView(CreateView):
         code = doc.data_group.group_type.code
         return CHEMICAL_FORMS[code]
 
-    def form_invalid(self, form, formset):
-        return self.render_to_response(self.get_context_data(form=form, fufs=formset))
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
 
     def form_valid(self, form):
         form.instance.extracted_text_id = self.kwargs.get("doc")
@@ -152,7 +152,7 @@ class ChemCreateView(CreateView):
                 {"chemical": self.object},
             )
         else:
-            return self.form_invalid(form, formset)
+            return self.form_invalid(form)
 
 
 @method_decorator(login_required, name="dispatch")
@@ -192,8 +192,8 @@ class ChemUpdateView(UpdateView):
         code = self.object.extracted_text.group_type
         return CHEMICAL_FORMS[code]
 
-    def form_invalid(self, form, formset):
-        return self.render_to_response(self.get_context_data(form=form, fufs=formset))
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
 
     def form_valid(self, form):
         self.object = form.save()
@@ -207,7 +207,7 @@ class ChemUpdateView(UpdateView):
                 {"chemical": self.object},
             )
         else:
-            return self.form_invalid(form, formset)
+            return self.form_invalid(form)
 
 
 @method_decorator(login_required, name="dispatch")
@@ -450,26 +450,26 @@ def list_presence_tag_delete(request, doc_pk, chem_pk, tag_pk):
     return redirect(url)
 
 
-
 @login_required
 def detected_flag(request, doc_pk):
     chems = request.POST.getlist("chems")
     flag_set = int
-    if 'non_detected' in request.get_full_path():
+    if "non_detected" in request.get_full_path():
         flag_set = 0
-    elif 'detected' in request.get_full_path():
+    elif "detected" in request.get_full_path():
         flag_set = 1
-    elif 'clear_flag' in request.get_full_path():
+    elif "clear_flag" in request.get_full_path():
         flag_set = None
     else:
         pass
 
-    for chem in chems: 
+    for chem in chems:
         elp = RawChem.objects.get(pk=chem)
-        elp.chem_detected_flag=flag_set
+        elp.chem_detected_flag = flag_set
         elp.save()
     url = reverse("data_document", args=[doc_pk])
     return redirect(url)
+
 
 @login_required
 def habits_and_practices_tag_delete(request, doc_pk, chem_pk, tag_pk):

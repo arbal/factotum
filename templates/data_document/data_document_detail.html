@@ -197,32 +197,31 @@
             {% endif %}
 
             {% if tag_form and request.user.is_authenticated %}
-            {% comment %} the tag_form attribute is a good proxy for "is this a list presence document?" {% endcomment %}
-            <hr>
-            <h5>
+                {% comment %} the tag_form attribute is a good proxy for "is this a list presence document?" {% endcomment %}
+                <hr>
+                <h5>
                     <b>Toggle Detected Chemical Flags</b>
-            </h5>
-            <div class="btn-group btn-group-flex-center ml-3"
-            role="group"
-            aria-label="Toggle Detected Chemical Flag for Selected Chemicals">
+                </h5>
+                <div class="btn-group btn-group-flex-center ml-3"
+                     role="group"
+                     aria-label="Toggle Detected Chemical Flag for Selected Chemicals">
 
-            <button id="toggle-flags-btn"
-                    type="submit"
-                    data-toggle="modal"
-                    data-target="#toggle-flags-modal"
-                    class="btn btn-outline-secondary btn-sm">
-                Toggle
-            </button>
+                    <button id="toggle-flags-btn"
+                            type="submit"
+                            data-toggle="modal"
+                            data-target="#toggle-flags-modal"
+                            class="btn btn-outline-secondary btn-sm">
+                        Toggle
+                    </button>
 
-            </div>
+                </div>
             {% endif %}
 
-            {% if tag_form and request.user.is_authenticated %}
-                <hr>
-                <div>
-                    <form action="{% url 'save_tag_form' doc.id %}"
-                          method="post">
-                        {% csrf_token %}
+            <hr>
+            <div>
+                <form action="{% url 'save_tag_form' doc.id %}" method="post">
+                    {% csrf_token %}
+                    {% if tag_form and request.user.is_authenticated %}
                         <div class="d-flex justify-content-between">
                             <h5>
                                 {% if doc.data_group.is_chemical_presence %}
@@ -268,13 +267,12 @@
                         <div class="d-flex mt-2">
                             {{ tag_form }}
                         </div>
-                        <p class="text-right text-muted"><span id="selected">0</span> of <span id="card-count">?</span>
-                            Chemicals
-                            Selected</p>
-                        <select name="chems" id="id_chems" multiple hidden></select>
-                    </form>
-                </div>
-            {% endif %}
+                    {% endif %}
+                    <p class="text-right text-muted"><span id="selected">0</span> of <span id="card-count">?</span>
+                        Chemicals Selected</p>
+                    <select name="chems" id="id_chems" multiple hidden></select>
+                </form>
+            </div>
             {% if doc.data_group.can_have_products %}
                 <hr>
                 <div>
@@ -461,10 +459,10 @@
                 </div>
 
                 <div class="modal fade"
-                    id="toggle-flags-modal"
-                    tabindex="-1" role="dialog"
-                    aria-labelledby="toggleFlagsModalLabel"
-                    aria-hidden="true">
+                     id="toggle-flags-modal"
+                     tabindex="-1" role="dialog"
+                     aria-labelledby="toggleFlagsModalLabel"
+                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -476,41 +474,44 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                                <div class="modal-body">
-                                    Choose an option to assign the detected chemical flag for all selected chemicals.
-                                </div>
-                                <div class="modal-footer">
-                                    <button id="toggle-flags-cancel-btn"
-                                            type="button"
-                                            class="btn btn-secondary"
-                                            data-dismiss="modal">
-                                        Cancel
+                            <div class="modal-body">
+                                Choose an option to assign the detected chemical flag for all selected chemicals.
+                            </div>
+                            <div class="modal-footer">
+                                <button id="toggle-flags-cancel-btn"
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-dismiss="modal">
+                                    Cancel
+                                </button>
+                                <form id='chem_toggle_clear' action="{% url 'detected_flag_reset' doc.pk %}"
+                                      method="post">
+                                    {% csrf_token %}
+                                    <button id="toggle-flags-clear-btn"
+                                            type="submit"
+                                            class="btn btn-primary">
+                                        Clear Flags
                                     </button>
-                                    <form id='chem_toggle_clear' action="{% url 'detected_flag_reset' doc.pk %}" method="post">
-                                        {% csrf_token %}
-                                        <button id="toggle-flags-clear-btn"
-                                                type="submit"
-                                                class="btn btn-primary">
-                                            Clear Flags
-                                        </button>
-                                    </form>
-                                    <form id='chem_toggle_detected' action="{% url 'detected_flag_toggle_yes' doc.pk %}" method="post">
-                                        {% csrf_token %}
-                                        <button id="toggle-flags-detected-btn"
-                                                type="submit"
-                                                class="btn btn-primary">
-                                            Detected
-                                        </button>
-                                    </form>
-                                    <form id='chem_toggle_non_detected' action="{% url 'detected_flag_toggle_no' doc.pk %}" method="post">
-                                        {% csrf_token %}
-                                        <button id="toggle-flags-non-detected-btn"
-                                                type="submit"
-                                                class="btn btn-primary">
-                                            Non-Detected
-                                        </button>
-                                    </form>
-                                </div>
+                                </form>
+                                <form id='chem_toggle_detected' action="{% url 'detected_flag_toggle_yes' doc.pk %}"
+                                      method="post">
+                                    {% csrf_token %}
+                                    <button id="toggle-flags-detected-btn"
+                                            type="submit"
+                                            class="btn btn-primary">
+                                        Detected
+                                    </button>
+                                </form>
+                                <form id='chem_toggle_non_detected' action="{% url 'detected_flag_toggle_no' doc.pk %}"
+                                      method="post">
+                                    {% csrf_token %}
+                                    <button id="toggle-flags-non-detected-btn"
+                                            type="submit"
+                                            class="btn btn-primary">
+                                        Non-Detected
+                                    </button>
+                                </form>
+                            </div>
                             <!--</form>-->
                         </div>
                     </div>
@@ -518,21 +519,21 @@
 
 
                 <div class="modal fade"
-                    id="delete-all-tags-modal"
-                    tabindex="-1" role="dialog"
-                    aria-labelledby="deleteAllTagsModalLabel"
-                    aria-hidden="true">
+                     id="delete-all-tags-modal"
+                     tabindex="-1" role="dialog"
+                     aria-labelledby="deleteAllTagsModalLabel"
+                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 id="deleteAllTagsModalLabel">Select All Tags</h5>
                                 <button type="button"
-                                    class="close"
-                                    data-dismiss="modal"
-                                    aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
                                 </button>
-                        </div>
+                            </div>
                             <form action="{% url 'data_document_delete_tags' doc.pk %}" method="post">
                                 {% csrf_token %}
                                 <div class="modal-body">
@@ -541,15 +542,15 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button id="delete-all-tags-cancel-btn"
-                                        type="button"
-                                        class="btn btn-secondary"
-                                        data-dismiss="modal">
-                                    Cancel
+                                            type="button"
+                                            class="btn btn-secondary"
+                                            data-dismiss="modal">
+                                        Cancel
                                     </button>
                                     <button id="delete-all-tags-delete-btn"
-                                        type="submit"
-                                        class="btn btn-primary">
-                                    Delete
+                                            type="submit"
+                                            class="btn btn-primary">
+                                        Delete
                                     </button>
                                 </div>
                             </form>

@@ -333,7 +333,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         # filter by keyword
         keyword_filter = self.browser.find_element_by_id("keywords-1")
         keyword_filter.click()
-        time.sleep(1)
+        self.browser.implicitly_wait(1)
 
         self.assertEqual(
             keyword_filter.get_attribute("data-original-title"),
@@ -342,6 +342,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         keyword_filter_icon = keyword_filter.find_element_by_class_name("icon-primary")
         self.assertIsNotNone(keyword_filter_icon)
 
+        print(self.browser.find_element_by_xpath("//*[@id='documents_info']").text)
         # Documents table
         self.assertInHTML(
             "Showing 1 to 1 of 1 entries related to Keyword",

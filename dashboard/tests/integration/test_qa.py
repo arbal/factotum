@@ -183,9 +183,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase, TransactionTestCase):
             list_url = self.live_server_url + f"/qa/extractedtext/{et.pk}/"
             self.browser.get(list_url)
             chem = et.rawchem.last()
-            self.browser.find_element_by_xpath(
-                f'//*[@id="chem-{chem.pk}"]'
-            ).click()
+            self.browser.find_element_by_xpath(f'//*[@id="chem-{chem.pk}"]').click()
 
             wait = WebDriverWait(self.browser, 10)
             audit_link = wait.until(
@@ -201,46 +199,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase, TransactionTestCase):
             )
             self.assertIn("report_funcuse", datatable.text)
 
-    def test_nested_formset(self):
-        # the pages being tested include all the RawChem subtypes
-        extracted_text = ExtractedText.objects.filter(pk__in=[7, 11, 254780, 5])
-        for et in extracted_text:
-            qa_url = self.live_server_url + reverse(
-                "extracted_text_qa", kwargs={"pk": et.pk}
-            )
-            self.browser.get(qa_url)
-            # open the chemical card
-            chem = et.rawchem.first()
-            self.browser.find_element_by_xpath(
-                f'//*[@id="chem-card-{chem.pk}"]'
-            ).click()
-            # switch to editing mode
-            self.browser.find_element_by_id("btn-toggle-edit").click()
-            wait = WebDriverWait(self.browser, 10)
-
-            fu_input = self.browser.find_element_by_id(
-                "id_rawchem-0-functional_uses-0-report_funcuse"
-            )
-
-            fu_input = wait.until(
-                EC.visibility_of_element_located(
-                    (By.ID, "id_rawchem-0-functional_uses-0-report_funcuse")
-                )
-            )
-            fu_input.send_keys(" edited")
-
-            save_button = wait.until(EC.element_to_be_clickable((By.ID, "save")))
-            save_button.send_keys(Keys.SPACE)
-
-            # the page should reload in non-editing mode
-
-            edit_button = wait.until(
-                EC.visibility_of_element_located((By.ID, "btn-toggle-edit"))
-            )
-            self.assertIn(
-                "toggleDetailEdit(true)", edit_button.get_attribute("onclick")
-            )
-
     def test_list_presence_chem_delete(self):
         # make sure that deleting an ExtractedListPresence record doesn't fail
         # if it has related Functional Use
@@ -253,19 +211,13 @@ class TestEditsWithSeedData(StaticLiveServerTestCase, TransactionTestCase):
         )
         self.browser.get(qa_url)
 
-        # open the first chemical card
-        self.browser.find_element_by_xpath(f'//*[@id="chem-card-{chem.pk}"]').click()
-
         # delete the first RawChem/ExtractedListPresence record
+        self.browser.find_element_by_xpath(f'//*[@id="chemical-delete-{chem.pk}"]').click()
         delcheck = wait.until(
-            EC.element_to_be_clickable((By.ID, "id_rawchem-0-DELETE"))
+            EC.element_to_be_clickable((By.ID, "chemical-modal-save-{chem.pk}"))
         )
         delcheck.click()
 
-        # save the page
-        save_button = wait.until(EC.element_to_be_clickable((By.ID, "save")))
-        save_button.send_keys(Keys.SPACE)
-
         # the reopened page should not contain the chemical
-        accordion = wait.until(EC.visibility_of_element_located((By.ID, "accordion")))
-        self.assertNotIn(chem.raw_chem_name, accordion.text)
+        cards = wait.until(EC.visibility_of_element_located((By.ID, "cards")))
+        self.assertNotIn(chem.raw_chem_name, cards.text)
