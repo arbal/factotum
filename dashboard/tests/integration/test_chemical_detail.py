@@ -342,9 +342,8 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         keyword_filter_icon = keyword_filter.find_element_by_class_name("icon-primary")
         self.assertIsNotNone(keyword_filter_icon)
 
-        print(self.browser.find_element_by_xpath("//*[@id='documents_info']").text)
         # Documents table
-        self.assertInHTML(
+        self.assertIn(
             "Showing 1 to 1 of 1 entries related to Keyword",
             self.browser.find_element_by_xpath("//*[@id='documents_info']").text,
         )
