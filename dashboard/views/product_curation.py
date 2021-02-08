@@ -212,8 +212,8 @@ def bulk_assign_tag_to_products(request):
 def bulk_assign_puc_to_product(
     request, template_name=("product_curation/" "bulk_product_puc.html")
 ):
-    max_products_returned = 50
-    table_settings = {"pagination": False}
+    max_products_returned = 200
+    table_settings = {"pagination": True, "pageLength": 50}
     context = {}
     q = safestring.mark_safe(request.GET.get("q", "")).lstrip()
     datagroup_pk = safestring.mark_safe(request.GET.get("dg", "")).lstrip()
