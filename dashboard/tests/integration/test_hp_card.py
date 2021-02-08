@@ -264,12 +264,10 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         # Select and submit the new PUC to the habits and practice
         ActionChains(self.browser).move_to_element(chem_card).click().perform()
 
-        self.browser.implicitly_wait(1)
-
         # Verify the card was selected
         self.assertEqual(
             str(self.hnp.pk),
-            Select(self.browser.find_element_by_id("id_chems")).options[0].value,
+            Select(self.browser.find_element_by_id("id_chems")).options[0].get_attribute("value"),
         )
         tagform = self.browser.find_element_by_xpath(
             "//form[contains(@action,'/save_tags/"
