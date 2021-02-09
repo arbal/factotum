@@ -136,6 +136,15 @@ class ChemCreateView(CreateView):
         code = doc.data_group.group_type.code
         return CHEMICAL_FORMS[code]
 
+    def get_form_kwargs(self):
+        kwargs = super(ChemCreateView, self).get_form_kwargs()
+        referer = self.request.headers.get("Referer", "")
+        if "compextractionscript" in referer or "extractedtext" in referer or referer == "":
+            kwargs['referer'] = "qa"
+        else:
+            kwargs['referer'] = "datadocument"
+        return kwargs
+
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
 
@@ -191,6 +200,15 @@ class ChemUpdateView(UpdateView):
     def get_form_class(self):
         code = self.object.extracted_text.group_type
         return CHEMICAL_FORMS[code]
+
+    def get_form_kwargs(self):
+        kwargs = super(ChemUpdateView, self).get_form_kwargs()
+        referer = self.request.headers.get("Referer", "")
+        if "compextractionscript" in referer or "extractedtext" in referer or referer == "":
+            kwargs['referer'] = "qa"
+        else:
+            kwargs['referer'] = "datadocument"
+        return kwargs
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))

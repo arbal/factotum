@@ -171,12 +171,20 @@ class TestIntegration(StaticLiveServerTestCase):
             self.browser.find_element_by_xpath('//*[@id="id_raw_cas"]')
         except NoSuchElementException:
             self.fail("Absence of raw_cas element raised exception")
-        # The element should appear in the chemical update page
-        dd_url = (
-            self.live_server_url
-            + f"/chemical/{chem.pk}/edit/"
-        )
+
+        # The element should appear when accessed from the datadocument page
+        dd_url = self.live_server_url + f"/datadocument/{doc.pk}/"
         self.browser.get(dd_url)
+
+        wait.until(
+            ec.element_to_be_clickable(
+                (By.XPATH, f'//*[@id="chemical-update-{chem.pk}"]')
+            )
+        ).click()
+
+        wait.until(
+            ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
+        )
         try:
             self.browser.find_element_by_xpath('//*[@id="id_weight_fraction_type"]')
         except NoSuchElementException:
