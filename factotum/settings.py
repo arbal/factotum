@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     "django_elasticsearch_dsl",
     "django_cleanup.apps.CleanupConfig",
     "django_db_views",
-    "django-cacheops",
+    "cacheops",
 ]
 
 MIDDLEWARE = [
@@ -146,6 +146,17 @@ CACHES = {
         "LOCATION": f"redis://{env.REDIS_HOST}:{env.REDIS_PORT}/{env.REDIS_CACHE_DATABASE}",
         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
     }
+}
+
+CACHEOPS_DEFAULTS = {
+    'timeout': 60*60 # default to one hour
+}
+CACHEOPS = {
+    'dashboard.cumulativeproductsperpucandsid': {'ops': 'get'},
+    'dashboard.productsperpucandsid': {'ops': 'get'},
+    'dashboard.cumulativeproductsperpuc': {'ops': 'get'},
+    'dashboard.productsperpuc': {'ops': 'get'},
+
 }
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"

@@ -3,6 +3,7 @@ from django.db.models import Q, F
 from django.shortcuts import render, get_object_or_404
 from django.utils.html import format_html
 from django_datatables_view.base_datatable_view import BaseDatatableView
+from cacheops import cache
 
 from dashboard.models import (
     DSSToxLookup,
@@ -23,22 +24,24 @@ def chemical_detail(request, sid, puc_id=None):
     puc_kinds = PUCKind.objects.all()
     dss_pk = chemical.pk
 
+    qs = CumulativeProductsPerPucAndSid.objects.cache().filter(dsstoxlookup_id=dss_pk)
+
     formulation_pucs = (
-        CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup_id=dss_pk)
+        qs
         .filter(puc__kind__code="FO")
         .select_related("puc")
         .astree()
     )
 
     article_pucs = (
-        CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup_id=dss_pk)
+        qs
         .filter(puc__kind__code="AR")
         .select_related("puc")
         .astree()
     )
 
     occupation_pucs = (
-        CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup_id=dss_pk)
+        qs
         .filter(puc__kind__code="OC")
         .select_related("puc")
         .astree()
