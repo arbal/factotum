@@ -24,28 +24,13 @@ def chemical_detail(request, sid, puc_id=None):
     puc_kinds = PUCKind.objects.all()
     dss_pk = chemical.pk
 
-    qs = CumulativeProductsPerPucAndSid.objects.cache().filter(dsstoxlookup_id=dss_pk)
+    qs = CumulativeProductsPerPucAndSid.objects.inplace().cache().filter(dsstoxlookup_id=dss_pk)
 
-    formulation_pucs = (
-        qs
-        .filter(puc__kind__code="FO")
-        .select_related("puc")
-        .astree()
-    )
+    formulation_pucs = qs.filter(puc__kind__code="FO").select_related("puc").astree()
 
-    article_pucs = (
-        qs
-        .filter(puc__kind__code="AR")
-        .select_related("puc")
-        .astree()
-    )
+    article_pucs = qs.filter(puc__kind__code="AR").select_related("puc").astree()
 
-    occupation_pucs = (
-        qs
-        .filter(puc__kind__code="OC")
-        .select_related("puc")
-        .astree()
-    )
+    occupation_pucs = qs.filter(puc__kind__code="OC").select_related("puc").astree()
 
     context = {
         "chemical": chemical,

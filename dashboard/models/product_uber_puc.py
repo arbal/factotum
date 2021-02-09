@@ -1,6 +1,5 @@
 from django_db_views.db_view import DBView
 from django.db import models
-
 from dashboard.models import (
     PUC,
     Product,

@@ -148,15 +148,12 @@ CACHES = {
     }
 }
 
-CACHEOPS_DEFAULTS = {
-    'timeout': 60*60 # default to one hour
-}
+CACHEOPS_DEFAULTS = {"timeout": 60 * 60}  # default to one hour
 CACHEOPS = {
-    'dashboard.cumulativeproductsperpucandsid': {'ops': 'get'},
-    'dashboard.productsperpucandsid': {'ops': 'get'},
-    'dashboard.cumulativeproductsperpuc': {'ops': 'get'},
-    'dashboard.productsperpuc': {'ops': 'get'},
-
+    "dashboard.cumulativeproductsperpucandsid": {"ops": "get"},
+    "dashboard.productsperpucandsid": {"ops": "get"},
+    "dashboard.cumulativeproductsperpuc": {"ops": "get"},
+    "dashboard.productsperpuc": {"ops": "get"},
 }
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
