@@ -24,7 +24,7 @@ urlpatterns = [
         "datadocument/detected/<int:doc_pk>/",
         views.detected_flag,
         name="detected_flag_toggle_yes",
-    ),    
+    ),
     path(
         "datadocument/non_detected/<int:doc_pk>/",
         views.detected_flag,

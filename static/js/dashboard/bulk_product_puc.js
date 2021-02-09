@@ -1,6 +1,7 @@
 $(document).ready(function () {
     let table_settings = JSON.parse(document.getElementById('table_settings').textContent);
     let product_table = $('#products').DataTable({
+        "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
         "bPaginate": table_settings.pagination,
         "pageLength": table_settings.pageLength,
         "bFilter": false,
