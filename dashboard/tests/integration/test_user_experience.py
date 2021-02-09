@@ -154,9 +154,7 @@ class TestIntegration(StaticLiveServerTestCase):
             )
         ).click()
 
-        wait.until(
-            ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
-        )
+        wait.until(ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']")))
 
         with self.assertRaises(NoSuchElementException):
             self.browser.find_element_by_xpath('//*[@id="id_weight_fraction_type"]')
@@ -182,9 +180,7 @@ class TestIntegration(StaticLiveServerTestCase):
             )
         ).click()
 
-        wait.until(
-            ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
-        )
+        wait.until(ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']")))
         try:
             self.browser.find_element_by_xpath('//*[@id="id_weight_fraction_type"]')
         except NoSuchElementException:

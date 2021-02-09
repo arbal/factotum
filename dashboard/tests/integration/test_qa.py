@@ -212,7 +212,9 @@ class TestEditsWithSeedData(StaticLiveServerTestCase, TransactionTestCase):
         self.browser.get(qa_url)
 
         # delete the first RawChem/ExtractedListPresence record
-        self.browser.find_element_by_xpath(f'//*[@id="chemical-delete-{chem.pk}"]').click()
+        self.browser.find_element_by_xpath(
+            f'//*[@id="chemical-delete-{chem.pk}"]'
+        ).click()
         delcheck = wait.until(
             EC.element_to_be_clickable((By.ID, "chemical-modal-save-{chem.pk}"))
         )

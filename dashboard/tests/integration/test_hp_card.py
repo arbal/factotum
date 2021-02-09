@@ -267,7 +267,9 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         # Verify the card was selected
         self.assertEqual(
             str(self.hnp.pk),
-            Select(self.browser.find_element_by_id("id_chems")).options[0].get_attribute("value"),
+            Select(self.browser.find_element_by_id("id_chems"))
+            .options[0]
+            .get_attribute("value"),
         )
         tagform = self.browser.find_element_by_xpath(
             "//form[contains(@action,'/save_tags/"
