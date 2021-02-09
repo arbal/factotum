@@ -451,6 +451,27 @@ def list_presence_tag_delete(request, doc_pk, chem_pk, tag_pk):
 
 
 @login_required
+def detected_flag(request, doc_pk):
+    chems = request.POST.getlist("chems")
+    flag_set = int
+    if "non_detected" in request.get_full_path():
+        flag_set = 0
+    elif "detected" in request.get_full_path():
+        flag_set = 1
+    elif "clear_flag" in request.get_full_path():
+        flag_set = None
+    else:
+        pass
+
+    for chem in chems:
+        elp = RawChem.objects.get(pk=chem)
+        elp.chem_detected_flag = flag_set
+        elp.save()
+    url = reverse("data_document", args=[doc_pk])
+    return redirect(url)
+
+
+@login_required
 def habits_and_practices_tag_delete(request, doc_pk, chem_pk, tag_pk):
     ExtractedHabitsAndPracticesToTag.objects.filter(
         content_object_id=chem_pk, tag_id=tag_pk

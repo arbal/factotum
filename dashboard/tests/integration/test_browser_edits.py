@@ -7,7 +7,14 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
-from dashboard.models import DataDocument, ExtractedText, RawChem, DataGroup, Script
+from dashboard.models import (
+    DataDocument,
+    ExtractedText,
+    RawChem,
+    DataGroup,
+    Script,
+    CurationStep,
+)
 from dashboard.tests.loader import fixtures_standard, load_browser
 
 
@@ -564,3 +571,71 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         )
         self.assertIn("Sun_INDS_89", document_cell.text)
         self.assertIn("DTXSID9022528", sid_cell.text)
+
+    def test_data_group_tracking(self):
+        url = self.live_server_url + "/data_group_tracking/"
+        datagroup = DataGroup.objects.order_by("name").first()
+        edit_url = self.live_server_url + f"/data_group_tracking/edit/{datagroup.id}/"
+        curation_steps = CurationStep.objects.all()
+
+        # test table
+        self.browser.get(url)
+        time.sleep(1)
+        datasource_cell = self.browser.find_element_by_xpath(
+            '//*[@id="datagroups"]/tbody/tr[1]/td[1]'
+        )
+        self.assertIn(datagroup.data_source.title, datasource_cell.text)
+        datagroup_cell = self.browser.find_element_by_xpath(
+            '//*[@id="datagroups"]/tbody/tr[1]/td[2]'
+        )
+        self.assertIn(datagroup.name, datagroup_cell.text)
+        type_cell = self.browser.find_element_by_xpath(
+            '//*[@id="datagroups"]/tbody/tr[1]/td[3]'
+        )
+        self.assertIn(datagroup.group_type.title, type_cell.text)
+        col_index = 5
+        for step in curation_steps:
+            step_header = self.browser.find_element_by_xpath(
+                f"//*[@id='datagroups']/thead/tr/th[{col_index}]"
+            )
+            self.assertEqual(step.name, step_header.text)
+            step_cell = self.browser.find_element_by_xpath(
+                f"//*[@id='datagroups']/tbody/tr[1]/td[{col_index}]"
+            )
+            self.assertEqual("Incomplete", step_cell.text)
+            col_index = col_index + 1
+        workflow_cell = self.browser.find_element_by_xpath(
+            f"//*[@id='datagroups']/tbody/tr[1]/td[{col_index}]"
+        )
+        self.assertEqual("No", workflow_cell.text)
+
+        # test edit page
+        self.browser.get(edit_url)
+        time.sleep(1)
+        for step in curation_steps:
+            step_field = Select(
+                self.browser.find_element_by_id("id_step_" + str(step.id))
+            )
+            self.assertEqual("Incomplete", step_field.first_selected_option.text)
+            step_field.select_by_index(2)
+        workflow_field = self.browser.find_element_by_id("id_workflow_complete")
+        self.assertFalse(workflow_field.get_attribute("checked"))
+        workflow_field.click()
+        self.browser.find_element_by_xpath("//button[@type='submit']").click()
+        time.sleep(1)
+        # verify data saved
+        datagroup = DataGroup.objects.filter(pk=datagroup.id).first()
+        self.assertTrue(datagroup.workflow_complete)
+        self.assertEqual(curation_steps.count(), datagroup.curation_steps.count())
+        for step in datagroup.curation_steps.all():
+            self.assertEqual("N", step.step_status)
+        # load page again, should set new values
+        self.browser.get(edit_url)
+        time.sleep(1)
+        for step in curation_steps:
+            step_field = Select(
+                self.browser.find_element_by_id("id_step_" + str(step.id))
+            )
+            self.assertEqual("N/A", step_field.first_selected_option.text)
+        workflow_field = self.browser.find_element_by_id("id_workflow_complete")
+        self.assertTrue(workflow_field.get_attribute("checked"))

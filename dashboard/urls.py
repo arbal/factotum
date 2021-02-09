@@ -21,6 +21,21 @@ urlpatterns = [
         name="data_source_delete",
     ),
     path(
+        "datadocument/detected/<int:doc_pk>/",
+        views.detected_flag,
+        name="detected_flag_toggle_yes",
+    ),
+    path(
+        "datadocument/non_detected/<int:doc_pk>/",
+        views.detected_flag,
+        name="detected_flag_toggle_no",
+    ),
+    path(
+        "datadocument/clear_flag/<int:doc_pk>/",
+        views.detected_flag,
+        name="detected_flag_reset",
+    ),
+    path(
         "datasource/<int:pk>/datagroup_new/",
         views.data_group_create,
         name="data_group_new",
@@ -385,6 +400,16 @@ urlpatterns = [
         "list_presence_tag/<int:tag_pk>/documents/",
         views.ListPresenceDocumentsJson.as_view(),
         name="lp_documents",
+    ),
+    path(
+        "data_group_tracking/",
+        dashboard.views.data_group_tracking,
+        name="data_group_tracking",
+    ),
+    path(
+        "data_group_tracking/edit/<int:dg_pk>/",
+        dashboard.views.edit_data_group_tracking,
+        name="data_group_tracking_edit",
     ),
     path("", include("django_prometheus.urls")),
 ]
