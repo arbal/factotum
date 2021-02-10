@@ -3,10 +3,20 @@ from lxml import html
 
 from django.test import TestCase
 
-from dashboard.models import DSSToxLookup, ProductDocument, PUC, ProductToPUC
+from dashboard.models import (
+    DSSToxLookup,
+    Product,
+    ProductDocument,
+    PUC,
+    ProductToPUC,
+    CumulativeProductsPerPucAndSid,
+)
 from dashboard.tests.loader import fixtures_standard
 
+from django.test import override_settings
 
+
+@override_settings(CACHEOPS_ENABLED=False)
 class ChemicalDetail(TestCase):
 
     fixtures = fixtures_standard
@@ -15,12 +25,17 @@ class ChemicalDetail(TestCase):
         self.client.login(username="Karyn", password="specialP@55word")
 
     def test_chemical_detail(self):
-        dss = next(dss for dss in DSSToxLookup.objects.all() if dss.puc_count > 0)
+        # only test DSSToxLookup records that relate to PUCs
+        sids_with_pucs = DSSToxLookup.objects.filter(
+            curated_chemical__extracted_text__data_document__product__product_uber_puc__isnull=False
+        )
+        dss = next(dss for dss in sids_with_pucs)
+        dsspuccount = dss.get_cumulative_puc_count()
         response = self.client.get(dss.get_absolute_url())
         self.assertEqual(
-            dss.cumulative_puc_count,
+            dsspuccount,
             len(response.context["pucs"]),
-            f"DSSTox pk={dss.pk} needs {dss.cumulative_puc_count} PUCs in the context",
+            f"DSSTox pk={dss.pk} needs {dsspuccount} PUCs in the context",
         )
 
         pdocs = ProductDocument.objects.from_chemical(dss)
@@ -31,26 +46,28 @@ class ChemicalDetail(TestCase):
         self.assertContains(response, f'a href="/puc/{first_puc_id}')
         link = "https://comptox.epa.gov/dashboard/dsstoxdb/results?search=" f"{dss.sid}"
         self.assertContains(response, link)
-        dss = next(dss for dss in DSSToxLookup.objects.all() if dss.puc_count < 1)
+        dss = next(dss for dss in DSSToxLookup.objects.all() if dss.get_puc_count() < 1)
+        dsspuccount = dss.get_puc_count()
         response = self.client.get(dss.get_absolute_url())
         self.assertEqual(
-            dss.cumulative_puc_count,
+            dsspuccount,
             len(response.context["pucs"]),
-            f"DSSTox pk={dss.pk} needs {dss.cumulative_puc_count} PUCs in the context",
+            f"DSSTox pk={dss.pk} needs {dsspuccount} PUCs in the context",
         )
         self.assertContains(response, "No PUCs are linked to this chemical")
 
         # Confirm that the list is displaying unique PUCs:
         # Set all the Ethylparaben-linked ProductToPuc relationships to a single PUC
         dss = DSSToxLookup.objects.get(sid="DTXSID9022528")
+        dsspuccount = dss.get_puc_count()
         ep_prods = ProductDocument.objects.from_chemical(dss).values_list("product_id")
         ProductToPUC.objects.filter(product_id__in=ep_prods).update(puc_id=210)
 
         response = self.client.get(dss.get_absolute_url())
         self.assertEqual(
-            dss.cumulative_puc_count,
+            dsspuccount,
             len(response.context["pucs"]),
-            f"DSSTox pk={dss.pk} should return {dss.cumulative_puc_count} for the tree",
+            f"DSSTox pk={dss.pk} should return {dsspuccount} for the tree",
         )
 
         # Check cumulative product count
@@ -79,14 +96,14 @@ class ChemicalDetail(TestCase):
         """
         The JSON root should have as many children as there are PUCs with cumulative_product_count > 0
         """
-        dss = next(dss for dss in DSSToxLookup.objects.all() if dss.puc_count > 0)
+        dss = next(dss for dss in DSSToxLookup.objects.all() if dss.get_puc_count() > 0)
         response = self.client.get(f"/dl_pucs_json/?dtxsid={dss.sid}")
         d = json.loads(response.content)
 
         self.assertEqual(
-            dss.cumulative_puc_count,
+            dss.get_cumulative_puc_count(),
             self._n_children(d["children"]),
-            f"DSSTox pk={dss.pk} should have {dss.puc_count} PUCs in the JSON",
+            f"DSSTox pk={dss.pk} should have {dss.get_cumulative_puc_count} PUCs in the JSON",
         )
 
     def test_cp_keyword_set(self):

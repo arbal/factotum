@@ -200,7 +200,7 @@ class ProductsPerPucAndSid(DBView):
                 (select product_id, puc_id FROM dashboard_producttopuc where dashboard_producttopuc.is_uber_puc = TRUE) ptp
                 JOIN dashboard_productdocument ON ptp.product_id = dashboard_productdocument.product_id
                 JOIN (select extracted_text_id, dsstox_id from dashboard_rawchem where dsstox_id is not null) chem ON 
-                dashboard_productdocument.id = chem.extracted_text_id
+                dashboard_productdocument.document_id = chem.extracted_text_id
             GROUP BY ptp.puc_id , chem.dsstox_id
             """
 

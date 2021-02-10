@@ -149,8 +149,9 @@ CACHES = {
 }
 
 CACHEOPS_DEFAULTS = {"timeout": 60 * 60}  # default to one hour
+# The SID-specific product-per-puc counts use a 24-hour expiration time
 CACHEOPS = {
-    "dashboard.cumulativeproductsperpucandsid": {"ops": "get"},
+    "dashboard.cumulativeproductsperpucandsid": {"ops": "get", "timeout": 60 * 60 * 24},
     "dashboard.productsperpucandsid": {"ops": "get"},
     "dashboard.cumulativeproductsperpuc": {"ops": "get"},
     "dashboard.productsperpuc": {"ops": "get"},
