@@ -24,7 +24,7 @@ from django.db.models import Count, Sum
 from dashboard.models.raw_chem import RawChem
 
 
-@override_settings(ALLOWED_HOSTS=["testserver"])
+@override_settings(ALLOWED_HOSTS=["testserver"], CACHEOPS_ENABLED=False)
 class TestProductPuc(TestCase):
     fixtures = fixtures_standard
 
@@ -76,7 +76,7 @@ class TestProductPuc(TestCase):
         response_url = reverse("bubble_PUCs")
         response = self.client.get(response_url + "?kind=FO&dtxsid=DTXSID9022528")
         data = json.loads(response.content)
-
+        
         for child in data["children"]:
             if child["value"]["puc_id"] == personal_care_puc_id:
                 # "Personal care"
@@ -475,10 +475,7 @@ class TestProductPuc(TestCase):
 
         # run detach_puc_from_product on Product 11
         response = self.client.get('/product_puc_delete/11/')
-        print(response)
 
-        for ptp in ProductToPUC.objects.filter(product_id=11):
-            print(ptp.__dict__)
         # the update_uber_puc signal should have changed the assignment
 
         new_uber_puc = ProductToPUC.objects.get(product_id=11, is_uber_puc=True) 

@@ -14,7 +14,7 @@
 </h2>
 <div class="">
   {% if product.puc_set.all %}
-    Currently assigned PUC: <a href="{% url 'puc_detail' pk=product.producttopuc_set.first.puc.pk %}">{{ product.producttopuc_set.first.puc }}</a>
+    Currently assigned PUC: <a href="{% url 'puc_detail' pk=product.product_uber_puc.puc.pk %}">{{ product.product_uber_puc.puc }}</a>
   {% endif %}
 </div>
 

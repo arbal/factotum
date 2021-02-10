@@ -52,7 +52,7 @@ def stats_by_dtxsids(dtxs):
         DSSToxLookup.objects.filter(sid__in=dtxs)
         .annotate(
             pucs_n=Count(
-                "curated_chemical__extracted_text__data_document__product__puc",
+                "curated_chemical__extracted_text__data_document__product__product_uber_puc__puc",
                 distinct=True,
             )
         )
