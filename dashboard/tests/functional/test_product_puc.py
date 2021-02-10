@@ -444,3 +444,41 @@ class TestProductPuc(TestCase):
         self.client.post(puckind_response_url, data)
 
         self.assertEqual(PUCKind.objects.count(), puckind_count + 1)
+
+    def test_detach_puc_from_product(self):
+        """
+        When a product has multiple PUCs assigned, the detach_puc_from_product method
+        should delete the uberpuc assignment, allowing another PUC to become the uberpuc
+        """
+        prod = Product.objects.get(id=11)
+        print(prod.uber)
+        # assign PUC 82:
+        # FO 
+        # Home maintenance
+        #  adhesives and adhesive removers
+        #    ----
+        ptp82 = ProductToPUC(
+            product=prod, puc_id=82, classification_method_id="MB"
+        )
+        # assign PUC 79:
+        # FO 
+        # Home maintenance
+        #  adhesives and adhesive removers
+        #    multipurpose adhesive
+        ptp79 = ProductToPUC(
+            product=prod, puc_id=79, classification_method_id="MA"
+        )
+
+        self.assertEqual(
+            ptp79.is_uber_puc, True, "The manually-assigned PUC should be the uberpuc."
+        )
+        # run detach_puc_from_product on Product 11
+        detach_url = reverse("detach_puc_from_product", args=(prod.pk,))
+        self.client.get(detach_url)
+        self.assertEqual(
+            ptp82.is_uber_puc, True, "The MB-assigned PUC should be the uberpuc."
+        )
+
+
+
+
