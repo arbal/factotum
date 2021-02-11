@@ -149,7 +149,7 @@ class MetaEnv(type):
     
     @property
     def CACHEOPS_DEFAULTS(cls):
-        default = "{'timeout': 60 * 60}"
+        default = "{'timeout': 60 * 60}" # default to one hour
         return cls._get("CACHEOPS_DEFAULTS", default)
 
     @property
