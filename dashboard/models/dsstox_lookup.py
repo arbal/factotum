@@ -80,11 +80,16 @@ class DSSToxLookup(CommonInfo):
             pucs = pucs.filter(kind=kind)
         cpucs = PUC.objects.filter(
             # grandparents of PUCs with products
-            models.Q(gen_cat__in=pucs.values_list('gen_cat'), prod_fam="") 
+            models.Q(gen_cat__in=pucs.values_list("gen_cat"), prod_fam="")
             # parents of PUCs with products
-            | models.Q(gen_cat__in=pucs.values_list('gen_cat'), prod_fam__in=pucs.values_list('prod_fam'), prod_fam__isnull=False, prod_type="") 
+            | models.Q(
+                gen_cat__in=pucs.values_list("gen_cat"),
+                prod_fam__in=pucs.values_list("prod_fam"),
+                prod_fam__isnull=False,
+                prod_type="",
+            )
             # the original PUCs with products
-            | models.Q(id__in=pucs.values_list('id')) 
+            | models.Q(id__in=pucs.values_list("id"))
         )
 
         return cpucs.count()

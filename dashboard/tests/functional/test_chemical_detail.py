@@ -9,7 +9,6 @@ from dashboard.models import (
     ProductDocument,
     PUC,
     ProductToPUC,
-    CumulativeProductsPerPucAndSid,
 )
 from dashboard.tests.loader import fixtures_standard
 
@@ -97,7 +96,7 @@ class ChemicalDetail(TestCase):
         The JSON root should have as many children as there are PUCs with cumulative_product_count > 0
         """
         dss = next(dss for dss in DSSToxLookup.objects.all() if dss.get_puc_count() > 0)
-        response = self.client.get(f"/dl_pucs_json/?dtxsid={dss.sid}")
+        response = self.client.get(f"/dl_pucs_json/?kind=FO&dtxsid={dss.sid}")
         d = json.loads(response.content)
 
         self.assertEqual(

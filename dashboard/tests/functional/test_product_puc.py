@@ -76,7 +76,7 @@ class TestProductPuc(TestCase):
         response_url = reverse("bubble_PUCs")
         response = self.client.get(response_url + "?kind=FO&dtxsid=DTXSID9022528")
         data = json.loads(response.content)
-        
+
         for child in data["children"]:
             if child["value"]["puc_id"] == personal_care_puc_id:
                 # "Personal care"
@@ -454,39 +454,38 @@ class TestProductPuc(TestCase):
         """
         prod = Product.objects.get(id=11)
         # assign PUC 79:
-        # FO 
+        # FO
         # Home maintenance
         #  adhesives and adhesive removers
         #    multipurpose adhesive
         self.client.post("/product_puc/11/", {"puc": "79"})
 
         # assign PUC 82 with the MB classification method:
-        # FO 
+        # FO
         # Home maintenance
         #  adhesives and adhesive removers
         #    ----
         ptp82 = ProductToPUC(product_id=11, puc_id=82, classification_method_id="MB")
         ptp82.save()
 
-        ptp79 = ProductToPUC.objects.filter(product_id=11, puc_id=79, classification_method_id="MA").first()
+        ptp79 = ProductToPUC.objects.filter(
+            product_id=11, puc_id=79, classification_method_id="MA"
+        ).first()
         self.assertEqual(
             ptp79.is_uber_puc, True, "The manually-assigned PUC should be the uberpuc."
         )
 
         # run detach_puc_from_product on Product 11
-        response = self.client.get('/product_puc_delete/11/')
+        response = self.client.get("/product_puc_delete/11/")
 
         # the update_uber_puc signal should have changed the assignment
 
-        new_uber_puc = ProductToPUC.objects.get(product_id=11, is_uber_puc=True) 
+        new_uber_puc = ProductToPUC.objects.get(product_id=11, is_uber_puc=True)
         self.assertEqual(
-            new_uber_puc.classification_method_id, "MB", "The MB-assigned PUC should be the uberpuc."
+            new_uber_puc.classification_method_id,
+            "MB",
+            "The MB-assigned PUC should be the uberpuc.",
         )
         # the page should redirect to /product/11/
         product_detail_url = reverse("product_detail", kwargs={"pk": prod.pk})
         self.assertRedirects(response, product_detail_url)
-
-
-
-
-
