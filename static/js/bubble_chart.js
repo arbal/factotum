@@ -279,7 +279,7 @@ function nestedBubbleChart(width, height, fixed, dataurl, svg_id) {
 nestedBubbleChart.prototype.zoomToNode = function (puc_id) {
     // console.log("Navigating via legend to PUC " + puc_id + " on the bubble plot");
     bubble_el = document.getElementById("bubble-" + puc_id);
-    if (puc_id && typeof bubble_el == 'object') {
+    if (puc_id && bubble_el) {
         bubble_el.dispatchEvent(new Event('click'));
     }
 } 
