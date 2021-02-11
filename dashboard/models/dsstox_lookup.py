@@ -4,7 +4,6 @@ from django.urls import reverse
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from .common_info import CommonInfo
-from .product_document import ProductDocument
 from .PUC import PUC
 from .product import Product
 from .extracted_list_presence import ExtractedListPresence
@@ -67,7 +66,8 @@ class DSSToxLookup(CommonInfo):
 
     def get_cumulative_puc_count(self, kind=None):
         """
-        Gets the count of all products associated with each PUC or associated with
+        Gets the count of all PUCs associated with
+        the DTXSID or associated with
         one of its child or grandchild PUCs. 
         For performance reasons, only used for testing.
         """
