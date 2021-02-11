@@ -12,7 +12,7 @@
         {% endif %}
         {% for chemical in chemicals %}
             <div class="card mt-2 big-bottom"
-                 id="chem-{{ chemical.pk }}">
+                 id="chem-card-{{ chemical.pk }}">
                 <div class="card-body shadow rounded"
                      id="chem-click-{{ chemical.pk }}"
                      data-chem-id="{{ chemical.pk }}">
@@ -37,7 +37,7 @@
                             <div class="col-auto order-1 order-md-3 text-right">
                                 {% if doc.detail_page_editable and request.user.is_authenticated %}
                                     <div class="btn-group btn-group-sm"
-                                         id="chem-{{ chemical.pk }}-buttons">
+                                         id="chem-card-{{ chemical.pk }}-buttons">
                                         <button class="btn btn-outline-secondary hover-success"
                                                 id="chemical-update-{{ chemical.pk }}"
                                                 title="edit"

@@ -183,7 +183,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase, TransactionTestCase):
             list_url = self.live_server_url + f"/qa/extractedtext/{et.pk}/"
             self.browser.get(list_url)
             chem = et.rawchem.last()
-            self.browser.find_element_by_xpath(f'//*[@id="chem-{chem.pk}"]').click()
+            self.browser.find_element_by_xpath(f'//*[@id="chem-card-{chem.pk}"]').click()
 
             wait = WebDriverWait(self.browser, 10)
             audit_link = wait.until(

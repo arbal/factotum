@@ -303,8 +303,8 @@ class DataDocumentDetailTest(TransactionTestCase):
         self.assertTrue(two.ingredient_rank > one.ingredient_rank)
         response = self.client.get(f"/datadocument/{doc.pk}/cards")
         html = response.content.decode("utf-8")
-        first_idx = html.index(f'id="chem-{one.pk}"')
-        second_idx = html.index(f'id="chem-{two.pk}"')
+        first_idx = html.index(f'id="chem-card{one.pk}"')
+        second_idx = html.index(f'id="chem-card-{two.pk}"')
         self.assertTrue(
             second_idx > first_idx,
             ("Ingredient rank 1 comes before " "Ingredient rank 2"),
@@ -604,7 +604,7 @@ class TestDynamicDetailFormsets(TestCase):
         response = self.client.get("/datadocument/%i/cards" % data_document.pk)
         response_html = html.fromstring(response.content)
         cards = response_html.find_class("card")
-        self.assertEqual(cards[0].get("id"), f"chem-{first_id}")
+        self.assertEqual(cards[0].get("id"), f"chem-card-{first_id}")
 
         # changing the component of the first chemical should move it to the bottom
         # of the page
@@ -615,7 +615,7 @@ class TestDynamicDetailFormsets(TestCase):
         response_html = html.fromstring(response.content)
         cards = response_html.find_class("card")
         # the new first card should match the second ID
-        self.assertEqual(cards[0].get("id"), f"chem-{second_id}")
+        self.assertEqual(cards[0].get("id"), f"chem-card-{second_id}")
         self.client.post(
             path=reverse("detected_flag_toggle_yes", kwargs={"doc_pk": 170415}),
             data={"chems": ["93", "557"]},

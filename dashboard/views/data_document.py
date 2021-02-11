@@ -456,7 +456,7 @@ def list_presence_tag_delete(request, doc_pk, chem_pk, tag_pk):
     elp = ExtractedListPresence.objects.get(pk=chem_pk)
     tag = ExtractedListPresenceTag.objects.get(pk=tag_pk)
     ExtractedListPresenceToTag.objects.get(content_object=elp, tag=tag).delete()
-    card = f"#chem-{chem_pk}"
+    card = f"#chem-card-{chem_pk}"
     url = reverse("data_document", args=[doc_pk])
     url += card
     return redirect(url)
@@ -488,7 +488,7 @@ def habits_and_practices_tag_delete(request, doc_pk, chem_pk, tag_pk):
     ExtractedHabitsAndPracticesToTag.objects.filter(
         content_object_id=chem_pk, tag_id=tag_pk
     ).delete()
-    card = f"#chem-{chem_pk}"
+    card = f"#chem-card-{chem_pk}"
     url = reverse("data_document", args=[doc_pk])
     url += card
     return redirect(url)

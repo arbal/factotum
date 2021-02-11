@@ -7,7 +7,7 @@
      data-target="#chem-scrollspy"
      data-offset="10">
     {% for hp in chemicals.all %}
-    <div class="card mt-2" id="chem-{{ hp.pk }}">
+    <div class="card mt-2" id="chem-card-{{ hp.pk }}">
         <div class="card-body shadow rounded"
              id="chem-click-{{ hp.pk }}"
              data-chem-id="{{ hp.pk }}"
@@ -19,7 +19,7 @@
                 </h3>
                 {% if doc.detail_page_editable and request.user.is_authenticated %}
                 <div class="btn-group btn-group-sm"
-                     id="chem-{{ hp.pk }}-buttons">
+                     id="chem-card-{{ hp.pk }}-buttons">
                     <button class="btn btn-outline-secondary hover-success"
                             id="chemical-update-{{ hp.pk }}"
                             title="edit"
