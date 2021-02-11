@@ -231,5 +231,5 @@ class ChemicalProductListJson(BaseDatatableView):
             if puc_kind == "none":
                 qs = qs.filter(product__product_uber_puc__isnull=True)
             else:
-                qs = qs.filter(product__product_uber_puc__kind__code=puc_kind)
+                qs = qs.filter(product__product_uber_puc__puc__kind__code=puc_kind)
         return qs

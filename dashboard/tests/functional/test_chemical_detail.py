@@ -3,13 +3,7 @@ from lxml import html
 
 from django.test import TestCase
 
-from dashboard.models import (
-    DSSToxLookup,
-    Product,
-    ProductDocument,
-    PUC,
-    ProductToPUC,
-)
+from dashboard.models import DSSToxLookup, Product, ProductDocument, PUC, ProductToPUC
 from dashboard.tests.loader import fixtures_standard
 
 from django.test import override_settings
