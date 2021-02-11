@@ -79,8 +79,8 @@ def data_document_detail(request, pk):
         else:
             chem = (
                 Child.objects.filter(extracted_text__data_document=doc)
-                .prefetch_related("dsstox")
-                .first()
+                    .prefetch_related("dsstox")
+                    .first()
             )
             FuncUseFormSet = inlineformset_factory(
                 RawChem, FunctionalUse, fields=("report_funcuse",), extra=1
@@ -96,8 +96,8 @@ def data_document_detail(request, pk):
     if doc.data_group.group_type.code == "CO":
         script_chem = (
             Child.objects.filter(extracted_text__data_document=doc)
-            .filter(script__isnull=False)
-            .first()
+                .filter(script__isnull=False)
+                .first()
         )
         context["cleaning_script"] = script_chem.script if script_chem else None
     return render(request, template_name, context)
@@ -106,6 +106,12 @@ def data_document_detail(request, pk):
 @method_decorator(login_required, name="dispatch")
 class ChemCreateView(CreateView):
     template_name = "chemicals/chemical_add_form.html"
+
+    def get_form_kwargs(self):
+        kwargs = super(ChemCreateView, self).get_form_kwargs()
+        if self.request.headers.get("Referer", None):
+            kwargs.update({'referer': self.request.headers.get("Referer")})
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -136,19 +142,6 @@ class ChemCreateView(CreateView):
         code = doc.data_group.group_type.code
         return CHEMICAL_FORMS[code]
 
-    def get_form_kwargs(self):
-        kwargs = super(ChemCreateView, self).get_form_kwargs()
-        referer = self.request.headers.get("Referer", "")
-        if (
-            "compextractionscript" in referer
-            or "extractedtext" in referer
-            or referer == ""
-        ):
-            kwargs["referer"] = "qa"
-        else:
-            kwargs["referer"] = "datadocument"
-        return kwargs
-
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
 
@@ -177,6 +170,12 @@ class ChemUpdateView(UpdateView):
         obj = super(ChemUpdateView, self).get_object(queryset=queryset)
         return RawChem.objects.get_subclass(pk=obj.pk)
 
+    def get_form_kwargs(self):
+        kwargs = super(ChemUpdateView, self).get_form_kwargs()
+        if self.request.headers.get("Referer", None):
+            kwargs.update({'referer': self.request.headers.get("Referer")})
+        return kwargs
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         doc = self.object.extracted_text.data_document
@@ -204,19 +203,6 @@ class ChemUpdateView(UpdateView):
     def get_form_class(self):
         code = self.object.extracted_text.group_type
         return CHEMICAL_FORMS[code]
-
-    def get_form_kwargs(self):
-        kwargs = super(ChemUpdateView, self).get_form_kwargs()
-        referer = self.request.headers.get("Referer", "")
-        if (
-            "compextractionscript" in referer
-            or "extractedtext" in referer
-            or referer == ""
-        ):
-            kwargs["referer"] = "qa"
-        else:
-            kwargs["referer"] = "datadocument"
-        return kwargs
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
@@ -435,8 +421,8 @@ def list_presence_tag_curation(request):
         DataDocument.objects.filter(
             data_group__group_type__code="CP", extractedtext__rawchem__isnull=False
         )
-        .distinct()
-        .exclude(
+            .distinct()
+            .exclude(
             extractedtext__rawchem__in=ExtractedListPresenceToTag.objects.values(
                 "content_object_id"
             )
@@ -531,8 +517,8 @@ class DocumentAuditLog(BaseDatatableView):
     def get_initial_queryset(self):
         qs = (
             self.model.objects.filter(extracted_text_id=self.pk)
-            .order_by("-date_created")
-            .all()
+                .order_by("-date_created")
+                .all()
         )
 
         return qs

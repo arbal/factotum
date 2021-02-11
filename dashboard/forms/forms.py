@@ -314,7 +314,7 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
                 instance=form.instance,
                 data=form.data if self.is_bound else None,
                 prefix="%s-%s"
-                % (form.prefix, FunctionalUseFormset.get_default_prefix()),
+                       % (form.prefix, FunctionalUseFormset.get_default_prefix()),
             )
 
     def is_valid(self):
@@ -360,10 +360,13 @@ class ExtractedCompositionForm(forms.ModelForm):
         ]
 
     def __init__(self, *args, **kwargs):
-        self.referer = kwargs.pop("referer", None)
-        super().__init__(*args, **kwargs)
-        # Some fields shouldn't be available if coming from QA
-        if self.referer == "qa":
+        self.referer = kwargs.pop('referer', None)
+        super(ExtractedCompositionForm, self).__init__(*args, **kwargs)
+        if self.referer and (
+                "compextractionscript" in self.referer
+                or "extractedtext" in self.referer
+                or self.referer == ""
+        ):
             self.fields.pop("weight_fraction_type")
 
 
@@ -435,12 +438,12 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
     extracted = hasattr(document, "extractedtext")
 
     def make_formset(
-        parent_model,
-        model,
-        formset=BaseInlineFormSet,
-        form=forms.ModelForm,
-        exclude=exclude,
-        hidden=hidden,
+            parent_model,
+            model,
+            formset=BaseInlineFormSet,
+            form=forms.ModelForm,
+            exclude=exclude,
+            hidden=hidden,
     ):
         formset_fields = model.detail_fields()
         if exclude:
