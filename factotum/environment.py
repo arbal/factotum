@@ -146,6 +146,11 @@ class MetaEnv(type):
     def REDIS_PORT(cls):
         default = "6379"
         return cls._get("REDIS_PORT", default)
+    
+    @property
+    def CACHEOPS_DEFAULTS(cls):
+        default = "{'timeout': 60 * 60}"
+        return cls._get("CACHEOPS_DEFAULTS", default)
 
     @property
     def CHROMEDRIVER_PATH(cls):
