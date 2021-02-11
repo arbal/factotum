@@ -30,6 +30,7 @@ from dashboard.models import (
     DocumentType,
     RawChem,
     AuditLog,
+    GroupType,
 )
 
 
@@ -39,16 +40,25 @@ def qa_extractionscript_index(request, template_name="qa/extraction_script_index
     qa_group_count = Count("extractedtext__qa_group")
     qa_complete_count = Count("extractedtext", filter=Q(extractedtext__qa_checked=True))
     percent_complete = (qa_complete_count / qa_group_count) * 100
+    # defaults to composition type
+    group_type_code = request.GET.get("group_type", "CO")
+    group_type = GroupType.objects.filter(code=group_type_code).first()
     extraction_scripts = (
         Script.objects.filter(script_type="EX")
-        .exclude(extractedtext__data_document__data_group__group_type__code="CP")
+        .filter(
+            extractedtext__data_document__data_group__group_type__code=group_type_code
+        )
         .exclude(title="Manual (dummy)")
         .annotate(extractedtext_count=extractedtext_count)
         .annotate(percent_complete=percent_complete)
         .annotate(qa_group_count=qa_group_count)
         .filter(extractedtext_count__gt=0)
     )
-    return render(request, template_name, {"extraction_scripts": extraction_scripts})
+    return render(
+        request,
+        template_name,
+        {"extraction_scripts": extraction_scripts, "group_type": group_type},
+    )
 
 
 @login_required()

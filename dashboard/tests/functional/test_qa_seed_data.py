@@ -36,13 +36,13 @@ class TestQaPage(TestCase):
         )
 
     def test_new_qa_group_urls(self):
-        # Begin from the QA index page
+        # Script 5 has ExtractedText object
+        pk = 5
         response = self.client.get(f"/qa/compextractionscript/")
+        self.assertIn("Composition - Ext. Script".encode(), response.content)
         self.assertIn(
-            f"/qa/compextractionscript/15/'> Begin QA".encode(), response.content
+            f"/qa/compextractionscript/{pk}/'> Begin QA".encode(), response.content
         )
-        # Script 15 has one ExtractedText object
-        pk = 15
         response = self.client.get(f"/qa/compextractionscript/{pk}/")
         et = ExtractedText.objects.filter(extraction_script=pk).first()
         self.assertIn(f"/qa/extractedtext/{et.pk}/".encode(), response.content)
@@ -51,7 +51,7 @@ class TestQaPage(TestCase):
         group_count = QAGroup.objects.filter(extraction_script_id=pk).count()
         self.assertTrue(group_count == 1)
         # The ExtractionScript's qa_begun property should be set to True
-        self.assertTrue(Script.objects.get(pk=15).qa_begun)
+        self.assertTrue(Script.objects.get(pk=pk).qa_begun)
         # The ExtractedText object should be assigned to the QA Group
         group_pk = QAGroup.objects.get(extraction_script_id=pk).pk
         et = ExtractedText.objects.filter(extraction_script=pk).first()
@@ -59,7 +59,7 @@ class TestQaPage(TestCase):
         # The link on the QA index page should now say "Continue QA"
         response = self.client.get(f"/qa/compextractionscript/")
         self.assertIn(
-            f"'/qa/compextractionscript/15/'> Continue QA".encode(), response.content
+            f"'/qa/compextractionscript/{pk}/'> Continue QA".encode(), response.content
         )
 
     def test_doc_fields(self):
@@ -69,11 +69,18 @@ class TestQaPage(TestCase):
         self.assertIn("A list of chemicals with a subtitle".encode(), response.content)
         self.assertIn("Total Chemical Records".encode(), response.content)
 
+    def test_qa_func_use_script(self):
+        response = self.client.get("/qa/compextractionscript/?group_type=FU")
+        self.assertIn(
+            "/qa/compextractionscript/15/'> Begin QA".encode(), response.content
+        )
+        self.assertIn("Functional use - Ext. Script".encode(), response.content)
+
     def test_qa_script_without_ext_text(self):
         # Begin from the QA index page
         response = self.client.get(f"/qa/compextractionscript/")
         self.assertIn(
-            f"/qa/compextractionscript/15/'> Begin QA".encode(), response.content
+            f"/qa/compextractionscript/5/'> Begin QA".encode(), response.content
         )
         # Script 9 has no ExtractedText objects
         pk = 9
