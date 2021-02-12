@@ -375,11 +375,19 @@ class ExtractedLMChemicalForm(forms.ModelForm):
         model = RawChem
         fields = ["raw_chem_name", "raw_cas", "chem_detected_flag"]
 
+    def __init__(self, *args, **kwargs):
+        self.referer = kwargs.pop('referer', None)
+        super(ExtractedLMChemicalForm, self).__init__(*args, **kwargs)
+
 
 class ExtractedFunctionalUseForm(forms.ModelForm):
     class Meta:
         model = ExtractedFunctionalUse
         fields = ["raw_chem_name", "raw_cas"]
+
+    def __init__(self, *args, **kwargs):
+        self.referer = kwargs.pop('referer', None)
+        super(ExtractedFunctionalUseForm, self).__init__(*args, **kwargs)
 
 
 class ExtractedHabitsAndPracticesForm(forms.ModelForm):
@@ -394,11 +402,19 @@ class ExtractedHabitsAndPracticesForm(forms.ModelForm):
             )
         }
 
+    def __init__(self, *args, **kwargs):
+        self.referer = kwargs.pop('referer', None)
+        super(ExtractedHabitsAndPracticesForm, self).__init__(*args, **kwargs)
+
 
 class ExtractedListPresenceForm(forms.ModelForm):
     class Meta:
         model = ExtractedListPresence
         fields = ["raw_chem_name", "raw_cas", "component", "chem_detected_flag"]
+
+    def __init__(self, *args, **kwargs):
+        self.referer = kwargs.pop('referer', None)
+        super(ExtractedListPresenceForm, self).__init__(*args, **kwargs)
 
 
 class ExtractedHHRecForm(forms.ModelForm):
@@ -413,6 +429,10 @@ class ExtractedHHRecForm(forms.ModelForm):
             "sampling_method",
             "analytical_method",
         ]
+
+    def __init__(self, *args, **kwargs):
+        self.referer = kwargs.pop('referer', None)
+        super(ExtractedHHRecForm, self).__init__(*args, **kwargs)
 
 
 def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidden=[]):

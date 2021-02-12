@@ -109,7 +109,6 @@ class ChemCreateView(CreateView):
 
     def get_form_kwargs(self):
         kwargs = super(ChemCreateView, self).get_form_kwargs()
-        print(self.request.headers) #verify that this actually contains a Referer key. . . .
         if self.request.headers.get("Referer", None):
             kwargs.update({'referer': self.request.headers.get("Referer")})
         return kwargs
