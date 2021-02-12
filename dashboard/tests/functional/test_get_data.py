@@ -30,10 +30,10 @@ class TestGetData(TestCase):
         ethylparaben_stats = stats.get(sid="DTXSID9022528")
         dsstox = DSSToxLookup.objects.get(sid="DTXSID9022528")
         self.assertEqual(
-            dsstox.puc_count,
+            dsstox.get_puc_count(),
             ethylparaben_stats["pucs_n"],
             (
-                f"There should be {dsstox.puc_count}) "
+                f"There should be {dsstox.get_puc_count()}) "
                 "PUC associated with ethylparaben"
             ),
         )
@@ -67,7 +67,7 @@ class TestGetData(TestCase):
         stats = stats_by_dtxsids(dtxs)
         # select out the stats for one DTXSID, ethylparaben
         ethylparaben_stats = stats.get(sid="DTXSID9022528")
-        self.assertEqual(dsstox.puc_count, ethylparaben_stats["pucs_n"])
+        self.assertEqual(dsstox.get_puc_count(), ethylparaben_stats["pucs_n"])
 
     def test_dtxsid_dds_n(self):
         dtxs = ["DTXSID9022528", "DTXSID1020273", "DTXSID6026296", "DTXSID2021781"]

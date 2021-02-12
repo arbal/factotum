@@ -1,11 +1,40 @@
 from django.db.utils import IntegrityError
 from django.test import TestCase, tag
 
-from dashboard.models import PUC, ProductToPUC, ProductUberPuc, PUCKind
-from dashboard.tests.loader import load_model_objects
+from dashboard.models import Product, PUC, ProductToPUC, ProductUberPuc, PUCKind
+from dashboard.tests.loader import load_model_objects, fixtures_standard
 from dashboard.views.product_curation import ProductForm
 
 import time
+
+
+class ProductToPUCTestWithSeedData(TestCase):
+    fixtures = fixtures_standard
+
+    def setUp(self):
+        self.client.login(username="Karyn", password="specialP@55word")
+
+    def test_uber_puc_update(self):
+        # Test that when a product-to-puc record is deleted or added or updated,
+        # the is_uber_puc attribute is reassigned to the correct row
+        p = Product.objects.get(pk=1866)
+        ptps = ProductToPUC.objects.filter(product=p)
+        # print(
+        #     ptps.values_list(
+        #         "product_id", "puc_id", "classification_method_id", "is_uber_puc"
+        #     )
+        # )
+        # delete the MA uber PUC
+        ptps.filter(is_uber_puc=True).delete()
+        # confirm that the MB PUC assignment has inherited the uber status
+        ptp = ptps.get(is_uber_puc=True)
+        self.assertTrue(ptp.classification_method_id == "MB")
+        # reassign the 185 PUC as MA and confirm that it becomes the new uber PUC
+        ProductToPUC.objects.create(
+            product_id=1866, puc_id=185, classification_method_id="MA"
+        )
+        ptp = ptps.get(is_uber_puc=True)
+        self.assertTrue(ptp.classification_method_id == "MA")
 
 
 @tag("loader")

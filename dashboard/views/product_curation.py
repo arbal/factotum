@@ -154,8 +154,8 @@ def link_product_form(request, pk):
 @login_required()
 def detach_puc_from_product(request, pk):
     p = Product.objects.get(pk=pk)
-    pp = ProductToPUC.objects.get(product=p)
-    pp.delete()
+    ProductToPUC.objects.filter(product=p, is_uber_puc=True).delete()
+    # if additional PUCs are assigned to this product, a new uberpuc should be selected
     return redirect("product_detail", pk=p.pk)
 
 
@@ -210,10 +210,10 @@ def bulk_assign_tag_to_products(request):
 
 @login_required()
 def bulk_assign_puc_to_product(
-    request, template_name=("product_curation/" "bulk_product_puc.html")
+    request, template_name=("product_curation/bulk_product_puc.html")
 ):
-    max_products_returned = 50
-    table_settings = {"pagination": False}
+    max_products_returned = 200
+    table_settings = {"pagination": True, "pageLength": 50}
     context = {}
     q = safestring.mark_safe(request.GET.get("q", "")).lstrip()
     datagroup_pk = safestring.mark_safe(request.GET.get("dg", "")).lstrip()
@@ -251,7 +251,6 @@ def bulk_assign_puc_to_product(
             Q(title__icontains=q) | Q(brand_name__icontains=q)
         ).count()
     elif datagroup_pk > "" and rawcategory > "":
-        table_settings.update(pagination=True, pageLength=50)
         p = Product.objects.filter(
             Q(
                 datadocument__data_group__pk=datagroup_pk,

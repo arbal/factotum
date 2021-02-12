@@ -1,5 +1,7 @@
-from django.test import TestCase, override_settings
+import json
 
+from django.test import TestCase, override_settings
+from django.shortcuts import get_object_or_404
 from dashboard.tests import factories
 from dashboard.tests.loader import fixtures_standard
 from lxml import html
@@ -12,18 +14,86 @@ from dashboard.models import (
     Product,
     ProductToPUC,
     ProductDocument,
+    ProductUberPuc,
+    DSSToxLookup,
+    CumulativeProductsPerPuc,
+    CumulativeProductsPerPucAndSid,
 )
 from django.core.exceptions import ValidationError
 from django.db.models import Count, Sum
 from dashboard.models.raw_chem import RawChem
 
 
-@override_settings(ALLOWED_HOSTS=["testserver"])
+@override_settings(ALLOWED_HOSTS=["testserver"], CACHEOPS_ENABLED=False)
 class TestProductPuc(TestCase):
     fixtures = fixtures_standard
 
     def setUp(self):
         self.client.login(username="Karyn", password="specialP@55word")
+
+    def test_cumulative_views(self):
+        """
+        Bubble bath, PUC 245, should have one product assigned
+        Specialized bath products, PUC 242, should have zero products and one cumulative count
+        """
+        response_url = reverse("bubble_PUCs")
+        response = self.client.get(response_url)
+        data = json.loads(response.content)
+
+        # Make sure that the cumulative product count in the json response matches
+        # what's calculated from the ORM
+        personal_care_puc_id = 137
+        for child in data["children"]:
+            if child["value"]["puc_id"] == personal_care_puc_id:
+                # Compare the reported json counts for "Personal care"
+                # to the counts in the cumulative_products_per_puc view
+                dbview_rec = CumulativeProductsPerPuc.objects.filter(
+                    puc_id=personal_care_puc_id
+                ).first()
+                self.assertEqual(
+                    child["value"]["product_count"], dbview_rec.product_count
+                )
+                self.assertEqual(
+                    child["value"]["cumulative_product_count"],
+                    str(dbview_rec.cumulative_product_count),
+                )
+                # Check the view's numbers by deriving them from the ORM
+                puc = PUC.objects.filter(id=personal_care_puc_id).first()
+                puc_count = ProductUberPuc.objects.filter(puc_id=puc.id).count()
+                self.assertEqual(puc_count, child["value"]["product_count"])
+
+                pucs = PUC.objects.filter(gen_cat="Personal care")
+                gen_cat_count = ProductUberPuc.objects.filter(puc_id__in=pucs).count()
+                self.assertEqual(
+                    str(gen_cat_count), child["value"]["cumulative_product_count"]
+                )
+
+        # Test the chemical view
+        sid = "DTXSID9022528"
+        chemical = get_object_or_404(DSSToxLookup, sid=sid)
+        dss_pk = chemical.pk
+
+        response_url = reverse("bubble_PUCs")
+        response = self.client.get(response_url + "?kind=FO&dtxsid=DTXSID9022528")
+        data = json.loads(response.content)
+
+        for child in data["children"]:
+            if child["value"]["puc_id"] == personal_care_puc_id:
+                # "Personal care"
+                dbview_rec = (
+                    CumulativeProductsPerPucAndSid.objects.filter(
+                        dsstoxlookup_id=dss_pk
+                    )
+                    .filter(puc_id=personal_care_puc_id)
+                    .first()
+                )
+                self.assertEqual(
+                    child["value"]["product_count"], dbview_rec.product_count
+                )
+                self.assertEqual(
+                    child["value"]["cumulative_product_count"],
+                    str(dbview_rec.cumulative_product_count),
+                )
 
     def test_admin_puc_tag_column_exists(self):
         self.assertEqual(
@@ -374,3 +444,48 @@ class TestProductPuc(TestCase):
         self.client.post(puckind_response_url, data)
 
         self.assertEqual(PUCKind.objects.count(), puckind_count + 1)
+
+    def test_detach_puc_from_product(self):
+        """
+        When a product has multiple PUCs assigned, the detach_puc_from_product method should
+        delete the uberpuc assignment, allowing another PUC to become the uberpuc.
+        The unit test for this is 
+        dashboard.tests.unit.test_product_to_puc.ProductToPUCTestWithSeedData.test_uber_puc_update
+        """
+        prod = Product.objects.get(id=11)
+        # assign PUC 79:
+        # FO
+        # Home maintenance
+        #  adhesives and adhesive removers
+        #    multipurpose adhesive
+        self.client.post("/product_puc/11/", {"puc": "79"})
+
+        # assign PUC 82 with the MB classification method:
+        # FO
+        # Home maintenance
+        #  adhesives and adhesive removers
+        #    ----
+        ptp82 = ProductToPUC(product_id=11, puc_id=82, classification_method_id="MB")
+        ptp82.save()
+
+        ptp79 = ProductToPUC.objects.filter(
+            product_id=11, puc_id=79, classification_method_id="MA"
+        ).first()
+        self.assertEqual(
+            ptp79.is_uber_puc, True, "The manually-assigned PUC should be the uberpuc."
+        )
+
+        # run detach_puc_from_product on Product 11
+        response = self.client.get("/product_puc_delete/11/")
+
+        # the update_uber_puc signal should have changed the assignment
+
+        new_uber_puc = ProductToPUC.objects.get(product_id=11, is_uber_puc=True)
+        self.assertEqual(
+            new_uber_puc.classification_method_id,
+            "MB",
+            "The MB-assigned PUC should be the uberpuc.",
+        )
+        # the page should redirect to /product/11/
+        product_detail_url = reverse("product_detail", kwargs={"pk": prod.pk})
+        self.assertRedirects(response, product_detail_url)

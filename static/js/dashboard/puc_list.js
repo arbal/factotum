@@ -5,7 +5,7 @@ var columnDefs = [
   {headerName: "Gen Cat", field: "gen_cat"},
   {headerName: "Prod Fam", field: "prod_fam"},
   {headerName: "Prod Type", field: "prod_type"},
-  {headerName: "Product Count", field: "num_products", maxWidth: 180},
+  {headerName: "Product Count", field: "product_count", maxWidth: 180},
   {headerName: "View Detail", cellRenderer: "detailRenderer", sortable: false, filter: false, maxWidth: 120},
 ];
 

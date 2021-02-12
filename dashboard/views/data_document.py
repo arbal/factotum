@@ -1,19 +1,16 @@
-from datetime import datetime
-
 from django.contrib import messages
-from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
-from django.db.models import OuterRef, Subquery
+from django.http import JsonResponse, HttpResponseBadRequest
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.shortcuts import render, redirect, get_object_or_404, reverse
-from django.db.models import Q
 from django_datatables_view.base_datatable_view import BaseDatatableView
+from djqscsv import render_to_csv_response
 
 from dashboard.forms.forms import ExtractedHabitsAndPracticesForm
 from dashboard.forms.tag_forms import ExtractedHabitsAndPracticesTagForm
-from dashboard.utils import get_extracted_models
+from dashboard.utils import get_extracted_models, GroupConcat
 from dashboard.forms import (
     ExtractedListPresenceTagForm,
     create_detail_formset,
@@ -37,7 +34,6 @@ from dashboard.models import (
     RawChem,
     AuditLog,
     ExtractedHabitsAndPractices,
-    ExtractedHabitsAndPracticesTag,
     ExtractedHabitsAndPracticesToTag,
     ExtractedFunctionalUse,
 )
@@ -502,6 +498,49 @@ def chemical_audit_log(request, pk):
         request,
         "chemicals/chemical_audit_log.html",
         {"chemical": chemical, "auditlog": auditlog},
+    )
+
+
+def download_document_chemicals(request, pk):
+    document = get_object_or_404(DataDocument, pk=pk)
+    if not document.data_group.is_chemical_presence:
+        return HttpResponseBadRequest(
+            content="data document does not belong to chemical presence group",
+            content_type="text/plain;",
+        )
+    chemicals = (
+        ExtractedListPresence.objects.filter(extracted_text__data_document_id=pk)
+        .annotate(tag_names=GroupConcat("tags__name", separator="; ", distinct=True))
+        .values(
+            "extracted_text__data_document__title",
+            "extracted_text__data_document__subtitle",
+            "extracted_text__data_document__organization",
+            "raw_chem_name",
+            "raw_cas",
+            "dsstox__sid",
+            "dsstox__true_chemname",
+            "dsstox__true_cas",
+            "chem_detected_flag",
+            "tag_names",
+        )
+    )
+    filename = document.get_title_as_slug() + "_chemicals.csv"
+    return render_to_csv_response(
+        chemicals,
+        filename=filename,
+        append_datestamp=True,
+        field_header_map={
+            "extracted_text__data_document__title": "Title",
+            "extracted_text__data_document__subtitle": "Subtitle",
+            "extracted_text__data_document__organization": "Organization",
+            "dsstox__sid": "DTXSID",
+            "dsstox__true_chemname": "True chemical name",
+            "dsstox__true_cas": "True CAS",
+            "tag_names": "Tags",
+        },
+        field_serializer_map={
+            "chem_detected_flag": (lambda f: ("Yes" if f == "1" else "No"))
+        },
     )
 
 

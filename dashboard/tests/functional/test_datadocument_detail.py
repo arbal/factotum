@@ -411,6 +411,34 @@ class DataDocumentDetailTest(TransactionTestCase):
         response = self.client.get(doc.get_absolute_url())
         self.assertContains(response, reg_no)
 
+    def test_download_chemicals(self):
+        # download button for CP type
+        cp_doc = DataDocument.objects.filter(data_group__group_type__code="CP").first()
+        response = self.client.get(f"/datadocument/{cp_doc.pk}/")
+        page = html.fromstring(response.content)
+        download_button = page.xpath('//*[@id="download_chemicals"]')
+        self.assertEqual(
+            1, len(download_button), "download button available for CP types"
+        )
+        # download stream
+        response = self.client.get(f"/datadocument/{cp_doc.pk}/download_chemicals/")
+        self.assertEqual(200, response.status_code)
+        self.assertIsNotNone(response.streaming_content)
+
+        # download button not exist for non CP type
+        non_cp_doc = DataDocument.objects.filter(
+            data_group__group_type__code="CO"
+        ).first()
+        response = self.client.get(f"/datadocument/{non_cp_doc.pk}/")
+        page = html.fromstring(response.content)
+        download_button = page.xpath('//*[@id="download_chemicals"]')
+        self.assertEqual(
+            0, len(download_button), "download button not available for non CP types"
+        )
+        response = self.client.get(f"/datadocument/{non_cp_doc.pk}/download_chemicals/")
+        # download blocked for non CP type
+        self.assertEqual(400, response.status_code)
+
 
 class TestDynamicDetailFormsets(TestCase):
     fixtures = fixtures_standard

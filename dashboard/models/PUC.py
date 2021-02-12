@@ -1,6 +1,6 @@
-from django.apps import apps
 from django.db import models
-from django.db.models import Count, F, Q
+from django.apps import apps
+from django.db.models import F, Q
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
@@ -23,13 +23,6 @@ class PUCQuerySet(models.QuerySet):
         return self.filter(
             products__datadocument__extractedtext__rawchem__dsstox__sid=sid
         )
-
-    def with_num_products(self):
-        """ Returns a QuerySet of PUCs with a product count included.
-
-        The product count is annotated as 'num_products'
-        """
-        return self.annotate(num_products=Count("products", distinct=True))
 
     def with_allowed_attributes(self):
         """ Returns a QuerySet of PUCs with an allowed tags string.
@@ -75,12 +68,14 @@ class PUC(CommonInfo):
     kind = models.ForeignKey(
         "dashboard.PUCKind", on_delete=models.CASCADE, default=1, help_text="kind"
     )
-    gen_cat = models.CharField(max_length=50, blank=False, help_text="general category")
+    gen_cat = models.CharField(
+        max_length=50, blank=False, help_text="general category", db_index=True
+    )
     prod_fam = models.CharField(
-        max_length=50, blank=True, default="", help_text="product family"
+        max_length=50, blank=True, default="", help_text="product family", db_index=True
     )
     prod_type = models.CharField(
-        max_length=100, blank=True, default="", help_text="product type"
+        max_length=100, blank=True, default="", help_text="product type", db_index=True
     )
     description = models.TextField(null=False, blank=False, help_text="PUC description")
     last_edited_by = models.ForeignKey(
@@ -166,13 +161,14 @@ class PUC(CommonInfo):
 
     @property
     def product_count(self):
-        """Don't use this in large querysets. It uses a SQL query for each 
-        PUC record. """
-        return self.products.count()
+        """ 
+        """
+        return self.products_per_puc.product_count
 
     @property
     def cumulative_product_count(self):
-        ProductToPUC = apps.get_model("dashboard", "ProductToPUC")
+        # return self.cumulative_products_per_puc.cumulative_product_count
+        ProductToPUC = apps.get_model("dashboard", "ProductUberPuc")
         if self.is_level_one:
             return ProductToPUC.objects.filter(puc__gen_cat=self.gen_cat).count()
         if self.is_level_two:
@@ -197,7 +193,9 @@ class PUC(CommonInfo):
 
     @property
     def document_count(self):
-        return DataDocument.objects.filter(Q(products__puc=self)).distinct().count()
+        return DataDocument.objects.filter(
+            Q(products__product_uber_puc__puc=self)
+        ).count()
 
     @property
     def admin_url(self):

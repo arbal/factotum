@@ -115,6 +115,9 @@ class DataDocument(CommonInfo):
     def __str__(self):
         return str(self.title)
 
+    def get_title_as_slug(self):
+        return self.title.replace(" ", "_")
+
     @property
     def detail_page_editable(self):
         # this could be moved to settings

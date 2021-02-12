@@ -14,7 +14,6 @@ from dashboard.models import (
     Product,
     ProductToPUC,
     RawChem,
-    GroupType,
     FunctionalUseCategory,
 )
 
@@ -148,7 +147,6 @@ def download_PUCs(request):
         PUC.objects.order_by("gen_cat", "prod_fam", "prod_type")
         .with_allowed_attributes()
         .with_assumed_attributes()
-        .with_num_products()
         .astree()
     )
     writer = csv.writer(response)
@@ -175,8 +173,8 @@ def download_PUCs(request):
             puc.description,
             puc.kind,
             len(puc_key),
-            puc.num_products,
-            sum(p.num_products for p in pucs.objects[puc_key].values()),
+            puc.product_count,
+            sum(p.product_count for p in pucs.objects[puc_key].values()),
         ]
         writer.writerow(row)
     return response

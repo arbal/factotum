@@ -321,6 +321,11 @@ urlpatterns = [
         views.data_document_edit,
         name="data_document_edit",
     ),
+    path(
+        "datadocument/<int:pk>/download_chemicals/",
+        views.download_document_chemicals,
+        name="download_document_chemicals",
+    ),
     path("qanotes/save/<int:pk>/", views.save_qa_notes, name="save_qa_notes"),
     path(
         "qasummarynote/edit/<str:model>/<int:pk>/",
