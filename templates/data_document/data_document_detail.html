@@ -65,6 +65,15 @@
                         <span class="fas fa-broom"></span>
                     </a>
                 {% endif %}
+                {% if doc.data_group.is_chemical_presence %}
+                    <a class="btn btn-outline-secondary btn-sm hover-info"
+                       id="download_chemicals"
+                       title="download chemical data"
+                       data-toggle="tooltip"
+                       href="{% url 'download_document_chemicals' doc.id %}">
+                        <span class="fa fa-fs fa-download"></span>
+                    </a>
+                {% endif %}
                 {% if request.user.is_authenticated %}
                     <a class="btn btn-outline-secondary btn-sm hover-success"
                        title="edit"
