@@ -12,6 +12,12 @@ from dashboard.models.custom_onetoone_field import CustomOneToOneField
 
 
 class ProductUberPuc(DBView):
+    """
+    This is a database view that filters on the `is_uber_puc` attribute of the 
+    `ProductToPUC` join model. By selecting only the uberpuc for each product,
+    it abstracts away the one-to-many relationship and offers a single PUC
+    record for each product.
+    """
     product = CustomOneToOneField(
         Product,
         on_delete=models.DO_NOTHING,
