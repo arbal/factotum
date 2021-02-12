@@ -1,8 +1,15 @@
+from django.views import View
+from cacheops import cached, cached_view
+
+from dashboard.models import (
+    PUC,
+    CumulativeProductsPerPuc,
+    CumulativeProductsPerPucAndSid,
+    DSSToxLookup,
+)
+from django.db.models import Value, Case, When, IntegerField, F
 from django.http import JsonResponse
 from django.shortcuts import render
-from django.views import View
-
-from dashboard.models import PUC
 
 
 class Visualizations(View):
@@ -14,25 +21,28 @@ class Visualizations(View):
 
     def get(self, request):
         context = {}
-        pucs = PUC.objects.with_num_products().filter(kind__code="FO").all().astree()
-        for puc_name, puc_obj in pucs.items():
-            puc_obj.cumnum_products = sum(
-                p.num_products for p in pucs.objects[puc_name].values()
-            )
+        pucs = (
+            CumulativeProductsPerPuc.objects.filter(puc__kind__code="FO")
+            .filter(cumulative_product_count__gt=0)
+            .select_related("puc")
+            .astree()
+        )
         context["formulation_pucs"] = pucs
 
-        pucs = PUC.objects.with_num_products().filter(kind__code="AR").all().astree()
-        for puc_name, puc_obj in pucs.items():
-            puc_obj.cumnum_products = sum(
-                p.num_products for p in pucs.objects[puc_name].values()
-            )
+        pucs = (
+            CumulativeProductsPerPuc.objects.filter(puc__kind__code="AR")
+            .filter(cumulative_product_count__gt=0)
+            .select_related("puc")
+            .astree()
+        )
         context["article_pucs"] = pucs
 
-        pucs = PUC.objects.filter(kind__code="OC").with_num_products().all().astree()
-        for puc_name, puc_obj in pucs.items():
-            puc_obj.cumnum_products = sum(
-                p.num_products for p in pucs.objects[puc_name].values()
-            )
+        pucs = (
+            CumulativeProductsPerPuc.objects.filter(puc__kind__code="OC")
+            .filter(cumulative_product_count__gt=0)
+            .select_related("puc")
+            .astree()
+        )
         context["occupation_pucs"] = pucs
         return render(request, self.template_name, context)
 
@@ -43,21 +53,73 @@ def bubble_PUCs(request):
     dtxsid = request.GET.get("dtxsid", None)
     kind = request.GET.get("kind", "FO")
     if dtxsid:
-        pucs = PUC.objects.dtxsid_filter(dtxsid)
+        # avoid joining in the subsequent queryset by looking up the pk once
+        dss_pk = DSSToxLookup.objects.filter(sid=dtxsid).first().pk
+        # filter by products by a related DSSTOX
+        if kind:
+            pucs = (
+                CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup_id=dss_pk)
+                .filter(puc__kind__code=kind)
+                .filter(cumulative_product_count__gt=0)
+                .select_related("puc")
+            )
+        else:
+            pucs = (
+                CumulativeProductsPerPuc.objects.filter(dsstoxlookup_id=dss_pk)
+                .filter(cumulative_product_count__gt=0)
+                .select_related("puc")
+            )
+
+        pucs = (
+            pucs.annotate(
+                kind_id=F("puc__kind_id"),
+                gen_cat=F("puc__gen_cat"),
+                prod_fam=F("puc__prod_fam"),
+                prod_type=F("puc__prod_type"),
+            )  # change the nested __puc field names
+            .values(
+                "kind_id",
+                "puc_id",
+                "gen_cat",
+                "prod_fam",
+                "prod_type",
+                "product_count",
+                "cumulative_product_count",
+                "puc_level",
+            )
+            .flatdictastree()
+        )
     else:
-        pucs = PUC.objects.all()
-    pucs = (
-        pucs.filter(kind__code=kind)
-        .with_num_products()
-        .values("id", "gen_cat", "prod_fam", "prod_type", "num_products")
-        .filter(num_products__gt=0)
-        .astree()
-    )
-    # We only needed gen_cat, prod_fam, prod_type to build the tree
-    for puc in pucs.values():
-        puc.pop("gen_cat")
-        puc.pop("prod_fam")
-        puc.pop("prod_type")
+        if kind:
+            pucs = (
+                CumulativeProductsPerPuc.objects.filter(puc__kind__code=kind)
+                .filter(cumulative_product_count__gt=0)
+                .select_related("puc")
+            )
+        else:
+            pucs = CumulativeProductsPerPuc.objects.filter(
+                cumulative_product_count__gt=0
+            ).select_related("puc")
+
+        pucs = (
+            pucs.annotate(
+                kind_id=F("puc__kind_id"),
+                gen_cat=F("puc__gen_cat"),
+                prod_fam=F("puc__prod_fam"),
+                prod_type=F("puc__prod_type"),
+            )  # change the nested __puc field names
+            .values(
+                "kind_id",
+                "puc_id",
+                "gen_cat",
+                "prod_fam",
+                "prod_type",
+                "product_count",
+                "cumulative_product_count",
+                "puc_level",
+            )
+            .flatdictastree()
+        )
 
     return JsonResponse(pucs.asdict())
 
@@ -68,8 +130,9 @@ def collapsible_tree_PUCs(request):
     """
     pucs = (
         PUC.objects.all()
+        .annotate(puc_id=F("id"))
         .filter(kind__code="FO")
-        .values("id", "gen_cat", "prod_fam", "prod_type")
+        .values("kind_id", "puc_id", "gen_cat", "prod_fam", "prod_type")
         .astree()
         .asdict()
     )

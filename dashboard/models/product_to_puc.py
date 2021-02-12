@@ -1,4 +1,5 @@
 from django.db import models
+from django.db import connection
 
 from .PUC import PUC
 from .common_info import CommonInfo
@@ -29,9 +30,38 @@ class ProductToPUC(CommonInfo):
     classification_confidence = models.DecimalField(
         max_digits=6, decimal_places=3, default=1, null=True, blank=True
     )
+    is_uber_puc = models.BooleanField(default=False, db_index=True)
 
     def __str__(self):
         return f"{self.product} --> {self.puc}"
+
+    def update_uber_puc(self):
+        """
+        Run the UPDATE query on all the dashboard_producttopuc records 
+        that share this one's product_id. 
+        """
+
+        uberpuc_update_sql = """
+            UPDATE
+                dashboard_producttopuc ptp
+            LEFT JOIN
+                dashboard_producttopucclassificationmethod cm ON cm.id = ptp.classification_method_id
+            LEFT JOIN (
+                SELECT 
+                    ptp.product_id AS product_id,
+                    ptp.puc_id AS puc_id,
+                    ptp.classification_method_id AS classification_method_id,
+                    cm.rank AS rank
+                FROM
+                    dashboard_producttopuc ptp
+                LEFT JOIN dashboard_producttopucclassificationmethod cm ON cm.id = ptp.classification_method_id
+            ) ptp_rank ON ptp.product_id = ptp_rank.product_id AND cm.rank > ptp_rank.rank
+            SET is_uber_puc = ptp_rank.rank IS NULL
+            """
+        with connection.cursor() as cursor:
+            cursor.execute(
+                uberpuc_update_sql + f" WHERE ptp.product_id = {self.product_id}"
+            )
 
     class Meta:
         unique_together = ("product", "puc", "classification_method")

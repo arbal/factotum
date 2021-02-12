@@ -60,7 +60,6 @@ html_theme = "sphinx_rtd_theme"
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
 
-
 # Auto list fields from django models - from https://djangosnippets.org/snippets/2533/#c5977
 import inspect
 from django.utils.html import strip_tags

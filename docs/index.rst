@@ -1,16 +1,20 @@
 
-ChemExpoDB
+ChemExpoDB: Factotum
 ======================================
 
+.. role:: bash(code)
+   :language: bash
+
+Updated with :bash:`sphinx-apidoc --force --follow-links -d 3 -o ./autodoc .. ../dashboard/migrations ../dashboard/tests`
+
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
-   modules/dashboard/models
-   modules/dashboard/views
-   modules/dashboard/utils
-   modules/bulkformsets
-   modules/elastic
+   autodoc/dashboard
+   autodoc/apps_api
+   autodoc/elastic
+   autodoc/factotum
 
 
 Indices and tables

@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "django_elasticsearch_dsl",
     "django_cleanup.apps.CleanupConfig",
     "django_db_views",
+    "cacheops",
 ]
 
 MIDDLEWARE = [
@@ -146,8 +147,18 @@ CACHES = {
         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
     }
 }
+
+CACHEOPS_DEFAULTS = {"timeout": env.CACHEOPS_DEFAULT_TIMEOUT}  # default to one hour
+# The SID-specific product-per-puc counts use a 24-hour expiration time
+CACHEOPS = {
+    "dashboard.cumulativeproductsperpucandsid": {"ops": {"fetch", "get"}},
+    "dashboard.productsperpucandsid": {"ops": {"fetch", "get"}},
+    "dashboard.cumulativeproductsperpuc": {"ops": {"fetch", "get"}},
+    "dashboard.productsperpuc": {"ops": {"fetch", "get"}},
+}
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
+
 
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "America/New_York"

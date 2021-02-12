@@ -87,7 +87,7 @@ class ChemicalFilter(filters.FilterSet):
     puc = filters.NumberFilter(
         help_text="A PUC ID to filter chemicals against.",
         label="PUC",
-        field_name="curated_chemical__extracted_text__data_document__product__puc__id",
+        field_name="curated_chemical__extracted_text__data_document__product__product_uber_puc__puc_id",
         initial="1",
     )
     sid = filters.CharFilter(

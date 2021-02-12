@@ -148,6 +148,11 @@ class MetaEnv(type):
         return cls._get("REDIS_PORT", default)
 
     @property
+    def CACHEOPS_DEFAULT_TIMEOUT(cls):
+        default = 60 * 60  # default to one hour
+        return cls._get("CACHEOPS_DEFAULT_TIMEOUT", default)
+
+    @property
     def CHROMEDRIVER_PATH(cls):
         chromedriver_in_path = shutil.which("chromedriver")
         if chromedriver_in_path:
