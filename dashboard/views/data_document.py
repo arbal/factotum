@@ -75,8 +75,8 @@ def data_document_detail(request, pk):
         else:
             chem = (
                 Child.objects.filter(extracted_text__data_document=doc)
-                    .prefetch_related("dsstox")
-                    .first()
+                .prefetch_related("dsstox")
+                .first()
             )
             FuncUseFormSet = inlineformset_factory(
                 RawChem, FunctionalUse, fields=("report_funcuse",), extra=1
@@ -92,8 +92,8 @@ def data_document_detail(request, pk):
     if doc.data_group.group_type.code == "CO":
         script_chem = (
             Child.objects.filter(extracted_text__data_document=doc)
-                .filter(script__isnull=False)
-                .first()
+            .filter(script__isnull=False)
+            .first()
         )
         context["cleaning_script"] = script_chem.script if script_chem else None
     return render(request, template_name, context)
@@ -106,7 +106,7 @@ class ChemCreateView(CreateView):
     def get_form_kwargs(self):
         kwargs = super(ChemCreateView, self).get_form_kwargs()
         if self.request.headers.get("Referer", None):
-            kwargs.update({'referer': self.request.headers.get("Referer")})
+            kwargs.update({"referer": self.request.headers.get("Referer")})
         return kwargs
 
     def get_context_data(self, **kwargs):
@@ -169,7 +169,7 @@ class ChemUpdateView(UpdateView):
     def get_form_kwargs(self):
         kwargs = super(ChemUpdateView, self).get_form_kwargs()
         if self.request.headers.get("Referer", None):
-            kwargs.update({'referer': self.request.headers.get("Referer")})
+            kwargs.update({"referer": self.request.headers.get("Referer")})
         return kwargs
 
     def get_context_data(self, **kwargs):
@@ -417,8 +417,8 @@ def list_presence_tag_curation(request):
         DataDocument.objects.filter(
             data_group__group_type__code="CP", extractedtext__rawchem__isnull=False
         )
-            .distinct()
-            .exclude(
+        .distinct()
+        .exclude(
             extractedtext__rawchem__in=ExtractedListPresenceToTag.objects.values(
                 "content_object_id"
             )
@@ -556,8 +556,8 @@ class DocumentAuditLog(BaseDatatableView):
     def get_initial_queryset(self):
         qs = (
             self.model.objects.filter(extracted_text_id=self.pk)
-                .order_by("-date_created")
-                .all()
+            .order_by("-date_created")
+            .all()
         )
 
         return qs

@@ -183,7 +183,9 @@ class TestEditsWithSeedData(StaticLiveServerTestCase, TransactionTestCase):
             list_url = self.live_server_url + f"/qa/extractedtext/{et.pk}/"
             self.browser.get(list_url)
             chem = et.rawchem.last()
-            self.browser.find_element_by_xpath(f'//*[@id="chem-card-{chem.pk}"]').click()
+            self.browser.find_element_by_xpath(
+                f'//*[@id="chem-card-{chem.pk}"]'
+            ).click()
 
             wait = WebDriverWait(self.browser, 10)
             audit_link = wait.until(
@@ -215,10 +217,12 @@ class TestEditsWithSeedData(StaticLiveServerTestCase, TransactionTestCase):
         self.browser.find_element_by_xpath(
             f'//*[@id="chemical-delete-{chem.pk}"]'
         ).click()
-        delcheck = wait.until(
-            EC.element_to_be_clickable((By.ID, "chemical-modal-save-{chem.pk}"))
+
+        model = wait.until(
+            EC.presence_of_element_located((By.ID, f"chem-delete-{chem.pk}"))
         )
-        delcheck.click()
+        confirm_btn = model.find_element_by_id(f"chemical-modal-save-{chem.pk}")
+        confirm_btn.submit()
 
         # the reopened page should not contain the chemical
         cards = wait.until(EC.visibility_of_element_located((By.ID, "cards")))

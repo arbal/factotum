@@ -303,7 +303,7 @@ class DataDocumentDetailTest(TransactionTestCase):
         self.assertTrue(two.ingredient_rank > one.ingredient_rank)
         response = self.client.get(f"/datadocument/{doc.pk}/cards")
         html = response.content.decode("utf-8")
-        first_idx = html.index(f'id="chem-card{one.pk}"')
+        first_idx = html.index(f'id="chem-card-{one.pk}"')
         second_idx = html.index(f'id="chem-card-{two.pk}"')
         self.assertTrue(
             second_idx > first_idx,

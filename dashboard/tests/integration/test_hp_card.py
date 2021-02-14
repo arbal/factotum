@@ -200,7 +200,8 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         time.sleep(1)
         # Verify data is present on page
         self.assertIn(
-            str(new_puc), self.browser.find_element_by_id(f"chem-card-{self.hnp.pk}").text
+            str(new_puc),
+            self.browser.find_element_by_id(f"chem-card-{self.hnp.pk}").text,
         )
 
     def test_habits_and_practice_cards_remove_PUC(self):
