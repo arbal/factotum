@@ -90,68 +90,45 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             doc_qa_link = f"/qa/extractedtext/{et.data_document_id}/"
             self.browser.get(self.live_server_url + doc_qa_link)
             self.browser.find_element_by_id(f"chemical-add-btn").click()
+
             # wait for the Save button to be clickable
             wait = WebDriverWait(self.browser, 10)
             save_button = wait.until(
-                ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
+                ec.element_to_be_clickable((By.ID, "saveChem"))
             )
-            # edit the Raw CAS field
-            raw_cas_input = self.browser.find_element_by_xpath('//*[@id="id_raw_cas"]')
-            raw_cas_input.send_keys("test raw cas")
-
-            raw_min_comp_input = self.browser.find_element_by_xpath(
-                '//*[@id="id_raw_min_comp"]'
-            )
-            raw_min_comp_input.send_keys("1")
-
-            raw_max_comp_input = self.browser.find_element_by_xpath(
-                '//*[@id="id_raw_max_comp"]'
-            )
-            raw_min_comp_input.send_keys("1")
-
+            self.browser.find_element_by_id("id_raw_cas").send_keys("test raw cas")
+            self.browser.find_element_by_id("id_raw_min_comp").send_keys("1")
+            self.browser.find_element_by_id("id_raw_max_comp").send_keys("1")
             save_button.send_keys("\n")
 
-            # Check for the error message after clicking Save
-            wait.until(ec.visibility_of(self.browser.find_element_by_id("chem-card-")))
-            self.browser.find_element_by_id("chem-card-").click()
-            parent_div = self.browser.find_element_by_xpath(
-                '//*[@id="id_rawchem-1-raw_cas"]/parent::*'
+            wait.until(
+                ec.visibility_of_element_located((By.CLASS_NAME, "invalid-feedback"))
             )
-            card_div = parent_div.find_element_by_xpath("../..")
-            self.assertTrue(
+
+            # Check for the error message after clicking Save
+            self.assertIn(
                 "There must be a unit type if a composition value is provided."
-                in card_div.get_attribute("innerHTML")
+                , self.browser.find_element_by_xpath(
+                    '//form[@id="chem-create"]'
+                ).get_attribute("innerHTML")
             )
 
             # Try editing a new record correctly
             self.browser.get(self.live_server_url + doc_qa_link)
-
-            # wait for the Save button to be clickable
-            wait = WebDriverWait(self.browser, 10)
+            self.browser.find_element_by_id(f"chemical-add-btn").click()
             save_button = wait.until(
                 ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
             )
-            raw_cas_input = self.browser.find_element_by_xpath('//*[@id="id_raw_cas"]')
-            raw_cas_input.send_keys("test raw cas")
-            raw_min_comp_input = self.browser.find_element_by_xpath(
-                '//*[@id="id_min_comp"]'
-            )
-            raw_min_comp_input.send_keys("1")
+            self.browser.find_element_by_id("id_raw_cas").send_keys("test raw cas")
+            self.browser.find_element_by_id("id_raw_min_comp").send_keys("1")
+            self.browser.find_element_by_id("id_raw_max_comp").send_keys("1")
             # This time, set a unit_type
-            unit_type_select = Select(
-                self.browser.find_element_by_xpath('//*[@id="id_unit_type"]')
-            )
-            unit_type_select.select_by_index(1)
-
+            Select(self.browser.find_element_by_id("id_unit_type")).select_by_index(1)
             save_button.send_keys("\n")
-            # Check for the absence of an error message after clicking Save
-            parent_div = self.browser.find_element_by_xpath(
-                '//*[@id="id_raw_cas"]/parent::*'
-            )
-            card_div = parent_div.find_element_by_xpath("../..")
-            self.assertFalse(
-                "There must be a unit type if a composition value is provided."
-                in card_div.get_attribute("innerHTML")
+
+            # Check for success message after clicking Save
+            wait.until(
+                ec.visibility_of_element_located((By.ID, "update-success-msg"))
             )
 
     def test_redirects(self):
@@ -165,7 +142,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             doc_type_select = Select(
                 self.browser.find_element_by_xpath('//*[@id="id_document_type"]')
             )
-            doc_type_select.first_selected_option
             doc_type_select.select_by_visible_text("ingredient disclosure")
             self.assertIn(doc_qa_link, self.browser.current_url)
 
@@ -189,7 +165,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             "0%",
             "Percent QA Checked for the second row on the Chemical Presence QA index should be zero",
         )
-        self.browser.implicitly_wait(10)
+        # self.browser.implicitly_wait(10)
         for doc_id in [
             7,  # Composition
             5,  # Functional Use
@@ -284,7 +260,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             # Go to the extraction script's summary page
             scr_id = et.extraction_script_id
             qa_summary_url = (
-                self.live_server_url + f"/qa/compextractionscript/{scr_id}/summary"
+                    self.live_server_url + f"/qa/compextractionscript/{scr_id}/summary"
             )
             self.browser.get(qa_summary_url)
 
