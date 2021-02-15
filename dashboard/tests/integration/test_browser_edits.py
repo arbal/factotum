@@ -165,7 +165,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             "0%",
             "Percent QA Checked for the second row on the Chemical Presence QA index should be zero",
         )
-        # self.browser.implicitly_wait(10)
+
         for doc_id in [
             7,  # Composition
             5,  # Functional Use
@@ -175,40 +175,23 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             # QA Page
             qa_url = self.live_server_url + f"/qa/extractedtext/{doc_id}/"
             self.browser.get(qa_url)
-            # Activate the edit mode
-            wait = WebDriverWait(self.browser, 10)
-            # For CP groups only 30 raw chems (set in ExtractedCPCat.prep_cp_for_qa()) are
-            # designated for review.  Find the first and edit that.
-            btn_accordion = wait.until(
-                ec.element_to_be_clickable(
-                    (By.XPATH, f"//*[starts-with(@id, 'chem-')]")
-                )
-            )
-            btn_accordion.click()
-            # Find chemical card, not chem-card-None (i.e. "Add new chemical")
+
+            # Find first chemical card, not chem-card-None (i.e. "Add new chemical")
             chem_cards = self.browser.find_elements_by_xpath(
-                "//*[starts-with(@id, 'chem-')]"
+                "//*[starts-with(@id, 'chem-click-')]"
             )
-            regex = re.compile("chem-\d+")
-            chem_card = next(c for c in chem_cards if regex.match(c.get_property("id")))
-            chem_card.click()
+            rawchem_id = chem_cards[0].get_property("id").split("-")[-1]
+            self.browser.find_element_by_id(f"chemical-update-{rawchem_id}").click()
 
-            # Wait for the field to be editable
-            raw_chem_name_field = wait.until(
-                ec.element_to_be_clickable((By.XPATH, "//*[@id='id_raw_chem_name']"))
+            wait = WebDriverWait(self.browser, 10)
+            save_button = wait.until(
+                ec.element_to_be_clickable((By.ID, "saveChem"))
             )
-
+            raw_chem_name_field = self.browser.find_element_by_id("id_raw_chem_name")
             old_raw_chem_name = raw_chem_name_field.get_attribute("value")
-
-            # Get the detailed child record's ID
-            rawchem_id_field = self.browser.find_element_by_xpath(
-                '//*[@id="id_rawchem-0-rawchem_ptr"]'
-            )
-            rawchem_id = rawchem_id_field.get_attribute("value")
-
-            # Modify the first raw_chem_name field's value and save changes
             raw_chem_name_field.send_keys(" edited")
-            self.browser.find_element_by_xpath('//*[@id="save"]').click()
+            save_button.send_keys("\n")
+            time.sleep(1)
 
             # Confirm the changes in the ORM
             rc = RawChem.objects.get(pk=rawchem_id)
@@ -222,7 +205,10 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             self.assertTrue(et.qa_edited, "The qa_edited attribute should be True")
 
             # Click Approve without any notes and confirm that approval fails
-            self.browser.find_element_by_xpath('//*[@id="approve"]').send_keys("\n")
+            approve_button = wait.until(
+                ec.element_to_be_clickable((By.ID, "approve"))
+            )
+            approve_button.click()
 
             # The page should include an error message like this one:
             """
@@ -242,18 +228,15 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             et.refresh_from_db()
             self.assertFalse(et.qa_checked, "The qa_checked attribute should be False")
 
-            qa_notes_field = self.browser.find_element_by_xpath(
-                '//*[@id="qa-notes-textarea"]'
-            )
-            # Add the mandatory QA note
+            qa_notes_field = self.browser.find_element_by_id("qa-notes-textarea")
             qa_notes_field.send_keys(f"Some QA Notes for document {doc_id}")
-            # Save the notes
-            btn_save_notes = self.browser.find_element_by_xpath(
-                '//*[@id="btn-save-notes"]'
-            )
-            btn_save_notes.click()
+            self.browser.find_element_by_id("btn-save-notes").click()
+
             # Click "Approve" again
-            self.browser.find_element_by_xpath('//*[@id="approve"]').click()
+            approve_button = wait.until(
+                ec.element_to_be_clickable((By.ID, "approve"))
+            )
+            approve_button.click()
             et.refresh_from_db()
             self.assertTrue(et.qa_checked, "The qa_checked attribute should be True")
 

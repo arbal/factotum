@@ -314,7 +314,7 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
                 instance=form.instance,
                 data=form.data if self.is_bound else None,
                 prefix="%s-%s"
-                % (form.prefix, FunctionalUseFormset.get_default_prefix()),
+                       % (form.prefix, FunctionalUseFormset.get_default_prefix()),
             )
 
     def is_valid(self):
@@ -344,7 +344,21 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
         return result
 
 
-class ExtractedCompositionForm(forms.ModelForm):
+class ExtractedChemicalModelForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.referer = kwargs.pop("referer", None)
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        result = super().save(commit=commit)
+        if result and ("compextractionscript" in self.referer or "extractedtext" in self.referer):
+            extext = ExtractedText.objects.get(pk=self.instance.extracted_text.pk)
+            extext.qa_edited = True
+            extext.save()
+        return result
+
+
+class ExtractedCompositionForm(ExtractedChemicalModelForm):
     class Meta:
         model = ExtractedComposition
         fields = [
@@ -360,37 +374,24 @@ class ExtractedCompositionForm(forms.ModelForm):
         ]
 
     def __init__(self, *args, **kwargs):
-        self.referer = kwargs.pop("referer", None)
-        super(ExtractedCompositionForm, self).__init__(*args, **kwargs)
-        if self.referer and (
-            "compextractionscript" in self.referer
-            or "extractedtext" in self.referer
-            or self.referer == ""
-        ):
+        super().__init__(*args, **kwargs)
+        if "compextractionscript" in self.referer or "extractedtext" in self.referer or self.referer == "":
             self.fields.pop("weight_fraction_type")
 
 
-class ExtractedLMChemicalForm(forms.ModelForm):
+class ExtractedLMChemicalForm(ExtractedChemicalModelForm):
     class Meta:
         model = RawChem
         fields = ["raw_chem_name", "raw_cas", "chem_detected_flag"]
 
-    def __init__(self, *args, **kwargs):
-        self.referer = kwargs.pop("referer", None)
-        super(ExtractedLMChemicalForm, self).__init__(*args, **kwargs)
 
-
-class ExtractedFunctionalUseForm(forms.ModelForm):
+class ExtractedFunctionalUseForm(ExtractedChemicalModelForm):
     class Meta:
         model = ExtractedFunctionalUse
         fields = ["raw_chem_name", "raw_cas"]
 
-    def __init__(self, *args, **kwargs):
-        self.referer = kwargs.pop("referer", None)
-        super(ExtractedFunctionalUseForm, self).__init__(*args, **kwargs)
 
-
-class ExtractedHabitsAndPracticesForm(forms.ModelForm):
+class ExtractedHabitsAndPracticesForm(ExtractedChemicalModelForm):
     required_css_class = "required"  # adds to label tag
 
     class Meta:
@@ -402,22 +403,14 @@ class ExtractedHabitsAndPracticesForm(forms.ModelForm):
             )
         }
 
-    def __init__(self, *args, **kwargs):
-        self.referer = kwargs.pop("referer", None)
-        super(ExtractedHabitsAndPracticesForm, self).__init__(*args, **kwargs)
 
-
-class ExtractedListPresenceForm(forms.ModelForm):
+class ExtractedListPresenceForm(ExtractedChemicalModelForm):
     class Meta:
         model = ExtractedListPresence
         fields = ["raw_chem_name", "raw_cas", "component", "chem_detected_flag"]
 
-    def __init__(self, *args, **kwargs):
-        self.referer = kwargs.pop("referer", None)
-        super(ExtractedListPresenceForm, self).__init__(*args, **kwargs)
 
-
-class ExtractedHHRecForm(forms.ModelForm):
+class ExtractedHHRecForm(ExtractedChemicalModelForm):
     class Meta:
         model = ExtractedHHRec
         fields = [
@@ -429,10 +422,6 @@ class ExtractedHHRecForm(forms.ModelForm):
             "sampling_method",
             "analytical_method",
         ]
-
-    def __init__(self, *args, **kwargs):
-        self.referer = kwargs.pop("referer", None)
-        super(ExtractedHHRecForm, self).__init__(*args, **kwargs)
 
 
 def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidden=[]):
@@ -458,12 +447,12 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
     extracted = hasattr(document, "extractedtext")
 
     def make_formset(
-        parent_model,
-        model,
-        formset=BaseInlineFormSet,
-        form=forms.ModelForm,
-        exclude=exclude,
-        hidden=hidden,
+            parent_model,
+            model,
+            formset=BaseInlineFormSet,
+            form=forms.ModelForm,
+            exclude=exclude,
+            hidden=hidden,
     ):
         formset_fields = model.detail_fields()
         if exclude:
