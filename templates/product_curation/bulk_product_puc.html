@@ -50,6 +50,7 @@
                     <th></th>
                     <th>Product Title</th>
                     <th>Brand Name</th>
+                    <th>Manufacturer</th>
                     <th>pk</th>
                     <th>Predicted PUC Assignment</th>
                 </tr>
@@ -60,6 +61,7 @@
                         <td></td>
                         <td><a href="{% url "product_detail" product.id %}"> {{ product.title }}</a></td>
                         <td>{{ product.brand_name }}</td>
+                        <td>{{ product.manufacturer }}</td>
                         <td>{{ product.pk }}</td>
                         <td>{{ product.product_to_predicted_puc.puc }}</td>
                     </tr>
