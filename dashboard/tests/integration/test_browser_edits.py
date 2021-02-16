@@ -93,9 +93,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
             # wait for the Save button to be clickable
             wait = WebDriverWait(self.browser, 10)
-            save_button = wait.until(
-                ec.element_to_be_clickable((By.ID, "saveChem"))
-            )
+            save_button = wait.until(ec.element_to_be_clickable((By.ID, "saveChem")))
             self.browser.find_element_by_id("id_raw_cas").send_keys("test raw cas")
             self.browser.find_element_by_id("id_raw_min_comp").send_keys("1")
             self.browser.find_element_by_id("id_raw_max_comp").send_keys("1")
@@ -107,10 +105,10 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
             # Check for the error message after clicking Save
             self.assertIn(
-                "There must be a unit type if a composition value is provided."
-                , self.browser.find_element_by_xpath(
+                "There must be a unit type if a composition value is provided.",
+                self.browser.find_element_by_xpath(
                     '//form[@id="chem-create"]'
-                ).get_attribute("innerHTML")
+                ).get_attribute("innerHTML"),
             )
 
             # Try editing a new record correctly
@@ -127,9 +125,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             save_button.send_keys("\n")
 
             # Check for success message after clicking Save
-            wait.until(
-                ec.visibility_of_element_located((By.ID, "update-success-msg"))
-            )
+            wait.until(ec.visibility_of_element_located((By.ID, "update-success-msg")))
 
     def test_redirects(self):
         """
@@ -184,9 +180,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             self.browser.find_element_by_id(f"chemical-update-{rawchem_id}").click()
 
             wait = WebDriverWait(self.browser, 10)
-            save_button = wait.until(
-                ec.element_to_be_clickable((By.ID, "saveChem"))
-            )
+            save_button = wait.until(ec.element_to_be_clickable((By.ID, "saveChem")))
             raw_chem_name_field = self.browser.find_element_by_id("id_raw_chem_name")
             old_raw_chem_name = raw_chem_name_field.get_attribute("value")
             raw_chem_name_field.send_keys(" edited")
@@ -205,9 +199,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             self.assertTrue(et.qa_edited, "The qa_edited attribute should be True")
 
             # Click Approve without any notes and confirm that approval fails
-            approve_button = wait.until(
-                ec.element_to_be_clickable((By.ID, "approve"))
-            )
+            approve_button = wait.until(ec.element_to_be_clickable((By.ID, "approve")))
             approve_button.click()
 
             # The page should include an error message like this one:
@@ -233,9 +225,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             self.browser.find_element_by_id("btn-save-notes").click()
 
             # Click "Approve" again
-            approve_button = wait.until(
-                ec.element_to_be_clickable((By.ID, "approve"))
-            )
+            approve_button = wait.until(ec.element_to_be_clickable((By.ID, "approve")))
             approve_button.click()
             et.refresh_from_db()
             self.assertTrue(et.qa_checked, "The qa_checked attribute should be True")
@@ -243,7 +233,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             # Go to the extraction script's summary page
             scr_id = et.extraction_script_id
             qa_summary_url = (
-                    self.live_server_url + f"/qa/compextractionscript/{scr_id}/summary"
+                self.live_server_url + f"/qa/compextractionscript/{scr_id}/summary"
             )
             self.browser.get(qa_summary_url)
 

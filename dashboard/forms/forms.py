@@ -314,7 +314,7 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
                 instance=form.instance,
                 data=form.data if self.is_bound else None,
                 prefix="%s-%s"
-                       % (form.prefix, FunctionalUseFormset.get_default_prefix()),
+                % (form.prefix, FunctionalUseFormset.get_default_prefix()),
             )
 
     def is_valid(self):
@@ -351,7 +351,14 @@ class ExtractedChemicalModelForm(forms.ModelForm):
 
     def save(self, commit=True):
         result = super().save(commit=commit)
-        if result and ("compextractionscript" in self.referer or "extractedtext" in self.referer):
+        if (
+            result
+            and self.referer
+            and (
+                "compextractionscript" in self.referer
+                or "extractedtext" in self.referer
+            )
+        ):
             extext = ExtractedText.objects.get(pk=self.instance.extracted_text.pk)
             extext.qa_edited = True
             extext.save()
@@ -375,7 +382,11 @@ class ExtractedCompositionForm(ExtractedChemicalModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if "compextractionscript" in self.referer or "extractedtext" in self.referer or self.referer == "":
+        if self.referer and (
+            "compextractionscript" in self.referer
+            or "extractedtext" in self.referer
+            or self.referer == ""
+        ):
             self.fields.pop("weight_fraction_type")
 
 
@@ -447,12 +458,12 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
     extracted = hasattr(document, "extractedtext")
 
     def make_formset(
-            parent_model,
-            model,
-            formset=BaseInlineFormSet,
-            form=forms.ModelForm,
-            exclude=exclude,
-            hidden=hidden,
+        parent_model,
+        model,
+        formset=BaseInlineFormSet,
+        form=forms.ModelForm,
+        exclude=exclude,
+        hidden=hidden,
     ):
         formset_fields = model.detail_fields()
         if exclude:
