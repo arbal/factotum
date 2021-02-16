@@ -205,10 +205,31 @@
                 </div>
             {% endif %}
 
-            {% if tag_form and request.user.is_authenticated %}
-                {% comment %} the tag_form attribute is a good proxy for "is this a list presence document?" {% endcomment %}
-                <hr>
-                <h5>
+            <hr>
+            <!-- The control to select all chemical cards applies across the other conditional blocks  -->
+            {% if request.user.is_authenticated %}
+
+                <b>Select or unselect all chemical cards: </b>
+
+            <a class="btn btn-sm btn-outline-secondary hover"
+            role="button"
+            id="select-all-chems"
+            title="Select All Chemicals"
+            data-toggle="tooltip"
+            name="info">
+             <i id="select-all" class="fas fa-object-group"></i>
+             <i id="select-none" class="far fa-object-ungroup d-none"></i>
+            </a>
+            <p class="text-left text-muted"><span id="selected">0</span> of <span id="card-count">?</span>
+                Chemicals
+                Selected</p>
+            <select name="chems" id="id_chems" multiple hidden></select>
+            {% endif %}
+
+            {% if doc.data_group.can_have_chem_detected_flag and request.user.is_authenticated %}
+            
+            <hr>
+            <h5>
                     <b>Toggle Detected Chemical Flags</b>
                 </h5>
                 <div class="btn-group btn-group-flex-center ml-3"
@@ -244,15 +265,7 @@
                             <div class="btn-group btn-group-flex-center ml-3"
                                  role="group"
                                  aria-label="Data Document Modification">
-                                <a class="btn btn-sm btn-outline-secondary hover"
-                                   role="button"
-                                   id="select-all-chems"
-                                   title="Select All Chemicals"
-                                   data-toggle="tooltip"
-                                   name="info">
-                                    <i id="select-all" class="fas fa-object-group"></i>
-                                    <i id="select-none" class="far fa-object-ungroup d-none"></i>
-                                </a>
+
                                 <button class="btn btn-sm btn-outline-secondary hover"
                                         id="keyword-save"
                                         title="save"
