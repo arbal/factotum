@@ -48,7 +48,7 @@ class FunctionalUse(CommonInfo):
         return self.report_funcuse
 
     def clean(self):
-        if self.report_funcuse == "":
+        if self.report_funcuse == "" or self.report_funcuse is None:
             raise ValidationError({"report_funcuse": "Please delete if no value."})
 
     @classmethod

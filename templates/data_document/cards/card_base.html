@@ -8,7 +8,7 @@
             {% if doc.data_group.is_habits_and_practices %}
                 {% for chemical in doc.extractedtext.practices.all %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#chem-{{ chemical.pk }}">
+                        <a class="nav-link" href="#chem-card-{{ chemical.pk }}">
                             <p class="m-0"
                                data-toggle="tooltip"
                                data-placement="left"
@@ -22,7 +22,7 @@
                 {% for chemical in chemicals %}
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="#chem-{{ chemical.pk }}">
+                           href="#chem-card-{{ chemical.pk }}">
                             {% firstof chemical.rendered_chemname chemical.rendered_cas "None" as title_name %}
                             <p class="m-0"
                                data-toggle="tooltip"
@@ -44,4 +44,4 @@
     </nav>
 </div><!-- scrollspy -->
 
-<script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail_card_selector.js' %}"></script>
+{#<script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail_card_selector.js' %}"></script>#}

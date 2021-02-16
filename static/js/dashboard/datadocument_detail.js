@@ -17,8 +17,9 @@ $(document).ready(function () {
         } else {
             range = true;
             value = [parseFloat(lower.length === 0 ? '0' : lower),
-                     parseFloat(upper.length === 0 ? '0' : upper)];
+                parseFloat(upper.length === 0 ? '0' : upper)];
         }
+        console.log(input_id)
         $('#' + input_id)
             .slider({
                 id: "slider" + chemical_pk,
@@ -65,20 +66,21 @@ $('.hover').mouseout(function () {
     $(this).addClass("btn-outline-secondary");
 })
 
-var request = $.get("/datadocument/" + doc.text + "/cards", function(data) {
-    let domparser = new DOMParser()
-    let doc = domparser.parseFromString(data, "text/html")
+var request = $.get("/datadocument/" + doc.text + "/cards", function (data) {
+    let domparser = new DOMParser();
+    let card_doc = domparser.parseFromString(data, "text/html");
 
-    let card_count = doc.querySelectorAll("[id^=chem-click-]").length
+    let card_count = card_doc.querySelectorAll("[id^=chem-click-]").length;
 
-    $("#chemical-card-panel").html(doc.querySelector("#cards"))
-    $("#card-count").text(card_count)
+    $("#card-panel").html(card_doc.querySelector("#cards"));
+    $("#card-count").text(card_count);
 
-    $("#scrollspy-panel").html(doc.querySelector("#scroll-nav"))
+    $("#scrollspy-panel").html(card_doc.querySelector("#scroll-nav"));
 
-    let scripts = doc.querySelectorAll('script')
-    for (var n = 0; n < scripts.length; n++)
-        $.getScript(scripts[n].src)
-}).fail(function(jqXHR, textStatus, errorThrown) {
-    $("#card-loading-text").text("Cards Failed to Load")
+    cards_init();
+    // let scripts = doc.querySelectorAll('script')
+    // for (var n = 0; n < scripts.length; n++)
+    //     $.getScript(scripts[n].src)
+}).fail(function (jqXHR, textStatus, errorThrown) {
+    $("#card-loading-text").text("Cards Failed to Load");
 })

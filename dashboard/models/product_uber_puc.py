@@ -18,6 +18,7 @@ class ProductUberPuc(DBView):
     it abstracts away the one-to-many relationship and offers a single PUC
     record for each product.
     """
+
     product = CustomOneToOneField(
         Product,
         on_delete=models.DO_NOTHING,

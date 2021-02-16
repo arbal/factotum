@@ -174,122 +174,26 @@ class TestQaPage(TestCase):
         # Follow the first approval link
         self.client.get("/qa/extractedtext/7", follow=True)
 
-    def test_detail_edits(self):
-        """
-        After editing a detail ("child") record, confirm that
-        the save and approval functions work
-        """
-        resp = self.client.get("/qa/extractedtext/7/")
-        # import pdb; pdb.set_trace()
-        self.assertContains(resp, 'value="dibutyl_phthalate"', status_code=200)
-
-        post_context = {
-            "csrfmiddlewaretoken": [
-                "0SDHlf0buywKmeoXDGmX7j8uyXtseF2aPvmFInM1I0NKtoWDyfKwsUyBCtPvhR59"
-            ],
-            "rawchem-TOTAL_FORMS": ["2"],
-            "rawchem-INITIAL_FORMS": ["1"],
-            "rawchem-MIN_NUM_FORMS": ["0"],
-            "rawchem-MAX_NUM_FORMS": ["1000"],
-            "save": [""],
-            "rawchem-0-extracted_text": ["7"],
-            "rawchem-0-rawchem_ptr": ["4"],
-            "rawchem-0-raw_chem_name": ["dibutyl phthalate edited"],
-            "rawchem-0-raw_cas": ["84-74-2"],
-            "rawchem-0-unit_type": ["1"],
-            "rawchem-0-raw_min_comp": ["4"],
-            "rawchem-0-raw_central_comp": [""],
-            "rawchem-0-raw_max_comp": ["7"],
-            "rawchem-0-ingredient_rank": ["1"],
-            "rawchem-0-component": [""],
-            "rawchem-0-functional_uses-TOTAL_FORMS": ["2"],
-            "rawchem-0-functional_uses-INITIAL_FORMS": ["1"],
-            "rawchem-0-functional_uses-MIN_NUM_FORMS": ["0"],
-            "rawchem-0-functional_uses-MAX_NUM_FORMS": ["1000"],
-            "rawchem-0-functional_uses-0-id": ["1"],
-            "rawchem-0-functional_uses-0-category": ["1"],
-            "rawchem-0-functional_uses-0-report_funcuse": ["swell"],
-            "rawchem-0-functional_uses-0-extraction_script": ["19"],
-            "rawchem-0-functional_uses-1-category": [""],
-            "rawchem-0-functional_uses-1-report_funcuse": [""],
-            "rawchem-0-functional_uses-1-extraction_script": [""],
-            "rawchem-1-extracted_text": ["7"],
-            "rawchem-1-rawchem_ptr": [""],
-            "rawchem-1-raw_chem_name": [""],
-            "rawchem-1-raw_cas": [""],
-            "rawchem-1-unit_type": [""],
-            "rawchem-1-raw_min_comp": [""],
-            "rawchem-1-raw_central_comp": [""],
-            "rawchem-1-raw_max_comp": [""],
-            "rawchem-1-ingredient_rank": [""],
-            "rawchem-1-component": [""],
-            "rawchem-1-functional_uses-TOTAL_FORMS": ["1"],
-            "rawchem-1-functional_uses-INITIAL_FORMS": ["0"],
-            "rawchem-1-functional_uses-MIN_NUM_FORMS": ["0"],
-            "rawchem-1-functional_uses-MAX_NUM_FORMS": ["1000"],
-            "rawchem-1-functional_uses-0-category": [""],
-            "rawchem-1-functional_uses-0-report_funcuse": [""],
-            "rawchem-1-functional_uses-0-extraction_script": [""],
-        }
-
-        request = self.factory.post(path="/qa/extractedtext/7/", data=post_context)
-
-        request.user = User.objects.get(username="Karyn")
-        request.session = {}
-        request.save = [""]
-        resp = views.extracted_text_qa(pk=7, request=request)
-        # The response has a 200 status code and contains the
-        # new edited value
-        self.assertContains(resp, 'value="dibutyl phthalate edited"', status_code=200)
-        # Check the ORM objects here to make sure the editing has proceeded
-        # correctly and the qa-related attributes are updated
-        et = ExtractedText.objects.get(pk=7)
-        self.assertEqual(et.qa_edited, True)
-
-        # The RawChem object of interest is the one with the first detail form
-        rc_key = post_context["rawchem-0-rawchem_ptr"][0]
-        rc = RawChem.objects.get(pk=rc_key)
-
-        # The raw_chem_name matches the new value
-        self.assertEqual(rc.raw_chem_name, "dibutyl phthalate edited")
-        # The dsstox link has been broken
-        self.assertFalse(rc.sid)
-
-        # Change a different value and try to save it
-        post_context.update({"rawchem-0-raw_central_comp": "6"})
-
-        request = self.factory.post(path="/qa/extractedtext/7/", data=post_context)
-        request.user = User.objects.get(username="Karyn")
-        request.session = {}
-        request.save = [""]
-        resp = views.extracted_text_qa(pk=7, request=request)
-        # The second edit appears in the page
-        self.assertContains(
-            resp, 'name="rawchem-0-raw_central_comp" value="6"', status_code=200
-        )
-
     def test_hidden_fields(self):
         """ExtractionScript 15 includes a functional use data group with pk = 5.
         Its QA page should hide the composition fields """
         # Create the QA group by opening the Script's page
         response = self.client.get("/qa/compextractionscript/15/", follow=True)
         # Open the DataGroup's first QA approval link
-        response = self.client.get("/qa/extractedtext/5/", follow=True)
+        response = self.client.get("/chemical/756/edit", follow=True)
         # A raw_cas field should be in the page
-        self.assertIn(b'<input type="text" name="rawchem-1-raw_cas"', response.content)
+        self.assertIn(b'<input type="text" name="raw_cas"', response.content)
         # There should not be any unit_type field in the functional use QA display
-        self.assertNotIn(
-            b'<input type="text" name="rawchem-1-unit_type"', response.content
-        )
+        self.assertNotIn(b'<input type="text" name="unit_type"', response.content)
         # The values shown should match the functional use record, not the chemical record
         self.assertIn(b"Functional Use Chem1", response.content)
 
         # Go back to a different ExtractionScript
         response = self.client.get("/qa/compextractionscript/5", follow=True)
         # Open the QA page for a non-FunctionalUse document
-        response = self.client.get("/qa/extractedtext/7/", follow=True)
+        response = self.client.get("/chemical/4/edit", follow=True)
         # This page should include a unit_type input form
-        self.assertIn(b"rawchem-1-unit_type", response.content)
+        self.assertIn(b"unit_type", response.content)
 
     def test_cpcat_qa(self):
         # Begin from the Chemical Presence QA index page

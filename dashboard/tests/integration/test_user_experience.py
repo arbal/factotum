@@ -9,6 +9,8 @@ from dashboard.models import (
 )
 from django.test import tag
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
 
@@ -139,30 +141,46 @@ class TestIntegration(StaticLiveServerTestCase):
 
     def test_field_exclusion(self):
         doc = self.objects.doc
+        chem = doc.extractedtext.rawchem.first()
+        wait = WebDriverWait(self.browser, 10)
+
         # The element should not appear on the QA page
         qa_url = self.live_server_url + f"/qa/extractedtext/{doc.pk}/"
         self.browser.get(qa_url)
-        with self.assertRaises(NoSuchElementException):
-            self.browser.find_element_by_xpath(
-                '//*[@id="id_rawchem-0-weight_fraction_type"]'
+
+        wait.until(
+            ec.element_to_be_clickable(
+                (By.XPATH, f'//*[@id="chemical-update-{chem.pk}"]')
             )
+        ).click()
+
+        wait.until(ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']")))
+
         with self.assertRaises(NoSuchElementException):
-            self.browser.find_element_by_xpath('//*[@id="id_rawchem-0-true_cas"]')
+            self.browser.find_element_by_xpath('//*[@id="id_weight_fraction_type"]')
         with self.assertRaises(NoSuchElementException):
-            self.browser.find_element_by_xpath('//*[@id="id_rawchem-0-true_chemname"]')
+            self.browser.find_element_by_xpath('//*[@id="id_true_cas"]')
         with self.assertRaises(NoSuchElementException):
-            self.browser.find_element_by_xpath('//*[@id="id_rawchem-0-SID"]')
+            self.browser.find_element_by_xpath('//*[@id="id_true_chemname"]')
+        with self.assertRaises(NoSuchElementException):
+            self.browser.find_element_by_xpath('//*[@id="id_SID"]')
         # make sure the test can pick up one that should be there
         try:
-            self.browser.find_element_by_xpath('//*[@id="id_rawchem-0-raw_cas"]')
+            self.browser.find_element_by_xpath('//*[@id="id_raw_cas"]')
         except NoSuchElementException:
             self.fail("Absence of raw_cas element raised exception")
-        # The element should appear in the chemical update page
-        dd_url = (
-            self.live_server_url
-            + f"/chemical/{doc.extractedtext.rawchem.first().pk}/edit/"
-        )
+
+        # The element should appear when accessed from the datadocument page
+        dd_url = self.live_server_url + f"/datadocument/{doc.pk}/"
         self.browser.get(dd_url)
+
+        wait.until(
+            ec.element_to_be_clickable(
+                (By.XPATH, f'//*[@id="chemical-update-{chem.pk}"]')
+            )
+        ).click()
+
+        wait.until(ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']")))
         try:
             self.browser.find_element_by_xpath('//*[@id="id_weight_fraction_type"]')
         except NoSuchElementException:

@@ -308,11 +308,7 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
         # only if the form is bound to an instance
         if form.instance.pk is not None:
             FunctionalUseFormset = forms.inlineformset_factory(
-                RawChem,
-                FunctionalUse,
-                fields=("id", "category", "report_funcuse", "extraction_script"),
-                extra=0,
-                # widgets={"id": forms.HiddenInput()},
+                RawChem, FunctionalUse, fields=("id", "report_funcuse"), extra=0
             )
             form.functional_uses = FunctionalUseFormset(
                 instance=form.instance,
@@ -348,7 +344,28 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
         return result
 
 
-class ExtractedCompositionForm(forms.ModelForm):
+class ExtractedChemicalModelForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.referer = kwargs.pop("referer", None)
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        result = super().save(commit=commit)
+        if (
+            result
+            and self.referer
+            and (
+                "compextractionscript" in self.referer
+                or "extractedtext" in self.referer
+            )
+        ):
+            extext = ExtractedText.objects.get(pk=self.instance.extracted_text.pk)
+            extext.qa_edited = True
+            extext.save()
+        return result
+
+
+class ExtractedCompositionForm(ExtractedChemicalModelForm):
     class Meta:
         model = ExtractedComposition
         fields = [
@@ -363,20 +380,29 @@ class ExtractedCompositionForm(forms.ModelForm):
             "component",
         ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.referer and (
+            "compextractionscript" in self.referer
+            or "extractedtext" in self.referer
+            or self.referer == ""
+        ):
+            self.fields.pop("weight_fraction_type")
 
-class ExtractedLMChemicalForm(forms.ModelForm):
+
+class ExtractedLMChemicalForm(ExtractedChemicalModelForm):
     class Meta:
         model = RawChem
         fields = ["raw_chem_name", "raw_cas", "chem_detected_flag"]
 
 
-class ExtractedFunctionalUseForm(forms.ModelForm):
+class ExtractedFunctionalUseForm(ExtractedChemicalModelForm):
     class Meta:
         model = ExtractedFunctionalUse
         fields = ["raw_chem_name", "raw_cas"]
 
 
-class ExtractedHabitsAndPracticesForm(forms.ModelForm):
+class ExtractedHabitsAndPracticesForm(ExtractedChemicalModelForm):
     required_css_class = "required"  # adds to label tag
 
     class Meta:
@@ -389,13 +415,13 @@ class ExtractedHabitsAndPracticesForm(forms.ModelForm):
         }
 
 
-class ExtractedListPresenceForm(forms.ModelForm):
+class ExtractedListPresenceForm(ExtractedChemicalModelForm):
     class Meta:
         model = ExtractedListPresence
         fields = ["raw_chem_name", "raw_cas", "component", "chem_detected_flag"]
 
 
-class ExtractedHHRecForm(forms.ModelForm):
+class ExtractedHHRecForm(ExtractedChemicalModelForm):
     class Meta:
         model = ExtractedHHRec
         fields = [
