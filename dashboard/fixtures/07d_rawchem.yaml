@@ -11967,16 +11967,54 @@
     component: ''
     chem_detected_flag: null
 - model: dashboard.rawchem
-  pk: 856
+  pk: 900
   fields:
     created_at: 2019-04-08 07:01:07.897509
     updated_at: 2019-04-08 07:01:07.897509
     created_by: 1
     updated_by: null
-    extracted_text: 156051
-    raw_cas: 120-47-9
-    raw_chem_name: ethylparabenzene
-    rid: DTXRID00299
-    dsstox: 12
-    component: ''
+    extracted_text: 9
+    raw_cas: 7732-18-5
+    raw_chem_name: Water
+    rid: DTXSID6026296
+    dsstox: 8
+    chem_detected_flag: null
+- model: dashboard.rawchem
+  pk: 901
+  fields:
+    created_at: 2019-04-08 07:01:07.897509
+    updated_at: 2019-04-08 07:01:07.897509
+    created_by: 1
+    updated_by: null
+    extracted_text: 9
+    raw_cas: ""
+    raw_chem_name: p-Xylene
+    rid: ""
+    dsstox: 
+    chem_detected_flag: null
+- model: dashboard.rawchem
+  pk: 902
+  fields:
+    created_at: 2019-04-08 07:01:07.897509
+    updated_at: 2019-04-08 07:01:07.897509
+    created_by: 1
+    updated_by: null
+    extracted_text: 9
+    raw_cas: ""
+    raw_chem_name: Nonane
+    rid: ""
+    dsstox: 
+    chem_detected_flag: null
+- model: dashboard.rawchem 
+  pk: 903
+  fields:
+    created_at: 2019-04-08 07:01:07.897509
+    updated_at: 2019-04-08 07:01:07.897509
+    created_by: 1
+    updated_by: null
+    extracted_text: 9
+    raw_cas: ""
+    raw_chem_name: Decane
+    rid: ""
+    dsstox: 
     chem_detected_flag: null
