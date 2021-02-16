@@ -408,10 +408,18 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 (By.XPATH, "//*[@id='extracted-text-modal-save']")
             )
         )
-        Select(self.browser.find_element_by_id("id_study_type")).select_by_visible_text(
+        # problem: the form on the data document detail page and on the modal
+        # editor have the same id, so the full ugly xpath is needed
+        study_type_menu = self.browser.find_element_by_xpath(
+            '/html/body/div[1]/div[2]/div[1]/div[5]/div[3]/div/div/form/div[1]/div/div[2]/select'
+        )
+        Select(study_type_menu).select_by_visible_text(
             "Non-Targeted or Suspect Screening"
         )
-        self.browser.find_element_by_id("id_media").send_keys("Lorem ipso fido leash")
+        media_input = self.browser.find_element_by_xpath(
+            '/html/body/div[1]/div[2]/div[1]/div[5]/div[3]/div/div/form/div[1]/div/div[3]/textarea'
+        )
+        media_input.send_keys("Lorem ipso fido leash")
         save_button.click()
 
         # Saving the form triggers a refresh.  Wait until the old save button has become stale before proceeding.
