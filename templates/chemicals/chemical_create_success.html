@@ -6,11 +6,11 @@
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" id="update-success-msg">
             <p class="alert alert-info">The chemical "{{ chemical }}" was succesfully updated!</p>
         </div><!-- /.modal-body -->
         <button id="lowzy"
-                data-ajax-target="{% url 'data_document' chemical.extracted_text_id %}#chem-{{ chemical.pk }}">
+                data-ajax-target="{% url 'data_document' chemical.extracted_text_id %}#chem-card-{{ chemical.pk }}">
         </button>
         <!-- ^ used to update location url on reload() -->
     </div><!-- /.modal-content -->

@@ -425,7 +425,7 @@ class TestChemical(TestCase):
 
         # test with PUC filter
         count = self.qs.filter(
-            curated_chemical__extracted_text__data_document__product__puc__id=1
+            curated_chemical__extracted_text__data_document__product__product_uber_puc__puc_id=1
         ).count()
         response = self.get("/chemicals/", {"filter[puc]": 1})
         self.assertEqual(count, response["meta"]["pagination"]["count"])

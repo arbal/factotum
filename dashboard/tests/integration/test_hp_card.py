@@ -53,7 +53,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         )
         hnp_card_text = self.wait.until(
             expected_conditions.presence_of_element_located(
-                (By.ID, f"chem-{self.hnp.pk}")
+                (By.ID, f"chem-card-{self.hnp.pk}")
             )
         ).text
         self.assertIn(self.hnp.product_surveyed, hnp_card_text)
@@ -158,19 +158,19 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         # Verify card exists
         self.wait.until(
             expected_conditions.presence_of_element_located(
-                (By.ID, f"chem-{self.hnp.pk}")
+                (By.ID, f"chem-card-{self.hnp.pk}")
             )
         )
 
         delete_hp_button = self.browser.find_element_by_id(
-            f"chemical_edit_buttons"
+            f"chem-card-{self.hnp.pk}-buttons"
         ).find_element_by_xpath(f"button[@data-target='#chem-delete-{self.hnp.pk}']")
         ActionChains(self.browser).move_to_element(delete_hp_button).click().perform()
         # Confirm Delete
         self.browser.find_element_by_id(f"chemical-modal-save-{self.hnp.pk}").submit()
 
         # Card No Longer Exists
-        self.assertFalse(self.browser.find_elements(By.ID, f"chem-{self.hnp.pk}"))
+        self.assertFalse(self.browser.find_elements(By.ID, f"chem-card-{self.hnp.pk}"))
 
     def test_habits_and_practice_cards_add_PUC(self):
         # Set up test data
@@ -200,7 +200,8 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         time.sleep(1)
         # Verify data is present on page
         self.assertIn(
-            str(new_puc), self.browser.find_element_by_id(f"chem-{self.hnp.pk}").text
+            str(new_puc),
+            self.browser.find_element_by_id(f"chem-card-{self.hnp.pk}").text,
         )
 
     def test_habits_and_practice_cards_remove_PUC(self):
@@ -213,7 +214,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
             str(self.pucs[0]),
             self.wait.until(
                 expected_conditions.presence_of_element_located(
-                    (By.ID, f"chem-{self.hnp.pk}")
+                    (By.ID, f"chem-card-{self.hnp.pk}")
                 )
             ).text,
         )
@@ -243,7 +244,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         # Verify data is not present on card
         self.assertNotIn(
             str(self.pucs[0]),
-            self.browser.find_element_by_id(f"chem-{self.hnp.pk}").text,
+            self.browser.find_element_by_id(f"chem-card-{self.hnp.pk}").text,
         )
 
     def test_habits_and_practice_cards_add_tag(self):
@@ -263,10 +264,13 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
 
         # Select and submit the new PUC to the habits and practice
         ActionChains(self.browser).move_to_element(chem_card).click().perform()
+
         # Verify the card was selected
         self.assertEqual(
             str(self.hnp.pk),
-            self.browser.find_element_by_id("id_chems").get_attribute("value"),
+            Select(self.browser.find_element_by_id("id_chems"))
+            .options[0]
+            .get_attribute("value"),
         )
         tagform = self.browser.find_element_by_xpath(
             "//form[contains(@action,'/save_tags/"
@@ -290,7 +294,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         # Verify data is present on page
         self.assertIn(
             f"{new_tag.kind.name}: {new_tag.name}",
-            self.browser.find_element_by_id(f"chem-{self.hnp.pk}").text,
+            self.browser.find_element_by_id(f"chem-card-{self.hnp.pk}").text,
         )
 
     def test_habits_and_practice_cards_remove_tag(self):
@@ -301,7 +305,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         )
         card = self.wait.until(
             expected_conditions.presence_of_element_located(
-                (By.ID, f"chem-{self.hnp.pk}")
+                (By.ID, f"chem-card-{self.hnp.pk}")
             )
         )
         self.assertIn(f"{self.tags[0].kind.name}: {self.tags[0].name}", card.text)
@@ -324,7 +328,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
 
         card = self.wait.until(
             expected_conditions.presence_of_element_located(
-                (By.ID, f"chem-{self.hnp.pk}")
+                (By.ID, f"chem-card-{self.hnp.pk}")
             )
         )
         # Verify data is not present on card

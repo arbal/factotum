@@ -10,7 +10,7 @@ from dashboard.models import DSSToxLookup, PUC
 from dashboard.tests.loader import fixtures_standard, load_browser
 
 
-class TestEditsWithSeedData(StaticLiveServerTestCase):
+class TestVisualizations(StaticLiveServerTestCase):
     @classproperty
     def visualization_url(cls):
         return cls.live_server_url + "/visualizations"
@@ -32,8 +32,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
     def test_bubble_plot(self):
         pucs = (
             PUC.objects.filter(kind__code__in=["FO", "AR", "OC"])
-            .with_num_products()
-            .filter(num_products__gt=0)
+            .filter(cumulative_products_per_puc__cumulative_product_count__gt=0)
             .astree()
         )
         num_pucs = self._n_children(pucs)
@@ -59,12 +58,13 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.assertEqual(child_card.get_attribute("class"), "collapse")
         bubble_legend = self.browser.find_element_by_id("puc-accordion-AR")
         self.assertTrue(bubble_legend, "AR Bubble plot legend could not be found")
-        child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-316']")
-        self.assertEqual(child_card.get_attribute("class"), "collapse")
-        bubble_legend = self.browser.find_element_by_id("puc-accordion-OC")
-        self.assertTrue(bubble_legend, "OC Bubble plot legend could not be found")
-        child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-319']")
-        self.assertEqual(child_card.get_attribute("class"), "collapse")
+        # we are no longer displaying legend items with no circles
+        # child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-316']")
+        # self.assertEqual(child_card.get_attribute("class"), "collapse")
+        # bubble_legend = self.browser.find_element_by_id("puc-accordion-OC")
+        # self.assertTrue(bubble_legend, "OC Bubble plot legend could not be found")
+        # child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-319']")
+        # self.assertEqual(child_card.get_attribute("class"), "collapse")
 
     def test_collapsible_tree(self):
         pucs = PUC.objects.filter(kind__code="FO").astree()
@@ -84,8 +84,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         pucs = (
             PUC.objects.filter(kind__code__in=["FO", "AR", "OC"])
             .dtxsid_filter(dss.sid)
-            .with_num_products()
-            .filter(num_products__gt=0)
+            .filter(cumulative_products_per_puc_and_sid__cumulative_product_count__gt=0)
             .astree()
         )
         num_pucs = self._n_children(pucs)

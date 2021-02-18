@@ -44,7 +44,6 @@ class AuditLog(models.Model):
     def add_trigger_sql(cls):
         with connection.cursor() as cursor:
             cursor.execute(cls.get_trigger_sql())
-            print("Audit Log triggers created")
 
     @classmethod
     def get_trigger_sql(cls):

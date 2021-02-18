@@ -1,4 +1,4 @@
-{% extends 'data_document/chemical_cards/chemical_card_base.html' %}
+{% extends 'data_document/cards/card_base.html' %}
 
 {% block cards %}
 
@@ -7,7 +7,7 @@
      data-target="#chem-scrollspy"
      data-offset="10">
     {% for hp in chemicals.all %}
-    <div class="card mt-2" id="chem-{{ hp.pk }}">
+    <div class="card mt-2" id="chem-card-{{ hp.pk }}">
         <div class="card-body shadow rounded"
              id="chem-click-{{ hp.pk }}"
              data-chem-id="{{ hp.pk }}"
@@ -19,7 +19,7 @@
                 </h3>
                 {% if doc.detail_page_editable and request.user.is_authenticated %}
                 <div class="btn-group btn-group-sm"
-                     id="chemical_edit_buttons">
+                     id="chem-card-{{ hp.pk }}-buttons">
                     <button class="btn btn-outline-secondary hover-success"
                             id="chemical-update-{{ hp.pk }}"
                             title="edit"
@@ -31,6 +31,7 @@
                         <span class="fa fa-fs fa-edit"></span>
                     </button>
                     <button class="btn btn-outline-secondary hover-danger"
+                            id="chemical-delete-{{ hp.pk }}"
                             title="delete"
                             role="button"
                             data-toggle="modal"
@@ -110,6 +111,7 @@
     <div class="card m-4 p-0"
          id="add_chemical">
         <button class="btn m-0 p-0 btn-outline-secondary hover-success"
+                id="chemical-add-btn"
                 data-toggle="modal"
                 data-target="#chemical-add-modal">
             <div class="card-body shadow rounded p-0 m-0 text-center"

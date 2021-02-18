@@ -219,7 +219,9 @@ urlpatterns = [
     path("products/", views.product_list, name="product_list"),
     path("datadocument/<int:pk>/", views.data_document_detail, name="data_document"),
     path(
-        "datadocument/<int:pk>/cards", views.chemical_cards, name="data_document_cards"
+        "datadocument/<int:pk>/cards",
+        views.data_document_cards,
+        name="data_document_cards",
     ),
     path("save_type/<int:pk>/", views.save_doc_form, name="save_doc_form"),
     path("save_ext/<int:pk>/", views.save_ext_form, name="save_ext_form"),
@@ -318,6 +320,11 @@ urlpatterns = [
         "datadocument/edit/<int:pk>/",
         views.data_document_edit,
         name="data_document_edit",
+    ),
+    path(
+        "datadocument/<int:pk>/download_chemicals/",
+        views.download_document_chemicals,
+        name="download_document_chemicals",
     ),
     path("qanotes/save/<int:pk>/", views.save_qa_notes, name="save_qa_notes"),
     path(

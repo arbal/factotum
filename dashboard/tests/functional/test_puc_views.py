@@ -91,4 +91,4 @@ class TestPUCViews(TestCase):
             if p["id"] == puc_id:
                 puc_dict = p
         # confirm that the table's source data matches the ORM object
-        self.assertEqual(puc.product_count, puc_dict["num_products"])
+        self.assertEqual(puc.product_count, puc_dict["product_count"])

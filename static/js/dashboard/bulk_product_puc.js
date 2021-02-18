@@ -13,11 +13,12 @@ $(document).ready(function () {
                 width: '3%'
             },
             {width: '40%', targets: 1},
-            {width: '27%', targets: 2},
-            {className: 'hide_column', targets: 3},
+            {width: '20%', targets: 2},
+            {width: '17%', targets: 2},
+            {className: 'hide_column', targets: 4},
             {
-                width: '30%',
-                targets: 4
+                width: '20%',
+                targets: 5
             },
         ],
         select: {
@@ -51,8 +52,9 @@ $(document).ready(function () {
     $('#btn-assign-puc').click(function (e) {
         pk_data = product_table.rows({selected: true});
         pk = '';
+        // find the (hidden) pk column in each row
         for (i = 0; i < pk_data.count(); i++) {
-            pk += pk_data.data()[i][3] + ',';
+            pk += pk_data.data()[i][4] + ',';
         }
         pk = pk.replace(/,$/g, '');
         $('input[name="id_pks"]').val(pk);

@@ -4,8 +4,8 @@ from django.urls import reverse
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from .common_info import CommonInfo
-from .product_document import ProductDocument
 from .PUC import PUC
+from .product import Product
 from .extracted_list_presence import ExtractedListPresence
 from .data_document import DataDocument
 from .group_type import GroupType
@@ -46,26 +46,53 @@ class DSSToxLookup(CommonInfo):
     def get_absolute_url(self):
         return reverse("chemical", kwargs={"sid": self.sid})
 
-    @property
-    def puc_count(self):
-        pdocs = ProductDocument.objects.from_chemical(self)
-        return PUC.objects.filter(products__in=pdocs.values("product")).count()
+    def get_puc_count(self):
+        return PUC.objects.filter(
+            productuberpuc__product__in=Product.objects.filter(
+                productdocument__document__extractedtext__rawchem__dsstox=self
+            )
+        ).count()
 
-    @property
-    def cumulative_puc_count(self):
-        pdocs = ProductDocument.objects.from_chemical(self)
-        pucs = PUC.objects.filter(products__in=pdocs.values("product"))
-        titles = []
-        for puc in pucs:
-            titles += list(f for f in (puc.gen_cat, puc.prod_fam, puc.prod_type) if f)
-        return len(set(titles))
-
-    def puc_count_by_kind(self, kind):
-        pdocs = ProductDocument.objects.from_chemical(self)
-        pucs = PUC.objects.filter(products__in=pdocs.values("product")).filter(
-            kind=kind
+    def get_puc_count_by_kind(self, kind):
+        return (
+            PUC.objects.filter(kind=kind)
+            .filter(
+                productuberpuc__product__in=Product.objects.filter(
+                    productdocument__document__extractedtext__rawchem__dsstox=self
+                )
+            )
+            .count()
         )
-        return pucs.count()
+
+    def get_cumulative_puc_count(self, kind=None):
+        """
+        Gets the count of all PUCs associated with
+        the DTXSID or associated with
+        one of its child or grandchild PUCs. 
+        For performance reasons, only used for testing.
+        """
+        pucs = PUC.objects.filter(
+            productuberpuc__product__in=Product.objects.filter(
+                productdocument__document__extractedtext__rawchem__dsstox=self
+            )
+        )
+        if kind:
+            pucs = pucs.filter(kind=kind)
+        cpucs = PUC.objects.filter(
+            # grandparents of PUCs with products
+            models.Q(gen_cat__in=pucs.values_list("gen_cat"), prod_fam="")
+            # parents of PUCs with products
+            | models.Q(
+                gen_cat__in=pucs.values_list("gen_cat"),
+                prod_fam__in=pucs.values_list("prod_fam"),
+                prod_fam__isnull=False,
+                prod_type="",
+            )
+            # the original PUCs with products
+            | models.Q(id__in=pucs.values_list("id"))
+        )
+
+        return cpucs.count()
 
     def get_unique_datadocument_group_types_for_dropdown(self):
         docs = DataDocument.objects.from_chemical(self)
@@ -154,3 +181,19 @@ class DSSToxLookup(CommonInfo):
                 }
             )
         return tagset_list
+
+    def get_puc_list(self, kind=None):
+        """
+        Return a queryset of all the PUCs associated with the DTXSID,
+        annotated with their counts. Observes the uberpuc assignments.
+        """
+        pucs = PUC.objects.filter(
+            productuberpuc__product__in=Product.objects.filter(
+                productdocument__document__extractedtext__rawchem__dsstox=self
+            )
+        ).annotate(product_count=models.Count("productuberpuc"))
+        if kind:
+            pucs = pucs.filter(kind=kind)
+        return pucs.values_list(
+            "id", "kind_id", "gen_cat", "prod_fam", "prod_type", "product_count"
+        )

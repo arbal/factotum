@@ -44,7 +44,6 @@ class DataDocumentDetailTest(TransactionTestCase):
         self.assertFalse(page.xpath('//*[@id="delete_document"]'))
         self.assertFalse(page.xpath('//*[@id="btn-add-or-edit-extracted-text"]'))
         self.assertIsNone(page.xpath('//*[@id="qa_icon_unchecked"]')[0].get("href"))
-        self.assertFalse(page.xpath('//*[@id="chemical_edit_buttons"]'))
         self.assertFalse(page.xpath('//*[@id="add_chemical"]'))
         self.assertIsNone(page.xpath('//*[@id="datasource_link"]')[0].get("href"))
         self.assertIsNone(page.xpath('//*[@id="datagroup_link"]')[0].get("href"))
@@ -304,8 +303,8 @@ class DataDocumentDetailTest(TransactionTestCase):
         self.assertTrue(two.ingredient_rank > one.ingredient_rank)
         response = self.client.get(f"/datadocument/{doc.pk}/cards")
         html = response.content.decode("utf-8")
-        first_idx = html.index(f'id="chem-{one.pk}"')
-        second_idx = html.index(f'id="chem-{two.pk}"')
+        first_idx = html.index(f'id="chem-card-{one.pk}"')
+        second_idx = html.index(f'id="chem-card-{two.pk}"')
         self.assertTrue(
             second_idx > first_idx,
             ("Ingredient rank 1 comes before " "Ingredient rank 2"),
@@ -411,6 +410,34 @@ class DataDocumentDetailTest(TransactionTestCase):
         reg_no = doc.epa_reg_number
         response = self.client.get(doc.get_absolute_url())
         self.assertContains(response, reg_no)
+
+    def test_download_chemicals(self):
+        # download button for CP type
+        cp_doc = DataDocument.objects.filter(data_group__group_type__code="CP").first()
+        response = self.client.get(f"/datadocument/{cp_doc.pk}/")
+        page = html.fromstring(response.content)
+        download_button = page.xpath('//*[@id="download_chemicals"]')
+        self.assertEqual(
+            1, len(download_button), "download button available for CP types"
+        )
+        # download stream
+        response = self.client.get(f"/datadocument/{cp_doc.pk}/download_chemicals/")
+        self.assertEqual(200, response.status_code)
+        self.assertIsNotNone(response.streaming_content)
+
+        # download button not exist for non CP type
+        non_cp_doc = DataDocument.objects.filter(
+            data_group__group_type__code="CO"
+        ).first()
+        response = self.client.get(f"/datadocument/{non_cp_doc.pk}/")
+        page = html.fromstring(response.content)
+        download_button = page.xpath('//*[@id="download_chemicals"]')
+        self.assertEqual(
+            0, len(download_button), "download button not available for non CP types"
+        )
+        response = self.client.get(f"/datadocument/{non_cp_doc.pk}/download_chemicals/")
+        # download blocked for non CP type
+        self.assertEqual(400, response.status_code)
 
 
 class TestDynamicDetailFormsets(TestCase):
@@ -605,7 +632,7 @@ class TestDynamicDetailFormsets(TestCase):
         response = self.client.get("/datadocument/%i/cards" % data_document.pk)
         response_html = html.fromstring(response.content)
         cards = response_html.find_class("card")
-        self.assertEqual(cards[0].get("id"), f"chem-{first_id}")
+        self.assertEqual(cards[0].get("id"), f"chem-card-{first_id}")
 
         # changing the component of the first chemical should move it to the bottom
         # of the page
@@ -616,7 +643,7 @@ class TestDynamicDetailFormsets(TestCase):
         response_html = html.fromstring(response.content)
         cards = response_html.find_class("card")
         # the new first card should match the second ID
-        self.assertEqual(cards[0].get("id"), f"chem-{second_id}")
+        self.assertEqual(cards[0].get("id"), f"chem-card-{second_id}")
         self.client.post(
             path=reverse("detected_flag_toggle_yes", kwargs={"doc_pk": 170415}),
             data={"chems": ["93", "557"]},
@@ -640,7 +667,7 @@ class TestDynamicDetailFormsets(TestCase):
         data_document = DataDocument.objects.get(pk=5)
         response = self.client.get("/datadocument/%i/" % data_document.pk)
 
-        self.assertTemplateUsed("data_document/functional_use_chemical_cards.html")
+        self.assertTemplateUsed("data_document/functional_use_cards.html")
 
     def test_organization_presence(self):
         for doc_id in [

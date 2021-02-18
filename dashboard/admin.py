@@ -1,23 +1,61 @@
 from django import forms
 from django.contrib import admin
-from django.db.models import Count
+from dashboard.signals import *
 from django.utils.translation import ugettext_lazy as _
 from taggit_labels.widgets import LabelWidget
 
-from dashboard.models import *
-from dashboard.signals import *
+from dashboard.models import (
+    PUC,
+    PUCTag,
+    Script,
+    DocumentType,
+    DataSource,
+    GroupType,
+    DataGroup,
+    DataDocument,
+    Product,
+    ProductToPUC,
+    ProductToPucClassificationMethod,
+    ProductDocument,
+    SourceCategory,
+    PUCKind,
+    ExtractedText,
+    ExtractedComposition,
+    ExtractedFunctionalUse,
+    ExtractedHabitsAndPractices,
+    ExtractedHabitsAndPracticesDataType,
+    ExtractedHabitsAndPracticesTagKind,
+    ExtractedHabitsAndPracticesTag,
+    DSSToxLookup,
+    QAGroup,
+    UnitType,
+    WeightFractionType,
+    Taxonomy,
+    TaxonomySource,
+    TaxonomyToPUC,
+    ExtractedHHDoc,
+    ExtractedHHRec,
+    PUCToTag,
+    ExtractedListPresence,
+    ExtractedListPresenceTag,
+    ExtractedListPresenceToTag,
+    ExtractedListPresenceTagKind,
+    FunctionalUse,
+    FunctionalUseCategory,
+    CurationStep,
+)
 
 
 class PUCAdminForm(forms.ModelForm):
     class Meta:
         model = PUC
         fields = ["gen_cat", "prod_fam", "prod_type", "description", "tags", "kind"]
-        readonly_fields = ("num_products",)
+        readonly_fields = ("product_count", "cumulative_product_count")
         widgets = {"tags": LabelWidget(model=PUCTag)}
 
 
 class PUCAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "tag_list", "num_products")
+    list_display = ("__str__", "tag_list", "product_count", "cumulative_product_count")
     list_filter = ("kind",)
     form = PUCAdminForm
 
@@ -27,18 +65,13 @@ class PUCAdmin(admin.ModelAdmin):
         return get_data
 
     def get_queryset(self, request):
-        return (
-            super(PUCAdmin, self)
-            .get_queryset(request)
-            .prefetch_related("tags")
-            .annotate(num_products=Count("products"))
-        )
+        return super(PUCAdmin, self).get_queryset(request).prefetch_related("tags")
 
-    def num_products(self, obj):
-        return obj.num_products
+    def product_count(self, obj):
+        return obj.product_count
 
-    num_products.short_description = "Product Count"
-    num_products.admin_order_field = "num_products"
+    product_count.short_description = "Product Count"
+    product_count.admin_order_field = "product_count"
 
     def tag_list(self, obj):
         return u", ".join(o.name for o in obj.tags.all())

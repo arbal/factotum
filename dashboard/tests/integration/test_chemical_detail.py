@@ -87,7 +87,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
 
     def test_chemical_detail_with_puc(self):
         chemical = DSSToxLookup.objects.get(sid="DTXSID9022528")
-        puc = PUC.objects.get(pk=185)
+        puc = PUC.objects.get(pk=186)
         wait = WebDriverWait(self.browser, 10)
         self.browser.get(
             self.live_server_url + "/chemical/" + chemical.sid + "/puc/" + str(puc.pk)
@@ -95,16 +95,23 @@ class TestChemicalDetail(StaticLiveServerTestCase):
 
         # Test the Bubble Plot Legend Zoom occurred
         wait.until(
-            ec.visibility_of(self.browser.find_element_by_xpath("//*[@id='card-185']"))
+            ec.visibility_of(self.browser.find_element_by_xpath("//*[@id='card-186']"))
         )
         wait.until(
             ec.text_to_be_present_in_element(
-                (By.XPATH, "//*[@id='card-185']/div/div/b"), "hand/body lotion"
+                (By.XPATH, "//*[@id='zoom-to-186']/b"), "general moisturizing"
             )
         )
+        wait.until(ec.element_to_be_clickable((By.ID, "bubble-186")))
+        # The legend should have expanded to show the links for 185 and 186
+
         self.assertInHTML(
             "hand/body lotion",
-            self.browser.find_element_by_xpath("//*[@id='card-185']/div/div/b").text,
+            self.browser.find_element_by_xpath("//*[@id='puc-185']").text,
+        )
+        self.assertInHTML(
+            "general moisturizing",
+            self.browser.find_element_by_xpath("//*[@id='puc-186']").text,
         )
         self.assertFalse(
             self.browser.find_element_by_xpath(
@@ -112,16 +119,11 @@ class TestChemicalDetail(StaticLiveServerTestCase):
             ).is_displayed()
         )
 
-        # Test that Bubble Plot zoom occurred
-        self.assertTrue(
+        self.assertInHTML(
+            "hand/body lotion (1)",
             self.browser.find_element_by_xpath(
                 "//*[@id='bubble-label-185']"
-            ).is_displayed()
-        )
-        self.assertFalse(
-            self.browser.find_element_by_xpath(
-                "//*[@id='bubble-label-210']"
-            ).is_displayed()
+            ).get_attribute("outerHTML"),
         )
 
     def test_only_formulations(self):
@@ -333,7 +335,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         # filter by keyword
         keyword_filter = self.browser.find_element_by_id("keywords-1")
         keyword_filter.click()
-        time.sleep(1)
+        self.browser.implicitly_wait(1)
 
         self.assertEqual(
             keyword_filter.get_attribute("data-original-title"),
@@ -343,8 +345,9 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         self.assertIsNotNone(keyword_filter_icon)
 
         # Documents table
-        self.assertInHTML(
-            "Showing 1 to 1 of 1 entries related to Keyword { wine, wood, writing } (filtered from 8 total documents)",
+        # Keywords in table aren't always ordered identically, so this test only checks for the first part of the string
+        self.assertIn(
+            "Showing 1 to 1 of 1 entries related to Keyword",
             self.browser.find_element_by_xpath("//*[@id='documents_info']").text,
         )
 

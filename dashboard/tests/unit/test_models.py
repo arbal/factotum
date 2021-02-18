@@ -295,7 +295,7 @@ class ModelTestWithFixtures(TestCase):
         """Make sure that documents with multiple product linkages
         are not being double-counted."""
         puc = PUC.objects.get(pk=185)
-        docs = DataDocument.objects.filter(Q(products__puc=puc)).distinct()
+        docs = DataDocument.objects.filter(Q(products__product_uber_puc__puc=puc))
         distinct_doc_count = docs.count()
         self.assertEqual(puc.document_count, distinct_doc_count)
 

@@ -134,6 +134,7 @@
     puc_assigned_script: null
     classification_method_id: MA
     classification_confidence: '1.000'
+    is_uber_puc: True
 - model: dashboard.producttopuc
   pk: 14
   fields:

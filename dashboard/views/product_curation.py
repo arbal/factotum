@@ -154,8 +154,8 @@ def link_product_form(request, pk):
 @login_required()
 def detach_puc_from_product(request, pk):
     p = Product.objects.get(pk=pk)
-    pp = ProductToPUC.objects.get(product=p)
-    pp.delete()
+    ProductToPUC.objects.filter(product=p, is_uber_puc=True).delete()
+    # if additional PUCs are assigned to this product, a new uberpuc should be selected
     return redirect("product_detail", pk=p.pk)
 
 

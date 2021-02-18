@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models import Value, IntegerField, Q, F
+from django.db.models import Q, F
 from django.shortcuts import render, get_object_or_404
 from django.utils.html import format_html
 from django_datatables_view.base_datatable_view import BaseDatatableView
+from cacheops import cache
 
 from dashboard.models import (
     DSSToxLookup,
@@ -11,6 +12,7 @@ from dashboard.models import (
     PUCKind,
     RawChem,
     DuplicateChemicals,
+    CumulativeProductsPerPucAndSid,
 )
 
 
@@ -20,61 +22,15 @@ def chemical_detail(request, sid, puc_id=None):
     keysets = chemical.get_tag_sets()
     group_types = chemical.get_unique_datadocument_group_types_for_dropdown()
     puc_kinds = PUCKind.objects.all()
+    dss_pk = chemical.pk
 
-    formulation_pucs = (
-        PUC.objects.filter(kind__code="FO")
-        .dtxsid_filter(sid)
-        .with_num_products()
-        .astree()
-    )
-    # get parent PUCs too
-    formulation_pucs.merge(
-        PUC.objects.all()
-        .annotate(num_products=Value(0, output_field=IntegerField()))
-        .astree()
-    )
-    # Get cumulative product count, displayed in bubble_puc_legend
-    for puc_name, puc_obj in formulation_pucs.items():
-        puc_obj.cumnum_products = sum(
-            p.num_products for p in formulation_pucs.objects[puc_name].values()
-        )
+    qs = CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup_id=dss_pk)
 
-    article_pucs = (
-        PUC.objects.filter(kind__code="AR")
-        .dtxsid_filter(sid)
-        .with_num_products()
-        .astree()
-    )
-    # get parent PUCs too
-    article_pucs.merge(
-        PUC.objects.all()
-        .annotate(num_products=Value(0, output_field=IntegerField()))
-        .astree()
-    )
-    # Get cumulative product count, displayed in bubble_puc_legend
-    for puc_name, puc_obj in article_pucs.items():
-        puc_obj.cumnum_products = sum(
-            p.num_products for p in article_pucs.objects[puc_name].values()
-        )
+    formulation_pucs = qs.filter(puc__kind__code="FO").select_related("puc").astree()
 
-    # occupation pucs bubble plot
-    occupation_pucs = (
-        PUC.objects.filter(kind__code="OC")
-        .dtxsid_filter(sid)
-        .with_num_products()
-        .astree()
-    )
-    # get parent PUCs too
-    occupation_pucs.merge(
-        PUC.objects.all()
-        .annotate(num_products=Value(0, output_field=IntegerField()))
-        .astree()
-    )
-    # Get cumulative product count, displayed in bubble_puc_legend
-    for puc_name, puc_obj in occupation_pucs.items():
-        puc_obj.cumnum_products = sum(
-            p.num_products for p in occupation_pucs.objects[puc_name].values()
-        )
+    article_pucs = qs.filter(puc__kind__code="AR").select_related("puc").astree()
+
+    occupation_pucs = qs.filter(puc__kind__code="OC").select_related("puc").astree()
 
     context = {
         "chemical": chemical,
@@ -266,14 +222,14 @@ class ChemicalProductListJson(BaseDatatableView):
         s = self.request.GET.get("search[value]", None)
         puc_kind = self.request.GET.get("puc_kind")
         if puc:
-            qs = qs.filter(Q(product__puc=puc)).distinct()
+            qs = qs.filter(Q(product__product_uber_puc__puc_id=puc))
         if s:
             qs = qs.filter(
                 Q(product__title__icontains=s) | Q(document__title__icontains=s)
             ).distinct()
         if puc_kind and puc_kind != "all":
             if puc_kind == "none":
-                qs = qs.filter(product__puc__isnull=True)
+                qs = qs.filter(product__product_uber_puc__isnull=True)
             else:
-                qs = qs.filter(product__puc__kind__code=puc_kind)
+                qs = qs.filter(product__product_uber_puc__puc__kind__code=puc_kind)
         return qs

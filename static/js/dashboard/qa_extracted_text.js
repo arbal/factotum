@@ -1,54 +1,72 @@
 $(document).ready(function () {
-    //toggleDetailEdit(unsaved);
+    $('#scroll-nav').remove(); //scrollspy not used on qa page
+    cards_init();
+    sliders_init();
 });
 
-function toggleDetailEdit(enable = true) {
-    // set the detail fields to editable
-    // show the notes box
-    if (enable) {
-        // enter edit mode
-        console.log("enabling editor");
-        // show the Save button
-        $('#save').removeClass('disabled');
-        $('#save').show();
-        $('#btn-toggle-edit').addClass('btn-warning');
-        $('#btn-toggle-edit').attr("onclick", "toggleDetailEdit(false)");
-        // TODO: change the button's label to read "Stop Editing"
-        $('.detail-control').addClass('unlocked');
-        $('.detail-control').prop('disabled', false);
-        //$('.extext-control').addClass('unlocked');
-        //$('.extext-control').prop('disabled', false);
-    } else {
-        // exit edit mode
-        $('#btn-toggle-edit').attr("onclick", "toggleDetailEdit(true)");
-        // hide the Save button
-        $('#save').addClass('disabled');
-        $('#save').hide();
-        $('#btn-toggle-edit').removeClass('btn-warning');
-        $('.detail-control').removeClass('unlocked');
-        $('.detail-control').prop('disabled', true);
-        //$('.extext-control').removeClass('unlocked');
-        //$('.extext-control').prop('disabled', true);
-        //console.log("Has disabled class been added to controls?");
-        //console.log($('.detail-control').hasClass('disabled'));
-
+// update location for the reload that happens when editing chemical
+$("#chem-scrollspy").ready(function () {
+    var chem = location.href.split("#").length
+    if (chem > 1) {
+        location.href = location.href
     }
+});
+
+// add color to elements on hover...
+$('.hover').mouseover(function () {
+    $(this).removeClass("btn-outline-secondary");
+    $(this).addClass("btn-" + this.name);
+})
+
+$('.hover').mouseout(function () {
+    $(this).removeClass("btn-" + this.name);
+    $(this).addClass("btn-outline-secondary");
+})
+
+function sliders_init() {
+    //create static slider for each chemical card
+    document.querySelectorAll(".wf-analysis").forEach(wf_analysis => {
+        var chemical_pk = wf_analysis.getAttribute('data-chemical-pk');
+        var lower = wf_analysis.getAttribute('data-lower-wf-analysis');
+        var central = wf_analysis.getAttribute('data-central-wf-analysis');
+        var upper = wf_analysis.getAttribute('data-upper-wf-analysis');
+        var input_id = 'wf_slider_' + chemical_pk;
+        if (central) {
+            range = false;
+            value = [parseFloat(central), parseFloat(central)];
+        } else {
+            range = true;
+            value = [parseFloat(lower.length === 0 ? '0' : lower),
+                parseFloat(upper.length === 0 ? '0' : upper)];
+        }
+        $('#' + input_id)
+            .slider({
+                id: "slider" + chemical_pk,
+                min: 0,
+                max: 1,
+                step: .00001,
+                ticks: [0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1],
+                ticks_labels: ['0', '', '', '', '', '', '', '', '', '', '1'],
+                range: range,
+                value: value,
+                enabled: false,
+                precision: 15,
+                formatter: function (value) {
+                    return 'Weight fraction analysis: ' + ((value[0] === value[1]) ? value[0] : value[0] + ' - ' + value[1]);
+                }
+            });
+    })
 }
 
 // Save notes on submit
 $('#qa-notes-form').on('submit', function (event) {
     event.preventDefault();
-    console.log('submitting qa notes form')
-    console.log(
-        $('#qa-notes-textarea').val()
-    )
     save_qa_notes();
 });
 
 
 // AJAX for posting
 function save_qa_notes() {
-    console.log("save_qa_notes is running")
     $.ajax({
         url: $('#qa-notes-form').attr("action"), // the endpoint
         type: "POST", // http method
@@ -73,8 +91,6 @@ function save_qa_notes() {
 // Todo: This function now contained within csrf_ajax.
 // This code could be replaced with `import csrf_ajax from '../modules/csrf_ajax.js'`
 $(function () {
-
-
     // This function gets cookie with a given name
     function getCookie(name) {
         var cookieValue = null;
@@ -130,18 +146,3 @@ $(function () {
 
 });
 // end csrf_ajax.js code
-
-$('#chemical-audit-log-modal').on('show.bs.modal', function (event) {
-    $('[data-toggle]').tooltip('hide');
-    var modal = $(this);
-    $.ajax({
-        url: event.relatedTarget.href,
-        context: document.body,
-        error: function (response) {
-            alert(response.responseText);
-        }
-
-    }).done(function (response) {
-        modal.html(response);
-    });
-});

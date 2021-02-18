@@ -1,19 +1,16 @@
-from datetime import datetime
-
 from django.contrib import messages
-from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
-from django.db.models import OuterRef, Subquery
+from django.http import JsonResponse, HttpResponseBadRequest
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.shortcuts import render, redirect, get_object_or_404, reverse
-from django.db.models import Q
 from django_datatables_view.base_datatable_view import BaseDatatableView
+from djqscsv import render_to_csv_response
 
 from dashboard.forms.forms import ExtractedHabitsAndPracticesForm
 from dashboard.forms.tag_forms import ExtractedHabitsAndPracticesTagForm
-from dashboard.utils import get_extracted_models
+from dashboard.utils import get_extracted_models, GroupConcat
 from dashboard.forms import (
     ExtractedListPresenceTagForm,
     create_detail_formset,
@@ -37,7 +34,6 @@ from dashboard.models import (
     RawChem,
     AuditLog,
     ExtractedHabitsAndPractices,
-    ExtractedHabitsAndPracticesTag,
     ExtractedHabitsAndPracticesToTag,
     ExtractedFunctionalUse,
 )
@@ -107,6 +103,12 @@ def data_document_detail(request, pk):
 class ChemCreateView(CreateView):
     template_name = "chemicals/chemical_add_form.html"
 
+    def get_form_kwargs(self):
+        kwargs = super(ChemCreateView, self).get_form_kwargs()
+        if self.request.headers.get("Referer", None):
+            kwargs.update({"referer": self.request.headers.get("Referer")})
+        return kwargs
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         doc = DataDocument.objects.get(pk=self.kwargs.get("doc"))
@@ -136,8 +138,8 @@ class ChemCreateView(CreateView):
         code = doc.data_group.group_type.code
         return CHEMICAL_FORMS[code]
 
-    def form_invalid(self, form, formset):
-        return self.render_to_response(self.get_context_data(form=form, fufs=formset))
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
 
     def form_valid(self, form):
         form.instance.extracted_text_id = self.kwargs.get("doc")
@@ -152,7 +154,7 @@ class ChemCreateView(CreateView):
                 {"chemical": self.object},
             )
         else:
-            return self.form_invalid(form, formset)
+            return self.form_invalid(form)
 
 
 @method_decorator(login_required, name="dispatch")
@@ -163,6 +165,12 @@ class ChemUpdateView(UpdateView):
     def get_object(self, queryset=None):
         obj = super(ChemUpdateView, self).get_object(queryset=queryset)
         return RawChem.objects.get_subclass(pk=obj.pk)
+
+    def get_form_kwargs(self):
+        kwargs = super(ChemUpdateView, self).get_form_kwargs()
+        if self.request.headers.get("Referer", None):
+            kwargs.update({"referer": self.request.headers.get("Referer")})
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -192,8 +200,8 @@ class ChemUpdateView(UpdateView):
         code = self.object.extracted_text.group_type
         return CHEMICAL_FORMS[code]
 
-    def form_invalid(self, form, formset):
-        return self.render_to_response(self.get_context_data(form=form, fufs=formset))
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
 
     def form_valid(self, form):
         self.object = form.save()
@@ -207,7 +215,7 @@ class ChemUpdateView(UpdateView):
                 {"chemical": self.object},
             )
         else:
-            return self.form_invalid(form, formset)
+            return self.form_invalid(form)
 
 
 @method_decorator(login_required, name="dispatch")
@@ -444,7 +452,7 @@ def list_presence_tag_delete(request, doc_pk, chem_pk, tag_pk):
     elp = ExtractedListPresence.objects.get(pk=chem_pk)
     tag = ExtractedListPresenceTag.objects.get(pk=tag_pk)
     ExtractedListPresenceToTag.objects.get(content_object=elp, tag=tag).delete()
-    card = f"#chem-{chem_pk}"
+    card = f"#chem-card-{chem_pk}"
     url = reverse("data_document", args=[doc_pk])
     url += card
     return redirect(url)
@@ -476,7 +484,7 @@ def habits_and_practices_tag_delete(request, doc_pk, chem_pk, tag_pk):
     ExtractedHabitsAndPracticesToTag.objects.filter(
         content_object_id=chem_pk, tag_id=tag_pk
     ).delete()
-    card = f"#chem-{chem_pk}"
+    card = f"#chem-card-{chem_pk}"
     url = reverse("data_document", args=[doc_pk])
     url += card
     return redirect(url)
@@ -490,6 +498,49 @@ def chemical_audit_log(request, pk):
         request,
         "chemicals/chemical_audit_log.html",
         {"chemical": chemical, "auditlog": auditlog},
+    )
+
+
+def download_document_chemicals(request, pk):
+    document = get_object_or_404(DataDocument, pk=pk)
+    if not document.data_group.is_chemical_presence:
+        return HttpResponseBadRequest(
+            content="data document does not belong to chemical presence group",
+            content_type="text/plain;",
+        )
+    chemicals = (
+        ExtractedListPresence.objects.filter(extracted_text__data_document_id=pk)
+        .annotate(tag_names=GroupConcat("tags__name", separator="; ", distinct=True))
+        .values(
+            "extracted_text__data_document__title",
+            "extracted_text__data_document__subtitle",
+            "extracted_text__data_document__organization",
+            "raw_chem_name",
+            "raw_cas",
+            "dsstox__sid",
+            "dsstox__true_chemname",
+            "dsstox__true_cas",
+            "chem_detected_flag",
+            "tag_names",
+        )
+    )
+    filename = document.get_title_as_slug() + "_chemicals.csv"
+    return render_to_csv_response(
+        chemicals,
+        filename=filename,
+        append_datestamp=True,
+        field_header_map={
+            "extracted_text__data_document__title": "Title",
+            "extracted_text__data_document__subtitle": "Subtitle",
+            "extracted_text__data_document__organization": "Organization",
+            "dsstox__sid": "DTXSID",
+            "dsstox__true_chemname": "True chemical name",
+            "dsstox__true_cas": "True CAS",
+            "tag_names": "Tags",
+        },
+        field_serializer_map={
+            "chem_detected_flag": (lambda f: ("Yes" if f == "1" else "No"))
+        },
     )
 
 
@@ -520,30 +571,35 @@ def document_audit_log(request, pk):
     )
 
 
-def chemical_cards(request, pk):
+def data_document_cards(request, pk):
     doc = get_object_or_404(DataDocument, pk=pk)
     _, Child = get_extracted_models(doc.data_group.group_type.code)
+    card_qs = Child.objects.filter(extracted_text__data_document=doc)
 
-    chemicals = Child.objects.filter(extracted_text__data_document=doc)
+    return cards_detail(request, doc, card_qs)
+
+
+def cards_detail(request, doc, card_qs):
+    _, Child = get_extracted_models(doc.data_group.group_type.code)
 
     if Child == ExtractedListPresence:
-        chemicals = chemicals.prefetch_related("tags", "dsstox")
-        template = "data_document/chemical_cards/co_cp_chemical_cards.html"
+        card_qs = card_qs.prefetch_related("tags", "dsstox")
+        template = "data_document/cards/co_cp_cards.html"
 
     elif Child == ExtractedComposition:
-        chemicals = chemicals.order_by("component", "ingredient_rank").prefetch_related(
+        card_qs = card_qs.order_by("component", "ingredient_rank").prefetch_related(
             "dsstox"
         )
-        template = "data_document/chemical_cards/co_cp_chemical_cards.html"
+        template = "data_document/cards/co_cp_cards.html"
 
     elif Child == ExtractedHabitsAndPractices:
-        chemicals = chemicals.prefetch_related("tags")
-        template = "data_document/chemical_cards/hp_cards.html"
+        card_qs = card_qs.prefetch_related("tags")
+        template = "data_document/cards/hp_cards.html"
 
     elif Child == ExtractedFunctionalUse:
-        template = "data_document/chemical_cards/functional_use_chemical_cards.html"
+        template = "data_document/cards/functional_use_cards.html"
 
     else:
-        chemicals = chemicals.prefetch_related("dsstox")
-        template = "data_document/chemical_cards/chemical_cards.html"
-    return render(request, template, {"doc": doc, "chemicals": chemicals})
+        card_qs = card_qs.prefetch_related("dsstox")
+        template = "data_document/cards/cards.html"
+    return render(request, template, {"doc": doc, "chemicals": card_qs})

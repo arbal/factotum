@@ -19,6 +19,7 @@ from django_datatables_view.base_datatable_view import BaseDatatableView
 from celery_usertask.tasks import UserTask, usertask
 from dashboard.forms import create_detail_formset, QANotesForm, DocumentTypeForm
 from dashboard.forms.forms import QASummaryNoteForm
+from dashboard.views.data_document import cards_detail
 from dashboard.models import (
     Script,
     DataGroup,
@@ -30,6 +31,7 @@ from dashboard.models import (
     DocumentType,
     RawChem,
     AuditLog,
+    GroupType,
 )
 
 
@@ -39,16 +41,25 @@ def qa_extractionscript_index(request, template_name="qa/extraction_script_index
     qa_group_count = Count("extractedtext__qa_group")
     qa_complete_count = Count("extractedtext", filter=Q(extractedtext__qa_checked=True))
     percent_complete = (qa_complete_count / qa_group_count) * 100
+    # defaults to composition type
+    group_type_code = request.GET.get("group_type", "CO")
+    group_type = GroupType.objects.filter(code=group_type_code).first()
     extraction_scripts = (
         Script.objects.filter(script_type="EX")
-        .exclude(extractedtext__data_document__data_group__group_type__code="CP")
+        .filter(
+            extractedtext__data_document__data_group__group_type__code=group_type_code
+        )
         .exclude(title="Manual (dummy)")
         .annotate(extractedtext_count=extractedtext_count)
         .annotate(percent_complete=percent_complete)
         .annotate(qa_group_count=qa_group_count)
         .filter(extractedtext_count__gt=0)
     )
-    return render(request, template_name, {"extraction_scripts": extraction_scripts})
+    return render(
+        request,
+        template_name,
+        {"extraction_scripts": extraction_scripts, "group_type": group_type},
+    )
 
 
 @login_required()
@@ -314,6 +325,7 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
     elif extext.group_type in ["HH"]:
         pass
     else:
+        qa_focus = "script"
         #
         # Extraction Script-focused QA process
         #
@@ -348,80 +360,74 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
     # Create the formset factory for the extracted records
     # The model used for the formset depends on whether the
     # extracted text object matches a data document()
-    # The QA view should exclude the weight_fraction_type field.
+    # The QA view should exclude certain fields.
     ParentForm, ChildForm = create_detail_formset(
         doc,
         settings.EXTRA,
         can_delete=True,
         exclude=["weight_fraction_type", "true_cas", "true_chemname", "sid"],
     )
-    # extext = extext.pull_out_cp()
+
+    detail_formset = ChildForm(instance=extext)
+    if qa_focus == "script":
+        flagged_qs = detail_formset.get_queryset()
     ext_form = ParentForm(instance=extext)
     extext.chemical_count = RawChem.objects.filter(extracted_text=extext).count()
-    detail_formset = ChildForm(instance=extext)
-    # If the document is CPCat or HHE type, the display should only show the
-    # child records where qa_flag = True
-    if qa_focus == "doc":
-        # qs = detail_formset.get_queryset().filter(qa_flag=True)
-        detail_formset._queryset = flagged_qs
 
-    note, created = QANotes.objects.get_or_create(extracted_text=extext)
+    note, _ = QANotes.objects.get_or_create(extracted_text=extext)
     notesform = QANotesForm(instance=note)
 
     # Allow the user to edit the data document type
     document_type_form = DocumentTypeForm(None, instance=doc)
-    qs = DocumentType.objects.compatible(doc)
-    document_type_form.fields["document_type"].queryset = qs
-    # the form class overrides the label, so over-override it
+    document_type_form.fields[
+        "document_type"
+    ].queryset = DocumentType.objects.compatible(doc)
     document_type_form.fields["document_type"].label = "Data Document Type:"
+
     context = {
         "extracted_text": extext,
         "doc": doc,
         "script": exscript,
         "stats": stats,
         "nextid": nextid,
-        "detail_formset": detail_formset,
         "notesform": notesform,
         "ext_form": ext_form,
         "referer": referer,
         "document_type_form": document_type_form,
         "unsaved": "false",
+        "cards": cards_detail(request, doc, flagged_qs).content.decode("utf8"),
     }
 
-    if request.method == "POST" and "save" in request.POST:
-        # The save action only applies to the child records and QA properties,
-        # no need to save the ExtractedText form
-
-        ParentForm, ChildForm = create_detail_formset(
-            doc,
-            settings.EXTRA,
-            can_delete=True,
-            exclude=["weight_fraction_type", "true_cas", "true_chemname", "sid"],
-        )
-        # extext = extext.pull_out_cp()
-        detail_formset = ChildForm(request.POST, instance=extext)
-        if detail_formset.has_changed():
-            if detail_formset.is_valid():
-                detail_formset.save()
-                for form in detail_formset:
-                    if "DELETE" in form.changed_data:
-                        messages.warning(request, "Chemical deleted")
-                extext.qa_edited = True
-                extext.save()
-                context["unsaved"] = "false"
-                # rebuild the formset after saving it
-                detail_formset = ChildForm(instance=extext)
-            else:
-                # Errors are preventing the form from validating
-                context["unsaved"] = "true"
-                # Return the errors
-                pass
-
-            context["detail_formset"] = detail_formset
-            context["ext_form"] = ext_form
-        else:
-            # the formset has not changed
-            pass
+    # if request.method == "POST" and "save" in request.POST:
+    #     # The save action only applies to the child records and QA properties,
+    #     # no need to save the ExtractedText form
+    #
+    #     ParentForm, ChildForm = create_detail_formset(
+    #         doc,
+    #         settings.EXTRA,
+    #         can_delete=True,
+    #         exclude=["weight_fraction_type", "true_cas", "true_chemname", "sid"],
+    #     )
+    #     detail_formset = ChildForm(request.POST, instance=extext)
+    #     if detail_formset.has_changed():
+    #         if detail_formset.is_valid():
+    #             detail_formset.save()
+    #             extext.qa_edited = True
+    #             extext.save()
+    #             context["unsaved"] = "false"
+    #             # rebuild the formset after saving it
+    #             detail_formset = ChildForm(instance=extext)
+    #         else:
+    #             # Errors are preventing the form from validating
+    #             context["unsaved"] = "true"
+    #             # Return the errors
+    #             pass
+    #
+    #         context["detail_formset"] = detail_formset
+    #         context["ext_form"] = ext_form
+    #     else:
+    #         # the formset has not changed
+    #         pass
 
     return render(request, template_name, context)
 
