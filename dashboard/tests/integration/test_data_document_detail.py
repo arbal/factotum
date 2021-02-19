@@ -411,13 +411,13 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         # problem: the form on the data document detail page and on the modal
         # editor have the same id, so the full ugly xpath is needed
         study_type_menu = self.browser.find_element_by_xpath(
-            '/html/body/div[1]/div[2]/div[1]/div[5]/div[3]/div/div/form/div[1]/div/div[2]/select'
+            "/html/body/div[1]/div[2]/div[1]/div[5]/div[3]/div/div/form/div[1]/div/div[2]/select"
         )
         Select(study_type_menu).select_by_visible_text(
             "Non-Targeted or Suspect Screening"
         )
         media_input = self.browser.find_element_by_xpath(
-            '/html/body/div[1]/div[2]/div[1]/div[5]/div[3]/div/div/form/div[1]/div/div[3]/textarea'
+            "/html/body/div[1]/div[2]/div[1]/div[5]/div[3]/div/div/form/div[1]/div/div[3]/textarea"
         )
         media_input.send_keys("Lorem ipso fido leash")
         save_button.click()
@@ -455,12 +455,14 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.browser.find_element_by_id("id_raw_chem_name").send_keys(
             "The Rawest Chem Name"
         )
-
         save_button.click()
 
         time.sleep(3)
-        raw_chem = RawChem.objects.filter(extracted_text_id=doc.pk).first()
+        # query for the latest chemical
 
+        raw_chem = (
+            RawChem.objects.filter(extracted_text_id=doc.pk).order_by("id").last()
+        )
         self.assertEqual(raw_chem.updated_by, User.objects.get(username="Karyn"))
         self.assertTrue(raw_chem.updated_at != "")
 
