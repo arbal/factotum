@@ -3,7 +3,6 @@ from django.db.models import Q, F
 from django.shortcuts import render, get_object_or_404
 from django.utils.html import format_html
 from django_datatables_view.base_datatable_view import BaseDatatableView
-from cacheops import cache
 
 from dashboard.models import (
     DSSToxLookup,
@@ -135,8 +134,7 @@ class ChemicalProductListJson(BaseDatatableView):
         return value
 
     def ordering(self, qs):
-        """ Get parameters from the request and prepare order by clause
-        """
+        """Get parameters from the request and prepare order by clause"""
 
         # Number of columns that are used in sorting
         sorting_cols = 0

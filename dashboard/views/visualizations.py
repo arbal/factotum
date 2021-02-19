@@ -1,5 +1,4 @@
 from django.views import View
-from cacheops import cached, cached_view
 
 from dashboard.models import (
     PUC,
@@ -48,8 +47,7 @@ class Visualizations(View):
 
 
 def bubble_PUCs(request):
-    """This view is used to download all of the PUCs in nested JSON form.
-    """
+    """This view is used to download all of the PUCs in nested JSON form."""
     dtxsid = request.GET.get("dtxsid", None)
     kind = request.GET.get("kind", "FO")
     if dtxsid:
