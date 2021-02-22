@@ -354,10 +354,7 @@ class ExtractedChemicalModelForm(forms.ModelForm):
         if (
             result
             and self.referer
-            and (
-                "compextractionscript" in self.referer
-                or "extractedtext" in self.referer
-            )
+            and ("extractionscript" in self.referer or "extractedtext" in self.referer)
         ):
             extext = ExtractedText.objects.get(pk=self.instance.extracted_text.pk)
             extext.qa_edited = True
@@ -383,7 +380,7 @@ class ExtractedCompositionForm(ExtractedChemicalModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.referer and (
-            "compextractionscript" in self.referer
+            "extractionscript" in self.referer
             or "extractedtext" in self.referer
             or self.referer == ""
         ):

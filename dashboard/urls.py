@@ -125,22 +125,22 @@ urlpatterns = [
         "link_product_form/<int:pk>/", views.link_product_form, name="link_product_form"
     ),
     path(
-        "qa/compextractionscript/",
+        "qa/extractionscript/",
         views.qa_extractionscript_index,
         name="qa_extractionscript_index",
     ),
     path(
-        "qa/compextractionscript/<int:pk>/",
+        "qa/extractionscript/<int:pk>/",
         dashboard.views.qa.qa_extraction_script,
         name="qa_extraction_script",
     ),
     path(
-        "qa/compextractionscript/<int:pk>/summary",
+        "qa/extractionscript/<int:pk>/summary",
         dashboard.views.qa.qa_extraction_script_summary,
         name="qa_extraction_script_summary",
     ),
     path(
-        "qa/compextractionscript/<int:pk>/summary/table",
+        "qa/extractionscript/<int:pk>/summary/table",
         dashboard.views.qa.ScriptSummaryTable.as_view(),
         name="qa_extraction_script_summary_table",
     ),
