@@ -138,6 +138,11 @@ class MetaEnv(type):
         return cls._get("REDIS_CELERY_DATABASE", default)
 
     @property
+    def REDIS_CACHEOPS_DATABASE(cls):
+        default = "2"
+        return cls._get("REDIS_CACHEOPS_DATABASE", default)
+
+    @property
     def REDIS_HOST(cls):
         default = "localhost"
         return cls._get("REDIS_HOST", default)
@@ -150,7 +155,7 @@ class MetaEnv(type):
     @property
     def CACHEOPS_DEFAULT_TIMEOUT(cls):
         default = 60 * 60  # default to one hour
-        return cls._get("CACHEOPS_DEFAULT_TIMEOUT", default)
+        return int(cls._get("CACHEOPS_DEFAULT_TIMEOUT", default))
 
     @property
     def CHROMEDRIVER_PATH(cls):
