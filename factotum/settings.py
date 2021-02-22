@@ -148,13 +148,15 @@ CACHES = {
     }
 }
 
+CACHEOPS_REDIS = (
+    f"redis://{env.REDIS_HOST}:{env.REDIS_PORT}/{env.REDIS_CACHEOPS_DATABASE}"
+)
 CACHEOPS_DEFAULTS = {"timeout": env.CACHEOPS_DEFAULT_TIMEOUT}  # default to one hour
-# The SID-specific product-per-puc counts use a 24-hour expiration time
 CACHEOPS = {
     "dashboard.cumulativeproductsperpucandsid": {"ops": {"fetch", "get"}},
     "dashboard.productsperpucandsid": {"ops": {"fetch", "get"}},
-    "dashboard.cumulativeproductsperpuc": {"ops": {"fetch", "get"}},
-    "dashboard.productsperpuc": {"ops": {"fetch", "get"}},
+    # "dashboard.cumulativeproductsperpuc": {"ops": {"fetch", "get"}},
+    # "dashboard.productsperpuc": {"ops": {"fetch", "get"}},
 }
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
