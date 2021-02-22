@@ -9,6 +9,7 @@ function cards_init() {
         } else {
             $('#keyword-save').attr('disabled', true)
         }
+        $("#id_chems").clone().appendTo($('#keyword-save'))
     })
     // });
 
