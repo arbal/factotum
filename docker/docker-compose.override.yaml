@@ -4,7 +4,6 @@ volumes:
   factotumstatic:
   celeryfiletasks:
 
-
 services:
   elasticsearch:
     build: https://github.com/HumanExposure/factotum_elastic.git#${FACTOTUM_ELASTIC_BRANCH:-master}:elasticsearch
@@ -54,6 +53,7 @@ services:
       SQL_USER: ${SQL_USER:-dave}
       REDIS_CACHE_DATABASE: ${REDIS_CACHE_DATABASE:-0}
       REDIS_CELERY_DATABASE: ${REDIS_CELERY_DATABASE:-1}
+      REDIS_CACHEOPS_DATABASE: ${REDIS_CACHEOPS_DATABASE:-2}
       REDIS_HOST: redis
       REDIS_PORT: ${REDIS_PORT:-6379}
       ROOT_URLCONF: ${ROOT_URLCONF:-factotum}
