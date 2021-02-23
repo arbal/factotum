@@ -590,11 +590,11 @@ class TestDynamicDetailFormsets(TestCase):
         hhrec.save()
         response = self.client.get("/datadocument/%i/cards" % ext.data_document_id)
         page = html.fromstring(response.content)
-        raw_chem_name = page.xpath('//*[@id="raw_chem_name-' + str(hhrec.id) + '"]/h5')[
-            0
-        ].text
+        raw_chem_name = page.xpath(
+            '//*[@id="raw_chem_name-' + str(hhrec.id) + '"]/small'
+        )[0].text
         self.assertIn("None", raw_chem_name)
-        raw_cas = page.xpath('//*[@id="raw_cas-' + str(hhrec.id) + '"]/h5')[0].text
+        raw_cas = page.xpath('//*[@id="raw_cas-' + str(hhrec.id) + '"]/small')[0].text
         self.assertIn("None", raw_cas)
 
     def test_datadoc_datasource_url_links(self):

@@ -5,11 +5,18 @@ ChemExpoDB: Factotum
 .. role:: bash(code)
    :language: bash
 
-Updated with :bash:`sphinx-apidoc --force --follow-links -d 3 -o ./autodoc .. ../dashboard/migrations ../dashboard/tests`
+Sphinx templates updated from model with :bash:`sphinx-apidoc --force --follow-links -d 3 -o ./autodoc .. ../dashboard/migrations ../dashboard/tests`
 
 .. toctree::
    :maxdepth: 3
-   :caption: Contents:
+   :caption: Manually-organized pages:
+
+   modules/dashboard/models
+
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Autodoc-generated pages:
 
    autodoc/dashboard
    autodoc/apps_api

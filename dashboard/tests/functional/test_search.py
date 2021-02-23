@@ -110,7 +110,7 @@ class TestSearch(TestCase):
         response = self.client.get("/search/datadocument/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
         total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
-        expected_total = "42 datadocuments"  # includes "eau" and "H2O" synonyms
+        expected_total = "43 datadocuments"  # includes "eau" and "H2O" synonyms
         self.assertIn(expected_total, total_took)
         # pucs
         response = self.client.get("/search/puc/" + qs)
