@@ -573,8 +573,8 @@ def document_audit_log(request, pk):
 
 def data_document_cards(request, pk):
     """
-    The template used to render the collection of cards depends on the type of 
-    data document being displayed. The `get_extracted_models` method in 
+    The template used to render the collection of cards depends on the type of
+    data document being displayed. The `get_extracted_models` method in
     `dashboard/utils.py` returns the model class of the parent and child records,
     while this method chooses the appropriate html template.
     """

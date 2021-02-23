@@ -288,7 +288,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
 
         # Documents table
         self.assertInHTML(
-            "Showing 1 to 1 of 1 entries related to PUC Personal care (filtered from 18 total documents)",
+            "Showing 1 to 1 of 1 entries related to PUC Personal care (filtered from 19 total documents)",
             self.browser.find_element_by_xpath("//*[@id='documents_info']").text,
         )
         # Products table
