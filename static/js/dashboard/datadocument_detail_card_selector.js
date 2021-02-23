@@ -9,7 +9,6 @@ function cards_init() {
         } else {
             $('#keyword-save').attr('disabled', true)
         }
-        $("#id_chems").clone().appendTo($('#keyword-save'))
     })
     // });
 
@@ -81,6 +80,11 @@ function cards_init() {
         $('#selected').text(chemInput.childElementCount);
         $("#id_chems").trigger('change');
     });
+
+    $('#keyword-save').click(function (e) {
+        // pull the selected chems into the save button's data
+        $("#id_chems").clone().appendTo($('#keyword-save'))
+    })
 }
 
 function switchIcons(elem) {
@@ -120,6 +124,8 @@ function deselect_chemcard(element) {
     element.classList.remove("border");
     element.classList.remove("border-primary");
 }
+
+
 
 $('#toggle-flags-modal').on('show.bs.modal', function (event) {
     $("#id_chems").clone().appendTo($('#chem_toggle_clear'))
