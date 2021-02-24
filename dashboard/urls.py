@@ -265,6 +265,11 @@ urlpatterns = [
         name="download_FunctionalUseCategories",
     ),
     path(
+        "functional_use_categories/",
+        views.functional_use_categories,
+        name="functional_use_categories",
+    ),
+    path(
         "dl_raw_chems_dg/<int:pk>/",
         views.download_raw_chems_dg,
         name="download_raw_chems_dg",
