@@ -273,8 +273,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
             .get_attribute("value"),
         )
         tagform = self.browser.find_element_by_xpath(
-            "//form[contains(@action,'/save_tags/"
-            f"{self.hnp.extracted_text.data_document_id}/')]"
+            "//form[contains(@action,'/save_tags')]"
         )
         dal_textbox = tagform.find_element_by_xpath("*//span[@role='combobox']")
         dal_textbox.send_keys(new_tag.name)
@@ -286,16 +285,16 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         )
         dal_textbox.send_keys("\n")
         stale_element = self.browser.find_elements_by_tag_name("html")[0]
-        tagform.submit()
-        WebDriverWait(self.browser, 60).until(
-            expected_conditions.staleness_of(stale_element)
-        )
+        save_button = self.browser.find_element_by_xpath("//*[@id='keyword-save']")
+        self.browser.execute_script("arguments[0].click();", save_button)
 
-        # Verify data is present on page
-        self.assertIn(
-            f"{new_tag.kind.name}: {new_tag.name}",
-            self.browser.find_element_by_id(f"chem-card-{self.hnp.pk}").text,
+        card = WebDriverWait(self.browser, 20).until(
+            expected_conditions.presence_of_element_located(
+                (By.ID, f"chem-click-{self.hnp.pk}")
+            )
         )
+        # Verify data is present on page
+        self.assertIn(f"{new_tag.kind.name}: {new_tag.name}", card.text)
 
     def test_habits_and_practice_cards_remove_tag(self):
         # Open Edit form and assert tag present (self.tags[0] in this case.)
