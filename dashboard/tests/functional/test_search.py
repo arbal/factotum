@@ -110,13 +110,13 @@ class TestSearch(TestCase):
         response = self.client.get("/search/datadocument/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
         total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
-        expected_total = "42 datadocuments"  # includes "eau" and "H2O" synonyms
+        expected_total = "43 datadocuments"  # includes "eau" and "H2O" synonyms
         self.assertIn(expected_total, total_took)
         # pucs
         response = self.client.get("/search/puc/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
         total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
-        expected_total = "13 pucs"  # includes synonyms
+        expected_total = "15 pucs"  # includes synonyms
         self.assertIn(expected_total, total_took)
         # chemicals
         response = self.client.get("/search/chemical/" + qs)
@@ -130,7 +130,7 @@ class TestSearch(TestCase):
         response = self.client.get("/search/product/" + qs)
         counts = response.wsgi_request.session["unique_counts"]
         self.assertIsNotNone(counts)
-        self.assertEquals(counts["datadocument"], 42)
+        self.assertEquals(counts["datadocument"], 43)
         self.assertEquals(counts["product"], 7)
         self.assertEquals(counts["chemical"], 1)
         self.assertEquals(counts["puc"], 13)

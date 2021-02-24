@@ -80,7 +80,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             "//*[@id='select2-id_tags-results']/li[1]"
         )
         option.click()
-        save_button.submit()
+        save_button.click()
         card = wait.until(ec.presence_of_element_located((By.ID, "chem-click-759")))
         tags = card.find_elements_by_class_name("tag-btn")
         self.assertEqual(
@@ -92,7 +92,10 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         # test delete all tags
         delete_tags_button = self.browser.find_element_by_id("delete-all-tags")
         self.assertIsNotNone(delete_tags_button, "should have a delete all tag button")
-        delete_tags_button.click()
+        # using the .click() method failed because of the element layout.
+        # Javascript works.
+        # delete_tags_button.click()
+        self.browser.execute_script("arguments[0].click();", delete_tags_button)
         model = wait.until(
             ec.presence_of_element_located((By.ID, "delete-all-tags-modal"))
         )
@@ -118,9 +121,11 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             dd_url = self.live_server_url + f"/datadocument/{doc_id}/"
             self.browser.get(dd_url)
             # Activate the edit mode
-            self.browser.find_element_by_xpath(
+
+            edit_button = self.browser.find_element_by_xpath(
                 '//*[@id="btn-add-or-edit-extracted-text"]'
-            ).click()
+            )
+            self.browser.execute_script("arguments[0].click();", edit_button)
 
             # Verify that the modal window appears by finding the Cancel button
             # The modal window does not immediately appear, so the browser
@@ -408,10 +413,18 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 (By.XPATH, "//*[@id='extracted-text-modal-save']")
             )
         )
-        Select(self.browser.find_element_by_id("id_study_type")).select_by_visible_text(
+        # problem: the form on the data document detail page and on the modal
+        # editor have the same id, so the full ugly xpath is needed
+        study_type_menu = self.browser.find_element_by_xpath(
+            "/html/body/div[1]/div[2]/div[1]/div[5]/div[3]/div/div/form/div[1]/div/div[2]/select"
+        )
+        Select(study_type_menu).select_by_visible_text(
             "Non-Targeted or Suspect Screening"
         )
-        self.browser.find_element_by_id("id_media").send_keys("Lorem ipso fido leash")
+        media_input = self.browser.find_element_by_xpath(
+            "/html/body/div[1]/div[2]/div[1]/div[5]/div[3]/div/div/form/div[1]/div/div[3]/textarea"
+        )
+        media_input.send_keys("Lorem ipso fido leash")
         save_button.click()
 
         # Saving the form triggers a refresh.  Wait until the old save button has become stale before proceeding.
@@ -447,12 +460,14 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.browser.find_element_by_id("id_raw_chem_name").send_keys(
             "The Rawest Chem Name"
         )
-
         save_button.click()
 
         time.sleep(3)
-        raw_chem = RawChem.objects.filter(extracted_text_id=doc.pk).first()
+        # query for the latest chemical
 
+        raw_chem = (
+            RawChem.objects.filter(extracted_text_id=doc.pk).order_by("id").last()
+        )
         self.assertEqual(raw_chem.updated_by, User.objects.get(username="Karyn"))
         self.assertTrue(raw_chem.updated_at != "")
 
