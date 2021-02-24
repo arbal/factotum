@@ -309,7 +309,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
 
         # Documents table
         self.assertInHTML(
-            "Showing 1 to 10 of 18 entries",
+            "Showing 1 to 10 of 19 entries",
             self.browser.find_element_by_xpath("//*[@id='documents_info']").text,
         )
         # Products table
