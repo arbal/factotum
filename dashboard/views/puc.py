@@ -1,14 +1,14 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from dashboard.models import PUC
-from django.db.models import Count
+from django.db.models import Count, F
 
 
 def puc_list(request, template_name="puc/puc_list.html"):
     pucs = (
         PUC.objects.all()
         .values("kind__name", "gen_cat", "prod_fam", "prod_type", "id")
-        .annotate(product_count=Count("products"))
+        .annotate(product_count=F("products_per_puc__product_count"))
         .order_by("kind__name", "gen_cat", "prod_fam", "prod_type")
     )
     data = {}
