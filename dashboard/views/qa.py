@@ -352,10 +352,10 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
         r = ExtractedText.objects.filter(qa_group=extext.qa_group).count() - a
         stats = "%s document(s) approved, %s documents remaining" % (a, r)
 
-    # If the Referer is set but not the compextractionscript or a previous extracted text page
+    # If the Referer is set but not the extractionscript or a previous extracted text page
     # then when they hit the exit button send them back to their referer
     referer = request.headers.get("Referer", "")
-    if "compextractionscript" in referer or "extractedtext" in referer or referer == "":
+    if "extractionscript" in referer or "extractedtext" in referer or referer == "":
         referer = "qa_extraction_script"
 
     # Create the formset factory for the extracted records
@@ -369,9 +369,12 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
         exclude=["weight_fraction_type", "true_cas", "true_chemname", "sid"],
     )
 
-    detail_formset = ChildForm(instance=extext)
     if qa_focus == "script":
-        flagged_qs = detail_formset.get_queryset()
+        if extext.data_document.data_group.is_functional_use:
+            flagged_qs = extext.prep_functional_use_for_qa()
+        else:
+            detail_formset = ChildForm(instance=extext)
+            flagged_qs = detail_formset.get_queryset()
     ext_form = ParentForm(instance=extext)
     extext.chemical_count = RawChem.objects.filter(extracted_text=extext).count()
 

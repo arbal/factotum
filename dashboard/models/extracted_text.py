@@ -3,6 +3,7 @@ from model_utils.managers import InheritanceManager
 from django.db import models
 from django.urls import reverse
 
+from .extracted_functional_use import ExtractedFunctionalUse
 from .common_info import CommonInfo
 
 
@@ -78,7 +79,9 @@ class ExtractedText(CommonInfo):
             # TODO: change HH to its own path
             return reverse("qa_chemicalpresence_index")
         else:
-            return reverse("qa_extractionscript_index")
+            return (
+                reverse("qa_extractionscript_index") + f"?group_type={group_type_code}"
+            )
 
     def one_to_one_check(self, odict):
         """
@@ -122,6 +125,32 @@ class ExtractedText(CommonInfo):
             return False
         else:
             return True
+
+    def prep_functional_use_for_qa(self):
+        if self.data_document.data_group.is_functional_use:
+            """
+            QA up to 100 samples of Functional Use chemicals
+            """
+            QA_RECORDS_PER_DOCUMENT = 100
+            chems = ExtractedFunctionalUse.objects.filter(extracted_text=self)
+            flagged = chems.filter(qa_flag=True).count()
+            # if less than 100 records not flagged for QA, count of ALL may be < 100
+            if flagged < QA_RECORDS_PER_DOCUMENT and flagged < chems.count():
+                x = QA_RECORDS_PER_DOCUMENT - flagged
+                unflagged = list(
+                    chems.filter(qa_flag=False)
+                    .order_by("?")  # this makes the selection random
+                    .values_list("pk", flat=True)
+                )
+                fus = ExtractedFunctionalUse.objects.filter(pk__in=unflagged[:x])
+                for fu in fus:
+                    fu.qa_flag = True
+                    fu.save()
+            return ExtractedFunctionalUse.objects.filter(
+                extracted_text=self, qa_flag=True
+            )
+        else:
+            pass
 
 
 def get_next_or_prev(models, item, direction):

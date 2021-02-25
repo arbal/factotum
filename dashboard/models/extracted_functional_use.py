@@ -1,13 +1,11 @@
 from six import text_type
 
 from django.db import models
-
-from .common_info import CommonInfo
 from .raw_chem import RawChem
 
 
 class ExtractedFunctionalUse(RawChem):
-    pass
+    qa_flag = models.BooleanField(default=False)
 
     class JSONAPIMeta:
         resource_name = "chemicalFunctionalUse"
