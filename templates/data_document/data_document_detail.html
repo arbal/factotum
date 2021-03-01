@@ -252,45 +252,69 @@
                 <form action="{% url 'save_tag_form' doc.id %}" method="post">
                     {% csrf_token %}
                     {% if tag_form and request.user.is_authenticated %}
-                        <div class="d-flex justify-content-between">
-                            <h5>
-                                {% if doc.data_group.is_chemical_presence %}
-                                    <b>List Presence Keywords</b>
-                                {% elif doc.data_group.is_habits_and_practices %}
-                                    <b>Habits and Practices Keywords</b>
-                                {% else %}
-                                    <b>Keywords</b>
-                                {% endif %}
-                            </h5>
-                            <div class="btn-group btn-group-flex-center ml-3"
-                                 role="group"
-                                 aria-label="Data Document Modification">
+                    <div class="d-flex justify-content-between">
+                        <h5>
+                            {% if doc.data_group.is_chemical_presence %}
+                                <b>List Presence Keywords</b>
+                            {% elif doc.data_group.is_habits_and_practices %}
+                                <b>Habits and Practices Keywords</b>
+                            {% else %}
+                                <b>Keywords</b>
+                            {% endif %}
+                        </h5>
+                        <div class="btn-group btn-group-flex-center ml-3"
+                             role="group"
+                             aria-label="Data Document Modification">
 
-                                <button class="btn btn-sm btn-outline-secondary hover"
-                                        id="keyword-save"
-                                        title="save"
-                                        data-toggle="tooltip"
-                                        type="submit"
-                                        name="success"
-                                        disabled>
-                                    <i class="far fa-save"></i>
-                                </button>
-                                <button type="button"
-                                        id="delete-all-tags"
-                                        title="delete all keywords"
-                                        data-toggle="modal"
-                                        data-target="#delete-all-tags-modal"
-                                        class="btn btn-sm btn-outline-secondary hover"
-                                        name="danger">
-                                    <i class="fa fa-fs fa-trash"></i>
-                                </button>
-                            </div>
+                            <button class="btn btn-sm btn-outline-secondary hover"
+                                    id="keyword-save"
+                                    title="save"
+                                    data-toggle="tooltip"
+                                    type="submit"
+                                    name="success"
+                                    disabled>
+                                <i class="far fa-save"></i>
+                            </button>
+                            <button type="button"
+                                    id="delete-all-tags"
+                                    title="delete all keywords"
+                                    data-toggle="modal"
+                                    data-target="#delete-all-tags-modal"
+                                    class="btn btn-sm btn-outline-secondary hover"
+                                    name="danger">
+                                <i class="fa fa-fs fa-trash"></i>
+                            </button>
                         </div>
-                        <div class="d-flex mt-2">
-                            {{ tag_form }}
-                        </div>
+                    </div>
+                    <div class="d-flex mt-2">
+                        {{ tag_form }}
+                    </div>
+                    <select name="chems" id="id_chems" multiple hidden></select>
                     {% endif %}
                 </form>
+            </div>
+
+            <hr>
+            <div>
+                <div class="d-flex justify-content-between">
+                    <h5 class="d-inline mr-2"
+                        id="list-presence-tags-applied-title">
+                        <b>Keywords Applied</b>
+                    </h5>
+                </div>
+                <div>
+                    <ul style="list-style-type:none;">
+                        {% for tag in tags %}
+                        <li>
+                            <a target="_blank"
+                               href="/list_presence_tag/{{tag.id}}"
+                            >
+                            {{tag.name}}
+                            </a>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
             </div>
             {% if doc.data_group.can_have_products %}
                 <hr>

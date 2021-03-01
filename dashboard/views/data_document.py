@@ -96,6 +96,15 @@ def data_document_detail(request, pk):
             .first()
         )
         context["cleaning_script"] = script_chem.script if script_chem else None
+
+    tags = (
+        ExtractedListPresenceTag.objects.filter(
+            extractedlistpresence__extracted_text__data_document=doc
+        )
+        .values_list("id", "name", named=True)
+        .distinct()
+    )
+    context["tags"] = tags
     return render(request, template_name, context)
 
 
