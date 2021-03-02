@@ -274,3 +274,76 @@ class TestQASummary(TestCase):
             if row[2] == qa_note:
                 row_response = row
         return row_response
+
+class TestFUQASummary(TestCase):
+    fixtures = ["00_superuser"]
+
+    def setUp(self):
+        self.client.login(username="Karyn", password="specialP@55word")
+
+        self.five_weeks_ago = datetime.now() - timedelta(weeks=5)
+
+        # Mock fakes the auto_now call on update and created at making all these create 5 weeks old.
+        with mock.patch(
+            "django.utils.timezone.now", mock.Mock(return_value=self.five_weeks_ago)
+        ):
+            self.script = factories.ScriptFactory(title="Functional Use Extraction Script")
+            self.extracted_texts = factories.ExtractedTextFactory.create_batch(
+                3, extraction_script=self.script, data_document__data_group__group_type__code="FU"
+            )
+
+            # Approve only one document
+            QANotes(
+                extracted_text=self.extracted_texts[0],
+                qa_notes="This Extraction Looks Good",
+            ).save()
+            self.extracted_texts[0].qa_checked = True
+            self.extracted_texts[0].data_document.title = "Foobar"
+            self.extracted_texts[0].save()
+            self.extracted_texts[0].data_document.save()
+
+            for ext in self.extracted_texts:
+                factories.ExtractedFunctionalUseFactory(
+                    extracted_text=ext
+                )
+
+        # create data that should not be reflected in results
+        factories.ExtractedCompositionFactory()
+
+    def test_fu_qa_summary(self):
+        """This tests the basic data on the page.
+        The table is sourced through ajax and will need a direct pull"""
+
+        response = self.client.get(
+            reverse("qa_extraction_script_summary", args=[self.script.pk])
+        ).content.decode("utf-8")
+        response_html = html.fromstring(response)
+
+        # Verify title (h1) contains the name of the script
+        self.assertIn(self.script.title, response_html.xpath("//h1")[0].text)
+
+        # Verify QA Group is somewhere on the page (All ET should have the same qa group)
+        self.assertIn(str(self.script.qa_group.get()), response)
+
+        # Verify QA extracted text count, QA complete count, and QA incomplete count
+        qa_complete_count = sum([text.qa_checked for text in self.extracted_texts])
+        self.assertIn(
+            str(len(self.extracted_texts)),
+            response_html.xpath('//*[@id="extractedtext_count"]')[0].text,
+        )
+        self.assertIn(
+            str(qa_complete_count),
+            response_html.xpath('//*[@id="qa_complete_extractedtext_count"]')[0].text,
+        )
+        self.assertIn(
+            str(
+                QANotes.objects.filter(extracted_text__in=self.extracted_texts)
+                .exclude(qa_notes="")
+                .count()
+            ),
+            response_html.xpath('//*[@id="qa_notes"]')[0].text,
+        )
+        self.assertIn(
+            str(len(self.extracted_texts) - qa_complete_count),
+            response_html.xpath('//*[@id="qa_incomplete_extractedtext_count"]')[0].text,
+        )

@@ -234,13 +234,15 @@ class SummaryTable(BaseDatatableView):
         if column == "rawchem_count":
             return row.rawchem_count
         elif column == "last_updated":
-            return f"""<a title="audit log"
-                          href="{reverse("document_audit_log", args=[row.pk])}"
-                          data-toggle="modal"
-                          data-target="#document-audit-log-modal">
-                            Last updated {timesince(row.last_updated)} ago
-                        </a>"""
-
+            if row.last_updated is None:
+                return "No Records"
+            else:
+                return f"""<a title="audit log"
+                              href="{reverse("document_audit_log", args=[row.pk])}"
+                              data-toggle="modal"
+                              data-target="#document-audit-log-modal">
+                                Last updated {timesince(row.last_updated)} ago
+                            </a>"""
         super().render_column(row, column)
 
     def get_initial_queryset(self):
@@ -267,9 +269,15 @@ class SummaryTable(BaseDatatableView):
             .annotate(last_updated_rc=Max("rawchem__updated_at"))
             .annotate(
                 last_updated=Greatest(
-                    "updated_at",
-                    Coalesce("data_document__updated_at", "updated_at"),
-                    Coalesce("last_updated_rc", "updated_at"),
+                    Coalesce(
+                        "updated_at", "data_document__updated_at", "last_updated_rc"
+                    ),
+                    Coalesce(
+                        "data_document__updated_at", "last_updated_rc", "updated_at"
+                    ),
+                    Coalesce(
+                        "last_updated_rc", "updated_at", "data_document__updated_at"
+                    ),
                 )
             )
             .annotate(rawchem_count=Count("rawchem", distinct=True))
