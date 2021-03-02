@@ -275,6 +275,7 @@ class TestQASummary(TestCase):
                 row_response = row
         return row_response
 
+
 class TestFUQASummary(TestCase):
     fixtures = ["00_superuser"]
 
@@ -287,9 +288,13 @@ class TestFUQASummary(TestCase):
         with mock.patch(
             "django.utils.timezone.now", mock.Mock(return_value=self.five_weeks_ago)
         ):
-            self.script = factories.ScriptFactory(title="Functional Use Extraction Script")
+            self.script = factories.ScriptFactory(
+                title="Functional Use Extraction Script"
+            )
             self.extracted_texts = factories.ExtractedTextFactory.create_batch(
-                3, extraction_script=self.script, data_document__data_group__group_type__code="FU"
+                3,
+                extraction_script=self.script,
+                data_document__data_group__group_type__code="FU",
             )
 
             # Approve only one document
@@ -303,9 +308,7 @@ class TestFUQASummary(TestCase):
             self.extracted_texts[0].data_document.save()
 
             for ext in self.extracted_texts:
-                factories.ExtractedFunctionalUseFactory(
-                    extracted_text=ext
-                )
+                factories.ExtractedFunctionalUseFactory(extracted_text=ext)
 
         # create data that should not be reflected in results
         factories.ExtractedCompositionFactory()

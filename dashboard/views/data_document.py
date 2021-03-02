@@ -36,6 +36,7 @@ from dashboard.models import (
     ExtractedHabitsAndPractices,
     ExtractedHabitsAndPracticesToTag,
     ExtractedFunctionalUse,
+    DataGroup,
 )
 from django.forms import inlineformset_factory
 
@@ -278,8 +279,8 @@ class EHPDeleteView(DeleteView):
 
 
 @login_required()
-def save_doc_form(request, pk):
-    """Writes changes to the data document form
+def save_data_document_type(request, pk):
+    """Writes changes to the data document type form
 
     The request object should have a 'referer' key to redirect the
     browser to the appropriate place after saving the edits
@@ -297,7 +298,7 @@ def save_doc_form(request, pk):
 
 
 @login_required()
-def data_document_note(request, pk):
+def save_data_document_note(request, pk):
     doc = get_object_or_404(DataDocument, pk=pk)
     doc_note = request.POST["dd_note"]
     doc.note = doc_note
@@ -306,7 +307,7 @@ def data_document_note(request, pk):
 
 
 @login_required()
-def save_ext_form(request, pk):
+def save_data_document_extext(request, pk):
     referer = request.POST.get("referer", "data_document")
     doc = get_object_or_404(DataDocument, pk=pk)
     ExtractedTextForm, _ = create_detail_formset(doc)
@@ -391,15 +392,46 @@ def data_document_delete(request, pk):
 def data_document_edit(request, pk):
     datadocument = get_object_or_404(DataDocument, pk=pk)
     form = DataDocumentForm(request.POST or None, instance=datadocument)
-    form.referer = request.META.get("HTTP_REFERER", None)
+    form.referer = (
+        request.POST.get("referer_page")
+        if request.POST.get("referer_page")
+        else request.META.get("HTTP_REFERER", None)
+    )
     if form.is_valid():
         if form.has_changed():
             form.save()
-        if request.POST.get("referer_page"):
-            return redirect(request.POST.get("referer_page"))
+        if form.referer:
+            return redirect(form.referer)
         return redirect("data_document", pk=pk)
 
     return render(request, "data_document/data_document_form.html", {"form": form})
+
+
+@login_required()
+def data_document_create(request, pk):
+    data_group = get_object_or_404(DataGroup, pk=pk)
+    form = DataDocumentForm(
+        request.POST or None,
+        request.FILES or None,
+        user=request.user,
+        data_group=data_group,
+        initial={"downloaded_by": request.user},
+    )
+    form.referer = (
+        request.POST.get("referer_page")
+        if request.POST.get("referer_page")
+        else request.META.get("HTTP_REFERER", None)
+    )
+    if form.is_valid():
+        form.save()
+        if form.referer:
+            return redirect(form.referer)
+        return redirect("data_document", pk=pk)
+    return render(
+        request,
+        "data_document/data_document_create_form.html",
+        {"form": form, "data_group": data_group},
+    )
 
 
 @login_required

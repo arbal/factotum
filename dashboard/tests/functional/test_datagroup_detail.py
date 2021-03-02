@@ -215,7 +215,7 @@ class DataGroupDetailTest(TempFileMixin, TestCase):
             f"/datagroup/{DataGroup.objects.first().id}/"
         ).content.decode("utf8")
         self.assertIn(
-            "Please limit upload to &lt;600 documents at one time",
+            "Please limit upload to &lt;600 documents",
             response,
             "Note to limit upload to &lt;600 should be on the page",
         )

@@ -4,542 +4,605 @@
 {% block title %}Data Group Detail: {{ datagroup.name }}{% endblock %}
 
 {% block errors %}
-{% if errors %}
-<div class="bg-danger text-white">
-  <ul>
-    {% for error in errors %}
-    <li>{{ error }}</li>
-    {% endfor %}
-  </ul>
-</div>
-{% endif %}
+    {% if errors %}
+        <div class="bg-danger text-white">
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
-<div class="row">
-  <div class="col-md-12">
-    <h5 class="text-muted" style="display: inline;">
-      <a href="{% url 'data_source_detail' datagroup.data_source.id %}" title="Data source">
-        {{ datagroup.data_source }}</a> /</h5>
-    <div class="btn-group float-md-right">
-        <a class="btn btn-sm btn-outline-secondary hover-info" title="List" href="{% url 'data_group_list' %}">
-          <span class="fa fa-fw fa-list"></span>
-        </a>
-      <a class="btn btn-sm btn-outline-secondary hover-success" title="Edit" href="{% url 'data_group_edit' datagroup.id %}">
-        <span class="fa fa-fw fa-edit"></span>
-      </a>
-      <a class="btn btn-sm btn-outline-secondary hover-danger" title="Delete" href="{% url 'data_group_delete' datagroup.id %}">
-        <span class="fa fa-trash"></span>
-      </a>
+    <div class="row">
+        <div class="col-md-12">
+            <h5 class="text-muted" style="display: inline;">
+                <a href="{% url 'data_source_detail' datagroup.data_source.id %}" title="Data source">
+                    {{ datagroup.data_source }}</a> /</h5>
+            <div class="btn-group float-md-right">
+                <a class="btn btn-sm btn-outline-secondary hover-info" title="List" href="{% url 'data_group_list' %}">
+                    <span class="fa fa-fw fa-list"></span>
+                </a>
+                <a class="btn btn-sm btn-outline-secondary hover-success" title="Edit"
+                   href="{% url 'data_group_edit' datagroup.id %}">
+                    <span class="fa fa-fw fa-edit"></span>
+                </a>
+                <a class="btn btn-sm btn-outline-secondary hover-danger" title="Delete"
+                   href="{% url 'data_group_delete' datagroup.id %}">
+                    <span class="fa fa-trash"></span>
+                </a>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-10">
-    <h1>{{ datagroup.name }}</h1>
-  </div>
-</div>
-<div class="row pb-4">
-  <div class="col-md-12">
-    <div class="btn-group">
-      {% if datagroup.group_type.code %}
-      <a class="btn btn-sm btn-outline-dark" href="{% url 'data_group_list' datagroup.group_type.code %}">
-        <span class="fa fa-folder mr-2"></span>{{ datagroup.group_type }} ({{ datagroup.group_type.code }})
-      </a>
-      {% else %}
-      <button type="button" class="btn btn-sm btn-outline-dark" data-toggle="tooltip" data-placement="bottom" title="No group type" disabled>
-        <span class="fa fa-folder mr-2"></span>Unknown group type
-      </button>
-      {% endif %}
-      {% if datagroup.url %}
-      <a class="btn btn-sm btn-outline-dark" href="{{ datagroup.url }}" target="_blank">
-        <span class="fa fa-globe mr-2"></span>Data group URL
-      </a>
-      {% else %}
-      <button type="button" class="btn btn-sm btn-outline-dark" data-toggle="tooltip" data-placement="bottom" title="No data group URL found" disabled>
-        <span class="fa fa-globe mr-2"></span>Data group URL
-      </button>
-      {% endif %}
-      {% if datagroup.download_script.url %}
-      <a class="btn btn-sm btn-outline-dark" href="{{ datagroup.download_script.url }}" target="_blank">
-        <span class="fab fa-github mr-2"></span>Scraper script
-      </a>
-      {% else %}
-      <button type="button" class="btn btn-sm btn-outline-dark" data-toggle="tooltip" data-placement="bottom" title="No GitHub URL found" disabled>
-        <span class="fab fa-github mr-2"></span>Scraper script
-      </button>
-      {% endif %}
+    <div class="row">
+        <div class="col-md-10">
+            <h1>{{ datagroup.name }}</h1>
+        </div>
     </div>
-  </div>
-</div>
-<div class="row pb-2">
-  <div class="col-md-12">
-    {% if datagroup.description %}
-    <p class="lead text-secondary">{{ datagroup.description }}</p>
-    {% else %}
-    <p class="lead text-secondary">No description given.</p>
-    {% endif %}
-  </div>
-</div>
-<div class="row pb-2">
-  <div class="col-md-12">
-    <div class="card-group">
-      <div class="card" id="download-card">
-        <div class="card-header">
-          <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-              <div class="nav-link font-weight-bold ml-4 pl-4" style="border-color: transparent"><span class="fa fa-info-circle mr-2"></span>Information</div>
-            </li>
-          </ul>
-        </div>
-        <div class="card-body bg-light">
-          <p><strong>Downloaded by</strong><br>{{ datagroup.downloaded_by }}</p>
-          <p><strong>Date downloaded</strong><br>{{ datagroup.downloaded_at }}</p>
-          <p><strong>Last updated</strong><br>{{ datagroup.updated_at }}</p>
-        </div>
-      </div>
-      <div class="card" style="flex-grow: 2.5">
-        <div class="card-header">
-          <ul class="nav nav-tabs card-header-tabs" id="upload-tabs" role="tablist">
-            <li class="nav-item">
-              <div class="nav-link font-weight-bold" style="border-color: transparent"><span class="fa fa-upload mr-2"></span>Upload</div>
-            </li>
-            {% if cleancomp_formset %}
-            <li class="nav-item">
-              <a class="nav-link" id="cleancomp_formset-nav-link" data-toggle="tab" role="tab" href="#cleancomp_formset">Composition</a>
-            </li>
-            {% elif datagroup.type == 'CO' %}
-            <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="No extracted text found">
-              <a class="nav-link disabled">Composition</a>
-            </li>
-            {% endif %}
-
-            {% if datagroup.type == 'CO' %}
-                <li class="nav-item">
-                    <a class="nav-link" id="productupload_form-nav-link" data-toggle="tab" role="tab" href="#productupload_form">Product</a>
-                </li>
-            {% endif %}
-            {% if extfile_formset %}
-            <li class="nav-item">
-              <a class="nav-link" id="extfile_formset-nav-link" data-toggle="tab" role="tab" href="#extfile_formset">Extracted</a>
-            </li>
-            {% elif datagroup.type == 'FU' or datagroup.type == 'CO' or datagroup.type == 'CP' %}
-            <li class="nav-item">
-                 <a class="nav-link" id="functional_uses_upload_form-nav-link" data-toggle="tab" role="tab" href="#functional_uses_upload_form">Func. Use</a>
-            </li>
-            {% if not datagroup.all_matched %}
-            <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Missing documents">
-              <a class="nav-link disabled" id="extfile_formset-nav-link">Extraction</a>
-            </li>
-            {% else %}
-            <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="No documents needing extraction found">
-              <a class="nav-link disabled" id="extfile_formset-nav-link">Extraction</a>
-            </li>
-            {% endif %}
-            {% endif %}
-            {% if uploaddocs_form %}
-            <li class="nav-item">
-              <a class="nav-link" id="uploaddocs_form-nav-link" data-toggle="tab" role="tab" href="#uploaddocs_form">Document</a>
-            </li>
-            {% else %}
-            <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="No unmatched documents found">
-              <a class="nav-link disabled"id="uploaddocs_form-nav-link" >Document</a>
-            </li>
-            {% endif %}
-          </ul>
-        </div>
-        <div class="card-body">
-          <div class="tab-content">
-            <div class="tab-pane show active" id="blank-upload-tab">
-              <div class="text-center text-secondary">
-                {% if cleancomp_formset or extfile_formset or uploaddocs_form %}
-                Select an upload action.
-                {% else %}
-                No upload actions available.
-                {% endif %}
-              </div>
-            </div>
-            <div class="tab-pane fade" id="cleancomp_formset">
-              <h5 class="card-title">Upload clean composition data</h5>
-              <form method="POST" name="cleancomp_formset" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ cleancomp_formset.management_form }}
-                <div class="form-group row pl-3 pr-3">
-                  <select class="custom-select" name="cleancomp-script_id" required>
-                    <option value="" selected>Choose a script...</option>
-                    {% for v, n in cleancomp_formset.script_choices %}
-                    {% if v %}
-                    <option value="{{ v }}">{{ n }}</option>
-                    {% endif %}
-                    {% endfor %}
-                  </select>
-                </div>
-                <div class="form-group row pl-3 pr-3">
-                    <select class="custom-select" name="cleancomp-weight_fraction_type_id" required>
-                      <option value="" selected>Choose a weight fraction type...</option>
-                      {% for v, n in cleancomp_formset.weight_fraction_type_choices %}
-                      {% if v %}
-                      <option value="{{ v }}">{{ n }}</option>
-                      {% endif %}
-                      {% endfor %}
-                    </select>
-                </div>
-                <div class="form-group row pl-3 pr-3">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="cleancomp-bulkformsetfileupload" accept="text/csv, .csv" required>
-                    <label class="custom-file-label" for="cleancomp-bulkformsetfileupload">
-                        Choose file...
-                    </label>
-                  </div>
-                </div>
-                <div class="form-group row pl-3 pr-3">
-                  <button class="btn btn-primary" name="cleancomp-submit" type="submit">Submit</button>
-                </div>
-              </form>
-              <div class="text-muted small text-center">
-                  <span class="fa fa-info-circle mr-2"></span>The CSV file must include these headers:<br>
-                  <span class="text-monospace">{{ clean_comp_data_fieldnames }}</span>
-              </div>
-            </div>
-
-            <div class="tab-pane fade" id="functional_uses_upload_form">
-              <h5 class="card-title">Upload clean functional use data</h5>
-              <form method="POST" name="functional_uses_upload_form" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ functional_use_formset.management_form }}
-                <div class="form-group row pl-3 pr-3">
-                  <select class="custom-select" name="functional-use-script_id" required>
-                    <option value="" selected>Choose a script...</option>
-                    {% for v, n in functional_use_formset.script_choices %}
-                    {% if v %}
-                    <option value="{{ v }}">{{ n }}</option>
-                    {% endif %}
-                    {% endfor %}
-                  </select>
-                </div>
-                <div class="form-group row pl-3 pr-3">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="functional_uses-bulkformsetfileupload" accept="text/csv, .csv" required>
-                    <label class="custom-file-label" for="functional_uses-bulkformsetfileupload">
-                        Choose file...
-                    </label>
-                  </div>
-                </div>
-                <div class="form-group row pl-3 pr-3">
-                  <button class="btn btn-primary" name="functional-uses-submit" type="submit">Submit</button>
-                </div>
-              </form>
-              <div class="text-muted small text-center">
-                  <span class="fa fa-info-circle mr-2"></span>The CSV file must include these headers:<br>
-                  <span class="text-monospace">{{ functional_use_data_fieldnames }}</span>
-              </div>
-            </div>
-
-            <div class="tab-pane fade" id="productupload_form">
-              <h5 class="card-title">Upload product data</h5>
-              <form method="POST" name="productupload_form" enctype="multipart/form-data" onsubmit="return validateProductFormSubmit()">
-                {% csrf_token %}
-                {{ product_formset.management_form }}
-                <div class="form-group row pl-3 pr-3">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="products-bulkformsetfileupload" accept="text/csv, .csv" required>
-                    <label class="custom-file-label" for="products-bulkformsetfileupload">
-                      Choose file...
-                    </label>
-                  </div>
-                </div>
-                <div class="form-group row pl-3 pr-3">
-                  <div class="custom-file">
-                    <input id="products-bulkformsetimageupload" type="file" class="custom-file-input" name="products-bulkformsetimageupload" webkitdirectory directory multiple>
-                    <label class="custom-file-label" for="products-bulkformsetimageupload">
-                      Choose image folder (optional)...
-                    </label>
-                  </div>
-                </div>
-                <div class="form-group row pl-3 pr-3">
-                  <button class="btn btn-primary" name="products-submit" type="submit">Submit</button>
-                  <a href="{% url 'get_product_csv_template' datagroup.pk %}" class="ml-1 btn btn-outline-secondary" download>
-                      <span><i class="fa fa-file-csv"></i> Download product CSV template</span>
-                  </a>
-                </div>
-              </form>
-              <div class="text-muted small text-center">
-                  <span class="fa fa-info-circle mr-2"></span>The CSV file must include these headers:<br>
-                  <span class="text-monospace">{{ product_data_fieldnames }}</span>
-              </div>
-            </div>
-
-
-            <div class="tab-pane fade" id="extfile_formset">
-              <div id="extfile_formset-task" style="display: none;">
-                {% include "data_group/datagroup_taskinfo.html" %}
-              </div>
-              <div id="extfile_formset-form">
-                <h5 class="card-title">Upload extracted text data</h5>
-                <form method="POST" name="extfile_formset" enctype="multipart/form-data">
-                  {% csrf_token %}
-                  {{ extfile_formset.management_form }}
-                  {% if extfile_formset.header_form.extraction_script %}
-                  <div class="form-group row pl-3 pr-3">
-                    <select class="custom-select" name="extfile-extraction_script" required>
-                      <option selected>Choose an extraction script...</option>
-                      {% for v, n in extfile_formset.extraction_script_choices %}
-                      {% if v %}
-                      <option value="{{ v }}">{{ n }}</option>
-                      {% endif %}
-                      {% endfor %}
-                    </select>
-                  </div>
-                  {% endif %}
-                  <div class="form-group row pl-3 pr-3">
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" name="extfile-bulkformsetfileupload" accept="text/csv, .csv" required>
-                      <label class="custom-file-label" for="extfile-bulkformsetfileupload">
-                          Choose file...
-                      </label>
-                    </div>
-                  </div>
-                  <div class="form-group row pl-3 pr-3">
-                    <button class="btn btn-primary mr-2" name="extfile-submit" type="submit">Submit</button>
-                    <a href="{% url 'download_unextracted_datadocuments' datagroup.id %}" class="btn btn-outline-secondary" download>
-                      <span class="fa fa-file-csv mr-2"></span>Download extracted text CSV template
+    <div class="row pb-4">
+        <div class="col-md-12">
+            <div class="btn-group">
+                {% if datagroup.group_type.code %}
+                    <a class="btn btn-sm btn-outline-dark" href="{% url 'data_group_list' datagroup.group_type.code %}">
+                        <span class="fa fa-folder mr-2"></span>{{ datagroup.group_type }}
+                        ({{ datagroup.group_type.code }})
                     </a>
-                  </div>
-                </form>
-                <div class="text-muted small text-center">
-                  {% if datagroup.can_have_chem_detected_flag == True %}
-                      <span class="fa fa-info-circle mr-2"></span>
-                      NOTE: Choices for chem_detected_flag field are:<br/>
-                      0 (undetected), 1 (detected), or leave it blank if unknown
-                  {% endif %}
-                </div>
-              </div>
+                {% else %}
+                    <button type="button" class="btn btn-sm btn-outline-dark" data-toggle="tooltip"
+                            data-placement="bottom" title="No group type" disabled>
+                        <span class="fa fa-folder mr-2"></span>Unknown group type
+                    </button>
+                {% endif %}
+                {% if datagroup.url %}
+                    <a class="btn btn-sm btn-outline-dark" href="{{ datagroup.url }}" target="_blank">
+                        <span class="fa fa-globe mr-2"></span>Data group URL
+                    </a>
+                {% else %}
+                    <button type="button" class="btn btn-sm btn-outline-dark" data-toggle="tooltip"
+                            data-placement="bottom" title="No data group URL found" disabled>
+                        <span class="fa fa-globe mr-2"></span>Data group URL
+                    </button>
+                {% endif %}
+                {% if datagroup.download_script.url %}
+                    <a class="btn btn-sm btn-outline-dark" href="{{ datagroup.download_script.url }}" target="_blank">
+                        <span class="fab fa-github mr-2"></span>Scraper script
+                    </a>
+                {% else %}
+                    <button type="button" class="btn btn-sm btn-outline-dark" data-toggle="tooltip"
+                            data-placement="bottom" title="No GitHub URL found" disabled>
+                        <span class="fab fa-github mr-2"></span>Scraper script
+                    </button>
+                {% endif %}
             </div>
-            <div class="tab-pane fade" id="uploaddocs_form">
-              <h5 class="card-title">Upload document files</h5>
-              <form method="POST" name="uploaddocs_form" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ uploaddocs_form.management_form }}
-                <div class="form-group row pl-3 pr-3">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="uploaddocs-documents" webkitdirectory directory multiple required>
-                    <label class="custom-file-label" for="uploaddocs-documents">
-                        Choose folder...
-                    </label>
-                  </div>
-                </div>
-                <div class="form-group row pl-3 pr-3">
-                  <button class="btn btn-primary" name="uploaddocs-submit" type="submit">Submit</button>
-                </div>
-              </form>
-              <div class="text-muted small text-center">
-                <span class="fa fa-info-circle mr-2"></span>Please limit upload to &lt;600 documents at one time.
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-      <div class="card" id="download-card">
-        <div class="card-header">
-          <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-              <div class="nav-link font-weight-bold ml-4 pl-4" style="border-color: transparent"><span class="fa fa-download mr-2"></span>Download</div>
-            </li>
-          </ul>
-        </div>
-        <div class="card-body bg-light m-0 p-0">
-          <div class="btn-group-vertical btn-block" role="group">
-            {% if datagroup.registered_docs %}
-            <a href="{% url 'download_registered_datadocuments' datagroup.pk  %}" class="btn btn-light text-left" download>
-              <span class="fa fa-file-csv mr-2"></span>Registered records
-            </a>
-            {% else %}
-            <button class="btn btn-light text-left disabled" data-toggle="tooltip" data-placement="right" title="No registered records found">
-              <span class="fa fa-file-csv mr-2"></span>Registered records
-            </button>
-            {% endif %}
-            {% if datagroup.is_composition %}
-            {% if datagroup.extracted_docs %}
-            <a href="{% url 'download_raw_extracted_records' datagroup.pk  %}" class="btn btn-light text-left" download>
-              <span class="fa fa-file-csv mr-2"></span>Raw composition records
-            </a>
-            {% else %}
-            <button class="btn btn-light text-left disabled" data-toggle="tooltip" data-placement="right" title="No composition records found">
-              <span class="fa fa-file-csv mr-2"></span>Raw composition records
-            </button>
-            {% endif %}
-            {% endif %}
-
-            {% if datagroup.type == 'FU' or datagroup.type == 'CO' or datagroup.type == 'CP' %}
-            <a href="{%  url 'download_raw_functional_use_records' datagroup.pk %}" class="btn btn-light text-left" download>
-              <span class="fa fa-file-csv mr-2"></span>Raw functional use records
-            </a>
-            {% endif %}
-
-            {% if datagroup.registered_docs %}
-            <a href="{%  url 'download_datadocuments' datagroup.pk %}" class="btn btn-light text-left" download>
-              <span class="fa fa-file-csv mr-2"></span>Document records
-            </a>
-            {% else %}
-            <button class="btn btn-light text-left disabled" data-toggle="tooltip" data-placement="right" title="No documents found">
-              <span class="fa fa-file-csv mr-2"></span>Document records
-            </button>
-            {% endif %}
-            {% if datagroup.matched_docs %}
-            <a href="{%url 'download_datadocument_zip_file' datagroup.pk %}" class="btn btn-light text-left" download>
-              <span class="fa fa-archive mr-2"></span>Document files
-            </a>
-            {% else %}
-            <button class="btn btn-light text-left disabled" data-toggle="tooltip" data-placement="right" title="No document files found">
-              <span class="fa fa-archive mr-2"></span>Document files
-            </button>
-            {% endif %}
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
-<div class="row pb-5">
-  <div class="col-md-12">
-  </div>
-</div>
-{% if tabledata.numregistered %}
-<div class="row pb-5">
-  <div class="col-md-2 text-right">
-    <svg width="50" height="50" id="matcheddonut"></svg>
-  </div>
-  <div class="col-md-4 mt-1">
-    <p class="lead"><span class="font-weight-normal">{{ tabledata.nummatched }}</span><span class="text-black-50">/{{ tabledata.numregistered }}</span> matched documents</p>
-  </div>
-  {% if not datagroup.is_supplemental_doc %}
-  <div class="col-md-2 text-right">
-    <svg width="50" height="50" id="extracteddonut"></svg>
-  </div>
-  <div class="col-md-4 mt-1">
-    <p class="lead"><span class="font-weight-normal">{{ tabledata.numextracted }}</span><span class="text-black-50">/{{ tabledata.numregistered }}</span> extracted documents</p>
-  </div>
-  {% endif %}
-</div>
-<form method="POST" id="bulkassignprod_form">
-  {% csrf_token %}
-</form>
-<div class="row">
-  <div class="col-md-12">
-    <table class="table table-striped" id="docs">
-      {% if not datagroup.is_supplemental_doc %}
-        {% if bulkassignprod_form %}
-          <button class="btn btn-sm btn-outline-primary float-md-right" name="bulkassignprod-submit" form="bulkassignprod_form" type="submit">
-            Bulk Create {{ bulkassignprod_form.count }} Products
-          </button>
-        {% endif %}
-      {% endif %}
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th class="text-center">Matched</th>
-          {% if datagroup.is_habits_and_practices %}
-          <th class="text-center">Edit</th>
-          {% else %}
+    <div class="row pb-2">
+        <div class="col-md-12">
+            {% if datagroup.description %}
+                <p class="lead text-secondary">{{ datagroup.description }}</p>
+            {% else %}
+                <p class="lead text-secondary">No description given.</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row pb-2">
+        <div class="col-md-12">
+            <div class="card-group">
+                <div class="card" id="download-card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item">
+                                <div class="nav-link font-weight-bold ml-4 pl-4" style="border-color: transparent"><span
+                                        class="fa fa-info-circle mr-2"></span>Information
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body bg-light">
+                        <p><strong>Downloaded by</strong><br>{{ datagroup.downloaded_by }}</p>
+                        <p><strong>Date downloaded</strong><br>{{ datagroup.downloaded_at }}</p>
+                        <p><strong>Last updated</strong><br>{{ datagroup.updated_at }}</p>
+                    </div>
+                </div>
+                <div class="card" style="flex-grow: 2.5">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs" id="upload-tabs" role="tablist">
+                            <li class="nav-item">
+                                <div class="nav-link font-weight-bold" style="border-color: transparent"><span
+                                        class="fa fa-upload mr-2"></span>Upload
+                                </div>
+                            </li>
+                            {% if cleancomp_formset %}
+                                <li class="nav-item">
+                                    <a class="nav-link" id="cleancomp_formset-nav-link" data-toggle="tab" role="tab"
+                                       href="#cleancomp_formset">Composition</a>
+                                </li>
+                            {% elif datagroup.type == 'CO' %}
+                                <li class="nav-item" data-toggle="tooltip" data-placement="bottom"
+                                    title="No extracted text found">
+                                    <a class="nav-link disabled">Composition</a>
+                                </li>
+                            {% endif %}
+
+                            {% if datagroup.type == 'CO' %}
+                                <li class="nav-item">
+                                    <a class="nav-link" id="productupload_form-nav-link" data-toggle="tab" role="tab"
+                                       href="#productupload_form">Product</a>
+                                </li>
+                            {% endif %}
+                            {% if extfile_formset %}
+                                <li class="nav-item">
+                                    <a class="nav-link" id="extfile_formset-nav-link" data-toggle="tab" role="tab"
+                                       href="#extfile_formset">Extracted</a>
+                                </li>
+                            {% elif datagroup.type == 'FU' or datagroup.type == 'CO' or datagroup.type == 'CP' %}
+                                <li class="nav-item">
+                                    <a class="nav-link" id="functional_uses_upload_form-nav-link" data-toggle="tab"
+                                       role="tab" href="#functional_uses_upload_form">Func. Use</a>
+                                </li>
+                                {% if not datagroup.all_matched %}
+                                    <li class="nav-item" data-toggle="tooltip" data-placement="bottom"
+                                        title="Missing documents">
+                                        <a class="nav-link disabled" id="extfile_formset-nav-link">Extraction</a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item" data-toggle="tooltip" data-placement="bottom"
+                                        title="No documents needing extraction found">
+                                        <a class="nav-link disabled" id="extfile_formset-nav-link">Extraction</a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+                            {% if uploaddocs_form %}
+                                <li class="nav-item">
+                                    <a class="nav-link" id="uploaddocs_form-nav-link" data-toggle="tab" role="tab"
+                                       href="#uploaddocs_form">Document</a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item" data-toggle="tooltip" data-placement="bottom"
+                                    title="No unmatched documents found">
+                                    <a class="nav-link disabled" id="uploaddocs_form-nav-link">Document</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane show active" id="blank-upload-tab">
+                                <div class="text-center text-secondary">
+                                    {% if cleancomp_formset or extfile_formset or uploaddocs_form %}
+                                        Select an upload action.
+                                    {% else %}
+                                        No upload actions available.
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="cleancomp_formset">
+                                <h5 class="card-title">Upload clean composition data</h5>
+                                <form method="POST" name="cleancomp_formset" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ cleancomp_formset.management_form }}
+                                    <div class="form-group row pl-3 pr-3">
+                                        <select class="custom-select" name="cleancomp-script_id" required>
+                                            <option value="" selected>Choose a script...</option>
+                                            {% for v, n in cleancomp_formset.script_choices %}
+                                                {% if v %}
+                                                    <option value="{{ v }}">{{ n }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group row pl-3 pr-3">
+                                        <select class="custom-select" name="cleancomp-weight_fraction_type_id" required>
+                                            <option value="" selected>Choose a weight fraction type...</option>
+                                            {% for v, n in cleancomp_formset.weight_fraction_type_choices %}
+                                                {% if v %}
+                                                    <option value="{{ v }}">{{ n }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group row pl-3 pr-3">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input"
+                                                   name="cleancomp-bulkformsetfileupload" accept="text/csv, .csv"
+                                                   required>
+                                            <label class="custom-file-label" for="cleancomp-bulkformsetfileupload">
+                                                Choose file...
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row pl-3 pr-3">
+                                        <button class="btn btn-primary" name="cleancomp-submit" type="submit">Submit
+                                        </button>
+                                    </div>
+                                </form>
+                                <div class="text-muted small text-center">
+                                    <span class="fa fa-info-circle mr-2"></span>The CSV file must include these headers:<br>
+                                    <span class="text-monospace">{{ clean_comp_data_fieldnames }}</span>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="functional_uses_upload_form">
+                                <h5 class="card-title">Upload clean functional use data</h5>
+                                <form method="POST" name="functional_uses_upload_form" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ functional_use_formset.management_form }}
+                                    <div class="form-group row pl-3 pr-3">
+                                        <select class="custom-select" name="functional-use-script_id" required>
+                                            <option value="" selected>Choose a script...</option>
+                                            {% for v, n in functional_use_formset.script_choices %}
+                                                {% if v %}
+                                                    <option value="{{ v }}">{{ n }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group row pl-3 pr-3">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input"
+                                                   name="functional_uses-bulkformsetfileupload" accept="text/csv, .csv"
+                                                   required>
+                                            <label class="custom-file-label"
+                                                   for="functional_uses-bulkformsetfileupload">
+                                                Choose file...
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row pl-3 pr-3">
+                                        <button class="btn btn-primary" name="functional-uses-submit" type="submit">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </form>
+                                <div class="text-muted small text-center">
+                                    <span class="fa fa-info-circle mr-2"></span>The CSV file must include these headers:<br>
+                                    <span class="text-monospace">{{ functional_use_data_fieldnames }}</span>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="productupload_form">
+                                <h5 class="card-title">Upload product data</h5>
+                                <form method="POST" name="productupload_form" enctype="multipart/form-data"
+                                      onsubmit="return validateProductFormSubmit()">
+                                    {% csrf_token %}
+                                    {{ product_formset.management_form }}
+                                    <div class="form-group row pl-3 pr-3">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input"
+                                                   name="products-bulkformsetfileupload" accept="text/csv, .csv"
+                                                   required>
+                                            <label class="custom-file-label" for="products-bulkformsetfileupload">
+                                                Choose file...
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row pl-3 pr-3">
+                                        <div class="custom-file">
+                                            <input id="products-bulkformsetimageupload" type="file"
+                                                   class="custom-file-input" name="products-bulkformsetimageupload"
+                                                   webkitdirectory directory multiple>
+                                            <label class="custom-file-label" for="products-bulkformsetimageupload">
+                                                Choose image folder (optional)...
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row pl-3 pr-3">
+                                        <button class="btn btn-primary" name="products-submit" type="submit">Submit
+                                        </button>
+                                        <a href="{% url 'get_product_csv_template' datagroup.pk %}"
+                                           class="ml-1 btn btn-outline-secondary" download>
+                                            <span><i class="fa fa-file-csv"></i> Download product CSV template</span>
+                                        </a>
+                                    </div>
+                                </form>
+                                <div class="text-muted small text-center">
+                                    <span class="fa fa-info-circle mr-2"></span>The CSV file must include these headers:<br>
+                                    <span class="text-monospace">{{ product_data_fieldnames }}</span>
+                                </div>
+                            </div>
+
+
+                            <div class="tab-pane fade" id="extfile_formset">
+                                <div id="extfile_formset-task" style="display: none;">
+                                    {% include "data_group/datagroup_taskinfo.html" %}
+                                </div>
+                                <div id="extfile_formset-form">
+                                    <h5 class="card-title">Upload extracted text data</h5>
+                                    <form method="POST" name="extfile_formset" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        {{ extfile_formset.management_form }}
+                                        {% if extfile_formset.header_form.extraction_script %}
+                                            <div class="form-group row pl-3 pr-3">
+                                                <select class="custom-select" name="extfile-extraction_script" required>
+                                                    <option selected>Choose an extraction script...</option>
+                                                    {% for v, n in extfile_formset.extraction_script_choices %}
+                                                        {% if v %}
+                                                            <option value="{{ v }}">{{ n }}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        {% endif %}
+                                        <div class="form-group row pl-3 pr-3">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input"
+                                                       name="extfile-bulkformsetfileupload" accept="text/csv, .csv"
+                                                       required>
+                                                <label class="custom-file-label" for="extfile-bulkformsetfileupload">
+                                                    Choose file...
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row pl-3 pr-3">
+                                            <button class="btn btn-primary mr-2" name="extfile-submit" type="submit">
+                                                Submit
+                                            </button>
+                                            <a href="{% url 'download_unextracted_datadocuments' datagroup.id %}"
+                                               class="btn btn-outline-secondary" download>
+                                                <span class="fa fa-file-csv mr-2"></span>Download extracted text CSV
+                                                template
+                                            </a>
+                                        </div>
+                                    </form>
+                                    <div class="text-muted small text-center">
+                                        {% if datagroup.can_have_chem_detected_flag == True %}
+                                            <span class="fa fa-info-circle mr-2"></span>
+                                            NOTE: Choices for chem_detected_flag field are:<br/>
+                                            0 (undetected), 1 (detected), or leave it blank if unknown
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="uploaddocs_form">
+                                <h5 class="card-title">Upload document files</h5>
+                                <form method="POST" name="uploaddocs_form" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ uploaddocs_form.management_form }}
+                                    <div class="form-group row pl-3 pr-3">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="uploaddocs-documents"
+                                                   webkitdirectory directory multiple required>
+                                            <label class="custom-file-label" for="uploaddocs-documents">
+                                                Choose folder...
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row pl-3 pr-3">
+                                        <button class="btn btn-primary" name="uploaddocs-submit" type="submit">Submit
+                                        </button>
+                                    </div>
+                                </form>
+                                <div class="text-muted small text-center">
+                                    <span class="fa fa-info-circle mr-2"></span>Please limit upload to &lt;600 documents
+                                    at one time.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" id="download-card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item">
+                                <div class="nav-link font-weight-bold ml-4 pl-4" style="border-color: transparent"><span
+                                        class="fa fa-download mr-2"></span>Download
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body bg-light m-0 p-0">
+                        <div class="btn-group-vertical btn-block" role="group">
+                            {% if datagroup.registered_docs %}
+                                <a href="{% url 'download_registered_datadocuments' datagroup.pk %}"
+                                   class="btn btn-light text-left" download>
+                                    <span class="fa fa-file-csv mr-2"></span>Registered records
+                                </a>
+                            {% else %}
+                                <button class="btn btn-light text-left disabled" data-toggle="tooltip"
+                                        data-placement="right" title="No registered records found">
+                                    <span class="fa fa-file-csv mr-2"></span>Registered records
+                                </button>
+                            {% endif %}
+                            {% if datagroup.is_composition %}
+                                {% if datagroup.extracted_docs %}
+                                    <a href="{% url 'download_raw_extracted_records' datagroup.pk %}"
+                                       class="btn btn-light text-left" download>
+                                        <span class="fa fa-file-csv mr-2"></span>Raw composition records
+                                    </a>
+                                {% else %}
+                                    <button class="btn btn-light text-left disabled" data-toggle="tooltip"
+                                            data-placement="right" title="No composition records found">
+                                        <span class="fa fa-file-csv mr-2"></span>Raw composition records
+                                    </button>
+                                {% endif %}
+                            {% endif %}
+
+                            {% if datagroup.type == 'FU' or datagroup.type == 'CO' or datagroup.type == 'CP' %}
+                                <a href="{% url 'download_raw_functional_use_records' datagroup.pk %}"
+                                   class="btn btn-light text-left" download>
+                                    <span class="fa fa-file-csv mr-2"></span>Raw functional use records
+                                </a>
+                            {% endif %}
+
+                            {% if datagroup.registered_docs %}
+                                <a href="{% url 'download_datadocuments' datagroup.pk %}"
+                                   class="btn btn-light text-left" download>
+                                    <span class="fa fa-file-csv mr-2"></span>Document records
+                                </a>
+                            {% else %}
+                                <button class="btn btn-light text-left disabled" data-toggle="tooltip"
+                                        data-placement="right" title="No documents found">
+                                    <span class="fa fa-file-csv mr-2"></span>Document records
+                                </button>
+                            {% endif %}
+                            {% if datagroup.matched_docs %}
+                                <a href="{% url 'download_datadocument_zip_file' datagroup.pk %}"
+                                   class="btn btn-light text-left" download>
+                                    <span class="fa fa-archive mr-2"></span>Document files
+                                </a>
+                            {% else %}
+                                <button class="btn btn-light text-left disabled" data-toggle="tooltip"
+                                        data-placement="right" title="No document files found">
+                                    <span class="fa fa-archive mr-2"></span>Document files
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row pt-5 pb-2">
+        <h3 class="col-sm-12"><span>Data Documents</span>
+            <a class="btn btn-primary btn-md float-lg-right" role="button" id="btn_datadocument_create" title="create"
+               href="{% url "data_document_new" datagroup.id %}">
+                <span class="fa fa-plus"></span>
+                New Data Document</a>
+        </h3>
+    </div>
+
+    {% if tabledata.numregistered %}
+        <div class="row pb-5">
+            <div class="col-md-2 text-right">
+                <svg width="50" height="50" id="matcheddonut"></svg>
+            </div>
+            <div class="col-md-4 mt-1">
+                <p class="lead"><span class="font-weight-normal">{{ tabledata.nummatched }}</span><span
+                        class="text-black-50">/{{ tabledata.numregistered }}</span> matched documents</p>
+            </div>
             {% if not datagroup.is_supplemental_doc %}
-            <th class="text-center">Extracted</th>
+                <div class="col-md-2 text-right">
+                    <svg width="50" height="50" id="extracteddonut"></svg>
+                </div>
+                <div class="col-md-4 mt-1">
+                    <p class="lead"><span class="font-weight-normal">{{ tabledata.numextracted }}</span><span
+                            class="text-black-50">/{{ tabledata.numregistered }}</span> extracted documents</p>
+                </div>
             {% endif %}
-          {% endif %}
-          {% if datagroup.is_composition %}
-          <th class="text-center">Product
-            {% if hasproducts %}
-            <button type="button"
-                    id="Delete"
-                    title="Delete all products"
-                    data-toggle="modal"
-                    data-target="#delete-all-products-modal"
-                    class="btn btn-sm btn-outline-secondary hover"
-                    name="danger"
-                    style="border:none;">
-                <i class="fa fa-fs fa-trash"></i>
-            </button>
-            {% endif  %}
-          </th>
-          <th class="text-center">Hidden</th>
-          {% endif %}
-        </tr>
-      </thead>
-      <tfoot>
-        <tr>
-            <th></th>
-            <th></th>
-            {% if datagroup.is_habits_and_practices %}
-            <th></th>
-            {% else %}
-              {% if not datagroup.is_supplemental_doc %}
-                <th id='footer-options'></th>
-              {% endif %}
-            {% endif %}
-            {% if datagroup.is_composition %}
-            <th></th>
-            <th></th>
-            {% endif %}
-        </tr>
-    </tfoot>
-    </table>
-  </div>
-</div>
-{% endif %}
-
-<div class="modal fade"
-    id="delete-all-products-modal"
-    tabindex="-1" role="dialog"
-    aria-labelledby="deleteAllProductsModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 id="deleteAllProductsModalLabel">Delete all products</h5>
-                <button type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        </div>
+        <form method="POST" id="bulkassignprod_form">
+            {% csrf_token %}
+        </form>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped" id="docs">
+                    {% if not datagroup.is_supplemental_doc %}
+                        {% if bulkassignprod_form %}
+                            <button class="btn btn-sm btn-outline-primary float-md-right" name="bulkassignprod-submit"
+                                    form="bulkassignprod_form" type="submit">
+                                Bulk Create {{ bulkassignprod_form.count }} Products
+                            </button>
+                        {% endif %}
+                    {% endif %}
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th class="text-center">Matched</th>
+                        {% if datagroup.is_habits_and_practices %}
+                            <th class="text-center">Edit</th>
+                        {% else %}
+                            {% if not datagroup.is_supplemental_doc %}
+                                <th class="text-center">Extracted</th>
+                            {% endif %}
+                        {% endif %}
+                        {% if datagroup.is_composition %}
+                            <th class="text-center">Product
+                                {% if hasproducts %}
+                                    <button type="button"
+                                            id="Delete"
+                                            title="Delete all products"
+                                            data-toggle="modal"
+                                            data-target="#delete-all-products-modal"
+                                            class="btn btn-sm btn-outline-secondary hover"
+                                            name="danger"
+                                            style="border:none;">
+                                        <i class="fa fa-fs fa-trash"></i>
+                                    </button>
+                                {% endif %}
+                            </th>
+                            <th class="text-center">Hidden</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        {% if datagroup.is_habits_and_practices %}
+                            <th></th>
+                        {% else %}
+                            {% if not datagroup.is_supplemental_doc %}
+                                <th id='footer-options'></th>
+                            {% endif %}
+                        {% endif %}
+                        {% if datagroup.is_composition %}
+                            <th></th>
+                            <th></th>
+                        {% endif %}
+                    </tr>
+                    </tfoot>
+                </table>
             </div>
-            <form action="{% url 'data_group_delete_products' datagroup.id %}" method="post">
-                {% csrf_token %}
-                <div class="modal-body">
-                    Are you sure you want to delete all products associated with documents in "{{ datagroup.name }}"?
-                </div>
-                <div class="modal-footer">
-                    <button id="delete-all-products-cancel-btn"
-                            type="button"
-                            class="btn btn-secondary"
-                            data-dismiss="modal">
-                        Cancel
+        </div>
+    {% endif %}
+
+    <div class="modal fade"
+         id="delete-all-products-modal"
+         tabindex="-1" role="dialog"
+         aria-labelledby="deleteAllProductsModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="deleteAllProductsModalLabel">Delete all products</h5>
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
-                    <button id="delete-all-products-delete-btn"
-                            type="submit"
-                            class="btn btn-danger">
-                        Delete
-                    </button>
                 </div>
-            </form>
+                <form action="{% url 'data_group_delete_products' datagroup.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        Are you sure you want to delete all products associated with documents in "{{ datagroup.name }}"?
+                    </div>
+                    <div class="modal-footer">
+                        <button id="delete-all-products-cancel-btn"
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button id="delete-all-products-delete-btn"
+                                type="submit"
+                                class="btn btn-danger">
+                            Delete
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% block js %}
-<script src="{% static 'js/d3.v5.min.js' %}"></script>
-<script src="{% static 'js/dashboard/bootstrap-filepicker.js' %}"></script>
-{{ tabledata|json_script:"tabledata" }}
-{{ env|json_script:"env" }}
-<script src="{% static 'js/dashboard/datagroup_detail.js' %}?cache_invalidate=2"></script>
-<script src="{% static 'js/lodash.min.js' %}"></script>
-<script src="{% static 'js/js.cookie.min.js' %}"></script>
+    <script src="{% static 'js/d3.v5.min.js' %}"></script>
+    <script src="{% static 'js/dashboard/bootstrap-filepicker.js' %}"></script>
+    {{ tabledata|json_script:"tabledata" }}
+    {{ env|json_script:"env" }}
+    <script src="{% static 'js/dashboard/datagroup_detail.js' %}?cache_invalidate=2"></script>
+    <script src="{% static 'js/lodash.min.js' %}"></script>
+    <script src="{% static 'js/js.cookie.min.js' %}"></script>
 {% endblock %}
 
 {% block css %}
-<style>
-  #download-card .btn {
-    border-radius: 0;
-  }
-</style>
+    <style>
+        #download-card .btn {
+            border-radius: 0;
+        }
+    </style>
 {% endblock %}

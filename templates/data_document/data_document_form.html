@@ -1,11 +1,14 @@
 {% extends 'core/base.html' %}
+
+{% block title %}Edit Data Document{% endblock %}
+
 {% block content %}
-<form method="post" novalidate>
-    {% csrf_token %}
-    {% include 'core/bs4_form.html' with form=form colspan='col-6' %}
-    <input type="hidden" name="referer_page" value="{{form.referer}}">
-    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-    <a class="btn btn-secondary" href={% if form.referer %} "{{ form.referer }}"
-        {% else %} "{% url 'data_source_list' %}" {% endif %} name='cancel'>Cancel</a>
-</form>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% include 'core/bs4_form.html' with form=form colspan='col-6' %}
+        <input type="hidden" name="referer_page" value="{{ form.referer }}">
+        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+        <a class="btn btn-secondary" href={% if form.referer %} "{{ form.referer }}"
+        {% else %} "{% url 'data_document' form.instance.pk %}" {% endif %} name='cancel'>Cancel</a>
+    </form>
 {% endblock %}
