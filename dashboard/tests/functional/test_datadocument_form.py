@@ -1,5 +1,5 @@
 from django.test import RequestFactory, TestCase, override_settings
-
+from lxml import html
 from dashboard.tests.loader import *
 from dashboard.tests.mixins import DashboardFormFieldTestMixin
 from dashboard.forms import DataDocumentForm
@@ -26,6 +26,8 @@ class DataDocumentDetailFormTest(TestCase, DashboardFormFieldTestMixin):
                 "organization",
                 "epa_reg_number",
                 "pmid",
+                "file",
+                "data_group",
             ]
         )
 
@@ -46,3 +48,48 @@ class DataDocumentDetailFormTest(TestCase, DashboardFormFieldTestMixin):
             self.post_field(
                 "/datadocument/edit/", "pmid", "12345678901234567890", pk=354784
             )
+
+        # File shouldn't be uploadable when editing an existing document
+        # with self.assertRaises(AssertionError):
+        #     with open("sample_files/pdfs for register_records_make_new_DG/raid_ant_killer.pdf",
+        #               "rb") as pdf:
+        #         self.post_field(
+        #             "/datagroup/37/datadocument_new/", "file", pdf)
+        #     pdf.close()
+
+    def test_create_datadocuments(self):
+        for group_id in [
+            37,  # Composition
+            5,  # Functional Use
+            52,  # Chemical Presence List
+            51,  # HHE Report
+            8,  # Habits and Practices
+            54,  # Literature Monitoring
+        ]:
+            response = self.client.get("/datagroup/%i/" % group_id)
+            response_html = html.fromstring(response.content)
+            self.assertTrue(
+                response_html.xpath('boolean(//*[@id="btn_datadocument_create"])'),
+                "Should see New Data Document button for all group types",
+            )
+
+            response = self.client.get(f"/datagroup/%i/datadocument_new/" % group_id)
+            response_html = html.fromstring(response.content)
+            self.assertTrue(
+                response_html.xpath(
+                    f'boolean(//*[@id="id_data_group" and @value="{group_id}"])'
+                ),
+                "New Data Document should include datagroup id",
+            )
+
+            # with open("sample_files/pdfs for register_records_make_new_DG/adams_flea_tick_shampoo.pdf", "rb") as pdf:
+            #     self.post_field(
+            #         f"/datagroup/%i/datadocument_new/" % group_id, "file", pdf)
+            #     pdf.close()
+            #
+            # # Only pdfs are acceptable file types
+            # with self.assertRaises(AssertionError):
+            #     with open("sample_files/presence_chars.csv", "r") as csv:
+            #         self.post_field(
+            #             "/datagroup/37/datadocument_new/", "file", csv)
+            #         csv.close()

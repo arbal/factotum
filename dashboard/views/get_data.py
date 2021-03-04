@@ -32,6 +32,15 @@ def get_data(request, template_name="get_data/get_data.html"):
     return render(request, template_name, context)
 
 
+def functional_use_categories(
+    request, template_name="get_data/functional_use_categories.html"
+):
+    categories = FunctionalUseCategory.objects.all().values(
+        "id", "title", "description"
+    )
+    return render(request, template_name, {"categories": list(categories)})
+
+
 def stats_by_dtxsids(dtxs):
     """
 

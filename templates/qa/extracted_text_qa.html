@@ -47,7 +47,7 @@
 
         <div class="row m-0 border-bottom">
             <div class="col-3 border-right my-auto p-2 font-weight-bold">Document Type</div>
-            <form method="post" action="{% url "save_doc_form" doc.pk %}" novalidate>
+            <form method="post" action="{% url "save_data_document_type" doc.pk %}" novalidate>
                 <input id="document_type_selector" type="hidden" name="referer" value="{{ request.path }}"/>
                 {% csrf_token %}
                 <div class="col-9 p-2">

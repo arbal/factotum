@@ -67,7 +67,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             wait.until(ec.element_to_be_clickable((By.XPATH, "//*[@id='approve']")))
             time.sleep(1)
             rc = RawChem.objects.get(pk=rc_id)  # reload the rawchem record
-            print(rc.dsstox)
             self.assertEqual(
                 None,
                 rc.dsstox,
@@ -233,7 +232,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             # Go to the extraction script's summary page
             scr_id = et.extraction_script_id
             qa_summary_url = (
-                self.live_server_url + f"/qa/compextractionscript/{scr_id}/summary"
+                self.live_server_url + f"/qa/extractionscript/{scr_id}/summary"
             )
             self.browser.get(qa_summary_url)
 
@@ -463,7 +462,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         # edit script summary note
         script = Script.objects.first()
         self.browser.get(
-            self.live_server_url + f"/qa/compextractionscript/{script.pk}/summary"
+            self.live_server_url + f"/qa/extractionscript/{script.pk}/summary"
         )
         save_button = wait.until(
             ec.element_to_be_clickable((By.XPATH, "//*[@id='btn-save-notes']"))

@@ -120,7 +120,9 @@ class TestAjax(TestCase):
         payload = json.loads(response.content)
         expected_payload = {
             "data": [
+                {"sets": ["Composition", "Literature Monitoring"], "size": 1},
                 {"sets": ["Composition"], "size": 7},
+                {"sets": ["Literature Monitoring"], "size": 1},
                 {"sets": ["Composition", "Chemical presence list"], "size": 1},
                 {"sets": ["Chemical presence list"], "size": 1},
                 {"sets": ["HHE Report"], "size": 2},

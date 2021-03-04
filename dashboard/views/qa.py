@@ -142,10 +142,11 @@ def qa_extraction_script(request, pk, template_name="qa/extraction_script.html")
     script = get_object_or_404(Script, pk=pk)
     # If the Script has no related ExtractedText objects, redirect back to the QA index
     if ExtractedText.objects.filter(extraction_script=script).count() == 0:
-        return redirect("/qa/compextractionscript/")
+        return redirect("qa_extractionscript_index")
     qa_group = script.get_or_create_qa_group()
     texts = (
         ExtractedText.objects.filter(qa_group=qa_group, qa_checked=False)
+        .select_related("data_document__data_group__group_type")
         .annotate(chemical_count=Count("rawchem"))
         .annotate(chemical_updated_at=Max("rawchem__updated_at"))
     )
@@ -233,13 +234,15 @@ class SummaryTable(BaseDatatableView):
         if column == "rawchem_count":
             return row.rawchem_count
         elif column == "last_updated":
-            return f"""<a title="audit log"
-                          href="{reverse("document_audit_log", args=[row.pk])}"
-                          data-toggle="modal"
-                          data-target="#document-audit-log-modal">
-                            Last updated {timesince(row.last_updated)} ago
-                        </a>"""
-
+            if row.last_updated is None:
+                return "No Records"
+            else:
+                return f"""<a title="audit log"
+                              href="{reverse("document_audit_log", args=[row.pk])}"
+                              data-toggle="modal"
+                              data-target="#document-audit-log-modal">
+                                Last updated {timesince(row.last_updated)} ago
+                            </a>"""
         super().render_column(row, column)
 
     def get_initial_queryset(self):
@@ -266,9 +269,15 @@ class SummaryTable(BaseDatatableView):
             .annotate(last_updated_rc=Max("rawchem__updated_at"))
             .annotate(
                 last_updated=Greatest(
-                    "updated_at",
-                    Coalesce("data_document__updated_at", "updated_at"),
-                    Coalesce("last_updated_rc", "updated_at"),
+                    Coalesce(
+                        "updated_at", "data_document__updated_at", "last_updated_rc"
+                    ),
+                    Coalesce(
+                        "data_document__updated_at", "last_updated_rc", "updated_at"
+                    ),
+                    Coalesce(
+                        "last_updated_rc", "updated_at", "data_document__updated_at"
+                    ),
                 )
             )
             .annotate(rawchem_count=Count("rawchem", distinct=True))
@@ -351,10 +360,10 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
         r = ExtractedText.objects.filter(qa_group=extext.qa_group).count() - a
         stats = "%s document(s) approved, %s documents remaining" % (a, r)
 
-    # If the Referer is set but not the compextractionscript or a previous extracted text page
+    # If the Referer is set but not the extractionscript or a previous extracted text page
     # then when they hit the exit button send them back to their referer
     referer = request.headers.get("Referer", "")
-    if "compextractionscript" in referer or "extractedtext" in referer or referer == "":
+    if "extractionscript" in referer or "extractedtext" in referer or referer == "":
         referer = "qa_extraction_script"
 
     # Create the formset factory for the extracted records
@@ -368,9 +377,12 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
         exclude=["weight_fraction_type", "true_cas", "true_chemname", "sid"],
     )
 
-    detail_formset = ChildForm(instance=extext)
     if qa_focus == "script":
-        flagged_qs = detail_formset.get_queryset()
+        if extext.data_document.data_group.is_functional_use:
+            flagged_qs = extext.prep_functional_use_for_qa()
+        else:
+            detail_formset = ChildForm(instance=extext)
+            flagged_qs = detail_formset.get_queryset()
     ext_form = ParentForm(instance=extext)
     extext.chemical_count = RawChem.objects.filter(extracted_text=extext).count()
 

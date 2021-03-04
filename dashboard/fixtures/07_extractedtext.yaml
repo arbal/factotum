@@ -7670,3 +7670,16 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+- model: dashboard.extractedtext
+  pk: 9
+  fields:
+    created_at: 2019-09-19 11:24:56.456067
+    updated_at: 2019-09-19 11:24:56.456092
+    doc_date: '2018-04-47'
+    rev_num: '474747'
+    extraction_script: 13
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null

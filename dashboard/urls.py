@@ -21,21 +21,6 @@ urlpatterns = [
         name="data_source_delete",
     ),
     path(
-        "datadocument/detected/<int:doc_pk>/",
-        views.detected_flag,
-        name="detected_flag_toggle_yes",
-    ),
-    path(
-        "datadocument/non_detected/<int:doc_pk>/",
-        views.detected_flag,
-        name="detected_flag_toggle_no",
-    ),
-    path(
-        "datadocument/clear_flag/<int:doc_pk>/",
-        views.detected_flag,
-        name="detected_flag_reset",
-    ),
-    path(
         "datasource/<int:pk>/datagroup_new/",
         views.data_group_create,
         name="data_group_new",
@@ -92,6 +77,32 @@ urlpatterns = [
         name="data_group_delete_products",
     ),
     path(
+        "datagroup/<int:pk>/datadocument_new/",
+        views.data_document_create,
+        name="data_document_new",
+    ),
+    path("datadocument/<int:pk>/", views.data_document_detail, name="data_document"),
+    path(
+        "datadocument/<int:pk>/cards",
+        views.data_document_cards,
+        name="data_document_cards",
+    ),
+    path(
+        "save_datadocument_note/<int:pk>/",
+        views.save_data_document_note,
+        name="save_data_document_note",
+    ),
+    path(
+        "save_datadocument_type/<int:pk>/",
+        views.save_data_document_type,
+        name="save_data_document_type",
+    ),
+    path(
+        "save_datadocument_extext/<int:pk>/",
+        views.save_data_document_extext,
+        name="save_data_document_extext",
+    ),
+    path(
         "datadocument/delete/<int:pk>/",
         views.data_document_delete,
         name="data_document_delete",
@@ -102,9 +113,35 @@ urlpatterns = [
         name="data_document_delete_tags",
     ),
     path(
-        "datadocument/note/<int:pk>/",
-        views.data_document_note,
-        name="data_document_note",
+        "datadocument/detected/<int:doc_pk>/",
+        views.detected_flag,
+        name="detected_flag_toggle_yes",
+    ),
+    path(
+        "datadocument/non_detected/<int:doc_pk>/",
+        views.detected_flag,
+        name="detected_flag_toggle_no",
+    ),
+    path(
+        "datadocument/clear_flag/<int:doc_pk>/",
+        views.detected_flag,
+        name="detected_flag_reset",
+    ),
+    path(
+        "list_presence_tag_curation/",
+        views.list_presence_tag_curation,
+        name="list_presence_tag_curation",
+    ),
+    path("save_tags/<int:pk>/", views.SaveTagForm.as_view(), name="save_tag_form"),
+    path(
+        "list_presence_tags_autocomplete/",
+        views.ListPresenceTagAutocomplete.as_view(),
+        name="list_presence_tags_autocomplete",
+    ),
+    path(
+        "habits_and_practices_tags_autocomplete/",
+        views.HabitsAndPracticesTagAutocomplete.as_view(),
+        name="habits_and_practices_tags_autocomplete",
     ),
     path("product_curation/", views.product_curation_index, name="product_curation"),
     path(
@@ -125,22 +162,22 @@ urlpatterns = [
         "link_product_form/<int:pk>/", views.link_product_form, name="link_product_form"
     ),
     path(
-        "qa/compextractionscript/",
+        "qa/extractionscript/",
         views.qa_extractionscript_index,
         name="qa_extractionscript_index",
     ),
     path(
-        "qa/compextractionscript/<int:pk>/",
+        "qa/extractionscript/<int:pk>/",
         dashboard.views.qa.qa_extraction_script,
         name="qa_extraction_script",
     ),
     path(
-        "qa/compextractionscript/<int:pk>/summary",
+        "qa/extractionscript/<int:pk>/summary",
         dashboard.views.qa.qa_extraction_script_summary,
         name="qa_extraction_script_summary",
     ),
     path(
-        "qa/compextractionscript/<int:pk>/summary/table",
+        "qa/extractionscript/<int:pk>/summary/table",
         dashboard.views.qa.ScriptSummaryTable.as_view(),
         name="qa_extraction_script_summary_table",
     ),
@@ -217,30 +254,6 @@ urlpatterns = [
     path("product/edit/<int:pk>/", views.product_update, name="product_edit"),
     path("product/delete/<int:pk>/", views.product_delete, name="product_delete"),
     path("products/", views.product_list, name="product_list"),
-    path("datadocument/<int:pk>/", views.data_document_detail, name="data_document"),
-    path(
-        "datadocument/<int:pk>/cards",
-        views.data_document_cards,
-        name="data_document_cards",
-    ),
-    path("save_type/<int:pk>/", views.save_doc_form, name="save_doc_form"),
-    path("save_ext/<int:pk>/", views.save_ext_form, name="save_ext_form"),
-    path(
-        "list_presence_tag_curation/",
-        views.list_presence_tag_curation,
-        name="list_presence_tag_curation",
-    ),
-    path("save_tags/<int:pk>/", views.SaveTagForm.as_view(), name="save_tag_form"),
-    path(
-        "list_presence_tags_autocomplete/",
-        views.ListPresenceTagAutocomplete.as_view(),
-        name="list_presence_tags_autocomplete",
-    ),
-    path(
-        "habits_and_practices_tags_autocomplete/",
-        views.HabitsAndPracticesTagAutocomplete.as_view(),
-        name="habits_and_practices_tags_autocomplete",
-    ),
     path("d_json/", views.DocumentListJson.as_view(), name="d_ajax_url"),
     path("p_json/", views.ProductListJson.as_view(), name="p_ajax_url"),
     path(
@@ -263,6 +276,11 @@ urlpatterns = [
         "dl_functionalusecategories/",
         views.download_FunctionalUseCategories,
         name="download_FunctionalUseCategories",
+    ),
+    path(
+        "functional_use_categories/",
+        views.functional_use_categories,
+        name="functional_use_categories",
     ),
     path(
         "dl_raw_chems_dg/<int:pk>/",

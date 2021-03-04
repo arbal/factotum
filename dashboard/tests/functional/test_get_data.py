@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase, override_settings
 from django.test.client import Client
+from django.urls import reverse
 
 from dashboard.models import (
     DSSToxLookup,
@@ -10,6 +11,7 @@ from dashboard.models import (
     ProductDocument,
     ProductToPUC,
     PUC,
+    FunctionalUseCategory,
 )
 from dashboard.tests.loader import fixtures_standard
 from dashboard.views.get_data import stats_by_dtxsids
@@ -178,11 +180,16 @@ class TestGetData(TestCase):
         for hnp in [b"ball bearings", b"motorcycle", b"vitamin a&amp;d", b"dish soap"]:
             self.assertIn(hnp, response.content)
 
-    def test_download_pucs_button(self):
+    def test_download_buttons_and_links(self):
         response = self.client.get("/get_data/")
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Download PUCs")
+        self.assertContains(response, reverse("puc_list"))
         self.assertContains(response, "Download PUC Attributes")
+        self.assertContains(response, "Download List Presence Keywords")
+        self.assertContains(response, reverse("list_presence_tag_list"))
+        self.assertContains(response, "Download Functional Use Categories")
+        self.assertContains(response, reverse("functional_use_categories"))
 
     def test_download_list_presence_keywords(self):
         response = self.client.get("/dl_lpkeywords/")
@@ -196,3 +203,11 @@ class TestGetData(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "fragrance")
         self.assertContains(response, "surfactant,surfactant")
+
+    def test_function_user_categories_page(self):
+        response = self.client.get(reverse("functional_use_categories"))
+        self.assertEqual(response.status_code, 200)
+        categories = FunctionalUseCategory.objects.all()
+        for cat in categories:
+            self.assertContains(response, cat.title)
+            self.assertContains(response, cat.description)

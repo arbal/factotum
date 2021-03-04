@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% block title %}Functional Use Categories{% endblock %}
+{% block content %}
+
+    <h1>
+        <span>Functional Use Categories</span>
+    </h1>
+
+    <div class="header">
+        <input type="text" id="filter-text-box" placeholder="Search..." oninput="onFilterTextBoxChanged()"/>
+        <button onclick="clearFilters()" class="btn btn-primary btn-sm">Reset Filters</button>
+    </div>
+    <div id="dataGrid" class="ag-theme-balham"></div>
+    <div>
+        Page Size:
+        <select autocomplete="off" id="page-size">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50" selected>50</option>
+            <option value="100">100</option>
+            <option value="All">Show All</option>
+        </select>
+    </div>
+{% endblock %}
+
+{% block css %}
+    <link href="{% static 'css/dashboard/grid_list.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+    {{ form.media }}
+    {{ categories|json_script:"tabledata" }}
+    <script src="{% static 'js/dashboard/functional_use_categories.js' %}"></script>
+{% endblock %}
+

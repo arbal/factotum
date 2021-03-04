@@ -354,10 +354,7 @@ class ExtractedChemicalModelForm(forms.ModelForm):
         if (
             result
             and self.referer
-            and (
-                "compextractionscript" in self.referer
-                or "extractedtext" in self.referer
-            )
+            and ("extractionscript" in self.referer or "extractedtext" in self.referer)
         ):
             extext = ExtractedText.objects.get(pk=self.instance.extracted_text.pk)
             extext.qa_edited = True
@@ -383,7 +380,7 @@ class ExtractedCompositionForm(ExtractedChemicalModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.referer and (
-            "compextractionscript" in self.referer
+            "extractionscript" in self.referer
             or "extractedtext" in self.referer
             or self.referer == ""
         ):
@@ -552,6 +549,8 @@ class DataDocumentForm(forms.ModelForm):
             "organization",
             "epa_reg_number",
             "pmid",
+            "data_group",
+            "file",
         ]
         widgets = {
             "pmid": forms.TextInput(
@@ -565,13 +564,25 @@ class DataDocumentForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user", None)
+        data_group = kwargs.pop("data_group", None)
         super().__init__(*args, **kwargs)
+        instance = getattr(self, "instance", None)
+        data_group = data_group if data_group else instance.data_group
+        self.fields["file"].label = "Data document file"
+        self.fields["file"].required = True
         self.fields["raw_category"].label = "Source category"
+        self.fields["data_group"].widget = forms.HiddenInput()
+        self.fields["data_group"].initial = data_group
         self.fields["document_type"].queryset = DocumentType.objects.compatible(
-            self.instance
+            data_group
         )
-        if self.instance.data_group.type not in ["LM", "HP", "LP"]:
-            del self.fields["pmid"]
+        if data_group.type not in ["LM", "HP", "LP"]:
+            self.fields.pop("pmid")
+        if instance and instance.pk:
+            self.fields.pop("file")
+        else:
+            self.fields["file"].widget.attrs.update({"accept": ".pdf"})
 
 
 class DataGroupWorkflowForm(forms.ModelForm):

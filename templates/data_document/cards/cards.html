@@ -12,81 +12,95 @@
         {% endif %}
         {% for chemical in chemicals %}
             <div class="card mt-2 big-bottom"
-                 id="chem-card-{{ chemical.pk }}">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-6 text-left" id="raw_chem_name-{{ chemical.pk }}">
-                            <h5 class="text-muted">
-                                {{ chemical.raw_chem_name|truncatechars:45|default:"None" }}
-                            </h5>
+            id="chem-card-{{ chemical.pk }}">
+                <div class="card-body shadow rounded"
+                        id="chem-click-{{ chemical.pk }}"
+                        data-chem-id="{{ chemical.pk }}">
+
+                    <div class="card-title border-bottom">
+
+                        <!-- Raw Chem Row -->
+                        <div class="row mb-1 align-items-center">
+                            <div class="col col-md-5 col-xl-7 text-truncate"
+                                    id="raw_chem_name-{{ chemical.pk }}"
+                                    title="{{ chemical.raw_chem_name }}"
+                            >
+                                <small class="text-muted">
+                                    {{ chemical.raw_chem_name|default:"None" }}
+                                </small>
+                            </div>
+                            <div class="col-12 col-md order-2 text-truncate" id="raw_cas-{{ chemical.pk }}">
+                                <small class="text-muted" title="{{ chemical.raw_cas }}">
+                                    {{ chemical.raw_cas|default:"None" }}
+                                </small>
+                            </div>
+                            <div class="col-auto order-1 order-md-3 text-right">
+                                {% if doc.detail_page_editable and request.user.is_authenticated %}
+                                    <div class="btn-group btn-group-sm"
+                                            id="chem-card-{{ chemical.pk }}-buttons">
+                                        <button class="btn btn-outline-secondary hover-success"
+                                                id="chemical-update-{{ chemical.pk }}"
+                                                title="edit"
+                                                href="{% url 'chemical_update' chemical.pk %}"
+                                                data-toggle="modal"
+                                                data-target="#chemical-update-modal"
+                                                value="{{ chemical.pk }}"
+                                                style="z-index: 290;">
+                                            <!-- z-index workaround for selenium/webdriver bug -->
+                                            <span class="fa fa-fs fa-edit"></span>
+                                        </button>
+                                        <button class="btn btn-outline-secondary hover-danger"
+                                                id="chemical-delete-{{ chemical.pk }}"
+                                                title="delete"
+                                                role="button"
+                                                data-toggle="modal"
+                                                data-target="#chem-delete-{{ chemical.pk }}">
+                                            <span class="fa fa-fs fa-trash"></span>
+                                        </button>
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
 
-                        <div class="col-6 text-right" id="raw_cas-{{ chemical.pk }}">
-                            <h5 class="text-muted">
-                                {{ chemical.raw_cas|default:"None" }}
-                            </h5>
-                        </div>
-                        {% if chemical.component %}
-                            <div class="col-6 text-left">
-                                <h5 class="text-muted">{{ chemical.component }}</h5>
+                        <!-- True Chem Row -->
+                        <div class="row mb-1 align-items-end">
+                            <div class="col-12 col-md-5 col-xl-7 text-truncate">
+                                <h3 class="d-inline"
+                                    id="chem_name-{{ chemical.pk }}"
+                                    title="{{ chemical.dsstox.true_chemname }}"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom">
+                                    {% if chemical.dsstox.true_chemname %}
+                                        <a title="go to substance"
+                                            href="{% url 'chemical' chemical.dsstox.sid %}">
+                                            {{ chemical.dsstox.true_chemname }}
+                                        </a>
+                                    {% endif %}
+                                </h3>
                             </div>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="card-body shadow rounded"
-                     id="chem-click-{{ chemical.pk }}"
-                     data-chem-id="{{ chemical.pk }}">
-                    <div class="card-title border-bottom">
-                        <h3 class="d-inline"
-                            id="chem_name-{{ chemical.pk }}"
-                            title="{{ chemical.dsstox.true_chemname }}"
-                            data-toggle="tooltip"
-                            data-placement="bottom">
-                            {% if chemical.dsstox.true_chemname %}
-                                <a title="go to substance"
-                                   href="{% url 'chemical' chemical.dsstox.sid %}">
-                                    {{ chemical.dsstox.true_chemname|truncatechars:45 }}
-                                </a>
-                            {% endif %}
-                        </h3>
-                        {% if doc.detail_page_editable and request.user.is_authenticated %}
-                            <div class="btn-group btn-group-sm float-right"
-                                 id="chem-card-{{ chemical.pk }}-buttons">
-                                <button class="btn btn-outline-secondary hover-success"
-                                        id="chemical-update-{{ chemical.pk }}"
-                                        title="edit"
-                                        href="{% url 'chemical_update' chemical.pk %}"
-                                        data-toggle="modal"
-                                        data-target="#chemical-update-modal"
-                                        value="{{ chemical.pk }}"
-                                        style="z-index: 290;"> <!-- z-index workaround for selenium/webdriver bug -->
-                                    <span class="fa fa-fs fa-edit"></span>
-                                </button>
-                                <button class="btn btn-outline-secondary hover-danger"
-                                        id="chemical-delete-{{ chemical.pk }}"
-                                        title="delete"
-                                        role="button"
-                                        data-toggle="modal"
-                                        data-target="#chem-delete-{{ chemical.pk }}">
-                                    <span class="fa fa-fs fa-trash"></span>
-                                </button>
+                            <div class="col-auto text-truncate">
+                                {% if chemical.dsstox.true_cas %}
+                                    <h4 class="d-inline"
+                                        title="true cas: {{ chemical.dsstox.true_cas }}"
+                                    >
+                                        {{ chemical.dsstox.true_cas }}
+                                    </h4>
+                                {% endif %}
                             </div>
-                        {% endif %}
-                        <div>
-                            {% if chemical.dsstox.true_cas %}
-                                <h4 class="d-inline" title="true cas">
-                                    {{ chemical.dsstox.true_cas }}
-                                </h4>
-                            {% endif %}
-                            {% if chemical.dsstox %} <h4
-                                    class="float-right">
-                                <a href="https://comptox.epa.gov/dashboard/dsstoxdb/results?search={{ chemical.dsstox.sid }}"
-                                   target='_blank'>
-                                    {{ chemical.dsstox.sid }}
-                                </a>
-                            </h4>
-                            {% endif %}
+                            <div class="col text-right text-truncate">
+                                {% if chemical.dsstox %}
+                                    <h4 class="d-inline">
+                                        <a href="https://comptox.epa.gov/dashboard/dsstoxdb/results?search={{ chemical.dsstox.sid }}"
+                                            target='_blank'
+                                            title="{{ chemical.dsstox.sid }}"
+                                        >
+                                            {{ chemical.dsstox.sid }}
+                                        </a>
+                                    </h4>
+                                {% endif %}
+                            </div>
                         </div>
+
                     </div>
                     <!-- card -->
                     <div class="card-text">

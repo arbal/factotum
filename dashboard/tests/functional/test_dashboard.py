@@ -55,7 +55,7 @@ class DashboardTest(TestCase):
         self.assertNotIn(
             "QA",
             response_html.xpath(
-                'string(/html/body/nav//a[@href="/qa/compextractionscript/"])'
+                'string(/html/body/nav//a[@href="/qa/extractionscript/"])'
             ),
             "The link to /qa/ should not appear in the public navbar",
         )
@@ -69,7 +69,7 @@ class DashboardTest(TestCase):
             response_html.xpath('string(//*[@id="navbarQADropdownMenuLink"])'),
             "The link to /qa/ must be in the logged-in navbar",
         )
-        found = resolve("/qa/compextractionscript/")
+        found = resolve("/qa/extractionscript/")
         self.assertEqual(found.func, views.qa_extractionscript_index)
 
     def test_PUC_download(self):
