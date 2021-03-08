@@ -529,6 +529,12 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 f"//*[@id='datagroups']/thead/tr/th[{col_index}]"
             )
             self.assertEqual(step.name, step_header.text)
+            search_header = self.browser.find_element_by_xpath(
+                f"//*[@id='datagroups']/thead/tr[2]/th[{col_index}]"
+            )
+            self.assertIn("Incomplete", search_header.text)
+            self.assertIn("Complete", search_header.text)
+            self.assertIn("N/A", search_header.text)
             step_cell = self.browser.find_element_by_xpath(
                 f"//*[@id='datagroups']/tbody/tr[1]/td[{col_index}]"
             )
@@ -569,3 +575,33 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             self.assertEqual("N/A", step_field.first_selected_option.text)
         workflow_field = self.browser.find_element_by_id("id_workflow_complete")
         self.assertTrue(workflow_field.get_attribute("checked"))
+
+        # test search by column
+        self.browser.get(url)
+        time.sleep(1)
+        search_ds = self.browser.find_element_by_xpath(
+            "//*[@id='datagroups']/thead/tr[2]/th[1]/input"
+        )
+        search_ds.send_keys("airgas")
+        self.assertInHTML(
+            "Showing 1 to 4 of 4 entries (filtered from 24 total entries)",
+            self.browser.find_element_by_xpath("//*[@id='datagroups_info']").text,
+        )
+        search_ds.send_keys("")
+        status_options = self.browser.find_element_by_xpath(
+            "//*[@id='datagroups']/thead/tr[2]/th[6]/select"
+        )
+        Select(status_options).select_by_visible_text("Complete")
+        self.assertInHTML(
+            "Showing 0 to 0 of 0 entries (filtered from 24 total entries)",
+            self.browser.find_element_by_xpath("//*[@id='datagroups_info']").text,
+        )
+        Select(status_options).select_by_index(0)
+        complete_options = self.browser.find_element_by_xpath(
+            "//*[@id='datagroups']/thead/tr[2]/th[13]/select"
+        )
+        Select(complete_options).select_by_visible_text("Yes")
+        self.assertInHTML(
+            "Showing 1 to 1 of 1 entries (filtered from 24 total entries)",
+            self.browser.find_element_by_xpath("//*[@id='datagroups_info']").text,
+        )
