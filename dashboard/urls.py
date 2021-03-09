@@ -233,6 +233,11 @@ urlpatterns = [
         "bulk_product_tag/", views.bulk_assign_tag_to_products, name="bulk_product_tag"
     ),
     path(
+        "bulk_product_tag/<int:puc_pk>/table",
+        views.ProductTableByPUC.as_view(),
+        name="bulk_product_tag_table",
+    ),
+    path(
         "category_assignment/<int:ds_pk>/product_puc/<int:pk>",
         views.category_assign_puc_to_product,
         name="category_assignment_product_puc",

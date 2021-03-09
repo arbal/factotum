@@ -364,26 +364,6 @@ class TestProductPuc(TestCase):
             "The request should return a valid response even without any Products",
         )
 
-    def test_bulk_product_tag_columns(self):
-        product_response_url = reverse("bulk_product_tag")
-        response = self.client.post(product_response_url, {"puc": 1, "tag": "1"})
-        response_html = html.fromstring(response.content.decode("utf8"))
-        self.assertIn(
-            "Product Title",
-            response_html.xpath('string(//*[@id="products"]/thead/tr/th[2])'),
-            "Product Title should be a column in this table",
-        )
-        self.assertIn(
-            "Brand Name",
-            response_html.xpath('string(//*[@id="products"]/thead/tr/th[3])'),
-            "Brand Name should be a column in this table",
-        )
-        self.assertIn(
-            "Current Attributes",
-            response_html.xpath('string(//*[@id="products"]/thead/tr/th[4])'),
-            "Current Attributes should be a column in this table",
-        )
-
     def test_bulk_product_tag_filter(self):
         puc_attrs = PUCToTag.objects.filter(content_object_id=1)
         assumed_attrs = [attr.tag.name for attr in puc_attrs.filter(assumed=True)]
