@@ -13,6 +13,7 @@ from dashboard.models import (
     RawChem,
     DuplicateChemicals,
     CumulativeProductsPerPucAndSid,
+    ProductToPucClassificationMethod,
 )
 
 
@@ -22,6 +23,7 @@ def chemical_detail(request, sid, puc_id=None):
     keysets = chemical.get_tag_sets()
     group_types = chemical.get_unique_datadocument_group_types_for_dropdown()
     puc_kinds = PUCKind.objects.all()
+    classification_methods = ProductToPucClassificationMethod.objects.all()
     dss_pk = chemical.pk
 
     qs = CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup_id=dss_pk)
@@ -42,6 +44,7 @@ def chemical_detail(request, sid, puc_id=None):
         "puc": puc,
         "show_filter": True,
         "puc_kinds": puc_kinds,
+        "classification_methods": classification_methods,
     }
     return render(request, "chemicals/chemical_detail.html", context)
 
@@ -92,6 +95,7 @@ class ChemicalProductListJson(BaseDatatableView):
         "document.title",
         "product.product_uber_puc.puc",
         "product.product_uber_puc.puc.kind.name",
+        "product.product_uber_puc.classification_method.name",
     ]
 
     def get_filter_method(self):
@@ -213,6 +217,21 @@ class ChemicalProductListJson(BaseDatatableView):
                             nulls_last=True
                         )
                     )
+            elif order_column.endswith("classification_method__name"):
+                # sort PUC data with nulls at bottom
+                reverse_order = order_column.startswith("-")
+                if reverse_order:
+                    qs = qs.order_by(
+                        F(
+                            "product__product_uber_puc__classification_method__name"
+                        ).desc(nulls_last=True)
+                    )
+                else:
+                    qs = qs.order_by(
+                        F("product__product_uber_puc__classification_method__name").asc(
+                            nulls_last=True
+                        )
+                    )
             else:
                 return qs.order_by(*order)
         return qs
@@ -221,6 +240,7 @@ class ChemicalProductListJson(BaseDatatableView):
         puc = self.request.GET.get("category")
         s = self.request.GET.get("search[value]", None)
         puc_kind = self.request.GET.get("puc_kind")
+        cm = self.request.GET.get("cm")
         if puc:
             qs = qs.filter(Q(product__product_uber_puc__puc_id=puc))
         if s:
@@ -232,4 +252,6 @@ class ChemicalProductListJson(BaseDatatableView):
                 qs = qs.filter(product__product_uber_puc__isnull=True)
             else:
                 qs = qs.filter(product__product_uber_puc__puc__kind__code=puc_kind)
+        if cm and cm != "all":
+            qs = qs.filter(product__product_uber_puc__classification_method__code=cm)
         return qs
