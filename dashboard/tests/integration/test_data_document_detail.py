@@ -405,9 +405,11 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         with self.assertRaises(NoSuchElementException):
             self.browser.find_element_by_id("id_pmid")
 
-        self.browser.find_element_by_xpath(
+        edit_btn = self.browser.find_element_by_xpath(
             '//*[@id="btn-add-or-edit-extracted-text"]'
-        ).click()
+        )
+        self.browser.execute_script("arguments[0].click();", edit_btn)
+
         save_button = wait.until(
             ec.element_to_be_clickable(
                 (By.XPATH, "//*[@id='extracted-text-modal-save']")
@@ -415,15 +417,11 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         )
         # problem: the form on the data document detail page and on the modal
         # editor have the same id, so the full ugly xpath is needed
-        study_type_menu = self.browser.find_element_by_xpath(
-            "/html/body/div[1]/div[2]/div[1]/div[5]/div[3]/div/div/form/div[1]/div/div[2]/select"
-        )
+        study_type_menu = self.browser.find_element_by_name("study_type")
         Select(study_type_menu).select_by_visible_text(
             "Non-Targeted or Suspect Screening"
         )
-        media_input = self.browser.find_element_by_xpath(
-            "/html/body/div[1]/div[2]/div[1]/div[5]/div[3]/div/div/form/div[1]/div/div[3]/textarea"
-        )
+        media_input = self.browser.find_element_by_name("media")
         media_input.send_keys("Lorem ipso fido leash")
         save_button.click()
 
