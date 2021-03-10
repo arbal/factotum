@@ -198,7 +198,9 @@
                         {% endif %}
                         <div class="row mb-0">
                             <div class="col-6 text-left mt-auto">
-                                <span id="component-{{ chemical.pk }}">{{ chemical.component|default:"" }}</span>
+                                {% if chemical.component %}
+                                    <span id="component-{{ chemical.pk }}">Component: {{ chemical.component|default:"" }}</span>
+                                {% endif %}
                             </div>
                             <div class="col-6 text-right">
                                 <small class="text-muted float-right font-italic">
