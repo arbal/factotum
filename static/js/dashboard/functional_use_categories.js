@@ -12,7 +12,7 @@ var gridOptions = {
         resizable: true,
         filter: true,
         wrapText: true,
-        autoHeight: false,
+        autoHeight: true,
         cellStyle: {'white-space': 'normal'},
     },
     columnDefs: columnDefs,
