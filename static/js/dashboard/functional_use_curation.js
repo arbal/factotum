@@ -1,8 +1,9 @@
 var rows = JSON.parse(document.getElementById('tabledata').textContent);
 
 var columnDefs = [
-    {headerName: "Title", field: "title"},
-    {headerName: "Description", field: "description"},
+    {headerName: "Reported Functional Use", field: "report_funcuse"},
+    {headerName: "Harmonized Category", field: "category__title"},
+    {headerName: "Count", field: "fu_count"},
 ];
 
 // let the grid know which columns and what data to use
@@ -11,18 +12,13 @@ var gridOptions = {
         sortable: true,
         resizable: true,
         filter: true,
-        wrapText: true,
-        autoHeight: false,
         cellStyle: {'white-space': 'normal'},
     },
     columnDefs: columnDefs,
     rowData: rows,
-    domLayout: 'autoHeight',
+    domLayout: 'normal',
     pagination: true,
     paginationPageSize: 50,
-    onColumnResized: function(params) {
-        params.api.resetRowHeights();
-    },
     onGridReady: function(params) {
         params.api.sizeColumnsToFit();
 
