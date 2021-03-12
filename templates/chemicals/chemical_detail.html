@@ -28,6 +28,19 @@
             </span>
             </h4>
         </div>
+        <div class="col-7 p-1">
+            <div class="btn-group float-md-right">
+                {% if is_co_chem %}
+                    <a class="btn btn-outline-secondary btn-sm hover-info"
+                       id="download_co_chemical"
+                       title="download products and weight fractions"
+                       data-toggle="tooltip"
+                       href="{% url 'download_composition_chemical' chemical.sid %}">
+                        <span class="fa fa-fs fa-download"></span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
     </div>
 
     {# Formulation PUCs    #}

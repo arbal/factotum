@@ -294,6 +294,11 @@ urlpatterns = [
     ),
     path("chemical/<str:sid>/", views.chemical_detail, name="chemical"),
     path(
+        "dl_composition_chemical/<str:sid>/",
+        views.download_composition_chemical,
+        name="download_composition_chemical",
+    ),
+    path(
         "chemical/<str:sid>/puc/<int:puc_id>/",
         views.chemical_detail,
         name="chemical_puc",
