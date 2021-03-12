@@ -62,7 +62,7 @@
     created_at: 2020-01-30 02:45:44.189085
     updated_at: 2020-01-30 02:45:44.189099
     chem: 6
-    category: 2
+    category: 1
     report_funcuse: swell
     clean_funcuse: ""
 - model: dashboard.functionaluse

@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 
 from .common_info import CommonInfo
 
@@ -44,12 +45,35 @@ class FunctionalUse(CommonInfo):
         blank=True,
     )
 
+    def validate_report_funcuse_category(self):
+        """Reported functional use strings may only be linked to one FunctionalUseCategory.
+        """
+
+        if (
+            FunctionalUse.objects.filter(report_funcuse=self.report_funcuse)
+            .exclude(
+                Q(pk=self.pk) | Q(category=self.category) | Q(category__isnull=True)
+            )
+            .exists()
+        ):
+            raise ValidationError(
+                {
+                    "report_funcuse": (
+                        "This reported functional use is already "
+                        "associated with a different Functional Use Category."
+                    )
+                }
+            )
+
     def __str__(self):
         return self.report_funcuse
 
     def clean(self):
         if self.report_funcuse == "" or self.report_funcuse is None:
             raise ValidationError({"report_funcuse": "Please delete if no value."})
+
+        if self.category:
+            self.validate_report_funcuse_category()
 
     @classmethod
     def auditlog_fields(cls):
