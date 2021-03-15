@@ -16,6 +16,7 @@ var gridOptions = {
     },
     columnDefs: columnDefs,
     rowData: rows,
+    rowHeight: 36,
     domLayout: 'normal',
     pagination: true,
     paginationPageSize: 50,

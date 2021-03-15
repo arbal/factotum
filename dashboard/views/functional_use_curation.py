@@ -10,8 +10,9 @@ from dashboard.models import FunctionalUse, FunctionalUseCategory
 def functional_use_curation(request):
     template_name = "functional_use_curation/functional_use_curation.html"
 
-    combinations = FunctionalUse.objects.values(
-        "report_funcuse", "category__title", 
-    ).annotate(fu_count=Count('id')).order_by("report_funcuse")
+    combinations = (
+        FunctionalUse.objects.values("report_funcuse", "category__title")
+        .annotate(fu_count=Count("id"))
+        .order_by("report_funcuse", "category__title")
+    )
     return render(request, template_name, {"combinations": list(combinations)})
-
