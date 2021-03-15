@@ -67,13 +67,13 @@
             <h4>Additional Statistics</h4>
             <dl class="row">
                 <dt class="col-6">Products</dt>
-                <dd class="col-6"><a href="#tables">{{ puc.product_count }}</a></dd>
+                <dd class="col-6"><a href="#tables" onclick="activateTable('#product-tab-header')">{{ puc.product_count }}</a></dd>
                 <dt class="col-6">Cumulative Products</dt>
                 <dd class="col-6">{{ puc.cumulative_product_count }}</dd>
-                <dt class="col-6">Curated Chemicals</dt>
-                <dd class="col-6"><a href="#tables">{{ puc.curated_chemical_count }}</a></dd>
                 <dt class="col-6">Documents</dt>
-                <dd class="col-6"><a href="#tables">{{ puc.document_count }}</a> </dd>
+                <dd class="col-6"><a href="#tables" onclick="activateTable('#document-tab-header')">{{ puc.document_count }}</a> </dd>
+                <dt class="col-6">Curated Chemicals</dt>
+                <dd class="col-6"><a href="#tables" onclick="activateTable('#chemical-tab-header')">{{ puc.curated_chemical_count }}</a></dd>
             </dl>
         </div>
         <div class="col-6" id="taxonomies">
