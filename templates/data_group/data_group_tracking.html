@@ -10,16 +10,42 @@
     <p class="alert-success" id="result-message"></p>
 
     <table class="table table-striped table-bordered dataTable no-footer table-sm" id="datagroups">
-        <thead class="table-primary">
-        <th>Data Source</th>
-        <th>Data Group</th>
-        <th>Group Type</th>
-        <th>Date Updated</th>
-        {% for step in curationsteps %}
-            <th>{{ step.name }}</th>
-        {% endfor %}
-        <th>Workflow Complete</th>
-        <th></th>
+        <thead>
+        <tr class="table-primary">
+            <th>Data Source</th>
+            <th>Data Group</th>
+            <th>Group Type</th>
+            <th>Date Updated</th>
+            {% for step in curationsteps %}
+                <th>{{ step.name }}</th>
+            {% endfor %}
+            <th>Workflow Complete</th>
+            <th></th>
+        </tr>
+        <tr>
+            <th><input type="text" aria-label="search data source" placeholder="Search Date Source"></th>
+            <th><input type="text" aria-label="search data group" placeholder="Search Date Group"></th>
+            <th><input type="text" aria-label="search group type" placeholder="Search Group Type"></th>
+            <th><input type="text" aria-label="search data updated" placeholder="Search Date Updated"></th>
+            {% for step in curationsteps %}
+                <th class="search-curation-step">
+                    <select name="step-status" aria-label="search {{ step.name }}">
+                        <option value="" selected>Search Status</option>
+                        <option value="incomplete">Incomplete</option>
+                        <option value="complete">Complete</option>
+                        <option value="n/a">N/A</option>
+                    </select>
+                </th>
+            {% endfor %}
+            <th class="search-curation-step">
+                <select name="step-status" aria-label="search workflow complete">
+                    <option value="" selected>Search Status</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
         {% for datagroup in datagroups %}
