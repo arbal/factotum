@@ -18,8 +18,8 @@
             <th>Data Source</th>
             <th>Data Group</th>
             <th>Group Type</th>
-            <th>Documents</th>
             <th>Date Updated</th>
+            <th>Documents</th>
             {% for step in curationsteps %}
                 <th>{{ step.name }}</th>
             {% endfor %}
@@ -30,8 +30,8 @@
             <th><input type="text" aria-label="search data source" placeholder="Search Data Source"></th>
             <th><input type="text" aria-label="search data group" placeholder="Search Data Group"></th>
             <th><input type="text" aria-label="search group type" placeholder="Search Group Type"></th>
-            <th>&nbsp;</th>
             <th><input type="text" aria-label="search data updated" placeholder="Search Date Updated"></th>
+            <th>&nbsp;</th>
             {% for step in curationsteps %}
                 <th class="search-curation-step">
                     <select name="step-status" aria-label="search {{ step.name }}">
@@ -62,10 +62,10 @@
                     </a>
                 </td>
                 <td>{{ datagroup.group_type.title }} </td>
-                <td>{{ datagroup.registered_docs }}</td>
                 <td data-order="{{ datagroup.updated_at|date:"c" }}">
                     {{ datagroup.updated_at|date:"M d, Y" }}
                 </td>
+                <td>{{ datagroup.registered_docs }}</td>
                 {% for step in curationsteps %}
                     <td>
                         {% with datagroup|get_current_step_status:step.id as current_status %}
