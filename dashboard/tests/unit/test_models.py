@@ -355,7 +355,7 @@ class ModelTestWithFixtures(TestCase):
         )
 
     def test_funcuse_fields(self):
-        fields = ["chem", "category", "report_funcuse", "clean_funcuse"]
+        fields = ["chem", "category", "report_funcuse"]
         model_fields = [f.name for f in FunctionalUse._meta.get_fields()]
         for fld in fields:
             self.assertIn(
@@ -366,22 +366,19 @@ class ModelTestWithFixtures(TestCase):
         # read
         fc = FunctionalUse.objects.filter(pk=1).first()
         self.assertEquals(fc.report_funcuse, "swell")
-        self.assertEquals(fc.clean_funcuse, "clean")
         self.assertIsNotNone(fc.category)
         self.assertEquals(1, fc.category.id)
 
         # update
         fc.report_funcuse = "report use"
-        fc.clean_funcuse = "clean use"
         fc.category = FunctionalUseCategory(id=2)
         fc.save()
         fc = FunctionalUse.objects.filter(pk=1).first()
         self.assertEquals(fc.report_funcuse, "report use")
-        self.assertEquals(fc.clean_funcuse, "clean use")
         self.assertEquals(2, fc.category.id)
 
     def test_functionaluse_validation(self):
-        funcuse = FunctionalUse(report_funcuse="", clean_funcuse="")
+        funcuse = FunctionalUse(report_funcuse="")
         self.assertRaises(ValidationError, funcuse.clean_fields)
 
     def test_functionalusecatetory_crud(self):

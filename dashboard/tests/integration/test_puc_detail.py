@@ -1,3 +1,5 @@
+from selenium.webdriver import ActionChains
+
 from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from dashboard.models import PUC
@@ -73,5 +75,47 @@ class TestPUCProductAndDocumentTables(StaticLiveServerTestCase):
         wait.until(
             ec.text_to_be_present_in_element(
                 (By.XPATH, "//*[@id='chemicals']/tbody/tr/td[1]/a"), "DTXSID9022528"
+            )
+        )
+
+    def test_additional_statistics_links_open_appropriate_table(self):
+        puc = PUC.objects.get(pk=185)
+        wait = WebDriverWait(self.browser, 10)
+        actions = ActionChains(self.browser)
+
+        self.browser.get(self.live_server_url + puc.get_absolute_url())
+
+        # Data Documents
+        doc_btn = self.browser.find_element_by_xpath(
+            "//div[@id='puc_stats']//a[@onclick=\"activateTable('#document-tab-header')\"]"
+        )
+        actions.move_to_element(doc_btn).click().perform()
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='documents']/tbody/tr[1]/td[1]/a"),
+                "body butter (PLP) Recertification",
+            )
+        )
+
+        # Chemicals
+        chem_btn = self.browser.find_element_by_xpath(
+            "//div[@id='puc_stats']//a[@onclick=\"activateTable('#chemical-tab-header')\"]"
+        )
+        actions.move_to_element(chem_btn).click().perform()
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='chemicals']/tbody/tr/td[1]/a"), "DTXSID9022528"
+            )
+        )
+
+        # Products
+        prod_btn = self.browser.find_element_by_xpath(
+            "//div[@id='puc_stats']//a[@onclick=\"activateTable('#product-tab-header')\"]"
+        )
+        actions.move_to_element(prod_btn).click().perform()
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='products']/tbody/tr[3]/td[1]/a"),
+                "Rose Whipped Body Lotion",
             )
         )
