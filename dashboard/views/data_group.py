@@ -529,7 +529,7 @@ def data_group_tracking(request, template_name="data_group/data_group_tracking.h
     datagroups = (
         DataGroup.objects.all()
         .select_related("data_source", "group_type")
-        .prefetch_related("curation_steps","datadocument_set")
+        .prefetch_related("curation_steps", "datadocument_set")
         .order_by("name")
     )
     curationsteps = CurationStep.objects.all().values("name", "id")

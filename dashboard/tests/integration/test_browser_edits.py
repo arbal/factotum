@@ -526,7 +526,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         count_cell = self.browser.find_element_by_xpath(
             '//*[@id="datagroups"]/tbody/tr[1]/td[5]'
         )
-        self.assertIn(f"{datagroup.registered_docs()}" , count_cell.text)
+        self.assertIn(f"{datagroup.registered_docs()}", count_cell.text)
 
         # Iterate through the qa stages
         col_index = 6
