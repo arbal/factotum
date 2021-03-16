@@ -524,7 +524,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         )
         self.assertIn(datagroup.group_type.title, type_cell.text)
         count_cell = self.browser.find_element_by_xpath(
-            '//*[@id="datagroups"]/tbody/tr[1]/td[4]'
+            '//*[@id="datagroups"]/tbody/tr[1]/td[5]'
         )
         self.assertIn(f"{datagroup.registered_docs()}" , count_cell.text)
 
