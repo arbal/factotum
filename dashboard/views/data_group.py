@@ -113,9 +113,6 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
                 for x in dg.get_product_template_fieldnames()
             ]
         ),
-        "functional_use_data_fieldnames": ", ".join(
-            [x for x in dg.get_clean_functional_use_data_fieldnames()]
-        ),
         "uploaddocs_form": None,
         "extfile_formset": None,
         "cleancomp_formset": None,
@@ -209,28 +206,7 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
             return redirect("data_group_detail", dg.pk)
         context["product_formset"] = ProductBulkCSVFormSet()
 
-    if dg.include_functional_use_upload_form():
-        if "functional-uses-submit" in request.POST:
-            functional_use_formset = FunctionalUseBulkCSVFormSet(
-                dg, request.POST, request.FILES
-            )
-            if functional_use_formset.is_valid():
-                num_saved, reports = functional_use_formset.save()
-                messages.success(
-                    request, f"{num_saved} records have been successfully updated."
-                )
-                for report in reports:
-                    messages.warning(request, report)
-            else:
-                errors = gather_errors(functional_use_formset)
-                for e in errors:
-                    messages.error(request, e)
-            return redirect("data_group_detail", dg.pk)
-        else:
-            context["functional_use_formset"] = FunctionalUseBulkCSVFormSet(dg)
-
-    # This render line must happen after all conditional blocks
-    # have been evaluated
+    # This render line must happen after all conditional blocks have been evaluated
     return render(request, template_name, context)
 
 
@@ -533,13 +509,7 @@ def get_product_csv_template(request, pk):
 @login_required
 def download_raw_functional_use_records(request, pk):
     datagroup = DataGroup.objects.get(pk=pk)
-    columnlist = [
-        "id",
-        "report_funcuse",
-        "extraction_script__title",
-        "category__title",
-        "clean_funcuse",
-    ]
+    columnlist = ["id", "report_funcuse", "extraction_script__title", "category__title"]
     qs = FunctionalUse.objects.filter(
         chem__extracted_text__data_document__data_group=datagroup
     ).values(*columnlist)

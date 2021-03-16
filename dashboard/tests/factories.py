@@ -223,8 +223,6 @@ class FunctionalUseFactory(factory.django.DjangoModelFactory):
 
     category = factory.SubFactory(FunctionalUseCategoryFactory)
     report_funcuse = factory.Faker("word")
-    clean_funcuse = factory.Faker("word")
-    # extraction_script = factory.SubFactory(ScriptFactory)
 
 
 class RawChemFactory(factory.django.DjangoModelFactory):

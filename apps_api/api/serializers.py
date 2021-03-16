@@ -730,7 +730,6 @@ class FunctionalUseSerializer(ModelSerializer):
             "category",
             "dataDocument",
             "report_funcuse",
-            "clean_funcuse",
             "url",
         ]
         extra_kwargs = {

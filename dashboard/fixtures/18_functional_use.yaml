@@ -28,7 +28,6 @@
     chem: 4
     category: 1
     report_funcuse: swell
-    clean_funcuse: clean
 - model: dashboard.functionaluse
   pk: 2
   fields:
@@ -37,7 +36,6 @@
     chem: 856
     category: 2
     report_funcuse: kayaking
-    clean_funcuse: "test clean"
 - model: dashboard.functionaluse
   pk: 3
   fields:
@@ -46,7 +44,6 @@
     chem: 2
     category: 3
     report_funcuse: tubing
-    clean_funcuse: ""
 - model: dashboard.functionaluse
   pk: 4
   fields:
@@ -55,7 +52,6 @@
     chem: 3
     category: 1
     report_funcuse: cleaning
-    clean_funcuse: ""
 - model: dashboard.functionaluse
   pk: 5
   fields:
@@ -64,7 +60,6 @@
     chem: 6
     category: 1
     report_funcuse: swell
-    clean_funcuse: ""
 - model: dashboard.functionaluse
   pk: 6
   fields:
@@ -73,7 +68,6 @@
     chem: 5
     category: 3
     report_funcuse: surfactant
-    clean_funcuse: ""
 - model: dashboard.functionaluse
   pk: 7
   fields:
@@ -81,7 +75,6 @@
     updated_at: 2020-01-30 02:45:44.190748
     chem: 756
     report_funcuse: surfactant
-    clean_funcuse: "slick"
 - model: dashboard.functionaluse
   pk: 8
   fields:
@@ -89,7 +82,6 @@
     updated_at: 2020-01-30 02:45:44.191449
     chem: 757
     report_funcuse: fragrance
-    clean_funcuse: "smell"
 - model: dashboard.functionaluse
   pk: 16
   fields:
@@ -104,7 +96,6 @@
     updated_at: 2020-01-30 02:45:44.192023
     chem: 851
     report_funcuse: tag testing
-    clean_funcuse: ""
 - model: dashboard.functionaluse
   pk: 10
   fields:
@@ -112,7 +103,6 @@
     updated_at: 2020-01-30 02:45:44.192551
     chem: 852
     report_funcuse: "#tagged4life"
-    clean_funcuse: ""
 - model: dashboard.functionaluse
   pk: 11
   fields:
@@ -120,7 +110,6 @@
     updated_at: 2020-01-30 02:45:44.193085
     chem: 853
     report_funcuse: spiritual enlightenment
-    clean_funcuse: ""
 - model: dashboard.functionaluse
   pk: 12
   fields:
@@ -128,7 +117,6 @@
     updated_at: 2020-01-30 02:45:44.193532
     chem: 854
     report_funcuse: surfactaint
-    clean_funcuse: ""
 - model: dashboard.functionaluse
   pk: 13
   fields:

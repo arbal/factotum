@@ -30,12 +30,8 @@ class FunctionalUse(CommonInfo):
     category = models.ForeignKey(
         "FunctionalUseCategory", on_delete=models.SET_NULL, null=True, blank=True
     )
-
     report_funcuse = models.CharField(
         "Reported functional use", max_length=255, null=False, blank=True
-    )
-    clean_funcuse = models.CharField(
-        "Cleaned functional use", max_length=255, null=False, blank=True
     )
     extraction_script = models.ForeignKey(
         "Script",
@@ -77,4 +73,4 @@ class FunctionalUse(CommonInfo):
 
     @classmethod
     def auditlog_fields(cls):
-        return ["report_funcuse", "clean_funcuse"]
+        return ["report_funcuse"]
