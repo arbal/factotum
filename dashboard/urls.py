@@ -156,6 +156,11 @@ urlpatterns = [
         name="category_assignment",
     ),
     path(
+        "functional_use_curation/",
+        views.functional_use_curation,
+        name="functional_use_curation",
+    ),
+    path(
         "link_product_list/<int:pk>/", views.link_product_list, name="link_product_list"
     ),
     path(
