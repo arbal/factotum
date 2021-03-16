@@ -161,7 +161,7 @@ class DocumentTypeAdmin(admin.ModelAdmin):
 
 
 class FunctionalUseAdmin(admin.ModelAdmin):
-    list_display = ("chem","report_funcuse","category")
+    list_display = ("chem", "report_funcuse", "category")
     list_filter = ("report_funcuse",)
 
 
