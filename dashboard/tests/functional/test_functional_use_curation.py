@@ -30,7 +30,6 @@ class TestFunctionalUseCuration(TestCase):
         # the second one is the curated record
         surfactants = []
         for li in combinations:
-            print(li)
             if li["report_funcuse"] == "surfactant":
                 if li["category__title"] == None:
                     self.assertEqual(li["fu_count"], 1)
