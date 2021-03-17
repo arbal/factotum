@@ -77,6 +77,7 @@ class DataDocument(CommonInfo):
         "DataGroup",
         on_delete=models.CASCADE,
         verbose_name="data group",
+        # related_name="datadocument_set",
         help_text="the DataGroup object to which the document belongs. The type of the data group determines which document types the document might be among, and determines much of the available relationships and behavior associated with the document's extracted data",
     )
     products = models.ManyToManyField(
