@@ -12,7 +12,6 @@ from dashboard.models import (
     PUCKind,
     RawChem,
     DuplicateChemicals,
-    CumulativeProductsPerPucAndSid,
     ProductToPucClassificationMethod,
     ExtractedComposition,
 )
@@ -25,16 +24,11 @@ def chemical_detail(request, sid, puc_id=None):
     group_types = chemical.get_unique_datadocument_group_types_for_dropdown()
     puc_kinds = PUCKind.objects.all()
     classification_methods = ProductToPucClassificationMethod.objects.all()
-    dss_pk = chemical.pk
     is_co_chem = group_types.filter(code="CO").count() > 0
 
-    qs = CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup_id=dss_pk)
-
-    formulation_pucs = qs.filter(puc__kind__code="FO").select_related("puc").astree()
-
-    article_pucs = qs.filter(puc__kind__code="AR").select_related("puc").astree()
-
-    occupation_pucs = qs.filter(puc__kind__code="OC").select_related("puc").astree()
+    formulation_pucs = chemical.get_cumulative_puc_products_tree("FO")
+    article_pucs = chemical.get_cumulative_puc_products_tree("AR")
+    occupation_pucs = chemical.get_cumulative_puc_products_tree("OC")
 
     context = {
         "chemical": chemical,

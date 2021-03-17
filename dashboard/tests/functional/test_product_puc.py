@@ -92,7 +92,7 @@ class TestProductPuc(TestCase):
                 )
                 self.assertEqual(
                     child["value"]["cumulative_product_count"],
-                    str(dbview_rec.cumulative_product_count),
+                    dbview_rec.cumulative_product_count,
                 )
 
     def test_admin_puc_tag_column_exists(self):
