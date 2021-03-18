@@ -200,6 +200,35 @@ class TestChemicalDetail(StaticLiveServerTestCase):
             self.browser.find_element_by_xpath("//*[@id='products_info']").text,
         )
 
+    def test_filter_by_classification_method(self):
+        """
+        All the Products with the Chemical
+        should be returned via ajax calls and included in the tables
+
+        For the purpose of this test, the SID coresponds to Water
+        """
+        chemical = DSSToxLookup.objects.get(sid="DTXSID9022528")
+        wait = WebDriverWait(self.browser, 10)
+        self.browser.get(self.live_server_url + chemical.get_absolute_url())
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='classification_methods_dropdown']"), "All"
+            )
+        )
+        input_el = self.browser.find_element_by_xpath(
+            "//*[@id='classification_methods_dropdown']"
+        )
+        input_el.send_keys("Manual\n")
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='classification_methods_dropdown']"), "Manual"
+            )
+        )
+        self.assertInHTML(
+            "Showing 1 to 2 of 2 entries (filtered from 4 total products)",
+            self.browser.find_element_by_xpath("//*[@id='products_info']").text,
+        )
+
     def test_product_table_sort(self):
         chemical = DSSToxLookup.objects.get(sid="DTXSID9022528")
         wait = WebDriverWait(self.browser, 10)

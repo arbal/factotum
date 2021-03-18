@@ -167,9 +167,6 @@ class DataGroup(CommonInfo, QASummaryNote):
     def get_clean_comp_data_fieldnames(self):
         return ["id", "lower_wf_analysis", "central_wf_analysis", "upper_wf_analysis"]
 
-    def get_clean_functional_use_data_fieldnames(self):
-        return ["id", "category_title", "clean_funcuse"]
-
     def get_product_template_fieldnames(self):
         product_fields = [
             "title",

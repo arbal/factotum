@@ -5,6 +5,7 @@ from .data_document import *
 from .product_curation import *
 from .qa import *
 from .extraction_script import *
+from .functional_use_curation import *
 from .puc_autocomplete import *
 from .ajax import *
 from .bulk_documents import *

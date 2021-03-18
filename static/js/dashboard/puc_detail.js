@@ -90,3 +90,7 @@ $(document).ready(function () {
     });
     $("#product-tab-header").click()
 });
+
+function activateTable(tableID) {
+    $(tableID).click()
+}

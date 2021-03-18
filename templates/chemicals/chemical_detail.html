@@ -28,6 +28,19 @@
             </span>
             </h4>
         </div>
+        <div class="col-7 p-1">
+            <div class="btn-group float-md-right">
+                {% if is_co_chem %}
+                    <a class="btn btn-outline-secondary btn-sm hover-info"
+                       id="download_co_chemical"
+                       title="download products and weight fractions"
+                       data-toggle="tooltip"
+                       href="{% url 'download_composition_chemical' chemical.sid %}">
+                        <span class="fa fa-fs fa-download"></span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
     </div>
 
     {# Formulation PUCs    #}
@@ -200,6 +213,7 @@
                     <th>Associated Document</th>
                     <th>PUC</th>
                     <th>PUC Kind</th>
+                    <th>Classification Method</th>
                 </tr>
                 </thead>
                 <tbody></tbody>
@@ -211,7 +225,7 @@
                     <th></th>
                     <th class="m-0 p-0">
                         {% if puc_kinds|length > 1 %}
-                            <div class="form-group m-0">
+                            <div class="form-group ml-1">
                                 <select class="form-control"
                                         id="puc_kinds_dropdown"
                                         title="Filter by PUC Kind"
@@ -233,6 +247,24 @@
                         {% else %}
                             All 1 GroupType
                         {% endif %}
+                    </th>
+                    <th class="m-0 p-0">
+                        <div class="form-group ml-1">
+                            <select class="form-control"
+                                    id="classification_methods_dropdown"
+                                    title="Filter by Classification Method"
+                                    data-placement="left"
+                                    autocomplete="off">
+                                <option value="all" selected>
+                                    All
+                                </option>
+                                {% for cm in classification_methods %}
+                                    <option value="{{ cm.code }}">
+                                        {{ cm.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </th>
                 </tr>
                 </tfoot>

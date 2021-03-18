@@ -9,6 +9,7 @@ from .product import Product
 from .extracted_list_presence import ExtractedListPresence
 from .data_document import DataDocument
 from .group_type import GroupType
+from ..utils import SimpleTree
 
 
 def validate_prefix(value):
@@ -93,6 +94,91 @@ class DSSToxLookup(CommonInfo):
         )
 
         return cpucs.count()
+
+    def get_cumulative_puc_products_tree(self, kind=None, data_format=None):
+        from dashboard.models import ProductsPerPucAndSid
+
+        if kind is not None:
+            product_count_query = f"""
+                select ptp.puc_id, COUNT(ptp.product_id) AS product_count 
+                from dashboard_producttopuc ptp 
+                join dashboard_productdocument doc on ptp.product_id = doc.product_id 
+                join dashboard_rawchem chem on doc.document_id = chem.extracted_text_id 
+                join dashboard_puc puc on ptp.puc_id = puc.id
+                join dashboard_puckind pk on pk.id = puc.kind_id
+                where ptp.is_uber_puc = true and chem.dsstox_id = {self.id} and pk.code = '{kind}'
+                group by ptp.puc_id 
+            """
+        else:
+            product_count_query = f"""
+                select ptp.puc_id, COUNT(ptp.product_id) AS product_count
+                from dashboard_producttopuc ptp
+                join dashboard_productdocument doc on ptp.product_id = doc.product_id
+                join dashboard_rawchem chem on doc.document_id = chem.extracted_text_id
+                where ptp.is_uber_puc = true and chem.dsstox_id = {self.id}
+                group by ptp.puc_id
+            """
+
+        raw_query = f"""
+        SELECT cumulative_union.*, puc.id, puc.gen_cat, puc.prod_fam, puc.prod_type,
+            COALESCE(pcq.product_count,0) as product_count
+        FROM (
+            -- gen cat
+            SELECT gencat_id.puc_id, gencat_id.kind_id, 1 as puc_level,
+                    sum(pcq.product_count) as cumulative_product_count
+            FROM dashboard_puc puc
+            JOIN ({product_count_query}) pcq ON pcq.puc_id = puc.id
+            JOIN (
+                select kind_id, gen_cat, id as puc_id 
+                from dashboard_puc where prod_fam = '' and prod_type = '' 
+            ) gencat_id ON gencat_id.gen_cat = puc.gen_cat AND gencat_id.kind_id = puc.kind_id
+            GROUP BY gencat_id.kind_id, gencat_id.gen_cat, gencat_id.puc_id
+        UNION
+            -- prod fam
+            SELECT prodfam_id.puc_id, prodfam_id.kind_id, 2 as puc_level,
+                   sum(pcq.product_count) as cumulative_product_count
+            FROM dashboard_puc puc
+            JOIN ( {product_count_query} ) pcq ON pcq.puc_id = puc.id
+            JOIN (
+                select kind_id, gen_cat, prod_fam, id as puc_id 
+                from dashboard_puc where prod_fam <> '' and prod_type = '' 
+            ) prodfam_id ON prodfam_id.gen_cat = puc.gen_cat 
+                        AND prodfam_id.kind_id = puc.kind_id 
+                        AND prodfam_id.prod_fam = puc.prod_fam
+            WHERE puc.prod_fam <> ''
+            GROUP BY  prodfam_id.puc_id, prodfam_id.kind_id, prodfam_id.gen_cat, prodfam_id.prod_fam
+        UNION
+            -- prod_type
+            SELECT puc_id, kind_id, 3 as puc_level, pcq.product_count as cumulative_product_count
+            FROM dashboard_puc puc
+            JOIN ({product_count_query}) pcq  ON pcq.puc_id = puc.id
+            WHERE puc.prod_type <> ''
+        ) cumulative_union
+        LEFT JOIN ({product_count_query}) pcq ON pcq.puc_id = cumulative_union.puc_id
+        JOIN dashboard_puc puc ON puc.id = cumulative_union.puc_id
+        ORDER BY puc.gen_cat, puc.prod_fam, puc.prod_type
+        """
+
+        raw_qs = ProductsPerPucAndSid.objects.raw(raw_query)
+        tree = SimpleTree()
+        for p in raw_qs:
+            names = tuple(n for n in (p.gen_cat, p.prod_fam, p.prod_type) if n)
+            # turn data into dictionary
+            if data_format == "dict":
+                data = {
+                    "puc_id": p.puc_id,
+                    "kind_id": p.kind_id,
+                    "puc_level": p.puc_level,
+                    "gen_cat": p.gen_cat,
+                    "prod_fam": p.prod_fam,
+                    "prod_type": p.prod_type,
+                    "product_count": p.product_count,
+                    "cumulative_product_count": int(p.cumulative_product_count),
+                }
+                tree[names] = data
+            else:
+                tree[names] = p
+        return tree
 
     def get_unique_datadocument_group_types_for_dropdown(self):
         docs = DataDocument.objects.from_chemical(self)

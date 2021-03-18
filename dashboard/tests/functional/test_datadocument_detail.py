@@ -619,7 +619,7 @@ class TestDynamicDetailFormsets(TestCase):
         component_text = response_html.xpath(
             f'//*[@id="component-{rawchem.id}"]/text()'
         ).pop()
-        self.assertEqual(component, component_text)
+        self.assertEqual("Component: " + component, component_text)
 
     def test_chemical_ordering(self):
         data_document = DataDocument.objects.get(pk=170415)

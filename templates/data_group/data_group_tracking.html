@@ -2,6 +2,9 @@
 {% load staticfiles %}
 {% block title %}Data Group Tracking{% endblock %}
 {% block content %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/dashboard/full_width_container.css' %}">
+{% endblock %}
 
     <h1>
         <span>Data Group Tracking</span>
@@ -10,16 +13,44 @@
     <p class="alert-success" id="result-message"></p>
 
     <table class="table table-striped table-bordered dataTable no-footer table-sm" id="datagroups">
-        <thead class="table-primary">
-        <th>Data Source</th>
-        <th>Data Group</th>
-        <th>Group Type</th>
-        <th>Date Updated</th>
-        {% for step in curationsteps %}
-            <th>{{ step.name }}</th>
-        {% endfor %}
-        <th>Workflow Complete</th>
-        <th></th>
+        <thead>
+        <tr class="table-primary">
+            <th>Data Source</th>
+            <th>Data Group</th>
+            <th>Group Type</th>
+            <th>Date Updated</th>
+            <th>Documents</th>
+            {% for step in curationsteps %}
+                <th>{{ step.name }}</th>
+            {% endfor %}
+            <th>Workflow Complete</th>
+            <th></th>
+        </tr>
+        <tr>
+            <th><input type="text" aria-label="search data source" placeholder="Search Data Source"></th>
+            <th><input type="text" aria-label="search data group" placeholder="Search Data Group"></th>
+            <th><input type="text" aria-label="search group type" placeholder="Search Group Type"></th>
+            <th><input type="text" aria-label="search data updated" placeholder="Search Date Updated"></th>
+            <th>&nbsp;</th>
+            {% for step in curationsteps %}
+                <th class="search-curation-step">
+                    <select name="step-status" aria-label="search {{ step.name }}">
+                        <option value="" selected>Search Status</option>
+                        <option value="incomplete">Incomplete</option>
+                        <option value="complete">Complete</option>
+                        <option value="n/a">N/A</option>
+                    </select>
+                </th>
+            {% endfor %}
+            <th class="search-curation-step">
+                <select name="step-status" aria-label="search workflow complete">
+                    <option value="" selected>Search Status</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
         {% for datagroup in datagroups %}
@@ -34,6 +65,7 @@
                 <td data-order="{{ datagroup.updated_at|date:"c" }}">
                     {{ datagroup.updated_at|date:"M d, Y" }}
                 </td>
+                <td>{{ datagroup.registered_docs }}</td>
                 {% for step in curationsteps %}
                     <td>
                         {% with datagroup|get_current_step_status:step.id as current_status %}

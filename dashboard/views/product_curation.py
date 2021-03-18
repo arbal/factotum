@@ -1,3 +1,4 @@
+from django.apps import apps
 from django.http import HttpResponseRedirect
 from django.utils import safestring
 from django.contrib import messages
@@ -5,6 +6,8 @@ from django.shortcuts import redirect
 from django.db.models import Count, Q, Max
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django_datatables_view.base_datatable_view import BaseDatatableView
+
 from dashboard.models import (
     DataSource,
     Product,
@@ -162,21 +165,27 @@ def detach_puc_from_product(request, pk):
 @login_required()
 def bulk_assign_tag_to_products(request):
     template_name = "product_curation/bulk_product_tag.html"
-    products = {}
+    has_products = False
     msg = ""
     puc_form = BulkPUCForm(request.POST or None)
+    table_url = (
+        reverse("bulk_product_tag_table", args=[puc_form["puc"].value()])
+        if puc_form["puc"].value()
+        else ""
+    )
     form = BulkProductTagForm()
     if puc_form["puc"].value():
+        # Build taglist for dropdown.
         puc = PUC.objects.get(pk=puc_form["puc"].value())
         assumed_tags = puc.get_assumed_tags()
         puc2tags = PUCToTag.objects.filter(
             content_object=puc, assumed=False
         ).values_list("tag", flat=True)
         form.fields["tag"].queryset = PUCTag.objects.filter(id__in=puc2tags)
-        prod2pucs = ProductToPUC.objects.filter(puc=puc).values_list(
-            "product_id", flat=True
-        )
-        products = Product.objects.filter(id__in=prod2pucs)
+        # Determine if any products matching criteria exist.
+        has_products = Product.objects.filter(
+            producttopuc__puc=puc_form["puc"].value(), producttopuc__is_uber_puc=True
+        ).exists()
     if request.method == "POST" and "save" in request.POST:
         form = BulkProductTagForm(request.POST or None)
         form.fields["tag"].queryset = PUCTag.objects.filter(id__in=puc2tags)
@@ -200,12 +209,55 @@ def bulk_assign_tag_to_products(request):
                     " Along with the assumed tags: "
                     f'{" | ".join(x.name for x in assumed_tags)}'
                 )
-            products = {}
+            has_products = False
     return render(
         request,
         template_name,
-        {"products": products, "puc_form": puc_form, "form": form, "msg": msg},
+        {
+            "has_products": has_products,
+            "table_url": table_url,
+            "puc_form": puc_form,
+            "form": form,
+            "msg": msg,
+        },
     )
+
+
+class ProductTableByPUC(BaseDatatableView):
+    """Table showing all Products associated with a specific PUC.
+    """
+
+    columns = ["checkbox", "title", "brand_name", "get_tag_list", "pk"]
+
+    model = apps.get_model("dashboard", "Product")
+
+    def get_filter_method(self):
+        """ Returns preferred filter method """
+        return self.FILTER_ICONTAINS
+
+    def render_column(self, row, column):
+        if column == "checkbox":
+            return ""
+        elif column == "title":
+            return f"<a href='{ reverse('product_detail', args=[row.id]) }' target='_blank'>{ row.title }</a>"
+        elif column == "get_tag_list":
+            return row.get_tag_list()
+        elif column == "pk":
+            return row.pk
+        return super().render_column(row, column)
+
+    def get_initial_queryset(self):
+        """Returns the initial queryset.
+
+        Set of products that match the provided puc_pk as their uberPUC
+
+        :return: QuerySet of all valid Product rows
+        """
+        qs = self.model.objects.filter(
+            producttopuc__puc=self.kwargs.get("puc_pk"), producttopuc__is_uber_puc=True
+        ).all()
+
+        return qs
 
 
 @login_required()

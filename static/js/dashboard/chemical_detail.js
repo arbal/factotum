@@ -80,11 +80,14 @@ $(document).ready(function () {
         document_table.ajax.url(get_documents_url() + '&group_type=' + group_type).load(moveText);
         $('#reset-documents').prop('disabled', false);
     });
-    $('#puc_kinds_dropdown').on('change', e => {
-        var puc_kind = $(e.currentTarget).children("option:selected").val();
-        product_table.ajax.url(get_products_url() + '&puc_kind=' + puc_kind).load(moveText);
+    $('#puc_kinds_dropdown').on('change', filterProductTable);
+    $('#classification_methods_dropdown').on('change', filterProductTable);
+    function filterProductTable() {
+        var puc_kind = $('#puc_kinds_dropdown').val();
+        var cm = $('#classification_methods_dropdown').val();
+        product_table.ajax.url(get_products_url() + '&puc_kind=' + puc_kind + '&cm=' + cm).load(moveText);
         $('#reset-products').prop('disabled', false);
-    });
+    }
     $('#reset-documents').on('click', function (e) {
         chemical.data('puc', '');
         chemical.data('pid', '');
@@ -101,6 +104,8 @@ $(document).ready(function () {
     $('#reset-products').on('click', function (e) {
         chemical.data('puc', '');
         chemical.data('pid', '');
+        $('#puc_kinds_dropdown').val('all');
+        $('#classification_methods_dropdown').val('all');
         product_table.ajax.url(get_products_url()).load(moveText);
         $(this).prop('disabled', true);
         // if both document and product are not filtered, remove puc filter indicator
@@ -205,23 +210,29 @@ function build_product_table() {
                 orderable: true,
                 searchable: true,
                 className: "text-center",
-                width: "30%"
+                width: "25%"
             },
             {
                 data: 2,
                 orderable: true,
                 searchable: true,
                 className: "text-center",
-                width: "30%"
+                width: "25%"
             },
             {
                 data: 3,
                 orderable: true,
                 searchable: true,
                 className: "text-center",
-                width: "30%"
+                width: "16%"
+            },
+            {
+                data: 4,
+                orderable: true,
+                searchable: true,
+                className: "text-center",
+                width: "16%"
             }
-
         ],
         dom: "<'row'<'col-6 form-inline'l><'col-6 form-inline'f>>" +
             "<'row'<'col-12 p-0'tr>>" +

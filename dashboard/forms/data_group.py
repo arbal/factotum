@@ -501,7 +501,7 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
                     "report_funcuse",
                     forms.ValidationError(
                         "No more than one functional use is acceptable."
-                        f" Reported uses: { [str(u) for u in uses] }"
+                        f" Reported uses: {[str(u) for u in uses]}"
                     ),
                 )
             # Store in dictionary
@@ -782,16 +782,14 @@ class FunctionalUseCSVForm(forms.Form):
     # not carry the id field
     id = forms.IntegerField(required=True)
     category_title = forms.CharField(required=True)
-    clean_funcuse = field_for_model(FunctionalUse, "clean_funcuse")
 
     class Meta:
-        fields = ["id", "category_title", "clean_funcuse"]
+        fields = ["id", "category_title"]
 
 
 class FunctionalUseBulkCSVFormSet(DGFormSet):
     """
-    Assigns extraction_script, category, and clean_funcuse to 
-    exsting functional use records
+    Assigns extraction_script and category to existing functional use records
     """
 
     prefix = "functional_uses"
@@ -808,7 +806,7 @@ class FunctionalUseBulkCSVFormSet(DGFormSet):
 
     def clean(self, *args, **kwargs):
         header = list(self.bulk.fieldnames)
-        header_cols = ["id", "category_title", "clean_funcuse"]
+        header_cols = ["id", "category_title"]
         if header != header_cols:
             raise forms.ValidationError(f"CSV column titles should be {header_cols}")
 

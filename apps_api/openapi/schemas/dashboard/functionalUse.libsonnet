@@ -13,11 +13,6 @@
       allowEmptyValue: true,
       description: "The reported functional use",
     },
-    clean_funcuse: {
-      type: 'string',
-      allowEmptyValue: true,
-      description: 'The cleaned functional use',
-    },
   },
   relationships: [
     {

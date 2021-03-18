@@ -34,29 +34,15 @@
     {% csrf_token %}
     <p>{{ puc_form.puc.label_tag }} {{ puc_form.puc }}</p>
 
-    {% if products %}
-    <p>{{ form.tag.label_tag }} {{ form.tag }} <small><i>assumed Tags will not be listed, but <b>will</b> be assigned.</i></small></p>
+    {% if has_products %}
+    <div class="mb-4">
+      <span>{{ form.tag.label_tag }} {{ form.tag }} <small><i>assumed Tags will not be listed, but <b>will</b> be assigned.</i></small></span>
+    </div>
 
-    <table class="table table-striped table-bordered dataTable no-footer table-sm" id="products">
+    <table class="table table-striped table-bordered dataTable no-footer table-sm" id="products" style="width:100%">
       <thead class="table-primary">
-          <tr>
-              <th></th>
-              <th>Product Title</th>
-              <th>Brand Name</th>
-              <th>Current Attributes</th>
-              <th>pk</th>
-          </tr>
       </thead>
       <tbody>
-      {% for product in products %}
-        <tr>
-            <td></td>
-            <td><a href="{% url "product_detail" product.id %}" target="_blank"> {{ product.title }}</a></td>
-            <td>{{ product.brand_name }}</td>
-            <td>{{ product.get_tag_list }}</td>
-            <td>{{ product.pk }}</td>
-        </tr>
-      {% endfor %}
       </tbody>
     </table>
     <br><br>
@@ -71,22 +57,35 @@
 {% endblock %}
 
 {% block js %}
+    {{ table_url|json_script:"table-url" }}
     <script type="text/javascript">
     $(document).ready(function () {
+        let tableURL = JSON.parse(document.getElementById('table-url').textContent);
         let product_table = $('#products').DataTable({
-            "bPaginate":false,
-            "bFilter": false,
+            aLengthMenu: [
+                [25, 50, 100, 200, -1],
+                [25, 50, 100, 200, "All"]
+            ],
+            iDisplayLength: 100,
+            serverSide: true,
+            ajax: tableURL,
+            processing: true,
+            language: {
+              loadingRecords: '&nbsp;',
+              processing: '<div class="spinner-border text-primary mr-3"></div><span>Loading...</span>',
+            },
             columnDefs: [
                 {
-                orderable: false,
-                className: 'select-checkbox',
-                targets: 0,
-                width: '3%'
-            },
-                { width: '30%', targets: 1 },
-                { width: '30%', targets: 2 },
-                { width: '35%', targets: 3 },
-                {className: 'hide_column', targets:4}
+                    orderable: false,
+                    searchable: false,
+                    className: 'select-checkbox',
+                    targets: 0,
+                    width: '3%'
+                },
+                { title: 'Product Title', searchable: true, width: '30%', targets: 1 },
+                { title: 'Brand Name', searchable: false, width: '30%', targets: 2 },
+                { title: 'Current Attributes', searchable: false, orderable: false, width: '35%', targets: 3 },
+                { title: 'pk', searchable: false, className: 'hide_column', targets: 4}
             ],
             select: {
                 style: 'multi',
@@ -159,11 +158,9 @@
             text-align: center;
             text-shadow: rgb(176, 190, 217) 1px 1px, rgb(176, 190, 217) -1px -1px, rgb(176, 190, 217) 1px -1px, rgb(176, 190, 217) -1px 1px;
         }
-        div#products_wrapper {
-            /* height:300px; */
-            /* overflow-y: scroll; */
-            /* overflow-x: hidden; */
-            border: solid 1px #e9ecef;
+        div.dataTables_wrapper div.dataTables_processing {
+          /* moves processing text box towards top of page */
+          top: 70px;
         }
         span.select-info {
             margin-left: 15px;

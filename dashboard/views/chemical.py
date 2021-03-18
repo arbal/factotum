@@ -3,7 +3,7 @@ from django.db.models import Q, F
 from django.shortcuts import render, get_object_or_404
 from django.utils.html import format_html
 from django_datatables_view.base_datatable_view import BaseDatatableView
-from cacheops import cache
+from djqscsv import render_to_csv_response
 
 from dashboard.models import (
     DSSToxLookup,
@@ -12,7 +12,8 @@ from dashboard.models import (
     PUCKind,
     RawChem,
     DuplicateChemicals,
-    CumulativeProductsPerPucAndSid,
+    ProductToPucClassificationMethod,
+    ExtractedComposition,
 )
 
 
@@ -22,15 +23,12 @@ def chemical_detail(request, sid, puc_id=None):
     keysets = chemical.get_tag_sets()
     group_types = chemical.get_unique_datadocument_group_types_for_dropdown()
     puc_kinds = PUCKind.objects.all()
-    dss_pk = chemical.pk
+    classification_methods = ProductToPucClassificationMethod.objects.all()
+    is_co_chem = group_types.filter(code="CO").count() > 0
 
-    qs = CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup_id=dss_pk)
-
-    formulation_pucs = qs.filter(puc__kind__code="FO").select_related("puc").astree()
-
-    article_pucs = qs.filter(puc__kind__code="AR").select_related("puc").astree()
-
-    occupation_pucs = qs.filter(puc__kind__code="OC").select_related("puc").astree()
+    formulation_pucs = chemical.get_cumulative_puc_products_tree("FO")
+    article_pucs = chemical.get_cumulative_puc_products_tree("AR")
+    occupation_pucs = chemical.get_cumulative_puc_products_tree("OC")
 
     context = {
         "chemical": chemical,
@@ -42,8 +40,63 @@ def chemical_detail(request, sid, puc_id=None):
         "puc": puc,
         "show_filter": True,
         "puc_kinds": puc_kinds,
+        "classification_methods": classification_methods,
+        "is_co_chem": is_co_chem,
     }
     return render(request, "chemicals/chemical_detail.html", context)
+
+
+def download_composition_chemical(request, sid):
+    chems = (
+        ExtractedComposition.objects.filter(dsstox__sid=sid)
+        .prefetch_related(
+            "weight_fraction_type",
+            "unit_type",
+            "extracted_text__data_document__products__product_uber_puc__puc",
+        )
+        .values(
+            "extracted_text__data_document__title",
+            "extracted_text__data_document__products__title",
+            "extracted_text__data_document__products__product_uber_puc__puc__gen_cat",
+            "extracted_text__data_document__products__product_uber_puc__puc__prod_fam",
+            "extracted_text__data_document__products__product_uber_puc__puc__prod_type",
+            "raw_min_comp",
+            "raw_max_comp",
+            "raw_central_comp",
+            "unit_type__title",
+            "lower_wf_analysis",
+            "upper_wf_analysis",
+            "central_wf_analysis",
+            "weight_fraction_type__title",
+        )
+        .order_by(
+            "extracted_text__data_document__title",
+            "extracted_text__data_document__products__title",
+            "rawchem_ptr_id",
+        )
+    )
+    filename = sid + ".csv"
+    return render_to_csv_response(
+        chems,
+        filename=filename,
+        append_datestamp=True,
+        use_verbose_names=False,
+        field_header_map={
+            "extracted_text__data_document__title": "Data Document",
+            "extracted_text__data_document__products__title": "Product Name",
+            "extracted_text__data_document__products__product_uber_puc__puc__gen_cat": "General Category",
+            "extracted_text__data_document__products__product_uber_puc__puc__prod_fam": "Product Family",
+            "extracted_text__data_document__products__product_uber_puc__puc__prod_type": "Product Type",
+            "raw_min_comp": "Raw Min Comp",
+            "raw_max_comp": "Raw Max Comp",
+            "raw_central_comp": "Raw Central Comp",
+            "unit_type__title": "Unit Type",
+            "lower_wf_analysis": "Lower Weight Fraction",
+            "upper_wf_analysis": "Upper Weight Fraction",
+            "central_wf_analysis": "Central Weight Fraction",
+            "weight_fraction_type__title": "Weight Fraction Type",
+        },
+    )
 
 
 @login_required()
@@ -92,6 +145,7 @@ class ChemicalProductListJson(BaseDatatableView):
         "document.title",
         "product.product_uber_puc.puc",
         "product.product_uber_puc.puc.kind.name",
+        "product.product_uber_puc.classification_method.name",
     ]
 
     def get_filter_method(self):
@@ -213,6 +267,21 @@ class ChemicalProductListJson(BaseDatatableView):
                             nulls_last=True
                         )
                     )
+            elif order_column.endswith("classification_method__name"):
+                # sort PUC data with nulls at bottom
+                reverse_order = order_column.startswith("-")
+                if reverse_order:
+                    qs = qs.order_by(
+                        F(
+                            "product__product_uber_puc__classification_method__name"
+                        ).desc(nulls_last=True)
+                    )
+                else:
+                    qs = qs.order_by(
+                        F("product__product_uber_puc__classification_method__name").asc(
+                            nulls_last=True
+                        )
+                    )
             else:
                 return qs.order_by(*order)
         return qs
@@ -221,6 +290,7 @@ class ChemicalProductListJson(BaseDatatableView):
         puc = self.request.GET.get("category")
         s = self.request.GET.get("search[value]", None)
         puc_kind = self.request.GET.get("puc_kind")
+        cm = self.request.GET.get("cm")
         if puc:
             qs = qs.filter(Q(product__product_uber_puc__puc_id=puc))
         if s:
@@ -232,4 +302,6 @@ class ChemicalProductListJson(BaseDatatableView):
                 qs = qs.filter(product__product_uber_puc__isnull=True)
             else:
                 qs = qs.filter(product__product_uber_puc__puc__kind__code=puc_kind)
+        if cm and cm != "all":
+            qs = qs.filter(product__product_uber_puc__classification_method__code=cm)
         return qs

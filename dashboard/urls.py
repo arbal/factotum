@@ -156,6 +156,11 @@ urlpatterns = [
         name="category_assignment",
     ),
     path(
+        "functional_use_curation/",
+        views.functional_use_curation,
+        name="functional_use_curation",
+    ),
+    path(
         "link_product_list/<int:pk>/", views.link_product_list, name="link_product_list"
     ),
     path(
@@ -233,6 +238,11 @@ urlpatterns = [
         "bulk_product_tag/", views.bulk_assign_tag_to_products, name="bulk_product_tag"
     ),
     path(
+        "bulk_product_tag/<int:puc_pk>/table",
+        views.ProductTableByPUC.as_view(),
+        name="bulk_product_tag_table",
+    ),
+    path(
         "category_assignment/<int:ds_pk>/product_puc/<int:pk>",
         views.category_assign_puc_to_product,
         name="category_assignment_product_puc",
@@ -288,6 +298,11 @@ urlpatterns = [
         name="download_raw_chems_dg",
     ),
     path("chemical/<str:sid>/", views.chemical_detail, name="chemical"),
+    path(
+        "dl_composition_chemical/<str:sid>/",
+        views.download_composition_chemical,
+        name="download_composition_chemical",
+    ),
     path(
         "chemical/<str:sid>/puc/<int:puc_id>/",
         views.chemical_detail,

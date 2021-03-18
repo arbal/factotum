@@ -1,4 +1,6 @@
 import json
+
+from django.urls import reverse
 from lxml import html
 
 from django.test import TestCase
@@ -120,6 +122,8 @@ class ChemicalDetail(TestCase):
         response = self.client.get("/chemical/DTXSID6026296/")
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Water")
+        self.assertContains(response, "download_co_chemical")
+        self.assertContains(response, "download products and weight fractions")
 
     def test_product_table(self):
         dss = DSSToxLookup.objects.get(sid="DTXSID6026296")
@@ -144,3 +148,12 @@ class ChemicalDetail(TestCase):
             2,
             f'DSSTox pk={dss.pk} should have 2 records matching the search "Creme" in the JSON',
         )
+
+    def test_download_composition_chemical(self):
+        self.client.logout()
+        response = self.client.get(
+            reverse("download_composition_chemical", args=["DTXSID6026296"])
+        )
+        self.assertEqual(response.status_code, 200)
+        content = response.get("Content-Disposition")
+        self.assertTrue(content.startswith("attachment; filename=dtxsid6026296"))

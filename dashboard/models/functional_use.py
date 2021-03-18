@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 
 from .common_info import CommonInfo
 
@@ -29,12 +30,8 @@ class FunctionalUse(CommonInfo):
     category = models.ForeignKey(
         "FunctionalUseCategory", on_delete=models.SET_NULL, null=True, blank=True
     )
-
     report_funcuse = models.CharField(
         "Reported functional use", max_length=255, null=False, blank=True
-    )
-    clean_funcuse = models.CharField(
-        "Cleaned functional use", max_length=255, null=False, blank=True
     )
     extraction_script = models.ForeignKey(
         "Script",
@@ -44,6 +41,26 @@ class FunctionalUse(CommonInfo):
         blank=True,
     )
 
+    def validate_report_funcuse_category(self):
+        """Reported functional use strings may only be linked to one FunctionalUseCategory.
+        """
+
+        if (
+            FunctionalUse.objects.filter(report_funcuse=self.report_funcuse)
+            .exclude(
+                Q(pk=self.pk) | Q(category=self.category) | Q(category__isnull=True)
+            )
+            .exists()
+        ):
+            raise ValidationError(
+                {
+                    "report_funcuse": (
+                        "This reported functional use is already "
+                        "associated with a different Functional Use Category."
+                    )
+                }
+            )
+
     def __str__(self):
         return self.report_funcuse
 
@@ -51,6 +68,9 @@ class FunctionalUse(CommonInfo):
         if self.report_funcuse == "" or self.report_funcuse is None:
             raise ValidationError({"report_funcuse": "Please delete if no value."})
 
+        if self.category:
+            self.validate_report_funcuse_category()
+
     @classmethod
     def auditlog_fields(cls):
-        return ["report_funcuse", "clean_funcuse"]
+        return ["report_funcuse"]

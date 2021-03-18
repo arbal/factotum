@@ -6,12 +6,12 @@
         <div class="col-auto">
             <small class="text-muted">Reported:</small>
             <br />
-            <span class="font-weight-bold">Cleaned:</span>
+            <span class="font-weight-bold">Harmonized:</span>
         </div>
         <div class="col text-truncate" id="functional_uses_{{ functional_use.id }}">
             <small class="text-muted">{{ functional_use.report_funcuse }}</small>
             <br />
-            <span class="font-weight-bold">{{ functional_use.clean_funcuse }}</span>
+            <span class="font-weight-bold">{{ functional_use.category.title }}</span>
         </div>
     </div>
 {% endfor %}

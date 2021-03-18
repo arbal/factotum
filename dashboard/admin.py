@@ -160,6 +160,11 @@ class DocumentTypeAdmin(admin.ModelAdmin):
     inlines = [GroupTypeInline]
 
 
+class FunctionalUseAdmin(admin.ModelAdmin):
+    list_display = ("chem", "report_funcuse", "category")
+    list_filter = ("report_funcuse",)
+
+
 # Register your models here.
 admin.site.register(DataSource)
 admin.site.register(GroupType)
@@ -198,6 +203,6 @@ admin.site.register(ExtractedListPresence)
 admin.site.register(ExtractedListPresenceTag, ExtractedListPresenceTagAdmin)
 admin.site.register(ExtractedListPresenceToTag, ExtractedListPresenceToTagAdmin)
 admin.site.register(ExtractedListPresenceTagKind)
-admin.site.register(FunctionalUse)
+admin.site.register(FunctionalUse, FunctionalUseAdmin)
 admin.site.register(FunctionalUseCategory)
 admin.site.register(CurationStep)

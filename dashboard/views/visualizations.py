@@ -1,13 +1,7 @@
 from django.views import View
-from cacheops import cached, cached_view
 
-from dashboard.models import (
-    PUC,
-    CumulativeProductsPerPuc,
-    CumulativeProductsPerPucAndSid,
-    DSSToxLookup,
-)
-from django.db.models import Value, Case, When, IntegerField, F
+from dashboard.models import PUC, CumulativeProductsPerPuc, DSSToxLookup
+from django.db.models import F
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -54,41 +48,9 @@ def bubble_PUCs(request):
     kind = request.GET.get("kind", "FO")
     if dtxsid:
         # avoid joining in the subsequent queryset by looking up the pk once
-        dss_pk = DSSToxLookup.objects.filter(sid=dtxsid).first().pk
+        dss = DSSToxLookup.objects.filter(sid=dtxsid).first()
         # filter by products by a related DSSTOX
-        if kind:
-            pucs = (
-                CumulativeProductsPerPucAndSid.objects.filter(dsstoxlookup_id=dss_pk)
-                .filter(puc__kind__code=kind)
-                .filter(cumulative_product_count__gt=0)
-                .select_related("puc")
-            )
-        else:
-            pucs = (
-                CumulativeProductsPerPuc.objects.filter(dsstoxlookup_id=dss_pk)
-                .filter(cumulative_product_count__gt=0)
-                .select_related("puc")
-            )
-
-        pucs = (
-            pucs.annotate(
-                kind_id=F("puc__kind_id"),
-                gen_cat=F("puc__gen_cat"),
-                prod_fam=F("puc__prod_fam"),
-                prod_type=F("puc__prod_type"),
-            )  # change the nested __puc field names
-            .values(
-                "kind_id",
-                "puc_id",
-                "gen_cat",
-                "prod_fam",
-                "prod_type",
-                "product_count",
-                "cumulative_product_count",
-                "puc_level",
-            )
-            .flatdictastree()
-        )
+        pucs = dss.get_cumulative_puc_products_tree(kind, data_format="dict")
     else:
         if kind:
             pucs = (
