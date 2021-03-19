@@ -4,6 +4,7 @@ var chemical = $('#chemical'),
     pid = chemical.data('pid'),
     puc_parents = chemical.data('puc-parents'),
     document_table,
+    functional_use_table,
     product_table;
 
 fobc = new nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=FO&dtxsid=" + sid, "nestedcircles_FO");
@@ -25,7 +26,14 @@ $( window ).on( "load", function() {
 $(document).ready(function () {
     document_table = build_document_table().on('draw', moveText);
     product_table = build_product_table().on('draw', moveText);
+    functional_use_table = build_functional_use_table();
 
+    $("#document-tab-header").on("click", function() {
+        $('#documents').css('width', '100%');
+    });
+    $("#functional-use-tab-header").on("click", function() {
+        $('#functional-uses').css('width', '100%');
+    });
     //expand accordion to default puc, if one exists
     if (puc_parents.length) {
         $('#accordion-' + puc_parents.join(', #accordion-')).collapse('show');
@@ -126,6 +134,10 @@ function get_documents_url() {
 
 function get_products_url() {
     return '/chemical_product_json/?sid=' + chemical.data('sid') + '&category=' + chemical.data('puc');
+}
+
+function get_functional_uses_url() {
+    return '/chemical_functional_use_json/?sid=' + chemical.data('sid');
 }
 
 function build_document_table() {
@@ -258,8 +270,18 @@ function build_product_table() {
             }
         },
         ajax: get_products_url(),
-        initComplete: function () {
-            $('#products-info-text').text($('#products-info').text())
+        initComplete: function() {
+            $('#products-info-text').text($('#products-info').text());
         }
+    });
+}
+
+function build_functional_use_table() {
+    return $('#functional-uses').DataTable({
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        ordering: true,
+        ajax: get_functional_uses_url()
     });
 }
