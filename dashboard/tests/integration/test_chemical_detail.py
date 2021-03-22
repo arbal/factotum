@@ -304,7 +304,8 @@ class TestChemicalDetail(StaticLiveServerTestCase):
                 (By.XPATH, "//*[@id='products_info']"), "Showing 1 to 6 of 6 entries"
             )
         )
-        # filter by puc
+        # filter by PUC
+
         puc_filter = self.browser.find_element_by_id("filter-137")
         puc_filter.click()
         time.sleep(1)
@@ -314,17 +315,30 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         )
         puc_filter_icon = puc_filter.find_element_by_class_name("icon-primary")
         self.assertIsNotNone(puc_filter_icon)
+        # Products table
+        self.assertInHTML(
+            "Showing 1 to 1 of 1 entries related to PUC Personal care (filtered from 6 total products)",
+            self.browser.find_element_by_xpath("//*[@id='products_info']").text,
+        )
+        # PUC 137 is assigned with the AU method to product 878, make sure it does
+        # not appear in the filtered product table
+        with self.assertRaises(AssertionError):
+            self.assertInHTML(
+                "Radio Control Vehicle",
+                self.browser.find_element_by_xpath("//*[@id='products']").text,
+            )
 
         # Documents table
         self.assertInHTML(
             "Showing 1 to 1 of 1 entries related to PUC Personal care (filtered from 19 total documents)",
             self.browser.find_element_by_xpath("//*[@id='documents_info']").text,
         )
-        # Products table
-        self.assertInHTML(
-            "Showing 1 to 1 of 1 entries related to PUC Personal care (filtered from 6 total products)",
-            self.browser.find_element_by_xpath("//*[@id='products_info']").text,
-        )
+        # Make sure the document is also being excluded
+        with self.assertRaises(AssertionError):
+            self.assertInHTML(
+                "Radio Control Vehicle",
+                self.browser.find_element_by_xpath("//*[@id='documents']").text,
+            )
 
         # Clear filter by puc
         puc_filter.click()

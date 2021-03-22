@@ -60,7 +60,7 @@ class DocumentListJson(FilterDatatableView):
         puc = self.request.GET.get("puc")
         sid = self.request.GET.get("sid")
         if puc:
-            return qs.filter(Q(products__puc=puc)).distinct()
+            return qs.filter(Q(products__product_uber_puc__puc=puc)).distinct()
         if sid:
             return qs.filter(Q(extractedtext__rawchem__dsstox__sid=sid)).distinct()
         return qs
@@ -84,7 +84,7 @@ class DocumentListJson(FilterDatatableView):
         pid = self.request.GET.get("pid")
         group_type = self.request.GET.get("group_type")
         if puc:
-            qs = qs.filter(Q(products__puc=puc))
+            qs = qs.filter(Q(products__product_uber_puc__puc=puc))
         if group_type:
             if group_type != "-1":
                 qs = qs.filter(data_group__group_type__id=group_type)
