@@ -158,17 +158,6 @@
     classification_method_id: MA
     classification_confidence: '1.000'
 - model: dashboard.producttopuc
-  pk: 20
-  fields:
-    created_at: 2019-05-10 14:45:56.307215
-    updated_at: 2019-05-10 14:45:56.307244
-    product: 878
-    puc: 137
-    puc_assigned_usr: 1
-    puc_assigned_script: null
-    classification_method_id: AU
-    classification_confidence: '1.000'
-- model: dashboard.producttopuc
   pk: 16
   fields:
     created_at: 2019-11-06 12:12:39.603403

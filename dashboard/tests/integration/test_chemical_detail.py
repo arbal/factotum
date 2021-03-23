@@ -8,6 +8,7 @@ from dashboard.models import (
     PUCKind,
     DataDocument,
     ExtractedComposition,
+    ProductToPUC,
 )
 
 from selenium.webdriver.common.by import By
@@ -320,7 +321,11 @@ class TestChemicalDetail(StaticLiveServerTestCase):
             "Showing 1 to 1 of 1 entries related to PUC Personal care (filtered from 6 total products)",
             self.browser.find_element_by_xpath("//*[@id='products_info']").text,
         )
-        # PUC 137 is assigned with the AU method to product 878, make sure it does
+
+        ProductToPUC.objects.create(
+            product_id=878, classification_method_id="BA", puc_id=137
+        )
+        # Now PUC 137 is assigned with the AU method to product 878, make sure it does
         # not appear in the filtered product table
         with self.assertRaises(AssertionError):
             self.assertInHTML(
