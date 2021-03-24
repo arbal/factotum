@@ -1,4 +1,5 @@
 from django.apps import apps
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.utils import safestring
 from django.contrib import messages
@@ -6,8 +7,10 @@ from django.shortcuts import redirect
 from django.db.models import Count, Q, Max
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.views.generic import FormView
 from django_datatables_view.base_datatable_view import BaseDatatableView
 
+from dashboard.forms.forms import BulkProductPUCDeleteForm
 from dashboard.models import (
     DataSource,
     Product,
@@ -31,7 +34,7 @@ from dashboard.forms import (
     ProductForm,
 )
 from django.core.paginator import Paginator
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 
 @login_required()
@@ -337,6 +340,68 @@ def bulk_assign_puc_to_product(
         }
     )
     return render(request, template_name, context)
+
+
+class RemoveProductToPUC(LoginRequiredMixin, FormView):
+    form_class = BulkProductPUCDeleteForm
+    template_name = "product_curation/bulk_remove_product_puc.html"
+    table_settings = {
+        "pagination": True,
+        "pageLength": 50,
+        "ajax": reverse_lazy("bulk_remove_product_puc_table"),
+    }
+    puc_form = ProductPUCForm  # This form is only needed for the puc select2 widget
+
+    def get_context_data(self, **kwargs):
+        # Set width of the puc widget to 100% so the entire puc is visible.
+        self.puc_form.base_fields["puc"].widget.attrs["style"] = "width: 100%"
+
+        context = super().get_context_data(**kwargs)
+        context["table_settings"] = self.table_settings
+        context["puc_form"] = self.puc_form
+        context["classification_methods"] = apps.get_model(
+            "dashboard", "ProductToPUCClassificationMethod"
+        ).objects
+        return context
+
+
+class RemoveProductToPUCTable(BaseDatatableView):
+    """Table showing all Products associated with a specific PUC.
+    """
+
+    model = apps.get_model("dashboard", "ProductToPUC")
+
+    def get_filter_method(self):
+        """ Returns preferred filter method """
+        return self.FILTER_ICONTAINS
+
+    def render_column(self, row, column):
+        if column == "classification_method__name":
+            return row.classification_method.name
+        elif column == "product__title":
+            return f"<a href='{ reverse('product_detail', args=[row.product.id]) }' target='_blank'>{ row.product.title }</a>"
+        elif column == "pk":
+            return row.pk
+        return super().render_column(row, column)
+
+    def filter_queryset(self, qs):
+        puc_id = self.request.GET.get("puc", None)
+        classification_methods = self.request.GET.getlist(
+            "classification_methods[]", None
+        )
+
+        if puc_id:
+            qs = qs.filter(puc=puc_id)
+        if classification_methods:
+            qs = qs.filter(classification_method__pk__in=classification_methods)
+
+        return super().filter_queryset(qs)
+
+    def get_initial_queryset(self):
+        qs = super().get_initial_queryset()
+        return qs.prefetch_related("classification_method", "product").filter(
+            is_uber_puc=True
+        )
 
 
 @login_required()

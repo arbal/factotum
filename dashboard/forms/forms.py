@@ -196,6 +196,10 @@ class ProductViewForm(ProductForm):
             self.fields[f].disabled = True
 
 
+class BulkProductPUCDeleteForm(forms.Form):
+    pass
+
+
 class BulkProductPUCForm(BasePUCForm):
     id_pks = forms.CharField(
         label="Product Titles", widget=forms.HiddenInput(), required=True

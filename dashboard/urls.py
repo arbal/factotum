@@ -232,6 +232,16 @@ urlpatterns = [
         name="qa_chemical_presence_summary_table",
     ),
     path(
+        "bulk_remove_product_puc/",
+        views.RemoveProductToPUC.as_view(),
+        name="bulk_remove_product_puc",
+    ),
+    path(
+        "bulk_remove_product_puc/table",
+        views.RemoveProductToPUCTable.as_view(),
+        name="bulk_remove_product_puc_table",
+    ),
+    path(
         "bulk_product_puc/", views.bulk_assign_puc_to_product, name="bulk_product_puc"
     ),
     path(
