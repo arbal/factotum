@@ -296,7 +296,12 @@
             </div>
 
             <div class="tab-pane container p-0 fade" id="functional-use-table-div">
-                <h4>Functional Uses Associated with "{{ chemical.true_chemname }}"</h4>
+                <h4>Functional Uses Associated with "{{ chemical.true_chemname }}"
+                    <span class="float-right">
+                    <button id="reset-functional-uses" class="btn btn-outline-secondary p-1"
+                            disabled>Show All Functional Uses</button>
+                    </span>
+                </h4>
                 <table class="table table-striped dataTable table-sm" id="functional-uses">
                     <thead>
                     <tr>

@@ -325,7 +325,18 @@ class ChemicalFunctionalUseListJson(BaseDatatableView):
         sid = self.request.GET.get("sid")
         if sid:
             return qs.filter(Q(chem__dsstox__sid=sid)).distinct()
-        return qs.filter()
+        return qs
+
+    def filter_queryset(self, qs):
+        qs = super().filter_queryset(qs)
+        puc = self.request.GET.get("puc")
+        if puc:
+            qs = qs.filter(
+                Q(
+                    chem__extracted_text__data_document__products__product_uber_puc__puc=puc
+                )
+            )
+        return qs
 
     def render_column(self, row, column):
         value = self._render_column(row, column)

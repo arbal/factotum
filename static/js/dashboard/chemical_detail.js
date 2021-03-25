@@ -61,8 +61,10 @@ $(document).ready(function () {
         let hasFilter = chemical.data('puc') || chemical.data('pid');
         $('#reset-documents').prop('disabled', !hasFilter);
         $('#reset-products').prop('disabled', !hasFilter);
+        $('#reset-functional-uses').prop('disabled', !hasFilter);
         document_table.ajax.url(get_documents_url()).load(moveText);
         product_table.ajax.url(get_products_url()).load(moveText);
+        functional_use_table.ajax.url(get_functional_uses_url()).load();
     });
     $('a[id^="keywords-"]').on('click', e => {
         if ($(e.currentTarget).find(".icon-primary").length > 0) {
@@ -104,10 +106,7 @@ $(document).ready(function () {
         // document is not filtered now, reset the keyword filter class/tooltip
         $('a[id^="keywords-"]').attr('data-original-title', 'Filter table by Keyword Set');
         $('a[id^="keywords-"]').find(".icon-primary").removeClass("icon-primary").addClass("icon-secondary");
-        // if both document and product are not filtered, remove puc filter indicator
-        if ($("#reset-products").is(":disabled")) {
-            $('a[id^="filter-"]').find(".icon-primary").removeClass("icon-primary").addClass("icon-secondary");
-        }
+        reset_puc_filter_indicator();
     });
     $('#reset-products').on('click', function (e) {
         chemical.data('puc', '');
@@ -116,12 +115,21 @@ $(document).ready(function () {
         $('#classification_methods_dropdown').val('all');
         product_table.ajax.url(get_products_url()).load(moveText);
         $(this).prop('disabled', true);
-        // if both document and product are not filtered, remove puc filter indicator
-        if ($("#reset-documents").is(":disabled")) {
+        reset_puc_filter_indicator();
+    });
+    $('#reset-functional-uses').on('click', function() {
+        chemical.data('puc', '');
+        functional_use_table.ajax.url(get_functional_uses_url()).load();
+        $(this).prop('disabled', true);
+        reset_puc_filter_indicator();
+    });
+    function reset_puc_filter_indicator() {
+        // if document, product and functional uses table are all not filtered, remove puc filter indicator
+        if ($("#reset-documents").is(":disabled") && $("#reset-products").is(":disabled") && $("#reset-functional-uses").is(":disabled")) {
             $('a[id^="filter-"]').attr('data-original-title', 'Filter table by PUC');
             $('a[id^="filter-"]').find(".icon-primary").removeClass("icon-primary").addClass("icon-secondary");
         }
-    });
+    }
     var moveText = () => {
         $('#documents-info-text').text($('#documents-info').text());
         $('#products-info-text').text($('#products-info').text());
@@ -137,7 +145,7 @@ function get_products_url() {
 }
 
 function get_functional_uses_url() {
-    return '/chemical_functional_use_json/?sid=' + chemical.data('sid');
+    return '/chemical_functional_use_json/?sid=' + chemical.data('sid') + '&puc=' + chemical.data('puc');
 }
 
 function build_document_table() {
@@ -278,10 +286,27 @@ function build_product_table() {
 
 function build_functional_use_table() {
     return $('#functional-uses').DataTable({
+        language: {
+            "infoFiltered": "_FILTER_ (filtered from _MAX_ total functional uses)"
+        },
         destroy: true,
         processing: true,
         serverSide: true,
         ordering: true,
+        drawCallback: () => {
+            let infoText = $('#functional-uses_info').text();
+            if (infoText.indexOf('_FILTER_') > 0) {
+                // customized the filter message
+                let filter = '';
+                let pucId = chemical.data('puc');
+                if (pucId) {
+                    let pucName = $('#puc-' + pucId).text();
+                    filter += ' related to PUC <b>' + pucName + '</b>';
+                }
+                infoText = infoText.replace('_FILTER_', filter);
+                $("#functional-uses_info").html(infoText);
+            }
+        },
         ajax: get_functional_uses_url()
     });
 }
