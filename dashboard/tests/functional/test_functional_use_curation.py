@@ -17,7 +17,7 @@ class TestFunctionalUseCuration(TestCase):
     def test_functional_use_list(self):
         response = self.client.get(reverse("functional_use_curation"))
         combinations = response.context["combinations"]
-        self.assertEqual(len(combinations), 15, "THere should be 15 combinations")
+        self.assertEqual(len(combinations), 16, "THere should be 16 combinations")
 
         surfactants = FunctionalUse.objects.filter(report_funcuse="surfactant")
 
@@ -51,5 +51,5 @@ class TestFunctionalUseCuration(TestCase):
         response = self.client.get(reverse("functional_use_curation"))
         combinations = response.context["combinations"]
         self.assertEqual(
-            len(combinations), 14, "There should be 14 combinations after the edit"
+            len(combinations), 15, "There should be 15 combinations after the edit"
         )
