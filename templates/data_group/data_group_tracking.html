@@ -65,7 +65,7 @@
                 <td data-order="{{ datagroup.updated_at|date:"c" }}">
                     {{ datagroup.updated_at|date:"M d, Y" }}
                 </td>
-                <td>{{ datagroup.registered_docs }}</td>
+                <td>{{ datagroup.doc_count }}</td>
                 {% for step in curationsteps %}
                     <td>
                         {% with datagroup|get_current_step_status:step.id as current_status %}
