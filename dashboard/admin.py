@@ -55,7 +55,7 @@ class PUCAdminForm(forms.ModelForm):
 
 
 class PUCAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "tag_list", "product_count", "cumulative_product_count")
+    list_display = ("__str__", "tag_list")
     list_filter = ("kind",)
     form = PUCAdminForm
 
@@ -66,12 +66,6 @@ class PUCAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         return super(PUCAdmin, self).get_queryset(request).prefetch_related("tags")
-
-    def product_count(self, obj):
-        return obj.product_count
-
-    product_count.short_description = "Product Count"
-    product_count.admin_order_field = "product_count"
 
     def tag_list(self, obj):
         return u", ".join(o.name for o in obj.tags.all())
