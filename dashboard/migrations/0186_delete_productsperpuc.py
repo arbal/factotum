@@ -5,12 +5,6 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0185_remove_functionaluse_clean_funcuse'),
-    ]
+    dependencies = [("dashboard", "0185_remove_functionaluse_clean_funcuse")]
 
-    operations = [
-        migrations.DeleteModel(
-            name='ProductsPerPuc',
-        ),
-    ]
+    operations = [migrations.DeleteModel(name="ProductsPerPuc")]
