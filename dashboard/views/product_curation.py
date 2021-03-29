@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import FormView
 from django_datatables_view.base_datatable_view import BaseDatatableView
 
-from dashboard.forms.forms import BulkProductPUCDeleteForm
+from dashboard.forms.forms import BulkProductToPUCDeleteForm
 from dashboard.models import (
     DataSource,
     Product,
@@ -343,18 +343,20 @@ def bulk_assign_puc_to_product(
 
 
 class RemoveProductToPUC(LoginRequiredMixin, FormView):
-    form_class = BulkProductPUCDeleteForm
+    form_class = BulkProductToPUCDeleteForm
     template_name = "product_curation/bulk_remove_product_puc.html"
+    success_url = reverse_lazy("bulk_remove_product_puc")
     table_settings = {
         "pagination": True,
         "pageLength": 50,
         "ajax": reverse_lazy("bulk_remove_product_puc_table"),
     }
-    puc_form = ProductPUCForm  # This form is only needed for the puc select2 widget
+    puc_form = ProductPUCForm()  # This form is only needed for the puc select2 widget
 
     def get_context_data(self, **kwargs):
         # Set width of the puc widget to 100% so the entire puc is visible.
-        self.puc_form.base_fields["puc"].widget.attrs["style"] = "width: 100%"
+        self.puc_form.fields["puc"].widget.attrs["style"] = "width: 100%"
+        self.puc_form.fields["puc"].required = False
 
         context = super().get_context_data(**kwargs)
         context["table_settings"] = self.table_settings
@@ -363,6 +365,16 @@ class RemoveProductToPUC(LoginRequiredMixin, FormView):
             "dashboard", "ProductToPUCClassificationMethod"
         ).objects
         return context
+
+    def form_invalid(self, form):
+        for non_field_error in form.non_field_errors():
+            messages.error(self.request, non_field_error)
+        return super().form_invalid(form)
+
+    def form_valid(self, form):
+        success_message = form.save()
+        messages.success(self.request, success_message)
+        return super().form_valid(form)
 
 
 class RemoveProductToPUCTable(BaseDatatableView):

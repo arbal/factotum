@@ -3,7 +3,7 @@ from django.urls import reverse
 from dashboard.tests.factories import ProductFactory, PUCFactory, ProductToPUCFactory
 from dashboard.tests.loader import load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from dashboard.models import ProductToPucClassificationMethod
+from dashboard.models import ProductToPucClassificationMethod, ProductToPUC
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -29,7 +29,7 @@ class TestBulkRemoveProductPUCTable(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = load_browser()
-        self.wait = WebDriverWait(self.browser, 10)
+        self.wait = WebDriverWait(self.browser, 15)
 
         log_karyn_in(self)
 
@@ -60,6 +60,83 @@ class TestBulkRemoveProductPUCTable(StaticLiveServerTestCase):
             self.browser.find_element_by_xpath("//td[3]").text,
             self.high_classification.name,
         )
+
+    def test_puc_product_datatable_deletes(self):
+        """Loads the table then associates a new tag.
+        """
+        pk = self.p2p.pk
+
+        self.browser.get(self.live_server_url + reverse("bulk_remove_product_puc"))
+
+        # UberPUC filtering should only show one entry on secondary puc
+        self._select_puc(self.secondary_puc.prod_type, self.secondary_puc)
+        self.wait.until(
+            ec.text_to_be_present_in_element(
+                (By.ID, "products_info"), "Showing 1 to 1 of 1 entries"
+            )
+        )
+
+        # Load the data for the puc
+        self._select_puc(self.puc.prod_type)
+        self.wait.until(
+            ec.text_to_be_present_in_element(
+                (By.ID, "products_info"), "Showing 1 to 1 of 1 entries"
+            )
+        )
+
+        # Select first (only) row the submit the form.
+        form = self.browser.find_element_by_id(
+            "remove-p2p-form"
+        )  # This is just used to determine when refresh is done
+        self.browser.find_element_by_xpath(
+            "//table[@id='products']/tbody/tr[1]/td[1]"
+        ).click()
+        self.browser.find_element_by_xpath("//button[@type='submit']").click()
+        # Accept confirmation
+        alert = self.wait.until(ec.alert_is_present())
+        alert.accept()
+        self.wait.until(ec.staleness_of(form))
+
+        # Verify P2P connection was deleted
+        self.assertFalse(ProductToPUC.objects.filter(pk=pk).exists())
+        self._select_puc(self.puc.prod_type)
+        self.wait.until(
+            ec.text_to_be_present_in_element(
+                (By.ID, "products_info"), "Showing 0 to 0 of 0 entries"
+            )
+        )
+
+        # Verify The new uberpuc shows up on the secondary PUC
+        self._select_puc(self.secondary_puc.prod_type, self.secondary_puc)
+        self.wait.until(
+            ec.text_to_be_present_in_element(
+                (By.ID, "products_info"), "Showing 1 to 2 of 2 entries"
+            )
+        )
+
+    def test_dismiss_confirmation_dismiss(self):
+        """Loads the table then associates a new tag.
+        """
+        self.browser.get(self.live_server_url + reverse("bulk_remove_product_puc"))
+
+        # Load the data for the puc
+        self._select_puc(self.puc.prod_type)
+        self.wait.until(
+            ec.text_to_be_present_in_element(
+                (By.ID, "products_info"), "Showing 1 to 1 of 1 entries"
+            )
+        )
+
+        # Select first (only) row the submit the form.
+        self.browser.find_element_by_xpath(
+            "//table[@id='products']/tbody/tr[1]/td[1]"
+        ).click()
+        self.browser.find_element_by_xpath("//button[@type='submit']").click()
+        # Dismiss confirmation
+        alert = self.wait.until(ec.alert_is_present())
+        alert.dismiss()
+
+        self.assertTrue(ProductToPUC.objects.filter(pk=self.p2p.pk).exists())
 
     def test_puc_product_datatable_searches(self):
         # make a new product to be filtered by search but not by puc.
@@ -160,7 +237,7 @@ class TestBulkRemoveProductPUCTable(StaticLiveServerTestCase):
 
         # Connect products to pucs
         # Uber pucs
-        ProductToPUCFactory(
+        self.p2p = ProductToPUCFactory(
             product=self.product,
             puc=self.puc,
             classification_method=self.high_classification,
@@ -172,19 +249,23 @@ class TestBulkRemoveProductPUCTable(StaticLiveServerTestCase):
         )
 
         # Non-uber puc
-        ProductToPUCFactory(
-            product=self.filtered_product,
+        self.non_meta_p2p = ProductToPUCFactory(
+            product=self.product,
             puc=self.secondary_puc,
             classification_method=low_classification,
         )
 
-    def _select_puc(self, searchterm):
+    def _select_puc(self, searchterm, puc=None):
+        # PUC to compare against
+        if puc is None:
+            puc = self.puc
+
         self.browser.find_element_by_class_name("select2-selection__arrow").click()
         select2search = self.browser.find_element_by_class_name("select2-search__field")
         select2search.send_keys(searchterm)
         self.wait.until(
             ec.text_to_be_present_in_element(
-                (By.XPATH, "//*[@class='select2-results']"), self.puc.prod_type
+                (By.XPATH, "//*[@class='select2-results']"), puc.prod_type
             )
         )
         select2search.send_keys("\n")
