@@ -112,15 +112,17 @@ $(document).ready(function () {
             $("th.select-checkbox").addClass("selected");
         }
     });
-    $('#btn-assign-puc').click(function (e) {
-        pk_data = product_table.rows({selected: true});
-        pk = '';
-        // find the (hidden) pk column in each row
-        for (i = 0; i < pk_data.count(); i++) {
-            pk += pk_data.data()[i][4] + ',';
+
+    $("#remove-p2p-form").submit(() => {
+        let selectedRows = product_table.rows({selected: true}).data();
+        let pk_str = selectedRows.map(obj => { return obj.pk }).join(',')
+        $('input[name="p2p_ids"]').val(pk_str);
+
+        if (selectedRows.length > 0) {
+            return confirm(`Are you sure you want to delete ${selectedRows.length} connections?`)
+        } else {
+            alert("Select at least one row")
+            return false
         }
-        pk = pk.replace(/,$/g, '');
-        $('input[name="id_pks"]').val(pk);
-        return true;
-    });
+    })
 });

@@ -324,6 +324,11 @@ urlpatterns = [
         name="chemical_product_ajax_url",
     ),
     path(
+        "chemical_functional_use_json/",
+        views.ChemicalFunctionalUseListJson.as_view(),
+        name="chemical_functional_use_ajax_url",
+    ),
+    path(
         "habitsandpractices/<int:pk>/",
         views.habitsandpractices,
         name="habitsandpractices",

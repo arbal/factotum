@@ -46,15 +46,10 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         should be returned via ajax calls and included in the tables
         """
         chemical = DSSToxLookup.objects.get(sid="DTXSID9022528")
-        puc = PUC.objects.get(pk=185)
         wait = WebDriverWait(self.browser, 10)
         self.browser.get(self.live_server_url + chemical.get_absolute_url())
 
-        wait.until(
-            ec.text_to_be_present_in_element(
-                (By.XPATH, "//*[@id='products_info']"), "Showing 1 to 4 of 4 entries"
-            )
-        )
+        wait.until(ec.visibility_of_element_located((By.ID, "products_info")))
         self.assertInHTML(
             "Showing 1 to 4 of 4 entries",
             self.browser.find_element_by_xpath("//*[@id='products_info']").text,
@@ -76,14 +71,19 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         )
 
         # Data Documents
-        wait.until(
-            ec.text_to_be_present_in_element(
-                (By.XPATH, "//*[@id='documents_info']"), "Showing 1 to 2 of 2 entries"
-            )
-        )
+        self.browser.find_element_by_id("document-tab-header").send_keys("\n")
+        wait.until(ec.visibility_of_element_located((By.ID, "documents_info")))
         self.assertInHTML(
             "Showing 1 to 2 of 2 entries",
             self.browser.find_element_by_xpath("//*[@id='documents_info']").text,
+        )
+
+        # Functional uses table
+        self.browser.find_element_by_id("functional-use-tab-header").send_keys("\n")
+        wait.until(ec.visibility_of_element_located((By.ID, "functional-uses_info")))
+        self.assertInHTML(
+            "Showing 1 to 2 of 2 entries",
+            self.browser.find_element_by_xpath("//*[@id='functional-uses_info']").text,
         )
 
     def test_chemical_detail_with_puc(self):
@@ -157,6 +157,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         chemical = DSSToxLookup.objects.get(sid="DTXSID9020584")
         wait = WebDriverWait(self.browser, 10)
         self.browser.get(self.live_server_url + chemical.get_absolute_url())
+        self.browser.find_element_by_id(("document-tab-header")).click()
         wait.until(
             ec.text_to_be_present_in_element(
                 (By.XPATH, "//*[@id='group_type_dropdown']"), "All"
@@ -306,10 +307,9 @@ class TestChemicalDetail(StaticLiveServerTestCase):
             )
         )
         # filter by PUC
-
+        wait.until(ec.element_to_be_clickable((By.ID, "filter-137")))
         puc_filter = self.browser.find_element_by_id("filter-137")
         puc_filter.click()
-        time.sleep(1)
 
         self.assertEqual(
             puc_filter.get_attribute("data-original-title"), "Clear filter table by PUC"
@@ -334,6 +334,8 @@ class TestChemicalDetail(StaticLiveServerTestCase):
             )
 
         # Documents table
+        self.browser.find_element_by_id("document-tab-header").send_keys("\n")
+        wait.until(ec.visibility_of_element_located((By.ID, "documents_info")))
         self.assertInHTML(
             "Showing 1 to 1 of 1 entries related to PUC Personal care (filtered from 19 total documents)",
             self.browser.find_element_by_xpath("//*[@id='documents_info']").text,
@@ -345,8 +347,22 @@ class TestChemicalDetail(StaticLiveServerTestCase):
                 self.browser.find_element_by_xpath("//*[@id='documents']").text,
             )
 
+        # functional uses table
+        self.browser.find_element_by_id("functional-use-tab-header").send_keys("\n")
+        wait.until(ec.visibility_of_element_located((By.ID, "functional-uses_info")))
+        self.assertInHTML(
+            "Showing 0 to 0 of 0 entries related to PUC Personal care (filtered from 1 total functional uses)",
+            self.browser.find_element_by_xpath("//*[@id='functional-uses_info']").text,
+        )
+        # Make sure the document is also being excluded
+        with self.assertRaises(AssertionError):
+            self.assertInHTML(
+                "Radio Control Vehicle",
+                self.browser.find_element_by_xpath("//*[@id='functional-uses']").text,
+            )
+
         # Clear filter by puc
-        puc_filter.click()
+        self.browser.execute_script("arguments[0].click();", puc_filter)
         time.sleep(1)
 
         self.assertEqual(
@@ -356,14 +372,25 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         self.assertIsNotNone(puc_filter_icon)
 
         # Documents table
+        self.browser.find_element_by_id("document-tab-header").send_keys("\n")
+        wait.until(ec.visibility_of_element_located((By.ID, "documents_info")))
         self.assertInHTML(
             "Showing 1 to 10 of 19 entries",
             self.browser.find_element_by_xpath("//*[@id='documents_info']").text,
         )
         # Products table
+        self.browser.find_element_by_id("product-tab-header").send_keys("\n")
+        wait.until(ec.visibility_of_element_located((By.ID, "products_info")))
         self.assertInHTML(
             "Showing 1 to 6 of 6 entries",
             self.browser.find_element_by_xpath("//*[@id='products_info']").text,
+        )
+        # functional uses table
+        self.browser.find_element_by_id("functional-use-tab-header").send_keys("\n")
+        wait.until(ec.visibility_of_element_located((By.ID, "functional-uses_info")))
+        self.assertInHTML(
+            "Showing 1 to 1 of 1 entries",
+            self.browser.find_element_by_xpath("//*[@id='functional-uses_info']").text,
         )
 
     def test_filter_by_keyword(self):
@@ -374,7 +401,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         chemical = DSSToxLookup.objects.get(sid="DTXSID9020584")
         wait = WebDriverWait(self.browser, 10)
         self.browser.get(self.live_server_url + chemical.get_absolute_url())
-
+        self.browser.find_element_by_id("document-tab-header").send_keys("\n")
         wait.until(
             ec.text_to_be_present_in_element(
                 (By.XPATH, "//*[@id='documents_info']"), "Showing 1 to 8 of 8 entries"

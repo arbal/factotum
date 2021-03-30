@@ -7,7 +7,7 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-5 p-0" id="chemical"
+        <div class="col-6 p-0" id="chemical"
              data-sid="{{ chemical.sid }}"
              data-puc="{{ puc.pk }}"
              data-pid=""
@@ -28,9 +28,10 @@
             </span>
             </h4>
         </div>
-        <div class="col-7 p-1">
-            <div class="btn-group float-md-right">
-                {% if is_co_chem %}
+        <div class="col-6">
+            {% if is_co_chem %}
+                <div class="text-right">
+                    <label class="p-2 font-weight-bold">Download Products and Weight Fractions</label>
                     <a class="btn btn-outline-secondary btn-sm hover-info"
                        id="download_co_chemical"
                        title="download products and weight fractions"
@@ -38,8 +39,8 @@
                        href="{% url 'download_composition_chemical' chemical.sid %}">
                         <span class="fa fa-fs fa-download"></span>
                     </a>
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 
@@ -151,126 +152,172 @@
         </div>
     </div>
 
-    <div class="row mt-4">
-        <div class="tab-content col-12">
-            <h4 class="mt-2 mb-2">Documents Associated with "{{ chemical.true_chemname }}"
-                <span class="float-right">
-                    <button id="reset-documents" class="btn btn-outline-secondary p-1"
-                            disabled>Show All Documents</button>
-                </span>
-            </h4>
-            <table class="table table-striped  dataTable table-sm" id="documents">
-                <thead>
-                <tr>
-                    <th>Document</th>
-                    <th>Data Type</th>
-                </tr>
-                </thead>
-                <tbody></tbody>
-                <tfoot class="m-0">
-                <tr>
-                    <th id="documents-info-text" class="m-0"></th>
-                    <th class="m-0 p-0">
-                        {% if group_types.count > 1 %}
-                            <div class="form-group m-0">
-                                <select class="form-control"
-                                        id="group_type_dropdown"
-                                        title="Filter by Group Type"
-                                        data-placement="left">
-                                    <option value="-1">
-                                        All
-                                    </option>
-                                    {% for gt in group_types %}
-                                        <option value="{{ gt.pk }}">
-                                            {{ gt }}
-                                        </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        {% else %}
-                            All 1 GroupType
-                        {% endif %}
-                    </th>
-                </tr>
-                </tfoot>
-            </table>
-        </div>
-    </div>
+    <div class="col-lg-12 mt-4" id="tables">
+        <ul class="row nav nav-pills mb-3">
+            <li class="col-lg-4 nav-item h-nav border rounded p-0">
+                <a class="nav-link text-center active"
+                   data-toggle="pill"
+                   href="#product-table-div"
+                   id="product-tab-header">
+                    <b>Products</b>
+                </a>
+            </li>
+            <li class="col-lg-4 nav-item h-nav border rounded p-0">
+                <a class="nav-link text-center"
+                   data-toggle="pill"
+                   href="#document-table-div"
+                   id="document-tab-header">
+                    <b>Documents</b>
+                </a>
+            </li>
+            <li class="col-lg-4 nav-item h-nav border rounded p-0">
+                <a class="nav-link text-center"
+                   data-toggle="pill"
+                   href="#functional-use-table-div"
+                   id="functional-use-tab-header">
+                    <b>Functional Uses</b>
+                </a>
+            </li>
+        </ul>
 
-
-    <div class="row mt-4">
-        <div class="tab-content col-12">
-            <h4 class="mt-2 mb-2">Products Containing "{{ chemical.true_chemname }}"
-                <span class="float-right">
+        <div class="tab-content">
+            <div class="tab-pane container p-0 active" id="product-table-div">
+                <h4 class="mt-2 mb-2">Products Containing "{{ chemical.true_chemname }}"
+                    <span class="float-right">
                     <button id="reset-products" class="btn btn-outline-secondary p-1"
                             disabled>Show All Products</button>
                 </span>
-            </h4>
-            <table class="table table-striped  dataTable table-sm" id="products">
-                <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Associated Document</th>
-                    <th>PUC</th>
-                    <th>PUC Kind</th>
-                    <th>Classification Method</th>
-                </tr>
-                </thead>
-                <tbody></tbody>
-
-                <tfoot class="m-0">
-                <tr>
-                    <th id="products-info-text" class="m-0"></th>
-                    <th></th>
-                    <th></th>
-                    <th class="m-0 p-0">
-                        {% if puc_kinds|length > 1 %}
+                </h4>
+                <table class="table table-striped dataTable table-sm" id="products">
+                    <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Associated Document</th>
+                        <th>PUC</th>
+                        <th>PUC Kind</th>
+                        <th>Classification Method</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot class="m-0">
+                    <tr>
+                        <th id="products-info-text" class="m-0"></th>
+                        <th></th>
+                        <th></th>
+                        <th class="m-0 p-0">
+                            {% if puc_kinds|length > 1 %}
+                                <div class="form-group ml-1">
+                                    <select class="form-control"
+                                            id="puc_kinds_dropdown"
+                                            title="Filter by PUC Kind"
+                                            data-placement="left"
+                                            autocomplete="off">
+                                        <option value="all" selected>
+                                            All
+                                        </option>
+                                        <option value="none">
+                                            No PUC assigned
+                                        </option>
+                                        {% for puc_kind in puc_kinds %}
+                                            <option value="{{ puc_kind.code }}">
+                                                {{ puc_kind.name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% else %}
+                                All 1 GroupType
+                            {% endif %}
+                        </th>
+                        <th class="m-0 p-0">
                             <div class="form-group ml-1">
                                 <select class="form-control"
-                                        id="puc_kinds_dropdown"
-                                        title="Filter by PUC Kind"
+                                        id="classification_methods_dropdown"
+                                        title="Filter by Classification Method"
                                         data-placement="left"
                                         autocomplete="off">
                                     <option value="all" selected>
                                         All
                                     </option>
-                                    <option value="none">
-                                        No PUC assigned
-                                    </option>
-                                    {% for puc_kind in puc_kinds %}
-                                        <option value="{{ puc_kind.code }}">
-                                            {{ puc_kind.name }}
+                                    {% for cm in classification_methods %}
+                                        <option value="{{ cm.code }}">
+                                            {{ cm.name }}
                                         </option>
                                     {% endfor %}
                                 </select>
                             </div>
-                        {% else %}
-                            All 1 GroupType
-                        {% endif %}
-                    </th>
-                    <th class="m-0 p-0">
-                        <div class="form-group ml-1">
-                            <select class="form-control"
-                                    id="classification_methods_dropdown"
-                                    title="Filter by Classification Method"
-                                    data-placement="left"
-                                    autocomplete="off">
-                                <option value="all" selected>
-                                    All
-                                </option>
-                                {% for cm in classification_methods %}
-                                    <option value="{{ cm.code }}">
-                                        {{ cm.name }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </th>
-                </tr>
-                </tfoot>
-            </table>
+                        </th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="tab-pane container p-0 fade" id="document-table-div">
+                <h4 class="mt-2 mb-2">Documents Associated with "{{ chemical.true_chemname }}"
+                    <span class="float-right">
+                    <button id="reset-documents" class="btn btn-outline-secondary p-1"
+                            disabled>Show All Documents</button>
+                </span>
+                </h4>
+                <table class="table table-striped dataTable table-sm" id="documents">
+                    <thead>
+                    <tr>
+                        <th>Document</th>
+                        <th>Data Type</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot class="m-0">
+                    <tr>
+                        <th id="documents-info-text" class="m-0"></th>
+                        <th class="m-0 p-0">
+                            {% if group_types.count > 1 %}
+                                <div class="form-group m-0">
+                                    <select class="form-control"
+                                            id="group_type_dropdown"
+                                            title="Filter by Group Type"
+                                            data-placement="left">
+                                        <option value="-1">
+                                            All
+                                        </option>
+                                        {% for gt in group_types %}
+                                            <option value="{{ gt.pk }}">
+                                                {{ gt }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% else %}
+                                All 1 GroupType
+                            {% endif %}
+                        </th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="tab-pane container p-0 fade" id="functional-use-table-div">
+                <h4>Functional Uses Associated with "{{ chemical.true_chemname }}"
+                    <span class="float-right">
+                    <button id="reset-functional-uses" class="btn btn-outline-secondary p-1"
+                            disabled>Show All Functional Uses</button>
+                    </span>
+                </h4>
+                <table class="table table-striped dataTable table-sm" id="functional-uses">
+                    <thead>
+                    <tr>
+                        <th>Data Type</th>
+                        <th>Document</th>
+                        <th>Reported Functional Use</th>
+                        <th>Harmonized Functional Use</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
+
 {% endblock %}
 
 {% block css %}
