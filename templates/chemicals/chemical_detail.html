@@ -7,7 +7,7 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-5 p-0" id="chemical"
+        <div class="col-6 p-0" id="chemical"
              data-sid="{{ chemical.sid }}"
              data-puc="{{ puc.pk }}"
              data-pid=""
@@ -28,9 +28,10 @@
             </span>
             </h4>
         </div>
-        <div class="col-7 p-1">
-            <div class="btn-group float-md-right">
-                {% if is_co_chem %}
+        <div class="col-6">
+            {% if is_co_chem %}
+                <div class="text-right">
+                    <label class="p-2 font-weight-bold">Download Products and Weight Fractions</label>
                     <a class="btn btn-outline-secondary btn-sm hover-info"
                        id="download_co_chemical"
                        title="download products and weight fractions"
@@ -38,8 +39,8 @@
                        href="{% url 'download_composition_chemical' chemical.sid %}">
                         <span class="fa fa-fs fa-download"></span>
                     </a>
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 
