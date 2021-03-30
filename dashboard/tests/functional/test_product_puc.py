@@ -17,7 +17,6 @@ from dashboard.models import (
     ProductUberPuc,
     DSSToxLookup,
     CumulativeProductsPerPuc,
-    CumulativeProductsPerPucAndSid,
 )
 from django.core.exceptions import ValidationError
 from django.db.models import Count, Sum
@@ -76,23 +75,16 @@ class TestProductPuc(TestCase):
         response_url = reverse("bubble_PUCs")
         response = self.client.get(response_url + "?kind=FO&dtxsid=DTXSID9022528")
         data = json.loads(response.content)
+        puc_tree = chemical.get_cumulative_puc_products_tree(data_format="dict")
 
+        treecount = puc_tree["Personal care"]["cumulative_product_count"]
         for child in data["children"]:
             if child["value"]["puc_id"] == personal_care_puc_id:
                 # "Personal care"
-                dbview_rec = (
-                    CumulativeProductsPerPucAndSid.objects.filter(
-                        dsstoxlookup_id=dss_pk
-                    )
-                    .filter(puc_id=personal_care_puc_id)
-                    .first()
-                )
-                self.assertEqual(
-                    child["value"]["product_count"], dbview_rec.product_count
-                )
                 self.assertEqual(
                     child["value"]["cumulative_product_count"],
-                    dbview_rec.cumulative_product_count,
+                    treecount,
+                    "The cumulative count in the JSON response should match the simpletree value",
                 )
 
     def test_admin_puc_tag_column_exists(self):
