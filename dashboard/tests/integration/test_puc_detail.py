@@ -77,6 +77,12 @@ class TestPUCProductAndDocumentTables(StaticLiveServerTestCase):
                 (By.XPATH, "//*[@id='chemicals']/tbody/tr/td[1]/a"), "DTXSID9022528"
             )
         )
+        self.assertInHTML(
+            "Download CSV",
+            self.browser.find_element_by_xpath(
+                "//button[contains(@class, 'btn-dl-chemical')]"
+            ).text,
+        )
 
     def test_additional_statistics_links_open_appropriate_table(self):
         puc = PUC.objects.get(pk=185)
