@@ -285,6 +285,11 @@ urlpatterns = [
     path("sid_gt_json", views.sids_by_grouptype_ajax, name="sid_gt_json_url"),
     path("pucs/", views.puc_list, name="puc_list"),
     path("puc/<int:pk>/", views.puc_detail, name="puc_detail"),
+    path(
+        "puc_chemical_csv/<int:pk>/",
+        views.download_puc_chemicals,
+        name="puc_chemical_csv",
+    ),
     path("dl_pucs_json/", views.bubble_PUCs, name="bubble_PUCs"),
     path(
         "dl_pucs_json/tree/", views.collapsible_tree_PUCs, name="collapsible_tree_PUCs"

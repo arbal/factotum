@@ -4,7 +4,7 @@
 {% block title %}Data Sources{% endblock %}
 {% block content %}
 
-<h1 class="col-sm-12">
+<h1 class="col-sm-12 pb-5">
     <span>Data Sources</span>
     <a class="btn btn-primary float-lg-right" role="button" href="{% url "data_source_new" %}">New Data Source</a>
 </h1>
@@ -37,14 +37,14 @@
         </form>
       </td>
       <td>{{ data_source.get_state_display }}</td>
-      <td class="float-sm-center">
+      <td class="float-sm-right">
         <div class="btn-group">
-          <a class="btn btn-success btn-sm" role="button" title="edit"
+          <a class="btn btn-sm btn-outline-secondary" role="button" title="edit"
              href="{% url "data_source_edit" data_source.id %}">
-            <span class="fa fa-fs fa-edit"></span> </a>
-          <a class="btn btn-danger btn-sm" role="button" title="delete"
+            <span class="far fa-edit"></span> </a>
+          <a class="btn btn-sm btn-outline-secondary" role="button" title="delete"
              href="{% url "data_source_delete" data_source.id %}">
-            <span class="fa fa-fs fa-trash"></span> </a>
+            <span class="fa fa-trash"></span> </a>
         </div>
       </td>
     </tr>

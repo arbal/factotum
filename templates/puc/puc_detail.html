@@ -101,7 +101,7 @@
     </div>
 
     <div class="col-lg-12 p-0" id="tables">
-        <ul class="row nav nav-pills mb-3">
+        <ul class="row nav nav-pills mb-3 pb-3">
             <li class="col-lg-4 nav-item h-nav border rounded p-0">
                 <a class="nav-link text-center active"
                    data-toggle="pill"
@@ -133,6 +133,7 @@
                 <h4>Products Assigned To "{{ puc }}"</h4>
                 <table class="table table-striped dataTable no-footer table-sm" 
                     data-puc="{{ puc.id }}"
+                    data-pucname="{{ puc|slugify }}"
                     id="products">
                     <thead >
                     <tr>
@@ -148,6 +149,7 @@
                 <h4>Documents Associated with "{{ puc }}"</h4>
                 <table class="table table-striped  dataTable no-footer table-sm" 
                     data-puc="{{ puc.id }}"
+                    data-pucname="{{ puc|slugify }}"
                     id="documents">
                     <thead >
                     <tr>
@@ -162,6 +164,7 @@
                 <h4>Chemicals Associated with "{{ puc }}"</h4>
                 <table class="table table-striped  dataTable no-footer table-sm" 
                     data-puc="{{ puc.id }}"
+                    data-pucname="{{ puc|slugify }}"
                     id="chemicals">
                     <thead >
                     <tr>
