@@ -49,6 +49,32 @@ class ProductUberPuc(DBView):
         managed = False
         db_table = "product_uber_puc"
 
+class ProductsPerPuc(DBView):
+    puc = CustomOneToOneField(
+        PUC,
+        on_delete=models.DO_NOTHING,
+        related_name="products_per_puc",
+        null=True,
+        blank=True,
+    )
+    product_count = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.puc}: {self.product_count} "
+
+    view_definition = """
+         select dashboard_puc.id as id, dashboard_puc.id as puc_id, kind_id, code, gen_cat, prod_fam, prod_type , coalesce(product_count , 0) as product_count
+            from dashboard_puc 
+            left join 
+            (select puc_id, count(product_id) as product_count from product_uber_puc group by puc_id) uberpucs 
+            on uberpucs.puc_id = dashboard_puc.id
+            left join dashboard_puckind on kind_id = dashboard_puckind.id
+            ;
+            """
+
+    class Meta:
+        managed = False
+        db_table = "products_per_puc"
 
 class CumulativeProductsPerPucQuerySet(models.QuerySet):
     def astree(self, include=None):

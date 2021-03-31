@@ -47,6 +47,7 @@ from .functional_use import FunctionalUse
 from .functional_use_category import FunctionalUseCategory
 from .product_uber_puc import (
     ProductUberPuc,
+    ProductsPerPuc,
     CumulativeProductsPerPuc,
     ProductsPerPucAndSid,
 )
