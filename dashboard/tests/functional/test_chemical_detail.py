@@ -157,3 +157,17 @@ class ChemicalDetail(TestCase):
         self.assertEqual(response.status_code, 200)
         content = response.get("Content-Disposition")
         self.assertTrue(content.startswith("attachment; filename=dtxsid6026296"))
+
+    def test_chemical_functional_uses(self):
+        sid = "DTXSID9022528"
+        response = self.client.get(f"/chemical_functional_use_json/?sid={sid}")
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEqual(data["recordsTotal"], 2)
+        self.assertEqual(data["recordsFiltered"], 2)
+
+        response = self.client.get(f"/chemical_functional_use_json/?sid={sid}&puc=137")
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEqual(data["recordsTotal"], 2)
+        self.assertEqual(data["recordsFiltered"], 0)

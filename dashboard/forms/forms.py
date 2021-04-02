@@ -2,6 +2,7 @@ from bootstrap_datepicker_plus import DatePickerInput
 from dal import autocomplete
 
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms import BaseInlineFormSet
 
 from django.utils.translation import ugettext_lazy as _
@@ -194,6 +195,27 @@ class ProductViewForm(ProductForm):
         super(ProductForm, self).__init__(*args, **kwargs)
         for f in self.fields:
             self.fields[f].disabled = True
+
+
+class BulkProductToPUCDeleteForm(forms.Form):
+    # Comma separated list of all ProductToPUC pks to be removed
+    p2p_ids = forms.CharField(widget=forms.HiddenInput(), required=True)
+
+    DELETION_REQUIRED_ERROR_MESSAGE = (
+        "At least one product must be selected for deletion"
+    )
+    SUCCESS_MESSAGE = "%d products removed from PUC"
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if not cleaned_data.get("p2p_ids", False):
+            raise ValidationError(self.DELETION_REQUIRED_ERROR_MESSAGE)
+        return cleaned_data
+
+    def save(self):
+        p2p_ids = self.cleaned_data["p2p_ids"].split(",")
+        ProductToPUC.objects.filter(pk__in=p2p_ids).delete()
+        return self.SUCCESS_MESSAGE % len(p2p_ids)
 
 
 class BulkProductPUCForm(BasePUCForm):

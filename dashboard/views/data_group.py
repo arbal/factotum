@@ -529,7 +529,8 @@ def data_group_tracking(request, template_name="data_group/data_group_tracking.h
     datagroups = (
         DataGroup.objects.all()
         .select_related("data_source", "group_type")
-        .prefetch_related("curation_steps", "datadocument_set")
+        .prefetch_related("curation_steps")
+        .annotate(doc_count=Count("datadocument"))
         .order_by("name")
     )
     curationsteps = CurationStep.objects.all().values("name", "id")
@@ -556,6 +557,6 @@ def edit_data_group_tracking(
 @register.filter(name="get_current_step_status")
 def get_current_step_status(datagroup, step_id):
     for step in datagroup.curation_steps.all():
-        if step.curation_step.id == step_id:
+        if step.curation_step_id == step_id:
             return step.step_status
     return "I"

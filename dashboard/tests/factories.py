@@ -160,13 +160,23 @@ class ProductFactory(FactotumFactoryBase):
     )
 
 
+class ProductToPUCClassificationMethodFactory(FactotumFactoryBase):
+    class Meta:
+        model = models.ProductToPucClassificationMethod
+        django_get_or_create = ("code",)
+
+    code = "AU"
+    name = "Automatic"
+    rank = 5
+
+
 class ProductToPUCFactory(FactotumFactoryBase):
     class Meta:
         model = models.ProductToPUC
 
     product = factory.SubFactory(ProductFactory)
     puc = factory.SubFactory(PUCFactory)
-    classification_confidence = 1.0
+    classification_method = factory.SubFactory(ProductToPUCClassificationMethodFactory)
 
 
 class ScriptFactory(FactotumFactoryBase):

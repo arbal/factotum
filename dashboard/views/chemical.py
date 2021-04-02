@@ -14,6 +14,7 @@ from dashboard.models import (
     DuplicateChemicals,
     ProductToPucClassificationMethod,
     ExtractedComposition,
+    FunctionalUse,
 )
 
 
@@ -305,3 +306,50 @@ class ChemicalProductListJson(BaseDatatableView):
         if cm and cm != "all":
             qs = qs.filter(product__product_uber_puc__classification_method__code=cm)
         return qs
+
+
+class ChemicalFunctionalUseListJson(BaseDatatableView):
+    model = FunctionalUse
+    columns = [
+        "chem.extracted_text.data_document.data_group.group_type.title",
+        "chem.extracted_text.data_document.title",
+        "report_funcuse",
+        "category.title",
+    ]
+
+    def get_filter_method(self):
+        return self.FILTER_ICONTAINS
+
+    def get_initial_queryset(self):
+        qs = super().get_initial_queryset()
+        sid = self.request.GET.get("sid")
+        if sid:
+            return qs.filter(Q(chem__dsstox__sid=sid)).distinct()
+        return qs
+
+    def filter_queryset(self, qs):
+        qs = super().filter_queryset(qs)
+        puc = self.request.GET.get("puc")
+        if puc:
+            qs = qs.filter(
+                Q(
+                    chem__extracted_text__data_document__products__product_uber_puc__puc=puc
+                )
+            )
+        return qs
+
+    def render_column(self, row, column):
+        value = self._render_column(row, column)
+        if column == "chem.extracted_text.data_document.title":
+            return format_html(
+                '<a href="{}" title="Go to Document detail" target="_blank">{}</a>',
+                row.chem.extracted_text.data_document.get_absolute_url(),
+                value,
+            )
+        # if column == "category.title":
+        #     return format_html(
+        #         '<a href="{}" title="Go to Functional Use Category detail" target="_blank">{}</a>',
+        #         row.category.get_absolute_url(),
+        #         value,
+        #     )
+        return value

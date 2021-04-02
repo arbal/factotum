@@ -232,6 +232,16 @@ urlpatterns = [
         name="qa_chemical_presence_summary_table",
     ),
     path(
+        "bulk_remove_product_puc/",
+        views.RemoveProductToPUC.as_view(),
+        name="bulk_remove_product_puc",
+    ),
+    path(
+        "bulk_remove_product_puc/table",
+        views.RemoveProductToPUCTable.as_view(),
+        name="bulk_remove_product_puc_table",
+    ),
+    path(
         "bulk_product_puc/", views.bulk_assign_puc_to_product, name="bulk_product_puc"
     ),
     path(
@@ -275,6 +285,11 @@ urlpatterns = [
     path("sid_gt_json", views.sids_by_grouptype_ajax, name="sid_gt_json_url"),
     path("pucs/", views.puc_list, name="puc_list"),
     path("puc/<int:pk>/", views.puc_detail, name="puc_detail"),
+    path(
+        "puc_chemical_csv/<int:pk>/",
+        views.download_puc_chemicals,
+        name="puc_chemical_csv",
+    ),
     path("dl_pucs_json/", views.bubble_PUCs, name="bubble_PUCs"),
     path(
         "dl_pucs_json/tree/", views.collapsible_tree_PUCs, name="collapsible_tree_PUCs"
@@ -312,6 +327,11 @@ urlpatterns = [
         "chemical_product_json/",
         views.ChemicalProductListJson.as_view(),
         name="chemical_product_ajax_url",
+    ),
+    path(
+        "chemical_functional_use_json/",
+        views.ChemicalFunctionalUseListJson.as_view(),
+        name="chemical_functional_use_ajax_url",
     ),
     path(
         "habitsandpractices/<int:pk>/",

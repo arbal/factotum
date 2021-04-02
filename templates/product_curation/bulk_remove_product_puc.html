@@ -1,0 +1,102 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% block title %}Delete Product - PUC connections{% endblock %}
+
+{% block content %}
+  <h1>Delete Product - PUC connections</h1>
+
+  <div class="my-4 d-flex">
+    <div>
+      <label>Select PUC:</label>
+    </div>
+    {# The select 2 has a width of 100% so flex-grow will take up all available remaining space #}
+    <div class="flex-grow-1">
+      {{ puc_form.puc }}
+    </div>
+  </div>
+
+  <div id="classification-methods" class="my-4">
+    <label class="mr-3">Classification Methods:</label>
+    {% for classification_method in classification_methods.all %}
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id='checkbox-{{ pk }}'
+               value="{{ classification_method.code }}"
+               onchange="filterClassificationMethod()" checked>
+        <label class="form-check-label" for="checkbox-{{ pk }}">{{ classification_method.name }}</label>
+      </div>
+    {% endfor %}
+  </div>
+
+  <form action='{% url 'bulk_remove_product_puc' %}' method="post" id="remove-p2p-form">
+    {% csrf_token %}
+
+    {# Hides the initial load no puc selected #}
+    <div id="products-table-wrapper" class="d-none">
+      <table class="table table-striped table-bordered dataTable no-footer table-sm" id="products">
+        <thead class="table-primary"></thead>
+      </table>
+
+      {{ form.p2p_ids }}
+
+      <div class="text-right">
+        <button type="submit" class="btn btn-primary">Delete Connections</button>
+      </div>
+    </div>
+  </form>
+{% endblock %}
+
+{% block js %}
+  {{ table_settings|json_script:"table_settings" }}
+  <script src="{% static 'js/dashboard/bulk_remove_product_puc.js' %}"></script>
+  {{ form.media }}
+  {{ puc_form.media }}
+{% endblock %}
+
+{% block css %}
+  <style type="text/css">
+      table.dataTable thead tr th.select-checkbox::before, table.dataTable thead tr th.select-checkbox::after {
+          display: block;
+          position: absolute;
+          top: 1.2em;
+          width: 12px;
+          height: 12px;
+          box-sizing: border-box;
+      }
+
+      table.dataTable thead tr th.select-checkbox::before {
+          content: ' ';
+          margin-bottom: 6px;
+          margin-left: 6px;
+          border: 1px solid black;
+          border-radius: 3px;
+      }
+
+      table.dataTable thead tr th.select-checkbox.selected::after {
+          content: "✔";
+          margin-top: -8px;
+          margin-left: 6px;
+          text-align: center;
+          text-shadow: rgb(176, 190, 217) 1px 1px, rgb(176, 190, 217) -1px -1px, rgb(176, 190, 217) 1px -1px, rgb(176, 190, 217) -1px 1px;
+      }
+
+      div.dataTables_wrapper div.dataTables_processing {
+          /* moves processing text box towards top of page */
+          top: 70px;
+      }
+
+      span.select-info {
+          margin-left: 15px;
+      }
+
+      .hide_column {
+          display: none;
+      }
+
+      .error {
+          border: 1px solid red;
+          padding-top: 6px;
+          padding-bottom: 6px;
+      }
+  </style>
+{% endblock %}
