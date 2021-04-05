@@ -144,10 +144,10 @@ def download_PUCs(request):
     response = HttpResponse(content_type="text/csv")
     response["Content-Disposition"] = 'attachment; filename="PUCs.csv"'
     pucs = (
-        PUC.objects.order_by("gen_cat", "prod_fam", "prod_type")
+        PUC.objects.prefetch_related("cumulative_products_per_puc")
+        .order_by("gen_cat", "prod_fam", "prod_type")
         .with_allowed_attributes()
         .with_assumed_attributes()
-        .astree()
     )
     writer = csv.writer(response)
     cols = [
@@ -163,7 +163,7 @@ def download_PUCs(request):
         "Cumulative product count",
     ]
     writer.writerow(cols)
-    for puc_key, puc in pucs.items():
+    for puc in pucs:
         row = [
             puc.gen_cat,
             puc.prod_fam,
@@ -172,9 +172,9 @@ def download_PUCs(request):
             puc.assumed_attributes,
             puc.description,
             puc.kind,
-            len(puc_key),
-            puc.product_count,
-            sum(p.product_count for p in pucs.objects[puc_key].values()),
+            puc.cumulative_products_per_puc.puc_level,
+            puc.cumulative_products_per_puc.product_count,
+            puc.cumulative_products_per_puc.cumulative_product_count,
         ]
         writer.writerow(row)
     return response
