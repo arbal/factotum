@@ -79,7 +79,7 @@ class TestPUCProductAndDocumentTables(StaticLiveServerTestCase):
             )
         )
         self.assertInHTML(
-            "Download CSV",
+            " Download All Chemicals Associated with PUC",
             self.browser.find_element_by_xpath(
                 "//button[contains(@class, 'btn-dl-chemical')]"
             ).text,
