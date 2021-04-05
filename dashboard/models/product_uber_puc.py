@@ -49,6 +49,7 @@ class ProductUberPuc(DBView):
         managed = False
         db_table = "product_uber_puc"
 
+
 class ProductsPerPuc(DBView):
     puc = CustomOneToOneField(
         PUC,
@@ -75,6 +76,7 @@ class ProductsPerPuc(DBView):
     class Meta:
         managed = False
         db_table = "products_per_puc"
+
 
 class CumulativeProductsPerPucQuerySet(models.QuerySet):
     def astree(self, include=None):

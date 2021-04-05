@@ -5,20 +5,23 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0186_remove_views'),
-    ]
+    dependencies = [("dashboard", "0186_remove_views")]
 
     operations = [
         migrations.CreateModel(
-            name='ProductsPerPuc',
+            name="ProductsPerPuc",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('product_count', models.IntegerField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("product_count", models.IntegerField()),
             ],
-            options={
-                'db_table': 'products_per_puc',
-                'managed': False,
-            },
-        ),
+            options={"db_table": "products_per_puc", "managed": False},
+        )
     ]
