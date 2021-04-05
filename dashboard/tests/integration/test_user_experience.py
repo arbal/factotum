@@ -119,6 +119,7 @@ class TestIntegration(StaticLiveServerTestCase):
             "User should always return to detail page after submit",
         )
 
+    @tag("puc")
     def test_product(self):
         doc = self.objects.doc
         doc.file = doc.filename

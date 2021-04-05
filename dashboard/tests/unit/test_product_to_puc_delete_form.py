@@ -1,10 +1,11 @@
-from django.test import TestCase
+from django.test import TestCase, tag
 
 from dashboard.forms.forms import BulkProductToPUCDeleteForm
 from dashboard.models import ProductToPUC
 from dashboard.tests.factories import ProductToPUCFactory, UserFactory
 
 
+@tag("puc")
 class TestBulkProductToPUCDeleteForm(TestCase):
     fixtures = ["00_superuser"]
     form = BulkProductToPUCDeleteForm

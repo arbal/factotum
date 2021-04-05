@@ -1,5 +1,6 @@
 from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.test import tag
 from dashboard.models import Product
 from django.db.models import Count
 import time
@@ -19,6 +20,7 @@ def log_karyn_in(object):
     object.browser.find_element_by_class_name("btn").click()
 
 
+@tag("puc")
 class TestBulkProductPuc(StaticLiveServerTestCase):
     fixtures = fixtures_standard
 

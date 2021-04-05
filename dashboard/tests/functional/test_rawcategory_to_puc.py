@@ -10,6 +10,7 @@ from dashboard.models import DataGroup, DataDocument, Product, GroupType
 from dashboard.views import DataSource, PUC, RawCategoryToPUCList
 
 
+@tag("puc")
 class TestRawCategoryToPUCView(TestCase):
     path_name = "rawcategory_to_puc"
     minimum_product_count = 50

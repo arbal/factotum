@@ -9,6 +9,7 @@ from dashboard.tests.loader import fixtures_standard
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
+@tag("puc")
 class TestPUCViews(TestCase):
     fixtures = fixtures_standard
 

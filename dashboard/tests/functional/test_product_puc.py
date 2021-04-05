@@ -2,7 +2,7 @@ import json
 
 from django.test import TestCase, override_settings
 from django.shortcuts import get_object_or_404
-from dashboard.tests import factories
+from dashboard.tests import factories, tag
 from dashboard.tests.loader import fixtures_standard
 from lxml import html
 from django.urls import reverse
@@ -24,6 +24,7 @@ from dashboard.models.raw_chem import RawChem
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"], CACHEOPS_ENABLED=False)
+@tag("puc")
 class TestProductPuc(TestCase):
     fixtures = fixtures_standard
 

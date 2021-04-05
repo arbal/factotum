@@ -1,6 +1,6 @@
 import json
 
-from django.test import TestCase, override_settings
+from django.test import TestCase, override_settings, tag
 from dashboard.tests.loader import fixtures_standard
 from dashboard.models import Product, PUC
 from django.urls import reverse
@@ -18,6 +18,7 @@ params = (
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
+@tag("puc")
 class TestAjax(TestCase):
     fixtures = fixtures_standard
 
