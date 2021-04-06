@@ -185,32 +185,3 @@ class CumulativeProductsPerPuc(DBView):
     class Meta:
         managed = False
         db_table = "cumulative_products_per_puc"
-
-
-class ProductsPerPucAndSid(DBView):
-    puc = models.ForeignKey(
-        PUC, on_delete=models.DO_NOTHING, related_name="products_per_puc_and_sid"
-    )
-    dsstoxlookup = models.ForeignKey(DSSToxLookup, on_delete=models.DO_NOTHING)
-    product_count = models.IntegerField()
-
-    def __str__(self):
-        return f"{self.puc} | {self.dsstoxlookup.sid}: {self.product_count}"
-
-    view_definition = """
-        SELECT 
-                1 AS id,
-                ptp.puc_id AS puc_id,
-                chem.dsstox_id AS dsstoxlookup_id,
-                COUNT(ptp.product_id) AS product_count
-            FROM
-                (select product_id, puc_id FROM dashboard_producttopuc where dashboard_producttopuc.is_uber_puc = TRUE) ptp
-                JOIN dashboard_productdocument ON ptp.product_id = dashboard_productdocument.product_id
-                JOIN (select extracted_text_id, dsstox_id from dashboard_rawchem where dsstox_id is not null) chem ON 
-                dashboard_productdocument.document_id = chem.extracted_text_id
-            GROUP BY ptp.puc_id , chem.dsstox_id
-            """
-
-    class Meta:
-        managed = False
-        db_table = "products_per_puc_and_sid"

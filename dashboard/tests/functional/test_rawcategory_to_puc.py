@@ -1,7 +1,7 @@
 import json
 from uuid import uuid1
 
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.urls import reverse
 from django.utils.timezone import now
 from django.contrib.auth.models import User

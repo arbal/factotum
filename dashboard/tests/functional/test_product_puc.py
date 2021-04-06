@@ -1,8 +1,8 @@
 import json
 
-from django.test import TestCase, override_settings
+from django.test import TestCase, override_settings, tag
 from django.shortcuts import get_object_or_404
-from dashboard.tests import factories, tag
+from dashboard.tests import factories
 from dashboard.tests.loader import fixtures_standard
 from lxml import html
 from django.urls import reverse
