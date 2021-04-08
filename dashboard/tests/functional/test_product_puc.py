@@ -228,6 +228,24 @@ class TestProductPuc(TestCase):
             ),
             "The DataTable should display the matching products on successful search",
         )
+        # search by manufacturer
+        product_response = self.client.get(product_response_url + "?q=henkel")
+        product_response_html = html.fromstring(product_response.content.decode("utf8"))
+        self.assertIn(
+            "Henkel Corporation",
+            product_response_html.xpath(
+                'string(//*[@id="products"]/tbody/tr/td[4]/text())'
+            ),
+        )
+        # search by brand name
+        product_response = self.client.get(product_response_url + "?q=osi")
+        product_response_html = html.fromstring(product_response.content.decode("utf8"))
+        self.assertIn(
+            "OSI F 38",
+            product_response_html.xpath(
+                'string(//*[@id="products"]/tbody/tr/td[3]/text())'
+            ),
+        )
 
     def test_bulk_product_puc_exclude_assgined(self):
         product_response_url = reverse("bulk_product_puc")
