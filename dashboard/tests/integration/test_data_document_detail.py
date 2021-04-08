@@ -276,17 +276,22 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         dd_pk = 156051
         list_url = self.live_server_url + f"/datadocument/{dd_pk}/"
         self.browser.get(list_url)
-        time.sleep(1)
-        # Verify that the sliders have been generated for extracted chemicals in this datadocument
-        try:
-            slider = WebDriverWait(self.browser, 10).until(
-                ec.visibility_of_element_located((By.XPATH, '//*[@id="slider856"]'))
-            )
-            slider2 = WebDriverWait(self.browser, 10).until(
-                ec.visibility_of_element_located((By.XPATH, '//*[@id="slider2"]'))
-            )
-        except (NoSuchElementException, TimeoutException):
-            self.fail("Sliders should exist on this page, but does not.")
+        wait = WebDriverWait(self.browser, 10)
+        wait.until(ec.presence_of_all_elements_located((By.ID, "chem-card-2")))
+        self.assertEqual(
+            ".0047 - .0074 weight fraction",
+            self.browser.find_element_by_id("raw_comp_2").text,
+        )
+        self.assertEqual(
+            "0.125 - 0.25 reported", self.browser.find_element_by_id("wf_comp_2").text
+        )
+        self.assertEqual(
+            ".0074 weight fraction",
+            self.browser.find_element_by_id("raw_comp_856").text,
+        )
+        self.assertEqual(
+            "0.15 reported", self.browser.find_element_by_id("wf_comp_856").text
+        )
 
     def test_chemical_update(self):
         docs = DataDocument.objects.filter(pk__in=[156051, 354786])

@@ -123,7 +123,7 @@ class DataDocumentDetailTest(TransactionTestCase):
         )
 
         # Test presence of necessary display attributes
-        raw_comp = page.xpath('//*[@id="raw_comp"]')[0].text
+        raw_comp = page.xpath('//*[@id="raw_comp_4"]')[0].text
         self.assertInHTML("4 - 7 weight fraction", raw_comp)
         report_funcuse = page.xpath('//*[@id="functional_uses_1"]//*')[0].text
         self.assertIn("swell", report_funcuse)
