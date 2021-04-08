@@ -153,8 +153,6 @@ CACHEOPS_REDIS = (
 )
 CACHEOPS_DEFAULTS = {"timeout": env.CACHEOPS_DEFAULT_TIMEOUT}  # default to one hour
 CACHEOPS = {
-    "dashboard.cumulativeproductsperpucandsid": {"ops": {"fetch", "get"}},
-    "dashboard.productsperpucandsid": {"ops": {"fetch", "get"}},
     # "dashboard.cumulativeproductsperpuc": {"ops": {"fetch", "get"}},
     # "dashboard.productsperpuc": {"ops": {"fetch", "get"}},
 }

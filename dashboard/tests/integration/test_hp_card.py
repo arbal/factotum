@@ -1,6 +1,6 @@
 import factory
 import time
-
+from django.test import tag
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
@@ -46,6 +46,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
     def tearDown(self):
         self.browser.quit()
 
+    @tag("puc")
     def test_habits_and_practice_cards_populate(self):
         self.browser.get(
             self.live_server_url
@@ -172,6 +173,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
         # Card No Longer Exists
         self.assertFalse(self.browser.find_elements(By.ID, f"chem-card-{self.hnp.pk}"))
 
+    @tag("puc")
     def test_habits_and_practice_cards_add_PUC(self):
         # Set up test data
         new_puc = PUCFactory()
@@ -204,6 +206,7 @@ class TestHabitsAndPracticesCards(StaticLiveServerTestCase):
             self.browser.find_element_by_id(f"chem-card-{self.hnp.pk}").text,
         )
 
+    @tag("puc")
     def test_habits_and_practice_cards_remove_PUC(self):
         # Open Edit form and assert puc present (self.pucs[0] in this case.)
         self.browser.get(

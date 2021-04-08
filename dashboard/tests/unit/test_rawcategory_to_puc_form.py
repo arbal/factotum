@@ -1,7 +1,7 @@
 from uuid import uuid1
 
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.utils.timezone import now
 
 from dashboard.forms import RawCategoryToPUCForm
@@ -15,6 +15,7 @@ from dashboard.models import (
 )
 
 
+@tag("puc")
 class TestRawCategoryToPUCForm(TestCase):
     @classmethod
     def setUpTestData(cls):

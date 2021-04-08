@@ -96,7 +96,7 @@ class DSSToxLookup(CommonInfo):
         return cpucs.count()
 
     def get_cumulative_puc_products_tree(self, kind=None, data_format=None):
-        from dashboard.models import ProductsPerPucAndSid
+        from dashboard.models import ProductsPerPuc
 
         if kind is not None:
             product_count_query = f"""
@@ -159,7 +159,7 @@ class DSSToxLookup(CommonInfo):
         ORDER BY puc.gen_cat, puc.prod_fam, puc.prod_type
         """
 
-        raw_qs = ProductsPerPucAndSid.objects.raw(raw_query)
+        raw_qs = ProductsPerPuc.objects.raw(raw_query)
         tree = SimpleTree()
         for p in raw_qs:
             names = tuple(n for n in (p.gen_cat, p.prod_fam, p.prod_type) if n)

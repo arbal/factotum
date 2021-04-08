@@ -20,6 +20,7 @@ class HabitViewTest(TestCase):
         found = resolve(f"/habitsandpractices/{self.objects.doc.pk}/")
         self.assertEqual(found.func, views.habitsandpractices)
 
+    @tag("puc")
     def test_link_habitandpractice_to_puc(self):
         found = resolve(f"/link_habitandpractice_to_puc/{self.objects.ehp.pk}/")
         self.assertEqual(found.func, views.link_habitsandpractices)
@@ -103,6 +104,7 @@ class HabitViewTest(TestCase):
         response2 = self.client.get(f"/datagroup/{self.objects.dg.pk}/")
         self.assertContains(response2, "Data Group Detail: Data Group for Test")
 
+    @tag("puc")
     def test_unique_constaint(self):
         self.ehp1 = ExtractedHabitsAndPracticesToPUC.objects.create(
             extracted_habits_and_practices=self.objects.ehp, PUC=self.objects.puc

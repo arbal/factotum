@@ -163,7 +163,8 @@ class PUC(CommonInfo):
     def product_count(self):
         """ 
         """
-        return self.products_per_puc.product_count
+        ProductToPUC = apps.get_model("dashboard", "ProductUberPuc")
+        return ProductToPUC.objects.filter(Q(puc=self)).count()
 
     @property
     def cumulative_product_count(self):

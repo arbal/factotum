@@ -1,5 +1,5 @@
 import time
-
+from django.test import tag
 from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from dashboard.models import (
@@ -30,6 +30,7 @@ def log_karyn_in(object):
     object.browser.find_element_by_class_name("btn").click()
 
 
+@tag("puc")
 class TestChemicalDetail(StaticLiveServerTestCase):
     fixtures = fixtures_standard
 

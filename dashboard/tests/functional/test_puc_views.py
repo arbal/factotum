@@ -1,7 +1,7 @@
 from lxml import html
 import json
 
-from django.test import TestCase, override_settings
+from django.test import TestCase, override_settings, tag
 
 from dashboard.models import PUC
 from django.db.models import Count
@@ -9,6 +9,7 @@ from dashboard.tests.loader import fixtures_standard
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
+@tag("puc")
 class TestPUCViews(TestCase):
     fixtures = fixtures_standard
 

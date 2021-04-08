@@ -1,5 +1,5 @@
 from selenium.webdriver import ActionChains
-
+from django.test import tag
 from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from dashboard.models import PUC
@@ -24,6 +24,7 @@ def log_karyn_in(object):
     object.browser.find_element_by_class_name("btn").click()
 
 
+@tag("puc")
 class TestPUCProductAndDocumentTables(StaticLiveServerTestCase):
     fixtures = fixtures_standard
 
@@ -78,7 +79,7 @@ class TestPUCProductAndDocumentTables(StaticLiveServerTestCase):
             )
         )
         self.assertInHTML(
-            "Download CSV",
+            " Download All Chemicals Associated with PUC",
             self.browser.find_element_by_xpath(
                 "//button[contains(@class, 'btn-dl-chemical')]"
             ).text,

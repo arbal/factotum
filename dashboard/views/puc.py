@@ -8,7 +8,7 @@ def puc_list(request, template_name="puc/puc_list.html"):
     pucs = (
         PUC.objects.all()
         .values("kind__name", "gen_cat", "prod_fam", "prod_type", "id")
-        .annotate(product_count=F("products_per_puc__product_count"))
+        .annotate(product_count=Count("productuberpuc"))
         .order_by("kind__name", "gen_cat", "prod_fam", "prod_type")
     )
     data = {}

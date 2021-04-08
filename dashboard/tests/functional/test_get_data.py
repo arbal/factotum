@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.test import TestCase, override_settings
+from django.test import TestCase, override_settings, tag
 from django.test.client import Client
 from django.urls import reverse
 
@@ -174,6 +174,7 @@ class TestGetData(TestCase):
             "There should now be 8 products associated with ethylparaben",
         )
 
+    @tag("puc")
     def test_habits_and_practices_cards(self):
         data = {"puc": ["2"]}
         response = self.client.post("/get_data/", data=data)

@@ -1,5 +1,6 @@
 from django.urls import reverse
 from selenium.webdriver.support.select import Select
+from django.test import tag
 
 from dashboard.tests.factories import ProductFactory, PUCFactory, ProductToPUCFactory
 from dashboard.tests.loader import load_browser
@@ -25,6 +26,7 @@ def log_karyn_in(object):
     object.browser.find_element_by_class_name("btn").click()
 
 
+@tag("puc")
 class TestBulkProductPUCTable(StaticLiveServerTestCase):
     fixtures = ["00_superuser"]
 
