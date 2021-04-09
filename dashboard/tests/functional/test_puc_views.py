@@ -1,3 +1,4 @@
+from django.urls import reverse
 from lxml import html
 import json
 
@@ -93,3 +94,13 @@ class TestPUCViews(TestCase):
                 puc_dict = p
         # confirm that the table's source data matches the ORM object
         self.assertEqual(puc.product_count, puc_dict["product_count"])
+
+    def test_download_products_and_weight_fractions(self):
+        self.client.logout()
+        puc_id = 1
+        response = self.client.get(
+            reverse("download_puc_products_weight_fractions", args=[puc_id])
+        )
+        self.assertEqual(response.status_code, 200)
+        content = response.get("Content-Disposition")
+        self.assertTrue("_products_and_weight_fractions" in content)

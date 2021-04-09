@@ -290,6 +290,11 @@ urlpatterns = [
         views.download_puc_chemicals,
         name="puc_chemical_csv",
     ),
+    path(
+        "download_puc_products_weight_fractions/<int:pk>/",
+        views.download_puc_products_weight_fractions,
+        name="download_puc_products_weight_fractions",
+    ),
     path("dl_pucs_json/", views.bubble_PUCs, name="bubble_PUCs"),
     path(
         "dl_pucs_json/tree/", views.collapsible_tree_PUCs, name="collapsible_tree_PUCs"
