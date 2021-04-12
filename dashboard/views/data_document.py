@@ -543,46 +543,109 @@ def chemical_audit_log(request, pk):
 
 
 def download_document_chemicals(request, pk):
+    def download_list_presence_chemicals():
+        chemicals = (
+            ExtractedListPresence.objects.filter(
+                extracted_text__data_document_id=document.pk
+            )
+            .annotate(
+                tag_names=GroupConcat("tags__name", separator="; ", distinct=True)
+            )
+            .values(
+                "extracted_text__data_document__title",
+                "extracted_text__data_document__subtitle",
+                "extracted_text__data_document__organization",
+                "raw_chem_name",
+                "raw_cas",
+                "dsstox__sid",
+                "dsstox__true_chemname",
+                "dsstox__true_cas",
+                "chem_detected_flag",
+                "tag_names",
+            )
+            .order_by("raw_chem_name")
+        )
+        filename = document.get_title_as_slug() + "_chemicals.csv"
+        return render_to_csv_response(
+            chemicals,
+            filename=filename,
+            append_datestamp=True,
+            field_header_map={
+                "extracted_text__data_document__title": "Data Document Title",
+                "extracted_text__data_document__subtitle": "Data Document Subtitle",
+                "extracted_text__data_document__organization": "Organization",
+                "dsstox__sid": "DTXSID",
+                "dsstox__true_chemname": "True Chemical Name",
+                "dsstox__true_cas": "True CAS",
+                "tag_names": "Tags",
+            },
+            field_serializer_map={
+                "chem_detected_flag": (lambda f: ("Yes" if f == "1" else "No"))
+            },
+        )
+
+    def download_composition_chemicals():
+        chemicals = (
+            ExtractedComposition.objects.filter(
+                extracted_text__data_document_id=document.pk
+            )
+            .prefetch_related("weight_fraction_type", "unit_type")
+            .values(
+                "extracted_text__data_document__title",
+                "extracted_text__data_document__subtitle",
+                "extracted_text__data_document__organization",
+                "raw_chem_name",
+                "raw_cas",
+                "dsstox__sid",
+                "dsstox__true_chemname",
+                "dsstox__true_cas",
+                "ingredient_rank",
+                "raw_min_comp",
+                "raw_max_comp",
+                "raw_central_comp",
+                "unit_type__title",
+                "lower_wf_analysis",
+                "upper_wf_analysis",
+                "central_wf_analysis",
+                "weight_fraction_type__title",
+                "component",
+            )
+            .order_by("raw_chem_name")
+        )
+        filename = document.get_title_as_slug() + "_chemicals.csv"
+        return render_to_csv_response(
+            chemicals,
+            filename=filename,
+            append_datestamp=True,
+            field_header_map={
+                "extracted_text__data_document__title": "Data Document Title",
+                "extracted_text__data_document__subtitle": "Data Document Subtitle",
+                "extracted_text__data_document__organization": "Organization",
+                "dsstox__sid": "DTXSID",
+                "dsstox__true_chemname": "True Chemical Name",
+                "dsstox__true_cas": "True CAS",
+                "ingredient_rank": "Ingredient Rank",
+                "raw_min_comp": "Raw Min Comp",
+                "raw_max_comp": "Raw Max Comp",
+                "raw_central_comp": "Raw Central Comp",
+                "unit_type__title": "Unit Type",
+                "lower_wf_analysis": "Lower Weight Fraction",
+                "upper_wf_analysis": "Upper Weight Fraction",
+                "central_wf_analysis": "Central Weight Fraction",
+                "weight_fraction_type__title": "Weight Fraction Type",
+            },
+        )
+
     document = get_object_or_404(DataDocument, pk=pk)
-    if not document.data_group.is_chemical_presence:
+    if document.data_group.is_chemical_presence:
+        return download_list_presence_chemicals()
+    elif document.data_group.is_composition:
+        return download_composition_chemicals()
+    else:
         return HttpResponseBadRequest(
-            content="data document does not belong to chemical presence group",
+            content="data document does not belong to chemical presence or composition group",
             content_type="text/plain;",
         )
-    chemicals = (
-        ExtractedListPresence.objects.filter(extracted_text__data_document_id=pk)
-        .annotate(tag_names=GroupConcat("tags__name", separator="; ", distinct=True))
-        .values(
-            "extracted_text__data_document__title",
-            "extracted_text__data_document__subtitle",
-            "extracted_text__data_document__organization",
-            "raw_chem_name",
-            "raw_cas",
-            "dsstox__sid",
-            "dsstox__true_chemname",
-            "dsstox__true_cas",
-            "chem_detected_flag",
-            "tag_names",
-        )
-    )
-    filename = document.get_title_as_slug() + "_chemicals.csv"
-    return render_to_csv_response(
-        chemicals,
-        filename=filename,
-        append_datestamp=True,
-        field_header_map={
-            "extracted_text__data_document__title": "Title",
-            "extracted_text__data_document__subtitle": "Subtitle",
-            "extracted_text__data_document__organization": "Organization",
-            "dsstox__sid": "DTXSID",
-            "dsstox__true_chemname": "True chemical name",
-            "dsstox__true_cas": "True CAS",
-            "tag_names": "Tags",
-        },
-        field_serializer_map={
-            "chem_detected_flag": (lambda f: ("Yes" if f == "1" else "No"))
-        },
-    )
 
 
 class DocumentAuditLog(BaseDatatableView):
