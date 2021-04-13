@@ -31,9 +31,9 @@ class TestFunctionalUseCuration(TestCase):
         surfactants = []
         for li in combinations:
             if li["report_funcuse"] == "surfactant":
-                if li["category__title"] == None:
+                if li["categorytitle"] == None:
                     self.assertEqual(li["fu_count"], 1)
-                if li["category__title"] == "solvent":
+                if li["categorytitle"] == "solvent":
                     self.assertEqual(li["fu_count"], 1)
 
         # assign the category and make sure the data payload changed

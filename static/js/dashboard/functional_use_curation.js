@@ -1,8 +1,120 @@
 var rows = JSON.parse(document.getElementById('tabledata').textContent);
+var categories = JSON.parse(document.getElementById('categorydata').textContent);
+
+class CategoryCellEditor {
+
+    // gets called once after the editor is created
+    init(params) {
+        this.container = document.createElement('div');
+        this._createTable(params);
+        this._registerApplyListener();
+        this.params = params;
+    }
+
+    // Return the DOM element of your editor,
+    // this is what the grid puts into the DOM
+    getGui() {
+        return this.container;
+    }
+
+    // Gets called once by grid after editing is finished
+    // if your editor needs to do any cleanup, do it here
+    destroy() {
+        this.applyButton.removeEventListener('click', this._applyValues);
+    }
+
+    // Gets called once after GUI is attached to DOM.
+    // Useful if you want to focus or highlight a component
+    afterGuiAttached() {
+        this.container.focus();
+    }
+
+    // Should return the final value to the grid, the result of the editing
+    getValue() {
+        return this.inputValue.value;
+    }
+
+    // Gets called once after initialised.
+    // If you return true, the editor will appear in a popup
+    isPopup() {
+        return true;
+    }
+
+    _createTable(params) {
+        this.container.innerHTML = `
+      <div>
+        <select id="category_id" name="category_id" class="form-control-sm"></select>
+        <input type="hidden" id="inputValue" name="inputValue"> 
+        <button id="applyBtn" class="btn btn-sm btn-primary">Update</button>
+      </div>
+    `;
+
+        this.categoryDropdown = this.container.querySelector('#category_id');
+        for (let i = 0; i < categories.length; i++) {
+            const option = document.createElement('option');
+            option.setAttribute('value', categories[i].id);
+            option.innerText = categories[i].title;
+            if (params.value === categories[i].title) {
+                option.setAttribute('selected', 'selected');
+            }
+            this.categoryDropdown.appendChild(option);
+        }
+        this.inputValue = this.container.querySelector('#inputValue');
+        this.inputValue.value = params.value;
+    }
+
+    _registerApplyListener() {
+        this.applyButton = this.container.querySelector('#applyBtn');
+        this.applyButton.addEventListener('click', this._applyValues);
+    }
+
+    _applyValues = () => {
+        let newData = {...this.params.data};
+        let selectedcategory = categories.filter(c => c.id == this.categoryDropdown.value)[0];
+        newData.category = selectedcategory.id
+        newData.categorytitle = selectedcategory.title;
+        this.params.stopEditing();
+        this.params.node.setData(newData);
+    }
+}
+
+class CategoryCellRenderer {
+    init(params) {
+        this.gui = document.createElement('span');
+        if (this._isNotNil(params.value)
+            && (this._isNumber(params.value) || this._isNotEmptyString(params.value))) {
+            this.gui.innerText = params.value;
+        } else {
+            this.gui.innerText = '';
+        }
+    }
+
+    _isNotNil(value) {
+        return value !== undefined && value !== null;
+    }
+
+    _isNotEmptyString(value) {
+        return typeof value === 'string' && value !== '';
+    }
+
+    _isNumber(value) {
+        return !Number.isNaN(Number.parseFloat(value)) && Number.isFinite(value);
+    }
+
+    getGui() {
+        return this.gui;
+    }
+}
 
 var columnDefs = [
     {headerName: "Reported Functional Use", field: "report_funcuse"},
-    {headerName: "Harmonized Category", field: "category__title"},
+    {
+        headerName: "Harmonized Category",
+        field: "categorytitle",
+        editable: true,
+        cellEditor: CategoryCellEditor,
+        cellRenderer: CategoryCellRenderer
+    },
     {headerName: "Count", field: "fu_count"},
 ];
 
@@ -14,17 +126,18 @@ var gridOptions = {
         filter: true,
         cellStyle: {'white-space': 'normal'},
     },
+    singleClickEdit: true,
     columnDefs: columnDefs,
     rowData: rows,
     rowHeight: 36,
     domLayout: 'normal',
     pagination: true,
     paginationPageSize: 50,
-    onGridReady: function(params) {
+    onGridReady: function (params) {
         params.api.sizeColumnsToFit();
 
-        window.addEventListener('resize', function() {
-            setTimeout(function() {
+        window.addEventListener('resize', function () {
+            setTimeout(function () {
                 params.api.sizeColumnsToFit();
             });
         });
@@ -45,8 +158,9 @@ function onFilterTextBoxChanged() {
     gridOptions.api.setQuickFilter(document.getElementById('filter-text-box').value);
 }
 
+
 // page size changed
-document.getElementById("page-size").onchange = function(evt) {
+document.getElementById("page-size").onchange = function (evt) {
     var value = evt.target.value;
     if (value == "All") {
         value = gridOptions.api.paginationGetRowCount()
@@ -55,7 +169,7 @@ document.getElementById("page-size").onchange = function(evt) {
 };
 
 // setup the grid after the page has finished loading
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var gridDiv = document.querySelector('#dataGrid');
     new agGrid.Grid(gridDiv, gridOptions);
 });

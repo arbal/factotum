@@ -31,6 +31,7 @@
 {% block js %}
     {{ form.media }}
     {{ combinations|json_script:"tabledata" }}
+    {{ categories|json_script:"categorydata" }}
     <script src="{% static 'js/dashboard/functional_use_curation.js' %}"></script>
 {% endblock %}
 
