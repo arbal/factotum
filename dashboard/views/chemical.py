@@ -14,7 +14,7 @@ from dashboard.models import (
     DuplicateChemicals,
     ProductToPucClassificationMethod,
     ExtractedComposition,
-    FunctionalUse,
+    FunctionalUseToRawChem,
 )
 
 
@@ -309,22 +309,29 @@ class ChemicalProductListJson(BaseDatatableView):
 
 
 class ChemicalFunctionalUseListJson(BaseDatatableView):
-    model = FunctionalUse
+    model = FunctionalUseToRawChem
     columns = [
-        "chem.extracted_text.data_document.data_group.group_type.title",
-        "chem.extracted_text.data_document.title",
-        "report_funcuse",
-        "category.title",
+        "chemical.extracted_text.data_document.data_group.group_type.title",
+        "chemical.extracted_text.data_document.title",
+        "functional_use.report_funcuse",
+        "functional_use.category.title",
     ]
 
     def get_filter_method(self):
         return self.FILTER_ICONTAINS
 
     def get_initial_queryset(self):
-        qs = super().get_initial_queryset()
+        qs = (
+            super()
+            .get_initial_queryset()
+            .select_related(
+                "functional_use__category",
+                "chemical__extracted_text__data_document__data_group__group_type",
+            )
+        )
         sid = self.request.GET.get("sid")
         if sid:
-            return qs.filter(Q(chem__dsstox__sid=sid)).distinct()
+            return qs.filter(Q(chemical__dsstox__sid=sid)).distinct()
         return qs
 
     def filter_queryset(self, qs):
@@ -333,17 +340,17 @@ class ChemicalFunctionalUseListJson(BaseDatatableView):
         if puc:
             qs = qs.filter(
                 Q(
-                    chem__extracted_text__data_document__products__product_uber_puc__puc=puc
+                    chemical__extracted_text__data_document__products__product_uber_puc__puc=puc
                 )
             )
         return qs
 
     def render_column(self, row, column):
         value = self._render_column(row, column)
-        if column == "chem.extracted_text.data_document.title":
+        if column == "chemical.extracted_text.data_document.title":
             return format_html(
                 '<a href="{}" title="Go to Document detail" target="_blank">{}</a>',
-                row.chem.extracted_text.data_document.get_absolute_url(),
+                row.chemical.extracted_text.data_document.get_absolute_url(),
                 value,
             )
         # if column == "category.title":

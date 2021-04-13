@@ -16,6 +16,8 @@ from .get_data import *
 from .puc import *
 from .chemical_curation import *
 from .tag_autocomplete import *
+from .chemical_autocomplete import *
+from .functional_use_autocomplete import *
 from .search import *
 from .tags import *
 from .statistics import *

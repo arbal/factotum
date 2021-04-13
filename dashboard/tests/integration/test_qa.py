@@ -199,7 +199,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase, TransactionTestCase):
             datatable = wait.until(
                 EC.visibility_of_element_located((By.XPATH, "//*[@id='audit-log']"))
             )
-            self.assertIn("report_funcuse", datatable.text)
+            # todo: Functional use no longer linked to rawchem.
+            # self.assertIn("report_funcuse", datatable.text)
 
     def test_list_presence_chem_delete(self):
         # make sure that deleting an ExtractedListPresence record doesn't fail

@@ -511,7 +511,7 @@ def download_raw_functional_use_records(request, pk):
     datagroup = DataGroup.objects.get(pk=pk)
     columnlist = ["id", "report_funcuse", "extraction_script__title", "category__title"]
     qs = FunctionalUse.objects.filter(
-        chem__extracted_text__data_document__data_group=datagroup
+        chemicals__extracted_text__data_document__data_group=datagroup
     ).values(*columnlist)
     return render_to_csv_response(
         qs,

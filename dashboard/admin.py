@@ -1,6 +1,6 @@
+from dal_select2.widgets import ModelSelect2
 from django import forms
 from django.contrib import admin
-from dashboard.signals import *
 from django.utils.translation import ugettext_lazy as _
 from taggit_labels.widgets import LabelWidget
 
@@ -43,6 +43,7 @@ from dashboard.models import (
     FunctionalUse,
     FunctionalUseCategory,
     CurationStep,
+    FunctionalUseToRawChem,
 )
 
 
@@ -155,8 +156,25 @@ class DocumentTypeAdmin(admin.ModelAdmin):
 
 
 class FunctionalUseAdmin(admin.ModelAdmin):
-    list_display = ("chem", "report_funcuse", "category")
-    list_filter = ("report_funcuse",)
+    list_display = ("report_funcuse", "category")
+    list_filter = ("category",)
+
+
+# Simple autocomplete form that will allow this page to load
+# with any number of functional uses or chemicals.
+class FunctionalUseToRawChemAdminForm(forms.ModelForm):
+    class Meta:
+        model = FunctionalUseToRawChem
+        fields = ("chemical", "functional_use")
+        widgets = {
+            "chemical": ModelSelect2(url="chemical_autocomplete"),
+            "functional_use": ModelSelect2(url="functional_use_autocomplete"),
+        }
+
+
+class FunctionalUseToRawChemAdmin(admin.ModelAdmin):
+    list_display = ("chemical", "functional_use")
+    form = FunctionalUseToRawChemAdminForm
 
 
 # Register your models here.
@@ -198,5 +216,6 @@ admin.site.register(ExtractedListPresenceTag, ExtractedListPresenceTagAdmin)
 admin.site.register(ExtractedListPresenceToTag, ExtractedListPresenceToTagAdmin)
 admin.site.register(ExtractedListPresenceTagKind)
 admin.site.register(FunctionalUse, FunctionalUseAdmin)
+admin.site.register(FunctionalUseToRawChem, FunctionalUseToRawChemAdmin)
 admin.site.register(FunctionalUseCategory)
 admin.site.register(CurationStep)

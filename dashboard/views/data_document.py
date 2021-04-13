@@ -8,7 +8,10 @@ from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django_datatables_view.base_datatable_view import BaseDatatableView
 from djqscsv import render_to_csv_response
 
-from dashboard.forms.forms import ExtractedHabitsAndPracticesForm
+from dashboard.forms.forms import (
+    ExtractedHabitsAndPracticesForm,
+    RawChemToFunctionalUseForm,
+)
 from dashboard.forms.tag_forms import ExtractedHabitsAndPracticesTagForm
 from dashboard.utils import get_extracted_models, GroupConcat
 from dashboard.forms import (
@@ -37,8 +40,10 @@ from dashboard.models import (
     ExtractedHabitsAndPracticesToTag,
     ExtractedFunctionalUse,
     DataGroup,
+    FunctionalUseToRawChem,
 )
 from django.forms import inlineformset_factory
+from django import forms
 
 CHEMICAL_FORMS = {
     "CO": ExtractedCompositionForm,
@@ -80,7 +85,10 @@ def data_document_detail(request, pk):
                 .first()
             )
             FuncUseFormSet = inlineformset_factory(
-                RawChem, FunctionalUse, fields=("report_funcuse",), extra=1
+                RawChem,
+                RawChem.functional_uses.through,
+                form=RawChemToFunctionalUseForm,
+                extra=1,
             )
             fufs = FuncUseFormSet(instance=chem)
     context = {
@@ -131,8 +139,8 @@ class ChemCreateView(CreateView):
         )
         FuncUseFormSet = inlineformset_factory(
             RawChem,
-            FunctionalUse,
-            fields=("report_funcuse",),
+            RawChem.functional_uses.through,
+            form=RawChemToFunctionalUseForm,
             extra=extra,
             can_delete=False,
         )
@@ -194,8 +202,8 @@ class ChemUpdateView(UpdateView):
         )
         FuncUseFormSet = inlineformset_factory(
             RawChem,
-            FunctionalUse,
-            fields=("report_funcuse",),
+            RawChem.functional_uses.through,
+            form=RawChemToFunctionalUseForm,
             extra=extra,
             can_delete=True,
         )

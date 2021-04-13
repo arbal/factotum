@@ -33,6 +33,7 @@ from dashboard.models import (
     QASummaryNote,
     DataGroupCurationWorkflow,
     CurationStep,
+    FunctionalUseToRawChem,
 )
 from dashboard.models.extracted_hpdoc import ExtractedHPDoc
 
@@ -316,6 +317,27 @@ class DocumentTypeForm(forms.ModelForm):
         self.fields["document_type"].widget.attrs.update({"onchange": "form.submit();"})
 
 
+class RawChemToFunctionalUseForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields.update(forms.fields_for_model(FunctionalUse, ("report_funcuse",)))
+        self.fields["functional_use"].required = False
+        if hasattr(self.instance, "functional_use"):
+            self.initial["report_funcuse"] = self.instance.functional_use.report_funcuse
+
+    def save(self, *args, **kwargs):
+        # Get or Create the Functional Use.
+        self.instance.functional_use, _ = FunctionalUse.objects.get_or_create(
+            report_funcuse=self.cleaned_data["report_funcuse"]
+        )
+
+        super().save(*args, **kwargs)
+
+    class Meta:
+        model = FunctionalUseToRawChem
+        fields = ("functional_use",)
+
+
 class RawChemicalSubclassFormSet(BaseInlineFormSet):
     """ The formset used for all the subclasses of RawChemical,
     since it includes the Functional Use records as a nested formset """
@@ -330,7 +352,10 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
         # only if the form is bound to an instance
         if form.instance.pk is not None:
             FunctionalUseFormset = forms.inlineformset_factory(
-                RawChem, FunctionalUse, fields=("id", "report_funcuse"), extra=0
+                RawChem,
+                RawChem.functional_uses.through,
+                form=RawChemToFunctionalUseForm,
+                extra=0,
             )
             form.functional_uses = FunctionalUseFormset(
                 instance=form.instance,
