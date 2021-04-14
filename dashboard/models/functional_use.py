@@ -73,4 +73,4 @@ class FunctionalUse(CommonInfo):
 
     @classmethod
     def auditlog_fields(cls):
-        return ["report_funcuse"]
+        return ["report_funcuse","category"]

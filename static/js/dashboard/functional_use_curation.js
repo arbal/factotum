@@ -1,3 +1,5 @@
+import csrf_ajax from '../modules/csrf_ajax.js'
+
 var rows = JSON.parse(document.getElementById('tabledata').textContent);
 var categories = JSON.parse(document.getElementById('categorydata').textContent);
 
@@ -71,10 +73,20 @@ class CategoryCellEditor {
     _applyValues = () => {
         let newData = {...this.params.data};
         let selectedcategory = categories.filter(c => c.id == this.categoryDropdown.value)[0];
-        newData.category = selectedcategory.id
+        newData.newcategory = selectedcategory.id
         newData.categorytitle = selectedcategory.title;
         this.params.stopEditing();
         this.params.node.setData(newData);
+
+        $.ajax({
+            type: "POST",
+            data: {
+                json: JSON.stringify(newData)
+            },
+            success: function (response) {
+                console.log(newData, response);
+            }
+        });
     }
 }
 

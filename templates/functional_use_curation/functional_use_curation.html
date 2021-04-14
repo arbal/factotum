@@ -24,6 +24,9 @@
     </div>
 {% endblock %}
 
+{# dummy form for handling Ajax posts #}
+<form method="POST" id="category-form">{% csrf_token %}</form>
+
 {% block css %}
     <link href="{% static 'css/dashboard/grid_list.css' %}" rel="stylesheet">
 {% endblock %}
@@ -32,6 +35,6 @@
     {{ form.media }}
     {{ combinations|json_script:"tabledata" }}
     {{ categories|json_script:"categorydata" }}
-    <script src="{% static 'js/dashboard/functional_use_curation.js' %}"></script>
+    <script type="module" src="{% static 'js/dashboard/functional_use_curation.js' %}"></script>
 {% endblock %}
 
