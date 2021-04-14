@@ -47,9 +47,9 @@ whitenoise>=4.1.4,<4.2.0
 python-logstash==0.4.6
 django-filter>=2.2.0,<2.3
 django-mysql>=3.3.0,<3.4
-djangorestframework>=3.10.3,<3.11
+djangorestframework>=3.11.2
 djangorestframework-jsonapi==3.1.0
-drf-yasg>=1.17.0,<1.18.0
+drf-yasg>=1.20.0
 PyYAML>=5.1.2,<5.2
 Pillow==8.1.1
 factory-boy==2.12.0
