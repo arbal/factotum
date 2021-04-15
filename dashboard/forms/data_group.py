@@ -1,3 +1,4 @@
+import itertools
 import uuid
 from datetime import datetime
 
@@ -31,6 +32,7 @@ from dashboard.models import (
     ExtractedListPresence,
     WeightFractionType,
 )
+from dashboard.models.functional_use import FunctionalUseToRawChem
 
 from dashboard.utils import (
     clean_dict,
@@ -474,7 +476,8 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
             # Child creates
             child_params = clean_dict(data, Child)
             use_vals = [u.strip() for u in form["report_funcuse"].value().split(";")]
-            uses = None
+            existing_uses = None
+            new_uses = None
             # Only include children if relevant data is attached
             if child_params.keys() - {"extracted_text_id"}:
                 child = Child(**child_params)
@@ -492,11 +495,28 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
                             ),
                         )
                     else:
-                        uses.append(FunctionalUse(report_funcuse=use))
+                        uses.append(use.lower())
+
+                # Get existing functional uses
+                existing_uses = list(
+                    FunctionalUse.objects.filter(report_funcuse__in=uses)
+                )
+
+                # Get new (to be created) functional uses
+                new_uses = set(uses)
+                new_uses.difference(set(map(lambda o: o.report_funcuse, existing_uses)))
 
             else:
                 child = None
-            if uses and not self.dg.can_have_multiple_funcuse and len(uses) > 1:
+            if (
+                (existing_uses or new_uses)
+                and not self.dg.can_have_multiple_funcuse
+                and (len(existing_uses) + len(new_uses)) > 1
+            ):
+                # Get a list of all uses
+                uses = existing_uses
+                uses.extend(new_uses)
+
                 form.add_error(
                     "report_funcuse",
                     forms.ValidationError(
@@ -508,7 +528,8 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
             data["datadocument"] = datadocument
             data["parent"] = parent
             data["child"] = child
-            data["uses"] = uses
+            data["uses"] = existing_uses
+            data["new_uses"] = new_uses
 
     def save(self):
         datadocuments = [
@@ -522,10 +543,25 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
         children = [
             f.cleaned_data["child"] for f in self.forms if f.cleaned_data["child"]
         ]
+        # Functional Uses are organized as a list of lists.
+        # The external list is the document list (parent).
+        # The internal lists are the content for the chemical (child).
+        # Set of existing FunctionalUses that are already added to the database.
         funcuses = [
             f.cleaned_data["uses"] for f in self.forms if f.cleaned_data["child"]
         ]
+        # Set of new rawchem terms to be added to the database.
+        new_funcuses = [
+            f.cleaned_data["new_uses"] for f in self.forms if f.cleaned_data["child"]
+        ]
+
         with transaction.atomic():
+            # Abstract some of the funcuse info out of the save.
+            # Creates FunctionalUses for all new_funcuses report_funcuse strings
+            # and combines them with the corresponding set of FunctionalUses in
+            # funcuses.
+            funcuses = self._create_new_functional_uses(funcuses, new_funcuses)
+
             # Update DataDocument and Parent
             for objs in (datadocuments, parents):
                 updated_objs = [o for o in objs if o._meta.updated_fields]
@@ -541,14 +577,43 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
                 created_objs = [o for o in objs if o._meta.created_fields]
                 if created_objs:
                     chems = inheritance_bulk_create(created_objs)
+            # Bulk add functional uses to each chemical.
             reported_uses = []
             for chem, uses in zip(chems, funcuses):
                 for use in uses:
-                    if use.report_funcuse:
-                        use.chem_id = chem.pk
-                        reported_uses.append(use)
-            FunctionalUse.objects.bulk_create(reported_uses)
+                    reported_uses.append(
+                        FunctionalUseToRawChem(functional_use=use, chemical_id=chem.pk)
+                    )
+            # Add all new connections at once.
+            FunctionalUseToRawChem.objects.bulk_create(reported_uses)
         return len(self.forms)
+
+    def _create_new_functional_uses(self, funcuses, new_funcuses):
+        """Creates functional uses for strings in new_funcuses and adds them to
+        funcuses.  Returns list of lists containing all funcuses"""
+
+        # Save the new functional uses.
+        # Flattened with itertools then bulk create all rows. (one sql operation)
+        flat_report_funcuses = set(itertools.chain(*new_funcuses))
+        FunctionalUse.objects.bulk_create(
+            [FunctionalUse(report_funcuse=use) for use in flat_report_funcuses]
+        )
+        # Get all newly created FunctionalUses
+        # bulk_create doesn't return id's if it's not pgsql
+        created_funcuse = FunctionalUse.objects.filter(
+            report_funcuse__in=flat_report_funcuses
+        )
+        # Add the new functional uses to the existing functional uses
+        # After this loop all functional uses will be in funcuse_entry
+        # corresponding to the form.
+        for funcuse_entry, new_uses in zip(funcuses, new_funcuses):
+            uses = []
+            for use in new_uses:
+                # Find first matching report_funcuse from newly created functional uses
+                uses.append(next(i for i in created_funcuse if i.report_funcuse == use))
+            uses = FunctionalUse.objects.filter(report_funcuse__in=new_uses)
+            funcuse_entry.extend(uses)
+        return funcuses
 
 
 class CleanCompForm(forms.ModelForm):

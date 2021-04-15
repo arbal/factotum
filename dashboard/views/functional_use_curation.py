@@ -11,6 +11,9 @@ import json
 def functional_use_curation(request):
     template_name = "functional_use_curation/functional_use_curation.html"
 
+    combinations = (
+        FunctionalUse.objects.values("report_funcuse", "category__title")
+        .annotate(fu_count=Count("chemicals"))
     if request.method == "POST":
         cat = json.loads(request.POST.get("json") or "{}")
         FunctionalUse.objects.filter(report_funcuse=cat["report_funcuse"], category=cat["category"]).update(category=cat["newcategory"])

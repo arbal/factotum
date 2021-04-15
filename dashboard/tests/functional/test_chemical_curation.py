@@ -114,10 +114,10 @@ class ChemicalCurationTests(TestCase):
         initial_chem_count = doc.extractedtext.rawchem.count()
         data = {"raw_chem_name": "New Name", "raw_cas": "New Raw CAS"}
         mng_data = {
-            "functional_uses-TOTAL_FORMS": "0",
-            "functional_uses-INITIAL_FORMS": "0",
-            "functional_uses-MIN_NUM_FORMS": "",
-            "functional_uses-MAX_NUM_FORMS": "",
+            "functionalusetorawchem_set-TOTAL_FORMS": "0",
+            "functionalusetorawchem_set-INITIAL_FORMS": "0",
+            "functionalusetorawchem_set-MIN_NUM_FORMS": "",
+            "functionalusetorawchem_set-MAX_NUM_FORMS": "",
         }
         data.update(mng_data)
         response = self.client.post(f"/chemical/{doc.pk}/create/", data)

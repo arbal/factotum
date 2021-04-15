@@ -43,7 +43,8 @@ class AuditLog(models.Model):
     @classmethod
     def add_trigger_sql(cls):
         with connection.cursor() as cursor:
-            cursor.execute(cls.get_trigger_sql())
+            sql = cls.get_trigger_sql()
+            cursor.execute(sql)
 
     @classmethod
     def get_trigger_sql(cls):
@@ -71,7 +72,7 @@ class AuditLog(models.Model):
             id = apps.get_model(app_label, model_name=model)._meta.pk.attname
             rawchem_audit_field = cls.get_extracted_text_audit_field(model, False)
             rawchem_audit_field_insert = cls.get_extracted_text_audit_field(model, True)
-            rawchem_field = "chem_id" if model == "functionaluse" else id
+            rawchem_field = "chemical_id" if model == "functionalusetorawchem" else id
 
             trigger_sql += f"""
                 CREATE TRIGGER  {table_name}_update_auditlog_trigger
@@ -85,7 +86,7 @@ class AuditLog(models.Model):
                         insert into dashboard_auditlog (extracted_text_id, rawchem_id,
                             object_key, model_name, field_name, date_created, 
                             old_value, new_value, action, user_id)
-                        values ({rawchem_audit_field}, NEW.{rawchem_field},
+                        values ({rawchem_audit_field}, {"NEW." + rawchem_field if rawchem_field else 'null'},
                             NEW.{id}, '{model}', '{field}', now(),
                             OLD.{field}, NEW.{field}, 'U', @current_user);
                     END IF;
@@ -104,7 +105,7 @@ class AuditLog(models.Model):
                         insert into dashboard_auditlog (extracted_text_id, rawchem_id,
                             object_key, model_name, field_name, date_created,
                             old_value, new_value, action, user_id)
-                        values ({rawchem_audit_field_insert}, NEW.{rawchem_field},
+                        values ({rawchem_audit_field_insert}, {"NEW." + rawchem_field if rawchem_field else 'null'},
                             NEW.{id}, '{model}', '{field}', now(),
                             null, NEW.{field}, 'I', @current_user);
                     END IF;
@@ -123,7 +124,7 @@ class AuditLog(models.Model):
                         insert into dashboard_auditlog (extracted_text_id, rawchem_id,
                             object_key, model_name, field_name, date_created,
                             old_value, new_value, action, user_id)
-                        values ({rawchem_audit_field}, OLD.{rawchem_field},
+                        values ({rawchem_audit_field}, {"OLD." + rawchem_field if rawchem_field else 'null'},
                             OLD.{id}, '{model}', '{field}', now(),
                             OLD.{field}, null, 'D', @current_user);
                     END IF;
@@ -140,8 +141,8 @@ class AuditLog(models.Model):
         if model == "rawchem":
             return f"{prefix}.extracted_text_id"
 
-        if model == "functionaluse":
-            rawchem_join_field = "chem_id"
+        if model == "functionalusetorawchem":
+            rawchem_join_field = "chemical_id"
         else:
             rawchem_join_field = "rawchem_ptr_id"
 

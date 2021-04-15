@@ -1,5 +1,6 @@
 import os
 import subprocess
+from unittest import skip
 
 from django.test import SimpleTestCase
 from django.conf import settings
@@ -9,10 +10,12 @@ from rest_framework.test import APIRequestFactory
 from apps_api.core.pagination import StandardPagination
 
 
+@skip("No longer supported in OY5")
 class ExamplePagination(StandardPagination):
     page_size = 5
 
 
+@skip("No longer supported in OY5")
 class TestLint(SimpleTestCase):
 
     lint_dirs = [
@@ -29,6 +32,7 @@ class TestLint(SimpleTestCase):
         self.assertEqual(cmd.returncode, 0, "Linting errors found by pyflakes.")
 
 
+@skip("No longer supported in OY5")
 class TestStandardPagination(SimpleTestCase):
     """
     Unit tests for `pagination.StandardPagination`.

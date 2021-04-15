@@ -59,7 +59,7 @@
                         <span class="fas fa-broom"></span>
                     </a>
                 {% endif %}
-                {% if doc.data_group.is_chemical_presence %}
+                {% if doc.data_group.is_chemical_presence or doc.data_group.is_composition %}
                     <a class="btn btn-outline-secondary btn-sm hover-info"
                        id="download_chemicals"
                        title="download chemical data"
