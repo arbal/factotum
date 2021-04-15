@@ -19,19 +19,14 @@ class FunctionalUse(CommonInfo):
 
     """
 
-    chem = models.ForeignKey(
-        "RawChem",
-        on_delete=models.CASCADE,
-        null=False,
-        blank=False,
-        related_name="functional_uses",
+    chemicals = models.ManyToManyField(
+        to="RawChem", through="FunctionalUseToRawChem", related_name="functional_uses"
     )
-
     category = models.ForeignKey(
         "FunctionalUseCategory", on_delete=models.SET_NULL, null=True, blank=True
     )
     report_funcuse = models.CharField(
-        "Reported functional use", max_length=255, null=False, blank=True
+        "Reported functional use", max_length=255, null=False, blank=True, unique=True
     )
     extraction_script = models.ForeignKey(
         "Script",
@@ -71,6 +66,27 @@ class FunctionalUse(CommonInfo):
         if self.category:
             self.validate_report_funcuse_category()
 
+    class Meta:
+        indexes = [models.Index(fields=["report_funcuse"])]
+
+
+class FunctionalUseToRawChem(CommonInfo):
+    """
+    """
+
+    chemical = models.ForeignKey(
+        "RawChem", on_delete=models.CASCADE, null=False, blank=False
+    )
+    functional_use = models.ForeignKey(
+        "FunctionalUse", on_delete=models.PROTECT, null=False, blank=False
+    )
+
     @classmethod
     def auditlog_fields(cls):
-        return ["report_funcuse"]
+        return ["functional_use_id"]
+
+    def __str__(self):
+        return f"{self.chemical} -> {self.functional_use}"
+
+    class Meta:
+        unique_together = ["chemical", "functional_use"]

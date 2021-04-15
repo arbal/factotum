@@ -12,6 +12,19 @@
         <span id="puc_prod_type">{% if puc.prod_type %}/ {{ puc.prod_type }}{% endif %}</span>
     </h2>
 
+    <div class="row pt-4">
+        <div class="col-12">
+            <label class="font-weight-bold">Download Products and Chemical Weight Fractions</label>
+            <a class="btn btn-outline-secondary btn-sm hover-info"
+               id="download_products_wfs"
+               title="download products and chemical weight fractions"
+               data-toggle="tooltip"
+               href="{% url 'download_puc_products_weight_fractions' puc.id %}">
+                <span class="fa fa-fs fa-download"></span>
+            </a>
+        </div>
+    </div>
+
     <dl class="row pt-4">
         <dt class="col-1">Kind</dt>
         <dd class="col-11" id="puc_kind">{{ puc.kind.name }}</dd>

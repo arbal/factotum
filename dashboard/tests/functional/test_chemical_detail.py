@@ -3,7 +3,7 @@ import json
 from django.urls import reverse
 from lxml import html
 
-from django.test import TestCase
+from django.test import TestCase, tag
 
 from dashboard.models import DSSToxLookup, Product, ProductDocument, PUC, ProductToPUC
 from dashboard.tests.loader import fixtures_standard
@@ -12,6 +12,7 @@ from django.test import override_settings
 
 
 @override_settings(CACHEOPS_ENABLED=False)
+@tag("puc")
 class ChemicalDetail(TestCase):
 
     fixtures = fixtures_standard

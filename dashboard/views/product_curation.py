@@ -292,7 +292,9 @@ def bulk_assign_puc_to_product(
 
     if q > "":
         p = Product.objects.filter(
-            Q(title__icontains=q) | Q(brand_name__icontains=q)
+            Q(title__icontains=q)
+            | Q(brand_name__icontains=q)
+            | Q(manufacturer__icontains=q)
         ).exclude(
             id__in=(
                 ProductToPUC.objects.filter(

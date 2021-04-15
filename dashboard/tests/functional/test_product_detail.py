@@ -2,7 +2,7 @@ import os
 from lxml import html
 from django.urls import reverse
 
-from django.test import TransactionTestCase, override_settings
+from django.test import TransactionTestCase, override_settings, tag
 from dashboard.models import DataDocument, Product, ProductToPUC
 from dashboard.tests.loader import fixtures_standard
 from django.core.exceptions import ObjectDoesNotExist
@@ -88,10 +88,12 @@ class TestProductDetail(TransactionTestCase):
             else:
                 self.assertEqual(elem[0].get("title"), "No definition")
 
+    @tag("puc")
     def test_link_to_puc(self):
         response = self.client.get(f"/product/1862/")
         self.assertIn(b"/puc/185", response.content)
 
+    @tag("puc")
     def test_add_puc(self):
         p = Product.objects.get(pk=1864)
         response = self.client.get(f"/product/{p.pk}/").content.decode("utf8")
@@ -165,6 +167,7 @@ class TestProductDetail(TransactionTestCase):
             ("Most recent doc" " should be on top of the table!"),
         )
 
+    @tag("puc")
     def test_puc_not_specified(self):
         """Product 1840 is associated with a PUC that has no prod_fam or
         prod_type specified.
@@ -203,6 +206,7 @@ class TestProductDetail(TransactionTestCase):
         icon_span = self._get_icon_span(response_html, 172462)
         self.assertEqual("fa fa-fs fa-file-pdf", icon_span)
 
+    @tag("puc")
     def test_puc_kind_field_displayed(self):
         response = self.client.get("/product/11/")
         self.assertEqual(response.status_code, 200)

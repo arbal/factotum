@@ -232,7 +232,14 @@ class FunctionalUseFactory(factory.django.DjangoModelFactory):
         model = models.FunctionalUse
 
     category = factory.SubFactory(FunctionalUseCategoryFactory)
-    report_funcuse = factory.Faker("word")
+    report_funcuse = factory.Sequence(lambda n: f"{factory.Faker('word')}-{n}")
+
+    @classmethod
+    def _setup_next_sequence(cls):
+        try:
+            return models.FunctionalUse.objects.latest("pk").pk + 1
+        except models.FunctionalUse.DoesNotExist:
+            return 1
 
 
 class RawChemFactory(factory.django.DjangoModelFactory):
@@ -260,13 +267,15 @@ class RawChemFactory(factory.django.DjangoModelFactory):
 
         if extracted:
             for n in range(extracted):
-                FunctionalUseFactory(chem=obj)
+                funcuses = FunctionalUseFactory()
+                obj.functional_uses.add(funcuses)
         else:
             import random
 
             number_of_units = random.randint(1, 3)
             for n in range(number_of_units):
-                FunctionalUseFactory(chem=obj)
+                funcuses = FunctionalUseFactory()
+                obj.functional_uses.add(funcuses)
 
 
 class ExtractedListPresenceFactory(RawChemFactory):
@@ -408,9 +417,6 @@ class ExtractedCompositionFactory(RawChemFactory):
     ingredient_rank = factory.LazyAttribute(lambda o: random.randint(1, 999))
     lower_wf_analysis = factory.LazyAttribute(lambda o: 0.5 - random.random() / 2)
     upper_wf_analysis = factory.LazyAttribute(lambda o: 0.5 + random.random() / 2)
-
-    if factory.SelfAttribute("add_functional_uses"):
-        factory.SubFactory(FunctionalUseFactory)
 
 
 class ExtractedFunctionalUseFactory(RawChemFactory):

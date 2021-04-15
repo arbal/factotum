@@ -249,8 +249,10 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
             raw_chem_name="sd alcohol 40-c (ethanol c)"
         ).prefetch_related("functional_uses")[0]
         self.assertEqual(ec.functional_uses.count(), 2)
-        self.assertEqual(ec.functional_uses.first().report_funcuse, "adhesive")
-        self.assertEqual(ec.functional_uses.all()[1].report_funcuse, "propellant")
+        self.assertSetEqual(
+            set(f.report_funcuse for f in ec.functional_uses.all()),
+            {"adhesive", "propellant"},
+        )
 
         dg = DataGroup.objects.get(pk=6)
         dg.delete()
@@ -346,7 +348,7 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         efu = ExtractedFunctionalUse.objects.filter(
             extracted_text_id=self.dd_id
         ).first()
-        fus = FunctionalUse.objects.filter(chem_id=efu.rawchem_ptr_id)
+        fus = FunctionalUse.objects.filter(chemicals=efu.rawchem_ptr_id)
         self.assertTrue(fus.filter(report_funcuse="fragrance").count(), 1)
         self.assertTrue(fus.filter(report_funcuse="surfactant").count(), 1)
 

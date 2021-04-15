@@ -25,7 +25,6 @@
   fields:
     created_at: 2020-01-30 02:45:44.186832
     updated_at: 2020-01-30 02:45:44.186862
-    chem: 4
     category: 1
     report_funcuse: swell
 - model: dashboard.functionaluse
@@ -33,7 +32,6 @@
   fields:
     created_at: 2020-01-30 02:45:44.187543
     updated_at: 2020-01-30 02:45:44.187558
-    chem: 856
     category: 2
     report_funcuse: kayaking
 - model: dashboard.functionaluse
@@ -41,7 +39,6 @@
   fields:
     created_at: 2020-01-30 02:45:44.188103
     updated_at: 2020-01-30 02:45:44.188119
-    chem: 2
     category: 3
     report_funcuse: tubing
 - model: dashboard.functionaluse
@@ -49,100 +46,193 @@
   fields:
     created_at: 2020-01-30 02:45:44.188650
     updated_at: 2020-01-30 02:45:44.188665
-    chem: 3
     category: 1
     report_funcuse: cleaning
-- model: dashboard.functionaluse
-  pk: 5
-  fields:
-    created_at: 2020-01-30 02:45:44.189085
-    updated_at: 2020-01-30 02:45:44.189099
-    chem: 6
-    category: 1
-    report_funcuse: swell
 - model: dashboard.functionaluse
   pk: 6
   fields:
     created_at: 2020-01-30 02:45:44.189747
     updated_at: 2020-01-30 02:45:44.189783
-    chem: 5
     category: 3
-    report_funcuse: surfactant
-- model: dashboard.functionaluse
-  pk: 7
-  fields:
-    created_at: 2020-01-30 02:45:44.190723
-    updated_at: 2020-01-30 02:45:44.190748
-    chem: 756
     report_funcuse: surfactant
 - model: dashboard.functionaluse
   pk: 8
   fields:
     created_at: 2020-01-30 02:45:44.191430
     updated_at: 2020-01-30 02:45:44.191449
-    chem: 757
     report_funcuse: fragrance
 - model: dashboard.functionaluse
   pk: 9
   fields:
     created_at: 2020-01-30 02:45:44.192008
     updated_at: 2020-01-30 02:45:44.192023
-    chem: 851
     report_funcuse: tag testing
 - model: dashboard.functionaluse
   pk: 10
   fields:
     created_at: 2020-01-30 02:45:44.192534
     updated_at: 2020-01-30 02:45:44.192551
-    chem: 852
     report_funcuse: "#tagged4life"
 - model: dashboard.functionaluse
   pk: 11
   fields:
     created_at: 2020-01-30 02:45:44.193069
     updated_at: 2020-01-30 02:45:44.193085
-    chem: 853
     report_funcuse: spiritual enlightenment
 - model: dashboard.functionaluse
   pk: 12
   fields:
     created_at: 2020-01-30 02:45:44.193517
     updated_at: 2020-01-30 02:45:44.193532
-    chem: 854
     report_funcuse: surfactaint
 - model: dashboard.functionaluse
   pk: 13
   fields:
     created_at: 2020-01-30 02:45:44.193517
     updated_at: 2020-01-30 02:45:44.193532
-    chem: 86
     report_funcuse: fresh scennt
 - model: dashboard.functionaluse
   pk: 14
   fields:
     created_at: 2020-01-30 02:45:44.193517
     updated_at: 2020-01-30 02:45:44.193532
-    chem: 86
     report_funcuse: wetting agent
 - model: dashboard.functionaluse
   pk: 15
   fields:
     created_at: 2020-01-30 02:45:44.193517
     updated_at: 2020-01-30 02:45:44.193532
-    chem: 389
     report_funcuse: fresh scent
 - model: dashboard.functionaluse
   pk: 16
   fields:
     created_at: 2020-01-30 02:45:44.191430
     updated_at: 2020-01-30 02:45:44.191449
-    chem: 758
     report_funcuse: propellant
 - model: dashboard.functionaluse
   pk: 17
   fields:
     created_at: 2020-01-30 02:45:44.193517
     updated_at: 2020-01-30 02:45:44.193532
-    chem: 92
     report_funcuse: solvent
     category: 3
+
+- model: dashboard.functionalusetorawchem
+  pk: 1
+  fields:
+    created_at: 2020-01-30 02:45:44.186832
+    updated_at: 2020-01-30 02:45:44.186862
+    chemical: 4
+    functional_use: 1
+- model: dashboard.functionalusetorawchem
+  pk: 2
+  fields:
+    created_at: 2020-01-30 02:45:44.187543
+    updated_at: 2020-01-30 02:45:44.187558
+    chemical: 856
+    functional_use: 2
+- model: dashboard.functionalusetorawchem
+  pk: 3
+  fields:
+    created_at: 2020-01-30 02:45:44.188103
+    updated_at: 2020-01-30 02:45:44.188119
+    chemical: 2
+    functional_use: 3
+- model: dashboard.functionalusetorawchem
+  pk: 4
+  fields:
+    created_at: 2020-01-30 02:45:44.188650
+    updated_at: 2020-01-30 02:45:44.188665
+    chemical: 3
+    functional_use: 4
+- model: dashboard.functionalusetorawchem
+  pk: 5
+  fields:
+    created_at: 2020-01-30 02:45:44.189085
+    updated_at: 2020-01-30 02:45:44.189099
+    chemical: 6
+    functional_use: 1
+- model: dashboard.functionalusetorawchem
+  pk: 6
+  fields:
+    created_at: 2020-01-30 02:45:44.189747
+    updated_at: 2020-01-30 02:45:44.189783
+    chemical: 5
+    functional_use: 6
+- model: dashboard.functionalusetorawchem
+  pk: 7
+  fields:
+    created_at: 2020-01-30 02:45:44.190723
+    updated_at: 2020-01-30 02:45:44.190748
+    chemical: 756
+    functional_use: 6
+- model: dashboard.functionalusetorawchem
+  pk: 8
+  fields:
+    created_at: 2020-01-30 02:45:44.191430
+    updated_at: 2020-01-30 02:45:44.191449
+    chemical: 757
+    functional_use: 8
+- model: dashboard.functionalusetorawchem
+  pk: 9
+  fields:
+    created_at: 2020-01-30 02:45:44.192008
+    updated_at: 2020-01-30 02:45:44.192023
+    chemical: 851
+    functional_use: 9
+- model: dashboard.functionalusetorawchem
+  pk: 10
+  fields:
+    created_at: 2020-01-30 02:45:44.192534
+    updated_at: 2020-01-30 02:45:44.192551
+    chemical: 852
+    functional_use: 10
+- model: dashboard.functionalusetorawchem
+  pk: 11
+  fields:
+    created_at: 2020-01-30 02:45:44.193069
+    updated_at: 2020-01-30 02:45:44.193085
+    chemical: 853
+    functional_use: 11
+- model: dashboard.functionalusetorawchem
+  pk: 12
+  fields:
+    created_at: 2020-01-30 02:45:44.193517
+    updated_at: 2020-01-30 02:45:44.193532
+    chemical: 854
+    functional_use: 12
+- model: dashboard.functionalusetorawchem
+  pk: 13
+  fields:
+    created_at: 2020-01-30 02:45:44.193517
+    updated_at: 2020-01-30 02:45:44.193532
+    chemical: 86
+    functional_use: 13
+- model: dashboard.functionalusetorawchem
+  pk: 14
+  fields:
+    created_at: 2020-01-30 02:45:44.193517
+    updated_at: 2020-01-30 02:45:44.193532
+    chemical: 86
+    functional_use: 14
+- model: dashboard.functionalusetorawchem
+  pk: 15
+  fields:
+    created_at: 2020-01-30 02:45:44.193517
+    updated_at: 2020-01-30 02:45:44.193532
+    chemical: 389
+    functional_use: 15
+- model: dashboard.functionalusetorawchem
+  pk: 16
+  fields:
+    created_at: 2020-01-30 02:45:44.191430
+    updated_at: 2020-01-30 02:45:44.191449
+    chemical: 758
+    functional_use: 16
+- model: dashboard.functionalusetorawchem
+  pk: 17
+  fields:
+    created_at: 2020-01-30 02:45:44.193517
+    updated_at: 2020-01-30 02:45:44.193532
+    chemical: 92
+    functional_use: 17

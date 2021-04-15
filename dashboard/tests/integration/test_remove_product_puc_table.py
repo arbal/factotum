@@ -1,5 +1,5 @@
 from django.urls import reverse
-
+from django.test import tag
 from dashboard.tests.factories import ProductFactory, PUCFactory, ProductToPUCFactory
 from dashboard.tests.loader import load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
@@ -24,6 +24,7 @@ def log_karyn_in(object):
     object.browser.find_element_by_class_name("btn").click()
 
 
+@tag("puc")
 class TestBulkRemoveProductPUCTable(StaticLiveServerTestCase):
     fixtures = ["00_superuser"]
 

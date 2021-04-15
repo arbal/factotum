@@ -1,6 +1,6 @@
 import json
 
-from django.test import TestCase, override_settings
+from django.test import TestCase, override_settings, tag
 from django.shortcuts import get_object_or_404
 from dashboard.tests import factories
 from dashboard.tests.loader import fixtures_standard
@@ -17,7 +17,6 @@ from dashboard.models import (
     ProductUberPuc,
     DSSToxLookup,
     CumulativeProductsPerPuc,
-    CumulativeProductsPerPucAndSid,
 )
 from django.core.exceptions import ValidationError
 from django.db.models import Count, Sum
@@ -25,6 +24,7 @@ from dashboard.models.raw_chem import RawChem
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"], CACHEOPS_ENABLED=False)
+@tag("puc")
 class TestProductPuc(TestCase):
     fixtures = fixtures_standard
 
@@ -76,23 +76,16 @@ class TestProductPuc(TestCase):
         response_url = reverse("bubble_PUCs")
         response = self.client.get(response_url + "?kind=FO&dtxsid=DTXSID9022528")
         data = json.loads(response.content)
+        puc_tree = chemical.get_cumulative_puc_products_tree(data_format="dict")
 
+        treecount = puc_tree["Personal care"]["cumulative_product_count"]
         for child in data["children"]:
             if child["value"]["puc_id"] == personal_care_puc_id:
                 # "Personal care"
-                dbview_rec = (
-                    CumulativeProductsPerPucAndSid.objects.filter(
-                        dsstoxlookup_id=dss_pk
-                    )
-                    .filter(puc_id=personal_care_puc_id)
-                    .first()
-                )
-                self.assertEqual(
-                    child["value"]["product_count"], dbview_rec.product_count
-                )
                 self.assertEqual(
                     child["value"]["cumulative_product_count"],
-                    dbview_rec.cumulative_product_count,
+                    treecount,
+                    "The cumulative count in the JSON response should match the simpletree value",
                 )
 
     def test_admin_puc_tag_column_exists(self):
@@ -234,6 +227,24 @@ class TestProductPuc(TestCase):
                 'string(//*[@id="products"]/thead/tr/th[2]/text())'
             ),
             "The DataTable should display the matching products on successful search",
+        )
+        # search by manufacturer
+        product_response = self.client.get(product_response_url + "?q=henkel")
+        product_response_html = html.fromstring(product_response.content.decode("utf8"))
+        self.assertIn(
+            "Henkel Corporation",
+            product_response_html.xpath(
+                'string(//*[@id="products"]/tbody/tr/td[4]/text())'
+            ),
+        )
+        # search by brand name
+        product_response = self.client.get(product_response_url + "?q=osi")
+        product_response_html = html.fromstring(product_response.content.decode("utf8"))
+        self.assertIn(
+            "OSI F 38",
+            product_response_html.xpath(
+                'string(//*[@id="products"]/tbody/tr/td[3]/text())'
+            ),
         )
 
     def test_bulk_product_puc_exclude_assgined(self):

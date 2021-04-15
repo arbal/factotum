@@ -8,6 +8,7 @@ from dashboard.views.product_curation import ProductForm
 import time
 
 
+@tag("puc")
 class ProductToPUCTestWithSeedData(TestCase):
     fixtures = fixtures_standard
 
@@ -37,7 +38,7 @@ class ProductToPUCTestWithSeedData(TestCase):
         self.assertTrue(ptp.classification_method_id == "MA")
 
 
-@tag("loader")
+@tag("loader", "puc")
 class ProductToPUCTest(TestCase):
     def setUp(self):
         self.objects = load_model_objects()

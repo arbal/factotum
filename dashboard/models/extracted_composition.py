@@ -181,6 +181,16 @@ class ExtractedComposition(RawChem):
     def data_document(self):
         return self.extracted_text.data_document
 
+    @property
+    def has_raw_data(self):
+        return self.raw_central_comp or self.raw_min_comp or self.raw_max_comp
+
+    @property
+    def has_wf_data(self):
+        return (
+            self.lower_wf_analysis or self.central_wf_analysis or self.upper_wf_analysis
+        )
+
     def get_extractedtext(self):
         return self.extracted_text
 

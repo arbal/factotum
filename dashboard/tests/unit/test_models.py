@@ -1,6 +1,8 @@
 import csv
 import io
 import os
+from unittest import skip
+
 from django.core.files import File
 from django.core.exceptions import ValidationError
 from django.test import TestCase, tag
@@ -96,6 +98,7 @@ class ModelsTest(TempFileMixin, TestCase):
         self.assertEqual(str(self.objects.dg), self.objects.dg.name)
         self.assertEqual("https://www.epa.gov", self.objects.dg.url)
 
+    @tag("puc")
     def test_object_properties(self):
         # Test properties of objects
         # DataSource
@@ -141,6 +144,7 @@ class ModelsTest(TempFileMixin, TestCase):
             doc.save()
         self.assertTrue(self.objects.dg.all_matched())
 
+    @tag("puc")
     def test_extracted_habits_and_practices(self):
         puc2 = PUC.objects.create(
             gen_cat="Test General Category",
@@ -249,6 +253,7 @@ class ModelTestWithFixtures(TestCase):
         for fld in fields:
             self.assertIn(fld, model_fields, f'"{fld}"" field should be in PUC model.')
 
+    @tag("puc")
     def test_puctag_fields(self):
         fields = ["name", "slug", "definition"]
         model_fields = [f.name for f in PUCTag._meta.get_fields()]
@@ -257,6 +262,7 @@ class ModelTestWithFixtures(TestCase):
                 fld, model_fields, f'"{fld}"" field should be in PUCTag model.'
             )
 
+    @tag("puc")
     def test_puc_get_children(self):
         """Level 1 and 2 PUCs should accumulate lower level PUCs.
         """
@@ -273,6 +279,7 @@ class ModelTestWithFixtures(TestCase):
             len(puc.get_children()), 1, ("PUC should only have itself associated")
         )
 
+    @tag("puc")
     def test_puc_category_defaults(self):
         """Assert that the prod_fam and prod_type are nulled w/ an
         empty string and not NULL.
@@ -282,6 +289,7 @@ class ModelTestWithFixtures(TestCase):
         self.assertTrue(puc.prod_fam == "")
         self.assertTrue(puc.prod_type == "")
 
+    @tag("puc")
     def test_product_counts(self):
         """Make sure the product_count property
         returns the same thing as the num_products annotation"""
@@ -291,6 +299,7 @@ class ModelTestWithFixtures(TestCase):
             pucs.get(pk=1).num_products, PUC.objects.get(pk=1).product_count
         )
 
+    @tag("puc")
     def test_puc_document_counts(self):
         """Make sure that documents with multiple product linkages
         are not being double-counted."""
@@ -355,7 +364,13 @@ class ModelTestWithFixtures(TestCase):
         )
 
     def test_funcuse_fields(self):
-        fields = ["chem", "category", "report_funcuse"]
+        fields = [
+            "chemicals",
+            "category",
+            "report_funcuse",
+            "extraction_script",
+            "category",
+        ]
         model_fields = [f.name for f in FunctionalUse._meta.get_fields()]
         for fld in fields:
             self.assertIn(
@@ -377,6 +392,7 @@ class ModelTestWithFixtures(TestCase):
         self.assertEquals(fc.report_funcuse, "report use")
         self.assertEquals(2, fc.category.id)
 
+    @skip("There is no blank constraint on report_funcuse")
     def test_functionaluse_validation(self):
         funcuse = FunctionalUse(report_funcuse="")
         self.assertRaises(ValidationError, funcuse.clean_fields)

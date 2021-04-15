@@ -276,17 +276,22 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         dd_pk = 156051
         list_url = self.live_server_url + f"/datadocument/{dd_pk}/"
         self.browser.get(list_url)
-        time.sleep(1)
-        # Verify that the sliders have been generated for extracted chemicals in this datadocument
-        try:
-            slider = WebDriverWait(self.browser, 10).until(
-                ec.visibility_of_element_located((By.XPATH, '//*[@id="slider856"]'))
-            )
-            slider2 = WebDriverWait(self.browser, 10).until(
-                ec.visibility_of_element_located((By.XPATH, '//*[@id="slider2"]'))
-            )
-        except (NoSuchElementException, TimeoutException):
-            self.fail("Sliders should exist on this page, but does not.")
+        wait = WebDriverWait(self.browser, 10)
+        wait.until(ec.presence_of_all_elements_located((By.ID, "chem-card-2")))
+        self.assertEqual(
+            ".0047 - .0074 weight fraction",
+            self.browser.find_element_by_id("raw_comp_2").text,
+        )
+        self.assertEqual(
+            "0.125 - 0.25 reported", self.browser.find_element_by_id("wf_comp_2").text
+        )
+        self.assertEqual(
+            ".0074 weight fraction",
+            self.browser.find_element_by_id("raw_comp_856").text,
+        )
+        self.assertEqual(
+            "0.15 reported", self.browser.find_element_by_id("wf_comp_856").text
+        )
 
     def test_chemical_update(self):
         docs = DataDocument.objects.filter(pk__in=[156051, 354786])
@@ -313,7 +318,10 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
             report_funcuse_box = wait.until(
                 ec.element_to_be_clickable(
-                    (By.XPATH, f"//*[@id='id_functional_uses-0-report_funcuse']")
+                    (
+                        By.XPATH,
+                        f"//*[@id='id_functionalusetorawchem_set-0-report_funcuse']",
+                    )
                 )
             )
             report_funcuse_box.send_keys("canoeing")
@@ -333,10 +341,12 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             # audit_link.click() does not work in chromedriver here for some reason
             self.browser.execute_script("arguments[0].click();", audit_link)
 
-            datatable = wait.until(
-                ec.visibility_of_element_located((By.XPATH, "//*[@id='audit-log']"))
-            )
-            self.assertIn("canoeing", datatable.text)
+            # TODO: Functional Uses are no longer connected directly to chemicals.
+            #       Re-establish this connection if this is needed.
+            # datatable = wait.until(
+            #     ec.visibility_of_element_located((By.XPATH, "//*[@id='audit-log']"))
+            # )
+            # self.assertIn("canoeing", datatable.text)
 
     def test_multiple_fu(self):
         docs = DataDocument.objects.filter(pk__in=[5])
@@ -369,7 +379,10 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             funcuse_add_btn.click()
             new_funcuse_box = wait.until(
                 ec.element_to_be_clickable(
-                    (By.XPATH, f"//*[@id='id_functional_uses-1-report_funcuse']")
+                    (
+                        By.XPATH,
+                        f"//*[@id='id_functionalusetorawchem_set-1-report_funcuse']",
+                    )
                 )
             )
             new_funcuse_box.send_keys("adhesive")
@@ -378,12 +391,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             # Reload the page after saving
             self.browser.get(list_url)
 
-            self.assertEqual(
-                FunctionalUse.objects.filter(chem_id=chem_pk)
-                .filter(report_funcuse="adhesive")
-                .count(),
-                1,
-            )
+            self.assertIsNotNone(chem.functional_uses.get(report_funcuse="adhesive"))
 
             functional_uses_col = wait.until(
                 ec.presence_of_element_located(
@@ -501,7 +509,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         funcuse_add_btn.click()
         new_funcuse_box = wait.until(
             ec.element_to_be_clickable(
-                (By.XPATH, f"//*[@id='id_functional_uses-1-report_funcuse']")
+                (By.XPATH, f"//*[@id='id_functionalusetorawchem_set-1-report_funcuse']")
             )
         )
         new_funcuse_box.send_keys("adhesive")
@@ -510,11 +518,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         # Reload the page after saving
         self.browser.get(list_url)
 
-        new_fu = (
-            FunctionalUse.objects.filter(chem_id=chem.pk)
-            .filter(report_funcuse="adhesive")
-            .first()
-        )
+        new_fu = chem.functional_uses.get(report_funcuse="adhesive")
 
         self.assertIsNotNone(new_fu)
         time.sleep(1)
@@ -547,7 +551,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         funcuse_add_btn.click()
         new_funcuse_box = wait.until(
             ec.element_to_be_clickable(
-                (By.XPATH, f"//*[@id='id_functional_uses-1-report_funcuse']")
+                (By.XPATH, f"//*[@id='id_functionalusetorawchem_set-1-report_funcuse']")
             )
         )
         new_funcuse_box.send_keys("adhesive")
@@ -556,11 +560,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         # Reload the page after saving
         self.browser.get(list_url)
 
-        new_fu = (
-            FunctionalUse.objects.filter(chem_id=chem.pk)
-            .filter(report_funcuse="adhesive")
-            .first()
-        )
+        new_fu = chem.functional_uses.get(report_funcuse="adhesive")
 
         self.assertIsNotNone(new_fu)
 

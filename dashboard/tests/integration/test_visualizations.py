@@ -1,5 +1,5 @@
 import time
-
+from django.test import tag
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.utils.decorators import classproperty
 from selenium.webdriver.common.by import By
@@ -29,6 +29,7 @@ class TestVisualizations(StaticLiveServerTestCase):
             cnt += self._n_children(c)
         return cnt
 
+    @tag("puc")
     def test_bubble_plot(self):
         pucs = (
             PUC.objects.filter(kind__code__in=["FO", "AR", "OC"])
@@ -48,6 +49,7 @@ class TestVisualizations(StaticLiveServerTestCase):
         plots = self.browser.find_elements_by_class_name("nestedcircles")
         self.assertTrue(len(plots) == 3, "Need more than one bubble")
 
+    @tag("puc")
     def test_bubble_legend(self):
         self.browser.get(self.visualization_url)
         wait = WebDriverWait(self.browser, 10)
@@ -66,6 +68,7 @@ class TestVisualizations(StaticLiveServerTestCase):
         # child_card = bubble_legend.find_element_by_xpath("//*[@id='accordion-319']")
         # self.assertEqual(child_card.get_attribute("class"), "collapse")
 
+    @tag("puc")
     def test_collapsible_tree(self):
         pucs = PUC.objects.filter(kind__code="FO").astree()
         num_pucs = self._n_children(pucs)
@@ -76,23 +79,20 @@ class TestVisualizations(StaticLiveServerTestCase):
         self.assertTrue(num_pucs > 0, "Need more than one PUC")
         self.assertTrue(len(nodes) > 0, "Need more than one node")
 
+    @tag("puc")
     def test_dtxsid_bubble_plot(self):
         dss = DSSToxLookup.objects.get(sid="DTXSID9022528")
         self.browser.get(self.live_server_url + dss.get_absolute_url())
 
         time.sleep(3)
-        pucs = (
-            PUC.objects.filter(kind__code__in=["FO", "AR", "OC"])
-            .dtxsid_filter(dss.sid)
-            .filter(cumulative_products_per_puc_and_sid__cumulative_product_count__gt=0)
-            .astree()
-        )
-        num_pucs = self._n_children(pucs)
+
+        num_pucs = dss.get_cumulative_puc_count()
         bubbles = self.browser.find_elements_by_class_name("bubble")
         self.assertEqual(
             num_pucs, len(bubbles), "There should be a circle drawn for every PUC"
         )
 
+    @tag("puc")
     def test_venn_diagram(self):
         self.browser.get(self.visualization_url)
         wait = WebDriverWait(self.browser, 10)

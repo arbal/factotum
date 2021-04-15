@@ -5,7 +5,7 @@ from dashboard.models import PUCTag, ProductToTag, PUCToTag
 from dashboard.tests.loader import load_model_objects
 
 
-@tag("loader")
+@tag("loader", "puc")
 class ProductToTagTest(TestCase):
     def setUp(self):
         self.objects = load_model_objects()

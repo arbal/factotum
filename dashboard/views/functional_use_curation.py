@@ -12,7 +12,7 @@ def functional_use_curation(request):
 
     combinations = (
         FunctionalUse.objects.values("report_funcuse", "category__title")
-        .annotate(fu_count=Count("id"))
+        .annotate(fu_count=Count("chemicals"))
         .order_by("report_funcuse", "category__title")
     )
     return render(request, template_name, {"combinations": list(combinations)})

@@ -9,6 +9,7 @@ from feedback.forms import CommentForm
 
 class TestComment(TestCase):
     create_path_name = "feedback:comment"
+    redirect_path_name = "index"
 
     # Test that GET requests to feedback:comment return a page built using core and feedback templates.
     def test_get_create_view(self):
@@ -23,7 +24,7 @@ class TestComment(TestCase):
         self.assertTemplateUsed(response, template_name="core/bs4_form.html")
         self.assertTemplateUsed(response, template_name="feedback/comment_create.html")
 
-    # Test that valid POST data returns a "302 - Redirect" and sends user to "feedback:comment" page
+    # Test that valid POST data returns a "302 - Redirect" and sends user to "dashboard:index"
     def test_post_valid_data_create_comment(self):
         response = self.client.post(
             reverse(self.create_path_name),
@@ -31,10 +32,7 @@ class TestComment(TestCase):
         )
 
         self.assertEquals(response.status_code, 302)
-        self.assertRedirects(response, reverse(self.create_path_name))
-        self.assertEqual(
-            CommentView.as_view().__name__, response.resolver_match.func.__name__
-        )
+        self.assertRedirects(response, reverse(self.redirect_path_name))
 
     # Test that invalid POST data returns a "422 - Unprocessable Entity" status code
     # and that error messages are returned.

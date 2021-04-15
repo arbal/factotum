@@ -72,6 +72,7 @@ class DashboardTest(TestCase):
         found = resolve("/qa/extractionscript/")
         self.assertEqual(found.func, views.qa_extractionscript_index)
 
+    @tag("puc")
     def test_PUC_download(self):
         puc = self.objects.puc
 
@@ -210,6 +211,7 @@ class DashboardTestWithFixtures(TestCase):
             "The number shown should match the number DSSToxLookup SIDs with a matching RawChem record",
         )
 
+    @tag("puc")
     def test_producttopuc_counts(self):
         response = self.client.get("/").content.decode("utf8")
         self.assertIn(

@@ -1,7 +1,7 @@
 var rows = JSON.parse(document.getElementById('tabledata').textContent);
 
 var columnDefs = [
-    {headerName: "Title", field: "title"},
+    {headerName: "Title", field: "title", width: 100},
     {headerName: "Description", field: "description"},
 ];
 
