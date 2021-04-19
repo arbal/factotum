@@ -81,10 +81,6 @@ class FunctionalUseToRawChem(CommonInfo):
         "FunctionalUse", on_delete=models.PROTECT, null=False, blank=False
     )
 
-    @classmethod
-    def auditlog_fields(cls):
-        return ["functional_use_id"]
-
     def __str__(self):
         return f"{self.chemical} -> {self.functional_use}"
 
