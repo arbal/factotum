@@ -10,7 +10,7 @@ django-cleanup>=5.0.0,<5.1
 django-crum==0.7.3
 django-datatables-view==1.19.1
 django-db-views>=0.0.9
-django-debug-toolbar==1.11
+django-debug-toolbar==1.11.1
 django-docs==0.3.1
 django-extensions>=2.1.6
 django-model-utils>=3.1
