@@ -12,8 +12,8 @@ router = CustomRelationRouter()
 
 router.register(r"pucs", apiviews.PUCViewSet, basename="puc")
 router.register(r"products", apiviews.ProductViewSet)
-router.register(r"dataGroups", apiviews.DataGroupViewSet, base_name="dataGroup")
-router.register(r"dataSources", apiviews.DataSourceViewSet, base_name="dataSource")
+router.register(r"dataGroups", apiviews.DataGroupViewSet, basename="dataGroup")
+router.register(r"dataSources", apiviews.DataSourceViewSet, basename="dataSource")
 router.register(r"dataDocuments", apiviews.DocumentViewSet, basename="dataDocument")
 router.register(r"chemicals", apiviews.ChemicalViewSet)
 router.register(
@@ -33,7 +33,7 @@ router.register(r"compositions", apiviews.CompositionViewSet, basename="composit
 router.register(
     r"classificationMethods",
     apiviews.ClassificationMethodViewSet,
-    base_name="classificationMethod",
+    basename="classificationMethod",
 )
 
 router.register(r"productToPucs", apiviews.ProductToPucViewSet, basename="productToPuc")
