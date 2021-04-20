@@ -107,25 +107,24 @@ class DocumentListJson(FilterDatatableView):
 
 class ChemicalListJson(FilterDatatableView):
     model = DSSToxLookup
-    columns = ["sid", "true_cas", "true_chemname"]
+    columns = ["sid", "true_cas", "true_chemname", "raw_count"]
 
     def get_initial_queryset(self):
         qs = super().get_initial_queryset()
         puc = self.request.GET.get("puc")
         if puc:
-            vals = (
-                RawChem.objects.filter(dsstox__isnull=False)
-                .filter(Q(extracted_text__data_document__products__puc=puc))
-                .values("dsstox")
+            qs = qs.filter(
+                curated_chemical__extracted_text__data_document__product__product_uber_puc__puc=puc
             )
-            return qs.filter(pk__in=vals)
-        return qs
+        return qs.annotate(raw_count=Count("curated_chemical"))
 
     def render_column(self, row, column):
         value = self._render_column(row, column)
         if value and hasattr(row, "get_absolute_url"):
             if column == "true_chemname":
                 return format_html(truncatechars(value, 89))
+            if column == "raw_count":
+                return value
             return format_html(
                 '<a href="{}" title="Go to Chemical detail" target="_blank">{}</a>',
                 row.get_absolute_url(),

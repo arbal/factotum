@@ -89,6 +89,11 @@ $(document).ready(function () {
                     orderable: true,
                     searchable: true
                 },
+                {
+                    data: 3,
+                    orderable: true,
+                    searchable: false
+                },
             ],
             destroy: true,
             processing: true,
