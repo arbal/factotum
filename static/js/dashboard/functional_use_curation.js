@@ -3,7 +3,11 @@ var rows = JSON.parse(document.getElementById('tabledata').textContent);
 var columnDefs = [
     {headerName: "Reported Functional Use", field: "report_funcuse"},
     {headerName: "Harmonized Category", field: "category__title"},
-    {headerName: "Count", field: "fu_count"},
+    {
+        headerName: "Count", field: "fu_count", cellRenderer: params => {
+            return `<a href="/functional_use_curation/${params.data.pk}/"> ${params.data.fu_count} </a>`
+        }
+    },
 ];
 
 // let the grid know which columns and what data to use
