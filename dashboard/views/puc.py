@@ -24,12 +24,13 @@ def puc_detail(request, pk, template_name="puc/puc_detail.html"):
 
 def download_puc_chemicals(request, pk):
     puc = get_object_or_404(PUC, pk=pk)
-    chemicals = DSSToxLookup.objects.filter(
-        pk__in=RawChem.objects.filter(
-            dsstox__isnull=False, extracted_text__data_document__products__puc=puc
-        ).values("dsstox")
-    ).values("sid", "true_cas", "true_chemname")
-
+    chemicals = (
+        DSSToxLookup.objects.filter(
+            curated_chemical__extracted_text__data_document__product__product_uber_puc__puc=puc
+        )
+        .annotate(raw_count=Count("curated_chemical"))
+        .values("sid", "true_cas", "true_chemname", "raw_count")
+    )
     filename = puc.__str__().replace(" ", "_") + "_chemicals.csv"
     return render_to_csv_response(
         chemicals,
@@ -39,6 +40,7 @@ def download_puc_chemicals(request, pk):
             "sid": "DTXSID",
             "true_chemname": "Preferred Chemical Name",
             "true_cas": "Preferred CAS",
+            "raw_count": "Count",
         },
     )
 

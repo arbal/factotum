@@ -120,6 +120,12 @@ class CategoryCellRenderer {
 
 var columnDefs = [
     {headerName: "Reported Functional Use", field: "report_funcuse"},
+    {headerName: "Harmonized Category", field: "category__title"},
+    {
+        headerName: "Count", field: "fu_count", cellRenderer: params => {
+            return `<a href="/functional_use_curation/${params.data.pk}/"> ${params.data.fu_count} </a>`
+        }
+    },
     {
         headerName: "Harmonized Category",
         field: "categorytitle",
@@ -169,7 +175,6 @@ function clearFilters() {
 function onFilterTextBoxChanged() {
     gridOptions.api.setQuickFilter(document.getElementById('filter-text-box').value);
 }
-
 
 // page size changed
 document.getElementById("page-size").onchange = function (evt) {

@@ -78,6 +78,17 @@ class TestAjax(TestCase):
         self.assertEquals(data["recordsTotal"], 1)
         self.assertEquals(data["recordsFiltered"], 1)
         self.assertIn("DTXSID9022528", data["data"][0][0])
+        self.assertIn("120-47-8", data["data"][0][1])
+        self.assertEquals("ethylparaben", data["data"][0][2])
+        self.assertEquals("1", data["data"][0][3])
+        # make sure the same chemical does NOT appear in 
+        # the detail page for a different PUC that is linked
+        # to the same chemical by the same product, but 
+        # without the uberPUC status. 
+        response = self.client.get("/c_json/?puc=310")
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 0)
+
 
     def test_documents_by_sid(self):
         response = self.client.get("/d_json/?sid=DTXSID9022528")

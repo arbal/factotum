@@ -171,6 +171,16 @@ urlpatterns = [
         name="functional_use_curation",
     ),
     path(
+        "functional_use_curation/<functional_use_pk>/",
+        views.FunctionalUseCurationChemicals.as_view(),
+        name="functional_use_curation_chemicals",
+    ),
+    path(
+        "functional_use_curation/<functional_use_pk>/table",
+        views.FunctionalUseCurationChemicalsTable.as_view(),
+        name="functional_use_curation_chemicals_table",
+    ),
+    path(
         "link_product_list/<int:pk>/", views.link_product_list, name="link_product_list"
     ),
     path(
