@@ -5,12 +5,12 @@ from django.views import View
 from django.views.generic.detail import SingleObjectMixin
 from django_datatables_view.base_datatable_view import BaseDatatableView
 from django.http import JsonResponse
-from django.db.models import Q, Count, Subquery
+from django.db.models import F, Q, Count, Subquery, Value, CharField
 from django.utils.html import format_html
 from django.views.decorators.cache import cache_page
 from django.template.defaultfilters import truncatechars
-
 from dashboard.utils import GroupConcat
+
 from dashboard.models import (
     Product,
     ProductToPUC,
@@ -18,6 +18,7 @@ from dashboard.models import (
     DataDocument,
     DSSToxLookup,
     RawChem,
+    ExtractedCPCat,
     ExtractedListPresence,
     ExtractedListPresenceToTag,
     ExtractedListPresenceTag,
@@ -157,17 +158,42 @@ class ListPresenceTagSetsJson(SingleObjectMixin, View):
         return JsonResponse({"data": sorted(tagsets_list)}, safe=False)
 
 
-class ListPresenceDocumentsJson(FilterDatatableView):
-    model = DataDocument
-    columns = ["title"]
+class ListPresenceDocumentsJson(BaseDatatableView):
+    """
+    This view returns all the ExtractedCPCat documents where at least one 
+    ExtractedListPresence child record has been associated with the list 
+    presence tag identified by the "tag_pk" id argument.
+    Along with each ExtractedCPCat record, it returns the unique tags related
+    to that document's child records.
+    """
+
+    model = ExtractedCPCat
+    columns = ["data_document.title", "tags"]
 
     def get_initial_queryset(self):
         qs = self.model.objects.filter(
-            extractedtext__rawchem__extractedlistpresence__tags__pk=self.kwargs[
-                "tag_pk"
-            ]
+            rawchem__extractedlistpresence__tags__pk=self.kwargs["tag_pk"]
         ).distinct()
         return qs
+
+    def render_column(self, row, column):
+        if column == "data_document.title":
+            return f"<a href='{reverse('data_document', args=[row.data_document.id])}' title={row}'>{row}</a>"
+        if column == "tags":
+            tag_str_list = []
+            tags = (
+                ExtractedListPresenceTag.objects.filter(
+                    extractedlistpresence__extracted_text__data_document=row.data_document_id
+                )
+                .order_by("name")
+                .distinct()
+            )
+            for tag in tags:
+                tag_str_list.append(
+                    f"<a href='{reverse('lp_tag_detail', args=[tag.id])}' title='{tag.definition or 'No Definition'}'>{tag.name.lower()}</a>"
+                )
+            return " ; ".join(tag_str_list)
+        return super().render_column(row, column)
 
 
 @cache_page(86400)

@@ -50,7 +50,7 @@ $(document).ready(function () {
                 },
                 {
                     data: 1,
-                    orderable: true,
+                    orderable: false,
                     searchable: true,
                     className: "text-center"
                 }

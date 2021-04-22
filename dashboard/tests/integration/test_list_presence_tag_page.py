@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
-from dashboard.models import DataDocument
+from dashboard.models import DataDocument, ExtractedListPresence
 from dashboard.tests.factories import (
     ExtractedListPresenceFactory,
     ExtractedListPresenceTagFactory,
@@ -70,9 +70,14 @@ class TestListPresenceTag(StaticLiveServerTestCase):
         self.browser.find_element_by_id("document-tab").click()
 
         document_count = DataDocument.objects.count()
+
         document_string = f"Showing 1 to {document_count} of {document_count} entries"
         wait.until(
             expected_conditions.text_to_be_present_in_element(
                 (By.ID, "document_table_info"), document_string
             )
+        )
+        # Check for tag list next to document
+        tagset_cell = self.browser.find_element_by_xpath(
+            "//*[@id='document_table']/tbody/tr/td[2]"
         )
