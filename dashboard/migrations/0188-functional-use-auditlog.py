@@ -3,6 +3,18 @@ from django.db import migrations
 
 
 def convert_functional_use_id_audit_entries(apps, schema_editor):
+    def get_reported_harmonized(fu_id):
+        reported = None
+        harmonized = None
+        try:
+            fu = FunctionalUse.objects.get(id=fu_id)
+            reported = fu.report_funcuse
+            if fu.category_id is not None:
+                harmonized = FunctionalUseCategory.objects.get(id=fu.category_id).title
+        except FunctionalUse.DoesNotExist:
+            pass
+        return reported, harmonized
+
     AuditLog = apps.get_model("dashboard", "AuditLog")
     FunctionalUse = apps.get_model("dashboard", "FunctionalUse")
     FunctionalUseCategory = apps.get_model("dashboard", "FunctionalUseCategory")
@@ -18,21 +30,10 @@ def convert_functional_use_id_audit_entries(apps, schema_editor):
         new_cat = None
 
         if entry.old_value is not None:
-            old_fu = FunctionalUse.objects.get(id=entry.old_value)
-            if old_fu is not None:
-                old_reported = old_fu.report_funcuse
-                if old_fu.category_id is not None:
-                    old_cat = FunctionalUseCategory.objects.get(
-                        id=old_fu.category_id
-                    ).title
+            old_reported, old_cat = get_reported_harmonized(entry.old_value)
+
         if entry.new_value is not None:
-            new_fu = FunctionalUse.objects.get(id=entry.new_value)
-            if new_fu is not None:
-                new_reported = new_fu.report_funcuse
-                if new_fu.category_id is not None:
-                    new_cat = FunctionalUseCategory.objects.get(
-                        id=new_fu.category_id
-                    ).title
+            new_reported, new_cat = get_reported_harmonized(entry.new_value)
 
         # add entry for report_funcuse
         if old_reported != new_reported:
