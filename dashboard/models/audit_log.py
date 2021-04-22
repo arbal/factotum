@@ -25,6 +25,9 @@ class AuditLog(models.Model):
         settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.SET_NULL
     )
 
+    def __str__(self):
+        return f"{self.old_value} -> {self.new_value}, {self.action} on {self.model_name}|{self.field_name}"
+
     @classmethod
     def remove_trigger_sql(cls):
         default_db = settings.DATABASES["default"]["NAME"]
@@ -44,6 +47,9 @@ class AuditLog(models.Model):
     def add_trigger_sql(cls):
         with connection.cursor() as cursor:
             sql = cls.get_trigger_sql()
+            cursor.execute(sql)
+            # functional use related audit logs are different, handle with explict sql
+            sql = cls.get_functional_use_trigger_sql()
             cursor.execute(sql)
 
     @classmethod
@@ -72,7 +78,6 @@ class AuditLog(models.Model):
             id = apps.get_model(app_label, model_name=model)._meta.pk.attname
             rawchem_audit_field = cls.get_extracted_text_audit_field(model, False)
             rawchem_audit_field_insert = cls.get_extracted_text_audit_field(model, True)
-            rawchem_field = "chemical_id" if model == "functionalusetorawchem" else id
 
             trigger_sql += f"""
                 CREATE TRIGGER  {table_name}_update_auditlog_trigger
@@ -86,7 +91,7 @@ class AuditLog(models.Model):
                         insert into dashboard_auditlog (extracted_text_id, rawchem_id,
                             object_key, model_name, field_name, date_created, 
                             old_value, new_value, action, user_id)
-                        values ({rawchem_audit_field}, {"NEW." + rawchem_field if rawchem_field else 'null'},
+                        values ({rawchem_audit_field}, NEW.{id},
                             NEW.{id}, '{model}', '{field}', now(),
                             OLD.{field}, NEW.{field}, 'U', @current_user);
                     END IF;
@@ -105,7 +110,7 @@ class AuditLog(models.Model):
                         insert into dashboard_auditlog (extracted_text_id, rawchem_id,
                             object_key, model_name, field_name, date_created,
                             old_value, new_value, action, user_id)
-                        values ({rawchem_audit_field_insert}, {"NEW." + rawchem_field if rawchem_field else 'null'},
+                        values ({rawchem_audit_field_insert}, NEW.{id},
                             NEW.{id}, '{model}', '{field}', now(),
                             null, NEW.{field}, 'I', @current_user);
                     END IF;
@@ -124,7 +129,7 @@ class AuditLog(models.Model):
                         insert into dashboard_auditlog (extracted_text_id, rawchem_id,
                             object_key, model_name, field_name, date_created,
                             old_value, new_value, action, user_id)
-                        values ({rawchem_audit_field}, {"OLD." + rawchem_field if rawchem_field else 'null'},
+                        values ({rawchem_audit_field}, OLD.{id},
                             OLD.{id}, '{model}', '{field}', now(),
                             OLD.{field}, null, 'D', @current_user);
                     END IF;
@@ -141,12 +146,164 @@ class AuditLog(models.Model):
         if model == "rawchem":
             return f"{prefix}.extracted_text_id"
 
-        if model == "functionalusetorawchem":
-            rawchem_join_field = "chemical_id"
-        else:
-            rawchem_join_field = "rawchem_ptr_id"
-
+        rawchem_join_field = "rawchem_ptr_id"
         return f"(select extracted_text_id from dashboard_rawchem where id = {prefix}.{rawchem_join_field})"
+
+    @classmethod
+    def get_functional_use_trigger_sql(cls):
+        return """
+        CREATE TRIGGER  dashboard_functionalusetorawchem_update_auditlog_trigger
+        AFTER UPDATE ON dashboard_functionalusetorawchem
+        FOR EACH ROW
+        BEGIN
+            declare old_cat_id int(11);
+            declare new_cat_id int(11);
+            declare old_harmonized varchar(50) DEFAULT '';
+            declare new_harmonized varchar(50) DEFAULT '';
+            IF IFNULL(NEW.functional_use_id, '') <> IFNULL(OLD.functional_use_id, '') THEN
+                insert into dashboard_auditlog (extracted_text_id, rawchem_id,
+                        object_key, model_name, field_name, date_created, 
+                        old_value, new_value, action, user_id)
+                values ((select extracted_text_id from dashboard_rawchem where id = OLD.chemical_id), NEW.chemical_id,
+                        NEW.id, 'functionalusetorawchem', 'report_funcuse', now(),
+                        (select report_funcuse from dashboard_functionaluse where id = OLD.functional_use_id), 
+                        (select report_funcuse from dashboard_functionaluse where id = NEW.functional_use_id), 
+                        'U', @current_user);
+                            
+                select category_id into old_cat_id from dashboard_functionaluse where id = OLD.functional_use_id;
+                IF old_cat_id is not null THEN
+                    select fuc.title into old_harmonized from dashboard_functionalusecategory fuc where id = old_cat_id;
+                END IF;    
+                select category_id into new_cat_id from dashboard_functionaluse where id = NEW.functional_use_id;
+                IF new_cat_id is not null THEN
+                    select fuc.title into new_harmonized from dashboard_functionalusecategory fuc where id = new_cat_id;
+                END IF;
+                
+                IF IFNULL(old_harmonized, '') <> IFNULL(new_harmonized, '') THEN
+                    insert into dashboard_auditlog (extracted_text_id, rawchem_id,
+                        object_key, model_name, field_name, date_created, 
+                        old_value, new_value, action, user_id)
+                    values ((select extracted_text_id from dashboard_rawchem where id = OLD.chemical_id), NEW.chemical_id,
+                            NEW.id, 'functionalusetorawchem', 'harmonized category', now(), 
+                            old_harmonized, new_harmonized, 'U', @current_user);
+                END IF;
+            END IF;
+        END;
+        
+        
+        CREATE TRIGGER  dashboard_functionalusetorawchem_insert_auditlog_trigger
+        AFTER INSERT ON dashboard_functionalusetorawchem
+        FOR EACH ROW
+        BEGIN
+            declare new_cat_id int(11);
+            declare new_harmonized varchar(50);
+
+            insert into dashboard_auditlog (extracted_text_id, rawchem_id,
+                    object_key, model_name, field_name, date_created,
+                    old_value, new_value, action, user_id)
+            values ((select extracted_text_id from dashboard_rawchem where id = NEW.chemical_id), NEW.chemical_id,
+                    NEW.id, 'functionalusetorawchem', 'report_funcuse', now(),
+                    null, (select report_funcuse from dashboard_functionaluse where id = NEW.functional_use_id),
+                    'I', @current_user);
+
+            select category_id into new_cat_id from dashboard_functionaluse where id = NEW.functional_use_id;
+            IF new_cat_id is not null THEN
+                select fuc.title into new_harmonized from dashboard_functionalusecategory fuc where id = new_cat_id;
+            END IF;
+                        
+            IF IFNULL(new_harmonized, '') <> '' THEN
+                insert into dashboard_auditlog (extracted_text_id, rawchem_id,
+                        object_key, model_name, field_name, date_created, 
+                        old_value, new_value, action, user_id)
+                values ((select extracted_text_id from dashboard_rawchem where id = NEW.chemical_id), NEW.chemical_id,
+                        NEW.id, 'functionalusetorawchem', 'harmonized category', now(), 
+                        null, new_harmonized, 'I', @current_user);
+            END IF;
+        END;
+        
+        CREATE TRIGGER  dashboard_functionalusetorawchem_delete_auditlog_trigger
+        AFTER DELETE ON dashboard_functionalusetorawchem
+        FOR EACH ROW
+        BEGIN
+            declare old_cat_id int(11);
+            declare old_harmonized varchar(50);
+                    
+            insert into dashboard_auditlog (extracted_text_id, rawchem_id,
+                    object_key, model_name, field_name, date_created,
+                    old_value, new_value, action, user_id)
+            values ((select extracted_text_id from dashboard_rawchem where id = OLD.chemical_id), OLD.chemical_id,
+                    OLD.id, 'functionalusetorawchem', 'report_funcuse', now(),
+                    (select report_funcuse from dashboard_functionaluse where id = OLD.functional_use_id), null, 
+                    'D', @current_user);
+
+            select category_id into old_cat_id from dashboard_functionaluse where id = OLD.functional_use_id;
+            IF old_cat_id is not null THEN
+                select fuc.title into old_harmonized from dashboard_functionalusecategory fuc where id = old_cat_id;
+            END IF;     
+            IF IFNULL(old_harmonized, '') <> '' THEN
+                insert into dashboard_auditlog (extracted_text_id, rawchem_id,
+                        object_key, model_name, field_name, date_created, 
+                        old_value, new_value, action, user_id)
+                values ((select extracted_text_id from dashboard_rawchem where id = OLD.chemical_id), OLD.chemical_id,
+                        OLD.id, 'functionalusetorawchem', 'harmonized category', now(), old_harmonized, null,
+                        'D', @current_user);
+            END IF;
+        END;
+                
+                
+        CREATE TRIGGER  dashboard_functionaluse_update_auditlog_trigger
+        AFTER UPDATE ON dashboard_functionaluse
+        FOR EACH ROW
+        BEGIN
+            IF IFNULL(NEW.report_funcuse, '') <> IFNULL(OLD.report_funcuse, '') THEN
+                insert into dashboard_auditlog (extracted_text_id, rawchem_id,
+                        object_key, model_name, field_name, date_created, 
+                        old_value, new_value, action, user_id)
+                select rc.extracted_text_id,furc.chemical_id, 
+                        fu.id, 'functionaluse', 'report_funcuse', now(), 
+                        OLD.report_funcuse, NEW.report_funcuse, 'U', @current_user
+                from dashboard_functionaluse fu
+                join dashboard_functionalusetorawchem furc on fu.id = furc.functional_use_id
+                join dashboard_rawchem rc on furc.chemical_id = rc.id
+                where fu.id = NEW.id;
+            END IF;
+            
+            IF IFNULL(NEW.category_id, '') <> IFNULL(OLD.category_id, '') THEN
+                insert into dashboard_auditlog (extracted_text_id, rawchem_id,
+                        object_key, model_name, field_name, date_created, 
+                        old_value, new_value, action, user_id)
+                select rc.extracted_text_id, furc.chemical_id, 
+                        fu.id, 'functionaluse', 'harmonized category', now(), 
+                    if(OLD.category_id is null, null, (select title from dashboard_functionalusecategory where id=OLD.category_id)),
+                    if(NEW.category_id is null, null, (select title from dashboard_functionalusecategory where id=NEW.category_id)),  
+                    'U', @current_user
+                from dashboard_functionaluse fu
+                join dashboard_functionalusetorawchem furc on fu.id = furc.functional_use_id
+                join dashboard_rawchem rc on furc.chemical_id = rc.id
+                where fu.id = NEW.id;
+            END IF;
+        END;
+        
+        
+        CREATE TRIGGER  dashboard_functionalusecategory_update_auditlog_trigger
+        AFTER UPDATE ON dashboard_functionalusecategory
+        FOR EACH ROW
+        BEGIN
+            IF IFNULL(NEW.title, '') <> IFNULL(OLD.title, '') THEN
+                insert into dashboard_auditlog (extracted_text_id, rawchem_id,
+                        object_key, model_name, field_name, date_created, 
+                        old_value, new_value, action, user_id)
+                select rc.extracted_text_id, furc.chemical_id, 
+                        fuc.id, 'functionalusecategory', 'harmonized category', now(), 
+                        OLD.title, NEW.title, 'U', @current_user
+                from dashboard_functionalusecategory fuc
+                join dashboard_functionaluse fu on fuc.id = fu.category_id
+                join dashboard_functionalusetorawchem furc on fu.id = furc.functional_use_id
+                join dashboard_rawchem rc on furc.chemical_id = rc.id
+                where fuc.id = NEW.id;
+            END IF;
+        END;
+        """
 
     def verbose(self):
         return "%s.%s:%s | %s --> %s" % (
