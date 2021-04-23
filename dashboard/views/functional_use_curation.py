@@ -16,21 +16,20 @@ from dashboard.models import FunctionalUse, RawChem
 def functional_use_curation(request):
     template_name = "functional_use_curation/functional_use_curation.html"
 
-    combinations = (
-        FunctionalUse.objects.values("pk", "report_funcuse", "category__title")
-        .annotate(fu_count=Count("chemicals"))
     if request.method == "POST":
         cat = json.loads(request.POST.get("json") or "{}")
-        FunctionalUse.objects.filter(report_funcuse=cat["report_funcuse"], category=cat["category"]).update(category=cat["newcategory"])
-        print(cat)
-
-        response_data = {}
-
+        response_data = {'result': '', 'message': ''}
+        if cat.keys() >= {"pk", "category", "newcategory"} and cat["category"] != cat["newcategory"]:
+            fu = FunctionalUse.objects.get(pk=cat["pk"])
+            fu.category_id = cat["newcategory"]
+            fu.save()
+            response_data['result'] = 'success'
+            response_data['message'] = 'Harmonized Category Updated'
         return JsonResponse(response_data)
 
-    combinations = FunctionalUse.objects.values("report_funcuse", "category", newcategory=F("category"),
+    combinations = FunctionalUse.objects.values("pk", "report_funcuse", "category", newcategory=F("category"),
                                                 categorytitle=F("category__title")) \
-        .annotate(fu_count=Count("id")) \
+        .annotate(fu_count=Count("chemicals")) \
         .order_by("report_funcuse", "category__title")
 
     categories = FunctionalUseCategory.objects.values("id", "title").order_by("title")
@@ -85,7 +84,7 @@ class FunctionalUseCurationChemicalsTable(BaseDatatableView):
         qs = super().get_initial_queryset()
         qs = (
             qs.filter(functional_uses=functional_use)
-            .annotate(
+                .annotate(
                 preferred_name=Case(
                     # no dsstox
                     When(dsstox__isnull=False, then=F("dsstox__true_chemname")),
@@ -95,6 +94,6 @@ class FunctionalUseCurationChemicalsTable(BaseDatatableView):
                     default=Value("Unnamed Chemical"),
                 )
             )
-            .order_by("pk")
+                .order_by("pk")
         )
         return qs

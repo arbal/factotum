@@ -7,9 +7,10 @@
         <span>Functional Use Curation</span>
     </h1>
 
-    <div class="header">
-        <input type="text" id="filter-text-box" placeholder="Search..." oninput="onFilterTextBoxChanged()"/>
-        <button onclick="clearFilters()" class="btn btn-primary btn-sm">Reset Filters</button>
+    <div class="row">
+        <div class="col-4"><input type="text" id="filter-text-box" placeholder="Search..."></div>
+        <div class="col-4"><span id="results" class="btn-primary m-2"></span></div>
+        <div class="col-4 text-right"><button id="filter-reset-button" class="btn btn-primary btn-sm">Reset Filters</button></div>
     </div>
     <div id="dataGrid" class="ag-theme-balham fixed-height-grid"></div>
     <div>

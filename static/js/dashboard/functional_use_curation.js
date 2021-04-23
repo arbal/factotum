@@ -1,7 +1,9 @@
 import csrf_ajax from '../modules/csrf_ajax.js'
+import ajax_form_request from "../modules/ajax_form_submission.js";
 
 var rows = JSON.parse(document.getElementById('tabledata').textContent);
 var categories = JSON.parse(document.getElementById('categorydata').textContent);
+
 
 class CategoryCellEditor {
 
@@ -82,10 +84,9 @@ class CategoryCellEditor {
             type: "POST",
             data: {
                 json: JSON.stringify(newData)
-            },
-            success: function (response) {
-                console.log(newData, response);
             }
+        }).done(function (data) {
+            $("#results").text(data.message).fadeIn().delay(1000).fadeOut();
         });
     }
 }
@@ -119,13 +120,7 @@ class CategoryCellRenderer {
 }
 
 var columnDefs = [
-    {headerName: "Reported Functional Use", field: "report_funcuse"},
-    {headerName: "Harmonized Category", field: "category__title"},
-    {
-        headerName: "Count", field: "fu_count", cellRenderer: params => {
-            return `<a href="/functional_use_curation/${params.data.pk}/"> ${params.data.fu_count} </a>`
-        }
-    },
+    {headerName: "Reported Functional Use", field: "report_funcuse", cellEditor: CategoryCellEditor,},
     {
         headerName: "Harmonized Category",
         field: "categorytitle",
@@ -133,7 +128,11 @@ var columnDefs = [
         cellEditor: CategoryCellEditor,
         cellRenderer: CategoryCellRenderer
     },
-    {headerName: "Count", field: "fu_count"},
+    {
+        headerName: "Chemical Count", field: "fu_count", cellRenderer: params => {
+            return `<a href="/functional_use_curation/${params.data.pk}/"> ${params.data.fu_count} </a>`
+        }
+    },
 ];
 
 // let the grid know which columns and what data to use
@@ -162,28 +161,23 @@ var gridOptions = {
     },
 };
 
-// clear all filters
-function clearFilters() {
-    // clear search box
+$('#filter-reset-button').click(function () {
     $('#filter-text-box').val('');
     gridOptions.api.setQuickFilter('');
-    // clear column filter
     gridOptions.api.setFilterModel(null);
-}
+})
 
-// filter search box
-function onFilterTextBoxChanged() {
+$('#filter-text-box').change(function () {
     gridOptions.api.setQuickFilter(document.getElementById('filter-text-box').value);
-}
+});
 
-// page size changed
-document.getElementById("page-size").onchange = function (evt) {
+$('#page-size').change(function (evt) {
     var value = evt.target.value;
     if (value == "All") {
         value = gridOptions.api.paginationGetRowCount()
     }
     gridOptions.api.paginationSetPageSize(Number(value));
-};
+});
 
 // setup the grid after the page has finished loading
 document.addEventListener('DOMContentLoaded', function () {
