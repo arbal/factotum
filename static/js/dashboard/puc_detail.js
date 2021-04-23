@@ -64,6 +64,46 @@ $(document).ready(function () {
         });
     });
 
+    $("#functionaluse-tab-header").on("click", function () {
+        $("div[id$='table-div']").hide();
+        $("#functionaluse-table-div").show();
+        var functionalusetable = $('#functionaluses').DataTable({
+            columns: [
+                {
+                    data: 0,
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: 1,
+                    orderable: true,
+                    searchable: true,
+                },
+                {
+                    data: 2,
+                    orderable: true,
+                    searchable: true,
+                },
+                {
+                    data: 3,
+                    orderable: true,
+                    searchable: true,
+                },
+                {
+                    data: 4,
+                    orderable: true,
+                    searchable: true,
+                }
+            ],
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            ordering: true,
+            stateSave: true,
+            ajax: "/fu_puc_json/?puc=" + puc
+        });
+    });
+
     $("#chemical-tab-header").on("click", function () {
         $("div[id$='table-div']").hide();
         $("#chemical-table-div").show();

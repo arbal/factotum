@@ -83,7 +83,7 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         self.browser.find_element_by_id("functional-use-tab-header").send_keys("\n")
         wait.until(ec.visibility_of_element_located((By.ID, "functional-uses_info")))
         self.assertInHTML(
-            "Showing 1 to 2 of 2 entries",
+            "Showing 1 to 3 of 3 entries",
             self.browser.find_element_by_xpath("//*[@id='functional-uses_info']").text,
         )
 

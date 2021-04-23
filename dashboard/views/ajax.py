@@ -5,7 +5,7 @@ from django.views import View
 from django.views.generic.detail import SingleObjectMixin
 from django_datatables_view.base_datatable_view import BaseDatatableView
 from django.http import JsonResponse
-from django.db.models import F, Q, Count, Subquery, Value, CharField
+from django.db.models import Q, Count, Subquery, Case, When, F, Value, CharField
 from django.utils.html import format_html
 from django.views.decorators.cache import cache_page
 from django.template.defaultfilters import truncatechars
@@ -22,6 +22,7 @@ from dashboard.models import (
     ExtractedListPresence,
     ExtractedListPresenceToTag,
     ExtractedListPresenceTag,
+    FunctionalUseToRawChem,
 )
 
 
@@ -30,7 +31,86 @@ class FilterDatatableView(BaseDatatableView):
         return self.FILTER_ICONTAINS
 
 
+class PucFunctionalUseListJson(BaseDatatableView):
+    """
+    Provides JSON elements describing each functional use that appears in each 
+    document associated via Product to the detail page's PUC as the uberpuc.
+    """
+
+    model = FunctionalUseToRawChem
+    columns = [
+        "chemical.extracted_text.data_document.title",  # DataDocument title with link to detail page
+        "preferred_name",  # Preferred chemical name
+        "preferred_cas",  # Preferred CAS
+        "functional_use.report_funcuse",  # Reported Functional Use
+        "functional_use.category.title",  # Harmonized Functional Use
+    ]
+
+    def get_initial_queryset(self):
+        qs = (
+            super()
+            .get_initial_queryset()
+            .annotate(
+                preferred_name=Case(
+                    # no dsstox
+                    When(
+                        chemical__dsstox__isnull=False,
+                        then=F("chemical__dsstox__true_chemname"),
+                    ),
+                    # not blank raw_chem_name
+                    When(
+                        ~Q(chemical__raw_chem_name=""),
+                        then=F("chemical__raw_chem_name"),
+                    ),
+                    # no true chem no raw_chem_name
+                    default=Value("Unnamed Chemical"),
+                ),
+                preferred_cas=Case(
+                    # no dsstox
+                    When(
+                        chemical__dsstox__isnull=False,
+                        then=F("chemical__dsstox__true_cas"),
+                    ),
+                    # not blank raw_chem_name
+                    When(~Q(chemical__raw_chem_name=""), then=F("chemical__raw_cas")),
+                    # no true chem no raw_chem_name
+                    default=Value(""),
+                ),
+            )
+            .select_related(
+                "functional_use__category",
+                "chemical__extracted_text__data_document",
+                "chemical__dsstox",
+                "chemical__dsstox",
+            )
+        )
+        puc_id = self.request.GET.get("puc")
+
+        if puc_id:
+            return qs.filter(
+                Q(
+                    chemical__extracted_text__data_document__product__product_uber_puc__puc_id=puc_id
+                )
+            ).distinct()
+        return qs
+
+    def render_column(self, row, column):
+        value = self._render_column(row, column)
+        if column == "chemical.extracted_text.data_document.title":
+            return format_html(
+                '<a href="{}" title="Go to Document detail" target="_blank">{}</a>',
+                row.chemical.extracted_text.data_document.get_absolute_url(),
+                value,
+            )
+        return value
+
+
 class ProductListJson(FilterDatatableView):
+    """
+    Provides JSON elements describing each Product related to 
+    the detail page's PUC as the uberpuc.
+    """
+
     model = Product
     columns = ["title", "brand_name", "product_uber_puc.classification_method.name"]
 
@@ -53,6 +133,11 @@ class ProductListJson(FilterDatatableView):
 
 
 class DocumentListJson(FilterDatatableView):
+    """
+    Provides JSON elements describing each document with products assigned
+    to the page's PUC as uberpuc
+    """
+
     model = DataDocument
     columns = ["title", "data_group.group_type.title"]
 
@@ -107,6 +192,11 @@ class DocumentListJson(FilterDatatableView):
 
 
 class ChemicalListJson(FilterDatatableView):
+    """
+    Provides JSON elements describing each curated chemical that is 
+    associated via Product to the detail page's PUC as the uberpuc.
+    """
+
     model = DSSToxLookup
     columns = ["sid", "true_cas", "true_chemname", "raw_count"]
 
@@ -143,6 +233,11 @@ class ChemicalListJson(FilterDatatableView):
 
 
 class ListPresenceTagSetsJson(SingleObjectMixin, View):
+    """
+    Provides JSON elements describing each distinct combination of tags
+    that a tag appears in.
+    """
+
     model = ExtractedListPresenceTag
 
     def get(self, request, *args, **kwargs):
@@ -259,6 +354,11 @@ def sids_by_grouptype_ajax(request):
 
 
 class ProductPUCReconciliationJson(FilterDatatableView):
+    """
+    Provides JSON elements describing all Products where more 
+    than one PUC has been assigned
+    """
+
     model = ProductToPUC
     columns = [
         "product_id",
