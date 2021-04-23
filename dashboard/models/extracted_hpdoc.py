@@ -1,5 +1,7 @@
+from django.db import models
+
 from dashboard.models import ExtractedText
 
 
 class ExtractedHPDoc(ExtractedText):
-    pass
+    extraction_completed = models.BooleanField(default=False)

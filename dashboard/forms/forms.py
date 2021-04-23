@@ -258,7 +258,7 @@ class ExtractedTextForm(forms.ModelForm):
 class ExtractedTextHPForm(ExtractedTextForm):
     class Meta:
         model = ExtractedHPDoc
-        fields = ["doc_date", "rev_num"]
+        fields = ["doc_date", "rev_num", "extraction_completed"]
 
 
 class ExtractedTextFUForm(ExtractedTextForm):
