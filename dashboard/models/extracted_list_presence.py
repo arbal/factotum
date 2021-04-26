@@ -1,10 +1,11 @@
 from django.db import models
+from django.apps import apps
 from django.db.models import Subquery
 from django.utils.translation import ugettext_lazy as _
 from six import text_type
 from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase, TagBase
-
+from django.urls import reverse
 from .common_info import CommonInfo
 from .raw_chem import RawChem
 
@@ -50,6 +51,12 @@ class ExtractedListPresence(RawChem):
     @property
     def data_document(self):
         return self.extracted_text.data_document
+
+    @property
+    def extractedcpcat(self):
+        return apps.get_model("dashboard", "ExtractedCPCat").objects.get(
+            pk=self.extracted_text.pk
+        )
 
     def __get_label(self, field):
         return text_type(self._meta.get_field(field).verbose_name)
@@ -151,3 +158,6 @@ class ExtractedListPresenceTag(TagBase, CommonInfo):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("lp_tag_detail", kwargs={"pk": self.pk})

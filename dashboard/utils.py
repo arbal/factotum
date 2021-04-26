@@ -37,8 +37,13 @@ class GroupConcat(Aggregate):
     template = "%(function)s(%(distinct)s%(expressions)s SEPARATOR '%(separator)s')"
     allow_distinct = True
 
-    def __init__(self, expression, separator=",", **extra):
-        super().__init__(expression, separator=separator, **extra)
+    def __init__(self, expression, distinct=False, separator=",", **extra):
+        super().__init__(
+            expression,
+            distinct="DISTINCT " if distinct else "",
+            separator=separator,
+            **extra,
+        )
 
 
 class SimpleTree(MutableMapping):

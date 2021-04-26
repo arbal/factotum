@@ -1,6 +1,6 @@
 from django.db import models
 from .extracted_text import ExtractedText
-from .extracted_list_presence import ExtractedListPresence
+from .extracted_list_presence import ExtractedListPresence, ExtractedListPresenceTag
 
 
 class ExtractedCPCat(ExtractedText):
@@ -10,7 +10,7 @@ class ExtractedCPCat(ExtractedText):
     cpcat_sourcetype = models.CharField("CPCat source", max_length=50, blank=True)
 
     def __str__(self):
-        return str(self.prod_name)
+        return str(self.data_document)
 
     @property
     def qa_begun(self):
@@ -19,6 +19,23 @@ class ExtractedCPCat(ExtractedText):
             .filter(extractedlistpresence__qa_flag=True)
             .exists()
         )
+
+    def get_tagset(self):
+        """
+        Given an ExtractedCPCat object, select all of the distinct
+        ListPresenceTag records that have been assigned to its ExtractedListPresence
+        child records
+        """
+        qs = (
+            (
+                ExtractedListPresenceTag.objects.filter(
+                    extractedlistpresence__extracted_text__extractedcpcat=self
+                )
+            )
+            .distinct()
+            .order_by("name")
+        )
+        return qs
 
     def prep_cp_for_qa(self):
         """

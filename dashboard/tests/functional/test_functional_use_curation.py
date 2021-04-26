@@ -47,5 +47,5 @@ class TestFunctionalUseCuration(TestCase):
         response = self.client.get(reverse("functional_use_curation"))
         combinations = response.context["combinations"]
         self.assertEqual(
-            len(combinations), 15, "There should be 15 combinations after the edit"
+            len(combinations), 16, "There should be 16 combinations after the edit"
         )

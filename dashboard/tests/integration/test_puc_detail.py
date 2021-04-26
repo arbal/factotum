@@ -25,7 +25,7 @@ def log_karyn_in(object):
 
 
 @tag("puc")
-class TestPUCProductAndDocumentTables(StaticLiveServerTestCase):
+class TestPUCDetailTables(StaticLiveServerTestCase):
     fixtures = fixtures_standard
 
     def setUp(self):
@@ -35,7 +35,7 @@ class TestPUCProductAndDocumentTables(StaticLiveServerTestCase):
     def tearDown(self):
         self.browser.quit()
 
-    def test_puc_product_datatable(self):
+    def test_puc_datatables(self):
         """
         All the Products, Chemicals, and Documents associated with the PUC 
         should be returned via ajax calls and included in the tables
@@ -83,6 +83,15 @@ class TestPUCProductAndDocumentTables(StaticLiveServerTestCase):
             self.browser.find_element_by_xpath(
                 "//button[contains(@class, 'btn-dl-chemical')]"
             ).text,
+        )
+
+        # Functional Uses
+        functionaluse_btn = self.browser.find_element_by_id("functionaluse-tab-header")
+        functionaluse_btn.click()
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='functionaluses']/tbody/tr/td[3]"), "120-47-8"
+            )
         )
 
     def test_additional_statistics_links_open_appropriate_table(self):

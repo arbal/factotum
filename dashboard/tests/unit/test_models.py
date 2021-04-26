@@ -392,11 +392,6 @@ class ModelTestWithFixtures(TestCase):
         self.assertEquals(fc.report_funcuse, "report use")
         self.assertEquals(2, fc.category.id)
 
-    @skip("There is no blank constraint on report_funcuse")
-    def test_functionaluse_validation(self):
-        funcuse = FunctionalUse(report_funcuse="")
-        self.assertRaises(ValidationError, funcuse.clean_fields)
-
     def test_functionalusecatetory_crud(self):
         # read
         fuc = FunctionalUseCategory.objects.filter(pk=1).first()

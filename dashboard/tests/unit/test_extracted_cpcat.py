@@ -27,4 +27,4 @@ class CPCatTest(TestCase):
             data_document=cpdoc,
             extraction_script=self.objects.exscript,
         )
-        self.assertEqual(cpc.__str__(), cpc.prod_name)
+        self.assertEqual(cpc.__str__(), cpdoc.title)

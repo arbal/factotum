@@ -116,6 +116,13 @@
     updated_at: 2020-01-30 02:45:44.193532
     report_funcuse: solvent
     category: 3
+- model: dashboard.functionaluse
+  pk: 18
+  fields:
+    created_at: 2021-01-30 02:45:44.193517
+    updated_at: 2021-01-30 02:45:44.193532
+    report_funcuse: preservative
+    category: 
 
 - model: dashboard.functionalusetorawchem
   pk: 1
@@ -236,3 +243,12 @@
     updated_at: 2020-01-30 02:45:44.193532
     chemical: 92
     functional_use: 17
+- model: dashboard.functionalusetorawchem
+  pk: 21
+  fields:
+    created_at: 2021-04-22 10:30:41.627356
+    updated_at: 2021-04-22 10:30:41.627356
+    created_by: 1
+    updated_by: 1
+    chemical: 73
+    functional_use: 18

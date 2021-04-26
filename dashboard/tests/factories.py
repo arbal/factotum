@@ -210,6 +210,11 @@ class ExtractedTextFactory(FactotumFactoryBase):
     extraction_script = factory.SubFactory(ScriptFactory, script_type="EX")
 
 
+class ExtractedCPCatFactory(ExtractedTextFactory):
+    class Meta:
+        model = models.ExtractedCPCat
+
+
 class TrueChemicalFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.DSSToxLookup
@@ -288,7 +293,7 @@ class ExtractedListPresenceFactory(RawChemFactory):
         model = models.ExtractedListPresence
 
     extracted_text = factory.SubFactory(
-        ExtractedTextFactory, data_document__data_group__group_type__code="CP"
+        ExtractedCPCatFactory, data_document__data_group__group_type__code="CP"
     )
 
     @factory.post_generation
