@@ -18,24 +18,38 @@ def functional_use_curation(request):
 
     if request.method == "POST":
         cat = json.loads(request.POST.get("json") or "{}")
-        response_data = {'result': '', 'message': ''}
-        if cat.keys() >= {"pk", "category", "newcategory"} and cat["category"] != cat["newcategory"]:
+        response_data = {"result": "", "message": ""}
+        if (
+            cat.keys() >= {"pk", "category", "newcategory"}
+            and cat["category"] != cat["newcategory"]
+        ):
             fu = FunctionalUse.objects.get(pk=cat["pk"])
             fu.category_id = cat["newcategory"]
             fu.save()
-            response_data['result'] = 'success'
-            response_data['message'] = 'Harmonized Category Updated'
+            response_data["result"] = "success"
+            response_data["message"] = "Harmonized Category Updated"
         return JsonResponse(response_data)
 
-    combinations = FunctionalUse.objects.values("pk", "report_funcuse", "category", newcategory=F("category"),
-                                                categorytitle=F("category__title")) \
-        .annotate(fu_count=Count("chemicals")) \
+    combinations = (
+        FunctionalUse.objects.values(
+            "pk",
+            "report_funcuse",
+            "category",
+            newcategory=F("category"),
+            categorytitle=F("category__title"),
+        )
+        .annotate(fu_count=Count("chemicals"))
         .order_by("report_funcuse", "category__title")
+    )
 
     categories = FunctionalUseCategory.objects.values("id", "title").order_by("title")
-    categorylist = [{'id': '', 'title': ''}] + list(categories)
+    categorylist = [{"id": "", "title": ""}] + list(categories)
 
-    return render(request, template_name, {"combinations": list(combinations), "categories": categorylist})
+    return render(
+        request,
+        template_name,
+        {"combinations": list(combinations), "categories": categorylist},
+    )
 
 
 class FunctionalUseCurationChemicals(LoginRequiredMixin, TemplateView):
@@ -84,7 +98,7 @@ class FunctionalUseCurationChemicalsTable(BaseDatatableView):
         qs = super().get_initial_queryset()
         qs = (
             qs.filter(functional_uses=functional_use)
-                .annotate(
+            .annotate(
                 preferred_name=Case(
                     # no dsstox
                     When(dsstox__isnull=False, then=F("dsstox__true_chemname")),
@@ -94,6 +108,6 @@ class FunctionalUseCurationChemicalsTable(BaseDatatableView):
                     default=Value("Unnamed Chemical"),
                 )
             )
-                .order_by("pk")
+            .order_by("pk")
         )
         return qs

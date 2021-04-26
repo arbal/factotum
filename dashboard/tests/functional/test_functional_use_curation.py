@@ -39,7 +39,7 @@ class TestFunctionalUseCuration(TestCase):
         surfactants = []
         for li in combinations:
             if li["report_funcuse"] == "surfactant":
-                if li["category__title"] == "solvent":
+                if li["categorytitle"] == "solvent":
                     self.assertEqual(li["fu_count"], 2)
 
         # Now both "surfactant" records should be categorized, so the
