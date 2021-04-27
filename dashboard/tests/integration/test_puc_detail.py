@@ -94,6 +94,16 @@ class TestPUCDetailTables(StaticLiveServerTestCase):
             )
         )
 
+        # Habits and practices
+        hp_btn = self.browser.find_element_by_id("hp-tab-header")
+        hp_btn.click()
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='hp-documents_info']"),
+                "Showing 0 to 0 of 0 entries",
+            )
+        )
+
     def test_additional_statistics_links_open_appropriate_table(self):
         puc = PUC.objects.get(pk=185)
         wait = WebDriverWait(self.browser, 10)
@@ -133,5 +143,17 @@ class TestPUCDetailTables(StaticLiveServerTestCase):
             ec.text_to_be_present_in_element(
                 (By.XPATH, "//*[@id='products']/tbody/tr[3]/td[1]/a"),
                 "Rose Whipped Body Lotion",
+            )
+        )
+
+        # Habits and Practices
+        hp_btn = self.browser.find_element_by_xpath(
+            "//div[@id='puc_stats']//a[@onclick=\"activateTable('#hp-tab-header')\"]"
+        )
+        actions.move_to_element(hp_btn).click().perform()
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='hp-documents_info']"),
+                "Showing 0 to 0 of 0 entries",
             )
         )

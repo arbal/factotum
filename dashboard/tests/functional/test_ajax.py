@@ -247,3 +247,17 @@ class TestAjax(TestCase):
             "<a href='/list_presence_tag/1/' title='Velit neque aliquam etincidunt.'>abrasive</a> ; <a href='/list_presence_tag/157/' title='Labore neque dolor voluptatem aliquam ipsum labore.'>flavor</a> ; <a href='/list_presence_tag/323/' title='Sed voluptatem etincidunt numquam.'>slimicide</a>",
             first_tagset,
         )
+
+    def test_habits_and_practices(self):
+        response = self.client.get("/c_json/")
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 8)
+
+        response = self.client.get("/hp_json/?puc=2")
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 4)
+        self.assertEquals(data["recordsFiltered"], 4)
+        self.assertIn("Material Safety Data Sheet - Menards", data["data"][0][0])
+        self.assertIn("ball bearings", data["data"][0][1])
+        self.assertEquals("Frequency", data["data"][0][2])
