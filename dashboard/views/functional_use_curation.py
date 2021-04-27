@@ -1,6 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count, F
+from dashboard.models import FunctionalUse, FunctionalUseCategory
+from django.http import JsonResponse
+import json
 from django.db.models import Count, F, Exists, Case, When, Q, Value
 from django.views.generic import TemplateView
 from django_datatables_view.base_datatable_view import BaseDatatableView
@@ -12,12 +16,40 @@ from dashboard.models import FunctionalUse, RawChem
 def functional_use_curation(request):
     template_name = "functional_use_curation/functional_use_curation.html"
 
+    if request.method == "POST":
+        cat = json.loads(request.POST.get("json") or "{}")
+        response_data = {"result": "", "message": ""}
+        if (
+            cat.keys() >= {"pk", "category", "newcategory"}
+            and cat["category"] != cat["newcategory"]
+        ):
+            fu = FunctionalUse.objects.get(pk=cat["pk"])
+            fu.category_id = cat["newcategory"]
+            fu.save()
+            response_data["result"] = "success"
+            response_data["message"] = "Harmonized Category Updated"
+        return JsonResponse(response_data)
+
     combinations = (
-        FunctionalUse.objects.values("pk", "report_funcuse", "category__title")
+        FunctionalUse.objects.values(
+            "pk",
+            "report_funcuse",
+            "category",
+            newcategory=F("category"),
+            categorytitle=F("category__title"),
+        )
         .annotate(fu_count=Count("chemicals"))
         .order_by("report_funcuse", "category__title")
     )
-    return render(request, template_name, {"combinations": list(combinations)})
+
+    categories = FunctionalUseCategory.objects.values("id", "title").order_by("title")
+    categorylist = [{"id": "", "title": ""}] + list(categories)
+
+    return render(
+        request,
+        template_name,
+        {"combinations": list(combinations), "categories": categorylist},
+    )
 
 
 class FunctionalUseCurationChemicals(LoginRequiredMixin, TemplateView):

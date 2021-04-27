@@ -6,10 +6,13 @@
     <h1>
         <span>Functional Use Curation</span>
     </h1>
-
-    <div class="header">
-        <input type="text" id="filter-text-box" placeholder="Search..." oninput="onFilterTextBoxChanged()"/>
-        <button onclick="clearFilters()" class="btn btn-primary btn-sm">Reset Filters</button>
+    <div class="row pt-2 pb-4">
+        <div class="col-12">Select a Harmonized Category cell to update. Follow the Chemical Count link to view associated chemicals.</div>
+    </div>
+    <div class="row">
+        <div class="col-4"><input type="text" id="filter-text-box" placeholder="Search..."></div>
+        <div class="col-4"><span id="results" class="btn-primary m-2"></span></div>
+        <div class="col-4 text-right"><button id="filter-reset-button" class="btn btn-primary btn-sm">Reset Filters</button></div>
     </div>
     <div id="dataGrid" class="ag-theme-balham fixed-height-grid"></div>
     <div>
@@ -24,6 +27,9 @@
     </div>
 {% endblock %}
 
+{# dummy form for handling Ajax posts #}
+<form method="POST" id="category-form">{% csrf_token %}</form>
+
 {% block css %}
     <link href="{% static 'css/dashboard/grid_list.css' %}" rel="stylesheet">
 {% endblock %}
@@ -31,6 +37,7 @@
 {% block js %}
     {{ form.media }}
     {{ combinations|json_script:"tabledata" }}
-    <script src="{% static 'js/dashboard/functional_use_curation.js' %}"></script>
+    {{ categories|json_script:"categorydata" }}
+    <script type="module" src="{% static 'js/dashboard/functional_use_curation.js' %}"></script>
 {% endblock %}
 
