@@ -1,11 +1,17 @@
 from django.urls import reverse
-from dashboard.tests.factories import FunctionalUseFactory, ExtractedCompositionFactory
+from dashboard.tests.factories import (
+    FunctionalUseFactory,
+    ExtractedCompositionFactory,
+    FunctionalUseCategoryFactory,
+)
 from dashboard.tests.loader import load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support.select import Select
+import time
 
 
 def log_karyn_in(object):
@@ -32,6 +38,7 @@ class TestFunctionalUseCuration(StaticLiveServerTestCase):
         log_karyn_in(self)
 
         self.functional_use = FunctionalUseFactory()
+        self.functional_use_category = FunctionalUseCategoryFactory()
         self.excomp = ExtractedCompositionFactory.create(
             functional_uses=(self.functional_use,)
         )
@@ -49,6 +56,7 @@ class TestFunctionalUseCuration(StaticLiveServerTestCase):
             )
         )
         table = self.browser.find_element_by_id("dataGrid")
+
         # Assert there is a link to the detail curation page.
         self.assertIn(
             reverse(
@@ -57,6 +65,7 @@ class TestFunctionalUseCuration(StaticLiveServerTestCase):
             ),
             table.get_attribute("innerHTML"),
         )
+
         # Assert count is correct
         self.assertIn(
             str(self.functional_use.chemicals.count()),
@@ -64,6 +73,25 @@ class TestFunctionalUseCuration(StaticLiveServerTestCase):
                 "//div[@col-id='fu_count' and @role='gridcell']"
             ).text,
         )
+
+        # Verify that category cell is editable
+        categorycell = table.find_element_by_xpath(
+            "//div[@col-id='categorytitle' and @role='gridcell']"
+        )
+        categorycell.click()
+
+        update_button = self.wait.until(
+            ec.element_to_be_clickable((By.XPATH, "//*[@id='applyBtn']"))
+        )
+        Select(table.find_element_by_id("category_id")).select_by_visible_text(
+            self.functional_use_category.title
+        )
+        update_button.click()
+        time.sleep(1)
+
+        self.functional_use.refresh_from_db()
+        self.assertTrue(self.functional_use.category == self.functional_use_category)
+        self.assertIn(self.functional_use_category.title, categorycell.text)
 
     def test_functional_use_curation_chemicals_table_loads(self):
         uncurated_excomp = ExtractedCompositionFactory.create(
