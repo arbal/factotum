@@ -258,8 +258,11 @@ class ExtractedTextForm(forms.ModelForm):
 class ExtractedTextHPForm(ExtractedTextForm):
     class Meta:
         model = ExtractedHPDoc
-        fields = ["doc_date", "rev_num"]
+        fields = ["doc_date", "rev_num", "extraction_completed"]
 
+    def __init__(self, *args, **kwargs):
+        super(ExtractedTextHPForm, self).__init__(*args, **kwargs)
+        self.fields["extraction_completed"].widget.attrs.update({"class": "ml-2 align-middle form-control-sm"})
 
 class ExtractedTextFUForm(ExtractedTextForm):
     class Meta:
