@@ -192,6 +192,11 @@ urlpatterns = [
         name="qa_extractionscript_index",
     ),
     path(
+        "qa/manualcomposition/",
+        views.qa_manual_composition_index,
+        name="qa_manual_composition_index",
+    ),
+    path(
         "qa/extractionscript/<int:pk>/",
         dashboard.views.qa.qa_extraction_script,
         name="qa_extraction_script",

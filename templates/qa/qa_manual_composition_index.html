@@ -1,0 +1,60 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% block title %}QA Manually Extracted Composition Documentss{% endblock %}
+
+{% block content %}
+<h1 class="col-sm-12"><span class="fa fa-check-square" title="factotum"></span>
+QA Manually Extracted Composition Documents</h1>
+<br>
+<table class="table table-striped table-bordered dataTable no-footer" id='chemical_presence_table'>
+    <thead class="table-primary">
+        <tr>
+        <th>Data Group</th>
+        <th>URL</th>
+        <th>Document Count</th>
+        <th>Percent QA Checked</th>
+        <th>QA Summary</th>
+        <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for datagroup in datagroups %}
+      <tr>
+        <td><a href="{% url 'data_group_detail' datagroup.id %}" id="{{datagroup.id}}">{{ datagroup.name }}</a></td>
+        <td>
+            {% if datagroup.url %}
+                <a href="{{ datagroup.url }}" target="_blank"><span class="fa fa-external-link-alt"></span></a>
+            {% endif %}
+        </td>
+        <td>{{ datagroup.datadocument_count }}</td>
+        {% widthratio datagroup.approved_count datagroup.datadocument_count 100 as pct_complete %}
+        <td>{{  pct_complete|default:"0" }}%</td>
+        <td>
+            <a href="{% url 'qa_chemical_presence_summary' datagroup.id %}"
+               title="Link to {{ datagroup.name }} Summary" id="{{datagroup.id}}">
+                <span class="fa fa-tasks"></span>
+            </a>
+        </td>
+        <td>
+        {% if datagroup.datadocument_count > 0 %}
+            {% if pct_complete == "100" %}
+              <a class="btn btn-light btn-sm" disabled role="button" title="QA Complete">QA Complete</a>
+            {% else %}
+              <a class="btn btn-info btn-sm" role="button" title="QA on {{ datagroup.name }}"
+               href='{% url "qa_chemical_presence_group" datagroup.id %}'> View Chemical Presence Lists
+              </a>
+            {% endif %}
+        {% else %}
+            <i>No DataDocuments exist in this Datagroup</i>
+        {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/dashboard/qa_chemical_presence_index.js' %}"></script>
+{% endblock %}
