@@ -262,7 +262,10 @@ class ExtractedTextHPForm(ExtractedTextForm):
 
     def __init__(self, *args, **kwargs):
         super(ExtractedTextHPForm, self).__init__(*args, **kwargs)
-        self.fields["extraction_completed"].widget.attrs.update({"class": "ml-2 align-middle form-control-sm"})
+        self.fields["extraction_completed"].widget.attrs.update(
+            {"class": "ml-2 align-middle form-control-sm"}
+        )
+
 
 class ExtractedTextFUForm(ExtractedTextForm):
     class Meta:
