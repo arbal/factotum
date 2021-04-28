@@ -1,11 +1,9 @@
-from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic.detail import SingleObjectMixin
 from django_datatables_view.base_datatable_view import BaseDatatableView
 from django.http import JsonResponse
-from django.db.models import Q, Count, Subquery, Case, When, F, Value, CharField
+from django.db.models import Q, Count, Subquery, Case, When, F, Value
 from django.utils.html import format_html
 from django.views.decorators.cache import cache_page
 from django.template.defaultfilters import truncatechars
@@ -17,12 +15,12 @@ from dashboard.models import (
     GroupType,
     DataDocument,
     DSSToxLookup,
-    RawChem,
     ExtractedCPCat,
     ExtractedListPresence,
     ExtractedListPresenceToTag,
     ExtractedListPresenceTag,
     FunctionalUseToRawChem,
+    ExtractedHabitsAndPractices,
 )
 
 
@@ -400,3 +398,29 @@ class ProductPUCReconciliationJson(FilterDatatableView):
             product_id__in=Subquery(dupes.values("product_id"))
         ).order_by("product_id")
         return qs
+
+
+class HabitsAndPracticesDocumentsJson(FilterDatatableView):
+    model = ExtractedHabitsAndPractices
+    columns = [
+        "extracted_text.data_document.title",
+        "product_surveyed",
+        "data_type.title",
+    ]
+
+    def get_initial_queryset(self):
+        qs = super().get_initial_queryset()
+        puc = self.request.GET.get("puc")
+        if puc:
+            return qs.filter(Q(puc=puc))
+        return qs
+
+    def render_column(self, row, column):
+        value = self._render_column(row, column)
+        if column == "extracted_text.data_document.title":
+            return format_html(
+                '<a href="{}" title="Go to Document detail" target="_blank">{}</a>',
+                row.extracted_text.data_document.get_absolute_url(),
+                value,
+            )
+        return value

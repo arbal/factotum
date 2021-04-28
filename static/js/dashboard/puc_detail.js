@@ -151,7 +151,24 @@ $(document).ready(function () {
             }]
         });
     });
-    $("#product-tab-header").click()
+
+    $("#hp-tab-header").on("click", function () {
+        $("div[id$='table-div']").hide();
+        $("#hp-table-div").show();
+        var hptable = $('#hp-documents').DataTable({
+            dom: "<'row'<'col-md-4 form-inline'l><'col-md-4 form-inline'f><'col-md-4'>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>", // order the control divs
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            ordering: true,
+            stateSave: true,
+            ajax: "/hp_json/?puc=" + puc
+        });
+    });
+
+    $("#product-tab-header").click();
 });
 
 function activateTable(tableID) {

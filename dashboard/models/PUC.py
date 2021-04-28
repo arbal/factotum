@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase, TagBase
 
-from dashboard.models import ProductDocument, DataDocument
+from dashboard.models import ProductDocument, DataDocument, ExtractedHabitsAndPractices
 from dashboard.utils import GroupConcat, SimpleTree
 from .common_info import CommonInfo
 from .raw_chem import RawChem
@@ -197,6 +197,10 @@ class PUC(CommonInfo):
         return DataDocument.objects.filter(
             Q(products__product_uber_puc__puc=self)
         ).count()
+
+    @property
+    def hp_count(self):
+        return ExtractedHabitsAndPractices.objects.filter(Q(puc=self)).count()
 
     @property
     def admin_url(self):

@@ -308,6 +308,11 @@ class ModelTestWithFixtures(TestCase):
         distinct_doc_count = docs.count()
         self.assertEqual(puc.document_count, distinct_doc_count)
 
+    def test_puc_hp_count(self):
+        puc = PUC.objects.get(pk=2)
+        hp_counts = ExtractedHabitsAndPractices.objects.filter(puc=puc).count()
+        self.assertEqual(puc.hp_count, hp_counts)
+
     def test_datadocument_note(self):
         datadocument = DataDocument(
             filename="MyFile.pdf",
