@@ -87,6 +87,8 @@
                 <dd class="col-6"><a href="#tables" onclick="activateTable('#document-tab-header')">{{ puc.document_count }}</a> </dd>
                 <dt class="col-6">Curated Chemicals</dt>
                 <dd class="col-6"><a href="#tables" onclick="activateTable('#chemical-tab-header')">{{ puc.curated_chemical_count }}</a></dd>
+                <dt class="col-6">Habits and Practices</dt>
+                <dd class="col-6"><a href="#tables" onclick="activateTable('#hp-tab-header')">{{ puc.hp_count }}</a></dd>
             </dl>
         </div>
         <div class="col-6" id="taxonomies">
@@ -115,7 +117,7 @@
 
     <div class="col-lg-12 p-0" id="tables">
         <ul class="row nav nav-pills mb-3 pb-3">
-            <li class="col-lg-4 nav-item h-nav border rounded p-0">
+            <li class="col-lg-2 nav-item h-nav border rounded p-0">
                 <a class="nav-link text-center active"
                    data-toggle="pill"
                    href="#product-table-div"
@@ -123,7 +125,7 @@
                     <b>Products</b>
                 </a>
             </li>
-            <li class="col-lg-4 nav-item h-nav border rounded p-0">
+            <li class="col-lg-2 nav-item h-nav border rounded p-0">
                 <a class="nav-link text-center" 
                    data-toggle="pill" 
                    href="#document-table-div"
@@ -131,12 +133,28 @@
                     <b>Documents</b>
                 </a>
             </li>
-            <li class="col-lg-4 nav-item h-nav border rounded p-0">
+            <li class="col-lg-2 nav-item h-nav border rounded p-0">
                 <a class="nav-link text-center" 
                    data-toggle="pill" 
                    href="#chemical-table-div"
                    id="chemical-tab-header">
                     <b>Chemicals</b>
+                </a>
+            </li>
+            <li class="col-lg-3 nav-item h-nav border rounded p-0">
+                <a class="nav-link text-center"
+                   data-toggle="pill" 
+                   href="#functionaluse-table-div"
+                   id="functionaluse-tab-header">
+                    <b>Functional Uses</b>
+                </a>
+            </li>
+            <li class="col-lg-3 nav-item h-nav border rounded p-0">
+                <a class="nav-link text-center"
+                   data-toggle="pill"
+                   href="#hp-table-div"
+                   id="hp-tab-header">
+                    <b>Habits and Practices</b>
                 </a>
             </li>
         </ul>
@@ -184,6 +202,43 @@
                         <th>DTXSID</th>
                         <th>Preferred CAS</th>
                         <th>Preferred Name</th>
+                        <th>Count</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane container p-0 fade" id="functionaluse-table-div">
+                <h4>Functional Uses Associated with "{{ puc }}"</h4>
+                <table class="table table-striped  dataTable no-footer table-sm" 
+                    data-puc="{{ puc.id }}"
+                    data-pucname="{{ puc|slugify }}"
+                    id="functionaluses">
+                    <thead >
+                    <tr>
+                        <th>Data Document</th>
+                        <th>Preferred Name</th>
+                        <th>Preferred CAS</th>
+                        <th>Reported Functional Use</th>
+                        <th>Harmonized Functional Use</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane container p-0 fade" id="hp-table-div">
+                <h4>Habits and Practices Associated with "{{ puc }}"</h4>
+                <table class="table table-striped  dataTable no-footer table-sm"
+                    data-puc="{{ puc.id }}"
+                    data-pucname="{{ puc|slugify }}"
+                    id="hp-documents">
+                    <thead >
+                    <tr>
+                        <th>Document</th>
+                        <th>Products Surveyed</th>
+                        <th>Data Type</th>
                     </tr>
                     </thead>
                     <tbody></tbody>

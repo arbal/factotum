@@ -210,6 +210,11 @@ class ExtractedTextFactory(FactotumFactoryBase):
     extraction_script = factory.SubFactory(ScriptFactory, script_type="EX")
 
 
+class ExtractedCPCatFactory(ExtractedTextFactory):
+    class Meta:
+        model = models.ExtractedCPCat
+
+
 class TrueChemicalFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.DSSToxLookup
@@ -232,7 +237,9 @@ class FunctionalUseFactory(factory.django.DjangoModelFactory):
         model = models.FunctionalUse
 
     category = factory.SubFactory(FunctionalUseCategoryFactory)
-    report_funcuse = factory.Sequence(lambda n: f"{factory.Faker('word')}-{n}")
+    report_funcuse = factory.Sequence(
+        lambda n: f"{factory.Faker('word').generate()}-{n}"
+    )
 
     @classmethod
     def _setup_next_sequence(cls):
@@ -248,12 +255,16 @@ class RawChemFactory(factory.django.DjangoModelFactory):
         abstract = True
 
     class Params:
-        is_curated = False
+        is_curated = True
 
     raw_cas = factory.Faker("cas_number")
     raw_chem_name = factory.Faker("word")
-    if factory.SelfAttribute("is_curated"):
-        dsstox = factory.SubFactory(TrueChemicalFactory)
+    # is_curated=False gives a non-curated (no dsstox) raw_chem.
+    dsstox = factory.Maybe(
+        "is_curated",
+        yes_declaration=factory.SubFactory(TrueChemicalFactory),
+        no_declaration=None,
+    )
 
     @factory.post_generation
     def functional_uses(obj, create, extracted, **kwargs):
@@ -266,9 +277,8 @@ class RawChemFactory(factory.django.DjangoModelFactory):
             return
 
         if extracted:
-            for n in range(extracted):
-                funcuses = FunctionalUseFactory()
-                obj.functional_uses.add(funcuses)
+            for use in extracted:
+                obj.functional_uses.add(use)
         else:
             import random
 
@@ -283,7 +293,7 @@ class ExtractedListPresenceFactory(RawChemFactory):
         model = models.ExtractedListPresence
 
     extracted_text = factory.SubFactory(
-        ExtractedTextFactory, data_document__data_group__group_type__code="CP"
+        ExtractedCPCatFactory, data_document__data_group__group_type__code="CP"
     )
 
     @factory.post_generation

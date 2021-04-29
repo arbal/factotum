@@ -39,7 +39,7 @@ class TestFunctionalUseCuration(TestCase):
         surfactants = []
         for li in combinations:
             if li["report_funcuse"] == "surfactant":
-                if li["category__title"] == "solvent":
+                if li["categorytitle"] == "solvent":
                     self.assertEqual(li["fu_count"], 2)
 
         # Now both "surfactant" records should be categorized, so the
@@ -47,5 +47,5 @@ class TestFunctionalUseCuration(TestCase):
         response = self.client.get(reverse("functional_use_curation"))
         combinations = response.context["combinations"]
         self.assertEqual(
-            len(combinations), 15, "There should be 15 combinations after the edit"
+            len(combinations), 16, "There should be 16 combinations after the edit"
         )

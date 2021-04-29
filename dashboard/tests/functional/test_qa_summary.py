@@ -152,10 +152,6 @@ class TestQASummary(TestCase):
 
         self.assertEqual(updated_response_count, base_response_count + 1)
 
-    @skip(
-        "This test needs to be re-thought.  "
-        + "Audit log changes to functional uses are no longer linked directly to RawChems"
-    )
     def test_qa_summary_table_valid_row_updated_functional_use(self):
         """Verify updating a functional use adds the result to the table"""
         response = self.client.get(

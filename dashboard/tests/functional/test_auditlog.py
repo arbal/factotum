@@ -18,6 +18,10 @@ from dashboard.models import (
     ExtractedFunctionalUse,
     AuditLog,
     FunctionalUse,
+    FunctionalUseCategory,
+    RawChem,
+    ExtractedText,
+    Script,
 )
 from dashboard.tests.mixins import TempFileMixin
 
@@ -138,7 +142,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         self.assertEquals(3, sum(log.field_name == "raw_max_comp" for log in logs))
         self.assertEquals(3, sum(log.field_name == "raw_central_comp" for log in logs))
         self.assertEquals(3, sum(log.field_name == "unit_type_id" for log in logs))
-        self.assertEquals(3, sum(log.field_name == "functional_use_id" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "report_funcuse" for log in logs))
         self.assertEquals(3, sum(log.field_name == "ingredient_rank" for log in logs))
         self.assertEquals(3, sum(log.field_name == "upper_wf_analysis" for log in logs))
         self.assertEquals(
@@ -203,7 +207,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         self.assertEquals(3, sum(log.field_name == "raw_max_comp" for log in logs))
         self.assertEquals(3, sum(log.field_name == "raw_central_comp" for log in logs))
         self.assertEquals(3, sum(log.field_name == "unit_type_id" for log in logs))
-        self.assertEquals(3, sum(log.field_name == "functional_use_id" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "report_funcuse" for log in logs))
         self.assertEquals(3, sum(log.field_name == "ingredient_rank" for log in logs))
         self.assertEquals(3, sum(log.field_name == "upper_wf_analysis" for log in logs))
         self.assertEquals(
@@ -368,7 +372,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
             1, len(logs), "Should have a log entry for new functional use"
         )
         for log in logs.filter(field_name="report_funcuse"):
-            self.assertEquals(log.model_name, "functionaluse")
+            self.assertEquals(log.model_name, "functionalusetorawchem")
             self.assertIsNotNone(log.new_value)
             self.assertEquals(log.new_value, "test func use")
             self.assertIsNotNone(log.date_created)
@@ -400,3 +404,82 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         dd.delete()
         auditlogs = AuditLog.objects.filter(extracted_text_id=dd_id)
         self.assertTrue(auditlogs.count() == 0)
+
+    def test_functional_use_audit_logs(self):
+        ext = ExtractedText.objects.create(
+            data_document=DataDocument.objects.first(),
+            extraction_script=Script.objects.first(),
+        )
+        chem = RawChem.objects.create(extracted_text=ext)
+        cat1 = FunctionalUseCategory.objects.create(
+            title="cat1", description="test category 1"
+        )
+        cat2 = FunctionalUseCategory.objects.create(
+            title="cat2", description="test category 2"
+        )
+        fu1 = FunctionalUse.objects.create(report_funcuse="fu1", category=cat1)
+        fu2 = FunctionalUse.objects.create(report_funcuse="fu2", category=cat2)
+        AuditLog.objects.all().delete()
+
+        # add fu to chem
+        chem.functional_uses.add(fu1)
+        chem.save()
+        rfu = AuditLog.objects.filter(field_name="report_funcuse")
+        self.assertEqual(1, rfu.count())
+        hc = AuditLog.objects.filter(field_name="harmonized category")
+        self.assertEqual(1, hc.count())
+
+        # update fu reported field
+        AuditLog.objects.all().delete()
+        fu1.report_funcuse = "updated"
+        fu1.save()
+        rfu = AuditLog.objects.filter(field_name="report_funcuse")
+        self.assertEqual(1, rfu.count())
+        hc = AuditLog.objects.filter(field_name="harmonized category")
+        self.assertEqual(0, hc.count())
+
+        # update fu category
+        AuditLog.objects.all().delete()
+        fu1.category = cat2
+        fu1.save()
+        rfu = AuditLog.objects.filter(field_name="report_funcuse")
+        self.assertEqual(0, rfu.count())
+        hc = AuditLog.objects.filter(field_name="harmonized category")
+        self.assertEqual(1, hc.count())
+
+        # update category title
+        AuditLog.objects.all().delete()
+        cat2.title = "updated title"
+        cat2.save()
+        rfu = AuditLog.objects.filter(field_name="report_funcuse")
+        self.assertEqual(0, rfu.count())
+        hc = AuditLog.objects.filter(field_name="harmonized category")
+        self.assertEqual(1, hc.count())
+
+        # delete fu category
+        AuditLog.objects.all().delete()
+        fu1.category = None
+        fu1.save()
+        rfu = AuditLog.objects.filter(field_name="report_funcuse")
+        self.assertEqual(0, rfu.count())
+        hc = AuditLog.objects.filter(field_name="harmonized category")
+        self.assertEqual(1, hc.count())
+
+        # change chem fu
+        AuditLog.objects.all().delete()
+        chem.functional_uses.remove(fu1)
+        chem.functional_uses.add(fu2)
+        chem.save()
+        rfu = AuditLog.objects.filter(field_name="report_funcuse")
+        self.assertEqual(2, rfu.count())
+        hc = AuditLog.objects.filter(field_name="harmonized category")
+        self.assertEqual(1, hc.count())
+
+        # delete chem fu
+        AuditLog.objects.all().delete()
+        chem.functional_uses.clear()
+        chem.save()
+        rfu = AuditLog.objects.filter(field_name="report_funcuse")
+        self.assertEqual(1, rfu.count())
+        hc = AuditLog.objects.filter(field_name="harmonized category")
+        self.assertEqual(1, hc.count())

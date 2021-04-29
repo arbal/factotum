@@ -50,7 +50,7 @@ $(document).ready(function () {
                 },
                 {
                     data: 1,
-                    orderable: true,
+                    orderable: false,
                     searchable: true,
                     className: "text-center"
                 }
@@ -61,6 +61,46 @@ $(document).ready(function () {
             ordering: true,
             stateSave: true,
             ajax: "/d_json/?puc=" + puc
+        });
+    });
+
+    $("#functionaluse-tab-header").on("click", function () {
+        $("div[id$='table-div']").hide();
+        $("#functionaluse-table-div").show();
+        var functionalusetable = $('#functionaluses').DataTable({
+            columns: [
+                {
+                    data: 0,
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: 1,
+                    orderable: true,
+                    searchable: true,
+                },
+                {
+                    data: 2,
+                    orderable: true,
+                    searchable: true,
+                },
+                {
+                    data: 3,
+                    orderable: true,
+                    searchable: true,
+                },
+                {
+                    data: 4,
+                    orderable: true,
+                    searchable: true,
+                }
+            ],
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            ordering: true,
+            stateSave: true,
+            ajax: "/fu_puc_json/?puc=" + puc
         });
     });
 
@@ -89,6 +129,11 @@ $(document).ready(function () {
                     orderable: true,
                     searchable: true
                 },
+                {
+                    data: 3,
+                    orderable: true,
+                    searchable: false
+                },
             ],
             destroy: true,
             processing: true,
@@ -106,7 +151,24 @@ $(document).ready(function () {
             }]
         });
     });
-    $("#product-tab-header").click()
+
+    $("#hp-tab-header").on("click", function () {
+        $("div[id$='table-div']").hide();
+        $("#hp-table-div").show();
+        var hptable = $('#hp-documents').DataTable({
+            dom: "<'row'<'col-md-4 form-inline'l><'col-md-4 form-inline'f><'col-md-4'>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>", // order the control divs
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            ordering: true,
+            stateSave: true,
+            ajax: "/hp_json/?puc=" + puc
+        });
+    });
+
+    $("#product-tab-header").click();
 });
 
 function activateTable(tableID) {

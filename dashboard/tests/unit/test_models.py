@@ -308,6 +308,11 @@ class ModelTestWithFixtures(TestCase):
         distinct_doc_count = docs.count()
         self.assertEqual(puc.document_count, distinct_doc_count)
 
+    def test_puc_hp_count(self):
+        puc = PUC.objects.get(pk=2)
+        hp_counts = ExtractedHabitsAndPractices.objects.filter(puc=puc).count()
+        self.assertEqual(puc.hp_count, hp_counts)
+
     def test_datadocument_note(self):
         datadocument = DataDocument(
             filename="MyFile.pdf",
@@ -391,11 +396,6 @@ class ModelTestWithFixtures(TestCase):
         fc = FunctionalUse.objects.filter(pk=1).first()
         self.assertEquals(fc.report_funcuse, "report use")
         self.assertEquals(2, fc.category.id)
-
-    @skip("There is no blank constraint on report_funcuse")
-    def test_functionaluse_validation(self):
-        funcuse = FunctionalUse(report_funcuse="")
-        self.assertRaises(ValidationError, funcuse.clean_fields)
 
     def test_functionalusecatetory_crud(self):
         # read

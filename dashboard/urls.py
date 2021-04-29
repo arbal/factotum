@@ -171,6 +171,16 @@ urlpatterns = [
         name="functional_use_curation",
     ),
     path(
+        "functional_use_curation/<functional_use_pk>/",
+        views.FunctionalUseCurationChemicals.as_view(),
+        name="functional_use_curation_chemicals",
+    ),
+    path(
+        "functional_use_curation/<functional_use_pk>/table",
+        views.FunctionalUseCurationChemicalsTable.as_view(),
+        name="functional_use_curation_chemicals_table",
+    ),
+    path(
         "link_product_list/<int:pk>/", views.link_product_list, name="link_product_list"
     ),
     path(
@@ -291,7 +301,13 @@ urlpatterns = [
         views.ProductPUCReconciliationJson.as_view(),
         name="p_puc_ajax_url",
     ),
+    path(
+        "fu_puc_json/", views.PucFunctionalUseListJson.as_view(), name="fu_puc_ajax_url"
+    ),
     path("c_json/", views.ChemicalListJson.as_view(), name="c_ajax_url"),
+    path(
+        "hp_json/", views.HabitsAndPracticesDocumentsJson.as_view(), name="hp_ajax_url"
+    ),
     path("sid_gt_json", views.sids_by_grouptype_ajax, name="sid_gt_json_url"),
     path("pucs/", views.puc_list, name="puc_list"),
     path("puc/<int:pk>/", views.puc_detail, name="puc_detail"),

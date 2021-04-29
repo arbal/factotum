@@ -433,6 +433,8 @@
                                         {{ extracted_text.get_study_type_display }}
                                     {% elif field.value %}
                                         {{ field.value }}
+                                    {% elif field.value is not None and field.value != ""  %}
+                                        {{ field.value }}
                                     {% else %}
                                         <small class="pl-3 pr-3">
                                             <i class="text-muted">
@@ -481,7 +483,7 @@
                                 {% csrf_token %}
                                 <div class="modal-body">
                                     <div class="form-group">
-                                        {% include 'core/bs4_form.html' with form=edit_text_form colspan='col-6' %}
+                                        {% include 'core/bs4_classless_form.html' with form=edit_text_form colspan='col-6' %}
                                     </div>
                                 </div>
                                 <div class="modal-footer">

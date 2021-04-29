@@ -78,6 +78,24 @@ class TestAjax(TestCase):
         self.assertEquals(data["recordsTotal"], 1)
         self.assertEquals(data["recordsFiltered"], 1)
         self.assertIn("DTXSID9022528", data["data"][0][0])
+        self.assertIn("120-47-8", data["data"][0][1])
+        self.assertEquals("ethylparaben", data["data"][0][2])
+        self.assertEquals("1", data["data"][0][3])
+        # make sure the same chemical does NOT appear in
+        # the detail page for a different PUC that is linked
+        # to the same chemical by the same product, but
+        # without the uberPUC status.
+        response = self.client.get("/c_json/?puc=310")
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 0)
+
+    def test_functionaluses_by_puc(self):
+        response = self.client.get("/fu_puc_json/?puc=185")
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 1)
+        self.assertEquals(data["recordsFiltered"], 1)
+        self.assertIn("120-47-8", data["data"][0][2])
 
     def test_documents_by_sid(self):
         response = self.client.get("/d_json/?sid=DTXSID9022528")
@@ -98,7 +116,7 @@ class TestAjax(TestCase):
         self.assertEquals(data["recordsFiltered"], 1)
         self.assertIn("Sun_INDS_89", data["data"][0][0])
 
-    def test_documents_by_keyword_set(self):
+    def test_documents_by_sid_and_puc(self):
         response = self.client.get("/d_json/?sid=DTXSID9020584&pid=759")
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.content)
@@ -214,3 +232,32 @@ class TestAjax(TestCase):
         self.assertIn("Sun_INDS_89", first_chem[0])
         self.assertIn("/datadocument/156051/", first_chem[0])
         self.assertIn("DTXSID9022528", first_chem[1])
+
+    def test_lp_tag_detail(self):
+        """
+        The table should include the hyperlinked list of distinct
+        list presence tags
+        """
+        lp_tagsets = reverse("lp_tagsets", kwargs={"pk": 1})
+        response = self.client.get(lp_tagsets)
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        first_tagset = data["data"][0]
+        self.assertIn(
+            "<a href='/list_presence_tag/1/' title='Velit neque aliquam etincidunt.'>abrasive</a> ; <a href='/list_presence_tag/157/' title='Labore neque dolor voluptatem aliquam ipsum labore.'>flavor</a> ; <a href='/list_presence_tag/323/' title='Sed voluptatem etincidunt numquam.'>slimicide</a>",
+            first_tagset,
+        )
+
+    def test_habits_and_practices(self):
+        response = self.client.get("/c_json/")
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 8)
+
+        response = self.client.get("/hp_json/?puc=2")
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 4)
+        self.assertEquals(data["recordsFiltered"], 4)
+        self.assertIn("Material Safety Data Sheet - Menards", data["data"][0][0])
+        self.assertIn("ball bearings", data["data"][0][1])
+        self.assertEquals("Frequency", data["data"][0][2])
