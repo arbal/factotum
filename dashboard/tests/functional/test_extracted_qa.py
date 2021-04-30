@@ -1,6 +1,5 @@
 from django.test import TestCase, tag
-from django.urls import resolve, reverse
-from lxml import html
+from django.urls import reverse
 
 from dashboard.tests import factories
 from dashboard.tests.loader import load_model_objects, fixtures_standard
@@ -75,7 +74,6 @@ class ExtractedQaTest(TestCase):
         self.assertEqual(5, non_qa)
 
 
-@tag("loader")
 class ExtractedQaTestWithFixtures(TestCase):
 
     fixtures = fixtures_standard
@@ -91,10 +89,10 @@ class ExtractedQaTestWithFixtures(TestCase):
         """
         script = Script.objects.filter(title="Manual (dummy)", script_type="EX").first()
         dgs = DataGroup.objects.filter(group_type__code="CO")
-        
+
         for dg in dgs:
             # add some manually-extracted records in proportion to
-            # the count of records 
+            # the count of records
             doc_count = ExtractedText.objects.filter(
                 data_document__data_group=dg
             ).count()
@@ -109,14 +107,3 @@ class ExtractedQaTestWithFixtures(TestCase):
 
         response = self.client.get(reverse("qa_manual_composition_index"))
         self.assertContains(response, "Walmart MSDS", count=18)
-
-
-        
-
-        
-
-
-        
-
-
-
