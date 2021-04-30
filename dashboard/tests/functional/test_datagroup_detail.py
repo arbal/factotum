@@ -6,6 +6,11 @@ from lxml import html
 from django.test import TestCase, tag
 
 from celery_djangotest.unit import TransactionTestCase
+from dashboard.tests.factories import (
+    DataGroupFactory,
+    DataDocumentFactory,
+    ExtractedHPDocFactory,
+)
 from dashboard.tests.loader import load_model_objects, fixtures_standard
 from django.core.files import File
 from django.contrib.auth.models import User
@@ -69,6 +74,37 @@ class DataGroupDetailTestWithFactories(TransactionTestCase):
             dg.get_products().count(),
             0,
             "Data Group doesn't have zero products after bulk delete",
+        )
+
+    def test_hp_docs_extraction_completed(self):
+        # Create a data group
+        dg = DataGroupFactory(group_type__code="HP")
+
+        # Create DataDocuments
+        # Unextracted document
+        DataDocumentFactory(data_group=dg)
+        # Extracted but incomplete
+        ExtractedHPDocFactory(data_document__data_group=dg, extraction_completed=False)
+        # Extracted and complete
+        ExtractedHPDocFactory(data_document__data_group=dg, extraction_completed=True)
+
+        response = self.client.get(reverse("documents_table", kwargs={"pk": dg.pk}))
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)["data"]
+        self.assertEqual(
+            len(data), 3, "There should be 3 Extracted Habits and Practices documents"
+        )
+        extracted = list(filter(lambda o: o["extracted"], data))
+        not_extracted = list(filter(lambda o: not o["extracted"], data))
+        self.assertEqual(
+            len(extracted),
+            1,
+            "Only one Habits and Practices document should be extraction_completed",
+        )
+        self.assertEqual(
+            len(not_extracted),
+            2,
+            "Two Habits and Practices documents should not have extraction_completed",
         )
 
 
@@ -245,6 +281,29 @@ class DataGroupDetailTest(TempFileMixin, TestCase):
             '"numextracted": 2',
             response,
             "Data Group should contain a count of 2 total extracted documents",
+        )
+
+    def test_extracted_count_hp(self):
+        """HP documents are considered extracted only when ExtractedHPDoc.extraction_completed = True"""
+        # Create a data group
+        dg = DataGroupFactory(group_type__code="HP")
+
+        # Create DataDocuments
+        # Incomplete
+        ExtractedHPDocFactory(data_document__data_group=dg, extraction_completed=False)
+        # Complete
+        ExtractedHPDocFactory(data_document__data_group=dg, extraction_completed=True)
+
+        response = self.client.get(
+            reverse("data_group_detail", kwargs={"pk": dg.pk})
+        ).content.decode("utf8")
+        self.assertIn(
+            '"numregistered": 2', response, "Data Group should contain 2 documents"
+        )
+        self.assertIn(
+            '"numextracted": 1',
+            response,
+            "Data Group should contain 1 extracted documents",
         )
 
     def test_delete_doc_button(self):
