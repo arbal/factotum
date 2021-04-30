@@ -110,7 +110,7 @@ class ExtractedQaTestWithFixtures(TestCase):
         print(ExtractedText.objects.filter(extraction_script=script).count())
 
         response = self.client.get(reverse("qa_manual_composition_index"))
-        self.assertContains(response, "Walmart MSDS", count=6)
+        self.assertContains(response, "Walmart MSDS", count=18)
 
 
         
