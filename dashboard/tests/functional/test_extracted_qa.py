@@ -107,8 +107,6 @@ class ExtractedQaTestWithFixtures(TestCase):
                 data_document__title=f"{dg.name} manually extracted doc",
             )
 
-        print(ExtractedText.objects.filter(extraction_script=script).count())
-
         response = self.client.get(reverse("qa_manual_composition_index"))
         self.assertContains(response, "Walmart MSDS", count=18)
 
