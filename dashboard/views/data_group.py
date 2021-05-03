@@ -219,6 +219,8 @@ def data_group_documents_table(request, pk):
         .annotate(product_title=F("products__title"))
         .annotate(product_id=F("products__id"))
     )
+    if dg.is_habits_and_practices:
+        docs = docs.prefetch_related("extractedtext__extractedhpdoc")
     doc_list = []
     for doc in docs:
         doc_dict = {
@@ -238,6 +240,18 @@ def data_group_documents_table(request, pk):
                     "hidden": "Extracted" if doc.extracted else "Not extracted",
                 }
             )
+        elif dg.is_habits_and_practices:
+            # Get the extraction status
+            try:
+                doc_dict.update(
+                    {"extracted": doc.extractedtext.extractedhpdoc.extraction_completed}
+                )
+            # If the document is not extracted or the hpdoc does not exist, just set extracted to false.
+            except (
+                DataDocument.extractedtext.RelatedObjectDoesNotExist,
+                ExtractedText.extractedhpdoc.RelatedObjectDoesNotExist,
+            ):
+                doc_dict.update({"extracted": False})
         else:
             doc_dict["extracted"] = doc.extracted
         doc_list.append(doc_dict)

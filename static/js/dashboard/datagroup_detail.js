@@ -87,7 +87,7 @@ function renderDataTable(boolComp, boolHab, boolSD) {
         return [
             "<div class='text-center'>",
             "<a class='btn btn-sm btn-outline-secondary hover-success' title='Edit/inspect habits and practices' ",
-            "href ='habitsandpractices/" + row.id + "/'",
+            "href ='/habitsandpractices/" + row.id + "/'",
             ">",
             "<span class='fa fa-edit'></span>",
             "</a>",
@@ -113,6 +113,7 @@ function renderDataTable(boolComp, boolHab, boolSD) {
         var columns = [
             { "data": "title", "render": renderTitle },
             { "data": "matched", "render": renderMatched },
+            { "data": "extracted", "render": renderExtracted, "width": "13%" },
             { "data": "edit", "render": renderHab },
         ];
     } else if (boolSD) {

@@ -210,6 +210,16 @@ class ExtractedTextFactory(FactotumFactoryBase):
     extraction_script = factory.SubFactory(ScriptFactory, script_type="EX")
 
 
+class ExtractedHPDocFactory(ExtractedTextFactory):
+    class Meta:
+        model = models.ExtractedHPDoc
+
+    extraction_completed = factory.Faker("Boolean")
+    data_document = factory.SubFactory(
+        DataDocumentFactory, data_group__group_type__code="HP"
+    )
+
+
 class ExtractedCPCatFactory(ExtractedTextFactory):
     class Meta:
         model = models.ExtractedCPCat
