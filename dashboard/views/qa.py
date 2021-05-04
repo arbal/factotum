@@ -81,6 +81,37 @@ def qa_chemicalpresence_index(request, template_name="qa/chemical_presence_index
 
 
 @login_required()
+def qa_manual_composition_index(
+    request, template_name="qa/qa_manual_composition_index.html"
+):
+    # ExtractedText.objects.filter(data_document__data_group__id=63).filter(extraction_script__id=14)
+
+    MANUAL_SCRIPT_ID = Script.objects.filter(title="Manual (dummy)").first().id
+
+    datagroups = (
+        DataGroup.objects.filter(group_type__code="CO")
+        .annotate(
+            datadocument_count=Count(
+                "datadocument__extractedtext",
+                filter=Q(
+                    datadocument__extractedtext__extraction_script__id=MANUAL_SCRIPT_ID
+                ),
+            ),
+            approved_count=Count(
+                "datadocument__extractedtext",
+                filter=Q(
+                    datadocument__extractedtext__extraction_script__id=MANUAL_SCRIPT_ID,
+                    datadocument__extractedtext__qa_checked=True,
+                ),
+            ),
+        )
+        .filter(datadocument_count__gt=0)
+    )
+
+    return render(request, template_name, {"datagroups": datagroups})
+
+
+@login_required()
 def qa_chemicalpresence_group(request, pk, template_name="qa/chemical_presence.html"):
     datagroup = DataGroup.objects.get(pk=pk)
     if datagroup.group_type.code != "CP":
