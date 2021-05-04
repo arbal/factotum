@@ -21,6 +21,7 @@ from dashboard.models import (
     ExtractedListPresenceTag,
     FunctionalUseToRawChem,
     ExtractedHabitsAndPractices,
+    RawChem,
 )
 
 
@@ -424,3 +425,29 @@ class HabitsAndPracticesDocumentsJson(FilterDatatableView):
                 value,
             )
         return value
+
+
+class CuratedChemicalsListJson(FilterDatatableView):
+    model = RawChem
+    columns = [
+        "dsstox__sid",
+        "raw_chem_name",
+        "raw_cas",
+        "dsstox__true_chemname",
+        "dsstox__true_cas",
+        "count",
+    ]
+
+    def get_initial_queryset(self):
+        qs = super().get_initial_queryset().filter(dsstox__isnull=False)
+        q = self.request.GET.get("q")
+        if q:
+            qs = qs.filter(Q(raw_chem_name__icontains=q) | Q(raw_cas__icontains=q))
+        qs = qs.values(
+            "dsstox__sid",
+            "raw_chem_name",
+            "raw_cas",
+            "dsstox__true_chemname",
+            "dsstox__true_cas",
+        ).annotate(count=Count("id"))
+        return qs

@@ -161,6 +161,11 @@ urlpatterns = [
     ),
     path("chemical_curation/", views.chemical_curation_index, name="chemical_curation"),
     path(
+        "curated_chemical_removal/",
+        views.curated_chemical_removal_index,
+        name="curated_chemical_removal",
+    ),
+    path(
         "category_assignment/<int:pk>/",
         views.category_assignment,
         name="category_assignment",
@@ -312,6 +317,11 @@ urlpatterns = [
     path("c_json/", views.ChemicalListJson.as_view(), name="c_ajax_url"),
     path(
         "hp_json/", views.HabitsAndPracticesDocumentsJson.as_view(), name="hp_ajax_url"
+    ),
+    path(
+        "curated_chem_json/",
+        views.CuratedChemicalsListJson.as_view(),
+        name="curated_chem_ajax_url",
     ),
     path("sid_gt_json", views.sids_by_grouptype_ajax, name="sid_gt_json_url"),
     path("pucs/", views.puc_list, name="puc_list"),

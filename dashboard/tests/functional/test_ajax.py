@@ -233,6 +233,25 @@ class TestAjax(TestCase):
         self.assertIn("/datadocument/156051/", first_chem[0])
         self.assertIn("DTXSID9022528", first_chem[1])
 
+    def test_curated_chemicals(self):
+        curated_chemicals_url = reverse("curated_chem_ajax_url")
+        response = self.client.get(curated_chemicals_url)
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEquals(18, data["recordsTotal"])
+
+        curated_chemicals_url = reverse("curated_chem_ajax_url") + "?q=7732-18-5"
+        response = self.client.get(curated_chemicals_url)
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEquals(1, data["recordsTotal"])
+        first_chem = data["data"][0]
+        self.assertIn("DTXSID6026296", first_chem[0])
+        self.assertIn("Water", first_chem[1])
+        self.assertIn("7732-18-5", first_chem[2])
+        self.assertIn("water", first_chem[3])
+        self.assertIn("7732-18-5", first_chem[4])
+
     def test_lp_tag_detail(self):
         """
         The table should include the hyperlinked list of distinct

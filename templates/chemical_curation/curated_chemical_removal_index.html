@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% block title %}Curated Chemical Removal{% endblock %}
+
+{% block content %}
+    <h1 class="col-sm-12">
+        <span>Curated Chemical Removal</span>
+    </h1>
+    <form id="search_chem_form">
+        <label for="search-raw-chem">Search by Raw Chemical Name or Raw CAS:</label>
+        <input type="text" size="60" required minlength="2" id="search_chem_text"
+               placeholder="Enter at least 2 characters then hit Enter key to search">
+    </form>
+    <br>
+    <table class="table table-striped table-bordered dataTable no-footer table-sm" id="curated_chemicals">
+        <thead class="table-primary">
+        <th>DTXSID</th>
+        <th>Raw Chemical Name</th>
+        <th>Raw CAS</th>
+        <th>Curated Chemical Name</th>
+        <th>Curated CAS</th>
+        <th>Count</th>
+        </thead>
+        <tbody></tbody>
+    </table>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/dashboard/curated_chemical_removal.js' %}"></script>
+{% endblock %}

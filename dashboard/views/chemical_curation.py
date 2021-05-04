@@ -3,7 +3,7 @@ import datetime
 
 from django.contrib import messages
 from django.db.models import Value, IntegerField, Q
-from django.shortcuts import render, reverse, redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import StreamingHttpResponse
 
@@ -30,6 +30,12 @@ def chemical_curation_index(request):
             for e in errors:
                 messages.error(request, e)
     return render(request, template_name, {"dg_picker_form": DataGroupSelector()})
+
+
+@login_required()
+def curated_chemical_removal_index(request):
+    template_name = "chemical_curation/curated_chemical_removal_index.html"
+    return render(request, template_name, {})
 
 
 #

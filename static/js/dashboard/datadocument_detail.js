@@ -44,6 +44,11 @@ var request = $.get("/datadocument/" + doc.text + "/cards", function (data) {
     $("#scrollspy-panel").html(card_doc.querySelector("#scroll-nav"));
 
     cards_init();
+
+    // scroll to card if in url
+    if (location.hash) {
+        location.href = location.hash;
+    }
     // let scripts = doc.querySelectorAll('script')
     // for (var n = 0; n < scripts.length; n++)
     //     $.getScript(scripts[n].src)
