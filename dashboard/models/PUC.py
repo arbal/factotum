@@ -211,13 +211,17 @@ class PUC(CommonInfo):
 
     def get_assumed_tags(self):
         """Queryset of PUC tags a Product is assumed to have """
-        qs = PUCToTag.objects.filter(content_object=self, assumed=True)
-        return PUCTag.objects.filter(dashboard_puctotag_items__in=qs)
+        return PUCTag.objects.filter(
+            dashboard_puctotag_items__content_object=self,
+            dashboard_puctotag_items__assumed=True,
+        )
 
     def get_allowed_tags(self):
         """Queryset of PUC tags a Product is allowed to have """
-        qs = PUCToTag.objects.filter(content_object=self, assumed=False)
-        return PUCTag.objects.filter(dashboard_puctotag_items__in=qs)
+        return PUCTag.objects.filter(
+            dashboard_puctotag_items__content_object=self,
+            dashboard_puctotag_items__assumed=False,
+        )
 
     def get_linked_taxonomies(self):
         from dashboard.models import Taxonomy

@@ -194,7 +194,7 @@
 - model: dashboard.puctotag
   pk: 25
   fields: {created_at: !!timestamp '2018-11-06 21:55:27.843916', updated_at: !!timestamp '2018-11-06
-      21:55:27.843935', content_object: 2, tag: 2, assumed: false}
+      21:55:27.843935', content_object: 2, tag: 2, assumed: true}
 - model: dashboard.puctotag
   pk: 26
   fields: {created_at: !!timestamp '2018-11-06 21:55:27.845726', updated_at: !!timestamp '2018-11-06
