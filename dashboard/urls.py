@@ -365,6 +365,11 @@ urlpatterns = [
         name="download_composition_chemical",
     ),
     path(
+        "dl_functional_uses_chemical/<str:sid>/",
+        views.download_functional_uses_chemical,
+        name="download_functional_uses_chemical",
+    ),
+    path(
         "chemical/<str:sid>/puc/<int:puc_id>/",
         views.chemical_detail,
         name="chemical_puc",
