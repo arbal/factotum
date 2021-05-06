@@ -99,6 +99,7 @@ def download_composition_chemical(request, sid):
         },
     )
 
+
 def download_functional_uses_chemical(request, sid):
 
     functional_uses = (
@@ -115,7 +116,7 @@ def download_functional_uses_chemical(request, sid):
             "functional_use__category__title",
         )
         .order_by(
-            "chemical__extracted_text__data_document__data_group__group_type__title",
+            "chemical__extracted_text__data_document__data_group__group_type__title"
         )
     )
     filename = sid + ".csv"
@@ -132,6 +133,7 @@ def download_functional_uses_chemical(request, sid):
             "functional_use__category__title": "Harmonized Functional Use",
         },
     )
+
 
 @login_required()
 def duplicate_chemical_records(
