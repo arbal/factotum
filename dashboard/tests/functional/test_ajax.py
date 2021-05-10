@@ -2,7 +2,7 @@ import json
 
 from django.test import TestCase, override_settings, tag
 from dashboard.tests.loader import fixtures_standard
-from dashboard.models import Product, PUC
+from dashboard.models import Product, PUC, FunctionalUse
 from django.urls import reverse
 from django.db.models import Count
 
@@ -280,3 +280,48 @@ class TestAjax(TestCase):
         self.assertIn("Material Safety Data Sheet - Menards", data["data"][0][0])
         self.assertIn("ball bearings", data["data"][0][1])
         self.assertEquals("Frequency", data["data"][0][2])
+
+    def test_products_by_functional_use_category(self):
+        response = self.client.get("/fuc_p_json/?functional_use_category=3")
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 2)
+        self.assertIn("/product/1924/", data["data"][0][0])
+
+        self.assertIn("Nonflammable Gas Mixture", data["data"][0][1])
+        self.assertIn("/product/1868/", data["data"][1][0])
+        # harmonize a different reported functional use and make sure it
+        # gets added to the JSON
+        FunctionalUse.objects.filter(pk=18).update(category_id=3)
+        response = self.client.get("/fuc_p_json/?functional_use_category=3")
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 4)
+
+    def test_documents_by_functional_use_category(self):
+        response = self.client.get("/fuc_d_json/?functional_use_category=3")
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 3)
+        self.assertIn("/datadocument/156051/", data["data"][0][1])
+
+        self.assertIn("Vitamin C Moisturizer SPF 30", data["data"][1][1])
+        # harmonize a different reported functional use and make sure it
+        # gets added to the JSON
+        FunctionalUse.objects.filter(pk=18).update(category_id=3)
+        response = self.client.get("/fuc_d_json/?functional_use_category=3")
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 4)
+
+    def test_chemicals_by_functional_use_category(self):
+        response = self.client.get("/fuc_c_json/?functional_use_category=3")
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 2)
+        self.assertIn("DTXSID9022528", data["data"][0][0])
+
+        # harmonize a different reported functional use and make sure it
+        # gets added to the JSON
+        FunctionalUse.objects.filter(pk=1).update(category_id=3)
+        response = self.client.get("/fuc_c_json/?functional_use_category=3")
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 3)

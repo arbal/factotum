@@ -388,10 +388,11 @@ class ChemicalFunctionalUseListJson(BaseDatatableView):
                 row.chemical.extracted_text.data_document.get_absolute_url(),
                 value,
             )
-        # if column == "category.title":
-        #     return format_html(
-        #         '<a href="{}" title="Go to Functional Use Category detail" target="_blank">{}</a>',
-        #         row.category.get_absolute_url(),
-        #         value,
-        #     )
+        if column == "functional_use.category.title":
+            if row.functional_use.category:
+                return format_html(
+                    '<a href="{}" title="Go to Functional Use Category detail" target="_blank">{}</a>',
+                    row.functional_use.category.get_absolute_url(),
+                    value,
+                )
         return value

@@ -7,6 +7,7 @@ from django.db.models import Q, Count, Subquery, Case, When, F, Value
 from django.utils.html import format_html
 from django.views.decorators.cache import cache_page
 from django.template.defaultfilters import truncatechars
+
 from dashboard.utils import GroupConcat
 
 from dashboard.models import (
@@ -288,6 +289,134 @@ class ListPresenceDocumentsJson(BaseDatatableView):
                 )
             return " ; ".join(tag_str_list)
         return super().render_column(row, column)
+
+
+class FUCProductListJson(FilterDatatableView):
+    model = Product
+    columns = [
+        "title",
+        "document.title",
+        "product_uber_puc.puc",
+        "product_uber_puc.classification_method.code",
+    ]
+
+    def render_column(self, row, column):
+        fuc = self.request.GET.get("functional_use_category")
+        value = self._render_column(row, column)
+        if column == "title":
+            return format_html(
+                '<a href="{}" title="Go to Product detail" target="_blank">{}</a>',
+                row.get_absolute_url(),
+                value,
+            )
+        if column == "document.title":
+            return format_html(
+                '<a href="{}" title="Go to Data Document detail" target="_blank">{}</a>',
+                row.document.get_absolute_url(),
+                value,
+            )
+        if column == "product_uber_puc.puc":
+            if row.product_uber_puc:
+                return format_html(
+                    '<a href="{}" title="Go to PUC detail" target="_blank">{}</a>',
+                    row.product_uber_puc.puc.get_absolute_url(),
+                    value,
+                )
+        return value
+
+    def get_initial_queryset(self):
+        qs = super().get_initial_queryset()
+        fuc = self.request.GET.get("functional_use_category")
+        qs = qs.select_related("product_uber_puc")
+        if fuc:
+            return qs.filter(
+                Q(datadocument__extractedtext__rawchem__functional_uses__category=fuc)
+            ).distinct()
+        return qs
+
+
+class FUCDocumentListJson(FilterDatatableView):
+    model = RawChem
+    columns = [
+        "extracted_text__data_document__data_group__group_type__code",
+        "extracted_text__data_document__title",
+        "extracted_text__doc_date",
+        "functional_uses__report_funcuse",
+    ]
+
+    def get_initial_queryset(self):
+        qs = super().get_initial_queryset()
+        fuc = self.request.GET.get("functional_use_category")
+        if fuc:
+            qs = qs.filter(Q(functional_uses__category=fuc))
+        # using the .distinct() function means that a dict is returned, not
+        # a queryset.
+        qs = (
+            qs.order_by(
+                "extracted_text__data_document__data_group__group_type__code",
+                "extracted_text__data_document__title",
+            )
+            .values(
+                "extracted_text__data_document",
+                "extracted_text__data_document__title",
+                "extracted_text__data_document__data_group__group_type__code",
+                "extracted_text__doc_date",
+                "functional_uses__report_funcuse",
+            )
+            .distinct()
+        )
+        return qs
+
+    def render_column(self, row, column):
+
+        value = self._render_column(row, column)
+        if column == "extracted_text__data_document__title":
+
+            doc_id = row["extracted_text__data_document"]
+            doc = DataDocument.objects.get(pk=doc_id)
+            return format_html(
+                '<a href="{}" title="Go to Document detail" target="_blank">{}</a>',
+                doc.get_absolute_url(),
+                value,
+            )
+        return value
+
+
+class FUCChemicalListJson(FilterDatatableView):
+    model = DSSToxLookup
+    columns = ["sid", "true_cas", "true_chemname"]
+
+    def get_initial_queryset(self):
+        qs = super().get_initial_queryset()
+        fuc = self.request.GET.get("functional_use_category")
+        if fuc:
+            vals = (
+                RawChem.objects.filter(dsstox__isnull=False)
+                .filter(Q(functional_uses__category=fuc))
+                .values("dsstox")
+            )
+            return qs.filter(pk__in=vals)
+        return qs
+
+    def render_column(self, row, column):
+        value = self._render_column(row, column)
+        if value and hasattr(row, "get_absolute_url"):
+            if column == "true_chemname":
+                return format_html(truncatechars(value, 89))
+            return format_html(
+                '<a href="{}" title="Go to Chemical detail" target="_blank">{}</a>',
+                row.get_absolute_url(),
+                value,
+            )
+        return value
+
+    def filter_queryset(self, qs):
+        s = self.request.GET.get("search[value]", None)
+        if s:
+            qs = qs.filter(
+                Q(true_cas__icontains=s) | Q(true_chemname__icontains=s)
+            ).distinct()
+        return qs
 
 
 @cache_page(86400)

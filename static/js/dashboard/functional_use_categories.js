@@ -1,7 +1,11 @@
 var rows = JSON.parse(document.getElementById('tabledata').textContent);
 
 var columnDefs = [
-    {headerName: "Title", field: "title", width: 100},
+    {headerName: "Title", field: "title",
+    cellRenderer: function (params) {
+            return '<a target="_blank" href="/functional_use_category/' + params.data.id + '">' + params.data.title + '</a>';
+        }
+    },
     {headerName: "Description", field: "description"},
 ];
 

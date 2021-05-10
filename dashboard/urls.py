@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 
 import dashboard.views.data_group
 import dashboard.views.qa
+import dashboard.views.functional_use_category
 from . import views
 
 urlpatterns = [
@@ -315,6 +316,9 @@ urlpatterns = [
         "fu_puc_json/", views.PucFunctionalUseListJson.as_view(), name="fu_puc_ajax_url"
     ),
     path("c_json/", views.ChemicalListJson.as_view(), name="c_ajax_url"),
+    path("fuc_p_json/", views.FUCProductListJson.as_view(), name="fuc_p_ajax_url"),
+    path("fuc_d_json/", views.FUCDocumentListJson.as_view(), name="fuc_d_ajax_url"),
+    path("fuc_c_json/", views.FUCChemicalListJson.as_view(), name="fuc_c_ajax_url"),
     path(
         "hp_json/", views.HabitsAndPracticesDocumentsJson.as_view(), name="hp_ajax_url"
     ),
@@ -350,8 +354,13 @@ urlpatterns = [
     ),
     path(
         "functional_use_categories/",
-        views.functional_use_categories,
-        name="functional_use_categories",
+        views.functional_use_category_list,
+        name="functional_use_category_list",
+    ),
+    path(
+        "functional_use_category/<int:pk>/",
+        views.functional_use_category_detail,
+        name="functional_use_category_detail",
     ),
     path(
         "dl_raw_chems_dg/<int:pk>/",
