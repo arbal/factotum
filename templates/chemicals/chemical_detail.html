@@ -41,6 +41,16 @@
                     </a>
                 </div>
             {% endif %}
+            <div class="text-right">
+                <label class="p-2 font-weight-bold">Download Functional Uses</label>
+                <a class="btn btn-outline-secondary btn-sm hover-info"
+                   id="download_fu_chemical"
+                   title="download functional uses"
+                   data-toggle="tooltip"
+                   href="{% url 'download_functional_uses_chemical' chemical.sid %}">
+                    <span class="fa fa-fs fa-download"></span>
+                </a>
+            </div>
         </div>
     </div>
 
