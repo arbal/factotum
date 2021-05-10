@@ -1,0 +1,29 @@
+{% if chemicals.paginator.num_pages > 1 %}
+    <nav aria-label="Paginated navigation" class="float-right pt-2">
+        <ul class="pagination">
+            {% if chemicals.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo; first</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ chemicals.previous_page_number }}">previous</a>
+                </li>
+            {% endif %}
+            <li class="page-item">
+                <span class="current page-item page-link">
+                    Page {{ chemicals.number }} of {{ chemicals.paginator.num_pages }}
+                </span>
+            </li>
+
+            {% if chemicals.has_next %}
+                <li class="page-item">
+                    <a href="?page={{ chemicals.next_page_number }}" class="page-link">next</a>
+                </li>
+                <li class="page-item">
+                    <a href="?page={{ chemicals.paginator.num_pages }}" class="page-link">last &raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <br clear="all">
+{% endif %}

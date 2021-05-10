@@ -1,12 +1,11 @@
 $(document).ready(function () {
-
-    var title_height = $('#title').height();
-    var scroll_height = $(window).height() - (title_height + 80);
+    let title_height = $('#title').height();
+    let scroll_height = $(window).height() - (title_height + 80);
     $('.scroll-div').css('max-height', scroll_height);
 });
 
+// add click event to bring active element into focus when many chemicals
 $('[id^=chem-click-]').click(function (e) {
-    // add click event to bring active element into focus when many chems
     scrollNav = $("#scroll-nav");
     scrollNav.animate({
         scrollTop: $(".active p").offset().top - scrollNav.offset().top + scrollNav.scrollTop() - 47
@@ -15,24 +14,26 @@ $('[id^=chem-click-]').click(function (e) {
 
 // update location for the reload that happens when editing chemical
 $("#chem-scrollspy").ready(function () {
-    var chem = location.href.split("#").length
+    let chem = location.href.split("#").length
     if (chem > 1) {
         location.href = location.href
     }
 });
 
-// add color to elements on hover...
-$('.hover').mouseover(function () {
-    $(this).removeClass("btn-outline-secondary");
-    $(this).addClass("btn-" + this.name);
-})
+$('.hover')
+    .mouseover(function () {
+        $(this).removeClass("btn-outline-secondary");
+        $(this).addClass("btn-" + this.name);
+    })
+    .mouseout(function () {
+        $(this).removeClass("btn-" + this.name);
+        $(this).addClass("btn-outline-secondary");
+    })
 
-$('.hover').mouseout(function () {
-    $(this).removeClass("btn-" + this.name);
-    $(this).addClass("btn-outline-secondary");
-})
+let page = new URLSearchParams(window.location.search).get('page');
+if (!page || isNaN(page)) page = 1;
 
-var request = $.get("/datadocument/" + doc.text + "/cards", function (data) {
+$.get("/datadocument/" + doc.text + "/cards?page=" + page, function (data) {
     let domparser = new DOMParser();
     let card_doc = domparser.parseFromString(data, "text/html");
 

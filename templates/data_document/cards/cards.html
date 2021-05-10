@@ -10,6 +10,9 @@
                 There are no chemicals associated with this document.
             </div>
         {% endif %}
+
+        {% include "data_document/cards/card_pagination.html" with chemicals=chemicals only %}
+
         {% for chemical in chemicals %}
             <div class="card mt-2 big-bottom"
             id="chem-card-{{ chemical.pk }}">
@@ -198,6 +201,9 @@
                 </div>
             </div>
         {% endfor %}
+
+        {% include "data_document/cards/card_pagination.html" with chemicals=chemicals only %}
+
         {% if doc.is_extracted and doc.detail_page_editable and request.user.is_authenticated %}
             <!-- add chemical -->
             <div class="card m-4 p-0"
@@ -207,11 +213,11 @@
                         data-toggle="modal"
                         data-target="#chemical-add-modal"
                         style="z-index: 290;"> <!-- z-index workaround for selenium/webdriver bug -->
-                    <div class="card-body shadow rounded p-0 m-0 text-center"
+                    <span class="card-body shadow rounded p-0 m-0 text-center"
                          data-toggle="tooltip"
                          title="Add chemical">
                         <span class="fa fa-fs fa-plus"></span>
-                    </div>
+                    </span>
                 </button>
             </div>
             <div class="modal" id="chemical-add-modal" data-backdrop="static"

@@ -154,7 +154,6 @@ urlpatterns = [
         views.FunctionalUseAutocomplete.as_view(),
         name="functional_use_autocomplete",
     ),
-    path("product_curation/", views.product_curation_index, name="product_curation"),
     path(
         "product_puc_reconciliation/",
         views.product_puc_reconciliation,
