@@ -176,6 +176,7 @@ services:
     restart: unless-stopped
     environment:
       <<: *factotum_env
+      PROVISIONAL_ASSIGNMENT_SCHEDULE: ${PROVISIONAL_ASSIGNMENT_SCHEDULE:-}
     volumes:
       - ${MEDIA_ROOT}:/app/media
       - celeryfiletasks:/app/celeryfiles
