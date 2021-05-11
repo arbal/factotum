@@ -268,18 +268,16 @@ class TestAjax(TestCase):
         )
 
     def test_habits_and_practices(self):
-        response = self.client.get("/c_json/")
-        data = json.loads(response.content)
-        self.assertEquals(data["recordsTotal"], 8)
-
         response = self.client.get("/hp_json/?puc=2")
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.content)
         self.assertEquals(data["recordsTotal"], 4)
         self.assertEquals(data["recordsFiltered"], 4)
-        self.assertIn("Material Safety Data Sheet - Menards", data["data"][0][0])
-        self.assertIn("ball bearings", data["data"][0][1])
-        self.assertEquals("Frequency", data["data"][0][2])
+        first_row = data["data"][0]
+        self.assertIn("Material Safety Data Sheet - Menards", first_row[0])
+        self.assertIn("/datadocument/53/#chem-card-1", first_row[0])
+        self.assertIn("ball bearings", first_row[1])
+        self.assertEquals("Frequency", first_row[2])
 
     def test_products_by_functional_use_category(self):
         response = self.client.get("/fuc_p_json/?functional_use_category=3")

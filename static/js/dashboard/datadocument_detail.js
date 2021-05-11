@@ -46,13 +46,11 @@ $.get("/datadocument/" + doc.text + "/cards?page=" + page, function (data) {
 
     cards_init();
 
-    // scroll to card if in url
+    // scroll to card if #chem-card-xx in url
     if (location.hash) {
         location.href = location.hash;
     }
-    // let scripts = doc.querySelectorAll('script')
-    // for (var n = 0; n < scripts.length; n++)
-    //     $.getScript(scripts[n].src)
+
 }).fail(function (jqXHR, textStatus, errorThrown) {
     $("#card-loading-text").text("Cards Failed to Load");
 })

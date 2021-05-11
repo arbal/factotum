@@ -550,7 +550,9 @@ class HabitsAndPracticesDocumentsJson(FilterDatatableView):
         if column == "extracted_text.data_document.title":
             return format_html(
                 '<a href="{}" title="Go to Document detail" target="_blank">{}</a>',
-                row.extracted_text.data_document.get_absolute_url(),
+                row.extracted_text.data_document.get_absolute_url()
+                + "#chem-card-"
+                + str(row.pk),
                 value,
             )
         return value
