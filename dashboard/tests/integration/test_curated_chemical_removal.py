@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
+from dashboard.models import RawChem, AuditLog
 from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
@@ -73,3 +74,48 @@ class TestCuratedChemicalRemoval(StaticLiveServerTestCase):
         self.assertIn("chlorine", curated_name_cell.text)
         self.assertIn("7782-50-5", curated_cas_cell.text)
         self.assertEqual("3", count_cell.text)
+
+    def test_delete_linkage(self):
+        index_url = self.live_server_url + "/curated_chemical_removal/"
+        self.browser.get(index_url)
+
+        self.wait = WebDriverWait(self.browser, 10)
+        search_form = self.wait.until(
+            expected_conditions.presence_of_element_located((By.ID, "search_chem_form"))
+        )
+        with self.assertRaises(NoSuchElementException):
+            self.browser.find_element_by_id("curated_chemicals_info")
+
+        # clear audit log
+        AuditLog.objects.all().delete()
+        # search chlorine
+        search_form.find_element_by_id("search_chem_text").send_keys("chlorine\n")
+        self.wait.until(
+            expected_conditions.text_to_be_present_in_element(
+                (By.ID, "curated_chemicals_info"), "Showing 1 to 1 of 1 entries"
+            )
+        )
+        remove_button = self.browser.find_element_by_class_name("delete-linkage-btn")
+        remove_button.click()
+        self.wait.until(
+            expected_conditions.element_to_be_clickable(
+                (By.ID, "remove-linkage-confirm-btn")
+            )
+        )
+        confirm_button = self.browser.find_element_by_id("remove-linkage-confirm-btn")
+        confirm_button.click()
+        self.wait.until(
+            expected_conditions.text_to_be_present_in_element(
+                (By.CLASS_NAME, "alert-success"),
+                "Raw chemical Chlorine/7782-50-5 linkages to curated chemical DTXSID1020273 have been removed",
+            )
+        )
+        raw_chem = RawChem.objects.filter(
+            raw_chem_name="chlorine", raw_cas="7782-50-5"
+        ).first()
+        self.assertEqual(raw_chem.dsstox, None)
+
+        audit_entry = AuditLog.objects.first()
+        self.assertIsNotNone(audit_entry)
+        self.assertEqual(audit_entry.field_name, "sid")
+        self.assertEqual(audit_entry.old_value, "DTXSID1020273")

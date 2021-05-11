@@ -162,7 +162,7 @@ urlpatterns = [
     path("chemical_curation/", views.chemical_curation_index, name="chemical_curation"),
     path(
         "curated_chemical_removal/",
-        views.curated_chemical_removal_index,
+        views.curated_chemical_removal_index.as_view(),
         name="curated_chemical_removal",
     ),
     path(

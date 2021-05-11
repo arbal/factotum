@@ -2,12 +2,16 @@ import csv
 import datetime
 
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Value, IntegerField, Q
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import StreamingHttpResponse
+from django.urls import reverse_lazy
+from django.views.generic import FormView
 
-from dashboard.models import RawChem, DSSToxLookup, DataGroup, DataDocument
+from dashboard.forms.forms import RemoveCuratedChemicalLinkageForm
+from dashboard.models import RawChem, DataGroup, DataDocument
 from dashboard.forms import DataGroupSelector, ChemicalCurationFormSet
 from dashboard.utils import get_extracted_models, gather_errors
 
@@ -32,10 +36,20 @@ def chemical_curation_index(request):
     return render(request, template_name, {"dg_picker_form": DataGroupSelector()})
 
 
-@login_required()
-def curated_chemical_removal_index(request):
+class curated_chemical_removal_index(LoginRequiredMixin, FormView):
+    form_class = RemoveCuratedChemicalLinkageForm
     template_name = "chemical_curation/curated_chemical_removal_index.html"
-    return render(request, template_name, {})
+    success_url = reverse_lazy("curated_chemical_removal")
+
+    def form_invalid(self, form):
+        for non_field_error in form.non_field_errors():
+            messages.error(self.request, non_field_error)
+        return super().form_invalid(form)
+
+    def form_valid(self, form):
+        success_message = form.save()
+        messages.success(self.request, success_message)
+        return super().form_valid(form)
 
 
 #

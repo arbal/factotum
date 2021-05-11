@@ -104,7 +104,14 @@ class RawChem(CommonInfo):
         Returns:
             list -- a list of field names
         """
-        return ["raw_cas", "raw_chem_name", "rid", "component", "chem_detected_flag"]
+        return [
+            "raw_cas",
+            "raw_chem_name",
+            "rid",
+            "component",
+            "chem_detected_flag",
+            "dsstox_id",
+        ]
 
     @classmethod
     def detail_fields(cls):
