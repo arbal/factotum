@@ -14,8 +14,10 @@ $(document).ready(function() {
             columnDefs: [
                 {
                     targets: -1,
-                    data: 'dsstox_id',
+                    data: null,
                     title: 'Action',
+                    searchable: false,
+                    orderable: false,
                     wrap: true,
                     "render": function() {
                         return `<div class="btn-group">

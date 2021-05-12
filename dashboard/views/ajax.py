@@ -567,7 +567,6 @@ class CuratedChemicalsListJson(FilterDatatableView):
         "dsstox__true_chemname",
         "dsstox__true_cas",
         "count",
-        "dsstox_id",
     ]
 
     def get_initial_queryset(self):
@@ -581,6 +580,5 @@ class CuratedChemicalsListJson(FilterDatatableView):
             "raw_cas",
             "dsstox__true_chemname",
             "dsstox__true_cas",
-            "dsstox_id",
         ).annotate(count=Count("id"))
         return qs
