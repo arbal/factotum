@@ -1,0 +1,24 @@
+{% load staticfiles %}
+
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Leave a Comment</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form id="comment-create-form" class="w-100" method="post" action="{% url 'feedback:comment_create' %}" novalidate>
+      {% csrf_token %}
+      <div class="modal-body">
+        {% include 'core/bs4_form.html' with form=form %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="Save Comment">
+      </div>
+    </form>
+  </div>
+</div>
+
+<script type="module" src="{% static 'js/dashboard/comment_create_modal.js' %}"></script>

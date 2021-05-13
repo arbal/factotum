@@ -8,7 +8,7 @@ class Comment(CommonInfo):
     email = models.EmailField(max_length=100)
     subject = models.CharField(max_length=100)
     body = models.CharField(max_length=500)
-    page_url = models.URLField(blank=True)
+    page_url = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         return str(self.email) + ": " + Truncator(self.body).chars(100)

@@ -1,25 +1,20 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
-from django import views
+from django.http import JsonResponse
+from django.views.generic import CreateView
 
 from feedback.models.comment import Comment as CommentModel
 from feedback.forms.comment_form import CommentForm
 
 
-class Comment(views.View):
+class CommentCreate(CreateView):
     model = CommentModel
     form_class = CommentForm
-    template_name = "feedback/comment_create.html"
+    template_name = "feedback/comment_create_modal.html"
 
-    def get(self, request):
-        return render(request, self.template_name, {"form": self.form_class})
+    def form_invalid(self, form):
+        return JsonResponse(form.errors, status=400)
 
-    def post(self, request):
-        form = self.form_class(request.POST)
-
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Comment received - thank you for your input.")
-            return redirect("index")
-
-        return render(request, self.template_name, {"form": form}, status=422)
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, "Comment received - thank you for your input.")
+        return JsonResponse({"message": "success"})
