@@ -24,6 +24,8 @@ class Migration(migrations.Migration):
     dependencies = [("dashboard", "0190_rawchem_provisional")]
 
     operations = [
+        # Removes a foreign key constraint specifically added in 0174,
+        # This returns this row to reflecting the model's definition.
         migrations.RunPython(
             code=drop_audit_log_extracted_text_fk,
             reverse_code=empty_reverse_function,
