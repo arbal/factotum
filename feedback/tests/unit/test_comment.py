@@ -7,7 +7,14 @@ from feedback.models import Comment as CommentModel
 
 class TestCommentForm(TestCase):
     def test_valid_data(self):
-        form = CommentForm({"email": "test@epa.gov", "body": "This is a valid test"})
+        form = CommentForm(
+            {
+                "email": "test@epa.gov",
+                "body": "This is a valid test",
+                "subject": "This is a valid test",
+                "page_url": "/",
+            }
+        )
 
         self.assertTrue(form.is_valid())
 
@@ -21,6 +28,9 @@ class TestCommentForm(TestCase):
             form_invalid_blank.errors["email"], ["This field is required."]
         )
         self.assertEqual(form_invalid_blank.errors["body"], ["This field is required."])
+        self.assertEqual(
+            form_invalid_blank.errors["subject"], ["This field is required."]
+        )
 
         # Not an Email Address
         self.assertEqual(
@@ -35,7 +45,9 @@ class TestCommentForm(TestCase):
 
     def test_meta(self):
         self.assertEqual(CommentModel, CommentForm.Meta.model)
-        self.assertEqual(["email", "body"], CommentForm.Meta.fields)
+        self.assertEqual(
+            ["email", "body", "subject", "page_url"], CommentForm.Meta.fields
+        )
 
 
 class TestCommentModel(TestCase):

@@ -3,13 +3,12 @@ from django.test import TestCase, RequestFactory
 from django.urls import reverse
 from lxml import html
 
-from feedback.views import Comment as CommentView
+from feedback.views import CommentCreate as CommentView
 from feedback.forms import CommentForm
 
 
 class TestComment(TestCase):
-    create_path_name = "feedback:comment"
-    redirect_path_name = "index"
+    create_path_name = "feedback:comment_create"
 
     # Test that GET requests to feedback:comment return a page built using core and feedback templates.
     def test_get_create_view(self):
@@ -20,21 +19,26 @@ class TestComment(TestCase):
             CommentView.as_view().__name__, response.resolver_match.func.__name__
         )
 
-        self.assertTemplateUsed(response, template_name="core/base.html")
         self.assertTemplateUsed(response, template_name="core/bs4_form.html")
-        self.assertTemplateUsed(response, template_name="feedback/comment_create.html")
+        self.assertTemplateUsed(
+            response, template_name="feedback/comment_create_modal.html"
+        )
 
-    # Test that valid POST data returns a "302 - Redirect" and sends user to "dashboard:index"
+    # Test that valid POST data returns a "200 - OK" status code
     def test_post_valid_data_create_comment(self):
         response = self.client.post(
             reverse(self.create_path_name),
-            {"email": "test@epa.gov", "body": "Valid body"},
+            {
+                "email": "test@epa.gov",
+                "body": "Valid body",
+                "subject": "Valid subject",
+                "path_url": "/",
+            },
         )
 
-        self.assertEquals(response.status_code, 302)
-        self.assertRedirects(response, reverse(self.redirect_path_name))
+        self.assertEquals(response.status_code, 200)
 
-    # Test that invalid POST data returns a "422 - Unprocessable Entity" status code
+    # Test that invalid POST data returns a "400 - Bad Request" status code
     # and that error messages are returned.
     def test_post_invalid_data_create_comment(self):
         blank_response = self.client.post(reverse(self.create_path_name), {})
@@ -42,20 +46,24 @@ class TestComment(TestCase):
             reverse(self.create_path_name), {"email": "test@email.com"}
         )
 
-        self.assertEqual(422, blank_response.status_code)
-        self.assertFormError(
-            blank_response, "form", "email", u"This field is required."
+        self.assertEqual(400, blank_response.status_code)
+        self.assertDictEqual(
+            blank_response.json(),
+            {
+                "email": ["This field is required."],
+                "subject": ["This field is required."],
+                "body": ["This field is required."],
+            },
         )
-        self.assertFormError(blank_response, "form", "body", u"This field is required.")
 
-        self.assertEqual(422, invalid_email_response.status_code)
-        self.assertFormError(
-            invalid_email_response, "form", "email", CommentForm.epa_error_message
+        self.assertEqual(400, invalid_email_response.status_code)
+        self.assertEqual(
+            [CommentForm.epa_error_message], invalid_email_response.json()['email']
         )
 
 
 class TestCommentCreateTemplate(TestCase):
-    create_path_name = "feedback:comment"
+    create_path_name = "feedback:comment_create"
 
     def setUp(self):
         self.factory = RequestFactory()
