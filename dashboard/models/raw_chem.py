@@ -42,9 +42,17 @@ class RawChem(CommonInfo):
         null=True,
         blank=True,
     )
+    provisional = models.BooleanField(default=False)
 
     class Meta:
-        indexes = [models.Index(fields=["extracted_text", "dsstox", "component"])]
+        indexes = [
+            models.Index(fields=["extracted_text", "dsstox", "component"]),
+            # Manually added indexes in dashboard 0190.  Django does not support MySQL prefix index
+            # https://dev.mysql.com/doc/refman/8.0/en/column-indexes.html#column-indexes-prefix
+            #
+            # models.Index(fields=["raw_chem_name"], name="dashboard_rawchem_20char_rawchemname_index"),
+            # models.Index(fields=["raw_cas"], name="dashboard_rawchem_20char_rawcas_index"),
+        ]
 
     objects = InheritanceManager()
 
@@ -104,7 +112,14 @@ class RawChem(CommonInfo):
         Returns:
             list -- a list of field names
         """
-        return ["raw_cas", "raw_chem_name", "rid", "component", "chem_detected_flag"]
+        return [
+            "raw_cas",
+            "raw_chem_name",
+            "rid",
+            "component",
+            "chem_detected_flag",
+            "dsstox_id",
+        ]
 
     @classmethod
     def detail_fields(cls):

@@ -1,0 +1,46 @@
+from django.test import TestCase
+
+from dashboard.tests.factories import ExtractedCompositionFactory
+from dashboard.tasks import provisional_sid_assignment
+
+
+class ProvisionalSidAssignmentTest(TestCase):
+    def test_curates_rawchems(self):
+        # Build data
+        base_chem = ExtractedCompositionFactory()
+        target = ExtractedCompositionFactory(
+            is_curated=False,
+            raw_chem_name=base_chem.raw_chem_name,
+            raw_cas=base_chem.raw_cas,
+        )
+        target2 = ExtractedCompositionFactory(
+            is_curated=False,
+            raw_chem_name=base_chem.raw_chem_name,
+            raw_cas=base_chem.raw_cas,
+        )
+
+        # These chems will remain uncurated due to not matching criteria
+        uncurated_chems = []
+        uncurated_chems.append(
+            ExtractedCompositionFactory(
+                is_curated=False, raw_chem_name=base_chem.raw_chem_name
+            )
+        )
+        uncurated_chems.append(
+            ExtractedCompositionFactory(is_curated=False, raw_cas=base_chem.raw_cas)
+        )
+        uncurated_chems.append(ExtractedCompositionFactory(is_curated=False))
+
+        # Begin "Testing"
+        self.assertIsNone(target.dsstox_id)
+
+        provisional_sid_assignment.apply()
+
+        target.refresh_from_db()
+        target2.refresh_from_db()
+        self.assertEqual(base_chem.dsstox_id, target.dsstox_id)
+        self.assertEqual(base_chem.dsstox_id, target2.dsstox_id)
+
+        for chem in uncurated_chems:
+            chem.refresh_from_db()
+            self.assertIsNone(chem.dsstox)

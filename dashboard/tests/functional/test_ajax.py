@@ -2,7 +2,7 @@ import json
 
 from django.test import TestCase, override_settings, tag
 from dashboard.tests.loader import fixtures_standard
-from dashboard.models import Product, PUC
+from dashboard.models import Product, PUC, FunctionalUse
 from django.urls import reverse
 from django.db.models import Count
 
@@ -233,6 +233,25 @@ class TestAjax(TestCase):
         self.assertIn("/datadocument/156051/", first_chem[0])
         self.assertIn("DTXSID9022528", first_chem[1])
 
+    def test_curated_chemicals(self):
+        curated_chemicals_url = reverse("curated_chem_ajax_url")
+        response = self.client.get(curated_chemicals_url)
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEquals(18, data["recordsTotal"])
+
+        curated_chemicals_url = reverse("curated_chem_ajax_url") + "?q=7732-18-5"
+        response = self.client.get(curated_chemicals_url)
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEquals(1, data["recordsTotal"])
+        first_chem = data["data"][0]
+        self.assertIn("DTXSID6026296", first_chem[0])
+        self.assertIn("Water", first_chem[1])
+        self.assertIn("7732-18-5", first_chem[2])
+        self.assertIn("water", first_chem[3])
+        self.assertIn("7732-18-5", first_chem[4])
+
     def test_lp_tag_detail(self):
         """
         The table should include the hyperlinked list of distinct
@@ -249,15 +268,58 @@ class TestAjax(TestCase):
         )
 
     def test_habits_and_practices(self):
-        response = self.client.get("/c_json/")
-        data = json.loads(response.content)
-        self.assertEquals(data["recordsTotal"], 8)
-
         response = self.client.get("/hp_json/?puc=2")
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.content)
         self.assertEquals(data["recordsTotal"], 4)
         self.assertEquals(data["recordsFiltered"], 4)
-        self.assertIn("Material Safety Data Sheet - Menards", data["data"][0][0])
-        self.assertIn("ball bearings", data["data"][0][1])
-        self.assertEquals("Frequency", data["data"][0][2])
+        first_row = data["data"][0]
+        self.assertIn("Material Safety Data Sheet - Menards", first_row[0])
+        self.assertIn("/datadocument/53/#chem-card-1", first_row[0])
+        self.assertIn("ball bearings", first_row[1])
+        self.assertEquals("Frequency", first_row[2])
+
+    def test_products_by_functional_use_category(self):
+        response = self.client.get("/fuc_p_json/?functional_use_category=3")
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 2)
+        self.assertIn("/product/1924/", data["data"][0][0])
+
+        self.assertIn("Nonflammable Gas Mixture", data["data"][0][1])
+        self.assertIn("/product/1868/", data["data"][1][0])
+        # harmonize a different reported functional use and make sure it
+        # gets added to the JSON
+        FunctionalUse.objects.filter(pk=18).update(category_id=3)
+        response = self.client.get("/fuc_p_json/?functional_use_category=3")
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 4)
+
+    def test_documents_by_functional_use_category(self):
+        response = self.client.get("/fuc_d_json/?functional_use_category=3")
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 3)
+        self.assertIn("/datadocument/156051/", data["data"][0][1])
+
+        self.assertIn("Vitamin C Moisturizer SPF 30", data["data"][1][1])
+        # harmonize a different reported functional use and make sure it
+        # gets added to the JSON
+        FunctionalUse.objects.filter(pk=18).update(category_id=3)
+        response = self.client.get("/fuc_d_json/?functional_use_category=3")
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 4)
+
+    def test_chemicals_by_functional_use_category(self):
+        response = self.client.get("/fuc_c_json/?functional_use_category=3")
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 2)
+        self.assertIn("DTXSID9022528", data["data"][0][0])
+
+        # harmonize a different reported functional use and make sure it
+        # gets added to the JSON
+        FunctionalUse.objects.filter(pk=1).update(category_id=3)
+        response = self.client.get("/fuc_c_json/?functional_use_category=3")
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 3)

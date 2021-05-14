@@ -100,6 +100,41 @@ def download_composition_chemical(request, sid):
     )
 
 
+def download_functional_uses_chemical(request, sid):
+
+    functional_uses = (
+        FunctionalUseToRawChem.objects.filter(chemical__dsstox__sid=sid)
+        .select_related(
+            "functional_use__category",
+            "chemical__extracted_text__data_document__data_group__group_type",
+        )
+        .values(
+            "chemical__extracted_text__data_document__data_group__group_type__title",
+            "chemical__extracted_text__data_document__title",
+            "chemical__extracted_text__doc_date",
+            "functional_use__report_funcuse",
+            "functional_use__category__title",
+        )
+        .order_by(
+            "chemical__extracted_text__data_document__data_group__group_type__title"
+        )
+    )
+    filename = sid + ".csv"
+    return render_to_csv_response(
+        functional_uses,
+        filename=filename,
+        append_datestamp=True,
+        use_verbose_names=False,
+        field_header_map={
+            "chemical__extracted_text__data_document__data_group__group_type__title": "Data Type",
+            "chemical__extracted_text__data_document__title": "Document",
+            "chemical__extracted_text__doc_date": "Document Date",
+            "functional_use__report_funcuse": "Reported Functional Use",
+            "functional_use__category__title": "Harmonized Functional Use",
+        },
+    )
+
+
 @login_required()
 def duplicate_chemical_records(
     request, template_name="chemicals/duplicate_chemicals.html"
@@ -353,10 +388,11 @@ class ChemicalFunctionalUseListJson(BaseDatatableView):
                 row.chemical.extracted_text.data_document.get_absolute_url(),
                 value,
             )
-        # if column == "category.title":
-        #     return format_html(
-        #         '<a href="{}" title="Go to Functional Use Category detail" target="_blank">{}</a>',
-        #         row.category.get_absolute_url(),
-        #         value,
-        #     )
+        if column == "functional_use.category.title":
+            if row.functional_use.category:
+                return format_html(
+                    '<a href="{}" title="Go to Functional Use Category detail" target="_blank">{}</a>',
+                    row.functional_use.category.get_absolute_url(),
+                    value,
+                )
         return value

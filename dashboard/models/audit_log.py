@@ -86,7 +86,21 @@ class AuditLog(models.Model):
                 BEGIN
             """
             for field in auditlog_fields[model]:
-                trigger_sql += f"""
+                if model == "rawchem" and field == "dsstox_id":
+                    # audit sid
+                    trigger_sql += f"""
+                    IF IFNULL(NEW.{field}, '') <> IFNULL(OLD.{field}, '') THEN
+                        insert into dashboard_auditlog (extracted_text_id, rawchem_id,
+                            object_key, model_name, field_name, date_created, 
+                            old_value, new_value, action, user_id)
+                        values ({rawchem_audit_field}, NEW.{id}, NEW.{id}, '{model}', 'sid', now(),
+                            if(OLD.{field} is null,null,(select sid from dashboard_dsstoxlookup where id=OLD.{field})),
+                            if(NEW.{field} is null,null,(select sid from dashboard_dsstoxlookup where id=NEW.{field})), 
+                            'U', @current_user);
+                    END IF;
+                    """
+                else:
+                    trigger_sql += f"""
                     IF IFNULL(NEW.{field}, '') <> IFNULL(OLD.{field}, '') THEN
                         insert into dashboard_auditlog (extracted_text_id, rawchem_id,
                             object_key, model_name, field_name, date_created, 
@@ -105,7 +119,20 @@ class AuditLog(models.Model):
                 BEGIN
             """
             for field in auditlog_fields[model]:
-                trigger_sql += f"""
+                if model == "rawchem" and field == "dsstox_id":
+                    # audit sid
+                    trigger_sql += f"""
+                    IF IFNULL(NEW.{field}, '') <> '' THEN
+                        insert into dashboard_auditlog (extracted_text_id, rawchem_id,
+                            object_key, model_name, field_name, date_created,
+                            old_value, new_value, action, user_id)
+                        values ({rawchem_audit_field_insert}, NEW.{id},
+                            NEW.{id}, '{model}', 'sid', now(), null,
+                            (select sid from dashboard_dsstoxlookup where id=NEW.{field}), 'I', @current_user);
+                    END IF;
+                    """
+                else:
+                    trigger_sql += f"""
                     IF IFNULL(NEW.{field}, '') <> '' THEN
                         insert into dashboard_auditlog (extracted_text_id, rawchem_id,
                             object_key, model_name, field_name, date_created,
@@ -124,7 +151,20 @@ class AuditLog(models.Model):
                 BEGIN
             """
             for field in auditlog_fields[model]:
-                trigger_sql += f"""
+                if model == "rawchem" and field == "dsstox_id":
+                    # audit sid
+                    trigger_sql += f"""
+                    IF IFNULL(OLD.{field}, '') <> '' THEN
+                        insert into dashboard_auditlog (extracted_text_id, rawchem_id,
+                            object_key, model_name, field_name, date_created,
+                            old_value, new_value, action, user_id)
+                        values ({rawchem_audit_field}, OLD.{id},
+                            OLD.{id}, '{model}', 'sid', now(),
+                            (select sid from dashboard_dsstoxlookup where id=OLD.{field}), null, 'D', @current_user);
+                    END IF;
+                    """
+                else:
+                    trigger_sql += f"""
                     IF IFNULL(OLD.{field}, '') <> '' THEN
                         insert into dashboard_auditlog (extracted_text_id, rawchem_id,
                             object_key, model_name, field_name, date_created,

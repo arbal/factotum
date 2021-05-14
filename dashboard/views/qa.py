@@ -81,6 +81,37 @@ def qa_chemicalpresence_index(request, template_name="qa/chemical_presence_index
 
 
 @login_required()
+def qa_manual_composition_index(
+    request, template_name="qa/qa_manual_composition_index.html"
+):
+    # ExtractedText.objects.filter(data_document__data_group__id=63).filter(extraction_script__id=14)
+
+    MANUAL_SCRIPT_ID = Script.objects.filter(title="Manual (dummy)").first().id
+
+    datagroups = (
+        DataGroup.objects.filter(group_type__code="CO")
+        .annotate(
+            datadocument_count=Count(
+                "datadocument__extractedtext",
+                filter=Q(
+                    datadocument__extractedtext__extraction_script__id=MANUAL_SCRIPT_ID
+                ),
+            ),
+            approved_count=Count(
+                "datadocument__extractedtext",
+                filter=Q(
+                    datadocument__extractedtext__extraction_script__id=MANUAL_SCRIPT_ID,
+                    datadocument__extractedtext__qa_checked=True,
+                ),
+            ),
+        )
+        .filter(datadocument_count__gt=0)
+    )
+
+    return render(request, template_name, {"datagroups": datagroups})
+
+
+@login_required()
 def qa_chemicalpresence_group(request, pk, template_name="qa/chemical_presence.html"):
     datagroup = DataGroup.objects.get(pk=pk)
     if datagroup.group_type.code != "CP":
@@ -407,39 +438,8 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
         "referer": referer,
         "document_type_form": document_type_form,
         "unsaved": "false",
-        "cards": cards_detail(request, doc, flagged_qs).content.decode("utf8"),
+        "cards": cards_detail(request, doc, flagged_qs, False).content.decode("utf8"),
     }
-
-    # if request.method == "POST" and "save" in request.POST:
-    #     # The save action only applies to the child records and QA properties,
-    #     # no need to save the ExtractedText form
-    #
-    #     ParentForm, ChildForm = create_detail_formset(
-    #         doc,
-    #         settings.EXTRA,
-    #         can_delete=True,
-    #         exclude=["weight_fraction_type", "true_cas", "true_chemname", "sid"],
-    #     )
-    #     detail_formset = ChildForm(request.POST, instance=extext)
-    #     if detail_formset.has_changed():
-    #         if detail_formset.is_valid():
-    #             detail_formset.save()
-    #             extext.qa_edited = True
-    #             extext.save()
-    #             context["unsaved"] = "false"
-    #             # rebuild the formset after saving it
-    #             detail_formset = ChildForm(instance=extext)
-    #         else:
-    #             # Errors are preventing the form from validating
-    #             context["unsaved"] = "true"
-    #             # Return the errors
-    #             pass
-    #
-    #         context["detail_formset"] = detail_formset
-    #         context["ext_form"] = ext_form
-    #     else:
-    #         # the formset has not changed
-    #         pass
 
     return render(request, template_name, context)
 

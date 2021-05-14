@@ -175,6 +175,15 @@ class Product(CommonInfo):
             except ExtractedText.DoesNotExist:
                 pass
 
+    @property
+    def document(self):
+        """
+        Returns the first document in the related `documents`.
+        We can get away with an arbitrary selection because the
+        Factotum business logic never links more than one document to a product
+        """
+        return self.documents.first()
+
     class Meta:
         ordering = ["-created_at"]
 

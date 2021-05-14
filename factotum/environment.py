@@ -203,6 +203,11 @@ class MetaEnv(type):
         return int(cls._get("PRODUCT_IMAGE_MAX_SIZE", default, prefix=False))
 
     @property
+    def PROVISIONAL_ASSIGNMENT_SCHEDULE(cls):
+        default = "0 3 * * *"
+        return cls._get("PROVISIONAL_ASSIGNMENT_SCHEDULE", default, prefix=False)
+
+    @property
     def LOGSTASH_HOST(cls):
         default = "localhost"
         return cls._get("LOGSTASH_HOST", default)

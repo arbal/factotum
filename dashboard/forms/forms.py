@@ -262,7 +262,10 @@ class ExtractedTextHPForm(ExtractedTextForm):
 
     def __init__(self, *args, **kwargs):
         super(ExtractedTextHPForm, self).__init__(*args, **kwargs)
-        self.fields["extraction_completed"].widget.attrs.update({"class": "ml-2 align-middle form-control-sm"})
+        self.fields["extraction_completed"].widget.attrs.update(
+            {"class": "ml-2 align-middle form-control-sm"}
+        )
+
 
 class ExtractedTextFUForm(ExtractedTextForm):
     class Meta:
@@ -679,3 +682,24 @@ class DataGroupWorkflowForm(forms.ModelForm):
                 )
             current_status.step_status = self.cleaned_data[field_name]
             current_status.save()
+
+
+class RemoveCuratedChemicalLinkageForm(forms.Form):
+    raw_chem_name = forms.CharField(widget=forms.HiddenInput(), required=False)
+    raw_cas = forms.CharField(widget=forms.HiddenInput(), required=False)
+    sid = forms.CharField(widget=forms.HiddenInput(), required=True)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if not cleaned_data.get("sid", False):
+            raise ValidationError("DSSTOX SID are required")
+        return cleaned_data
+
+    def save(self):
+        raw_chem_name = self.cleaned_data["raw_chem_name"]
+        raw_cas = self.cleaned_data["raw_cas"]
+        sid = self.cleaned_data["sid"]
+        RawChem.objects.filter(
+            raw_chem_name=raw_chem_name, raw_cas=raw_cas, dsstox__sid=sid
+        ).update(dsstox_id=None)
+        return f"Raw chemical {raw_chem_name}/{raw_cas} linkages to curated chemical {sid} have been removed"

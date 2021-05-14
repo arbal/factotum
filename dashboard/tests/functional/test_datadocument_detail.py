@@ -4,6 +4,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.test import TransactionTestCase, TestCase, override_settings
 from django.urls import reverse
 from lxml import html
+from dashboard.tests.loader import load_model_objects
+from dashboard.tests import factories
 
 from dashboard.forms import create_detail_formset
 from dashboard.models import (
@@ -716,3 +718,51 @@ class TestDynamicDetailFormsets(TestCase):
             content_object__extracted_text__data_document_id=doc_id
         ).count()
         self.assertEqual(0, tags_count, "should removed all tags")
+
+
+class DataDocumentDetailTestWithFactories(TransactionTestCase):
+    def setUp(self):
+        self.objects = load_model_objects()
+        self.client.login(username="Karyn", password="specialP@55word")
+
+    def test_pagination(self):
+        ext = factories.ExtractedTextFactory()
+        chems = factories.ExtractedCompositionFactory.create_batch(
+            501, extracted_text=ext
+        )
+
+        doc_card_url = reverse("data_document_cards", args=[ext.data_document.id])
+        response = self.client.get(doc_card_url).content.decode("utf8")
+        response_html = html.fromstring(response)
+
+        self.assertEqual(
+            int(
+                response_html.xpath(
+                    'count(//div[starts-with(@id, "chem-card-") and contains(@class, "card")])'
+                )
+            ),
+            500,
+            "Only 500 chemical cards should exist in response",
+        )
+
+        # the response should include the pagination link
+        self.assertIn('<a href="?page=2" class="page-link">next</a>', response)
+
+        doc_card_url = (
+            reverse("data_document_cards", args=[ext.data_document.id]) + "?page=2"
+        )
+        response = self.client.get(doc_card_url).content.decode("utf8")
+        response_html = html.fromstring(response)
+
+        self.assertEqual(
+            int(
+                response_html.xpath(
+                    'count(//div[starts-with(@id, "chem-card-") and contains(@class, "card")])'
+                )
+            ),
+            1,
+            "Only 1 chemical card should exist in response",
+        )
+
+        # the response should include the pagination link
+        self.assertIn('<a class="page-link" href="?page=1">previous</a>', response)

@@ -190,7 +190,7 @@ class TestGetData(TestCase):
         self.assertContains(response, "Download List Presence Keywords")
         self.assertContains(response, reverse("list_presence_tag_list"))
         self.assertContains(response, "Download Functional Use Categories")
-        self.assertContains(response, reverse("functional_use_categories"))
+        self.assertContains(response, reverse("functional_use_category_list"))
 
     def test_download_list_presence_keywords(self):
         response = self.client.get("/dl_lpkeywords/")
@@ -206,7 +206,7 @@ class TestGetData(TestCase):
         self.assertContains(response, "surfactant,surfactant")
 
     def test_function_user_categories_page(self):
-        response = self.client.get(reverse("functional_use_categories"))
+        response = self.client.get(reverse("functional_use_category_list"))
         self.assertEqual(response.status_code, 200)
         categories = FunctionalUseCategory.objects.all()
         for cat in categories:

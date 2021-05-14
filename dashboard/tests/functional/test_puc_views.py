@@ -30,6 +30,26 @@ class TestPUCViews(TestCase):
         for button in allowBtns:
             self.assertTrue(button.get("title"), "Button should have tooltip.")
 
+    def test_puc_single_attribute(self):
+        response = self.client.get("/puc/2/").content.decode("utf8")
+        response_html = html.fromstring(response)
+        assumed = response_html.xpath('//*[@id="assumed_attributes"]/button')
+        self.assertTrue(
+            len(assumed) == 1, "One assumed tags should exist for this PUC."
+        )
+        allowed = response_html.xpath('//*[@id="allowed_attributes"]/button')
+        self.assertTrue(
+            len(allowed) == 1, "One allowed tags should exist for this PUC."
+        )
+
+    def test_puc_no_attribute(self):
+        response = self.client.get("/puc/137/").content.decode("utf8")
+        response_html = html.fromstring(response)
+        assumed = response_html.xpath('//*[@id="assumed_attributes"]/p/text()')
+        self.assertIn("No assumed attributes are associated with this PUC", assumed)
+        allowed = response_html.xpath('//*[@id="allowed_attributes"]/p/text()')
+        self.assertIn("No allowed attributes are associated with this PUC", allowed)
+
     def test_puc_type_specified(self):
         response = self.client.get("/puc/62/").content.decode("utf8")
         response_html = html.fromstring(response)

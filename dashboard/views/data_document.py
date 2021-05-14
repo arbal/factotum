@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -694,14 +695,14 @@ def data_document_cards(request, pk):
     _, Child = get_extracted_models(doc.data_group.group_type.code)
     card_qs = Child.objects.filter(extracted_text__data_document=doc)
 
-    return cards_detail(request, doc, card_qs)
+    return cards_detail(request, doc, card_qs, True)
 
 
-def cards_detail(request, doc, card_qs):
+def cards_detail(request, doc, card_qs, paginate=False):
     _, Child = get_extracted_models(doc.data_group.group_type.code)
 
     if Child == ExtractedListPresence:
-        card_qs = card_qs.prefetch_related("tags", "dsstox")
+        card_qs = card_qs.prefetch_related("tags", "dsstox").order_by("raw_chem_name")
         template = "data_document/cards/co_cp_cards.html"
 
     elif Child == ExtractedComposition:
@@ -711,13 +712,23 @@ def cards_detail(request, doc, card_qs):
         template = "data_document/cards/co_cp_cards.html"
 
     elif Child == ExtractedHabitsAndPractices:
-        card_qs = card_qs.prefetch_related("tags")
+        card_qs = card_qs.prefetch_related("tags").order_by("product_surveyed")
         template = "data_document/cards/hp_cards.html"
 
     elif Child == ExtractedFunctionalUse:
+        card_qs = card_qs.order_by("raw_chem_name")
         template = "data_document/cards/functional_use_cards.html"
 
     else:
-        card_qs = card_qs.prefetch_related("dsstox")
+        card_qs = card_qs.prefetch_related("dsstox").order_by("raw_chem_name")
         template = "data_document/cards/cards.html"
-    return render(request, template, {"doc": doc, "chemicals": card_qs})
+
+    if paginate:
+        paginator = Paginator(card_qs, 500)
+        page = request.GET.get("page")
+        page = 1 if page is None else page
+        card_qs_page = paginator.page(page)
+    else:
+        card_qs_page = card_qs
+
+    return render(request, template, {"doc": doc, "chemicals": card_qs_page})

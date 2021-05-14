@@ -22,6 +22,7 @@ from dashboard.models import (
     RawChem,
     ExtractedText,
     Script,
+    DSSToxLookup,
 )
 from dashboard.tests.mixins import TempFileMixin
 
@@ -483,3 +484,39 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         self.assertEqual(1, rfu.count())
         hc = AuditLog.objects.filter(field_name="harmonized category")
         self.assertEqual(1, hc.count())
+
+    def test_sid_audit_log(self):
+        ext = ExtractedText.objects.create(
+            data_document=DataDocument.objects.first(),
+            extraction_script=Script.objects.first(),
+        )
+        dsstox1 = DSSToxLookup.objects.filter(true_chemname="water").first()
+        dsstox2 = DSSToxLookup.objects.filter(true_chemname="ethanol").first()
+
+        # create chem
+        AuditLog.objects.all().delete()
+        chem = RawChem.objects.create(
+            extracted_text=ext, raw_chem_name="test", raw_cas="test", dsstox=dsstox1
+        )
+        sid_entry = AuditLog.objects.filter(field_name="sid").first()
+        self.assertIsNotNone(sid_entry)
+        self.assertEquals(sid_entry.new_value, dsstox1.sid)
+        self.assertEquals(sid_entry.action, "I")
+
+        # update chem sid
+        AuditLog.objects.all().delete()
+        chem.dsstox = dsstox2
+        chem.save()
+        sid_entry = AuditLog.objects.filter(field_name="sid").first()
+        self.assertIsNotNone(sid_entry)
+        self.assertEquals(sid_entry.old_value, dsstox1.sid)
+        self.assertEquals(sid_entry.new_value, dsstox2.sid)
+        self.assertEquals(sid_entry.action, "U")
+
+        # delete chem
+        AuditLog.objects.all().delete()
+        chem.delete()
+        sid_entry = AuditLog.objects.filter(field_name="sid").first()
+        self.assertIsNotNone(sid_entry)
+        self.assertEquals(sid_entry.old_value, dsstox2.sid)
+        self.assertEquals(sid_entry.action, "D")

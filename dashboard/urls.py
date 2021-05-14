@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 
 import dashboard.views.data_group
 import dashboard.views.qa
+import dashboard.views.functional_use_category
 from . import views
 
 urlpatterns = [
@@ -153,13 +154,17 @@ urlpatterns = [
         views.FunctionalUseAutocomplete.as_view(),
         name="functional_use_autocomplete",
     ),
-    path("product_curation/", views.product_curation_index, name="product_curation"),
     path(
         "product_puc_reconciliation/",
         views.product_puc_reconciliation,
         name="product_puc_reconciliation",
     ),
     path("chemical_curation/", views.chemical_curation_index, name="chemical_curation"),
+    path(
+        "curated_chemical_removal/",
+        views.curated_chemical_removal_index.as_view(),
+        name="curated_chemical_removal",
+    ),
     path(
         "category_assignment/<int:pk>/",
         views.category_assignment,
@@ -190,6 +195,11 @@ urlpatterns = [
         "qa/extractionscript/",
         views.qa_extractionscript_index,
         name="qa_extractionscript_index",
+    ),
+    path(
+        "qa/manualcomposition/",
+        views.qa_manual_composition_index,
+        name="qa_manual_composition_index",
     ),
     path(
         "qa/extractionscript/<int:pk>/",
@@ -305,8 +315,16 @@ urlpatterns = [
         "fu_puc_json/", views.PucFunctionalUseListJson.as_view(), name="fu_puc_ajax_url"
     ),
     path("c_json/", views.ChemicalListJson.as_view(), name="c_ajax_url"),
+    path("fuc_p_json/", views.FUCProductListJson.as_view(), name="fuc_p_ajax_url"),
+    path("fuc_d_json/", views.FUCDocumentListJson.as_view(), name="fuc_d_ajax_url"),
+    path("fuc_c_json/", views.FUCChemicalListJson.as_view(), name="fuc_c_ajax_url"),
     path(
         "hp_json/", views.HabitsAndPracticesDocumentsJson.as_view(), name="hp_ajax_url"
+    ),
+    path(
+        "curated_chem_json/",
+        views.CuratedChemicalsListJson.as_view(),
+        name="curated_chem_ajax_url",
     ),
     path("sid_gt_json", views.sids_by_grouptype_ajax, name="sid_gt_json_url"),
     path("pucs/", views.puc_list, name="puc_list"),
@@ -335,8 +353,13 @@ urlpatterns = [
     ),
     path(
         "functional_use_categories/",
-        views.functional_use_categories,
-        name="functional_use_categories",
+        views.functional_use_category_list,
+        name="functional_use_category_list",
+    ),
+    path(
+        "functional_use_category/<int:pk>/",
+        views.functional_use_category_detail,
+        name="functional_use_category_detail",
     ),
     path(
         "dl_raw_chems_dg/<int:pk>/",
@@ -348,6 +371,11 @@ urlpatterns = [
         "dl_composition_chemical/<str:sid>/",
         views.download_composition_chemical,
         name="download_composition_chemical",
+    ),
+    path(
+        "dl_functional_uses_chemical/<str:sid>/",
+        views.download_functional_uses_chemical,
+        name="download_functional_uses_chemical",
     ),
     path(
         "chemical/<str:sid>/puc/<int:puc_id>/",

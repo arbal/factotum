@@ -23,3 +23,4 @@ from .tags import *
 from .statistics import *
 from .visualizations import *
 from .errors import *
+from .functional_use_category import *

@@ -115,7 +115,13 @@ class DataGroup(CommonInfo, QASummaryNote):
         return self.datadocument_set.count()
 
     def extracted_docs(self):
-        return self.datadocument_set.filter(extractedtext__isnull=False).count()
+        qs = self.datadocument_set
+        # HP docs extraction is a manual property on extractedhpdoc.
+        if self.is_habits_and_practices:
+            qs = qs.filter(extractedtext__extractedhpdoc__extraction_completed=True)
+        else:
+            qs = qs.filter(extractedtext__isnull=False)
+        return qs.count()
 
     def __str__(self):
         return self.name

@@ -38,47 +38,6 @@ from django.urls import reverse, reverse_lazy
 
 
 @login_required()
-def product_curation_index(
-    request, template_name="product_curation/product_curation_index.html"
-):
-    # List of all data sources which have had at least 1 data
-    # document matched to a registered record
-    data_sources = DataSource.objects.annotate(
-        uploaded=Count("datagroup__datadocument")
-    ).filter(uploaded__gt=0)
-    # A separate queryset of data sources and their related products without PUCs assigned
-    # Changed in issue 232. Instead of filtering products based on their prod_cat being null,
-    #   we now exclude all products that have a product_id contained in the ProductToPUC object set
-    qs_no_puc = (
-        Product.objects.values("data_source")
-        .exclude(id__in=(ProductToPUC.objects.values_list("product_id", flat=True)))
-        .filter(data_source__isnull=False)
-        .annotate(no_category=Count("id"))
-        .order_by("data_source")
-    )
-    # Convert the queryset to a list
-    list_no_puc = [ds_no_puc for ds_no_puc in qs_no_puc]
-
-    for ds in data_sources:
-        try:
-            ds.no_category = next(
-                (item for item in list_no_puc if item["data_source"] == ds.id), False
-            )["no_category"]
-        except:
-            ds.no_category = 0
-        dgs = ds.datagroup_set.all()
-        for dg in dgs:
-            dg.unlinked = (
-                dg.datadocument_set.count()
-                - dg.datadocument_set.filter(
-                    productdocument__document__isnull=False
-                ).count()
-            )
-        ds.data_groups = dgs
-    return render(request, template_name, {"data_sources": data_sources})
-
-
-@login_required()
 def category_assignment(
     request, pk, template_name=("product_curation/" "category_assignment.html")
 ):
@@ -242,7 +201,7 @@ class ProductTableByPUC(BaseDatatableView):
         if column == "checkbox":
             return ""
         elif column == "title":
-            return f"<a href='{ reverse('product_detail', args=[row.id]) }' target='_blank'>{ row.title }</a>"
+            return f"<a href='{reverse('product_detail', args=[row.id])}' target='_blank'>{row.title}</a>"
         elif column == "get_tag_list":
             return row.get_tag_list()
         elif column == "pk":
@@ -393,7 +352,7 @@ class RemoveProductToPUCTable(BaseDatatableView):
         if column == "classification_method__name":
             return row.classification_method.name
         elif column == "product__title":
-            return f"<a href='{ reverse('product_detail', args=[row.product.id]) }' target='_blank'>{ row.product.title }</a>"
+            return f"<a href='{reverse('product_detail', args=[row.product.id])}' target='_blank'>{row.product.title}</a>"
         elif column == "pk":
             return row.pk
         return super().render_column(row, column)

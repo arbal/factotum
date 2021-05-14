@@ -39,6 +39,10 @@ class NavBarTest(TestCase):
         found = resolve("/qa/extractionscript/")
         self.assertEqual(found.func, views.qa_extractionscript_index)
 
+    def test_qa_manually_extracted_composition_link(self):
+        found = resolve("/qa/manualcomposition/")
+        self.assertEqual(found.func, views.qa_manual_composition_index)
+
     def test_get_data_without_auth(self):
         # the Get Data menu item should be available to a user who isn't logged in
         response = self.client.get("/")

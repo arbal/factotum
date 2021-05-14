@@ -12,6 +12,7 @@
 
     <p class="alert-success" id="result-message"></p>
 
+    <div class="row col-12" data-width="100%">
     <table class="table table-striped table-bordered dataTable no-footer table-sm" id="datagroups">
         <thead>
         <tr class="table-primary">
@@ -27,15 +28,15 @@
             <th></th>
         </tr>
         <tr>
-            <th><input type="text" aria-label="search data source" placeholder="Search Data Source"></th>
-            <th><input type="text" aria-label="search data group" placeholder="Search Data Group"></th>
-            <th><input type="text" aria-label="search group type" placeholder="Search Group Type"></th>
-            <th><input type="text" aria-label="search data updated" placeholder="Search Date Updated"></th>
+            <th><input type="text" style="width:100%;" aria-label="search data source" placeholder="Search"></th>
+            <th><input type="text" style="width:100%;" aria-label="search data group" placeholder="Search"></th>
+            <th><input type="text" style="width:100%;" aria-label="search group type" placeholder="Search"></th>
+            <th><input type="text" style="width:100%;" aria-label="search data updated" placeholder="Search"></th>
             <th>&nbsp;</th>
             {% for step in curationsteps %}
                 <th class="search-curation-step">
                     <select name="step-status" aria-label="search {{ step.name }}">
-                        <option value="" selected>Search Status</option>
+                        <option value="" selected>Search</option>
                         <option value="incomplete">Incomplete</option>
                         <option value="complete">Complete</option>
                         <option value="n/a">N/A</option>
@@ -44,7 +45,7 @@
             {% endfor %}
             <th class="search-curation-step">
                 <select name="step-status" aria-label="search workflow complete">
-                    <option value="" selected>Search Status</option>
+                    <option value="" selected>Search</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>
@@ -94,6 +95,8 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
+<br><br>
 {% endblock %}
 
 {% block js %}
