@@ -11,6 +11,7 @@
     <form id="comment-create-form" class="w-100" method="post" action="{% url 'feedback:comment_create' %}" novalidate>
       {% csrf_token %}
       <div class="modal-body">
+        <p>Use this form to provide feedback on pages, report errors, suggest data sources, ask questions</p>
         {% include 'core/bs4_form.html' with form=form %}
       </div>
       <div class="modal-footer">
