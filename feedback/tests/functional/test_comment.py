@@ -67,7 +67,7 @@ class TestCommentCreateTemplate(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.template_name = "feedback/comment_create.html"
+        self.template_name = "feedback/comment_create_modal.html"
         self.form = CommentForm({})
 
     def test_comment_create_page(self):
@@ -79,5 +79,7 @@ class TestCommentCreateTemplate(TestCase):
         page = html.fromstring(response.content)
 
         # Assert form has required inputs.
+        self.assertTrue(page.xpath('//input[@id="id_page_url"]'))
         self.assertTrue(page.xpath('//input[@id="id_email"]'))
+        self.assertTrue(page.xpath('//input[@id="id_subject"]'))
         self.assertTrue(page.xpath('//textarea[@id="id_body"]'))
