@@ -7,6 +7,8 @@ from feedback.forms.comment_form import CommentForm
 
 
 class CommentCreate(CreateView):
+    SUCCESS_MESSAGE = "Comment received - thank you for your input."
+
     model = CommentModel
     form_class = CommentForm
     template_name = "feedback/comment_create_modal.html"
@@ -16,5 +18,5 @@ class CommentCreate(CreateView):
 
     def form_valid(self, form):
         form.save()
-        messages.success(self.request, "Comment received - thank you for your input.")
+        messages.success(self.request, self.SUCCESS_MESSAGE)
         return JsonResponse({"message": "success"})

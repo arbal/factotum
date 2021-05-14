@@ -58,7 +58,7 @@ class TestComment(TestCase):
 
         self.assertEqual(400, invalid_email_response.status_code)
         self.assertEqual(
-            [CommentForm.epa_error_message], invalid_email_response.json()['email']
+            [CommentForm.epa_error_message], invalid_email_response.json()["email"]
         )
 
 
