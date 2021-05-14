@@ -236,6 +236,7 @@
                   Comment
                 </a>
             </li>
+            {% if user.is_authenticated %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle"
                    href="#"
@@ -246,7 +247,6 @@
                     <span class="fa fa-user" title="factotum" aria-hidden="true"></span>
                     {{ user.first_name }}
                 </a>
-              {% if user.is_authenticated %}
                 <div class="dropdown-menu dropdown-menu-right"
                      aria-labelledby="navbarDropdownMenuLink">
                         {% if user.is_superuser %}
@@ -268,9 +268,9 @@
                             Logout
                         </a>
                 </div>
-              {% endif %}
             </li>
         </ul>
+        {% endif %}
     </div>
 </nav>
 
