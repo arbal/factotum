@@ -3,7 +3,8 @@ import os
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import Exists, F, OuterRef
+from django.db.models import Exists, F, OuterRef, Value, Case, When
+from django.db.models.functions import Concat
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -217,6 +218,35 @@ def data_group_documents_table(request, pk):
         DataDocument.objects.filter(data_group=dg)
         .annotate(extracted=Exists(ExtractedText.objects.filter(pk=OuterRef("pk"))))
         .annotate(product_title=F("products__title"))
+        .annotate(
+            puc=Case(
+                When(products__product_uber_puc__puc__isnull=True, then=Value("")),
+                When(
+                    products__product_uber_puc__puc__prod_fam="",
+                    then=F("products__product_uber_puc__puc__gen_cat"),
+                ),
+                When(
+                    products__product_uber_puc__puc__prod_type="",
+                    then=Concat(
+                        F("products__product_uber_puc__puc__gen_cat"),
+                        Value(" - "),
+                        F("products__product_uber_puc__puc__prod_fam"),
+                    ),
+                ),
+                default=Concat(
+                    F("products__product_uber_puc__puc__gen_cat"),
+                    Value(" - "),
+                    F("products__product_uber_puc__puc__prod_fam"),
+                    Value(" - "),
+                    F("products__product_uber_puc__puc__prod_type"),
+                ),
+            )
+        )
+        .annotate(
+            classification_method=F(
+                "products__product_uber_puc__classification_method__name"
+            )
+        )
         .annotate(product_id=F("products__id"))
     )
     if dg.is_habits_and_practices:
@@ -237,6 +267,8 @@ def data_group_documents_table(request, pk):
                     "extracted": doc.extracted,
                     "product_id": doc.product_id,
                     "product_title": doc.product_title,
+                    "puc": doc.puc,
+                    "classification_method": doc.classification_method,
                     "hidden": "Extracted" if doc.extracted else "Not extracted",
                 }
             )
