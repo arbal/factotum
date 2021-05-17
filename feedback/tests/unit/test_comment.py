@@ -44,9 +44,10 @@ class TestCommentForm(TestCase):
         )
 
     def test_meta(self):
+        """Verify no accidental column deletes"""
         self.assertEqual(CommentModel, CommentForm.Meta.model)
-        self.assertEqual(
-            ["email", "body", "subject", "page_url"], CommentForm.Meta.fields
+        self.assertSetEqual(
+            {"email", "body", "subject", "page_url"}, set(CommentForm.Meta.fields)
         )
 
 
