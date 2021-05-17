@@ -44,3 +44,54 @@ class ProvisionalSidAssignmentTest(TestCase):
         for chem in uncurated_chems:
             chem.refresh_from_db()
             self.assertIsNone(chem.dsstox)
+
+    def test_conflicts_not_curated(self):
+        """If there are multiple different dsstox linked to the chem name and cas set
+        no provisional curation occurs.
+        """
+        # Conflicting Set #
+        # Base Chem
+        base_chem = ExtractedCompositionFactory()
+        # Conflicting chem
+        ExtractedCompositionFactory(
+            raw_chem_name=base_chem.raw_chem_name, raw_cas=base_chem.raw_cas
+        )
+        # Uncurated target
+        target = ExtractedCompositionFactory(
+            is_curated=False,
+            raw_chem_name=base_chem.raw_chem_name,
+            raw_cas=base_chem.raw_cas,
+        )
+
+        provisional_sid_assignment.apply()
+
+        target.refresh_from_db()
+        # Conflicts are not curated.
+        self.assertIsNone(target.dsstox)
+
+    def test_duplicate_non_conflicting_dsstox_curated(self):
+        """If there are multiple of the same dsstox linked to the chem name and cas set
+        provisional curation occurs as normal.
+        """
+        # Non-Conflicting Set #
+        # Base Chem
+        base_chem = ExtractedCompositionFactory()
+        # Non-Conflicting chem
+        ExtractedCompositionFactory(
+            raw_chem_name=base_chem.raw_chem_name,
+            raw_cas=base_chem.raw_cas,
+            dsstox=base_chem.dsstox,
+        )
+        # Uncurated target
+        target = ExtractedCompositionFactory(
+            is_curated=False,
+            raw_chem_name=base_chem.raw_chem_name,
+            raw_cas=base_chem.raw_cas,
+        )
+
+        provisional_sid_assignment.apply()
+
+        target.refresh_from_db()
+        # Curation Completed.
+        self.assertEqual(target.dsstox, base_chem.dsstox)
+        self.assertTrue(target.provisional)

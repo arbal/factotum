@@ -46,9 +46,13 @@ def provisional_sid_assignment():
         raw_cas = provision_kwargs.get("raw_cas", "")
         logger.debug(f"Provisioning Name {raw_chem_name} and CAS {raw_cas}")
 
-        provision_dsstox_id = RawChem.objects.filter(
-            raw_chem_name=raw_chem_name, raw_cas=raw_cas, dsstox__isnull=False
-        ).values_list("dsstox_id", flat=True)
+        provision_dsstox_id = (
+            RawChem.objects.filter(
+                raw_chem_name=raw_chem_name, raw_cas=raw_cas, dsstox__isnull=False
+            )
+            .distinct()
+            .values_list("dsstox_id", flat=True)
+        )
 
         if len(provision_dsstox_id) == 1:
             provision_dsstox_id = provision_dsstox_id.first()
