@@ -459,5 +459,12 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         self.browser.find_element_by_id("lpkHeading").click()
 
         # Table is now open
-        wait.until(ec.presence_of_element_located((By.XPATH, "//div[@id='lpkCollapse' and contains(concat(' ',normalize-space(@class),' '),' show ')]")))
+        wait.until(
+            ec.presence_of_element_located(
+                (
+                    By.XPATH,
+                    "//div[@id='lpkCollapse' and contains(concat(' ',normalize-space(@class),' '),' show ')]",
+                )
+            )
+        )
         self.assertEqual(collapse.get_attribute("class"), "collapse show")
