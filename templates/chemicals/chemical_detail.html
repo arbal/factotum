@@ -102,20 +102,32 @@
       {% if keysets|length > 0 %}
         <div class="accordion" id="lpkAccordion">
           <div class="card">
-            <div class="card-header text-center p-1" id="lpkHeading" data-toggle="collapse" data-target="#lpkCollapse" aria-expanded="true"
-               aria-controls="lpkCollapse">
+            <div class="card-header text-center p-1"
+                 id="lpkHeading"
+                 data-toggle="collapse"
+                 data-target="#lpkCollapse"
+                 aria-expanded="true"
+                 aria-controls="lpkCollapse"
+            >
               <h5 class="m-0">
                 <b>Associated List Presence Keyword Sets</b>
               </h5>
             </div>
-            <div id="lpkCollapse" class="collapse show" aria-labelledby="lpkHeading" data-parent="#lpkAccordion">
+            <div id="lpkCollapse"
+                 class="collapse show"
+                 aria-labelledby="lpkHeading"
+                 data-parent="#lpkAccordion"
+            >
               {% for keyset in keysets %}
                 <div class="card">
-                  <div class="card-header-sm bg-light" id="keyCard">
+                  <div class="card-header-sm bg-light"
+                       id="keyCard"
+                  >
                     <span>
                       <span class="dot dot-dg-chem text-center ml-2"
                             title="Number of related documents"
-                            data-toggle="tooltip">
+                            data-toggle="tooltip"
+                      >
                           <small><b>{{ keyset.count }}</b></small>
                       </span>
                       <button class="btn btn-light"
@@ -133,9 +145,10 @@
                       <a id="keywords-{{ forloop.counter }}"
                          class="float-right rounded mr-2 my-1 p-1"
                          title="Filter table by Keyword Set"
-                         data-presence-id={{ keyset.presence_id }}
-                             data-toggle="tooltip"
-                         data-placement="top">
+                         data-presence-id="{{ keyset.presence_id }}"
+                         data-toggle="tooltip"
+                         data-placement="top"
+                      >
                           <i class="fa fa-filter fa-lg icon-secondary"></i>
                       </a>
                     </span>
@@ -145,7 +158,8 @@
                     <div id="pid-{{ keyset.presence_id }}"
                          class="collapse"
                          aria-labelledby="keyCard"
-                         data-parent="#lpkCollapse">
+                         data-parent="#lpkCollapse"
+                    >
                       <div class="card-body py-0">
                         <b id="keyset-{{ keyset.presence_id }}">{ {{ keyset.keywords|join:", " }} }</b>
                       </div>
