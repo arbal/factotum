@@ -54,7 +54,9 @@ def download_puc_products_weight_fractions(request, pk):
         .prefetch_related("weight_fraction_type", "unit_type")
         .values(
             "extracted_text__data_document__title",
+            "extracted_text__doc_date",
             "extracted_text__data_document__products__title",
+            "extracted_text__data_document__products__product_uber_puc__classification_method__name",
             "raw_chem_name",
             "raw_cas",
             "dsstox__sid",
@@ -84,7 +86,9 @@ def download_puc_products_weight_fractions(request, pk):
         use_verbose_names=False,
         field_header_map={
             "extracted_text__data_document__title": "Data Document",
+            "extracted_text__doc_date": "Document Date",
             "extracted_text__data_document__products__title": "Product Name",
+            "extracted_text__data_document__products__product_uber_puc__classification_method__name": "Classification Method",
             "raw_chem_name": "Raw Chemical Name",
             "raw_cas": "Raw CAS Number",
             "dsstox__sid": "DTXSID",
