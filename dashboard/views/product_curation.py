@@ -351,6 +351,10 @@ class RemoveProductToPUCTable(BaseDatatableView):
     def render_column(self, row, column):
         if column == "classification_method__name":
             return row.classification_method.name
+        elif column == "product__manufacturer":
+            return row.product.manufacturer
+        elif column == "product__brand_name":
+            return row.product.brand_name
         elif column == "product__title":
             return f"<a href='{reverse('product_detail', args=[row.product.id])}' target='_blank'>{row.product.title}</a>"
         elif column == "pk":

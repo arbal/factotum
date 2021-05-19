@@ -52,13 +52,20 @@ class TestBulkRemoveProductPUCTable(StaticLiveServerTestCase):
             )
         )
 
-        # Verify the 2nd td is the product title, the 3rd td is the classification method name
+        # Verify the td data
         # xpath uses 1-based indexing.
         self.assertEqual(
             self.browser.find_element_by_xpath("//td[2]").text, self.product.title
         )
         self.assertEqual(
             self.browser.find_element_by_xpath("//td[3]").text,
+            self.product.manufacturer,
+        )
+        self.assertEqual(
+            self.browser.find_element_by_xpath("//td[4]").text, self.product.brand_name
+        )
+        self.assertEqual(
+            self.browser.find_element_by_xpath("//td[5]").text,
             self.high_classification.name,
         )
 
@@ -170,13 +177,20 @@ class TestBulkRemoveProductPUCTable(StaticLiveServerTestCase):
             )
         )
 
-        # Verify the 2nd td is the product title, the 3rd td is the classification method name
+        # Verify the td data
         # xpath uses 1-based indexing.
         self.assertEqual(
             self.browser.find_element_by_xpath("//td[2]").text, self.product.title
         )
         self.assertEqual(
             self.browser.find_element_by_xpath("//td[3]").text,
+            self.product.manufacturer,
+        )
+        self.assertEqual(
+            self.browser.find_element_by_xpath("//td[4]").text, self.product.brand_name
+        )
+        self.assertEqual(
+            self.browser.find_element_by_xpath("//td[5]").text,
             self.high_classification.name,
         )
 
