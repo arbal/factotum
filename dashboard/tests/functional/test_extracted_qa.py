@@ -1,3 +1,5 @@
+import json
+
 from django.test import TestCase, tag
 from django.urls import reverse
 
@@ -9,6 +11,7 @@ from dashboard.models import (
     ExtractedFunctionalUse,
     Script,
     DataGroup,
+    QANotes,
 )
 
 
@@ -81,7 +84,7 @@ class ExtractedQaTestWithFixtures(TestCase):
     def setUp(self):
         self.client.login(username="Karyn", password="specialP@55word")
 
-    def test_qa_manual_composition_index(self):
+    def test_qa_manual_composition(self):
         """
         The yaml fixtures do not include any manually-extracted documents, 
         so this test uses some factories to generate some for each Composition
@@ -107,3 +110,33 @@ class ExtractedQaTestWithFixtures(TestCase):
 
         response = self.client.get(reverse("qa_manual_composition_index"))
         self.assertContains(response, "Walmart MSDS", count=18)
+
+        # test summary count
+        extext = ExtractedText.objects.filter(extraction_script=script).first()
+        # add qa note and approve it
+        notes = "test qa notes"
+        QANotes.objects.create(extracted_text=extext, qa_notes=notes)
+        extext.qa_checked = True
+        extext.save()
+        data_group = extext.data_document.data_group
+        total_count = ExtractedText.objects.filter(
+            extraction_script=script, data_document__data_group=data_group
+        ).count()
+        response = self.client.get(
+            reverse("qa_manual_composition_summary", kwargs={"pk": data_group.pk})
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, f'id="document_count">{total_count}')
+        self.assertContains(response, 'id="qa_complete_count">1')
+        self.assertContains(response, 'id="qa_notes">1')
+        # test summary table
+        response = self.client.get(
+            reverse("qa_manual_composition_summary_table", kwargs={"pk": data_group.pk})
+        )
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEqual(data["recordsTotal"], 1)
+        row = data["data"][0]
+        self.assertIn(data_group.name, row[0])
+        self.assertIn(extext.data_document.title, row[1])
+        self.assertEquals(notes, row[2])
