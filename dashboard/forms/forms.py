@@ -421,6 +421,7 @@ class ExtractedCompositionForm(ExtractedChemicalModelForm):
         fields = [
             "raw_chem_name",
             "raw_cas",
+            "has_composition_data",
             "raw_min_comp",
             "raw_central_comp",
             "raw_max_comp",
@@ -430,8 +431,14 @@ class ExtractedCompositionForm(ExtractedChemicalModelForm):
             "component",
         ]
 
+    class Media:
+        js = ("js/dashboard/extracted_composition_form.js",)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["has_composition_data"].widget.attrs.update(
+            {"class": "ml-2 align-middle"}
+        )
         if self.referer and (
             "extractionscript" in self.referer
             or "extractedtext" in self.referer
