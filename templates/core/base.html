@@ -176,7 +176,7 @@
                     </div>
                 </li>
                 {% to_list 'qa_extractionscript_index' 'qa_chemicalpresence_index' as qa_list %}
-                <li class="nav-item dropdown 
+                <li class="nav-item dropdown
                     {% if request.resolver_match.url_name in qa_list %}
                         active
                     {% endif %}">
@@ -231,6 +231,12 @@
                     </div>
                 </form>
             </li>
+            <li class="nav-item mx-2">
+                <a class="nav-link" data-toggle="modal" data-target="#comment-modal" title="Provide feedback on this page">
+                    Comment {# <i class="fas fa-exclamation-circle"></i> #}
+                </a>
+            </li>
+            {% if user.is_authenticated %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle"
                    href="#"
@@ -243,16 +249,6 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right"
                      aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item"
-                       href="{% url 'feedback:comment' %}"
-                    >
-                        <span class="far fa-comment"
-                              title="Comment"
-                              aria-hidden="true">
-                        </span>
-                        Comment
-                    </a>
-                    {% if user.is_authenticated %}
                         {% if user.is_superuser %}
                             <a class="dropdown-item"
                                href="{% url 'admin:index' %}">
@@ -271,10 +267,10 @@
                             </span>
                             Logout
                         </a>
-                    {% endif %}
                 </div>
             </li>
         </ul>
+        {% endif %}
     </div>
 </nav>
 
@@ -285,6 +281,12 @@
     {% block content %}Main content goes here!{% endblock %}
 </div>
 <!-- End page content -->
+
+
+<!-- Begin comment modal -->
+{#  Loads the model using ajax script #}
+<div class="modal" id="comment-modal" data-url="{% url 'feedback:comment_create' %}"></div>
+<!-- End comment modal -->
 
 <!-- Fixed Footer -->
 <footer class="footer">
@@ -304,6 +306,18 @@
 <script src="{% static 'js/dashboard/search.js' %}"></script>
 <script src="{% static 'js/dashboard/tooltip.js' %}"></script>
 <script src="{% static 'moment/moment.min.js' %}"></script>
+<script>
+    {# Loads comment modal via ajax #}
+    $('#comment-modal').on('show.bs.modal', function (event) {
+        let modal = $(this);
+        $.ajax({
+            url: modal.attr('data-url'),
+            context: document.body
+        }).done(function (response) {
+            modal.html(response);
+        });
+    });
+</script>
 {% block js %}{% endblock %}
 {% block css %}{% endblock %}
 

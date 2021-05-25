@@ -445,3 +445,26 @@ class TestChemicalDetail(StaticLiveServerTestCase):
             "Showing 1 to 8 of 8 entries",
             self.browser.find_element_by_xpath("//*[@id='documents_info']").text,
         )
+
+    def test_keyword_table_collapseable(self):
+        wait = WebDriverWait(self.browser, 10)
+        chemical = DSSToxLookup.objects.get(sid="DTXSID9020584")
+        self.browser.get(self.live_server_url + chemical.get_absolute_url())
+
+        # Table starts closed
+        collapse = wait.until(ec.presence_of_element_located((By.ID, "lpkCollapse")))
+        self.assertEqual(collapse.get_attribute("class"), "collapse")
+
+        # Click table heading
+        self.browser.find_element_by_id("lpkHeading").click()
+
+        # Table is now open
+        wait.until(
+            ec.presence_of_element_located(
+                (
+                    By.XPATH,
+                    "//div[@id='lpkCollapse' and contains(concat(' ',normalize-space(@class),' '),' show ')]",
+                )
+            )
+        )
+        self.assertEqual(collapse.get_attribute("class"), "collapse show")

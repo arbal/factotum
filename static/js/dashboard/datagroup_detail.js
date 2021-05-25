@@ -107,6 +107,8 @@ function renderDataTable(boolComp, boolHab, boolSD) {
             { "data": "matched", "render": renderMatched },
             { "data": "extracted", "render": renderExtracted , "width": "13%" },
             { "data": "product", "render": renderProd },
+            { "data": "puc" },
+            { "data": "classification_method" },
             { "data": "hidden", "render": renderHidden },
         ];
     } else if (boolHab) {
@@ -133,7 +135,7 @@ function renderDataTable(boolComp, boolHab, boolSD) {
             "ajax": "./documents_table/",
             "columns": columns,
             columnDefs: [
-                    { targets: [4], visible: false },
+                    { targets: [6], visible: false },
                 ],
             initComplete: function () {
 
@@ -141,7 +143,7 @@ function renderDataTable(boolComp, boolHab, boolSD) {
                     return this;
                 } );
 
-                this.api().columns( 4 ).every( function () {
+                this.api().columns( 6 ).every( function () {
                     var column = this;
                     var select = $('<select class="custom-select"><option value="">All</option></select>')
                         .appendTo( $(extracted.footer()).empty() )

@@ -57,10 +57,12 @@ def download_composition_chemical(request, sid):
         )
         .values(
             "extracted_text__data_document__title",
+            "extracted_text__doc_date",
             "extracted_text__data_document__products__title",
             "extracted_text__data_document__products__product_uber_puc__puc__gen_cat",
             "extracted_text__data_document__products__product_uber_puc__puc__prod_fam",
             "extracted_text__data_document__products__product_uber_puc__puc__prod_type",
+            "extracted_text__data_document__products__product_uber_puc__classification_method__name",
             "raw_min_comp",
             "raw_max_comp",
             "raw_central_comp",
@@ -84,10 +86,12 @@ def download_composition_chemical(request, sid):
         use_verbose_names=False,
         field_header_map={
             "extracted_text__data_document__title": "Data Document",
+            "extracted_text__doc_date": "Document Date",
             "extracted_text__data_document__products__title": "Product Name",
             "extracted_text__data_document__products__product_uber_puc__puc__gen_cat": "General Category",
             "extracted_text__data_document__products__product_uber_puc__puc__prod_fam": "Product Family",
             "extracted_text__data_document__products__product_uber_puc__puc__prod_type": "Product Type",
+            "extracted_text__data_document__products__product_uber_puc__classification_method__name": "Classification Method",
             "raw_min_comp": "Raw Min Comp",
             "raw_max_comp": "Raw Max Comp",
             "raw_central_comp": "Raw Central Comp",
