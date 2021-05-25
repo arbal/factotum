@@ -129,8 +129,8 @@ var columnDefs = [
         cellRenderer: CategoryCellRenderer
     },
     {
-        headerName: "Chemical Count", field: "fu_count", cellRenderer: params => {
-            return `<a href="/functional_use_curation/${params.data.pk}/"> ${params.data.fu_count} </a>`
+        headerName: "Chemical Entries", field: "fu_count", cellRenderer: params => {
+            return `<a href="/functional_use_curation/${params.data.pk}/" target="_blank"> ${params.data.fu_count} </a>`
         }
     },
 ];

@@ -125,3 +125,32 @@ class TestFunctionalUseCuration(StaticLiveServerTestCase):
             reverse("data_document", kwargs={"pk": self.excomp.extracted_text.pk}),
             table.get_attribute("innerHTML"),
         )
+
+    def test_functional_use_cleanup(self):
+        self.browser.get(self.live_server_url + reverse("functional_use_curation"))
+
+        # Check reported functional use is on the response
+        self.wait.until(
+            ec.text_to_be_present_in_element(
+                (By.ID, "dataGrid"), f"{self.functional_use.report_funcuse}"
+            )
+        )
+
+        # delete chemical
+        self.excomp.delete()
+
+        # invoke cleanup button
+        remove_button = self.browser.find_element_by_id("delete-fu-btn")
+        remove_button.click()
+        self.wait.until(ec.element_to_be_clickable((By.ID, "remove-fu-confirm-btn")))
+        self.browser.find_element_by_id("remove-fu-confirm-btn").click()
+        self.wait.until(
+            ec.text_to_be_present_in_element(
+                (By.CLASS_NAME, "alert-success"),
+                "1 reported functional use(s) successfully removed",
+            )
+        )
+        self.assertIn(
+            "No Rows To Show",
+            self.browser.find_element_by_id("dataGrid").get_attribute("innerHTML"),
+        )
