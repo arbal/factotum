@@ -32,7 +32,7 @@
     created_at: 2019-02-21 11:24:00
     updated_at: 2019-05-03 15:43:50.693764
     prod_name: ''
-    doc_date: ''
+    doc_date: '2019-02-03'
     rev_num: ''
     extraction_script: 13
     qa_checked: false
@@ -46,7 +46,7 @@
     created_at: 2019-02-21 11:22:00
     updated_at: 2019-02-21 11:23:00
     prod_name: ''
-    doc_date: ''
+    doc_date: '2019-02-03'
     rev_num: ''
     extraction_script: 13
     qa_checked: false
@@ -88,7 +88,7 @@
     created_at: 2018-06-06 08:35:33
     updated_at: 2018-06-06 08:35:33
     prod_name: ''
-    doc_date: ''
+    doc_date: '2019-02-03'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -102,7 +102,7 @@
     created_at: 2018-06-06 09:26:08
     updated_at: 2018-06-06 09:26:08
     prod_name: ''
-    doc_date: ''
+    doc_date: '2019-02-03'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -116,7 +116,7 @@
     created_at: 2018-06-06 08:17:33
     updated_at: 2018-06-06 08:17:33
     prod_name: ''
-    doc_date: ''
+    doc_date: '2019-02-03'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -130,7 +130,7 @@
     created_at: 2018-06-06 07:28:01
     updated_at: 2018-06-06 07:28:01
     prod_name: ''
-    doc_date: ''
+    doc_date: '2019-02-03'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -144,7 +144,7 @@
     created_at: 2018-06-06 07:17:26
     updated_at: 2018-06-06 07:17:26
     prod_name: ''
-    doc_date: ''
+    doc_date: '2019-02-03'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -158,7 +158,7 @@
     created_at: 2018-06-06 08:27:35
     updated_at: 2018-06-06 08:27:35
     prod_name: ''
-    doc_date: ''
+    doc_date: '2019-02-03'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -172,7 +172,7 @@
     created_at: 2018-06-06 07:17:26
     updated_at: 2018-06-06 07:17:26
     prod_name: ''
-    doc_date: ''
+    doc_date: '2019-02-03'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -186,7 +186,7 @@
     created_at: 2018-06-06 07:17:26
     updated_at: 2018-06-06 07:17:26
     prod_name: ''
-    doc_date: ''
+    doc_date: '2019-02-03'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -200,7 +200,7 @@
     created_at: 2018-06-06 08:17:32
     updated_at: 2018-06-06 08:17:32
     prod_name: ''
-    doc_date: ''
+    doc_date: '2019-02-03'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -214,7 +214,7 @@
     created_at: 2018-06-06 08:27:34
     updated_at: 2018-06-06 08:27:34
     prod_name: ''
-    doc_date: ''
+    doc_date: '2019-02-03'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -228,7 +228,7 @@
     created_at: 2018-06-06 08:11:41
     updated_at: 2018-06-06 08:11:41
     prod_name: ''
-    doc_date: ''
+    doc_date: '2019-02-03'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -242,7 +242,7 @@
     created_at: 2018-06-06 08:27:34
     updated_at: 2018-06-06 08:27:34
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -256,7 +256,7 @@
     created_at: 2018-06-06 08:17:32
     updated_at: 2018-06-06 08:17:32
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -270,7 +270,7 @@
     created_at: 2018-06-06 08:17:32
     updated_at: 2018-06-06 08:17:32
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -284,7 +284,7 @@
     created_at: 2018-06-06 07:21:49
     updated_at: 2018-06-06 07:21:49
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -298,7 +298,7 @@
     created_at: 2018-06-06 07:36:26
     updated_at: 2018-06-06 07:36:26
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -312,7 +312,7 @@
     created_at: 2018-06-06 07:36:03
     updated_at: 2018-06-06 07:36:03
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -326,7 +326,7 @@
     created_at: 2018-06-06 08:11:40
     updated_at: 2018-06-06 08:11:40
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -340,7 +340,7 @@
     created_at: 2018-06-06 07:17:25
     updated_at: 2018-06-06 07:17:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -354,7 +354,7 @@
     created_at: 2018-06-06 07:17:25
     updated_at: 2018-06-06 07:17:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -368,7 +368,7 @@
     created_at: 2018-06-06 08:11:40
     updated_at: 2018-06-06 08:11:40
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -382,7 +382,7 @@
     created_at: 2018-06-06 08:17:32
     updated_at: 2018-06-06 08:17:32
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -396,7 +396,7 @@
     created_at: 2018-06-06 08:27:33
     updated_at: 2018-06-06 08:27:33
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -410,7 +410,7 @@
     created_at: 2018-06-06 07:15:22
     updated_at: 2018-06-06 07:15:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -424,7 +424,7 @@
     created_at: 2018-06-06 08:17:31
     updated_at: 2018-06-06 08:17:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -438,7 +438,7 @@
     created_at: 2018-06-06 08:17:31
     updated_at: 2018-06-06 08:17:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -452,7 +452,7 @@
     created_at: 2018-06-06 08:17:31
     updated_at: 2018-06-06 08:17:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -466,7 +466,7 @@
     created_at: 2018-06-06 08:27:33
     updated_at: 2018-06-06 08:27:33
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -480,7 +480,7 @@
     created_at: 2018-06-06 07:21:49
     updated_at: 2018-06-06 07:21:49
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -494,7 +494,7 @@
     created_at: 2018-06-06 08:17:31
     updated_at: 2018-06-06 08:17:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -508,7 +508,7 @@
     created_at: 2018-06-06 08:27:33
     updated_at: 2018-06-06 08:27:33
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -522,7 +522,7 @@
     created_at: 2018-06-06 07:17:25
     updated_at: 2018-06-06 07:17:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -536,7 +536,7 @@
     created_at: 2018-06-06 08:17:31
     updated_at: 2018-06-06 08:17:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -550,7 +550,7 @@
     created_at: 2018-06-06 08:17:31
     updated_at: 2018-06-06 08:17:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -564,7 +564,7 @@
     created_at: 2018-06-06 07:17:25
     updated_at: 2018-06-06 07:17:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -578,7 +578,7 @@
     created_at: 2018-06-06 07:38:05
     updated_at: 2018-06-06 07:38:05
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -592,7 +592,7 @@
     created_at: 2018-06-06 08:11:40
     updated_at: 2018-06-06 08:11:40
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -606,7 +606,7 @@
     created_at: 2018-06-06 08:17:31
     updated_at: 2018-06-06 08:17:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -620,7 +620,7 @@
     created_at: 2018-06-06 08:17:31
     updated_at: 2018-06-06 08:17:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -634,7 +634,7 @@
     created_at: 2018-06-07 12:43:34
     updated_at: 2018-06-07 12:43:34
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -648,7 +648,7 @@
     created_at: 2018-06-06 08:27:32
     updated_at: 2018-06-06 08:27:32
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -662,7 +662,7 @@
     created_at: 2018-06-06 07:17:25
     updated_at: 2018-06-06 07:17:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -676,7 +676,7 @@
     created_at: 2018-06-06 08:35:31
     updated_at: 2018-06-06 08:35:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -690,7 +690,7 @@
     created_at: 2018-06-06 08:17:30
     updated_at: 2018-06-06 08:17:30
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -704,7 +704,7 @@
     created_at: 2018-06-06 08:27:32
     updated_at: 2018-06-06 08:27:32
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -718,7 +718,7 @@
     created_at: 2018-06-06 07:17:25
     updated_at: 2018-06-06 07:17:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -732,7 +732,7 @@
     created_at: 2018-06-06 08:35:31
     updated_at: 2018-06-06 08:35:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -746,7 +746,7 @@
     created_at: 2018-06-06 07:28:01
     updated_at: 2018-06-06 07:28:01
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -760,7 +760,7 @@
     created_at: 2018-06-06 08:17:30
     updated_at: 2018-06-06 08:17:30
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -774,7 +774,7 @@
     created_at: 2018-06-06 07:21:49
     updated_at: 2018-06-06 07:21:49
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -788,7 +788,7 @@
     created_at: 2018-06-06 08:27:31
     updated_at: 2018-06-06 08:27:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -802,7 +802,7 @@
     created_at: 2018-06-06 08:11:40
     updated_at: 2018-06-06 08:11:40
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -816,7 +816,7 @@
     created_at: 2018-06-06 08:27:31
     updated_at: 2018-06-06 08:27:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -830,7 +830,7 @@
     created_at: 2018-06-06 07:17:25
     updated_at: 2018-06-06 07:17:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -844,7 +844,7 @@
     created_at: 2018-06-06 07:17:25
     updated_at: 2018-06-06 07:17:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -858,7 +858,7 @@
     created_at: 2018-06-06 08:17:30
     updated_at: 2018-06-06 08:17:30
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -872,7 +872,7 @@
     created_at: 2018-06-06 07:21:58
     updated_at: 2018-06-06 07:21:58
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -886,7 +886,7 @@
     created_at: 2018-06-06 08:17:30
     updated_at: 2018-06-06 08:17:30
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -900,7 +900,7 @@
     created_at: 2018-06-06 07:36:25
     updated_at: 2018-06-06 07:36:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -914,7 +914,7 @@
     created_at: 2018-06-06 07:17:25
     updated_at: 2018-06-06 07:17:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -928,7 +928,7 @@
     created_at: 2018-06-06 08:17:30
     updated_at: 2018-06-06 08:17:30
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -942,7 +942,7 @@
     created_at: 2018-06-06 07:22:01
     updated_at: 2018-06-06 07:22:01
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -956,7 +956,7 @@
     created_at: 2018-06-06 07:38:05
     updated_at: 2018-06-06 07:38:05
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -970,7 +970,7 @@
     created_at: 2018-06-06 07:17:24
     updated_at: 2018-06-06 07:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -984,7 +984,7 @@
     created_at: 2018-06-06 08:25:14
     updated_at: 2018-06-06 08:25:14
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -998,7 +998,7 @@
     created_at: 2018-06-06 08:27:31
     updated_at: 2018-06-06 08:27:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1012,7 +1012,7 @@
     created_at: 2018-06-06 08:17:29
     updated_at: 2018-06-06 08:17:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1026,7 +1026,7 @@
     created_at: 2018-06-06 08:19:31
     updated_at: 2018-06-06 08:19:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1040,7 +1040,7 @@
     created_at: 2018-06-06 08:17:29
     updated_at: 2018-06-06 08:17:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1054,7 +1054,7 @@
     created_at: 2018-06-06 08:17:29
     updated_at: 2018-06-06 08:17:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1068,7 +1068,7 @@
     created_at: 2018-06-06 08:17:29
     updated_at: 2018-06-06 08:17:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1082,7 +1082,7 @@
     created_at: 2018-06-06 07:17:24
     updated_at: 2018-06-06 07:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1096,7 +1096,7 @@
     created_at: 2018-06-06 07:18:35
     updated_at: 2018-06-06 07:18:35
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1110,7 +1110,7 @@
     created_at: 2018-06-06 07:17:24
     updated_at: 2018-06-06 07:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1124,7 +1124,7 @@
     created_at: 2018-06-06 08:17:29
     updated_at: 2018-06-06 08:17:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1138,7 +1138,7 @@
     created_at: 2018-06-06 07:17:24
     updated_at: 2018-06-06 07:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1152,7 +1152,7 @@
     created_at: 2018-06-06 07:22:01
     updated_at: 2018-06-06 07:22:01
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1166,7 +1166,7 @@
     created_at: 2018-06-06 08:27:28
     updated_at: 2018-06-06 08:27:28
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1180,7 +1180,7 @@
     created_at: 2018-06-06 07:17:24
     updated_at: 2018-06-06 07:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1194,7 +1194,7 @@
     created_at: 2018-06-06 08:27:26
     updated_at: 2018-06-06 08:27:26
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1208,7 +1208,7 @@
     created_at: 2018-06-06 07:17:24
     updated_at: 2018-06-06 07:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1222,7 +1222,7 @@
     created_at: 2018-06-06 07:17:24
     updated_at: 2018-06-06 07:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1236,7 +1236,7 @@
     created_at: 2018-06-06 08:11:40
     updated_at: 2018-06-06 08:11:40
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1250,7 +1250,7 @@
     created_at: 2018-06-06 07:17:24
     updated_at: 2018-06-06 07:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1264,7 +1264,7 @@
     created_at: 2018-06-06 07:17:24
     updated_at: 2018-06-06 07:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1278,7 +1278,7 @@
     created_at: 2018-06-06 08:11:51
     updated_at: 2018-06-06 08:11:51
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1292,7 +1292,7 @@
     created_at: 2018-06-06 08:11:51
     updated_at: 2018-06-06 08:11:51
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1306,7 +1306,7 @@
     created_at: 2018-06-06 08:27:26
     updated_at: 2018-06-06 08:27:26
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1320,7 +1320,7 @@
     created_at: 2018-06-06 08:17:28
     updated_at: 2018-06-06 08:17:28
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1334,7 +1334,7 @@
     created_at: 2018-06-06 07:17:24
     updated_at: 2018-06-06 07:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1348,7 +1348,7 @@
     created_at: 2018-06-06 08:27:26
     updated_at: 2018-06-06 08:27:26
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1362,7 +1362,7 @@
     created_at: 2018-06-06 08:40:05
     updated_at: 2018-06-06 08:40:05
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1376,7 +1376,7 @@
     created_at: 2018-06-06 08:17:28
     updated_at: 2018-06-06 08:17:28
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1390,7 +1390,7 @@
     created_at: 2018-06-06 07:17:24
     updated_at: 2018-06-06 07:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1404,7 +1404,7 @@
     created_at: 2018-06-06 07:17:24
     updated_at: 2018-06-06 07:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1418,7 +1418,7 @@
     created_at: 2018-06-06 07:32:08
     updated_at: 2018-06-06 07:32:08
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1432,7 +1432,7 @@
     created_at: 2018-06-06 07:38:04
     updated_at: 2018-06-06 07:38:04
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1446,7 +1446,7 @@
     created_at: 2018-06-06 08:27:25
     updated_at: 2018-06-06 08:27:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1460,7 +1460,7 @@
     created_at: 2018-06-06 08:27:25
     updated_at: 2018-06-06 08:27:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1474,7 +1474,7 @@
     created_at: 2018-06-06 07:17:24
     updated_at: 2018-06-06 07:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1488,7 +1488,7 @@
     created_at: 2018-06-06 07:17:24
     updated_at: 2018-06-06 07:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1502,7 +1502,7 @@
     created_at: 2018-06-06 08:27:25
     updated_at: 2018-06-06 08:27:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1516,7 +1516,7 @@
     created_at: 2018-06-06 07:15:15
     updated_at: 2018-06-06 07:15:15
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1530,7 +1530,7 @@
     created_at: 2018-06-06 07:17:24
     updated_at: 2018-06-06 07:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1544,7 +1544,7 @@
     created_at: 2018-06-06 08:17:27
     updated_at: 2018-06-06 08:17:27
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1558,7 +1558,7 @@
     created_at: 2018-06-06 07:38:04
     updated_at: 2018-06-06 07:38:04
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1572,7 +1572,7 @@
     created_at: 2018-06-06 07:32:08
     updated_at: 2018-06-06 07:32:08
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1586,7 +1586,7 @@
     created_at: 2018-06-06 07:21:49
     updated_at: 2018-06-06 07:21:49
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1600,7 +1600,7 @@
     created_at: 2018-06-06 08:17:27
     updated_at: 2018-06-06 08:17:27
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1614,7 +1614,7 @@
     created_at: 2018-06-06 08:29:52
     updated_at: 2018-06-06 08:29:52
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1628,7 +1628,7 @@
     created_at: 2018-06-06 08:27:23
     updated_at: 2018-06-06 08:27:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1642,7 +1642,7 @@
     created_at: 2018-06-06 07:17:23
     updated_at: 2018-06-06 07:17:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1656,7 +1656,7 @@
     created_at: 2018-06-06 07:17:23
     updated_at: 2018-06-06 07:17:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1670,7 +1670,7 @@
     created_at: 2018-06-06 07:18:29
     updated_at: 2018-06-06 07:18:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1684,7 +1684,7 @@
     created_at: 2018-06-06 07:32:30
     updated_at: 2018-06-06 07:32:30
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1698,7 +1698,7 @@
     created_at: 2018-06-06 07:36:25
     updated_at: 2018-06-06 07:36:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1712,7 +1712,7 @@
     created_at: 2018-06-06 08:27:22
     updated_at: 2018-06-06 08:27:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1726,7 +1726,7 @@
     created_at: 2018-06-06 08:27:22
     updated_at: 2018-06-06 08:27:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1740,7 +1740,7 @@
     created_at: 2018-06-06 08:27:21
     updated_at: 2018-06-06 08:27:21
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1754,7 +1754,7 @@
     created_at: 2018-06-06 08:17:26
     updated_at: 2018-06-06 08:17:26
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1768,7 +1768,7 @@
     created_at: 2018-06-06 13:29:32
     updated_at: 2018-06-06 13:29:32
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1782,7 +1782,7 @@
     created_at: 2018-06-06 07:17:23
     updated_at: 2018-06-06 07:17:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1796,7 +1796,7 @@
     created_at: 2018-06-06 08:27:20
     updated_at: 2018-06-06 08:27:20
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1810,7 +1810,7 @@
     created_at: 2018-06-06 08:40:04
     updated_at: 2018-06-06 08:40:04
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1824,7 +1824,7 @@
     created_at: 2018-06-06 07:17:23
     updated_at: 2018-06-06 07:17:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1838,7 +1838,7 @@
     created_at: 2018-06-06 07:32:08
     updated_at: 2018-06-06 07:32:08
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1852,7 +1852,7 @@
     created_at: 2018-06-06 08:30:29
     updated_at: 2018-06-06 08:30:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1866,7 +1866,7 @@
     created_at: 2018-06-06 08:17:26
     updated_at: 2018-06-06 08:17:26
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1880,7 +1880,7 @@
     created_at: 2018-06-06 07:17:23
     updated_at: 2018-06-06 07:17:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1894,7 +1894,7 @@
     created_at: 2018-06-06 07:36:28
     updated_at: 2018-06-06 07:36:28
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1908,7 +1908,7 @@
     created_at: 2018-06-06 07:21:49
     updated_at: 2018-06-06 07:21:49
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1922,7 +1922,7 @@
     created_at: 2018-06-06 07:21:49
     updated_at: 2018-06-06 07:21:49
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1936,7 +1936,7 @@
     created_at: 2018-06-06 07:31:14
     updated_at: 2018-06-06 07:31:14
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1950,7 +1950,7 @@
     created_at: 2018-06-06 07:17:23
     updated_at: 2018-06-06 07:17:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1964,7 +1964,7 @@
     created_at: 2018-06-06 08:11:39
     updated_at: 2018-06-06 08:11:39
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1978,7 +1978,7 @@
     created_at: 2018-06-06 07:36:25
     updated_at: 2018-06-06 07:36:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -1992,7 +1992,7 @@
     created_at: 2018-06-06 07:17:23
     updated_at: 2018-06-06 07:17:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2006,7 +2006,7 @@
     created_at: 2018-06-06 08:27:18
     updated_at: 2018-06-06 08:27:18
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2020,7 +2020,7 @@
     created_at: 2018-06-06 08:11:39
     updated_at: 2018-06-06 08:11:39
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2034,7 +2034,7 @@
     created_at: 2018-06-06 07:25:02
     updated_at: 2018-06-06 07:25:02
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2048,7 +2048,7 @@
     created_at: 2018-06-06 07:22:01
     updated_at: 2018-06-06 07:22:01
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2062,7 +2062,7 @@
     created_at: 2018-06-06 08:17:25
     updated_at: 2018-06-06 08:17:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2076,7 +2076,7 @@
     created_at: 2018-06-06 07:17:23
     updated_at: 2018-06-06 07:17:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2090,7 +2090,7 @@
     created_at: 2018-06-06 08:17:25
     updated_at: 2018-06-06 08:17:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2104,7 +2104,7 @@
     created_at: 2018-06-06 08:25:13
     updated_at: 2018-06-06 08:25:13
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2118,7 +2118,7 @@
     created_at: 2018-06-06 07:21:49
     updated_at: 2018-06-06 07:21:49
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2132,7 +2132,7 @@
     created_at: 2018-06-06 08:30:28
     updated_at: 2018-06-06 08:30:28
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2146,7 +2146,7 @@
     created_at: 2018-06-06 08:35:28
     updated_at: 2018-06-06 08:35:28
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2160,7 +2160,7 @@
     created_at: 2018-06-06 07:17:23
     updated_at: 2018-06-06 07:17:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2174,7 +2174,7 @@
     created_at: 2018-06-06 08:11:39
     updated_at: 2018-06-06 08:11:39
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2188,7 +2188,7 @@
     created_at: 2018-06-08 00:21:12
     updated_at: 2018-06-08 00:21:12
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2202,7 +2202,7 @@
     created_at: 2018-06-06 08:11:49
     updated_at: 2018-06-06 08:11:49
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2216,7 +2216,7 @@
     created_at: 2018-06-06 07:36:25
     updated_at: 2018-06-06 07:36:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2230,7 +2230,7 @@
     created_at: 2018-06-06 07:33:17
     updated_at: 2018-06-06 07:33:17
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2244,7 +2244,7 @@
     created_at: 2018-06-06 08:12:54
     updated_at: 2018-06-06 08:12:54
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2258,7 +2258,7 @@
     created_at: 2018-06-06 09:17:28
     updated_at: 2018-06-06 09:17:28
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2272,7 +2272,7 @@
     created_at: 2018-06-06 07:21:57
     updated_at: 2018-06-06 07:21:57
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2286,7 +2286,7 @@
     created_at: 2018-06-06 08:09:08
     updated_at: 2018-06-06 08:09:08
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2300,7 +2300,7 @@
     created_at: 2018-06-06 08:27:17
     updated_at: 2018-06-06 08:27:17
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2314,7 +2314,7 @@
     created_at: 2018-06-06 08:40:03
     updated_at: 2018-06-06 08:40:03
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2328,7 +2328,7 @@
     created_at: 2018-06-06 07:38:04
     updated_at: 2018-06-06 07:38:04
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2342,7 +2342,7 @@
     created_at: 2018-06-06 08:17:24
     updated_at: 2018-06-06 08:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2356,7 +2356,7 @@
     created_at: 2018-06-06 07:28:01
     updated_at: 2018-06-06 07:28:01
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2370,7 +2370,7 @@
     created_at: 2018-06-06 08:09:08
     updated_at: 2018-06-06 08:09:08
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2384,7 +2384,7 @@
     created_at: 2018-06-06 08:27:14
     updated_at: 2018-06-06 08:27:14
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2398,7 +2398,7 @@
     created_at: 2018-06-06 07:17:22
     updated_at: 2018-06-06 07:17:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2412,7 +2412,7 @@
     created_at: 2018-06-06 08:35:27
     updated_at: 2018-06-06 08:35:27
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2426,7 +2426,7 @@
     created_at: 2018-06-06 08:35:27
     updated_at: 2018-06-06 08:35:27
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2440,7 +2440,7 @@
     created_at: 2018-06-06 07:36:24
     updated_at: 2018-06-06 07:36:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2454,7 +2454,7 @@
     created_at: 2018-06-06 07:38:04
     updated_at: 2018-06-06 07:38:04
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2468,7 +2468,7 @@
     created_at: 2018-06-06 08:17:24
     updated_at: 2018-06-06 08:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2482,7 +2482,7 @@
     created_at: 2018-06-06 08:27:13
     updated_at: 2018-06-06 08:27:13
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2496,7 +2496,7 @@
     created_at: 2018-06-06 07:17:22
     updated_at: 2018-06-06 07:17:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2510,7 +2510,7 @@
     created_at: 2018-06-06 08:35:28
     updated_at: 2018-06-06 08:35:28
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2524,7 +2524,7 @@
     created_at: 2018-06-06 07:17:22
     updated_at: 2018-06-06 07:17:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2538,7 +2538,7 @@
     created_at: 2018-06-06 08:17:24
     updated_at: 2018-06-06 08:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2552,7 +2552,7 @@
     created_at: 2018-06-06 07:36:24
     updated_at: 2018-06-06 07:36:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2566,7 +2566,7 @@
     created_at: 2018-06-06 08:27:13
     updated_at: 2018-06-06 08:27:13
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2580,7 +2580,7 @@
     created_at: 2018-06-06 07:24:01
     updated_at: 2018-06-06 07:24:01
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2594,7 +2594,7 @@
     created_at: 2018-06-06 08:17:24
     updated_at: 2018-06-06 08:17:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2608,7 +2608,7 @@
     created_at: 2018-06-06 08:27:12
     updated_at: 2018-06-06 08:27:12
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2622,7 +2622,7 @@
     created_at: 2018-06-06 07:17:22
     updated_at: 2018-06-06 07:17:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2636,7 +2636,7 @@
     created_at: 2018-06-06 07:17:22
     updated_at: 2018-06-06 07:17:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2650,7 +2650,7 @@
     created_at: 2018-06-06 08:11:38
     updated_at: 2018-06-06 08:11:38
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2664,7 +2664,7 @@
     created_at: 2018-06-06 07:17:22
     updated_at: 2018-06-06 07:17:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2678,7 +2678,7 @@
     created_at: 2018-06-06 07:17:22
     updated_at: 2018-06-06 07:17:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2692,7 +2692,7 @@
     created_at: 2018-06-06 08:27:10
     updated_at: 2018-06-06 08:27:10
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2706,7 +2706,7 @@
     created_at: 2018-06-06 08:25:01
     updated_at: 2018-06-06 08:25:01
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2720,7 +2720,7 @@
     created_at: 2018-06-06 07:30:39
     updated_at: 2018-06-06 07:30:39
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2734,7 +2734,7 @@
     created_at: 2018-06-06 07:18:12
     updated_at: 2018-06-06 07:18:12
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2748,7 +2748,7 @@
     created_at: 2018-06-06 07:18:12
     updated_at: 2018-06-06 07:18:12
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2762,7 +2762,7 @@
     created_at: 2018-06-06 08:11:21
     updated_at: 2018-06-06 08:11:21
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2776,7 +2776,7 @@
     created_at: 2018-06-06 08:40:00
     updated_at: 2018-06-06 08:40:00
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2790,7 +2790,7 @@
     created_at: 2018-06-06 08:35:20
     updated_at: 2018-06-06 08:35:20
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2804,7 +2804,7 @@
     created_at: 2018-06-06 07:18:12
     updated_at: 2018-06-06 07:18:12
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2818,7 +2818,7 @@
     created_at: 2018-06-06 08:35:25
     updated_at: 2018-06-06 08:35:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2832,7 +2832,7 @@
     created_at: 2018-06-06 08:11:38
     updated_at: 2018-06-06 08:11:38
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2846,7 +2846,7 @@
     created_at: 2018-06-06 08:27:05
     updated_at: 2018-06-06 08:27:05
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2860,7 +2860,7 @@
     created_at: 2018-06-06 07:17:22
     updated_at: 2018-06-06 07:17:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2874,7 +2874,7 @@
     created_at: 2018-06-06 08:17:22
     updated_at: 2018-06-06 08:17:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2888,7 +2888,7 @@
     created_at: 2018-06-06 08:35:20
     updated_at: 2018-06-06 08:35:20
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2902,7 +2902,7 @@
     created_at: 2018-06-06 08:11:38
     updated_at: 2018-06-06 08:11:38
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2916,7 +2916,7 @@
     created_at: 2018-06-06 08:17:22
     updated_at: 2018-06-06 08:17:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2930,7 +2930,7 @@
     created_at: 2018-06-06 07:15:14
     updated_at: 2018-06-06 07:15:14
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2944,7 +2944,7 @@
     created_at: 2018-06-06 08:35:31
     updated_at: 2018-06-06 08:35:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2958,7 +2958,7 @@
     created_at: 2018-06-06 08:27:00
     updated_at: 2018-06-06 08:27:00
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2972,7 +2972,7 @@
     created_at: 2018-06-06 08:26:59
     updated_at: 2018-06-06 08:26:59
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -2986,7 +2986,7 @@
     created_at: 2018-06-06 08:34:49
     updated_at: 2018-06-06 08:34:49
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3000,7 +3000,7 @@
     created_at: 2018-06-06 08:26:58
     updated_at: 2018-06-06 08:26:58
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3014,7 +3014,7 @@
     created_at: 2018-06-07 13:20:44
     updated_at: 2018-06-07 13:20:44
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3028,7 +3028,7 @@
     created_at: 2018-06-06 08:26:58
     updated_at: 2018-06-06 08:26:58
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3042,7 +3042,7 @@
     created_at: 2018-06-06 07:21:48
     updated_at: 2018-06-06 07:21:48
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3056,7 +3056,7 @@
     created_at: 2018-06-06 08:35:24
     updated_at: 2018-06-06 08:35:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3070,7 +3070,7 @@
     created_at: 2018-06-06 08:26:56
     updated_at: 2018-06-06 08:26:56
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3084,7 +3084,7 @@
     created_at: 2018-06-06 08:26:55
     updated_at: 2018-06-06 08:26:55
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3098,7 +3098,7 @@
     created_at: 2018-06-06 15:55:41
     updated_at: 2018-06-06 15:55:41
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3112,7 +3112,7 @@
     created_at: 2018-06-06 15:55:16
     updated_at: 2018-06-06 15:55:16
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3126,7 +3126,7 @@
     created_at: 2018-06-06 15:55:41
     updated_at: 2018-06-06 15:55:41
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3140,7 +3140,7 @@
     created_at: 2018-06-06 15:55:41
     updated_at: 2018-06-06 15:55:41
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3154,7 +3154,7 @@
     created_at: 2018-06-06 15:55:41
     updated_at: 2018-06-06 15:55:41
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3168,7 +3168,7 @@
     created_at: 2018-06-06 15:55:36
     updated_at: 2018-06-06 15:55:36
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3182,7 +3182,7 @@
     created_at: 2018-06-06 15:55:15
     updated_at: 2018-06-06 15:55:15
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3196,7 +3196,7 @@
     created_at: 2018-06-06 15:55:57
     updated_at: 2018-06-06 15:55:57
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3210,7 +3210,7 @@
     created_at: 2018-06-06 15:55:41
     updated_at: 2018-06-06 15:55:41
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3224,7 +3224,7 @@
     created_at: 2018-06-06 15:55:41
     updated_at: 2018-06-06 15:55:41
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3238,7 +3238,7 @@
     created_at: 2018-06-06 15:55:41
     updated_at: 2018-06-06 15:55:41
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3252,7 +3252,7 @@
     created_at: 2018-06-06 15:55:41
     updated_at: 2018-06-06 15:55:41
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3266,7 +3266,7 @@
     created_at: 2018-06-06 15:55:40
     updated_at: 2018-06-06 15:55:40
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3280,7 +3280,7 @@
     created_at: 2018-06-06 15:55:39
     updated_at: 2018-06-06 15:55:39
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3294,7 +3294,7 @@
     created_at: 2018-06-06 15:55:37
     updated_at: 2018-06-06 15:55:37
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3308,7 +3308,7 @@
     created_at: 2018-06-06 07:28:22
     updated_at: 2018-06-06 07:28:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3322,7 +3322,7 @@
     created_at: 2018-06-06 07:19:24
     updated_at: 2018-06-06 07:19:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3336,7 +3336,7 @@
     created_at: 2018-06-06 07:19:24
     updated_at: 2018-06-06 07:19:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3350,7 +3350,7 @@
     created_at: 2018-06-06 07:16:07
     updated_at: 2018-06-06 07:16:07
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3364,7 +3364,7 @@
     created_at: 2018-06-06 07:32:26
     updated_at: 2018-06-06 07:32:26
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3378,7 +3378,7 @@
     created_at: 2018-06-06 07:20:32
     updated_at: 2018-06-06 07:20:32
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3392,7 +3392,7 @@
     created_at: 2018-06-06 09:32:24
     updated_at: 2018-06-06 09:32:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3406,7 +3406,7 @@
     created_at: 2018-06-06 07:29:35
     updated_at: 2018-06-06 07:29:35
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3420,7 +3420,7 @@
     created_at: 2018-06-06 07:29:35
     updated_at: 2018-06-06 07:29:35
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3434,7 +3434,7 @@
     created_at: 2018-06-06 07:29:40
     updated_at: 2018-06-06 07:29:40
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3448,7 +3448,7 @@
     created_at: 2018-06-06 08:02:34
     updated_at: 2018-06-06 08:02:34
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3462,7 +3462,7 @@
     created_at: 2018-06-06 07:19:23
     updated_at: 2018-06-06 07:19:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3476,7 +3476,7 @@
     created_at: 2018-06-06 18:25:16
     updated_at: 2018-06-06 18:25:16
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3490,7 +3490,7 @@
     created_at: 2018-06-06 07:20:32
     updated_at: 2018-06-06 07:20:32
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3504,7 +3504,7 @@
     created_at: 2018-06-06 07:19:22
     updated_at: 2018-06-06 07:19:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3518,7 +3518,7 @@
     created_at: 2018-06-06 07:19:23
     updated_at: 2018-06-06 07:19:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3532,7 +3532,7 @@
     created_at: 2018-06-06 07:21:03
     updated_at: 2018-06-06 07:21:03
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3546,7 +3546,7 @@
     created_at: 2018-06-06 07:19:23
     updated_at: 2018-06-06 07:19:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3560,7 +3560,7 @@
     created_at: 2018-06-06 07:19:23
     updated_at: 2018-06-06 07:19:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3574,7 +3574,7 @@
     created_at: 2018-06-06 07:19:23
     updated_at: 2018-06-06 07:19:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3588,7 +3588,7 @@
     created_at: 2018-06-06 07:18:25
     updated_at: 2018-06-06 07:18:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3602,7 +3602,7 @@
     created_at: 2018-06-06 07:16:34
     updated_at: 2018-06-06 07:16:34
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3616,7 +3616,7 @@
     created_at: 2018-06-06 07:35:12
     updated_at: 2018-06-06 07:35:12
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3630,7 +3630,7 @@
     created_at: 2018-06-06 07:18:08
     updated_at: 2018-06-06 07:18:08
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3644,7 +3644,7 @@
     created_at: 2018-06-06 07:33:34
     updated_at: 2018-06-06 07:33:34
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3658,7 +3658,7 @@
     created_at: 2018-06-06 07:35:12
     updated_at: 2018-06-06 07:35:12
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3672,7 +3672,7 @@
     created_at: 2018-06-06 07:16:19
     updated_at: 2018-06-06 07:16:19
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3686,7 +3686,7 @@
     created_at: 2018-06-06 07:16:34
     updated_at: 2018-06-06 07:16:34
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3700,7 +3700,7 @@
     created_at: 2018-06-06 07:16:45
     updated_at: 2018-06-06 07:16:45
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3714,7 +3714,7 @@
     created_at: 2018-06-06 07:35:11
     updated_at: 2018-06-06 07:35:11
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3728,7 +3728,7 @@
     created_at: 2018-06-06 07:19:21
     updated_at: 2018-06-06 07:19:21
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3742,7 +3742,7 @@
     created_at: 2018-06-06 07:35:11
     updated_at: 2018-06-06 07:35:11
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3756,7 +3756,7 @@
     created_at: 2018-06-06 07:47:05
     updated_at: 2018-06-06 07:47:05
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3770,7 +3770,7 @@
     created_at: 2018-06-06 07:16:19
     updated_at: 2018-06-06 07:16:19
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3784,7 +3784,7 @@
     created_at: 2018-06-06 07:29:34
     updated_at: 2018-06-06 07:29:34
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3798,7 +3798,7 @@
     created_at: 2018-06-06 07:17:13
     updated_at: 2018-06-06 07:17:13
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3812,7 +3812,7 @@
     created_at: 2018-06-06 07:22:12
     updated_at: 2018-06-06 07:22:12
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3826,7 +3826,7 @@
     created_at: 2018-06-06 07:20:54
     updated_at: 2018-06-06 07:20:54
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3840,7 +3840,7 @@
     created_at: 2018-06-06 07:18:08
     updated_at: 2018-06-06 07:18:08
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3854,7 +3854,7 @@
     created_at: 2018-06-06 07:35:37
     updated_at: 2018-06-06 07:35:37
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3868,7 +3868,7 @@
     created_at: 2018-06-06 07:32:57
     updated_at: 2018-06-06 07:32:57
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3882,7 +3882,7 @@
     created_at: 2018-06-06 07:17:13
     updated_at: 2018-06-06 07:17:13
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3896,7 +3896,7 @@
     created_at: 2018-06-06 07:35:10
     updated_at: 2018-06-06 07:35:10
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3910,7 +3910,7 @@
     created_at: 2018-06-06 07:19:22
     updated_at: 2018-06-06 07:19:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3924,7 +3924,7 @@
     created_at: 2018-06-06 07:29:34
     updated_at: 2018-06-06 07:29:34
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3938,7 +3938,7 @@
     created_at: 2018-06-06 07:24:05
     updated_at: 2018-06-06 07:24:05
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3952,7 +3952,7 @@
     created_at: 2018-06-06 07:24:03
     updated_at: 2018-06-06 07:24:03
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3966,7 +3966,7 @@
     created_at: 2018-06-06 07:24:04
     updated_at: 2018-06-06 07:24:04
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3980,7 +3980,7 @@
     created_at: 2018-06-06 07:23:36
     updated_at: 2018-06-06 07:23:36
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -3994,7 +3994,7 @@
     created_at: 2018-06-06 07:43:45
     updated_at: 2018-06-06 07:43:45
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4008,7 +4008,7 @@
     created_at: 2018-06-06 07:21:17
     updated_at: 2018-06-06 07:21:17
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4022,7 +4022,7 @@
     created_at: 2018-06-06 07:21:17
     updated_at: 2018-06-06 07:21:17
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4036,7 +4036,7 @@
     created_at: 2018-06-06 07:22:50
     updated_at: 2018-06-06 07:22:50
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4050,7 +4050,7 @@
     created_at: 2018-06-06 07:28:14
     updated_at: 2018-06-06 07:28:14
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4064,7 +4064,7 @@
     created_at: 2018-06-06 07:21:17
     updated_at: 2018-06-06 07:21:17
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4078,7 +4078,7 @@
     created_at: 2018-06-06 07:42:54
     updated_at: 2018-06-06 07:42:54
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4092,7 +4092,7 @@
     created_at: 2018-06-06 11:41:30
     updated_at: 2018-06-06 11:41:30
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4106,7 +4106,7 @@
     created_at: 2018-06-06 07:21:18
     updated_at: 2018-06-06 07:21:18
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4120,7 +4120,7 @@
     created_at: 2018-06-06 07:16:35
     updated_at: 2018-06-06 07:16:35
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4134,7 +4134,7 @@
     created_at: 2018-06-06 07:24:04
     updated_at: 2018-06-06 07:24:04
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4148,7 +4148,7 @@
     created_at: 2018-06-06 07:17:41
     updated_at: 2018-06-06 07:17:41
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4162,7 +4162,7 @@
     created_at: 2018-06-06 07:42:55
     updated_at: 2018-06-06 07:42:55
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4176,7 +4176,7 @@
     created_at: 2018-06-06 07:19:11
     updated_at: 2018-06-06 07:19:11
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4190,7 +4190,7 @@
     created_at: 2018-06-06 07:21:19
     updated_at: 2018-06-06 07:21:19
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4204,7 +4204,7 @@
     created_at: 2018-06-06 07:21:17
     updated_at: 2018-06-06 07:21:17
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4218,7 +4218,7 @@
     created_at: 2018-06-06 07:16:34
     updated_at: 2018-06-06 07:16:34
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4232,7 +4232,7 @@
     created_at: 2018-06-06 07:21:19
     updated_at: 2018-06-06 07:21:19
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4246,7 +4246,7 @@
     created_at: 2018-06-06 07:59:08
     updated_at: 2018-06-06 07:59:08
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4260,7 +4260,7 @@
     created_at: 2018-06-06 07:21:20
     updated_at: 2018-06-06 07:21:20
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4274,7 +4274,7 @@
     created_at: 2018-06-06 07:55:30
     updated_at: 2018-06-06 07:55:30
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4288,7 +4288,7 @@
     created_at: 2018-06-06 08:02:33
     updated_at: 2018-06-06 08:02:33
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4302,7 +4302,7 @@
     created_at: 2018-06-06 07:21:17
     updated_at: 2018-06-06 07:21:17
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4316,7 +4316,7 @@
     created_at: 2018-06-06 11:41:31
     updated_at: 2018-06-06 11:41:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4330,7 +4330,7 @@
     created_at: 2018-06-06 07:21:18
     updated_at: 2018-06-06 07:21:18
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4344,7 +4344,7 @@
     created_at: 2018-06-06 07:21:18
     updated_at: 2018-06-06 07:21:18
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4358,7 +4358,7 @@
     created_at: 2018-06-06 07:16:31
     updated_at: 2018-06-06 07:16:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4372,7 +4372,7 @@
     created_at: 2018-06-06 07:40:13
     updated_at: 2018-06-06 07:40:13
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4386,7 +4386,7 @@
     created_at: 2018-06-06 07:24:04
     updated_at: 2018-06-06 07:24:04
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4400,7 +4400,7 @@
     created_at: 2018-06-06 07:17:47
     updated_at: 2018-06-06 07:17:47
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4414,7 +4414,7 @@
     created_at: 2018-06-06 07:24:05
     updated_at: 2018-06-06 07:24:05
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4428,7 +4428,7 @@
     created_at: 2018-06-06 07:42:54
     updated_at: 2018-06-06 07:42:54
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4442,7 +4442,7 @@
     created_at: 2018-06-06 07:19:23
     updated_at: 2018-06-06 07:19:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4456,7 +4456,7 @@
     created_at: 2018-06-06 07:48:25
     updated_at: 2018-06-06 07:48:25
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4470,7 +4470,7 @@
     created_at: 2018-06-06 07:19:11
     updated_at: 2018-06-06 07:19:11
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4484,7 +4484,7 @@
     created_at: 2018-06-06 07:19:11
     updated_at: 2018-06-06 07:19:11
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4498,7 +4498,7 @@
     created_at: 2018-06-06 07:21:18
     updated_at: 2018-06-06 07:21:18
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4512,7 +4512,7 @@
     created_at: 2018-06-06 07:24:03
     updated_at: 2018-06-06 07:24:03
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4526,7 +4526,7 @@
     created_at: 2018-06-06 07:53:41
     updated_at: 2018-06-06 07:53:41
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4540,7 +4540,7 @@
     created_at: 2018-06-06 07:19:14
     updated_at: 2018-06-06 07:19:14
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4554,7 +4554,7 @@
     created_at: 2018-06-06 07:55:29
     updated_at: 2018-06-06 07:55:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4568,7 +4568,7 @@
     created_at: 2018-06-06 11:41:28
     updated_at: 2018-06-06 11:41:28
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4582,7 +4582,7 @@
     created_at: 2018-06-06 07:23:38
     updated_at: 2018-06-06 07:23:38
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4596,7 +4596,7 @@
     created_at: 2018-06-06 07:21:20
     updated_at: 2018-06-06 07:21:20
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4610,7 +4610,7 @@
     created_at: 2018-06-06 07:20:22
     updated_at: 2018-06-06 07:20:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4624,7 +4624,7 @@
     created_at: 2018-06-06 07:48:26
     updated_at: 2018-06-06 07:48:26
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4638,7 +4638,7 @@
     created_at: 2018-06-06 07:22:54
     updated_at: 2018-06-06 07:22:54
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4652,7 +4652,7 @@
     created_at: 2018-06-06 07:17:41
     updated_at: 2018-06-06 07:17:41
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4666,7 +4666,7 @@
     created_at: 2018-06-06 11:41:29
     updated_at: 2018-06-06 11:41:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4680,7 +4680,7 @@
     created_at: 2018-06-06 07:46:53
     updated_at: 2018-06-06 07:46:53
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4694,7 +4694,7 @@
     created_at: 2018-06-06 07:16:54
     updated_at: 2018-06-06 07:16:54
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4708,7 +4708,7 @@
     created_at: 2018-06-06 07:55:28
     updated_at: 2018-06-06 07:55:28
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4722,7 +4722,7 @@
     created_at: 2018-06-06 07:24:06
     updated_at: 2018-06-06 07:24:06
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4736,7 +4736,7 @@
     created_at: 2018-06-06 07:42:18
     updated_at: 2018-06-06 07:42:18
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4750,7 +4750,7 @@
     created_at: 2018-06-06 07:16:35
     updated_at: 2018-06-06 07:16:35
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4764,7 +4764,7 @@
     created_at: 2018-06-06 07:28:21
     updated_at: 2018-06-06 07:28:21
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4778,7 +4778,7 @@
     created_at: 2018-06-06 07:21:19
     updated_at: 2018-06-06 07:21:19
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4792,7 +4792,7 @@
     created_at: 2018-06-06 07:16:54
     updated_at: 2018-06-06 07:16:54
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4806,7 +4806,7 @@
     created_at: 2018-06-06 07:24:04
     updated_at: 2018-06-06 07:24:04
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4820,7 +4820,7 @@
     created_at: 2018-06-06 07:42:53
     updated_at: 2018-06-06 07:42:53
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4834,7 +4834,7 @@
     created_at: 2018-06-06 07:15:58
     updated_at: 2018-06-06 07:15:58
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4848,7 +4848,7 @@
     created_at: 2018-06-06 07:55:29
     updated_at: 2018-06-06 07:55:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4862,7 +4862,7 @@
     created_at: 2018-06-06 07:21:18
     updated_at: 2018-06-06 07:21:18
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4876,7 +4876,7 @@
     created_at: 2018-06-06 07:53:41
     updated_at: 2018-06-06 07:53:41
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4890,7 +4890,7 @@
     created_at: 2018-06-06 07:21:20
     updated_at: 2018-06-06 07:21:20
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4904,7 +4904,7 @@
     created_at: 2018-06-06 07:19:27
     updated_at: 2018-06-06 07:19:27
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4918,7 +4918,7 @@
     created_at: 2018-06-06 11:41:28
     updated_at: 2018-06-06 11:41:28
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4932,7 +4932,7 @@
     created_at: 2018-06-06 07:24:58
     updated_at: 2018-06-06 07:24:58
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4946,7 +4946,7 @@
     created_at: 2018-06-06 07:49:53
     updated_at: 2018-06-06 07:49:53
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4960,7 +4960,7 @@
     created_at: 2018-06-06 07:42:54
     updated_at: 2018-06-06 07:42:54
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4974,7 +4974,7 @@
     created_at: 2018-06-06 07:16:54
     updated_at: 2018-06-06 07:16:54
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -4988,7 +4988,7 @@
     created_at: 2018-06-06 07:19:14
     updated_at: 2018-06-06 07:19:14
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5002,7 +5002,7 @@
     created_at: 2018-06-06 07:21:17
     updated_at: 2018-06-06 07:21:17
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5016,7 +5016,7 @@
     created_at: 2018-06-06 07:24:03
     updated_at: 2018-06-06 07:24:03
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5030,7 +5030,7 @@
     created_at: 2018-06-06 07:21:19
     updated_at: 2018-06-06 07:21:19
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5044,7 +5044,7 @@
     created_at: 2018-06-06 07:21:18
     updated_at: 2018-06-06 07:21:18
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5058,7 +5058,7 @@
     created_at: 2018-06-06 07:42:39
     updated_at: 2018-06-06 07:42:39
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5072,7 +5072,7 @@
     created_at: 2018-06-06 11:41:29
     updated_at: 2018-06-06 11:41:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5086,7 +5086,7 @@
     created_at: 2018-06-06 09:01:37
     updated_at: 2018-06-06 09:01:37
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5100,7 +5100,7 @@
     created_at: 2018-06-06 09:00:04
     updated_at: 2018-06-06 09:00:04
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5114,7 +5114,7 @@
     created_at: 2018-06-06 09:05:31
     updated_at: 2018-06-06 09:05:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5128,7 +5128,7 @@
     created_at: 2018-06-06 19:32:32
     updated_at: 2018-06-06 19:32:32
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5142,7 +5142,7 @@
     created_at: 2018-06-06 09:03:07
     updated_at: 2018-06-06 09:03:07
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5156,7 +5156,7 @@
     created_at: 2018-06-06 08:59:09
     updated_at: 2018-06-06 08:59:09
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5170,7 +5170,7 @@
     created_at: 2018-06-06 08:58:47
     updated_at: 2018-06-06 08:58:47
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5184,7 +5184,7 @@
     created_at: 2018-06-06 09:03:07
     updated_at: 2018-06-06 09:03:07
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5198,7 +5198,7 @@
     created_at: 2018-06-06 09:03:07
     updated_at: 2018-06-06 09:03:07
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5212,7 +5212,7 @@
     created_at: 2018-06-06 09:03:07
     updated_at: 2018-06-06 09:03:07
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5226,7 +5226,7 @@
     created_at: 2018-06-06 11:16:01
     updated_at: 2018-06-06 11:16:01
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5240,7 +5240,7 @@
     created_at: 2018-06-06 09:03:07
     updated_at: 2018-06-06 09:03:07
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5254,7 +5254,7 @@
     created_at: 2018-06-06 09:16:28
     updated_at: 2018-06-06 09:16:28
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5268,7 +5268,7 @@
     created_at: 2018-06-06 09:01:44
     updated_at: 2018-06-06 09:01:44
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5282,7 +5282,7 @@
     created_at: 2018-06-06 09:16:28
     updated_at: 2018-06-06 09:16:28
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5296,7 +5296,7 @@
     created_at: 2018-06-06 09:16:26
     updated_at: 2018-06-06 09:16:26
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5310,7 +5310,7 @@
     created_at: 2018-06-06 09:03:07
     updated_at: 2018-06-06 09:03:07
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5324,7 +5324,7 @@
     created_at: 2018-06-06 09:18:32
     updated_at: 2018-06-06 09:18:32
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5338,7 +5338,7 @@
     created_at: 2018-06-06 20:45:43
     updated_at: 2018-06-06 20:45:43
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5352,7 +5352,7 @@
     created_at: 2018-06-06 09:03:06
     updated_at: 2018-06-06 09:03:06
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5366,7 +5366,7 @@
     created_at: 2018-06-06 09:23:06
     updated_at: 2018-06-06 09:23:06
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5380,7 +5380,7 @@
     created_at: 2018-06-06 09:23:16
     updated_at: 2018-06-06 09:23:16
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5394,7 +5394,7 @@
     created_at: 2018-06-06 09:23:07
     updated_at: 2018-06-06 09:23:07
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5408,7 +5408,7 @@
     created_at: 2018-06-06 08:59:28
     updated_at: 2018-06-06 08:59:28
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5422,7 +5422,7 @@
     created_at: 2018-06-06 09:01:21
     updated_at: 2018-06-06 09:01:21
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5436,7 +5436,7 @@
     created_at: 2018-06-06 09:04:57
     updated_at: 2018-06-06 09:04:57
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5450,7 +5450,7 @@
     created_at: 2018-06-06 09:03:06
     updated_at: 2018-06-06 09:03:06
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5464,7 +5464,7 @@
     created_at: 2018-06-06 09:01:05
     updated_at: 2018-06-06 09:01:05
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5478,7 +5478,7 @@
     created_at: 2018-06-06 09:23:07
     updated_at: 2018-06-06 09:23:07
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5492,7 +5492,7 @@
     created_at: 2018-06-06 09:23:05
     updated_at: 2018-06-06 09:23:05
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5506,7 +5506,7 @@
     created_at: 2018-06-06 08:59:28
     updated_at: 2018-06-06 08:59:28
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5520,7 +5520,7 @@
     created_at: 2018-06-06 09:24:53
     updated_at: 2018-06-06 09:24:53
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5534,7 +5534,7 @@
     created_at: 2018-06-06 09:01:20
     updated_at: 2018-06-06 09:01:20
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5548,7 +5548,7 @@
     created_at: 2018-06-06 08:59:24
     updated_at: 2018-06-06 08:59:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5562,7 +5562,7 @@
     created_at: 2018-06-06 09:00:04
     updated_at: 2018-06-06 09:00:04
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5576,7 +5576,7 @@
     created_at: 2018-06-06 09:04:45
     updated_at: 2018-06-06 09:04:45
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5590,7 +5590,7 @@
     created_at: 2018-06-06 09:23:07
     updated_at: 2018-06-06 09:23:07
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5604,7 +5604,7 @@
     created_at: 2018-06-06 09:16:26
     updated_at: 2018-06-06 09:16:26
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5632,7 +5632,7 @@
     created_at: 2018-06-06 07:23:54
     updated_at: 2018-06-06 07:23:54
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5646,7 +5646,7 @@
     created_at: 2018-06-06 07:49:57
     updated_at: 2018-06-06 07:49:57
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5660,7 +5660,7 @@
     created_at: 2018-06-06 08:11:00
     updated_at: 2018-06-06 08:11:00
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5674,7 +5674,7 @@
     created_at: 2018-06-06 07:19:44
     updated_at: 2018-06-06 07:19:44
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5688,7 +5688,7 @@
     created_at: 2018-06-06 07:51:23
     updated_at: 2018-06-06 07:51:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5702,7 +5702,7 @@
     created_at: 2018-06-06 07:21:51
     updated_at: 2018-06-06 07:21:51
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5716,7 +5716,7 @@
     created_at: 2018-06-06 08:08:39
     updated_at: 2018-06-06 08:08:39
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5730,7 +5730,7 @@
     created_at: 2018-06-06 07:35:31
     updated_at: 2018-06-06 07:35:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5744,7 +5744,7 @@
     created_at: 2018-06-06 07:50:13
     updated_at: 2018-06-06 07:50:13
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5758,7 +5758,7 @@
     created_at: 2018-06-06 07:20:29
     updated_at: 2018-06-06 07:20:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5772,7 +5772,7 @@
     created_at: 2018-06-06 08:06:50
     updated_at: 2018-06-06 08:06:50
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5786,7 +5786,7 @@
     created_at: 2018-06-06 08:00:50
     updated_at: 2018-06-06 08:00:50
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5800,7 +5800,7 @@
     created_at: 2018-06-06 07:23:52
     updated_at: 2018-06-06 07:23:52
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5814,7 +5814,7 @@
     created_at: 2018-06-06 07:50:13
     updated_at: 2018-06-06 07:50:13
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5828,7 +5828,7 @@
     created_at: 2018-06-06 07:50:14
     updated_at: 2018-06-06 07:50:14
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5842,7 +5842,7 @@
     created_at: 2018-06-06 07:21:49
     updated_at: 2018-06-06 07:21:49
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5856,7 +5856,7 @@
     created_at: 2018-06-06 16:00:27
     updated_at: 2018-06-06 16:00:27
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5870,7 +5870,7 @@
     created_at: 2018-06-06 07:21:50
     updated_at: 2018-06-06 07:21:50
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5884,7 +5884,7 @@
     created_at: 2018-06-06 07:25:43
     updated_at: 2018-06-06 07:25:43
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5898,7 +5898,7 @@
     created_at: 2018-06-06 07:21:50
     updated_at: 2018-06-06 07:21:50
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5912,7 +5912,7 @@
     created_at: 2018-06-06 07:21:52
     updated_at: 2018-06-06 07:21:52
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5926,7 +5926,7 @@
     created_at: 2018-06-06 08:24:53
     updated_at: 2018-06-06 08:24:53
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5940,7 +5940,7 @@
     created_at: 2018-06-06 07:50:15
     updated_at: 2018-06-06 07:50:15
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5954,7 +5954,7 @@
     created_at: 2018-06-06 08:11:00
     updated_at: 2018-06-06 08:11:00
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5968,7 +5968,7 @@
     created_at: 2018-06-06 08:06:31
     updated_at: 2018-06-06 08:06:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5982,7 +5982,7 @@
     created_at: 2018-06-06 07:25:48
     updated_at: 2018-06-06 07:25:48
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -5996,7 +5996,7 @@
     created_at: 2018-06-06 12:56:39
     updated_at: 2018-06-06 12:56:39
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6010,7 +6010,7 @@
     created_at: 2018-06-06 07:20:08
     updated_at: 2018-06-06 07:20:08
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6024,7 +6024,7 @@
     created_at: 2018-06-06 07:25:43
     updated_at: 2018-06-06 07:25:43
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6038,7 +6038,7 @@
     created_at: 2018-06-06 07:21:52
     updated_at: 2018-06-06 07:21:52
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6052,7 +6052,7 @@
     created_at: 2018-06-06 07:21:52
     updated_at: 2018-06-06 07:21:52
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6066,7 +6066,7 @@
     created_at: 2018-06-06 12:28:46
     updated_at: 2018-06-06 12:28:46
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6080,7 +6080,7 @@
     created_at: 2018-06-06 07:19:06
     updated_at: 2018-06-06 07:19:06
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6094,7 +6094,7 @@
     created_at: 2018-06-06 07:19:06
     updated_at: 2018-06-06 07:19:06
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6108,7 +6108,7 @@
     created_at: 2018-06-06 07:29:15
     updated_at: 2018-06-06 07:29:15
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6122,7 +6122,7 @@
     created_at: 2018-06-06 08:06:29
     updated_at: 2018-06-06 08:06:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6136,7 +6136,7 @@
     created_at: 2018-06-06 07:30:15
     updated_at: 2018-06-06 07:30:15
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6150,7 +6150,7 @@
     created_at: 2018-06-06 12:56:39
     updated_at: 2018-06-06 12:56:39
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6164,7 +6164,7 @@
     created_at: 2018-06-06 07:21:43
     updated_at: 2018-06-06 07:21:43
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6178,7 +6178,7 @@
     created_at: 2018-06-06 07:24:05
     updated_at: 2018-06-06 07:24:05
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6192,7 +6192,7 @@
     created_at: 2018-06-06 08:06:50
     updated_at: 2018-06-06 08:06:50
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6206,7 +6206,7 @@
     created_at: 2018-06-06 08:00:50
     updated_at: 2018-06-06 08:00:50
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6220,7 +6220,7 @@
     created_at: 2018-06-06 07:26:06
     updated_at: 2018-06-06 07:26:06
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6234,7 +6234,7 @@
     created_at: 2018-06-06 07:24:42
     updated_at: 2018-06-06 07:24:42
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6248,7 +6248,7 @@
     created_at: 2018-06-06 07:25:42
     updated_at: 2018-06-06 07:25:42
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6262,7 +6262,7 @@
     created_at: 2018-06-06 07:16:09
     updated_at: 2018-06-06 07:16:09
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6276,7 +6276,7 @@
     created_at: 2018-06-06 07:19:44
     updated_at: 2018-06-06 07:19:44
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6290,7 +6290,7 @@
     created_at: 2018-06-06 08:15:58
     updated_at: 2018-06-06 08:15:58
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6304,7 +6304,7 @@
     created_at: 2018-06-06 07:19:05
     updated_at: 2018-06-06 07:19:05
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6318,7 +6318,7 @@
     created_at: 2018-06-06 07:50:13
     updated_at: 2018-06-06 07:50:13
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6332,7 +6332,7 @@
     created_at: 2018-06-06 07:21:49
     updated_at: 2018-06-06 07:21:49
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6346,7 +6346,7 @@
     created_at: 2018-06-06 08:06:31
     updated_at: 2018-06-06 08:06:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6360,7 +6360,7 @@
     created_at: 2018-06-06 07:21:50
     updated_at: 2018-06-06 07:21:50
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6374,7 +6374,7 @@
     created_at: 2018-06-06 07:50:13
     updated_at: 2018-06-06 07:50:13
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6388,7 +6388,7 @@
     created_at: 2018-06-06 07:30:15
     updated_at: 2018-06-06 07:30:15
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6402,7 +6402,7 @@
     created_at: 2018-06-06 07:15:32
     updated_at: 2018-06-06 07:15:32
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6416,7 +6416,7 @@
     created_at: 2018-06-07 14:29:03
     updated_at: 2018-06-07 14:29:03
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6430,7 +6430,7 @@
     created_at: 2018-06-06 07:19:44
     updated_at: 2018-06-06 07:19:44
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6444,7 +6444,7 @@
     created_at: 2018-06-06 07:59:14
     updated_at: 2018-06-06 07:59:14
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6458,7 +6458,7 @@
     created_at: 2018-06-06 08:11:57
     updated_at: 2018-06-06 08:11:57
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6472,7 +6472,7 @@
     created_at: 2018-06-06 07:14:52
     updated_at: 2018-06-06 07:14:52
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6486,7 +6486,7 @@
     created_at: 2018-06-06 08:06:29
     updated_at: 2018-06-06 08:06:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6500,7 +6500,7 @@
     created_at: 2018-06-06 08:06:26
     updated_at: 2018-06-06 08:06:26
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6514,7 +6514,7 @@
     created_at: 2018-06-06 07:49:56
     updated_at: 2018-06-06 07:49:56
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6528,7 +6528,7 @@
     created_at: 2018-06-06 07:21:52
     updated_at: 2018-06-06 07:21:52
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6542,7 +6542,7 @@
     created_at: 2018-06-06 07:21:52
     updated_at: 2018-06-06 07:21:52
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6556,7 +6556,7 @@
     created_at: 2018-06-06 18:18:57
     updated_at: 2018-06-06 18:18:57
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6570,7 +6570,7 @@
     created_at: 2018-06-06 07:26:06
     updated_at: 2018-06-06 07:26:06
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6584,7 +6584,7 @@
     created_at: 2018-06-06 07:19:05
     updated_at: 2018-06-06 07:19:05
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6598,7 +6598,7 @@
     created_at: 2018-06-06 07:20:29
     updated_at: 2018-06-06 07:20:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6612,7 +6612,7 @@
     created_at: 2018-06-06 07:21:50
     updated_at: 2018-06-06 07:21:50
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6626,7 +6626,7 @@
     created_at: 2018-06-06 07:49:56
     updated_at: 2018-06-06 07:49:56
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6640,7 +6640,7 @@
     created_at: 2018-06-06 08:06:29
     updated_at: 2018-06-06 08:06:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6654,7 +6654,7 @@
     created_at: 2018-06-06 07:50:13
     updated_at: 2018-06-06 07:50:13
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6668,7 +6668,7 @@
     created_at: 2018-06-06 07:19:07
     updated_at: 2018-06-06 07:19:07
     prod_name: SSC Dark & Natural Hair Color Kit
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6682,7 +6682,7 @@
     created_at: 2018-06-06 10:05:52
     updated_at: 2018-06-06 10:05:52
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6696,7 +6696,7 @@
     created_at: 2018-06-06 09:55:24
     updated_at: 2018-06-06 09:55:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6710,7 +6710,7 @@
     created_at: 2018-06-06 09:55:36
     updated_at: 2018-06-06 09:55:36
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6724,7 +6724,7 @@
     created_at: 2018-06-06 08:08:51
     updated_at: 2018-06-06 08:08:51
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6738,7 +6738,7 @@
     created_at: 2018-06-06 07:45:23
     updated_at: 2018-06-06 07:45:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6752,7 +6752,7 @@
     created_at: 2018-06-06 07:21:35
     updated_at: 2018-06-06 07:21:35
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6766,7 +6766,7 @@
     created_at: 2018-06-06 07:45:23
     updated_at: 2018-06-06 07:45:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6780,7 +6780,7 @@
     created_at: 2018-06-06 07:21:41
     updated_at: 2018-06-06 07:21:41
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6794,7 +6794,7 @@
     created_at: 2018-06-06 07:17:10
     updated_at: 2018-06-06 07:17:10
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6808,7 +6808,7 @@
     created_at: 2018-06-06 07:17:06
     updated_at: 2018-06-06 07:17:06
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6822,7 +6822,7 @@
     created_at: 2018-06-06 07:15:49
     updated_at: 2018-06-06 07:15:49
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6836,7 +6836,7 @@
     created_at: 2018-06-06 07:45:21
     updated_at: 2018-06-06 07:45:21
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6850,7 +6850,7 @@
     created_at: 2018-06-06 07:14:47
     updated_at: 2018-06-06 07:14:47
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6864,7 +6864,7 @@
     created_at: 2018-06-06 07:21:02
     updated_at: 2018-06-06 07:21:02
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6878,7 +6878,7 @@
     created_at: 2018-06-06 10:52:38
     updated_at: 2018-06-06 10:52:38
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6892,7 +6892,7 @@
     created_at: 2018-06-06 07:17:10
     updated_at: 2018-06-06 07:17:10
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6906,7 +6906,7 @@
     created_at: 2018-06-06 07:21:40
     updated_at: 2018-06-06 07:21:40
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6920,7 +6920,7 @@
     created_at: 2018-06-06 07:17:07
     updated_at: 2018-06-06 07:17:07
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6934,7 +6934,7 @@
     created_at: 2018-06-06 07:19:54
     updated_at: 2018-06-06 07:19:54
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6948,7 +6948,7 @@
     created_at: 2018-06-06 07:18:45
     updated_at: 2018-06-06 07:18:45
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6962,7 +6962,7 @@
     created_at: 2018-06-06 07:17:06
     updated_at: 2018-06-06 07:17:06
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6976,7 +6976,7 @@
     created_at: 2018-06-06 07:17:11
     updated_at: 2018-06-06 07:17:11
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -6990,7 +6990,7 @@
     created_at: 2018-06-06 07:48:10
     updated_at: 2018-06-06 07:48:10
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7004,7 +7004,7 @@
     created_at: 2018-06-06 07:15:14
     updated_at: 2018-06-06 07:15:14
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7018,7 +7018,7 @@
     created_at: 2018-06-06 07:17:22
     updated_at: 2018-06-06 07:17:22
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7032,7 +7032,7 @@
     created_at: 2018-06-06 07:27:30
     updated_at: 2018-06-06 07:27:30
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7046,7 +7046,7 @@
     created_at: 2018-06-06 10:52:32
     updated_at: 2018-06-06 10:52:32
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7060,7 +7060,7 @@
     created_at: 2018-06-06 07:45:32
     updated_at: 2018-06-06 07:45:32
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7074,7 +7074,7 @@
     created_at: 2018-06-06 07:45:21
     updated_at: 2018-06-06 07:45:21
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7088,7 +7088,7 @@
     created_at: 2018-06-06 07:17:07
     updated_at: 2018-06-06 07:17:07
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7102,7 +7102,7 @@
     created_at: 2018-06-06 07:20:26
     updated_at: 2018-06-06 07:20:26
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7116,7 +7116,7 @@
     created_at: 2018-06-06 07:45:23
     updated_at: 2018-06-06 07:45:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7130,7 +7130,7 @@
     created_at: 2018-06-06 07:17:07
     updated_at: 2018-06-06 07:17:07
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7144,7 +7144,7 @@
     created_at: 2018-06-06 07:15:44
     updated_at: 2018-06-06 07:15:44
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7158,7 +7158,7 @@
     created_at: 2018-06-06 07:17:33
     updated_at: 2018-06-06 07:17:33
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7172,7 +7172,7 @@
     created_at: 2018-06-06 07:21:28
     updated_at: 2018-06-06 07:21:28
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7186,7 +7186,7 @@
     created_at: 2018-06-06 07:15:05
     updated_at: 2018-06-06 07:15:05
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7200,7 +7200,7 @@
     created_at: 2018-06-06 07:45:23
     updated_at: 2018-06-06 07:45:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7214,7 +7214,7 @@
     created_at: 2018-06-06 10:52:32
     updated_at: 2018-06-06 10:52:32
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7228,7 +7228,7 @@
     created_at: 2018-06-06 07:15:00
     updated_at: 2018-06-06 07:15:00
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7242,7 +7242,7 @@
     created_at: 2018-06-06 07:21:27
     updated_at: 2018-06-06 07:21:27
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7256,7 +7256,7 @@
     created_at: 2018-06-06 07:48:10
     updated_at: 2018-06-06 07:48:10
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7270,7 +7270,7 @@
     created_at: 2018-06-06 07:38:24
     updated_at: 2018-06-06 07:38:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7284,7 +7284,7 @@
     created_at: 2018-06-06 07:45:20
     updated_at: 2018-06-06 07:45:20
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7298,7 +7298,7 @@
     created_at: 2018-06-06 07:17:06
     updated_at: 2018-06-06 07:17:06
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7312,7 +7312,7 @@
     created_at: 2018-06-06 07:35:18
     updated_at: 2018-06-06 07:35:18
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7326,7 +7326,7 @@
     created_at: 2018-06-06 07:45:32
     updated_at: 2018-06-06 07:45:32
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7340,7 +7340,7 @@
     created_at: 2018-06-06 10:33:49
     updated_at: 2018-06-06 10:33:49
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7354,7 +7354,7 @@
     created_at: 2018-06-06 07:38:24
     updated_at: 2018-06-06 07:38:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7368,7 +7368,7 @@
     created_at: 2018-06-06 07:21:40
     updated_at: 2018-06-06 07:21:40
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7382,7 +7382,7 @@
     created_at: 2018-06-06 07:27:29
     updated_at: 2018-06-06 07:27:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7396,7 +7396,7 @@
     created_at: 2018-06-06 07:35:35
     updated_at: 2018-06-06 07:35:35
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7410,7 +7410,7 @@
     created_at: 2018-06-06 07:21:27
     updated_at: 2018-06-06 07:21:27
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7424,7 +7424,7 @@
     created_at: 2018-06-06 08:08:29
     updated_at: 2018-06-06 08:08:29
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7438,7 +7438,7 @@
     created_at: 2018-06-06 07:45:20
     updated_at: 2018-06-06 07:45:20
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7452,7 +7452,7 @@
     created_at: 2018-06-06 07:48:10
     updated_at: 2018-06-06 07:48:10
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7466,7 +7466,7 @@
     created_at: 2018-06-06 07:21:28
     updated_at: 2018-06-06 07:21:28
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7480,7 +7480,7 @@
     created_at: 2018-06-06 07:45:23
     updated_at: 2018-06-06 07:45:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7494,7 +7494,7 @@
     created_at: 2018-06-06 07:45:23
     updated_at: 2018-06-06 07:45:23
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7508,7 +7508,7 @@
     created_at: 2018-06-06 07:45:31
     updated_at: 2018-06-06 07:45:31
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7522,7 +7522,7 @@
     created_at: 2018-06-06 07:38:24
     updated_at: 2018-06-06 07:38:24
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7536,7 +7536,7 @@
     created_at: 2018-06-06 07:21:41
     updated_at: 2018-06-06 07:21:41
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7550,7 +7550,7 @@
     created_at: 2018-06-06 07:17:06
     updated_at: 2018-06-06 07:17:06
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7564,7 +7564,7 @@
     created_at: 2018-06-06 07:24:30
     updated_at: 2018-06-06 07:24:30
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7578,7 +7578,7 @@
     created_at: 2018-06-06 07:19:04
     updated_at: 2018-06-06 07:19:04
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false
@@ -7592,7 +7592,7 @@
     created_at: 2018-06-06 07:15:44
     updated_at: 2018-06-06 07:15:44
     prod_name: ''
-    doc_date: ''
+    doc_date: '2020-06-12'
     rev_num: ''
     extraction_script: 12
     qa_checked: false

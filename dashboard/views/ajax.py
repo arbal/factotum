@@ -139,7 +139,7 @@ class DocumentListJson(FilterDatatableView):
     """
 
     model = DataDocument
-    columns = ["title", "data_group.group_type.title"]
+    columns = ["title", "data_group.group_type.title", "extractedtext.doc_date"]
 
     def get_initial_queryset(self):
         qs = super().get_initial_queryset()

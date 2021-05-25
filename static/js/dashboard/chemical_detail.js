@@ -165,6 +165,12 @@ function build_document_table() {
                 searchable: true,
                 className: "text-center",
                 width: "30%"
+            },
+            {
+                data: 2,
+                orderable: true,
+                searchable: true,
+                width: "30%"
             }
         ],
         dom: "<'row'<'col-6 form-inline'l><'col-6 form-inline'f>>" +

@@ -320,6 +320,7 @@
     dsstox: 9
     component: ''
     chem_detected_flag: null
+    provisional: True
 - model: dashboard.rawchem
   pk: 25
   fields:
