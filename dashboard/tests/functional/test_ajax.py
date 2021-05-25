@@ -107,6 +107,7 @@ class TestAjax(TestCase):
             "The Healing Garden Rose Whipped Body Lotion Re... / (Ascendia Brands Co., Inc)",
             data["data"][1][0],
         )
+        self.assertIn("2020-06-12", data["data"][1][2])
 
     def test_documents_by_puc(self):
         response = self.client.get("/d_json/?sid=DTXSID9022528&category=210")
@@ -115,6 +116,7 @@ class TestAjax(TestCase):
         self.assertEquals(data["recordsTotal"], 2)
         self.assertEquals(data["recordsFiltered"], 1)
         self.assertIn("Sun_INDS_89", data["data"][0][0])
+        self.assertIn("2018-04-07", data["data"][0][2])
 
     def test_documents_by_sid_and_puc(self):
         response = self.client.get("/d_json/?sid=DTXSID9020584&pid=759")
@@ -301,8 +303,9 @@ class TestAjax(TestCase):
         data = json.loads(response.content)
         self.assertEquals(data["recordsTotal"], 3)
         self.assertIn("/datadocument/156051/", data["data"][0][1])
-
         self.assertIn("Vitamin C Moisturizer SPF 30", data["data"][1][1])
+        self.assertIn("2020-06-12", data["data"][1][2])
+
         # harmonize a different reported functional use and make sure it
         # gets added to the JSON
         FunctionalUse.objects.filter(pk=18).update(category_id=3)
