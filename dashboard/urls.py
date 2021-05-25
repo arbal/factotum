@@ -206,6 +206,11 @@ urlpatterns = [
         dashboard.views.qa.qa_extraction_script,
         name="qa_extraction_script",
     ),
+path(
+        "qa/manualcomposition/<int:pk>/",
+        dashboard.views.qa.qa_manual_composition,
+        name="qa_manual_composition",
+    ),
     path(
         "qa/extractionscript/<int:pk>/summary",
         dashboard.views.qa.qa_extraction_script_summary,
