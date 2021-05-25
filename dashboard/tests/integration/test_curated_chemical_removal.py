@@ -110,10 +110,22 @@ class TestCuratedChemicalRemoval(StaticLiveServerTestCase):
                 "Raw chemical Chlorine/7782-50-5 linkages to curated chemical DTXSID1020273 have been removed",
             )
         )
-        raw_chem = RawChem.objects.filter(
+        rc_uncurated = RawChem.objects.filter(
             raw_chem_name="chlorine", raw_cas="7782-50-5"
-        ).first()
+        )
+        raw_chem = rc_uncurated.first()
         self.assertEqual(raw_chem.dsstox, None)
+
+        # Removing the dsstox reference should also cause the
+        # `provisional` attribute to be nulled out
+        for rc in rc_uncurated:
+            print(f"{rc.id}: provisional is {rc.provisional}, dsstox is {rc.dsstox}")
+
+        rc_provisional = rc_uncurated.filter(provisional=True)
+        self.assertIsNone(
+            rc_provisional.first(),
+            "All of the now-uncurated records should have provisional=False",
+        )
 
         audit_entry = AuditLog.objects.first()
         self.assertIsNotNone(audit_entry)

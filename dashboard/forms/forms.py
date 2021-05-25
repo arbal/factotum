@@ -701,5 +701,5 @@ class RemoveCuratedChemicalLinkageForm(forms.Form):
         sid = self.cleaned_data["sid"]
         RawChem.objects.filter(
             raw_chem_name=raw_chem_name, raw_cas=raw_cas, dsstox__sid=sid
-        ).update(dsstox_id=None)
+        ).update(dsstox_id=None, provisional=False)
         return f"Raw chemical {raw_chem_name}/{raw_cas} linkages to curated chemical {sid} have been removed"
