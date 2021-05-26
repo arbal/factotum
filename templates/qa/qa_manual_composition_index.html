@@ -31,8 +31,8 @@ QA Manually Extracted Composition Documents</h1>
         {% widthratio datagroup.approved_count datagroup.datadocument_count 100 as pct_complete %}
         <td>{{  pct_complete|default:"0" }}%</td>
         <td>
-            <a href="/"
-               title="Link to {{ datagroup.name }} Summary" id="a-ummary-link-{{datagroup.id}}">
+            <a href="{% url "qa_manual_composition_summary" datagroup.id %}"
+               title="Link to {{ datagroup.name }} Summary" id="summary-link-{{datagroup.id}}">
                 <span class="fa fa-tasks"></span>
             </a>
         </td>

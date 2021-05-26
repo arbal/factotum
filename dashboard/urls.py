@@ -202,6 +202,16 @@ urlpatterns = [
         name="qa_manual_composition_index",
     ),
     path(
+        "qa/manualcomposition/<int:pk>/summary",
+        views.qa_manual_composition_summary,
+        name="qa_manual_composition_summary",
+    ),
+    path(
+        "qa/manualcomposition/<int:pk>/summary/table",
+        dashboard.views.qa.ManualCompositionDataGroupSummaryTable.as_view(),
+        name="qa_manual_composition_summary_table",
+    ),
+    path(
         "qa/extractionscript/<int:pk>/",
         dashboard.views.qa.qa_extraction_script,
         name="qa_extraction_script",
