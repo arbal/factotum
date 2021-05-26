@@ -297,7 +297,7 @@ class FUCProductListJson(FilterDatatableView):
         "title",
         "document.title",
         "product_uber_puc.puc",
-        "product_uber_puc.classification_method.code",
+        "product_uber_puc.classification_method.name",
     ]
 
     def render_column(self, row, column):
