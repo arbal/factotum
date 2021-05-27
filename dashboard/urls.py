@@ -171,6 +171,11 @@ urlpatterns = [
         name="category_assignment",
     ),
     path(
+        "functional_use_cleanup/",
+        views.functional_use_cleanup,
+        name="functional_use_cleanup",
+    ),
+    path(
         "functional_use_curation/",
         views.functional_use_curation,
         name="functional_use_curation",

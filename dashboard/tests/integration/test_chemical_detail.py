@@ -408,6 +408,8 @@ class TestChemicalDetail(StaticLiveServerTestCase):
                 (By.XPATH, "//*[@id='documents_info']"), "Showing 1 to 8 of 8 entries"
             )
         )
+        # Click table heading
+        self.browser.find_element_by_id("lpkHeading").click()
         # filter by keyword
         keyword_filter = self.browser.find_element_by_id("keywords-1")
         keyword_filter.click()
