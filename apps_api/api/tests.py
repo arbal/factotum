@@ -4,7 +4,6 @@ import operator
 import base64
 import uuid
 from collections import OrderedDict
-from unittest import skip
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import connection, reset_queries
@@ -22,7 +21,6 @@ from dashboard import models
 from dashboard.tests.factories import ProductFactory
 
 
-@skip("No longer supported in OY5")
 class TestQueryCount(TestCase):
     """Test that the API list query performance is not dependant on the number
     of data returned.
@@ -49,14 +47,12 @@ class TestQueryCount(TestCase):
                 reset_queries()
 
 
-@skip("No longer supported in OY5")
 class TestMetrics(TestCase):
     def tet_metrics_endpoint(self):
         response = self.get("/metrics")
         self.assertEqual(response.status_code, 200)
 
 
-@skip("No longer supported in OY5")
 class TestPUC(TestCase):
     dtxsid = "DTXSID6026296"
 
@@ -119,7 +115,6 @@ class TestPUC(TestCase):
             )
 
 
-@skip("No longer supported in OY5")
 class TestProduct(TestCase):
     chem_id = 8
     dtxsid = "DTXSID6026296"
@@ -411,7 +406,6 @@ class TestProduct(TestCase):
         }
 
 
-@skip("No longer supported in OY5")
 class TestChemical(TestCase):
     qs = models.DSSToxLookup.objects.exclude(curated_chemical__isnull=True)
 
@@ -437,7 +431,6 @@ class TestChemical(TestCase):
         self.assertEqual(count, response["meta"]["pagination"]["count"])
 
 
-@skip("No longer supported in OY5")
 class TestChemicalInstance(TestCase):
     qs = models.RawChem.objects.select_subclasses().order_by("id")
 
@@ -613,7 +606,6 @@ class TestChemicalInstance(TestCase):
         )
 
 
-@skip("No longer supported in OY5")
 class TestChemicalPresence(TestCase):
     qs = models.ExtractedListPresenceTag.objects.all()
 
@@ -631,7 +623,6 @@ class TestChemicalPresence(TestCase):
         self.assertEqual(count, response["meta"]["pagination"]["count"])
 
 
-@skip("No longer supported in OY5")
 class TestDocument(TestCase):
     def test_retrieve(self):
         doc_id = 147446
@@ -663,7 +654,6 @@ class TestDocument(TestCase):
         self.assertEqual(count, response["meta"]["pagination"]["count"])
 
 
-@skip("No longer supported in OY5")
 class TestDataSource(TestCase):
     def test_retrieve(self):
         source = models.DataSource.objects.first()
@@ -682,7 +672,6 @@ class TestDataSource(TestCase):
         self.assertEqual(count, response["meta"]["pagination"]["count"])
 
 
-@skip("No longer supported in OY5")
 class TestDataGroup(TestCase):
     def test_retrieve(self):
         group = models.DataGroup.objects.first()
@@ -700,7 +689,6 @@ class TestDataGroup(TestCase):
         self.assertEqual(count, response["meta"]["pagination"]["count"])
 
 
-@skip("No longer supported in OY5")
 class TestFunctionalUse(TestCase):
     # disabled the invalid without filter assertion.
     # def test_no_filter_error(self):
@@ -709,8 +697,8 @@ class TestFunctionalUse(TestCase):
 
     def test_document_filter(self):
         document_id = 156051
-        dataset = models.FunctionalUse.objects.filter(
-            chem__extracted_text__data_document_id=document_id
+        dataset = models.FunctionalUseToRawChem.objects.filter(
+            chemical__extracted_text__data_document_id=document_id
         ).order_by("id")
         count = dataset.count()
         func_use = dataset.first()
@@ -721,16 +709,16 @@ class TestFunctionalUse(TestCase):
         data = response["results"][0]
         self.assertIsNotNone(data)
         self.assertEquals(
-            str(func_use.chem.extracted_text.data_document_id),
+            str(func_use.chemical.extracted_text.data_document_id),
             data["dataDocument"]["id"],
         )
-        self.assertEquals(str(func_use.chem.dsstox.id), data["chemical"]["id"])
-        self.assertEquals(func_use.chem.rid, data["rid"])
+        self.assertEquals(str(func_use.chemical.dsstox.id), data["chemical"]["id"])
+        self.assertEquals(func_use.chemical.rid, data["rid"])
 
     def test_chemical_filter(self):
         chemical_id = "DTXSID9022528"
-        dataset = models.FunctionalUse.objects.filter(
-            chem__dsstox__sid=chemical_id
+        dataset = models.FunctionalUseToRawChem.objects.filter(
+            chemical__dsstox__sid=chemical_id
         ).order_by("id")
         count = dataset.count()
         func_use = dataset.first()
@@ -741,17 +729,17 @@ class TestFunctionalUse(TestCase):
         data = response["results"][0]
         self.assertIsNotNone(data)
         self.assertEquals(
-            str(func_use.chem.extracted_text.data_document_id),
+            str(func_use.chemical.extracted_text.data_document_id),
             data["dataDocument"]["id"],
         )
-        self.assertEquals(str(func_use.chem.dsstox.id), data["chemical"]["id"])
-        self.assertEquals(func_use.chem.rid, data["rid"])
+        self.assertEquals(str(func_use.chemical.dsstox.id), data["chemical"]["id"])
+        self.assertEquals(func_use.chemical.rid, data["rid"])
 
     def test_category_filter(self):
         category_id = 1
-        dataset = models.FunctionalUse.objects.filter(category=category_id).order_by(
-            "id"
-        )
+        dataset = models.FunctionalUseToRawChem.objects.filter(
+            functional_use__category=category_id
+        ).order_by("id")
         count = dataset.count()
         func_use = dataset.first()
 
@@ -761,14 +749,29 @@ class TestFunctionalUse(TestCase):
         data = response["results"][0]
         self.assertIsNotNone(data)
         self.assertEquals(
-            str(func_use.chem.extracted_text.data_document_id),
+            str(func_use.chemical.extracted_text.data_document_id),
             data["dataDocument"]["id"],
         )
-        self.assertEquals(str(func_use.chem.dsstox.id), data["chemical"]["id"])
-        self.assertEquals(func_use.chem.rid, data["rid"])
+        self.assertEquals(str(func_use.chemical.dsstox.id), data["chemical"]["id"])
+        self.assertEquals(func_use.chemical.rid, data["rid"])
+
+    def test_reported_funcuse_filter(self):
+        reported_funcuse = "swell"
+        dataset = models.FunctionalUseToRawChem.objects.filter(
+            functional_use__report_funcuse=reported_funcuse
+        ).order_by("id")
+        count = dataset.count()
+
+        response = self.get(
+            "/functionalUses/?filter[reported_funcuse]=%s" % reported_funcuse
+        )
+        self.assertTrue("meta" in response)
+        self.assertEqual(count, response["meta"]["pagination"]["count"])
+        data = response["results"][0]
+        self.assertIsNotNone(data)
+        self.assertEquals(reported_funcuse, data["report_funcuse"])
 
 
-@skip("No longer supported in OY5")
 class TestFunctionalUseCategory(TestCase):
     def test_retrieve(self):
         fu_cat = models.FunctionalUseCategory.objects.first()
@@ -783,7 +786,6 @@ class TestFunctionalUseCategory(TestCase):
         self.assertEqual(count, response["meta"]["pagination"]["count"])
 
 
-@skip("No longer supported in OY5")
 class TestChemicalPresenceTags(TestCase):
     queryset = ChemicalPresenceTagViewSet.queryset
 
@@ -868,7 +870,6 @@ class TestChemicalPresenceTags(TestCase):
         )
 
 
-@skip("No longer supported in OY5")
 class TestComposition(TestCase):
     @classmethod
     def setUpClass(cls):
@@ -961,7 +962,6 @@ class TestComposition(TestCase):
             return value
 
 
-@skip("No longer supported in OY5")
 class TestclassificationMethod(TestCase):
     def test_retrieve(self):
         cm = models.ProductToPucClassificationMethod.objects.first()

@@ -297,7 +297,15 @@ class RawChemSerializer(ModelSerializer):
 
     class Meta:
         model = models.RawChem
-        fields = ["name", "cas", "rid", "chemical", "products", "dataDocument"]
+        fields = [
+            "name",
+            "cas",
+            "rid",
+            "chemical",
+            "provisional",
+            "products",
+            "dataDocument",
+        ]
         extra_kwargs = {
             "name": {"label": "Raw Chemical Name", "source": "raw_chem_name"},
             "cas": {"label": "Raw CAS", "source": "raw_cas"},
@@ -344,6 +352,7 @@ class ExtractedCompositionSerializer(RawChemSerializer):
         model = models.ExtractedComposition
         fields = [
             "chemical",
+            "provisional",
             "dataDocument",
             "products",
             "rid",
@@ -396,7 +405,15 @@ class ExtractedCompositionSerializer(RawChemSerializer):
 class ExtractedListPresenceSerializer(RawChemSerializer):
     class Meta:
         model = models.ExtractedListPresence
-        fields = ["name", "cas", "rid", "chemical", "products", "dataDocument"]
+        fields = [
+            "name",
+            "cas",
+            "rid",
+            "chemical",
+            "provisional",
+            "products",
+            "dataDocument",
+        ]
         extra_kwargs = {
             "name": {"label": "Raw Chemical Name", "source": "raw_chem_name"},
             "cas": {"label": "Raw CAS", "source": "raw_cas"},
@@ -406,7 +423,15 @@ class ExtractedListPresenceSerializer(RawChemSerializer):
 class ExtractedHHRecSerializer(RawChemSerializer):
     class Meta:
         model = models.ExtractedHHRec
-        fields = ["name", "cas", "rid", "chemical", "products", "dataDocument"]
+        fields = [
+            "name",
+            "cas",
+            "rid",
+            "chemical",
+            "provisional",
+            "products",
+            "dataDocument",
+        ]
         extra_kwargs = {
             "name": {"label": "Raw Chemical Name", "source": "raw_chem_name"},
             "cas": {"label": "Raw CAS", "source": "raw_cas"},
@@ -416,7 +441,15 @@ class ExtractedHHRecSerializer(RawChemSerializer):
 class ExtractedFunctionalUseSerializer(RawChemSerializer):
     class Meta:
         model = models.ExtractedFunctionalUse
-        fields = ["name", "cas", "rid", "chemical", "products", "dataDocument"]
+        fields = [
+            "name",
+            "cas",
+            "rid",
+            "chemical",
+            "provisional",
+            "products",
+            "dataDocument",
+        ]
         extra_kwargs = {
             "name": {"label": "Raw Chemical Name", "source": "raw_chem_name"},
             "cas": {"label": "Raw CAS", "source": "raw_cas"},
@@ -698,7 +731,7 @@ class FunctionalUseSerializer(ModelSerializer):
     }
 
     dataDocument = ResourceRelatedField(
-        source="chem.extracted_text.data_document",
+        source="chemical.extracted_text.data_document",
         model=models.DataDocument,
         read_only=True,
         related_link_view_name="functionalUse-related",
@@ -706,7 +739,7 @@ class FunctionalUseSerializer(ModelSerializer):
     )
 
     chemical = ResourceRelatedField(
-        source="chem.dsstox",
+        source="chemical.dsstox",
         model=models.DSSToxLookup,
         allow_null=True,
         required=False,
@@ -715,24 +748,47 @@ class FunctionalUseSerializer(ModelSerializer):
         self_link_view_name="functionalUse-relationships",
     )
 
+    category = ResourceRelatedField(
+        source="functional_use.category",
+        model=models.FunctionalUseCategory,
+        allow_null=True,
+        required=False,
+        read_only=True,
+        related_link_view_name="functionalUse-related",
+        self_link_view_name="functionalUse-relationships",
+    )
+
+    report_funcuse = serializers.CharField(
+        source="functional_use.report_funcuse",
+        read_only=True,
+        label="Reported Functional Use",
+        help_text="The chemical's functional use as described in the source document.",
+    )
+
     rid = serializers.CharField(
-        source="chem.rid",
+        source="chemical.rid",
         read_only=True,
         label="RID",
         help_text="The Chemical RID associated with this functional use record.",
     )
 
     class Meta:
-        model = models.FunctionalUse
+        model = models.FunctionalUseToRawChem
         fields = [
-            "chemical",
             "rid",
+            "chemical",
             "category",
             "dataDocument",
             "report_funcuse",
             "url",
         ]
         extra_kwargs = {
+            "rid": {
+                "label": "RID",
+                "help_text": "The RID of the chemical to whicht he reported functional use has been assigned.",
+                "related_link_view_name": "functionalUse-related",
+                "self_link_view_name": "functionalUse-relationships",
+            },
             "category": {
                 "label": "Category",
                 "help_text": "The Functional Use Category associated with this functional use record.",

@@ -63,23 +63,28 @@ class ProductFilter(filters.FilterSet):
 
 class FunctionalUseFilter(filters.FilterSet):
     data_document = filters.NumberFilter(
-        field_name="chem__extracted_text__data_document_id",
+        field_name="chemical__extracted_text__data_document_id",
         help_text="Document ID to filter the functional use against",
         initial="156051",
     )
     chemical = filters.CharFilter(
-        field_name="chem__dsstox__sid",
+        field_name="chemical__dsstox__sid",
         help_text="Chemical SID to filter the functional use against",
         initial="DTXSID9022528",
     )
     category = filters.NumberFilter(
-        field_name="category",
+        field_name="functional_use__category_id",
         help_text="Functional Use Category ID to filter the functional use against",
         initial="1",
     )
+    reported_funcuse = filters.CharFilter(
+        field_name="functional_use__report_funcuse",
+        help_text="The reported functional use to filter the functional use against",
+        initial="Abrasive",
+    )
 
     class Meta:
-        model = models.FunctionalUse
+        model = models.FunctionalUseToRawChem
         fields = []
 
 
