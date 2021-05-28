@@ -139,7 +139,7 @@ class DocumentListJson(FilterDatatableView):
     """
 
     model = DataDocument
-    columns = ["title", "data_group.group_type.title"]
+    columns = ["title", "data_group.group_type.title", "extractedtext.doc_date"]
 
     def get_initial_queryset(self):
         qs = super().get_initial_queryset()
@@ -297,7 +297,7 @@ class FUCProductListJson(FilterDatatableView):
         "title",
         "document.title",
         "product_uber_puc.puc",
-        "product_uber_puc.classification_method.code",
+        "product_uber_puc.classification_method.name",
     ]
 
     def render_column(self, row, column):

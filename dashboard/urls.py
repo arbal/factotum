@@ -171,6 +171,11 @@ urlpatterns = [
         name="category_assignment",
     ),
     path(
+        "functional_use_cleanup/",
+        views.functional_use_cleanup,
+        name="functional_use_cleanup",
+    ),
+    path(
         "functional_use_curation/",
         views.functional_use_curation,
         name="functional_use_curation",
@@ -200,6 +205,16 @@ urlpatterns = [
         "qa/manualcomposition/",
         views.qa_manual_composition_index,
         name="qa_manual_composition_index",
+    ),
+    path(
+        "qa/manualcomposition/<int:pk>/summary",
+        views.qa_manual_composition_summary,
+        name="qa_manual_composition_summary",
+    ),
+    path(
+        "qa/manualcomposition/<int:pk>/summary/table",
+        dashboard.views.qa.ManualCompositionDataGroupSummaryTable.as_view(),
+        name="qa_manual_composition_summary_table",
     ),
     path(
         "qa/extractionscript/<int:pk>/",

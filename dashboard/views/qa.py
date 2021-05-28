@@ -84,9 +84,9 @@ def qa_chemicalpresence_index(request, template_name="qa/chemical_presence_index
 def qa_manual_composition_index(
     request, template_name="qa/qa_manual_composition_index.html"
 ):
-    # ExtractedText.objects.filter(data_document__data_group__id=63).filter(extraction_script__id=14)
-
-    MANUAL_SCRIPT_ID = Script.objects.filter(title="Manual (dummy)").first().id
+    MANUAL_SCRIPT_ID = (
+        Script.objects.filter(title="Manual (dummy)", script_type="EX").first().id
+    )
 
     datagroups = (
         DataGroup.objects.filter(group_type__code="CO")
@@ -109,6 +109,60 @@ def qa_manual_composition_index(
     )
 
     return render(request, template_name, {"datagroups": datagroups})
+
+
+@login_required()
+def qa_manual_composition_summary(
+    request, pk, template_name="qa/qa_manual_composition_summary.html"
+):
+    MANUAL_SCRIPT_ID = (
+        Script.objects.filter(title="Manual (dummy)", script_type="EX").first().id
+    )
+
+    datagroup = (
+        DataGroup.objects.filter(pk=pk)
+        .annotate(
+            document_count=Count(
+                "datadocument__extractedtext",
+                filter=Q(
+                    datadocument__extractedtext__extraction_script__id=MANUAL_SCRIPT_ID
+                ),
+            )
+        )
+        .annotate(
+            qa_complete_count=Count(
+                "datadocument__extractedtext",
+                filter=Q(
+                    datadocument__extractedtext__extraction_script__id=MANUAL_SCRIPT_ID,
+                    datadocument__extractedtext__qa_checked=True,
+                ),
+            )
+        )
+        .annotate(
+            qa_note_count=Count(
+                "datadocument__extractedtext__qanotes__qa_notes",
+                filter=Q(
+                    datadocument__extractedtext__extraction_script__id=MANUAL_SCRIPT_ID
+                )
+                & ~Q(datadocument__extractedtext__qanotes__qa_notes=""),
+            )
+        )
+    ).first()
+    datagroup.qa_incomplete_count = (
+        datagroup.document_count - datagroup.qa_complete_count
+    )
+    noteform = QASummaryNoteForm(instance=datagroup)
+    return render(
+        request,
+        template_name,
+        {
+            "datagroup": datagroup,
+            "document_table_url": reverse(
+                "qa_manual_composition_summary_table", args=[pk]
+            ),
+            "noteform": noteform,
+        },
+    )
 
 
 @login_required()
@@ -335,6 +389,21 @@ class ChemicalPresenceSummaryTable(SummaryTable):
 
     def get_extractedtext_queryset(self):
         return ExtractedText.objects.filter(data_document__data_group__id=self.pk)
+
+
+class ManualCompositionDataGroupSummaryTable(SummaryTable):
+    def get(self, request, pk, *args, **kwargs):
+        """This PK should be a data group pk"""
+        self.pk = pk
+        return super().get(request, *args, **kwargs)
+
+    def get_extractedtext_queryset(self):
+        MANUAL_SCRIPT_ID = (
+            Script.objects.filter(title="Manual (dummy)", script_type="EX").first().id
+        )
+        return ExtractedText.objects.filter(
+            data_document__data_group__id=self.pk, extraction_script=MANUAL_SCRIPT_ID
+        )
 
 
 @login_required()

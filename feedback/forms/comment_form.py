@@ -9,10 +9,11 @@ class CommentForm(forms.ModelForm):
 
     class Meta:
         model = Comment
-        fields = ["email", "body"]
+        fields = ["email", "subject", "body", "page_url"]
         widgets = {
             "email": forms.EmailInput(attrs={"placeholder": "email.address@epa.gov"}),
             "body": forms.Textarea,
+            "page_url": forms.HiddenInput,
         }
 
     def clean(self):

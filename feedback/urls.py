@@ -16,9 +16,8 @@ Including another URLconf
 
 from django.urls import path
 
-from feedback.views import Comment
-
+from feedback.views import CommentCreate
 
 app_name = "feedback"
 
-urlpatterns = [path("", Comment.as_view(), name="comment")]
+urlpatterns = [path("", CommentCreate.as_view(), name="comment_create")]

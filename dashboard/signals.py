@@ -1,4 +1,5 @@
 from crum import get_current_user
+from django.contrib.auth.models import AnonymousUser
 from django.db import models
 from django.db.backends.signals import connection_created
 from django.db.models.signals import post_delete, pre_save, pre_delete, post_save
@@ -109,7 +110,7 @@ def new_connection(sender, connection, **kwargs):
 @receiver(pre_save)
 def populate_user_fields(sender, instance=None, **kwargs):
     user = get_current_user()
-    if issubclass(sender, CommonInfo):
+    if not isinstance(user, AnonymousUser) and issubclass(sender, CommonInfo):
         if not instance.pk:
             instance.created_by = user
         instance.updated_by = user

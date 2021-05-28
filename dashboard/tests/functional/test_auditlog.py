@@ -395,17 +395,6 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
             self.assertIsNotNone(log.user_id)
             self.assertEquals("D", log.action, "Should be delete action")
 
-        # delete data document should cascade delete all auditlogs
-        dd = DataDocument.objects.get(pk=dd_id)
-        auditlogs = AuditLog.objects.filter(extracted_text_id=dd_id)
-
-        self.assertIsNotNone(dd)
-        self.assertTrue(auditlogs.count() > 0)
-
-        dd.delete()
-        auditlogs = AuditLog.objects.filter(extracted_text_id=dd_id)
-        self.assertTrue(auditlogs.count() == 0)
-
     def test_functional_use_audit_logs(self):
         ext = ExtractedText.objects.create(
             data_document=DataDocument.objects.first(),

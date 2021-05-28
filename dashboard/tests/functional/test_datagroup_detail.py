@@ -27,6 +27,10 @@ from dashboard.models import (
     DataGroup,
     GroupType,
     ExtractedComposition,
+    ProductToPUC,
+    ProductToPucClassificationMethod,
+    PUC,
+    PUCKind,
 )
 from dashboard.tests.mixins import TempFileMixin
 from dashboard.tests import factories
@@ -345,6 +349,37 @@ class DataGroupDetailTest(TempFileMixin, TestCase):
         for content in response_content:
             if content["id"] in [data_doc.pk, data_doc_with_dot.pk]:
                 self.assertTrue(content["fileext"] == ".pdf")
+
+    def test_detail_table_puc_classification_method(self):
+        dg = self.objects.dg
+        ProductToPUC.objects.create(
+            product=self.objects.p,
+            puc=self.objects.puc,
+            classification_method=ProductToPucClassificationMethod.objects.get(
+                code="MA"
+            ),
+        )
+        puc2 = PUC.objects.create(
+            gen_cat="Test General Category 2",
+            prod_fam="Test Product Family 2",
+            prod_type="Test Product Type 2",
+            description="Test Product Description 2",
+            last_edited_by=self.objects.user,
+            kind=PUCKind.objects.get_or_create(name="Unknown", code="UN")[0],
+        )
+        ProductToPUC.objects.create(
+            product=self.objects.p,
+            puc=puc2,
+            classification_method=ProductToPucClassificationMethod.objects.get(
+                code="MB"
+            ),
+        )
+
+        response = self.client.get(f"/datagroup/{dg.pk}/documents_table/")
+        self.assertEquals(response.status_code, 200)
+        content = json.loads(response.content.decode("utf-8"))["data"]
+        self.assertEqual(content[0]["puc"], self.objects.puc.__str__())
+        self.assertEqual(content[0]["classification_method"], "Manual")
 
     def test_detail_datasource_link(self):
         pk = self.objects.dg.pk

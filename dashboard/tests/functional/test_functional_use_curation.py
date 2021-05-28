@@ -2,7 +2,11 @@ from django.test import TestCase, override_settings
 from django.test.client import Client
 from django.urls import reverse
 
-from dashboard.models import FunctionalUse, FunctionalUseCategory
+from dashboard.models import (
+    FunctionalUse,
+    FunctionalUseCategory,
+    FunctionalUseToRawChem,
+)
 from dashboard.tests.loader import fixtures_standard
 
 
@@ -49,3 +53,12 @@ class TestFunctionalUseCuration(TestCase):
         self.assertEqual(
             len(combinations), 16, "There should be 16 combinations after the edit"
         )
+
+    def test_functional_use_cleanup(self):
+        # cut linkage and invoke cleanup
+        FunctionalUseToRawChem.objects.all().delete()
+        self.client.post(reverse("functional_use_cleanup"))
+
+        response = self.client.get(reverse("functional_use_curation"))
+        combinations = response.context["combinations"]
+        self.assertEqual(len(combinations), 0, f"There should be 0 combinations")

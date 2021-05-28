@@ -66,22 +66,30 @@ $(document).ready(function () {
             {
                 title: "Product Name",
                 data: "product__title",
-                width: '40%',
                 targets: 1
+            },
+            {
+                title: "Manufacturer",
+                data: "product__manufacturer",
+                targets: 2
+            },
+            {
+                title: "Brand",
+                data: "product__brand_name",
+                targets: 3
             },
             {
                 title: "Classification Method",
                 data: "classification_method__name",
                 searchable: false,
-                width: '20%',
-                targets: 2
+                targets: 4
             },
             {
                 data: "pk",
                 orderable: false,
                 searchable: false,
                 className: 'hide_column',
-                targets: 3
+                targets: 5
             },
         ],
         select: {

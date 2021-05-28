@@ -6,13 +6,22 @@
     <h1>
         <span>Functional Use Curation</span>
     </h1>
+
+    <div class="btn-group pt-2 pb-4">
+        <button type="button" data-toggle="modal" data-target="#confirm-modal" id="delete-fu-btn"
+                class="btn btn-warning">Remove reported functional uses not associated with chemicals
+        </button>
+    </div>
+
     <div class="row pt-2 pb-4">
         <div class="col-12">Select a Harmonized Category cell to update. Follow the Chemical Count link to view associated chemicals.</div>
     </div>
     <div class="row">
         <div class="col-4"><input type="text" id="filter-text-box" placeholder="Search..."></div>
         <div class="col-4"><span id="results" class="btn-primary m-2"></span></div>
-        <div class="col-4 text-right"><button id="filter-reset-button" class="btn btn-primary btn-sm">Reset Filters</button></div>
+        <div class="col-4 text-right">
+            <button id="filter-reset-button" class="btn btn-primary btn-sm">Reset Filters</button>
+        </div>
     </div>
     <div id="dataGrid" class="ag-theme-balham fixed-height-grid"></div>
     <div>
@@ -24,6 +33,46 @@
             <option value="100">100</option>
             <option value="All">Show All</option>
         </select>
+    </div>
+
+    <div class="modal fade"
+         id="confirm-modal"
+         tabindex="-1" role="dialog"
+         aria-labelledby="modalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modalLabel">Remove Reported Functional Uses</h5>
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="confirm-message">
+                    Are you sure to remove all reported functional uses that are not associated with any chemicals?
+                </div>
+                <div class="modal-footer">
+                    <button id="toggle-flags-cancel-btn"
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal">
+                        No
+                    </button>
+                    <form action='{% url 'functional_use_cleanup' %}' method="post"
+                          id="remove-fu-form">
+                        {% csrf_token %}
+                        <button id="remove-fu-confirm-btn"
+                                type="submit"
+                                class="btn btn-primary">
+                            Yes
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 

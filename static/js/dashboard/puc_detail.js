@@ -53,6 +53,11 @@ $(document).ready(function () {
                     orderable: false,
                     searchable: true,
                     className: "text-center"
+                },
+                {
+                    data: 2,
+                    orderable: true,
+                    searchable: true
                 }
             ],
             destroy: true,

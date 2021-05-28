@@ -164,9 +164,9 @@
                     id="products">
                     <thead >
                     <tr>
-                        <th>Title</th>
-                        <th>Brand Name</th>
-                        <th>Classification Method</th>
+                        <th title="Product entry assigned to PUC of interest">Product</th>
+                        <th title="Product detail extracted for manufacturer designated brand name">Brand Name</th>
+                        <th title="Curation method used to assign product to PUC (Product Use Category)">Classification Method</th>
                     </tr>
                     </thead>
                     <tbody></tbody>
@@ -180,8 +180,15 @@
                     id="documents">
                     <thead >
                     <tr>
-                        <th>Document</th>
-                        <th>Data Type</th>
+                        <th title="Original source data document associated with PUC">
+                          Document
+                        </th>
+                        <th title="Data group type used in Factotum curation">
+                          Data Type
+                        </th>
+                        <th title="Date of most recent revision as reported on original data source">
+                          Document Date
+                        </th>
                     </tr>
                     </thead>
                     <tbody></tbody>
@@ -195,10 +202,18 @@
                     id="chemicals">
                     <thead >
                     <tr>
-                        <th>DTXSID</th>
-                        <th>Preferred CAS</th>
-                        <th>Preferred Name</th>
-                        <th>Count</th>
+                        <th title="DSSTox substance identifier (DTXSID) used on the EPA CompTox Dashboard">
+                          DTXSID
+                        </th>
+                        <th title="Curated CAS Registry Number Associated with DTXSID">
+                          Curated CAS
+                        </th>
+                        <th title="Curated Chemical Name Associated with DTXSID">
+                          Curated Chemical Name
+                        </th>
+                        <th title="Number of times chemical appears in data documents associated with PUC of interest">
+                          Count
+                        </th>
                     </tr>
                     </thead>
                     <tbody></tbody>
@@ -213,11 +228,21 @@
                     id="functionaluses">
                     <thead >
                     <tr>
-                        <th>Data Document</th>
-                        <th>Preferred Name</th>
-                        <th>Preferred CAS</th>
-                        <th>Reported Functional Use</th>
-                        <th>Harmonized Functional Use</th>
+                        <th title="Original source data document containing functional use associated with PUC">
+                          Document
+                        </th>
+                        <th title="Chemical name associated with original data source, or curated DTXSID record">
+                          Chemical Name
+                        </th>
+                        <th title="CAS Registry Number associated with original data source, or curated DTXSID record">
+                          CAS
+                        </th>
+                        <th title="Functional use of the chemical in a product, as reported by the original data source">
+                          Reported Functional Use
+                        </th>
+                        <th title="Functional use category assigned via manual curation">
+                          Harmonized Functional Use
+                        </th>
                     </tr>
                     </thead>
                     <tbody></tbody>

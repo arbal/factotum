@@ -38,10 +38,15 @@ def data_source_detail(request, pk, template_name="data_source/datasource_detail
     docs = DataDocument.objects.filter(
         data_group__in=DataGroup.objects.filter(data_source=datasource)
     )
-    datasource.registered = (len(docs) / float(datasource.estimated_records)) * 100
-    datasource.uploaded = (
-        len(docs.exclude(file="")) / float(datasource.estimated_records)
-    ) * 100
+    total_docs = docs.count()
+    if total_docs == 0:
+        datasource.extracted = 0
+        datasource.uploaded = 0
+    else:
+        datasource.extracted = (
+            docs.filter(extractedtext__isnull=False).count() / total_docs
+        ) * 100
+        datasource.uploaded = (docs.exclude(file="").count() / total_docs) * 100
 
     form = PriorityForm(request.POST or None, instance=datasource)
     if request.method == "POST":
