@@ -118,8 +118,8 @@ class TestCuratedChemicalRemoval(StaticLiveServerTestCase):
 
         # Removing the dsstox reference should also cause the
         # `provisional` attribute to be nulled out
-        for rc in rc_uncurated:
-            print(f"{rc.id}: provisional is {rc.provisional}, dsstox is {rc.dsstox}")
+        # for rc in rc_uncurated:
+        #     print(f"{rc.id}: provisional is {rc.provisional}, dsstox is {rc.dsstox}")
 
         rc_provisional = rc_uncurated.filter(provisional=True)
         self.assertIsNone(
