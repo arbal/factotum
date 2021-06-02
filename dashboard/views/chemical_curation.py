@@ -52,6 +52,15 @@ class curated_chemical_removal_index(LoginRequiredMixin, FormView):
         return super().form_valid(form)
 
 
+@login_required()
+def curated_chemical_detail(request, sid):
+    template_name = "chemical_curation/curated_chemical_detail.html"
+    raw_chem_name = request.GET.get("raw_chem_name")
+    raw_cas = request.GET.get("raw_cas")
+    data = {"sid": sid, "raw_chem_name": raw_chem_name, "raw_cas": raw_cas}
+    return render(request, template_name, {"data": data})
+
+
 #
 # Downloading uncurated raw chemical records by Data Group
 #
