@@ -629,7 +629,11 @@ class CuratedChemicalDetailJson(FilterDatatableView):
             dd_url += f"#chem-card-{row.id}"
             return f"<a href='{dd_url}' target='_blank'>{row.extracted_text.data_document.title}</a>"
         elif column == "sid_updated":
-            return row.sid_updated.strftime("%b %d, %Y, %I:%M:%S %p")
+            return (
+                row.sid_updated.strftime("%b %d, %Y, %I:%M:%S %p")
+                if row.sid_updated
+                else ""
+            )
         elif column == "provisional":
             return "Yes" if row.provisional else "No"
         return super().render_column(row, column)
