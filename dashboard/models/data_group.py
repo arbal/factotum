@@ -25,6 +25,9 @@ def update_filename(instance, filename):
 
 # DEPRECATED: migration 0066_auto_20180927_0935.py expects its existence
 def csv_upload_path(instance, filename):
+    """
+    Returns a path to which the csv file will be uploaded
+    """
     # potential space errors in name
     name = "{0}/{1}".format(instance.fs_id, filename)
     return name
