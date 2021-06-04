@@ -27,6 +27,13 @@ def validate_blank_char(value):
 
 
 class DSSToxLookup(CommonInfo):
+    """
+    The DSSToxLookup table stores the canonical names for
+    chemical compounds. When a raw chemical name and CAS combination
+    is "curated," the curator links the raw chemical's RID to an SID
+    in the DSSToxLookup table. 
+    """
+
     sid = models.CharField(
         "DTXSID",
         max_length=50,

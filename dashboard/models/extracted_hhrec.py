@@ -6,6 +6,11 @@ from .raw_chem import RawChem
 
 
 class ExtractedHHRec(RawChem):
+    """
+    This is the chemical-level detail model for human health data. 
+    Its parent records use the `dashboard.models.extracted_hhdoc.ExtractedHHDoc` model.
+    """
+
     media = models.CharField("Media", max_length=30, blank=True)
     sampling_method = models.TextField("Sampling Method", blank=True)
     analytical_method = models.TextField("Analytical Method", blank=True)

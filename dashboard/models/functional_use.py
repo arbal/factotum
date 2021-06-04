@@ -72,6 +72,9 @@ class FunctionalUse(CommonInfo):
 
 class FunctionalUseToRawChem(CommonInfo):
     """
+    Factotum uses a many-to-many join between `dashboard.models.raw_chem.RawChem` and 
+    `dashboard.models.functional_use.FunctionalUse` to link chemical ingredients with
+    their purposes in the formulation.
     """
 
     chemical = models.ForeignKey(

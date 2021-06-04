@@ -25,6 +25,12 @@ def validate_wf_analysis(value):
 
 
 class ExtractedComposition(RawChem):
+    """
+    The ExtractedComposition subclass of RawChem is used when the chemical is
+    provided as an ingredient in a composition, and has the corresponding data
+    describing its proportional share by mass. 
+    """
+
     raw_min_comp = models.CharField(
         "Minimum", max_length=100, blank=True, help_text="minimum composition"
     )

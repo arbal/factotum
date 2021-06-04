@@ -6,6 +6,15 @@ from .common_info import CommonInfo
 
 
 class RawChem(CommonInfo):
+    """
+    The RawChem model is the base class for most of the object types that 
+    occupy the position beneath ExtractedText in the object hierarchy. When
+    a single document has multiple chemicals associated with it, whether as
+    List Presence items from a CPCat document or as Composition items from 
+    an ingredient list, the child objects inherit from the RawChem base class.
+    A curated record is one with a foreign key in the DSSToxLookup field.
+    """
+
     CHEM_DETECTED_CHOICES = (("1", "Yes"), ("0", "No"))
 
     extracted_text = models.ForeignKey(
@@ -42,7 +51,14 @@ class RawChem(CommonInfo):
         null=True,
         blank=True,
     )
-    provisional = models.BooleanField(default=False)
+    provisional = models.BooleanField(
+        default=False,
+        help_text="""When a RawChem record has a raw_chem_name and raw_cas combination that 
+        has already been curated to a certain DSSToxLookup record (and to only one), 
+        Factotum will automatically populate the DSSToxLookup foreign key. The provisional 
+        field indicates that this assignment was automatically performed without a curator 
+        involved.""",
+    )
 
     class Meta:
         indexes = [

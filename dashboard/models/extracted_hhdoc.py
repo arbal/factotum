@@ -5,6 +5,9 @@ from .extracted_text import ExtractedText
 
 
 class ExtractedHHDoc(ExtractedText):
+    """
+    This is the subclass of ExtractedText that is specific to human health documents.
+    """
 
     GENDER_CHOICES = (("BO", "Both"), ("FM", "Female"), ("MA", "Male"))
 

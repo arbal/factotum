@@ -5,6 +5,13 @@ from .raw_chem import RawChem
 
 
 class ExtractedFunctionalUse(RawChem):
+    """
+    This subclass of `dashboard.raw_chem.RawChem` is used for detailed records extracted
+    from a document with the "Functional use" type.
+    The extracted document-level parent class is just `dashboard.models.extracted_text.ExtractedText`, 
+    not a subclass of it.
+    """
+
     qa_flag = models.BooleanField(default=False)
 
     class JSONAPIMeta:

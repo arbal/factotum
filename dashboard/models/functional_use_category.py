@@ -7,6 +7,12 @@ from django.db.models import Count
 
 
 class FunctionalUseCategory(CommonInfo):
+    """
+    Each reported functional use can be assigned to a "harmonized" category.
+    This controlled vocabulary of harmonized categories is maintained by Factotum
+    users.
+    """
+
     title = models.CharField(max_length=50)
     description = models.TextField(blank=True)
 
