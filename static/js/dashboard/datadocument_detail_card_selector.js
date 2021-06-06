@@ -13,6 +13,9 @@ function cards_init() {
     // });
 
     $('#chemical-add-modal').on('show.bs.modal', function (event) {
+        // Clear the update modal (prevents id conflicts)
+        $('#chemical-update-modal')[0].innerHTML = ""
+
         var modal = $(this);
         $.ajax({
             url: modal.attr('data-url'),
@@ -23,6 +26,9 @@ function cards_init() {
     });
 
     $('#chemical-update-modal').on('show.bs.modal', function (event) {
+        // Clear the add modal (prevents id conflicts)
+        $('#chemical-add-modal')[0].innerHTML = ""
+
         var modal = $(this);
         var chem_pk = event.relatedTarget.value;
         $.ajax({
