@@ -31,6 +31,8 @@ class ExtractedComposition(RawChem):
     describing its proportional share by mass. 
     """
 
+    # This determines if this record has composition data
+    has_composition_data = models.BooleanField(default=True)
     raw_min_comp = models.CharField(
         "Minimum", max_length=100, blank=True, help_text="minimum composition"
     )

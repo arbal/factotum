@@ -2,12 +2,12 @@ import time
 
 from django.contrib.auth.models import User
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait, Select
 
-from dashboard.models import DataDocument, ExtractedText, FunctionalUse, RawChem
+from dashboard.models import DataDocument, ExtractedText, RawChem
 from dashboard.tests.loader import fixtures_standard, load_browser
 
 
@@ -292,6 +292,44 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.assertEqual(
             "0.15 reported", self.browser.find_element_by_id("wf_comp_856").text
         )
+
+    def test_co_has_composition_data(self):
+        wait = WebDriverWait(self.browser, 10)
+        composition_data_inputs = [
+            "id_raw_min_comp",
+            "id_raw_central_comp",
+            "id_raw_max_comp",
+            "id_unit_type",
+        ]
+        dd_pk = 156051
+        list_url = self.live_server_url + f"/datadocument/{dd_pk}/"
+
+        for chemical_form_button in ["chemical-update-3", "chemical-add-btn"]:
+            self.browser.get(list_url)
+            wait.until(
+                ec.element_to_be_clickable(
+                    (By.XPATH, f'//*[@id="{chemical_form_button}"]')
+                )
+            ).click()
+
+            # Wait for modal to open
+            wait.until(ec.element_to_be_clickable((By.ID, "id_raw_min_comp")))
+
+            # Verify composition data inputs are enabled
+            for element_id in composition_data_inputs:
+                self.assertTrue(
+                    self.browser.find_element_by_id(element_id).is_enabled()
+                )
+
+            # Disable composition data and verify it disables composition fields
+            self.browser.find_element_by_id("id_has_composition_data").click()
+            wait.until_not(ec.element_to_be_clickable((By.ID, "id_raw_min_comp")))
+
+            # Verify composition data inputs are disabled
+            for element_id in composition_data_inputs:
+                self.assertFalse(
+                    self.browser.find_element_by_id(element_id).is_enabled()
+                )
 
     def test_chemical_update(self):
         docs = DataDocument.objects.filter(pk__in=[156051, 354786])
