@@ -3,6 +3,11 @@ from .common_info import CommonInfo
 
 
 class WeightFractionType(CommonInfo):
+    """
+    A controlled vocabulary for the weight fraction measurements assigned to 
+    composition records.
+    """
+
     title = models.CharField(max_length=50)
     description = models.TextField(blank=True)
 

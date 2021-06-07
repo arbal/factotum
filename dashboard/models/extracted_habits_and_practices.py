@@ -11,6 +11,11 @@ from .extracted_text import ExtractedText
 
 
 class ExtractedHabitsAndPracticesDataType(CommonInfo):
+    """
+    The controlled vocabulary for the `data_type` attribute 
+    of `dashboard.extracted_habits_and_practices.ExtractedHabitsAndPractices`.
+    """
+
     title = models.CharField(max_length=50, blank=False, null=False)
     description = models.CharField(max_length=255, blank=True)
 
@@ -19,6 +24,11 @@ class ExtractedHabitsAndPracticesDataType(CommonInfo):
 
 
 class ExtractedHabitsAndPractices(CommonInfo):
+    """
+    This is the detailed child record for habits and practices data. Unlike other 
+    models at this position in the hierarchy, it is not a subclass of `dashboard.raw_chem.RawChem`.
+    """
+
     extracted_text = models.ForeignKey(
         ExtractedText, on_delete=models.CASCADE, related_name="practices"
     )
@@ -69,14 +79,9 @@ class ExtractedHabitsAndPractices(CommonInfo):
 
 
 class ExtractedHabitsAndPracticesToTag(TaggedItemBase, CommonInfo):
-    """Many-to-many relationship between ExtractedHabitsAndPractices and Tag
-
-    Arguments:
-        TaggedItemBase {[type]} -- [description]
-        CommonInfo {[type]} -- [description]
-
-    Returns:
-        [type] -- [description]
+    """
+    Many-to-many relationship between ExtractedHabitsAndPractices and Tag (keyword)
+    records.
     """
 
     content_object = models.ForeignKey(
@@ -98,6 +103,11 @@ class ExtractedHabitsAndPracticesToTag(TaggedItemBase, CommonInfo):
 
 
 class ExtractedHabitsAndPracticesTagKind(CommonInfo):
+    """
+    The controlled vocabulary for an aggregation field on the  
+    `dashboard.extracted_habits_and_practices.ExtractedHabitsAndPracticesTag` model.
+    """
+
     name = models.CharField(max_length=50, unique=True)
 
     class Meta:
@@ -109,6 +119,11 @@ class ExtractedHabitsAndPracticesTagKind(CommonInfo):
 
 
 class ExtractedHabitsAndPracticesTag(TagBase, CommonInfo):
+    """
+    This extends the `taggit.models.TagBase` model to provide tags specific
+    to the habits and practices data.
+    """
+
     definition = models.CharField("Definition", max_length=750, blank=True)
     kind = models.ForeignKey(
         ExtractedHabitsAndPracticesTagKind, default=1, on_delete=models.PROTECT

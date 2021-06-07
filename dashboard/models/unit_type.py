@@ -3,6 +3,10 @@ from .common_info import CommonInfo
 
 
 class UnitType(CommonInfo):
+    """
+    A controlled vocabulary for units of measure.
+    """
+
     title = models.CharField("Unit Type", max_length=50)
     description = models.TextField("Unit Type", blank=True)
 

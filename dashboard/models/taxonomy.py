@@ -3,6 +3,12 @@ from .common_info import CommonInfo
 
 
 class Taxonomy(CommonInfo):
+    """
+    Taxonomies provide additional non-exclusive metadata for PUCs. Linking
+    PUCs to taxonomies allows Factotum users to harmonize the PUC hierarchy
+    with external modeling systems like SHEDS-MM.
+    """
+
     title = models.CharField(max_length=250, blank=False, null=False)
     description = models.TextField(blank=True)
     parent = models.ForeignKey(

@@ -23,6 +23,12 @@ class DocumentTypeManager(models.Manager):
 
 
 class DocumentType(CommonInfo):
+    """
+    Each data group type can only store documents of certain types.
+    The types of allowed documents in each group type are managed in
+    the DocumentTypeGroupTypeCompatibilty many-to-many lookup table.
+    """
+
     title = models.CharField(max_length=50, unique=True)
     description = models.TextField(blank=True)
     code = models.CharField(blank=True, max_length=2, default="??", unique=True)

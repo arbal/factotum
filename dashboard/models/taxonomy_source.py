@@ -3,6 +3,11 @@ from .common_info import CommonInfo
 
 
 class TaxonomySource(CommonInfo):
+    """
+    A controlled vocabulary for identifying the sources of alternative
+    taxonomies.
+    """
+
     title = models.CharField(max_length=100, blank=False, null=False)
     description = models.TextField(blank=True)
     last_edited_by = models.ForeignKey(

@@ -7,6 +7,11 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class QANotes(CommonInfo):
+    """
+    When an extracted text record or its constituent detail records are edited during 
+    the QA process, the user must explain the change in a note.
+    """
+
     extracted_text = models.OneToOneField(ExtractedText, on_delete=models.CASCADE)
     qa_notes = models.TextField(blank=True)
 

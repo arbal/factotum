@@ -5,6 +5,11 @@ from .extracted_habits_and_practices import ExtractedHabitsAndPractices
 
 
 class ExtractedHabitsAndPracticesToPUC(CommonInfo):
+    """
+    Habits and practices documents can be associated with multiple PUCs, and there is no
+    enforcement of a single preferred PUC as there is with Products.
+    """
+
     extracted_habits_and_practices = models.ForeignKey(
         ExtractedHabitsAndPractices, on_delete=models.CASCADE
     )

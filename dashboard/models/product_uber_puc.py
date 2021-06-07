@@ -51,6 +51,11 @@ class ProductUberPuc(DBView):
 
 
 class ProductsPerPuc(DBView):
+    """
+    This database view counts the number of products per PUC faster than
+    an ORM query would.
+    """
+
     puc = CustomOneToOneField(
         PUC,
         on_delete=models.DO_NOTHING,
@@ -79,6 +84,11 @@ class ProductsPerPuc(DBView):
 
 
 class CumulativeProductsPerPucQuerySet(models.QuerySet):
+    """
+    This queryset summarizes the total number of products related to each PUC and
+    to all the PUCs lower than it in the object hierarchy.
+    """
+
     def astree(self, include=None):
         """ Returns a SimpleTree representation of the CumulativeProductsPerPuc queryset.
         """
@@ -110,6 +120,11 @@ class CumulativeProductsPerPucQuerySet(models.QuerySet):
 
 
 class CumulativeProductsPerPuc(DBView):
+    """
+    This view summarizes the total number of products related to each PUC and
+    to all the PUCs lower than it in the object hierarchy.
+    """
+
     puc = CustomOneToOneField(
         PUC,
         on_delete=models.DO_NOTHING,
