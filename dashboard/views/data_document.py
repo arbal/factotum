@@ -569,8 +569,10 @@ def download_document_chemicals(request, pk):
                 "dsstox__sid",
                 "dsstox__true_chemname",
                 "dsstox__true_cas",
-                "chem_detected_flag",
                 "tag_names",
+                "provisional",
+                "functional_uses__report_funcuse",
+                "functional_uses__category__title",
             )
             .order_by("raw_chem_name")
         )
@@ -587,9 +589,12 @@ def download_document_chemicals(request, pk):
                 "dsstox__true_chemname": "True Chemical Name",
                 "dsstox__true_cas": "True CAS",
                 "tag_names": "Tags",
+                "provisional": "Provisional",
+                "functional_uses__report_funcuse": "Reported Functional Use",
+                "functional_uses__category__title": "Harmonized Functional Use",
             },
             field_serializer_map={
-                "chem_detected_flag": (lambda f: ("Yes" if f == "1" else "No"))
+                "provisional": (lambda f: ("Yes" if f == "1" else "No"))
             },
         )
 
@@ -619,6 +624,9 @@ def download_document_chemicals(request, pk):
                 "central_wf_analysis",
                 "weight_fraction_type__title",
                 "component",
+                "provisional",
+                "functional_uses__report_funcuse",
+                "functional_uses__category__title",
             )
             .order_by("raw_chem_name")
         )
@@ -644,6 +652,12 @@ def download_document_chemicals(request, pk):
                 "upper_wf_analysis": "Upper Weight Fraction",
                 "central_wf_analysis": "Central Weight Fraction",
                 "weight_fraction_type__title": "Weight Fraction Type",
+                "provisional": "Provisional",
+                "functional_uses__report_funcuse": "Reported Functional Use",
+                "functional_uses__category__title": "Harmonized Functional Use",
+            },
+            field_serializer_map={
+                "provisional": (lambda f: ("Yes" if f == "1" else "No"))
             },
         )
 
