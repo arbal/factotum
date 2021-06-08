@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.shortcuts import render
 from django.db.models import Count, Q, Value, IntegerField, F
+from djqscsv import render_to_csv_response
 
 from dashboard.models import *
 from dashboard.forms import HabitsPUCForm
@@ -199,3 +200,44 @@ def download_PUCTags(request):
         writer.writerow(row)
 
     return response
+
+
+def download_functional_uses(request):
+    functional_uses = FunctionalUseToRawChem.objects.values(
+        "chemical__extracted_text__data_document__data_group__data_source__title",
+        "chemical__extracted_text__data_document__data_group__group_type__title",
+        "chemical__extracted_text__data_document__title",
+        "chemical__extracted_text__doc_date",
+        "chemical__raw_chem_name",
+        "chemical__raw_cas",
+        "chemical__dsstox__sid",
+        "chemical__dsstox__true_chemname",
+        "chemical__dsstox__true_cas",
+        "chemical__provisional",
+        "functional_use__report_funcuse",
+        "functional_use__category__title",
+    ).order_by(
+        "chemical__extracted_text__data_document__data_group__data_source__title"
+    )
+    filename = "functional_uses.csv"
+    return render_to_csv_response(
+        functional_uses,
+        filename=filename,
+        append_datestamp=True,
+        use_verbose_names=False,
+        streaming=True,
+        field_header_map={
+            "chemical__extracted_text__data_document__data_group__data_source__title": "Data Source",
+            "chemical__extracted_text__data_document__data_group__group_type__title": "Data Type",
+            "chemical__extracted_text__data_document__title": "Data Document",
+            "chemical__extracted_text__doc_date": "Document Date",
+            "chemical__raw_chem_name": "Raw Chemical Name",
+            "chemical__raw_cas": "Raw CAS",
+            "chemical__dsstox__sid": "DTXSID",
+            "chemical__dsstox__true_chemname": "Curated Chemical Name",
+            "chemical__dsstox__true_cas": "Curated CAS",
+            "chemical__provisional": "Provisional",
+            "functional_use__report_funcuse": "Reported Functional Use",
+            "functional_use__category__title": "Harmonized Functional Use",
+        },
+    )
