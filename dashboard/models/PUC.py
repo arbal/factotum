@@ -282,6 +282,7 @@ class PUCKind(CommonInfo):
 
     name = models.CharField(max_length=50, unique=True)
     code = models.CharField(max_length=2, unique=True, null=True, blank=True)
+    description = models.TextField(blank=True)
 
     class Meta:
         verbose_name = _("PUC kind")

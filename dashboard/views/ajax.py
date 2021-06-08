@@ -125,6 +125,13 @@ class ProductListJson(FilterDatatableView):
                 row.get_absolute_url(),
                 value,
             )
+        if column == "product_uber_puc.classification_method.name":
+            if value:
+                return format_html(
+                    '<span title="{}">{}</span>',
+                    row.product_uber_puc.classification_method.description,
+                    value,
+                )
         return value
 
     def get_initial_queryset(self):
@@ -163,6 +170,12 @@ class DocumentListJson(FilterDatatableView):
             return format_html(
                 '<a href="{}" title="Go to Document detail" target="_blank">{}</a>',
                 row.get_absolute_url(),
+                value,
+            )
+        if column == "data_group.group_type.title":
+            return format_html(
+                '<span title="{}">{}</span>',
+                row.data_group.group_type.description,
                 value,
             )
         return value
@@ -304,7 +317,6 @@ class FUCProductListJson(FilterDatatableView):
     ]
 
     def render_column(self, row, column):
-        fuc = self.request.GET.get("functional_use_category")
         value = self._render_column(row, column)
         if column == "title":
             return format_html(
@@ -319,10 +331,17 @@ class FUCProductListJson(FilterDatatableView):
                 value,
             )
         if column == "product_uber_puc.puc":
-            if row.product_uber_puc:
+            if value:
                 return format_html(
                     '<a href="{}" title="Go to PUC detail" target="_blank">{}</a>',
                     row.product_uber_puc.puc.get_absolute_url(),
+                    value,
+                )
+        if column == "product_uber_puc.classification_method.name":
+            if value:
+                return format_html(
+                    '<span title="{}">{}</span>',
+                    row.product_uber_puc.classification_method.description,
                     value,
                 )
         return value
@@ -363,6 +382,7 @@ class FUCDocumentListJson(FilterDatatableView):
                 "extracted_text__data_document",
                 "extracted_text__data_document__title",
                 "extracted_text__data_document__data_group__group_type__code",
+                "extracted_text__data_document__data_group__group_type__description",
                 "extracted_text__doc_date",
                 "functional_uses__report_funcuse",
             )
@@ -371,15 +391,21 @@ class FUCDocumentListJson(FilterDatatableView):
         return qs
 
     def render_column(self, row, column):
-
         value = self._render_column(row, column)
         if column == "extracted_text__data_document__title":
-
             doc_id = row["extracted_text__data_document"]
             doc = DataDocument.objects.get(pk=doc_id)
             return format_html(
                 '<a href="{}" title="Go to Document detail" target="_blank">{}</a>',
                 doc.get_absolute_url(),
+                value,
+            )
+        if column == "extracted_text__data_document__data_group__group_type__code":
+            return format_html(
+                '<span title="{}">{}</span>',
+                row[
+                    "extracted_text__data_document__data_group__group_type__description"
+                ],
                 value,
             )
         return value

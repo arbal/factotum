@@ -3,6 +3,7 @@
   fields:
     name: Manual
     rank: 1
+    description: manually assigned
 - model: dashboard.ProductToPucClassificationMethod
   pk: RU
   fields:

@@ -100,6 +100,7 @@ class ProductToPucClassificationMethod(CommonInfo):
     rank = models.PositiveSmallIntegerField(
         unique=True, verbose_name="classification method rank"
     )
+    description = models.TextField(blank=True)
 
     def natural_key(self):
         return (self.code,)

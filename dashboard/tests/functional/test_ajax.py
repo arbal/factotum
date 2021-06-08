@@ -62,6 +62,9 @@ class TestAjax(TestCase):
         self.assertEquals(data["recordsTotal"], 558)
         self.assertEquals(data["recordsFiltered"], 7)
         self.assertEquals(len(data["data"]), 7)
+        self.assertIn(
+            '<span title="composition type">Composition</span>', data["data"][0][1]
+        )
 
     def test_chemical_search(self):
         response = self.client.get("/c_json/?" + params.format(search="ethylparaben"))
@@ -133,7 +136,10 @@ class TestAjax(TestCase):
         self.assertEquals(data["recordsTotal"], 8)
         self.assertEquals(data["recordsFiltered"], 3)
         self.assertIn("List of Chemicals 2", data["data"][1][0])
-        self.assertEquals(data["data"][1][1], "Chemical presence list")
+        self.assertEquals(
+            data["data"][1][1],
+            '<span title="chemical presence list type">Chemical presence list</span>',
+        )
 
     def test_sids_per_grouptype_combo(self):
         response = self.client.get("/sid_gt_json")
@@ -287,9 +293,11 @@ class TestAjax(TestCase):
         data = json.loads(response.content)
         self.assertEquals(data["recordsTotal"], 2)
         self.assertIn("/product/1924/", data["data"][0][0])
-
         self.assertIn("Nonflammable Gas Mixture", data["data"][0][1])
         self.assertIn("/product/1868/", data["data"][1][0])
+        self.assertEqual(
+            '<span title="manually assigned">Manual</span>', data["data"][1][3]
+        )
         # harmonize a different reported functional use and make sure it
         # gets added to the JSON
         FunctionalUse.objects.filter(pk=18).update(category_id=3)
@@ -302,6 +310,7 @@ class TestAjax(TestCase):
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.content)
         self.assertEquals(data["recordsTotal"], 3)
+        self.assertIn('<span title="composition type">CO</span>', data["data"][0][0])
         self.assertIn("/datadocument/156051/", data["data"][0][1])
         self.assertIn("Vitamin C Moisturizer SPF 30", data["data"][1][1])
         self.assertIn("2020-06-12", data["data"][1][2])
