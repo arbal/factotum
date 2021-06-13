@@ -672,6 +672,55 @@ def download_document_chemicals(request, pk):
             content_type="text/plain;",
         )
 
+def download_list_presence_chemicals(request):
+    chemicals = (
+        ExtractedListPresence.objects.all()
+            .annotate(
+            tag_names=GroupConcat("tags__name", separator="; ", distinct=True)
+        )
+            .values(
+            "extracted_text__data_document__data_group__data_source__title",
+            "extracted_text__data_document__title",
+            "extracted_text__data_document__subtitle",
+            "extracted_text__doc_date",
+            "extracted_text__data_document__organization",
+            "raw_chem_name",
+            "raw_cas",
+            "dsstox__sid",
+            "dsstox__true_chemname",
+            "dsstox__true_cas",
+            "provisional",
+            "functional_uses__report_funcuse",
+            "functional_uses__category__title",
+            "tag_names",
+        )
+            .order_by("raw_chem_name")
+    )
+    filename = "list_presence_chemicals.csv"
+    return render_to_csv_response(
+        chemicals,
+        filename=filename,
+        append_datestamp=True,
+        field_header_map={
+            "extracted_text__data_document__data_group__data_source__title": "Data Source",
+            "extracted_text__data_document__title": "Data Document Title",
+            "extracted_text__data_document__subtitle": "Data Document Subtitle",
+            "extracted_text__doc_date": "Document Date",
+            "extracted_text__data_document__organization": "Organization",
+            "raw_chem_name": "Raw Chemical Name",
+            "raw_cas": "Raw CAS",
+            "dsstox__sid": "DTXSID",
+            "dsstox__true_chemname": "True Chemical Name",
+            "dsstox__true_cas": "True CAS",
+            "provisional": "Provisional",
+            "functional_uses__report_funcuse": "Reported Functional Use",
+            "functional_uses__category__title": "Harmonized Functional Use",
+            "tag_names": "Tags",
+        },
+        field_serializer_map={
+            "provisional": (lambda f: ("Yes" if f == "1" else "No"))
+        },
+    )
 
 class DocumentAuditLog(BaseDatatableView):
     model = AuditLog
