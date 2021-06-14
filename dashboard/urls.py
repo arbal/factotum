@@ -377,6 +377,11 @@ urlpatterns = [
         name="download_FunctionalUseCategories",
     ),
     path(
+        "dl_functional_uses/",
+        views.download_functional_uses,
+        name="download_functional_uses",
+    ),
+    path(
         "functional_use_categories/",
         views.functional_use_category_list,
         name="functional_use_category_list",
