@@ -7,7 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait, Select
 
-from dashboard.models import DataDocument, ExtractedText, RawChem
+from dashboard.models import DataDocument, ExtractedText, RawChem, FunctionalUse
 from dashboard.tests.loader import fixtures_standard, load_browser
 
 
@@ -362,7 +362,9 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                     )
                 )
             )
-            report_funcuse_box.send_keys("canoeing")
+            rfu = " canoeing "
+            report_funcuse_box.clear()
+            report_funcuse_box.send_keys(rfu)
 
             self.assertEqual("Save changes", save_button.get_attribute("value"))
             save_button.click()
@@ -376,15 +378,19 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
             self.assertIn("Last updated: 0 minutes ago", audit_link.text)
 
+            self.assertEqual(
+                0, FunctionalUse.objects.filter(report_funcuse=rfu).count()
+            )
+            self.assertEqual(
+                1, FunctionalUse.objects.filter(report_funcuse=rfu.strip()).count()
+            )
             # audit_link.click() does not work in chromedriver here for some reason
             self.browser.execute_script("arguments[0].click();", audit_link)
 
-            # TODO: Functional Uses are no longer connected directly to chemicals.
-            #       Re-establish this connection if this is needed.
-            # datatable = wait.until(
-            #     ec.visibility_of_element_located((By.XPATH, "//*[@id='audit-log']"))
-            # )
-            # self.assertIn("canoeing", datatable.text)
+            datatable = wait.until(
+                ec.visibility_of_element_located((By.XPATH, "//*[@id='audit-log']"))
+            )
+            self.assertIn(rfu.strip(), datatable.text)
 
     def test_multiple_fu(self):
         docs = DataDocument.objects.filter(pk__in=[5])
