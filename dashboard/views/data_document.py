@@ -661,14 +661,57 @@ def download_document_chemicals(request, pk):
             },
         )
 
+    def download_functional_use_chemicals():
+        chemicals = (
+            ExtractedFunctionalUse.objects.filter(
+                extracted_text__data_document_id=document.pk
+            )
+            .values(
+                "extracted_text__data_document__title",
+                "extracted_text__data_document__subtitle",
+                "extracted_text__data_document__organization",
+                "raw_chem_name",
+                "raw_cas",
+                "dsstox__sid",
+                "dsstox__true_chemname",
+                "dsstox__true_cas",
+                "provisional",
+                "functional_uses__report_funcuse",
+                "functional_uses__category__title",
+            )
+            .order_by("raw_chem_name")
+        )
+        filename = document.get_title_as_slug() + "_chemicals.csv"
+        return render_to_csv_response(
+            chemicals,
+            filename=filename,
+            append_datestamp=True,
+            field_header_map={
+                "extracted_text__data_document__title": "Data Document Title",
+                "extracted_text__data_document__subtitle": "Data Document Subtitle",
+                "extracted_text__data_document__organization": "Organization",
+                "dsstox__sid": "DTXSID",
+                "dsstox__true_chemname": "True Chemical Name",
+                "dsstox__true_cas": "True CAS",
+                "provisional": "Provisional",
+                "functional_uses__report_funcuse": "Reported Functional Use",
+                "functional_uses__category__title": "Harmonized Functional Use",
+            },
+            field_serializer_map={
+                "provisional": (lambda f: ("Yes" if f == "1" else "No"))
+            },
+        )
+
     document = get_object_or_404(DataDocument, pk=pk)
     if document.data_group.is_chemical_presence:
         return download_list_presence_chemicals()
     elif document.data_group.is_composition:
         return download_composition_chemicals()
+    elif document.data_group.is_functional_use:
+        return download_functional_use_chemicals()
     else:
         return HttpResponseBadRequest(
-            content="data document does not belong to chemical presence or composition group",
+            content="data document does not belong to chemical presence or composition or functional use group",
             content_type="text/plain;",
         )
 

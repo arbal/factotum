@@ -440,16 +440,31 @@ class DataDocumentDetailTest(TransactionTestCase):
         self.assertEqual(200, response.status_code)
         self.assertIsNotNone(response.streaming_content)
 
-        # download button not exist for non CP/CO type
+        # download button for FU type
         fu_doc = DataDocument.objects.filter(data_group__group_type__code="FU").first()
         response = self.client.get(f"/datadocument/{fu_doc.pk}/")
         page = html.fromstring(response.content)
         download_button = page.xpath('//*[@id="download_chemicals"]')
         self.assertEqual(
-            0, len(download_button), "download button not available for non CP types"
+            1, len(download_button), "download button available for FU types"
         )
+        # download stream
         response = self.client.get(f"/datadocument/{fu_doc.pk}/download_chemicals/")
-        # download blocked for non CP/CO type
+        self.assertEqual(200, response.status_code)
+        self.assertIsNotNone(response.streaming_content)
+
+        # download button not exist for non CP/CO/FU type
+        doc = DataDocument.objects.filter(data_group__group_type__code="LM").first()
+        response = self.client.get(f"/datadocument/{doc.pk}/")
+        page = html.fromstring(response.content)
+        download_button = page.xpath('//*[@id="download_chemicals"]')
+        self.assertEqual(
+            0,
+            len(download_button),
+            "download button not available for non CP/CO/FU types",
+        )
+        response = self.client.get(f"/datadocument/{doc.pk}/download_chemicals/")
+        # download blocked for non CP/CO/FU type
         self.assertEqual(400, response.status_code)
 
 
