@@ -1,17 +1,17 @@
 {
   app: 'dashboard',
   type: 'functionalUse',
-  description: 'Service providing a list of all functional uses.',
-  filters: ["chemical", "document", "category"],
+  description: 'Service providing a list of all reported functional uses assigned to chemicals.',
+  filters: ["chemical", "document", "category", "reported_funcuse"],
   attributes: {
     rid: {
       type: 'string',
-      description: 'Title of the functional use category.',
+      description: 'RID of the raw chemical record.',
     },
     report_funcuse: {
       type: 'string',
       allowEmptyValue: true,
-      description: "The reported functional use",
+      description: "The reported functional use assigned to the chemical.",
     },
   },
   relationships: [

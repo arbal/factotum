@@ -215,17 +215,27 @@ class ChemicalProductListJson(BaseDatatableView):
                 value,
             )
         if column == "product.product_uber_puc.puc":
-            value = self._render_column(row, column)
-            if value and hasattr(row, "get_absolute_url"):
+            if value:
                 return format_html(
                     '<a href="{}" title="Go to PUC detail" target="_blank">{}</a>',
                     row.product.product_uber_puc.puc.get_absolute_url(),
                     value,
                 )
         if column == "product.product_uber_puc.puc.kind.name":
-            value = self._render_column(row, column)
-            if value and hasattr(row, "get_absolute_url"):
-                return format_html("<p>{}</p>", value)
+            if value:
+                return format_html(
+                    '<span title="{}">{}</span>',
+                    row.product.product_uber_puc.puc.kind.description,
+                    value,
+                )
+        if column == "product.product_uber_puc.classification_method.name":
+            if value:
+                return format_html(
+                    '<span title="{}">{}</span>',
+                    row.product.product_uber_puc.classification_method.description,
+                    value,
+                )
+
         return value
 
     def ordering(self, qs):
@@ -399,4 +409,13 @@ class ChemicalFunctionalUseListJson(BaseDatatableView):
                     row.functional_use.category.get_absolute_url(),
                     value,
                 )
+        if (
+            column
+            == "chemical.extracted_text.data_document.data_group.group_type.title"
+        ):
+            return format_html(
+                '<span title="{}">{}</span>',
+                row.chemical.extracted_text.data_document.data_group.group_type.description,
+                value,
+            )
         return value

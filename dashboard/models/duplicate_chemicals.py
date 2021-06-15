@@ -3,6 +3,11 @@ from django.db import models
 
 
 class DuplicateChemicals(DBView):
+    """
+    The DuplicateChemicals view identifies all the instances where a curated
+    chemical appears more than once in a single Component.
+    """
+
     extracted_text = models.ForeignKey(
         "ExtractedText", on_delete=models.DO_NOTHING, null=False, blank=False
     )

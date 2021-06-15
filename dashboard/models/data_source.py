@@ -29,7 +29,9 @@ class DataSource(CommonInfo):
     title = models.CharField(max_length=50)
     url = models.CharField(max_length=150, blank=True, validators=[URLValidator()])
     estimated_records = models.PositiveIntegerField(
-        default=47, validators=[validate_nonzero]
+        default=47,
+        validators=[validate_nonzero],
+        help_text="Estimated number of documents that the data source will eventually contain.",
     )
     state = models.CharField(max_length=2, choices=STATE_CHOICES, default="AT")
     description = models.TextField(blank=True)

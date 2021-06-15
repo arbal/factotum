@@ -28,7 +28,11 @@ class DataDocumentManager(models.Manager):
 @cleanup.ignore  # prevents django-cleanup from deleting file when doc object is deleted
 class DataDocument(CommonInfo):
     """
-    A DataDocument object is a single source of Factotum data.
+    A DataDocument object is a single source of Factotum data. A document 
+    has been "uploaded" when there is a matched source file in the Factotum
+    file system, and it has been "extracted" once an ExtractedText record has
+    been created and the detailed source values has been added as related 
+    records in the subclassed ExtractedText/RawChem hierarchy.  
     """
 
     file = models.FileField(
@@ -106,6 +110,7 @@ class DataDocument(CommonInfo):
         validators=[RegexValidator("^[0-9]*$", "PMID must be numerical")],
         max_length=20,
         blank=True,
+        help_text="The PubMed ID, if the source document is an article in the PubMed library.",
     )
 
     objects = DataDocumentManager()

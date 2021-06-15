@@ -4,6 +4,12 @@ from .extracted_list_presence import ExtractedListPresence, ExtractedListPresenc
 
 
 class ExtractedCPCat(ExtractedText):
+    """
+    This is the subclass of `dashboard.models.extracted_text.ExtractedText`
+    that is created when a user uploads list presence data. Its child objects 
+    are of the `dashboard.models.extracted_list_presence.ExtractedListPresence` class.
+    """
+
     cat_code = models.CharField("Cat code", max_length=100, blank=True)
     description_cpcat = models.CharField("CPCat cassette", max_length=200, blank=True)
     cpcat_code = models.CharField("ACToR snaid", max_length=50, blank=True)

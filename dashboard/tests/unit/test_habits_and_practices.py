@@ -6,7 +6,7 @@ from dashboard import views
 from dashboard.forms import create_detail_formset
 from dashboard.tests.loader import load_model_objects
 
-from dashboard.models import ExtractedHabitsAndPracticesToPUC
+from dashboard.models import ExtractedHabitsAndPracticesToPUC, GroupType
 
 
 @tag("loader")
@@ -84,20 +84,26 @@ class HabitViewTest(TestCase):
         self.assertTrue(hp_formset.is_valid())
 
     def test_edit_hnp_detail(self):
+        """This page may not be in use anymore."""
         self.objects.exscript.title = "Manual (dummy)"
         self.objects.exscript.save()
+        self.objects.ehp.data_document.data_group.group_type = GroupType.objects.create(
+            code="HP"
+        )
+        self.objects.ehp.data_document.data_group.save()
         self.client.login(username="Karyn", password="specialP@55word")
-        pk = self.objects.doc.pk
+        pk = self.objects.ehp.data_document.pk
         response = self.client.get(f"/habitsandpractices/{pk}/")
         self.assertNotContains(response, "Raw Category", html=True)
 
         # Ensure there are Cancel and Back buttons with the correct URL to return to the DG detail page
         self.assertContains(
             response,
-            f'href="/datagroup/{self.objects.dg.pk}/" role="button">Cancel</a>',
+            f'href="/datagroup/{self.objects.ehp.data_document.data_group.pk}/" role="button">Cancel</a>',
         )
         self.assertContains(
-            response, f'href="/datagroup/{self.objects.dg.pk}/" role="button">Back</a>'
+            response,
+            f'href="/datagroup/{self.objects.ehp.data_document.data_group.pk}/" role="button">Back</a>',
         )
 
         # Ensure that the URL above responds correctly

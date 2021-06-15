@@ -5,7 +5,7 @@ from lxml import html
 
 from django.test import TestCase, tag
 
-from dashboard.models import DSSToxLookup, Product, ProductDocument, PUC, ProductToPUC
+from dashboard.models import DSSToxLookup, ProductDocument, PUC, ProductToPUC
 from dashboard.tests.loader import fixtures_standard
 
 from django.test import override_settings
@@ -149,6 +149,12 @@ class ChemicalDetail(TestCase):
             2,
             f'DSSTox pk={dss.pk} should have 2 records matching the search "Creme" in the JSON',
         )
+        self.assertEqual(
+            '<span title="formulation kind">Formulation</span>', data["data"][0][3]
+        )
+        self.assertEqual(
+            '<span title="manually assigned">Manual</span>', data["data"][0][4]
+        )
 
     def test_download_composition_chemical(self):
         self.client.logout()
@@ -166,6 +172,9 @@ class ChemicalDetail(TestCase):
         data = json.loads(response.content)
         self.assertEqual(data["recordsTotal"], 3)
         self.assertEqual(data["recordsFiltered"], 3)
+        self.assertEqual(
+            '<span title="composition type">Composition</span>', data["data"][0][0]
+        )
 
         response = self.client.get(f"/chemical_functional_use_json/?sid={sid}&puc=137")
         self.assertEqual(response.status_code, 200)

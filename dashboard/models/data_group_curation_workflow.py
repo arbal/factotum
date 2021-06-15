@@ -4,6 +4,11 @@ from dashboard.models import CommonInfo
 
 
 class CurationStep(CommonInfo):
+    """
+    The steps through which a data group travels during its curation workflow
+    are named and ordered in this model.
+    """
+
     name = models.CharField(
         max_length=100, unique=True, help_text="the curation step name"
     )
@@ -20,6 +25,10 @@ class CurationStep(CommonInfo):
 
 
 class DataGroupCurationWorkflow(CommonInfo):
+    """
+    Each data group's curation workflow is described as a series of step/status combinations.
+    """
+
     STEP_STATUS_CHOICES = (("I", "Incomplete"), ("C", "Complete"), ("N", "N/A"))
     data_group = models.ForeignKey(
         "DataGroup",

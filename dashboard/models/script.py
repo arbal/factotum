@@ -9,6 +9,12 @@ from .qa_notes import QASummaryNote
 
 
 class Script(CommonInfo, QASummaryNote):
+    """
+    A script refers to external code used to process data. Factotum users and other 
+    researchers run scripts to extract data from PDF files, to assign PUCs to products,
+    and to perform other data cleaning tasks.
+    For some data types, the script provides the aggregation unit for QA work.
+    """
 
     TYPE_CHOICES = (
         ("DL", "download"),
@@ -125,6 +131,11 @@ class Script(CommonInfo, QASummaryNote):
 
 
 class QAGroup(CommonInfo):
+    """
+    A QAGroup is a collection of data documents or records that must be reviewed together 
+    before the data document or group can be considered cleaned.
+    """
+
     extraction_script = models.ForeignKey(
         Script,
         on_delete=models.CASCADE,

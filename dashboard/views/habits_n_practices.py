@@ -7,7 +7,9 @@ from dashboard.forms import HabitsPUCForm, create_detail_formset
 
 @login_required()
 def habitsandpractices(request, pk, template_name="data_group/habitsandpractices.html"):
-    doc = get_object_or_404(DataDocument, pk=pk)
+    doc = get_object_or_404(
+        DataDocument.objects.filter(data_group__group_type__code="HP"), pk=pk
+    )
     script = Script.objects.get(title="Manual (dummy)", script_type="EX")
     extext, created = ExtractedText.objects.get_or_create(
         data_document=doc, extraction_script=script

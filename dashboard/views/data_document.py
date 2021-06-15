@@ -569,8 +569,10 @@ def download_document_chemicals(request, pk):
                 "dsstox__sid",
                 "dsstox__true_chemname",
                 "dsstox__true_cas",
-                "chem_detected_flag",
                 "tag_names",
+                "provisional",
+                "functional_uses__report_funcuse",
+                "functional_uses__category__title",
             )
             .order_by("raw_chem_name")
         )
@@ -587,9 +589,12 @@ def download_document_chemicals(request, pk):
                 "dsstox__true_chemname": "True Chemical Name",
                 "dsstox__true_cas": "True CAS",
                 "tag_names": "Tags",
+                "provisional": "Provisional",
+                "functional_uses__report_funcuse": "Reported Functional Use",
+                "functional_uses__category__title": "Harmonized Functional Use",
             },
             field_serializer_map={
-                "chem_detected_flag": (lambda f: ("Yes" if f == "1" else "No"))
+                "provisional": (lambda f: ("Yes" if f == "1" else "No"))
             },
         )
 
@@ -609,6 +614,7 @@ def download_document_chemicals(request, pk):
                 "dsstox__true_chemname",
                 "dsstox__true_cas",
                 "ingredient_rank",
+                "has_composition_data",
                 "raw_min_comp",
                 "raw_max_comp",
                 "raw_central_comp",
@@ -618,6 +624,9 @@ def download_document_chemicals(request, pk):
                 "central_wf_analysis",
                 "weight_fraction_type__title",
                 "component",
+                "provisional",
+                "functional_uses__report_funcuse",
+                "functional_uses__category__title",
             )
             .order_by("raw_chem_name")
         )
@@ -634,6 +643,7 @@ def download_document_chemicals(request, pk):
                 "dsstox__true_chemname": "True Chemical Name",
                 "dsstox__true_cas": "True CAS",
                 "ingredient_rank": "Ingredient Rank",
+                "has_composition_data": "Has Composition Data",
                 "raw_min_comp": "Raw Min Comp",
                 "raw_max_comp": "Raw Max Comp",
                 "raw_central_comp": "Raw Central Comp",
@@ -642,6 +652,53 @@ def download_document_chemicals(request, pk):
                 "upper_wf_analysis": "Upper Weight Fraction",
                 "central_wf_analysis": "Central Weight Fraction",
                 "weight_fraction_type__title": "Weight Fraction Type",
+                "provisional": "Provisional",
+                "functional_uses__report_funcuse": "Reported Functional Use",
+                "functional_uses__category__title": "Harmonized Functional Use",
+            },
+            field_serializer_map={
+                "provisional": (lambda f: ("Yes" if f == "1" else "No"))
+            },
+        )
+
+    def download_functional_use_chemicals():
+        chemicals = (
+            ExtractedFunctionalUse.objects.filter(
+                extracted_text__data_document_id=document.pk
+            )
+            .values(
+                "extracted_text__data_document__title",
+                "extracted_text__data_document__subtitle",
+                "extracted_text__data_document__organization",
+                "raw_chem_name",
+                "raw_cas",
+                "dsstox__sid",
+                "dsstox__true_chemname",
+                "dsstox__true_cas",
+                "provisional",
+                "functional_uses__report_funcuse",
+                "functional_uses__category__title",
+            )
+            .order_by("raw_chem_name")
+        )
+        filename = document.get_title_as_slug() + "_chemicals.csv"
+        return render_to_csv_response(
+            chemicals,
+            filename=filename,
+            append_datestamp=True,
+            field_header_map={
+                "extracted_text__data_document__title": "Data Document Title",
+                "extracted_text__data_document__subtitle": "Data Document Subtitle",
+                "extracted_text__data_document__organization": "Organization",
+                "dsstox__sid": "DTXSID",
+                "dsstox__true_chemname": "True Chemical Name",
+                "dsstox__true_cas": "True CAS",
+                "provisional": "Provisional",
+                "functional_uses__report_funcuse": "Reported Functional Use",
+                "functional_uses__category__title": "Harmonized Functional Use",
+            },
+            field_serializer_map={
+                "provisional": (lambda f: ("Yes" if f == "1" else "No"))
             },
         )
 
@@ -650,9 +707,11 @@ def download_document_chemicals(request, pk):
         return download_list_presence_chemicals()
     elif document.data_group.is_composition:
         return download_composition_chemicals()
+    elif document.data_group.is_functional_use:
+        return download_functional_use_chemicals()
     else:
         return HttpResponseBadRequest(
-            content="data document does not belong to chemical presence or composition group",
+            content="data document does not belong to chemical presence or composition or functional use group",
             content_type="text/plain;",
         )
 

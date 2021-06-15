@@ -8,6 +8,10 @@ from .product import Product
 
 
 class ProductToTag(TaggedItemBase, CommonInfo):
+    """
+    Products can be assigned non-exclusive tags that are related to their PUC assignments.
+    """
+
     content_object = models.ForeignKey(Product, on_delete=models.CASCADE)
     tag = models.ForeignKey(
         PUCTag, on_delete=models.CASCADE, related_name="%(app_label)s_%(class)s_items"

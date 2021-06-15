@@ -212,3 +212,11 @@ class TestGetData(TestCase):
         for cat in categories:
             self.assertContains(response, cat.title)
             self.assertContains(response, cat.description)
+
+    def test_download_functional_uses(self):
+        response = self.client.get("/dl_functional_uses/")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "Sun Ingredient Disclosures,Composition,Sun_INDS_89,2018-04-07,ethylparabenzene,120-47-9,DTXSID9022528,ethylparaben,120-47-8,False,kayaking,fragrance",
+        )

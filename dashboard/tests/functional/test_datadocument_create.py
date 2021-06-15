@@ -49,9 +49,9 @@ class DDTests(TempFileMixin, TestCase):
 
     def testGoodGroupTypeInCSV(self):
         csv_string_good = (
-            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,,,, \n"
-            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,MS,,,, \n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number,pmid\n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,,,,, \n"
+            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,MS,,,,, \n"
         )
 
         data = io.StringIO(csv_string_good)
@@ -92,9 +92,9 @@ class DDTests(TempFileMixin, TestCase):
 
     def testBadGroupTypeInCSV(self):
         csv_string_bad = (
-            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,HH,,,, \n"
-            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,HH,,,, \n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number,pmid\n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,HH,,,,, \n"
+            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,HH,,,,, \n"
         )
 
         data = io.StringIO(csv_string_bad)
@@ -140,8 +140,8 @@ class DDTests(TempFileMixin, TestCase):
 
     def test_upload_csv_as_datadoc(self):
         csv_string = (
-            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
-            "Cal_Pesticide_Residues_1987.csv,Example Datadocument from CSV,SG,,,, \n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number,pmid\n"
+            "Cal_Pesticide_Residues_1987.csv,Example Datadocument from CSV,SG,,,,, \n"
         )
 
         data = io.StringIO(csv_string)
@@ -183,8 +183,8 @@ class DDTests(TempFileMixin, TestCase):
 
     def test_upload_html_as_datadoc(self):
         csv_string = (
-            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
-            "alberto_balsam_conditioner_antioxidant_blueberry.html,Example Datadocument from HTML,ID,,,, \n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number,pmid\n"
+            "alberto_balsam_conditioner_antioxidant_blueberry.html,Example Datadocument from HTML,ID,,,,, \n"
         )
 
         data = io.StringIO(csv_string)
@@ -226,8 +226,8 @@ class DDTests(TempFileMixin, TestCase):
 
     def test_csv_upload_row_verification(self):
         csv_string = (
-            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
-            "Cal_Pesticide_Residues_1987.csv,Example Datadocument from CSV,SG,http://www.epa.gov,org,cpr \n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number,pmid\n"
+            "Cal_Pesticide_Residues_1987.csv,Example Datadocument from CSV,SG,http://www.epa.gov,org,cpr,,12345 \n"
         )
 
         data = io.StringIO(csv_string)
@@ -270,3 +270,4 @@ class DDTests(TempFileMixin, TestCase):
         self.assertEqual("http://www.epa.gov", test_data_doc.url)
         self.assertEqual("org", test_data_doc.organization)
         self.assertEqual("cpr", test_data_doc.subtitle)
+        self.assertEqual("12345", test_data_doc.pmid)

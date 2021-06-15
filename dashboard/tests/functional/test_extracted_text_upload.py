@@ -324,7 +324,7 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         # et = ExtractedText.objects.get(data_document=dd)
         self.dd_pdf = dd.file.name
 
-        in_mem_sample_csv = self.generate_valid_funcuse_csv("surfactant;fragrance")
+        in_mem_sample_csv = self.generate_valid_funcuse_csv(" surfactant; fragrance ")
         req_data = {"extfile-extraction_script": 5, "extfile-submit": "Submit"}
         req_data.update(self.mng_data)
         req_data["extfile-bulkformsetfileupload"] = in_mem_sample_csv
@@ -349,8 +349,10 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
             extracted_text_id=self.dd_id
         ).first()
         fus = FunctionalUse.objects.filter(chemicals=efu.rawchem_ptr_id)
-        self.assertTrue(fus.filter(report_funcuse="fragrance").count(), 1)
-        self.assertTrue(fus.filter(report_funcuse="surfactant").count(), 1)
+        self.assertEquals(fus.filter(report_funcuse=" fragrance ").count(), 0)
+        self.assertEquals(fus.filter(report_funcuse=" surfactant").count(), 0)
+        self.assertEquals(fus.filter(report_funcuse="fragrance").count(), 1)
+        self.assertEquals(fus.filter(report_funcuse="surfactant").count(), 1)
 
         doc_count = DataDocument.objects.filter(raw_category="raw PUC").count()
         self.assertTrue(

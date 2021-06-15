@@ -166,6 +166,11 @@ urlpatterns = [
         name="curated_chemical_removal",
     ),
     path(
+        "curated_chemical_detail/<str:sid>",
+        views.curated_chemical_detail,
+        name="curated_chemical_detail",
+    ),
+    path(
         "category_assignment/<int:pk>/",
         views.category_assignment,
         name="category_assignment",
@@ -341,6 +346,11 @@ urlpatterns = [
         views.CuratedChemicalsListJson.as_view(),
         name="curated_chem_ajax_url",
     ),
+    path(
+        "curated_chem_detail_json/",
+        views.CuratedChemicalDetailJson.as_view(),
+        name="curated_chem_detail_ajax_url",
+    ),
     path("sid_gt_json", views.sids_by_grouptype_ajax, name="sid_gt_json_url"),
     path("pucs/", views.puc_list, name="puc_list"),
     path("puc/<int:pk>/", views.puc_detail, name="puc_detail"),
@@ -365,6 +375,11 @@ urlpatterns = [
         "dl_functionalusecategories/",
         views.download_FunctionalUseCategories,
         name="download_FunctionalUseCategories",
+    ),
+    path(
+        "dl_functional_uses/",
+        views.download_functional_uses,
+        name="download_functional_uses",
     ),
     path(
         "functional_use_categories/",

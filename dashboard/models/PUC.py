@@ -65,6 +65,12 @@ class PUCQuerySet(models.QuerySet):
 
 
 class PUC(CommonInfo):
+    """
+    The Product Use Code, or "PUC," is an exclusive category that describes 
+    how a product is employed by its end users. PUCs are organized in a 
+    hierarchy of granularity, from the most general to the most specific.
+    """
+
     kind = models.ForeignKey(
         "dashboard.PUCKind", on_delete=models.CASCADE, default=1, help_text="kind"
     )
@@ -234,6 +240,10 @@ class PUC(CommonInfo):
 
 
 class PUCToTag(TaggedItemBase, CommonInfo):
+    """
+    Each PUC can be associated with non-exclusive tags.
+    """
+
     content_object = models.ForeignKey(PUC, on_delete=models.CASCADE)
     tag = models.ForeignKey(
         "PUCTag", on_delete=models.CASCADE, related_name="%(app_label)s_%(class)s_items"
@@ -250,6 +260,10 @@ class PUCToTag(TaggedItemBase, CommonInfo):
 
 
 class PUCTag(TagBase, CommonInfo):
+    """
+    Non-exclusive attribute related to a PUC.
+    """
+
     definition = models.TextField(blank=True, max_length=255)
 
     class Meta:
@@ -262,8 +276,13 @@ class PUCTag(TagBase, CommonInfo):
 
 
 class PUCKind(CommonInfo):
+    """
+    An aggregation level for PUCs that sits above the heirarchy expressed in the PUC model.
+    """
+
     name = models.CharField(max_length=50, unique=True)
     code = models.CharField(max_length=2, unique=True, null=True, blank=True)
+    description = models.TextField(blank=True)
 
     class Meta:
         verbose_name = _("PUC kind")

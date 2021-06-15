@@ -10,6 +10,12 @@ DEFAULT_CLASSIFICATION_METHOD_CODE = "MA"
 
 
 class ProductToPUC(CommonInfo):
+    """
+    Each product can be assigned to multiple PUCs, using different classification
+    methods. The user-facing features in Factotum abstract away the multiple PUCs
+    in favor of the "uberpuc," or the PUC that was assigned with the most-reliable
+    classification method. 
+    """
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     puc = models.ForeignKey(PUC, on_delete=models.CASCADE)
@@ -73,6 +79,15 @@ class ProductToPucClassificationMethodManager(models.Manager):
 
 
 class ProductToPucClassificationMethod(CommonInfo):
+    """
+    PUCs can be assigned to products using a variety of methods. This
+    model stores the classification methods and ranks them by their 
+    trustworthiness. A product may not be assigned to more than one
+    PUC with the same classification method.
+    The related PUC with the highest-ranked classification method 
+    becomes the product's "uberpuc."
+    """
+
     code = models.CharField(
         max_length=3,
         primary_key=True,
@@ -85,6 +100,7 @@ class ProductToPucClassificationMethod(CommonInfo):
     rank = models.PositiveSmallIntegerField(
         unique=True, verbose_name="classification method rank"
     )
+    description = models.TextField(blank=True)
 
     def natural_key(self):
         return (self.code,)

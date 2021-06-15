@@ -21,6 +21,14 @@ class ProductDocumentManager(models.Manager):
 
 
 class ProductDocument(CommonInfo):
+    """
+    Because a single MSDS (or similar source document) can describe multiple 
+    products offered in different packaging or variations, a data document can
+    be related to multiple product records. There are several instances of
+    multiple documents being linked to a single product, but those are likely 
+    errors.
+    """
+
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, null=True, blank=True
     )

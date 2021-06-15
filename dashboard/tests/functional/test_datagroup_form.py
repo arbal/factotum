@@ -137,7 +137,7 @@ class DataGroupFormTest(TestCase):
             resp,
             "CSV column titles should be [&#39;filename&#39;, &#39;title&#39;,"
             " &#39;document_type&#39;, &#39;url&#39;, &#39;organization&#39;,"
-            " &#39;subtitle&#39;, &#39;epa_reg_number&#39;]",
+            " &#39;subtitle&#39;, &#39;epa_reg_number&#39;, &#39;pmid&#39;]",
         )
 
     def test_datagroup_tracking_edit_form(self):

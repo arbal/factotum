@@ -334,31 +334,15 @@ class ChemicalPresenceViewSet(viewsets.ReadOnlyModelViewSet):
 
 class FunctionalUseViewSet(ModelViewSet):
     """
-    list: Service to retrieve the functional use to chemical connection.
-    Query parameter is required, which can be any of ["document", "chemical", "category"]
+    list: Service to retrieve the reported functional uses assigned to chemicals.
     """
 
     http_method_names = ["get", "head", "options"]
     serializer_class = serializers.FunctionalUseSerializer
-    queryset = models.FunctionalUse.objects.prefetch_related(
-        "chem__extracted_text__data_document", "chem__dsstox"
+    queryset = models.FunctionalUseToRawChem.objects.prefetch_related(
+        "chemical__extracted_text__data_document", "chemical__dsstox", "functional_use"
     ).order_by("id")
     filterset_class = filters.FunctionalUseFilter
-
-
-class FunctionalUseRelationshipView(RelationshipView):
-    http_method_names = ["get", "head", "options"]
-    queryset = models.FunctionalUse.objects
-    field_name_mapping = {
-        "chemical": "chem.dsstox",
-        "dataDocument": "chem.extracted_text.data_document",
-    }
-
-    def get_related_instance(self):
-        try:
-            return operator.attrgetter(self.get_related_field_name())(self.get_object())
-        except AttributeError:
-            raise NotFound
 
 
 class FunctionUseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -369,6 +353,18 @@ class FunctionUseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = serializers.FunctionalUseCategorySerializer
     queryset = models.FunctionalUseCategory.objects.all().order_by("id")
     filterset_fields = {"title", "description"}
+
+
+class FunctionalUseRelationshipView(RelationshipView):
+    http_method_names = ["get", "head", "options"]
+    queryset = models.FunctionalUseToRawChem.objects
+    field_name_mapping = {}
+
+    def get_related_instance(self):
+        try:
+            return operator.attrgetter(self.get_related_field_name())(self.get_object())
+        except AttributeError:
+            raise NotFound
 
 
 class ChemicalPresenceTagViewSet(ViewSetMixin, generics.ListAPIView):

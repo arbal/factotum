@@ -16,6 +16,7 @@
     updated_by: null
     code: FO
     name: Formulation
+    description: formulation kind
 - model: dashboard.puckind
   pk: 3
   fields:
@@ -34,6 +35,7 @@
     updated_by: null
     code: OC
     name: Occupation
+    description: occupation kind
 
 - model: dashboard.puc
   pk: 1
