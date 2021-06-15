@@ -369,6 +369,7 @@ urlpatterns = [
         "dl_pucs_json/tree/", views.collapsible_tree_PUCs, name="collapsible_tree_PUCs"
     ),
     path("dl_pucs/", views.download_PUCs, name="download_PUCs"),
+    path("dl_lp_chemicals/", views.download_list_presence_chemicals, name="download_LP_chemicals"),
     path("dl_puctags/", views.download_PUCTags, name="download_PUCTags"),
     path("dl_lpkeywords/", views.download_LPKeywords, name="download_LPKeywords"),
     path(
