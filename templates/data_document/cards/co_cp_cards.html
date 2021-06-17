@@ -92,6 +92,13 @@
                             </div>
                             <div class="col text-right text-truncate">
                                 {% if chemical.dsstox %}
+                                {% if chemical.provisional %}
+                                    <div class="row d-flex justify-content-end">
+                                        <div class="col">
+                                            <small class="text-danger " title="The DSSTOX SID was provisionally assigned by the Factotum system.">Provisional</small>
+                                        </div>
+                                        </div>
+                                {% endif %}
                                     <h4 class="d-inline">
                                         <a href="https://comptox.epa.gov/dashboard/dsstoxdb/results?search={{ chemical.dsstox.sid }}"
                                            target='_blank'
@@ -220,6 +227,7 @@
                                 </div>
                             </div>
                         {% endif %}
+
                         <div class="row mb-0">
                             <div class="col-6 text-left mt-auto">
                                 {% if chemical.component %}

@@ -715,13 +715,12 @@ def download_document_chemicals(request, pk):
             content_type="text/plain;",
         )
 
+
 def download_list_presence_chemicals(request):
     chemicals = (
         ExtractedListPresence.objects.all()
-            .annotate(
-            tag_names=GroupConcat("tags__name", separator="; ", distinct=True)
-        )
-            .values(
+        .annotate(tag_names=GroupConcat("tags__name", separator="; ", distinct=True))
+        .values(
             "extracted_text__data_document__data_group__data_source__title",
             "extracted_text__data_document__title",
             "extracted_text__data_document__subtitle",
@@ -737,7 +736,7 @@ def download_list_presence_chemicals(request):
             "functional_uses__category__title",
             "tag_names",
         )
-            .order_by("raw_chem_name")
+        .order_by("raw_chem_name")
     )
     filename = "list_presence_chemicals.csv"
     return render_to_csv_response(
@@ -760,10 +759,9 @@ def download_list_presence_chemicals(request):
             "functional_uses__category__title": "Harmonized Functional Use",
             "tag_names": "Tags",
         },
-        field_serializer_map={
-            "provisional": (lambda f: ("Yes" if f == "1" else "No"))
-        },
+        field_serializer_map={"provisional": (lambda f: ("Yes" if f == "1" else "No"))},
     )
+
 
 class DocumentAuditLog(BaseDatatableView):
     model = AuditLog

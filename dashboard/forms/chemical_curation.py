@@ -99,6 +99,7 @@ class ChemicalCurationFormSet(DGFormSet):
             chem = form.cleaned_data["external_id"]
             chem.rid = form.cleaned_data["rid"]
             chem.dsstox = dss
+            chem.provisional = 0
             update_chems.append(chem)
         with transaction.atomic():
             DSSToxLookup.objects.bulk_create(new_dsstox)
@@ -111,5 +112,5 @@ class ChemicalCurationFormSet(DGFormSet):
                 #  fetch the dsstox from the DB
                 if chem.dsstox and not chem.dsstox.pk:
                     chem.dsstox = DSSToxLookup.objects.get(sid=chem.dsstox.sid)
-            RawChem.objects.bulk_update(update_chems, ["dsstox", "rid"])
+            RawChem.objects.bulk_update(update_chems, ["dsstox", "rid", "provisional"])
         return len(self.forms)
