@@ -617,7 +617,12 @@ class CuratedChemicalsListJson(FilterDatatableView):
             detail_url = reverse(
                 "curated_chemical_detail", kwargs={"sid": row["dsstox__sid"]}
             )
-            params = {"raw_chem_name": row["raw_chem_name"], "raw_cas": row["raw_cas"]}
+            params = {
+                "raw_chem_name": row["raw_chem_name"],
+                "raw_cas": row["raw_cas"],
+                "dsstox__true_chemname": row["dsstox__true_chemname"],
+                "dsstox__true_cas": row["dsstox__true_cas"],
+            }
             detail_url += "?" + urlencode(params)
             return f"<a href='{detail_url}' target='_blank'>{row['count']}</a>"
         return super().render_column(row, column)

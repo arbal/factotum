@@ -80,7 +80,7 @@ class TestCuratedChemicalRemoval(StaticLiveServerTestCase):
         self.assertIn("7782-50-5", curated_cas_cell.text)
         self.assertEqual("3", count_cell.text)
         self.assertIn(
-            "/curated_chemical_detail/DTXSID1020273?raw_chem_name=Chlorine&raw_cas=7782-50-5",
+            "/curated_chemical_detail/DTXSID1020273?raw_chem_name=Chlorine&raw_cas=7782-50-5&dsstox__true_chemname=chlorine&dsstox__true_cas=7782-50-5",
             detail_link.get_attribute("href"),
         )
 
@@ -88,6 +88,8 @@ class TestCuratedChemicalRemoval(StaticLiveServerTestCase):
         sid = "DTXSID1020273"
         raw_chem_name = "Chlorine"
         raw_cas = "7782-50-5"
+        true_chemname = "chlorine"
+        true_cas = "7782-50-5"
 
         # set one chemical sid provisional flag
         chem = RawChem.objects.get(pk=24)
@@ -101,7 +103,7 @@ class TestCuratedChemicalRemoval(StaticLiveServerTestCase):
 
         detail_url = (
             self.live_server_url
-            + f"/curated_chemical_detail/{sid}?raw_chem_name={raw_chem_name}&raw_cas={raw_cas}"
+            + f"/curated_chemical_detail/{sid}?raw_chem_name={raw_chem_name}&raw_cas={raw_cas}&dsstox__true_chemname={true_chemname}&dsstox__true_cas={true_cas}"
         )
         self.browser.get(detail_url)
 
@@ -116,6 +118,11 @@ class TestCuratedChemicalRemoval(StaticLiveServerTestCase):
             raw_chem_name, self.browser.find_element_by_id("raw_chem_name").text
         )
         self.assertEqual(raw_cas, self.browser.find_element_by_id("raw_cas").text)
+
+        self.assertEqual(
+            true_chemname, self.browser.find_element_by_id("true_chemname").text
+        )
+        self.assertEqual(true_cas, self.browser.find_element_by_id("true_cas").text)
 
         document_cell = self.browser.find_element_by_xpath(
             '//*[@id="curated_chemicals"]/tbody/tr[1]/td[1]'

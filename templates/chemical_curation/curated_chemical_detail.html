@@ -16,6 +16,12 @@
         <br>
         <label class="text-muted col-2">Raw CAS: </label>
         <span id="raw_cas">{{ data.raw_cas }}</span>
+        <br>
+        <label class="text-muted col-2">Curated Chem Name: </label>
+        <span id="true_chemname">{{ data.dsstox__true_chemname }}</span>
+        <br>
+        <label class="text-muted col-2">Curated CAS: </label>
+        <span id="true_cas">{{ data.dsstox__true_cas }}</span>
     </div>
 
     <table class="table table-striped dataTable no-footer table-sm" id="curated_chemicals">
