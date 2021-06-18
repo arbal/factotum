@@ -214,7 +214,7 @@ def get_extracted_models(t):
     ExtractedHHDoc = apps.get_model("dashboard", "ExtractedHHDoc")
     ExtractedHHRec = apps.get_model("dashboard", "ExtractedHHRec")
     ExtractedLMDoc = apps.get_model("dashboard", "ExtractedLMDoc")
-    RawChem = apps.get_model("dashboard", "RawChem")
+    ExtractedLMRec = apps.get_model("dashboard", "ExtractedLMRec")
 
     if t == "CO" or t == "UN":
         return ExtractedText, ExtractedComposition
@@ -227,7 +227,7 @@ def get_extracted_models(t):
     elif t == "HH":
         return ExtractedHHDoc, ExtractedHHRec
     elif t == "LM":
-        return ExtractedLMDoc, RawChem
+        return ExtractedLMDoc, ExtractedLMRec
     else:
         return None, None
 

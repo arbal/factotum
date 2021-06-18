@@ -67,7 +67,7 @@ class AuditLog(models.Model):
         for model in apps.all_models[app_label]:
             try:
                 fields = apps.get_model(app_label, model_name=model).auditlog_fields()
-                if fields is not None:
+                if fields is not None and len(fields) > 0:
                     auditlog_fields[model] = fields
             except AttributeError:
                 pass

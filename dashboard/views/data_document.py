@@ -12,6 +12,7 @@ from djqscsv import render_to_csv_response
 from dashboard.forms.forms import (
     ExtractedHabitsAndPracticesForm,
     RawChemToFunctionalUseForm,
+    StatisticalValueForm,
 )
 from dashboard.forms.tag_forms import ExtractedHabitsAndPracticesTagForm
 from dashboard.utils import get_extracted_models, GroupConcat
@@ -21,7 +22,7 @@ from dashboard.forms import (
     DataDocumentForm,
     DocumentTypeForm,
     ExtractedCompositionForm,
-    ExtractedLMChemicalForm,
+    ExtractedLMRecForm,
     ExtractedFunctionalUseForm,
     ExtractedHHRecForm,
     ExtractedListPresenceForm,
@@ -42,13 +43,14 @@ from dashboard.models import (
     ExtractedFunctionalUse,
     DataGroup,
     FunctionalUseToRawChem,
+    ExtractedLMRec,
 )
-from django.forms import inlineformset_factory
+from django.forms import inlineformset_factory, formset_factory
 from django import forms
 
 CHEMICAL_FORMS = {
     "CO": ExtractedCompositionForm,
-    "LM": ExtractedLMChemicalForm,
+    "LM": ExtractedLMRecForm,
     "FU": ExtractedFunctionalUseForm,
     "CP": ExtractedListPresenceForm,
     "HP": ExtractedHabitsAndPracticesForm,
@@ -145,8 +147,14 @@ class ChemCreateView(CreateView):
             extra=extra,
             can_delete=False,
         )
+        # stat_formset = formset_factory(StatisticalValueForm, extra=5)
         context.update(
-            {"formset": FuncUseFormSet, "doc": doc, "post_url": "chemical_create"}
+            {
+                "formset": FuncUseFormSet,
+                # "stat_formset": stat_formset,
+                "doc": doc,
+                "post_url": "chemical_create",
+            }
         )
         if not "fufs" in context:
             context["fufs"] = FuncUseFormSet()
@@ -824,6 +832,10 @@ def cards_detail(request, doc, card_qs, paginate=False):
     elif Child == ExtractedFunctionalUse:
         card_qs = card_qs.order_by("raw_chem_name")
         template = "data_document/cards/functional_use_cards.html"
+
+    elif Child == ExtractedLMRec:
+        card_qs = card_qs.order_by("raw_chem_name")
+        template = "data_document/cards/lm_cards.html"
 
     else:
         card_qs = card_qs.prefetch_related("dsstox").order_by("raw_chem_name")

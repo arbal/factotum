@@ -18,6 +18,12 @@
             </div>
             <div class="modal-body">
                 {% include 'core/bs4_funcuse_form.html' with form=form %}
+
+{#                <h5>Statistical Data</h5>#}
+{#                {{ stat_formset.management_form }}#}
+{#                {% for stat_form in stat_formset %}#}
+{#                    {% include 'core/bs4_form.html' with form=stat_form %}#}
+{#                {% endfor %}#}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -26,7 +32,9 @@
         </div><!-- /.modal-content -->
     </form>
 </div><!-- /.modal-dialog -->
+foobar
 {{ form.media }}
+end foobaring
 <script type="text/javascript" src="{% static 'js/dashboard/tooltip.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/dashboard/chemical_form.js' %}"></script>
 <script>
