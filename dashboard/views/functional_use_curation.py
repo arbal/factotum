@@ -1,3 +1,4 @@
+from dashboard.models.functional_use import FunctionalUseToRawChem
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, reverse, get_object_or_404, redirect
@@ -133,3 +134,23 @@ class FunctionalUseCurationChemicalsTable(BaseDatatableView):
             .order_by("pk")
         )
         return qs
+
+
+@login_required()
+def unassign_functional_uses(request, functional_use_pk):
+    """
+    Delete the records in the FunctionalUseToRawChem join table
+    where the functional use is the one identified in the view's argument.
+    """
+    rfu = get_object_or_404(FunctionalUse, pk=functional_use_pk)
+    functionalusetorawchems = FunctionalUseToRawChem.objects.filter(
+        functional_use_id=functional_use_pk
+    )
+    if request.method == "POST":
+        functionalusetorawchems.delete()
+        return redirect("functional_use_curation")
+    return render(
+        request,
+        "functional_use_curation/confirm_functional_use_removal.html",
+        {"object": rfu},
+    )

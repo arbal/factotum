@@ -191,6 +191,11 @@ urlpatterns = [
         name="functional_use_curation_chemicals",
     ),
     path(
+        "functional_use_curation/unassign/<functional_use_pk>/",
+        views.unassign_functional_uses,
+        name="unassign_functional_uses",
+    ),
+    path(
         "functional_use_curation/<functional_use_pk>/table",
         views.FunctionalUseCurationChemicalsTable.as_view(),
         name="functional_use_curation_chemicals_table",
