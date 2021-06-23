@@ -379,6 +379,11 @@ urlpatterns = [
         views.download_list_presence_chemicals,
         name="download_LP_chemicals",
     ),
+    path(
+        "dl_co_chemicals/",
+        views.download_composition_chemicals,
+        name="download_CO_chemicals",
+    ),
     path("dl_puctags/", views.download_PUCTags, name="download_PUCTags"),
     path("dl_lpkeywords/", views.download_LPKeywords, name="download_LPKeywords"),
     path(
@@ -409,7 +414,7 @@ urlpatterns = [
     path("chemical/<str:sid>/", views.chemical_detail, name="chemical"),
     path(
         "dl_composition_chemical/<str:sid>/",
-        views.download_composition_chemical,
+        views.chemical.download_composition_chemical,
         name="download_composition_chemical",
     ),
     path(
