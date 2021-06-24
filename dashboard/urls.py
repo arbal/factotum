@@ -208,8 +208,8 @@ urlpatterns = [
     ),
 path(
         "qa/manualcomposition/<int:pk>/",
-        dashboard.views.qa.qa_manual_composition,
-        name="qa_manual_composition",
+        dashboard.views.qa.qa_manual_composition_script,
+        name="qa_manual_composition_script",
     ),
     path(
         "qa/extractionscript/<int:pk>/summary",

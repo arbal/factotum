@@ -112,29 +112,6 @@ def qa_manual_composition_index(
 
 
 @login_required()
-def qa_manual_composition(request, pk, template_name="qa/extraction_script.html"):
-    """
-    The user reviews the extracted text and checks whether it was properly converted to data
-    """
-    script = get_object_or_404(Script, pk=pk)
-    # If the Script has no related ExtractedText objects, redirect back to the QA index
-    if ExtractedText.objects.filter(extraction_script=script).count() == 0:
-        return redirect("qa_extractionscript_index")
-    qa_group = script.get_or_create_qa_group()
-    texts = (
-        ExtractedText.objects.filter(qa_group=qa_group, qa_checked=False)
-        .select_related("data_document__data_group__group_type")
-        .annotate(chemical_count=Count("rawchem"))
-        .annotate(chemical_updated_at=Max("rawchem__updated_at"))
-    )
-    return render(
-        request,
-        template_name,
-        {"extractionscript": script, "extractedtexts": texts, "qagroup": qa_group},
-    )
-
-
-@login_required()
 def qa_chemicalpresence_group(request, pk, template_name="qa/chemical_presence.html"):
     datagroup = DataGroup.objects.get(pk=pk)
     if datagroup.group_type.code != "CP":
@@ -190,6 +167,29 @@ def qa_chemicalpresence_summary(
 
 @login_required()
 def qa_extraction_script(request, pk, template_name="qa/extraction_script.html"):
+    """
+    The user reviews the extracted text and checks whether it was properly converted to data
+    """
+    script = get_object_or_404(Script, pk=pk)
+    # If the Script has no related ExtractedText objects, redirect back to the QA index
+    if ExtractedText.objects.filter(extraction_script=script).count() == 0:
+        return redirect("qa_extractionscript_index")
+    qa_group = script.get_or_create_qa_group()
+    texts = (
+        ExtractedText.objects.filter(qa_group=qa_group, qa_checked=False)
+        .select_related("data_document__data_group__group_type")
+        .annotate(chemical_count=Count("rawchem"))
+        .annotate(chemical_updated_at=Max("rawchem__updated_at"))
+    )
+    return render(
+        request,
+        template_name,
+        {"extractionscript": script, "extractedtexts": texts, "qagroup": qa_group},
+    )
+
+
+@login_required()
+def qa_manual_composition_script(request, pk, template_name="qa/extraction_script.html"):
     """
     The user reviews the extracted text and checks whether it was properly converted to data
     """
