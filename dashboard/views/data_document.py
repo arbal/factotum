@@ -84,8 +84,8 @@ def data_document_detail(request, pk):
         else:
             chem = (
                 Child.objects.filter(extracted_text__data_document=doc)
-                    .prefetch_related("dsstox")
-                    .first()
+                .prefetch_related("dsstox")
+                .first()
             )
             FuncUseFormSet = inlineformset_factory(
                 RawChem,
@@ -104,8 +104,8 @@ def data_document_detail(request, pk):
     if doc.data_group.group_type.code == "CO":
         script_chem = (
             Child.objects.filter(extracted_text__data_document=doc)
-                .filter(script__isnull=False)
-                .first()
+            .filter(script__isnull=False)
+            .first()
         )
         context["cleaning_script"] = script_chem.script if script_chem else None
 
@@ -113,8 +113,8 @@ def data_document_detail(request, pk):
         ExtractedListPresenceTag.objects.filter(
             extractedlistpresence__extracted_text__data_document=doc
         )
-            .values_list("id", "name", named=True)
-            .distinct()
+        .values_list("id", "name", named=True)
+        .distinct()
     )
     context["tags"] = tags
     return render(request, template_name, context)
@@ -475,8 +475,8 @@ def list_presence_tag_curation(request):
         DataDocument.objects.filter(
             data_group__group_type__code="CP", extractedtext__rawchem__isnull=False
         )
-            .distinct()
-            .exclude(
+        .distinct()
+        .exclude(
             extractedtext__rawchem__in=ExtractedListPresenceToTag.objects.values(
                 "content_object_id"
             )
@@ -565,10 +565,10 @@ def download_document_chemicals(request, pk):
             ExtractedListPresence.objects.filter(
                 extracted_text__data_document_id=document.pk
             )
-                .annotate(
+            .annotate(
                 tag_names=GroupConcat("tags__name", separator="; ", distinct=True)
             )
-                .values(
+            .values(
                 "extracted_text__data_document__title",
                 "extracted_text__data_document__subtitle",
                 "extracted_text__data_document__organization",
@@ -582,7 +582,7 @@ def download_document_chemicals(request, pk):
                 "functional_uses__report_funcuse",
                 "functional_uses__category__title",
             )
-                .order_by("raw_chem_name")
+            .order_by("raw_chem_name")
         )
         filename = document.get_title_as_slug() + "_chemicals.csv"
         return render_to_csv_response(
@@ -611,8 +611,8 @@ def download_document_chemicals(request, pk):
             ExtractedComposition.objects.filter(
                 extracted_text__data_document_id=document.pk
             )
-                .prefetch_related("weight_fraction_type", "unit_type")
-                .values(
+            .prefetch_related("weight_fraction_type", "unit_type")
+            .values(
                 "extracted_text__data_document__title",
                 "extracted_text__data_document__subtitle",
                 "extracted_text__data_document__organization",
@@ -636,7 +636,7 @@ def download_document_chemicals(request, pk):
                 "functional_uses__report_funcuse",
                 "functional_uses__category__title",
             )
-                .order_by("raw_chem_name")
+            .order_by("raw_chem_name")
         )
         filename = document.get_title_as_slug() + "_chemicals.csv"
         return render_to_csv_response(
@@ -674,7 +674,7 @@ def download_document_chemicals(request, pk):
             ExtractedFunctionalUse.objects.filter(
                 extracted_text__data_document_id=document.pk
             )
-                .values(
+            .values(
                 "extracted_text__data_document__title",
                 "extracted_text__data_document__subtitle",
                 "extracted_text__data_document__organization",
@@ -687,7 +687,7 @@ def download_document_chemicals(request, pk):
                 "functional_uses__report_funcuse",
                 "functional_uses__category__title",
             )
-                .order_by("raw_chem_name")
+            .order_by("raw_chem_name")
         )
         filename = document.get_title_as_slug() + "_chemicals.csv"
         return render_to_csv_response(
@@ -727,8 +727,8 @@ def download_document_chemicals(request, pk):
 def download_list_presence_chemicals(request):
     chemicals = (
         ExtractedListPresence.objects.all()
-            .annotate(tag_names=GroupConcat("tags__name", separator="; ", distinct=True))
-            .values(
+        .annotate(tag_names=GroupConcat("tags__name", separator="; ", distinct=True))
+        .values(
             "extracted_text__data_document__data_group__data_source__title",
             "extracted_text__data_document__title",
             "extracted_text__data_document__subtitle",
@@ -744,7 +744,7 @@ def download_list_presence_chemicals(request):
             "functional_uses__category__title",
             "tag_names",
         )
-            .order_by("raw_chem_name")
+        .order_by("raw_chem_name")
     )
     filename = "list_presence_chemicals.csv"
     return render_to_csv_response(
@@ -774,13 +774,18 @@ def download_list_presence_chemicals(request):
 def download_composition_chemicals(request):
     chemicals = (
         ExtractedComposition.objects.all()
-            .prefetch_related("weight_fraction_type", "unit_type")
-            .values(
+        .prefetch_related("weight_fraction_type", "unit_type", "product_uber_puc")
+        .values(
             "extracted_text__data_document__data_group__data_source__title",
             "extracted_text__data_document__title",
             "extracted_text__data_document__subtitle",
             "extracted_text__doc_date",
             "extracted_text__data_document__product__title",
+            "extracted_text__data_document__product__product_uber_puc__puc__kind__name",
+            "extracted_text__data_document__product__product_uber_puc__puc__gen_cat",
+            "extracted_text__data_document__product__product_uber_puc__puc__prod_fam",
+            "extracted_text__data_document__product__product_uber_puc__puc__prod_type",
+            "extracted_text__data_document__product__product_uber_puc__classification_method__name",
             "raw_chem_name",
             "raw_cas",
             "dsstox__sid",
@@ -794,9 +799,13 @@ def download_composition_chemicals(request):
             "lower_wf_analysis",
             "upper_wf_analysis",
             "central_wf_analysis",
-            "weight_fraction_type__title"
+            "weight_fraction_type__title",
         )
-            .order_by("raw_chem_name")
+        .order_by(
+            "extracted_text__data_document__data_group__data_source",
+            "extracted_text__data_document__title",
+            "raw_chem_name",
+        )
     )
     filename = "composition_chemicals.csv"
     return render_to_csv_response(
@@ -809,6 +818,11 @@ def download_composition_chemicals(request):
             "extracted_text__data_document__subtitle": "Data Document Subtitle",
             "extracted_text__doc_date": "Document Date",
             "extracted_text__data_document__product__title": "Product",
+            "extracted_text__data_document__product__product_uber_puc__puc__kind__name": "PUC Kind",
+            "extracted_text__data_document__product__product_uber_puc__puc__gen_cat": "PUC Gen Cat",
+            "extracted_text__data_document__product__product_uber_puc__puc__prod_fam": "PUC Prod Fam",
+            "extracted_text__data_document__product__product_uber_puc__puc__prod_type": "PUC Prod Type",
+            "extracted_text__data_document__product__product_uber_puc__classification_method__name": "PUC Classification Method",
             "raw_chem_name": "Raw Chemical Name",
             "raw_cas": "Raw CAS",
             "dsstox__sid": "DTXSID",
@@ -840,8 +854,8 @@ class DocumentAuditLog(BaseDatatableView):
     def get_initial_queryset(self):
         qs = (
             self.model.objects.filter(extracted_text_id=self.pk)
-                .order_by("-date_created")
-                .all()
+            .order_by("-date_created")
+            .all()
         )
 
         return qs

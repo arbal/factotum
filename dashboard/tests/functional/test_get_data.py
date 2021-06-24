@@ -234,5 +234,13 @@ class TestGetData(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(
             response,
-            "Walmart MSDS,SHINING MONKEY FABRIC PROTECTOR Recertification,,2020-06-12,SHINING MONKEY FABRIC PROTECTOR ,Toluen,108-88-3,,,,No,,,,unknown,,,,reported",
+            "Data Source,Data Document Title,Data Document Subtitle,Document Date,Product,PUC Kind,PUC Gen Cat,PUC Prod Fam,PUC Prod Type,PUC Classification Method,Raw Chemical Name,Raw CAS,DTXSID,True Chemical Name,True CAS,Provisional,Raw Min Comp,Raw Max Comp,Raw Central Comp,Unit Type,Lower Weight Fraction,Upper Weight Fraction,Central Weight Fraction,Weight Fraction Type",
         )
+        # the response has to be fetched again or the assertion will fail
+        response = self.client.get("/dl_co_chemicals/")
+        self.assertContains(
+            response,
+            "Walmart MSDS,body butter (PLP) Recertification / (ANHUA ZHOULI INDUSTRY),,2020-06-12,body butter,Formulation,Personal care,general moisturizing,hand/body lotion,Manual,\"2,6-Di-tert-butyl-p-cresol\",128-37-0,,,,No,,,,unknown,,,,reported",
+        )
+
+
