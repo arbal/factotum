@@ -166,9 +166,19 @@ urlpatterns = [
         name="curated_chemical_removal",
     ),
     path(
+        "curated_chemical_detail/<str:sid>",
+        views.curated_chemical_detail,
+        name="curated_chemical_detail",
+    ),
+    path(
         "category_assignment/<int:pk>/",
         views.category_assignment,
         name="category_assignment",
+    ),
+    path(
+        "functional_use_cleanup/",
+        views.functional_use_cleanup,
+        name="functional_use_cleanup",
     ),
     path(
         "functional_use_curation/",
@@ -179,6 +189,11 @@ urlpatterns = [
         "functional_use_curation/<functional_use_pk>/",
         views.FunctionalUseCurationChemicals.as_view(),
         name="functional_use_curation_chemicals",
+    ),
+    path(
+        "functional_use_curation/unassign/<functional_use_pk>/",
+        views.unassign_functional_uses,
+        name="unassign_functional_uses",
     ),
     path(
         "functional_use_curation/<functional_use_pk>/table",
@@ -200,6 +215,16 @@ urlpatterns = [
         "qa/manualcomposition/",
         views.qa_manual_composition_index,
         name="qa_manual_composition_index",
+    ),
+    path(
+        "qa/manualcomposition/<int:pk>/summary",
+        views.qa_manual_composition_summary,
+        name="qa_manual_composition_summary",
+    ),
+    path(
+        "qa/manualcomposition/<int:pk>/summary/table",
+        dashboard.views.qa.ManualCompositionDataGroupSummaryTable.as_view(),
+        name="qa_manual_composition_summary_table",
     ),
     path(
         "qa/extractionscript/<int:pk>/",
@@ -331,6 +356,11 @@ path(
         views.CuratedChemicalsListJson.as_view(),
         name="curated_chem_ajax_url",
     ),
+    path(
+        "curated_chem_detail_json/",
+        views.CuratedChemicalDetailJson.as_view(),
+        name="curated_chem_detail_ajax_url",
+    ),
     path("sid_gt_json", views.sids_by_grouptype_ajax, name="sid_gt_json_url"),
     path("pucs/", views.puc_list, name="puc_list"),
     path("puc/<int:pk>/", views.puc_detail, name="puc_detail"),
@@ -349,12 +379,27 @@ path(
         "dl_pucs_json/tree/", views.collapsible_tree_PUCs, name="collapsible_tree_PUCs"
     ),
     path("dl_pucs/", views.download_PUCs, name="download_PUCs"),
+    path(
+        "dl_lp_chemicals/",
+        views.download_list_presence_chemicals,
+        name="download_LP_chemicals",
+    ),
+    path(
+        "dl_co_chemicals/",
+        views.download_composition_chemicals,
+        name="download_CO_chemicals",
+    ),
     path("dl_puctags/", views.download_PUCTags, name="download_PUCTags"),
     path("dl_lpkeywords/", views.download_LPKeywords, name="download_LPKeywords"),
     path(
         "dl_functionalusecategories/",
         views.download_FunctionalUseCategories,
         name="download_FunctionalUseCategories",
+    ),
+    path(
+        "dl_functional_uses/",
+        views.download_functional_uses,
+        name="download_functional_uses",
     ),
     path(
         "functional_use_categories/",
@@ -374,7 +419,7 @@ path(
     path("chemical/<str:sid>/", views.chemical_detail, name="chemical"),
     path(
         "dl_composition_chemical/<str:sid>/",
-        views.download_composition_chemical,
+        views.chemical.download_composition_chemical,
         name="download_composition_chemical",
     ),
     path(

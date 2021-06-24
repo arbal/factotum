@@ -15,6 +15,23 @@ class ExtractedLMDoc(ExtractedText):
     )
 
     media = models.CharField("Media", max_length=100, blank=True)
+    qa_flag = models.CharField(
+        "QA flag",
+        help_text="Indicates whether ICF completed QA",
+        max_length=30,
+        blank=True,
+    )
+    qa_who = models.CharField(
+        "QA who",
+        help_text="Name of contractor who completed QA",
+        max_length=50,
+        blank=True,
+    )
+    extraction_wa = models.TextField(
+        help_text="Contain details of the contract and work assignment under which data was extracted",
+        verbose_name="Extraction WA",
+        blank=True,
+    )
 
     def __str__(self):
         return str(self.data_document)

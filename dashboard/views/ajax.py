@@ -1,9 +1,11 @@
+from urllib.parse import urlencode
+
 from django.urls import reverse
 from django.views import View
 from django.views.generic.detail import SingleObjectMixin
 from django_datatables_view.base_datatable_view import BaseDatatableView
 from django.http import JsonResponse
-from django.db.models import Q, Count, Subquery, Case, When, F, Value
+from django.db.models import Q, Count, Subquery, Case, When, F, Value, OuterRef
 from django.utils.html import format_html
 from django.views.decorators.cache import cache_page
 from django.template.defaultfilters import truncatechars
@@ -23,6 +25,7 @@ from dashboard.models import (
     FunctionalUseToRawChem,
     ExtractedHabitsAndPractices,
     RawChem,
+    AuditLog,
 )
 
 
@@ -122,6 +125,13 @@ class ProductListJson(FilterDatatableView):
                 row.get_absolute_url(),
                 value,
             )
+        if column == "product_uber_puc.classification_method.name":
+            if value:
+                return format_html(
+                    '<span title="{}">{}</span>',
+                    row.product_uber_puc.classification_method.description,
+                    value,
+                )
         return value
 
     def get_initial_queryset(self):
@@ -139,7 +149,7 @@ class DocumentListJson(FilterDatatableView):
     """
 
     model = DataDocument
-    columns = ["title", "data_group.group_type.title"]
+    columns = ["title", "data_group.group_type.title", "extractedtext.doc_date"]
 
     def get_initial_queryset(self):
         qs = super().get_initial_queryset()
@@ -160,6 +170,12 @@ class DocumentListJson(FilterDatatableView):
             return format_html(
                 '<a href="{}" title="Go to Document detail" target="_blank">{}</a>',
                 row.get_absolute_url(),
+                value,
+            )
+        if column == "data_group.group_type.title":
+            return format_html(
+                '<span title="{}">{}</span>',
+                row.data_group.group_type.description,
                 value,
             )
         return value
@@ -297,11 +313,10 @@ class FUCProductListJson(FilterDatatableView):
         "title",
         "document.title",
         "product_uber_puc.puc",
-        "product_uber_puc.classification_method.code",
+        "product_uber_puc.classification_method.name",
     ]
 
     def render_column(self, row, column):
-        fuc = self.request.GET.get("functional_use_category")
         value = self._render_column(row, column)
         if column == "title":
             return format_html(
@@ -316,10 +331,17 @@ class FUCProductListJson(FilterDatatableView):
                 value,
             )
         if column == "product_uber_puc.puc":
-            if row.product_uber_puc:
+            if value:
                 return format_html(
                     '<a href="{}" title="Go to PUC detail" target="_blank">{}</a>',
                     row.product_uber_puc.puc.get_absolute_url(),
+                    value,
+                )
+        if column == "product_uber_puc.classification_method.name":
+            if value:
+                return format_html(
+                    '<span title="{}">{}</span>',
+                    row.product_uber_puc.classification_method.description,
                     value,
                 )
         return value
@@ -360,6 +382,7 @@ class FUCDocumentListJson(FilterDatatableView):
                 "extracted_text__data_document",
                 "extracted_text__data_document__title",
                 "extracted_text__data_document__data_group__group_type__code",
+                "extracted_text__data_document__data_group__group_type__description",
                 "extracted_text__doc_date",
                 "functional_uses__report_funcuse",
             )
@@ -368,15 +391,21 @@ class FUCDocumentListJson(FilterDatatableView):
         return qs
 
     def render_column(self, row, column):
-
         value = self._render_column(row, column)
         if column == "extracted_text__data_document__title":
-
             doc_id = row["extracted_text__data_document"]
             doc = DataDocument.objects.get(pk=doc_id)
             return format_html(
                 '<a href="{}" title="Go to Document detail" target="_blank">{}</a>',
                 doc.get_absolute_url(),
+                value,
+            )
+        if column == "extracted_text__data_document__data_group__group_type__code":
+            return format_html(
+                '<span title="{}">{}</span>',
+                row[
+                    "extracted_text__data_document__data_group__group_type__description"
+                ],
                 value,
             )
         return value
@@ -582,3 +611,66 @@ class CuratedChemicalsListJson(FilterDatatableView):
             "dsstox__true_cas",
         ).annotate(count=Count("id"))
         return qs
+
+    def render_column(self, row, column):
+        if column == "count":
+            detail_url = reverse(
+                "curated_chemical_detail", kwargs={"sid": row["dsstox__sid"]}
+            )
+            params = {
+                "raw_chem_name": row["raw_chem_name"],
+                "raw_cas": row["raw_cas"],
+                "dsstox__true_chemname": row["dsstox__true_chemname"],
+                "dsstox__true_cas": row["dsstox__true_cas"],
+            }
+            detail_url += "?" + urlencode(params)
+            return f"<a href='{detail_url}' target='_blank'>{row['count']}</a>"
+        return super().render_column(row, column)
+
+
+class CuratedChemicalDetailJson(FilterDatatableView):
+    model = RawChem
+    columns = ["extracted_text.data_document.title", "sid_updated", "provisional"]
+
+    def get_initial_queryset(self):
+        sid = self.request.GET.get("sid")
+        raw_chem_name = self.request.GET.get("raw_chem_name")
+        raw_cas = self.request.GET.get("raw_cas")
+
+        sid_log = (
+            AuditLog.objects.filter(rawchem_id=OuterRef("pk"), field_name="sid")
+            .order_by("-date_created")
+            .values("date_created")
+        )
+
+        qs = (
+            super()
+            .get_initial_queryset()
+            .prefetch_related("extracted_text__data_document", "dsstox")
+            .filter(dsstox__sid=sid, raw_chem_name=raw_chem_name, raw_cas=raw_cas)
+            .annotate(sid_updated=Subquery(sid_log[:1]))
+        )
+        return qs
+
+    def render_column(self, row, column):
+        if column == "extracted_text.data_document.title":
+            dd_url = reverse(
+                "data_document", args=[row.extracted_text.data_document.id]
+            )
+            dd_url += f"#chem-card-{row.id}"
+            return f"<a href='{dd_url}' target='_blank'>{row.extracted_text.data_document.title}</a>"
+        elif column == "sid_updated":
+            return (
+                row.sid_updated.strftime("%b %d, %Y, %I:%M:%S %p")
+                if row.sid_updated
+                else ""
+            )
+        elif column == "provisional":
+            return "Yes" if row.provisional else "No"
+        return super().render_column(row, column)
+
+    def filter_queryset(self, qs):
+        pv = self.request.GET.get("provisional")
+        if pv and pv != "all":
+            qs = qs.filter(provisional=pv)
+        return super().filter_queryset(qs)

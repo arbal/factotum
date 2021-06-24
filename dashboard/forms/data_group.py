@@ -776,6 +776,7 @@ class RegisterRecordsFormSet(DGFormSet):
         "organization",
         "subtitle",
         "epa_reg_number",
+        "pmid",
     ]
 
     def __init__(self, dg, *args, **kwargs):
@@ -840,6 +841,7 @@ class DataDocumentCSVForm(forms.Form):
     organization = field_for_model(DataDocument, "organization")
     subtitle = field_for_model(DataDocument, "subtitle")
     epa_reg_number = field_for_model(DataDocument, "epa_reg_number")
+    pmid = field_for_model(DataDocument, "pmid")
 
 
 class FunctionalUseCSVForm(forms.Form):

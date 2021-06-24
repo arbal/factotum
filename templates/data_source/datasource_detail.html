@@ -36,10 +36,10 @@
         <dt class="col-sm-3">Estimated Records</dt>
         <dd class="col-sm-9">{{ object.estimated_records | intcomma }}</dd>
 
-        <dt class="col-sm-3">% Registered</dt>
-        <dd class="col-sm-9">{{ object.registered|floatformat:1 }} %</dd>
         <dt class="col-sm-3">% Uploaded</dt>
         <dd class="col-sm-9">{{ object.uploaded|floatformat:1 }} %</dd>
+        <dt class="col-sm-3">% Extracted</dt>
+        <dd class="col-sm-9">{{ object.extracted|floatformat:1 }} %</dd>
 
         <dt class="col-sm-3">Created</dt>
         <dd class="col-sm-9">{{ object.created_at }}</dd>

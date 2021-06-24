@@ -212,3 +212,35 @@ class TestGetData(TestCase):
         for cat in categories:
             self.assertContains(response, cat.title)
             self.assertContains(response, cat.description)
+
+    def test_download_functional_uses(self):
+        response = self.client.get("/dl_functional_uses/")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "Sun Ingredient Disclosures,Composition,Sun_INDS_89,2018-04-07,ethylparabenzene,120-47-9,DTXSID9022528,ethylparaben,120-47-8,False,kayaking,fragrance",
+        )
+
+    def test_download_lp(self):
+        response = self.client.get("/dl_lp_chemicals/")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "SIRI,List of Chemicals 2,,2018-09-27,Test Organization 254781,sd alcohol40-jj (ethanol),0000064-17-6,DTXSID9020584,ethanol,64-17-5,No,,,abrasive; flavor; slimicide",
+        )
+
+    def test_download_co(self):
+        response = self.client.get("/dl_co_chemicals/")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "Data Source,Data Document Title,Data Document Subtitle,Document Date,Product,PUC Kind,PUC Gen Cat,PUC Prod Fam,PUC Prod Type,PUC Classification Method,Raw Chemical Name,Raw CAS,DTXSID,True Chemical Name,True CAS,Provisional,Raw Min Comp,Raw Max Comp,Raw Central Comp,Unit Type,Lower Weight Fraction,Upper Weight Fraction,Central Weight Fraction,Weight Fraction Type",
+        )
+        # the response has to be fetched again or the assertion will fail
+        response = self.client.get("/dl_co_chemicals/")
+        self.assertContains(
+            response,
+            "Walmart MSDS,body butter (PLP) Recertification / (ANHUA ZHOULI INDUSTRY),,2020-06-12,body butter,Formulation,Personal care,general moisturizing,hand/body lotion,Manual,\"2,6-Di-tert-butyl-p-cresol\",128-37-0,,,,No,,,,unknown,,,,reported",
+        )
+
+

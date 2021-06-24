@@ -25,6 +25,9 @@ def update_filename(instance, filename):
 
 # DEPRECATED: migration 0066_auto_20180927_0935.py expects its existence
 def csv_upload_path(instance, filename):
+    """
+    Returns a path to which the csv file will be uploaded
+    """
     # potential space errors in name
     name = "{0}/{1}".format(instance.fs_id, filename)
     return name
@@ -32,11 +35,13 @@ def csv_upload_path(instance, filename):
 
 class DataGroup(CommonInfo, QASummaryNote):
     """A container for registered and extracted documents, all of which
-    share a common extraction script. Inherits from `CommonInfo`
+    share a common extraction script. 
     """
 
     name = models.CharField(max_length=50)
-    description = models.TextField(blank=True)
+    description = models.TextField(
+        blank=True, help_text="Long description of the data group."
+    )
     downloaded_by = models.ForeignKey(
         "auth.User", on_delete=models.SET_DEFAULT, default=1
     )
@@ -44,8 +49,18 @@ class DataGroup(CommonInfo, QASummaryNote):
     download_script = models.ForeignKey(
         "Script", on_delete=models.SET_NULL, default=None, null=True, blank=True
     )
-    data_source = models.ForeignKey("DataSource", on_delete=models.CASCADE)
-    group_type = models.ForeignKey(GroupType, on_delete=models.SET_DEFAULT, default=1)
+    data_source = models.ForeignKey(
+        "DataSource",
+        on_delete=models.CASCADE,
+        help_text="The data source to which the data group belongs.",
+    )
+    group_type = models.ForeignKey(
+        GroupType,
+        on_delete=models.SET_DEFAULT,
+        default=1,
+        verbose_name="group type",
+        help_text="The group type determines which types of data documnets can be uploaded into the data group.",
+    )
     url = models.CharField(max_length=150, blank=True, validators=[URLValidator()])
     workflow_complete = models.BooleanField(default=False)
 

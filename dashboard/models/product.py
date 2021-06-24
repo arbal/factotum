@@ -37,6 +37,10 @@ class ProductQuerySet(models.QuerySet):
 
 
 class Product(CommonInfo):
+    """
+    A product record describes a consumer-facing article. 
+    """
+
     documents = models.ManyToManyField(
         through="dashboard.ProductDocument",
         to="dashboard.DataDocument",
@@ -45,14 +49,14 @@ class Product(CommonInfo):
     tags = TaggableManager(
         through="dashboard.ProductToTag",
         to="dashboard.PUCTag",
-        help_text=("A set of PUC Tags applicable " "to this Product"),
+        help_text="A set of PUC Tags applicable to this Product",
     )
     source_category = models.ForeignKey(
         SourceCategory,
         on_delete=models.CASCADE,
         null=True,
         blank=True,
-        help_text=("The category assigned in " "the product's data source"),
+        help_text="The category assigned in the product's data source",
     )
     title = models.CharField(max_length=255)
     manufacturer = models.CharField(

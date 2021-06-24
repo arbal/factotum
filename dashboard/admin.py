@@ -44,7 +44,10 @@ from dashboard.models import (
     FunctionalUseCategory,
     CurationStep,
     FunctionalUseToRawChem,
+    ExtractedLMDoc,
+    ExtractedLMRec,
 )
+from dashboard.models.extracted_lmrec import HarmonizedMedium, StatisticalValue
 
 
 class PUCAdminForm(forms.ModelForm):
@@ -210,6 +213,10 @@ admin.site.register(TaxonomySource)
 admin.site.register(TaxonomyToPUC)
 admin.site.register(ExtractedHHDoc, HHDocAdmin)
 admin.site.register(ExtractedHHRec)
+admin.site.register(ExtractedLMDoc)
+admin.site.register(ExtractedLMRec)
+admin.site.register(StatisticalValue)
+admin.site.register(HarmonizedMedium)
 admin.site.register(PUCToTag, PUCToTagAdmin)
 admin.site.register(ExtractedListPresence)
 admin.site.register(ExtractedListPresenceTag, ExtractedListPresenceTagAdmin)

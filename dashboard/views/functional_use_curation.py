@@ -1,5 +1,7 @@
+from dashboard.models.functional_use import FunctionalUseToRawChem
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, reverse, get_object_or_404
+from django.shortcuts import render, reverse, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, F
 from dashboard.models import FunctionalUse, FunctionalUseCategory
@@ -10,6 +12,27 @@ from django.views.generic import TemplateView
 from django_datatables_view.base_datatable_view import BaseDatatableView
 
 from dashboard.models import FunctionalUse, RawChem
+
+
+@login_required()
+def functional_use_cleanup(request):
+    if request.method == "POST":
+        # remove all reported functional uses that are not associated with chemicals
+        result = (
+            FunctionalUse.objects.annotate(chem_count=Count("chemicals"))
+            .filter(chem_count=0)
+            .delete()
+        )
+        removed_count = result[0]
+        if removed_count > 0:
+            messages.success(
+                request,
+                f"{removed_count} reported functional use(s) successfully removed",
+            )
+        else:
+            messages.warning(request, "No reported functional use removed")
+
+    return redirect("functional_use_curation")
 
 
 @login_required()
@@ -111,3 +134,23 @@ class FunctionalUseCurationChemicalsTable(BaseDatatableView):
             .order_by("pk")
         )
         return qs
+
+
+@login_required()
+def unassign_functional_uses(request, functional_use_pk):
+    """
+    Delete the records in the FunctionalUseToRawChem join table
+    where the functional use is the one identified in the view's argument.
+    """
+    rfu = get_object_or_404(FunctionalUse, pk=functional_use_pk)
+    functionalusetorawchems = FunctionalUseToRawChem.objects.filter(
+        functional_use_id=functional_use_pk
+    )
+    if request.method == "POST":
+        functionalusetorawchems.delete()
+        return redirect("functional_use_curation")
+    return render(
+        request,
+        "functional_use_curation/confirm_functional_use_removal.html",
+        {"object": rfu},
+    )

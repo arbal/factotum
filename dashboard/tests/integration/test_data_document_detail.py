@@ -2,12 +2,12 @@ import time
 
 from django.contrib.auth.models import User
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait, Select
 
-from dashboard.models import DataDocument, ExtractedText, FunctionalUse, RawChem
+from dashboard.models import DataDocument, ExtractedText, RawChem, FunctionalUse
 from dashboard.tests.loader import fixtures_standard, load_browser
 
 
@@ -293,6 +293,44 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             "0.15 reported", self.browser.find_element_by_id("wf_comp_856").text
         )
 
+    def test_co_has_composition_data(self):
+        wait = WebDriverWait(self.browser, 10)
+        composition_data_inputs = [
+            "id_raw_min_comp",
+            "id_raw_central_comp",
+            "id_raw_max_comp",
+            "id_unit_type",
+        ]
+        dd_pk = 156051
+        list_url = self.live_server_url + f"/datadocument/{dd_pk}/"
+
+        for chemical_form_button in ["chemical-update-3", "chemical-add-btn"]:
+            self.browser.get(list_url)
+            wait.until(
+                ec.element_to_be_clickable(
+                    (By.XPATH, f'//*[@id="{chemical_form_button}"]')
+                )
+            ).click()
+
+            # Wait for modal to open
+            wait.until(ec.element_to_be_clickable((By.ID, "id_raw_min_comp")))
+
+            # Verify composition data inputs are enabled
+            for element_id in composition_data_inputs:
+                self.assertTrue(
+                    self.browser.find_element_by_id(element_id).is_enabled()
+                )
+
+            # Disable composition data and verify it disables composition fields
+            self.browser.find_element_by_id("id_has_composition_data").click()
+            wait.until_not(ec.element_to_be_clickable((By.ID, "id_raw_min_comp")))
+
+            # Verify composition data inputs are disabled
+            for element_id in composition_data_inputs:
+                self.assertFalse(
+                    self.browser.find_element_by_id(element_id).is_enabled()
+                )
+
     def test_chemical_update(self):
         docs = DataDocument.objects.filter(pk__in=[156051, 354786])
         for doc in docs:
@@ -324,7 +362,9 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                     )
                 )
             )
-            report_funcuse_box.send_keys("canoeing")
+            rfu = " canoeing "
+            report_funcuse_box.clear()
+            report_funcuse_box.send_keys(rfu)
 
             self.assertEqual("Save changes", save_button.get_attribute("value"))
             save_button.click()
@@ -338,15 +378,19 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
             self.assertIn("Last updated: 0 minutes ago", audit_link.text)
 
+            self.assertEqual(
+                0, FunctionalUse.objects.filter(report_funcuse=rfu).count()
+            )
+            self.assertEqual(
+                1, FunctionalUse.objects.filter(report_funcuse=rfu.strip()).count()
+            )
             # audit_link.click() does not work in chromedriver here for some reason
             self.browser.execute_script("arguments[0].click();", audit_link)
 
-            # TODO: Functional Uses are no longer connected directly to chemicals.
-            #       Re-establish this connection if this is needed.
-            # datatable = wait.until(
-            #     ec.visibility_of_element_located((By.XPATH, "//*[@id='audit-log']"))
-            # )
-            # self.assertIn("canoeing", datatable.text)
+            datatable = wait.until(
+                ec.visibility_of_element_located((By.XPATH, "//*[@id='audit-log']"))
+            )
+            self.assertIn(rfu.strip(), datatable.text)
 
     def test_multiple_fu(self):
         docs = DataDocument.objects.filter(pk__in=[5])
@@ -423,14 +467,19 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 (By.XPATH, "//*[@id='extracted-text-modal-save']")
             )
         )
-        # problem: the form on the data document detail page and on the modal
-        # editor have the same id, so the full ugly xpath is needed
         study_type_menu = self.browser.find_element_by_name("study_type")
         Select(study_type_menu).select_by_visible_text(
             "Non-Targeted or Suspect Screening"
         )
         media_input = self.browser.find_element_by_name("media")
-        media_input.send_keys("Lorem ipso fido leash")
+        media_input.send_keys("test media")
+        qa_flag_input = self.browser.find_element_by_name("qa_flag")
+        qa_flag_input.send_keys("test qa flag")
+        qa_who_input = self.browser.find_element_by_name("qa_who")
+        qa_who_input.send_keys("test qa who")
+        wa_input = self.browser.find_element_by_name("extraction_wa")
+        wa_input.send_keys("test extraction wa")
+
         save_button.click()
 
         # Saving the form triggers a refresh.  Wait until the old save button has become stale before proceeding.
@@ -439,6 +488,15 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             ec.visibility_of_element_located((By.ID, "id_study_type"))
         )
         self.assertIn("Non-Targeted", study_type.text)
+        self.assertIn("test media", self.browser.find_element_by_id("id_media").text)
+        self.assertIn(
+            "test qa flag", self.browser.find_element_by_id("id_qa_flag").text
+        )
+        self.assertIn("test qa who", self.browser.find_element_by_id("id_qa_who").text)
+        self.assertIn(
+            "test extraction wa",
+            self.browser.find_element_by_id("id_extraction_wa").text,
+        )
 
         add_chem_button = wait.until(
             ec.element_to_be_clickable((By.XPATH, "//*[@id='add_chemical']"))
@@ -449,7 +507,39 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
         self.assertTrue(len(self.browser.find_elements_by_id("id_raw_chem_name")) > 0)
         self.assertTrue(len(self.browser.find_elements_by_id("id_raw_cas")) > 0)
-        self.assertFalse(len(self.browser.find_elements_by_id("id_raw_min_comp")) > 0)
+        self.assertTrue(
+            len(self.browser.find_elements_by_id("id_chem_detected_flag")) > 0
+        )
+        self.assertTrue(len(self.browser.find_elements_by_id("id_study_location")) > 0)
+        self.assertTrue(len(self.browser.find_elements_by_id("id_sampling_date")) > 0)
+        self.assertTrue(
+            len(self.browser.find_elements_by_id("id_population_description")) > 0
+        )
+        self.assertTrue(
+            len(self.browser.find_elements_by_id("id_population_gender")) > 0
+        )
+        self.assertTrue(len(self.browser.find_elements_by_id("id_population_age")) > 0)
+        self.assertTrue(
+            len(self.browser.find_elements_by_id("id_population_other")) > 0
+        )
+        self.assertTrue(len(self.browser.find_elements_by_id("id_sampling_method")) > 0)
+        self.assertTrue(
+            len(self.browser.find_elements_by_id("id_analytical_method")) > 0
+        )
+        self.assertTrue(len(self.browser.find_elements_by_id("id_medium")) > 0)
+        harmonized_medium_select = Select(
+            self.browser.find_element_by_id("id_harmonized_medium")
+        )
+        harmonized_medium_select.select_by_visible_text("soil")
+        self.assertTrue(len(self.browser.find_elements_by_id("id_num_measure")) > 0)
+        self.assertTrue(len(self.browser.find_elements_by_id("id_num_nondetect")) > 0)
+        self.assertTrue(len(self.browser.find_elements_by_id("id_detect_freq")) > 0)
+        self.assertTrue(
+            len(self.browser.find_elements_by_id("id_detect_freq_type")) > 0
+        )
+        self.assertTrue(len(self.browser.find_elements_by_id("id_LOD")) > 0)
+        self.assertTrue(len(self.browser.find_elements_by_id("id_LOQ")) > 0)
+
         self.assertFalse(
             len(self.browser.find_elements_by_id("id_raw_central_comp")) > 0
         )

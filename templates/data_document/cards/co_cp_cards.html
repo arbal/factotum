@@ -92,6 +92,13 @@
                             </div>
                             <div class="col text-right text-truncate">
                                 {% if chemical.dsstox %}
+                                {% if chemical.provisional %}
+                                    <div class="row d-flex justify-content-end">
+                                        <div class="col">
+                                            <small class="text-danger " title="The DSSTOX SID was provisionally assigned by the Factotum system.">Provisional</small>
+                                        </div>
+                                        </div>
+                                {% endif %}
                                     <h4 class="d-inline">
                                         <a href="https://comptox.epa.gov/dashboard/dsstoxdb/results?search={{ chemical.dsstox.sid }}"
                                            target='_blank'
@@ -109,47 +116,51 @@
                     <!-- card -->
                     <div class="card-text">
                         {% if doc.data_group.is_composition %}
-                            <div class="row mb-2 mt-2">
-                                <div class="col-auto">
-                                    <!-- raw data could be missing -->
-                                    {% if chemical.has_raw_data %}
-                                        <small class="text-muted">Raw Composition:</small>
-                                        <br/>
-                                    {% endif %}
-                                    <!-- if there is raw data, want to show cleaned wf as well -->
-                                    {% if chemical.has_raw_data or chemical.has_wf_data %}
-                                        <span class="font-weight-bold">Cleaned Weight Fraction:</span>
-                                    {% endif %}
-                                </div>
-                                <div class="col">
-                                    {% if chemical.has_raw_data %}
-                                        <small id="raw_comp_{{ chemical.id }}">
-                                            {% if chemical.raw_central_comp %}
-                                                {{ chemical.raw_central_comp }}
-                                            {% elif chemical.raw_min_comp or chemical.raw_max_comp %}
-                                                {{ chemical.raw_min_comp }} - {{ chemical.raw_max_comp }}
-                                            {% endif %}
-                                            {{ chemical.unit_type }}
-                                        </small>
-                                        <br/>
-                                    {% endif %}
-                                    {% if chemical.has_wf_data %}
-                                        <span class="font-weight-bold" id="wf_comp_{{ chemical.id }}">
-                                            {% if chemical.central_wf_analysis %}
-                                                {{ chemical.central_wf_analysis.normalize }}
-                                            {% endif %}
-                                            {% if chemical.lower_wf_analysis or chemical.upper_wf_analysis %}
-                                                <!-- if all 3 values, display as central, lower - upper unit -->
-                                                {% if chemical.central_wf_analysis %}, {% endif %}
-                                                <!-- lower default to 0, upper defaults to 1.0 -->
-                                                {{ chemical.lower_wf_analysis.normalize | default:'0' }} -
-                                                {{ chemical.upper_wf_analysis.normalize | default:'1.0' }}
-                                            {% endif %}
-                                            {{ chemical.weight_fraction_type }}
-                                        </span>
-                                    {% endif %}
-                                </div>
-                            </div>
+                            {% if chemical.has_composition_data %}
+                                <div class="row mb-2 mt-2">
+                                  <div class="col-auto">
+                                      <!-- raw data could be missing -->
+                                      {% if chemical.has_raw_data %}
+                                          <small class="text-muted">Raw Composition:</small>
+                                          <br/>
+                                      {% endif %}
+                                      <!-- if there is raw data, want to show cleaned wf as well -->
+                                      {% if chemical.has_raw_data or chemical.has_wf_data %}
+                                          <span class="font-weight-bold">Cleaned Weight Fraction:</span>
+                                      {% endif %}
+                                  </div>
+                                  <div class="col">
+                                      {% if chemical.has_raw_data %}
+                                          <small id="raw_comp_{{ chemical.id }}">
+                                              {% if chemical.raw_central_comp %}
+                                                  {{ chemical.raw_central_comp }}
+                                              {% elif chemical.raw_min_comp or chemical.raw_max_comp %}
+                                                  {{ chemical.raw_min_comp }} - {{ chemical.raw_max_comp }}
+                                              {% endif %}
+                                              {{ chemical.unit_type }}
+                                          </small>
+                                          <br/>
+                                      {% endif %}
+                                      {% if chemical.has_wf_data %}
+                                          <span class="font-weight-bold" id="wf_comp_{{ chemical.id }}">
+                                              {% if chemical.central_wf_analysis %}
+                                                  {{ chemical.central_wf_analysis.normalize }}
+                                              {% endif %}
+                                              {% if chemical.lower_wf_analysis or chemical.upper_wf_analysis %}
+                                                  <!-- if all 3 values, display as central, lower - upper unit -->
+                                                  {% if chemical.central_wf_analysis %}, {% endif %}
+                                                  <!-- lower default to 0, upper defaults to 1.0 -->
+                                                  {{ chemical.lower_wf_analysis.normalize | default:'0' }} -
+                                                  {{ chemical.upper_wf_analysis.normalize | default:'1.0' }}
+                                              {% endif %}
+                                              {{ chemical.weight_fraction_type }}
+                                          </span>
+                                      {% endif %}
+                                  </div>
+                              </div>
+                            {% else %}
+                                <div>No Composition Data</div>
+                            {% endif %}
                             {% if doc.data_group.can_have_multiple_funcuse %}
                                 <div class="row">
                                     <div class="col-6 text-left mt-auto">
@@ -216,6 +227,7 @@
                                 </div>
                             </div>
                         {% endif %}
+
                         <div class="row mb-0">
                             <div class="col-6 text-left mt-auto">
                                 {% if chemical.component %}

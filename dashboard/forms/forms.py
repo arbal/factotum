@@ -34,8 +34,10 @@ from dashboard.models import (
     DataGroupCurationWorkflow,
     CurationStep,
     FunctionalUseToRawChem,
+    ExtractedLMRec,
 )
 from dashboard.models.extracted_hpdoc import ExtractedHPDoc
+from dashboard.models.extracted_lmrec import StatisticalValue
 
 from dashboard.utils import get_extracted_models
 
@@ -298,7 +300,14 @@ class ExtractedHHDocForm(ExtractedTextForm):
 class ExtractedLMDocForm(ExtractedTextForm):
     class Meta:
         model = ExtractedLMDoc
-        fields = ["doc_date", "study_type", "media"]
+        fields = [
+            "doc_date",
+            "study_type",
+            "media",
+            "qa_flag",
+            "qa_who",
+            "extraction_wa",
+        ]
 
         widgets = {
             "study_type": forms.Select(attrs={"style": "width:320px"}),
@@ -421,6 +430,7 @@ class ExtractedCompositionForm(ExtractedChemicalModelForm):
         fields = [
             "raw_chem_name",
             "raw_cas",
+            "has_composition_data",
             "raw_min_comp",
             "raw_central_comp",
             "raw_max_comp",
@@ -430,8 +440,14 @@ class ExtractedCompositionForm(ExtractedChemicalModelForm):
             "component",
         ]
 
+    class Media:
+        js = ("js/dashboard/extracted_composition_form.js",)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["has_composition_data"].widget.attrs.update(
+            {"class": "ml-2 align-middle"}
+        )
         if self.referer and (
             "extractionscript" in self.referer
             or "extractedtext" in self.referer
@@ -440,10 +456,42 @@ class ExtractedCompositionForm(ExtractedChemicalModelForm):
             self.fields.pop("weight_fraction_type")
 
 
-class ExtractedLMChemicalForm(ExtractedChemicalModelForm):
+class DateInput(forms.DateInput):
+    input_type = "date"
+
+
+class StatisticalValueForm(forms.ModelForm):
     class Meta:
-        model = RawChem
-        fields = ["raw_chem_name", "raw_cas", "chem_detected_flag"]
+        model = StatisticalValue
+        fields = ["name", "value", "value_type", "stat_unit"]
+
+
+class ExtractedLMRecForm(ExtractedChemicalModelForm):
+    class Meta:
+        model = ExtractedLMRec
+        fields = [
+            "raw_chem_name",
+            "raw_cas",
+            "chem_detected_flag",
+            "study_location",
+            "sampling_date",
+            "population_description",
+            "population_gender",
+            "population_age",
+            "population_other",
+            "sampling_method",
+            "analytical_method",
+            "medium",
+            "harmonized_medium",
+            "num_measure",
+            "num_nondetect",
+            "detect_freq",
+            "detect_freq_type",
+            "LOD",
+            "LOQ",
+        ]
+
+        widgets = {"sampling_date": DateInput()}
 
 
 class ExtractedFunctionalUseForm(ExtractedChemicalModelForm):
@@ -701,5 +749,5 @@ class RemoveCuratedChemicalLinkageForm(forms.Form):
         sid = self.cleaned_data["sid"]
         RawChem.objects.filter(
             raw_chem_name=raw_chem_name, raw_cas=raw_cas, dsstox__sid=sid
-        ).update(dsstox_id=None)
+        ).update(dsstox_id=None, provisional=False)
         return f"Raw chemical {raw_chem_name}/{raw_cas} linkages to curated chemical {sid} have been removed"

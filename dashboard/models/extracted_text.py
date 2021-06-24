@@ -8,6 +8,11 @@ from .common_info import CommonInfo
 
 
 class ExtractedText(CommonInfo):
+    """
+    The ExtractedText record stores attributes that only apply to extracted
+    documents.
+    """
+
     data_document = models.OneToOneField(
         "DataDocument", on_delete=models.CASCADE, primary_key=True
     )

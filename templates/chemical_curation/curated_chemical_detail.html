@@ -1,0 +1,52 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% block title %}Curated Chemical Detail{% endblock %}
+
+{% block content %}
+    <h1 class="col-sm-12">
+        <span>Curated Chemical Detail</span>
+    </h1>
+    <div class="p-2">
+        <label class="text-muted col-2">SID: </label>
+        <span id="sid">{{ data.sid }}</span>
+        <br>
+        <label class="text-muted col-2">Raw Chem Name: </label>
+        <span id="raw_chem_name">{{ data.raw_chem_name }}</span>
+        <br>
+        <label class="text-muted col-2">Raw CAS: </label>
+        <span id="raw_cas">{{ data.raw_cas }}</span>
+        <br>
+        <label class="text-muted col-2">Curated Chem Name: </label>
+        <span id="true_chemname">{{ data.dsstox__true_chemname }}</span>
+        <br>
+        <label class="text-muted col-2">Curated CAS: </label>
+        <span id="true_cas">{{ data.dsstox__true_cas }}</span>
+    </div>
+
+    <table class="table table-striped dataTable no-footer table-sm" id="curated_chemicals">
+        <thead class="table-primary">
+        <th>Data Document</th>
+        <th>SID Updated</th>
+        <th>Provisional</th>
+        <tbody></tbody>
+        <tfoot class="m-0">
+        <tr>
+            <th></th>
+            <th></th>
+            <th class="m-0 p-0">
+                <select class="form-control" id="provisional_dropdown">
+                    <option value="all">All</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </th>
+        </tr>
+        </tfoot>
+    </table>
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/dashboard/curated_chemical_detail.js' %}"></script>
+{% endblock %}

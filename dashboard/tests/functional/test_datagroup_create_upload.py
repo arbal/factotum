@@ -25,7 +25,7 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
     def test_datagroup_create(self):
         long_fn = "a filename that is too long " * 10
         csv_string = (
-            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number,pmid\n"
             "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,,,, \n"
             f"{long_fn},Body Cream,MS,, \n"
         )
@@ -65,9 +65,9 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
         self.assertFalse(dg_exists)
 
         csv_string = (
-            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,,,,EPA-REG0011 \n"
-            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,MS,,,,EPA-REG0019\n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number,pmid\n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,,,,EPA-REG0011, \n"
+            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,MS,,,,EPA-REG0019,\n"
         )
         data = io.StringIO(csv_string)
         sample_csv = InMemoryUploadedFile(
@@ -181,9 +181,9 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
 
     def test_datagroup_create_dupe_filename(self):
         csv_string = (
-            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,,,, \n"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,Body Cream,MS,,,, \n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number,pmid\n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,,,,, \n"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,Body Cream,MS,,,,, \n"
         )
         data = io.StringIO(csv_string)
         sample_csv = InMemoryUploadedFile(
@@ -226,7 +226,7 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
     def test_datagroup_create_url_len_err(self):
         long_url = "http://www.epa.gov" * 16
         csv_string = (
-            "filename,title,document_type,url,organization,subtitle,epa_reg_number\n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number,pmid\n"
             "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,,,, \n"
             f"another.pdf,Body Cream,MS,{long_url}, \n"
         )
@@ -265,9 +265,9 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
 
     def test_csv_line_endings(self):
         csv_string = (
-            "filename,title,document_type,url,organization,subtitle,epa_reg_number\r"
-            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,,,,EPA-REG-NUMBER01 \r"
-            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,MS,,,, \r\n"
+            "filename,title,document_type,url,organization,subtitle,epa_reg_number,pmid\r"
+            "0bf5755e-3a08-4024-9d2f-0ea155a9bd17.pdf,NUTRA NAIL,MS,,,,EPA-REG-NUMBER01, \r"
+            "0c68ab16-2065-4d9b-a8f2-e428eb192465.pdf,Body Cream,MS,,,,, \r\n"
         )
         data = io.StringIO(csv_string)
         sample_csv = InMemoryUploadedFile(

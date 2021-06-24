@@ -18,7 +18,7 @@ from .forms import (
     DocumentTypeForm,
     RawChemicalSubclassFormSet,
     ExtractedCompositionForm,
-    ExtractedLMChemicalForm,
+    ExtractedLMRecForm,
     create_detail_formset,
     DataDocumentForm,
     ExtractedFunctionalUseForm,

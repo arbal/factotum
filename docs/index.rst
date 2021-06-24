@@ -6,22 +6,17 @@ ChemExpoDB: Factotum
    :language: bash
 
 Sphinx templates updated from model with :bash:`sphinx-apidoc --force --follow-links -d 3 -o ./autodoc .. ../dashboard/migrations ../dashboard/tests`
+Refresh the documents with :bash:`./docs/make html`
 
-.. toctree::
+.. toctree:: stubs
    :maxdepth: 3
-   :caption: Manually-organized pages:
 
    modules/dashboard/models
+   modules/dashboard/utils
+   modules/dashboard/views
 
+   modules/bulkformsets
 
-.. toctree::
-   :maxdepth: 3
-   :caption: Autodoc-generated pages:
-
-   autodoc/dashboard
-   autodoc/apps_api
-   autodoc/elastic
-   autodoc/factotum
 
 
 Indices and tables
