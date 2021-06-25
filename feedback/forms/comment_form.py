@@ -13,7 +13,7 @@ class CommentForm(forms.ModelForm):
         widgets = {
             "email": forms.EmailInput(attrs={"placeholder": "email.address@epa.gov"}),
             "body": forms.Textarea,
-            "page_url": forms.HiddenInput,
+            "page_url": forms.URLInput,
         }
 
     def clean(self):

@@ -191,6 +191,11 @@ urlpatterns = [
         name="functional_use_curation_chemicals",
     ),
     path(
+        "functional_use_curation/unassign/<functional_use_pk>/",
+        views.unassign_functional_uses,
+        name="unassign_functional_uses",
+    ),
+    path(
         "functional_use_curation/<functional_use_pk>/table",
         views.FunctionalUseCurationChemicalsTable.as_view(),
         name="functional_use_curation_chemicals_table",
@@ -369,6 +374,16 @@ urlpatterns = [
         "dl_pucs_json/tree/", views.collapsible_tree_PUCs, name="collapsible_tree_PUCs"
     ),
     path("dl_pucs/", views.download_PUCs, name="download_PUCs"),
+    path(
+        "dl_lp_chemicals/",
+        views.download_list_presence_chemicals,
+        name="download_LP_chemicals",
+    ),
+    path(
+        "dl_co_chemicals/",
+        views.download_composition_chemicals,
+        name="download_CO_chemicals",
+    ),
     path("dl_puctags/", views.download_PUCTags, name="download_PUCTags"),
     path("dl_lpkeywords/", views.download_LPKeywords, name="download_LPKeywords"),
     path(
@@ -399,7 +414,7 @@ urlpatterns = [
     path("chemical/<str:sid>/", views.chemical_detail, name="chemical"),
     path(
         "dl_composition_chemical/<str:sid>/",
-        views.download_composition_chemical,
+        views.chemical.download_composition_chemical,
         name="download_composition_chemical",
     ),
     path(

@@ -36,8 +36,18 @@
                 <a class="col-5" href="{% url "functional_use_category_list" %}"> Functional Use Categories</a>
             </li>
             <li class="list-group-item">
+                <a class="btn btn-primary ml-3 col-7" role="button" href="{% url "download_LP_chemicals" %}">
+                    Download List Presence Chemicals
+              </a>
+            </li>
+            <li class="list-group-item">
                 <a class="btn btn-primary ml-3 col-7" role="button" href="{% url "download_functional_uses" %}">
                     Bulk Download Functional Use Data
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a class="btn btn-primary ml-3 col-7" role="button" href="{% url "download_CO_chemicals" %}">
+                    Bulk Download Composition Data
                 </a>
             </li>
         </ul> <!-- list-group -->

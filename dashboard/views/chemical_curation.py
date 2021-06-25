@@ -57,7 +57,15 @@ def curated_chemical_detail(request, sid):
     template_name = "chemical_curation/curated_chemical_detail.html"
     raw_chem_name = request.GET.get("raw_chem_name")
     raw_cas = request.GET.get("raw_cas")
-    data = {"sid": sid, "raw_chem_name": raw_chem_name, "raw_cas": raw_cas}
+    dsstox__true_chemname = request.GET.get("dsstox__true_chemname")
+    dsstox__true_cas = request.GET.get("dsstox__true_cas")
+    data = {
+        "sid": sid,
+        "raw_chem_name": raw_chem_name,
+        "raw_cas": raw_cas,
+        "dsstox__true_chemname": dsstox__true_chemname,
+        "dsstox__true_cas": dsstox__true_cas,
+    }
     return render(request, template_name, {"data": data})
 
 

@@ -92,13 +92,6 @@
                             </div>
                             <div class="col text-right text-truncate">
                                 {% if chemical.dsstox %}
-                                {% if chemical.provisional %}
-                                    <div class="row d-flex justify-content-end">
-                                        <div class="col">
-                                            <small class="text-danger " title="The DSSTOX SID was provisionally assigned by the Factotum system.">Provisional</small>
-                                        </div>
-                                        </div>
-                                {% endif %}
                                     <h4 class="d-inline">
                                         <a href="https://comptox.epa.gov/dashboard/dsstoxdb/results?search={{ chemical.dsstox.sid }}"
                                            target='_blank'
@@ -115,136 +108,19 @@
 
                     <!-- card -->
                     <div class="card-text">
-                        {% if doc.data_group.is_composition %}
-                            {% if chemical.has_composition_data %}
-                                <div class="row mb-2 mt-2">
-                                  <div class="col-auto">
-                                      <!-- raw data could be missing -->
-                                      {% if chemical.has_raw_data %}
-                                          <small class="text-muted">Raw Composition:</small>
-                                          <br/>
-                                      {% endif %}
-                                      <!-- if there is raw data, want to show cleaned wf as well -->
-                                      {% if chemical.has_raw_data or chemical.has_wf_data %}
-                                          <span class="font-weight-bold">Cleaned Weight Fraction:</span>
-                                      {% endif %}
-                                  </div>
-                                  <div class="col">
-                                      {% if chemical.has_raw_data %}
-                                          <small id="raw_comp_{{ chemical.id }}">
-                                              {% if chemical.raw_central_comp %}
-                                                  {{ chemical.raw_central_comp }}
-                                              {% elif chemical.raw_min_comp or chemical.raw_max_comp %}
-                                                  {{ chemical.raw_min_comp }} - {{ chemical.raw_max_comp }}
-                                              {% endif %}
-                                              {{ chemical.unit_type }}
-                                          </small>
-                                          <br/>
-                                      {% endif %}
-                                      {% if chemical.has_wf_data %}
-                                          <span class="font-weight-bold" id="wf_comp_{{ chemical.id }}">
-                                              {% if chemical.central_wf_analysis %}
-                                                  {{ chemical.central_wf_analysis.normalize }}
-                                              {% endif %}
-                                              {% if chemical.lower_wf_analysis or chemical.upper_wf_analysis %}
-                                                  <!-- if all 3 values, display as central, lower - upper unit -->
-                                                  {% if chemical.central_wf_analysis %}, {% endif %}
-                                                  <!-- lower default to 0, upper defaults to 1.0 -->
-                                                  {{ chemical.lower_wf_analysis.normalize | default:'0' }} -
-                                                  {{ chemical.upper_wf_analysis.normalize | default:'1.0' }}
-                                              {% endif %}
-                                              {{ chemical.weight_fraction_type }}
-                                          </span>
-                                      {% endif %}
-                                  </div>
-                              </div>
-                            {% else %}
-                                <div>No Composition Data</div>
-                            {% endif %}
-                            {% if doc.data_group.can_have_multiple_funcuse %}
-                                <div class="row">
-                                    <div class="col-6 text-left mt-auto">
-                                    </div>
-                                    <div class="col-6 text-right">
-                                        {% if chemical.ingredient_rank %}
-                                            <h3 class="d-inline" id="ingredient_rank" title="Ingredient Rank">
-                                                {{ chemical.ingredient_rank }}
-                                            </h3>
+                        <div class="row">
+                            {% for field in chemical.get_card_body_fields %}
+                                <div class="col-4">
+                                    <span class="font-weight-bold">
+                                        {% if field.name != "LOD" and field.name != "LOQ" %}
+                                            {{ field.name | title }}
+                                        {% else %}
+                                            {{ field.name }}
                                         {% endif %}
-                                    </div>
-                                </div>
-                                {% include 'core/components/all_funcuses_in_chemical_card.html' %}
-                            {% else %}
-                                <div class="row">
-                                    <div class="col-6 text-left mt-auto">
-                                        {% if chemical.functional_uses.first %}
-                                            <span id="report_funcuse">
-                                    {{ chemical.functional_uses.first }}
-                                </span>
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-6 text-right">
-                                        {% if chemical.ingredient_rank %}
-                                            <h3 class="d-inline" id="ingredient_rank" title="Ingredient Rank">
-                                                {{ chemical.ingredient_rank }}
-                                            </h3>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            {% endif %}
-                        {% else %}
-                            {% if doc.data_group.can_have_multiple_funcuse %}
-                                {% if doc.data_group.is_chemical_presence %}
-                                    <div class="row">
-                                        <div class="col-6 text-left mt-auto">
-                                        </div>
-                                        {% include 'data_document/lp_tag_buttons.html' %}
-                                    </div>
-                                {% endif %}
-                                {% include 'core/components/all_funcuses_in_chemical_card.html' %}
-                            {% else %}
-                                <div class="row">
-                                    <div class="col-6 text-left mt-auto">
-                                        {% if chemical.functional_uses.first %}
-                                            <span id="report_funcuse">
-                                        {{ chemical.functional_uses.first }}
                                     </span>
-                                        {% endif %}
-                                    </div>
-                                    {% if doc.data_group.is_chemical_presence %}
-                                        {% include 'data_document/lp_tag_buttons.html' %}
-                                    {% endif %}
+                                    {{ field.value }}
                                 </div>
-                            {% endif %}
-                        {% endif %}
-                        {% if doc.data_group.can_have_chem_detected_flag %}
-                            <div class="row">
-                                <div class="col-auto">
-                                    <small class="text-muted">Detected:</small>
-                                </div>
-                                <div class="col">
-                                    <small class="text-muted">{{ chemical.get_chem_detected_flag_display|default_if_none:"Unknown" }}</small>
-                                </div>
-                            </div>
-                        {% endif %}
-
-                        <div class="row mb-0">
-                            <div class="col-6 text-left mt-auto">
-                                {% if chemical.component %}
-                                    <span id="component-{{ chemical.pk }}">Component: {{ chemical.component|default:"" }}</span>
-                                {% endif %}
-                            </div>
-                            <div class="col-6 text-right">
-                                <small class="text-muted float-right font-italic">
-                                    <a id="chemical-audit-log-{{ chemical.pk }}"
-                                       title="audit log"
-                                       href="{% url 'chemical_audit_log' chemical.pk %}"
-                                       data-toggle="modal"
-                                       data-target="#chemical-audit-log-modal">
-                                        Last updated: {{ chemical.updated_at|timesince }} ago
-                                    </a>
-                                </small>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

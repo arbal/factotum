@@ -1,10 +1,13 @@
 {% extends 'core/base.html' %}
 {% load staticfiles %}
-{% block title %}Functional Use Chemicals{% endblock %}
+{% block title %}Chemicals Assigned to {{functional_use | title}}{% endblock %}
 {% block content %}
   <h1>
-    <span>{{functional_use | title}} Chemicals</span>
+    <span>Chemicals with &ldquo;{{functional_use | title}}&rdquo; as reported functional use</span>
   </h1>
+  <div class="row m-1">
+    <a href="/functional_use_curation/unassign/{{functional_use.id}}" id="unassign-button" class="btn btn-warning"><i class="fas fa-unlink"></i>&nbsp;Unassign {{functional_use | title}}</a>
+  </div>
   <table class="table table-striped table-bordered dataTable no-footer table-sm" id="table"></table>
 {% endblock %}
 

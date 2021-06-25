@@ -12,6 +12,7 @@ from djqscsv import render_to_csv_response
 from dashboard.forms.forms import (
     ExtractedHabitsAndPracticesForm,
     RawChemToFunctionalUseForm,
+    StatisticalValueForm,
 )
 from dashboard.forms.tag_forms import ExtractedHabitsAndPracticesTagForm
 from dashboard.utils import get_extracted_models, GroupConcat
@@ -21,7 +22,7 @@ from dashboard.forms import (
     DataDocumentForm,
     DocumentTypeForm,
     ExtractedCompositionForm,
-    ExtractedLMChemicalForm,
+    ExtractedLMRecForm,
     ExtractedFunctionalUseForm,
     ExtractedHHRecForm,
     ExtractedListPresenceForm,
@@ -42,13 +43,14 @@ from dashboard.models import (
     ExtractedFunctionalUse,
     DataGroup,
     FunctionalUseToRawChem,
+    ExtractedLMRec,
 )
-from django.forms import inlineformset_factory
+from django.forms import inlineformset_factory, formset_factory
 from django import forms
 
 CHEMICAL_FORMS = {
     "CO": ExtractedCompositionForm,
-    "LM": ExtractedLMChemicalForm,
+    "LM": ExtractedLMRecForm,
     "FU": ExtractedFunctionalUseForm,
     "CP": ExtractedListPresenceForm,
     "HP": ExtractedHabitsAndPracticesForm,
@@ -145,8 +147,14 @@ class ChemCreateView(CreateView):
             extra=extra,
             can_delete=False,
         )
+        # stat_formset = formset_factory(StatisticalValueForm, extra=5)
         context.update(
-            {"formset": FuncUseFormSet, "doc": doc, "post_url": "chemical_create"}
+            {
+                "formset": FuncUseFormSet,
+                # "stat_formset": stat_formset,
+                "doc": doc,
+                "post_url": "chemical_create",
+            }
         )
         if not "fufs" in context:
             context["fufs"] = FuncUseFormSet()
@@ -716,6 +724,124 @@ def download_document_chemicals(request, pk):
         )
 
 
+def download_list_presence_chemicals(request):
+    chemicals = (
+        ExtractedListPresence.objects.all()
+        .annotate(tag_names=GroupConcat("tags__name", separator="; ", distinct=True))
+        .values(
+            "extracted_text__data_document__data_group__data_source__title",
+            "extracted_text__data_document__title",
+            "extracted_text__data_document__subtitle",
+            "extracted_text__doc_date",
+            "extracted_text__data_document__organization",
+            "raw_chem_name",
+            "raw_cas",
+            "dsstox__sid",
+            "dsstox__true_chemname",
+            "dsstox__true_cas",
+            "provisional",
+            "functional_uses__report_funcuse",
+            "functional_uses__category__title",
+            "tag_names",
+        )
+        .order_by("raw_chem_name")
+    )
+    filename = "list_presence_chemicals.csv"
+    return render_to_csv_response(
+        chemicals,
+        filename=filename,
+        append_datestamp=True,
+        field_header_map={
+            "extracted_text__data_document__data_group__data_source__title": "Data Source",
+            "extracted_text__data_document__title": "Data Document Title",
+            "extracted_text__data_document__subtitle": "Data Document Subtitle",
+            "extracted_text__doc_date": "Document Date",
+            "extracted_text__data_document__organization": "Organization",
+            "raw_chem_name": "Raw Chemical Name",
+            "raw_cas": "Raw CAS",
+            "dsstox__sid": "DTXSID",
+            "dsstox__true_chemname": "True Chemical Name",
+            "dsstox__true_cas": "True CAS",
+            "provisional": "Provisional",
+            "functional_uses__report_funcuse": "Reported Functional Use",
+            "functional_uses__category__title": "Harmonized Functional Use",
+            "tag_names": "Tags",
+        },
+        field_serializer_map={"provisional": (lambda f: ("Yes" if f == "1" else "No"))},
+    )
+
+
+def download_composition_chemicals(request):
+    chemicals = (
+        ExtractedComposition.objects.all()
+        .prefetch_related("weight_fraction_type", "unit_type", "product_uber_puc")
+        .values(
+            "extracted_text__data_document__data_group__data_source__title",
+            "extracted_text__data_document__title",
+            "extracted_text__data_document__subtitle",
+            "extracted_text__doc_date",
+            "extracted_text__data_document__product__title",
+            "extracted_text__data_document__product__product_uber_puc__puc__kind__name",
+            "extracted_text__data_document__product__product_uber_puc__puc__gen_cat",
+            "extracted_text__data_document__product__product_uber_puc__puc__prod_fam",
+            "extracted_text__data_document__product__product_uber_puc__puc__prod_type",
+            "extracted_text__data_document__product__product_uber_puc__classification_method__name",
+            "raw_chem_name",
+            "raw_cas",
+            "dsstox__sid",
+            "dsstox__true_chemname",
+            "dsstox__true_cas",
+            "provisional",
+            "raw_min_comp",
+            "raw_max_comp",
+            "raw_central_comp",
+            "unit_type__title",
+            "lower_wf_analysis",
+            "upper_wf_analysis",
+            "central_wf_analysis",
+            "weight_fraction_type__title",
+        )
+        .order_by(
+            "extracted_text__data_document__data_group__data_source",
+            "extracted_text__data_document__title",
+            "raw_chem_name",
+        )
+    )
+    filename = "composition_chemicals.csv"
+    return render_to_csv_response(
+        chemicals,
+        filename=filename,
+        append_datestamp=True,
+        field_header_map={
+            "extracted_text__data_document__data_group__data_source__title": "Data Source",
+            "extracted_text__data_document__title": "Data Document Title",
+            "extracted_text__data_document__subtitle": "Data Document Subtitle",
+            "extracted_text__doc_date": "Document Date",
+            "extracted_text__data_document__product__title": "Product",
+            "extracted_text__data_document__product__product_uber_puc__puc__kind__name": "PUC Kind",
+            "extracted_text__data_document__product__product_uber_puc__puc__gen_cat": "PUC Gen Cat",
+            "extracted_text__data_document__product__product_uber_puc__puc__prod_fam": "PUC Prod Fam",
+            "extracted_text__data_document__product__product_uber_puc__puc__prod_type": "PUC Prod Type",
+            "extracted_text__data_document__product__product_uber_puc__classification_method__name": "PUC Classification Method",
+            "raw_chem_name": "Raw Chemical Name",
+            "raw_cas": "Raw CAS",
+            "dsstox__sid": "DTXSID",
+            "dsstox__true_chemname": "True Chemical Name",
+            "dsstox__true_cas": "True CAS",
+            "provisional": "Provisional",
+            "raw_min_comp": "Raw Min Comp",
+            "raw_max_comp": "Raw Max Comp",
+            "raw_central_comp": "Raw Central Comp",
+            "unit_type__title": "Unit Type",
+            "lower_wf_analysis": "Lower Weight Fraction",
+            "upper_wf_analysis": "Upper Weight Fraction",
+            "central_wf_analysis": "Central Weight Fraction",
+            "weight_fraction_type__title": "Weight Fraction Type",
+        },
+        field_serializer_map={"provisional": (lambda f: ("Yes" if f == "1" else "No"))},
+    )
+
+
 class DocumentAuditLog(BaseDatatableView):
     model = AuditLog
     columns = ["date_created", "field_name", "old_value", "new_value", "action", "user"]
@@ -777,6 +903,10 @@ def cards_detail(request, doc, card_qs, paginate=False):
     elif Child == ExtractedFunctionalUse:
         card_qs = card_qs.order_by("raw_chem_name")
         template = "data_document/cards/functional_use_cards.html"
+
+    elif Child == ExtractedLMRec:
+        card_qs = card_qs.order_by("raw_chem_name")
+        template = "data_document/cards/lm_cards.html"
 
     else:
         card_qs = card_qs.prefetch_related("dsstox").order_by("raw_chem_name")

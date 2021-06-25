@@ -34,8 +34,10 @@ from dashboard.models import (
     DataGroupCurationWorkflow,
     CurationStep,
     FunctionalUseToRawChem,
+    ExtractedLMRec,
 )
 from dashboard.models.extracted_hpdoc import ExtractedHPDoc
+from dashboard.models.extracted_lmrec import StatisticalValue
 
 from dashboard.utils import get_extracted_models
 
@@ -298,7 +300,14 @@ class ExtractedHHDocForm(ExtractedTextForm):
 class ExtractedLMDocForm(ExtractedTextForm):
     class Meta:
         model = ExtractedLMDoc
-        fields = ["doc_date", "study_type", "media"]
+        fields = [
+            "doc_date",
+            "study_type",
+            "media",
+            "qa_flag",
+            "qa_who",
+            "extraction_wa",
+        ]
 
         widgets = {
             "study_type": forms.Select(attrs={"style": "width:320px"}),
@@ -447,10 +456,42 @@ class ExtractedCompositionForm(ExtractedChemicalModelForm):
             self.fields.pop("weight_fraction_type")
 
 
-class ExtractedLMChemicalForm(ExtractedChemicalModelForm):
+class DateInput(forms.DateInput):
+    input_type = "date"
+
+
+class StatisticalValueForm(forms.ModelForm):
     class Meta:
-        model = RawChem
-        fields = ["raw_chem_name", "raw_cas", "chem_detected_flag"]
+        model = StatisticalValue
+        fields = ["name", "value", "value_type", "stat_unit"]
+
+
+class ExtractedLMRecForm(ExtractedChemicalModelForm):
+    class Meta:
+        model = ExtractedLMRec
+        fields = [
+            "raw_chem_name",
+            "raw_cas",
+            "chem_detected_flag",
+            "study_location",
+            "sampling_date",
+            "population_description",
+            "population_gender",
+            "population_age",
+            "population_other",
+            "sampling_method",
+            "analytical_method",
+            "medium",
+            "harmonized_medium",
+            "num_measure",
+            "num_nondetect",
+            "detect_freq",
+            "detect_freq_type",
+            "LOD",
+            "LOQ",
+        ]
+
+        widgets = {"sampling_date": DateInput()}
 
 
 class ExtractedFunctionalUseForm(ExtractedChemicalModelForm):

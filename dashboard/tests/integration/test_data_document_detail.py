@@ -467,14 +467,19 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 (By.XPATH, "//*[@id='extracted-text-modal-save']")
             )
         )
-        # problem: the form on the data document detail page and on the modal
-        # editor have the same id, so the full ugly xpath is needed
         study_type_menu = self.browser.find_element_by_name("study_type")
         Select(study_type_menu).select_by_visible_text(
             "Non-Targeted or Suspect Screening"
         )
         media_input = self.browser.find_element_by_name("media")
-        media_input.send_keys("Lorem ipso fido leash")
+        media_input.send_keys("test media")
+        qa_flag_input = self.browser.find_element_by_name("qa_flag")
+        qa_flag_input.send_keys("test qa flag")
+        qa_who_input = self.browser.find_element_by_name("qa_who")
+        qa_who_input.send_keys("test qa who")
+        wa_input = self.browser.find_element_by_name("extraction_wa")
+        wa_input.send_keys("test extraction wa")
+
         save_button.click()
 
         # Saving the form triggers a refresh.  Wait until the old save button has become stale before proceeding.
@@ -483,6 +488,15 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             ec.visibility_of_element_located((By.ID, "id_study_type"))
         )
         self.assertIn("Non-Targeted", study_type.text)
+        self.assertIn("test media", self.browser.find_element_by_id("id_media").text)
+        self.assertIn(
+            "test qa flag", self.browser.find_element_by_id("id_qa_flag").text
+        )
+        self.assertIn("test qa who", self.browser.find_element_by_id("id_qa_who").text)
+        self.assertIn(
+            "test extraction wa",
+            self.browser.find_element_by_id("id_extraction_wa").text,
+        )
 
         add_chem_button = wait.until(
             ec.element_to_be_clickable((By.XPATH, "//*[@id='add_chemical']"))
@@ -493,7 +507,39 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
         self.assertTrue(len(self.browser.find_elements_by_id("id_raw_chem_name")) > 0)
         self.assertTrue(len(self.browser.find_elements_by_id("id_raw_cas")) > 0)
-        self.assertFalse(len(self.browser.find_elements_by_id("id_raw_min_comp")) > 0)
+        self.assertTrue(
+            len(self.browser.find_elements_by_id("id_chem_detected_flag")) > 0
+        )
+        self.assertTrue(len(self.browser.find_elements_by_id("id_study_location")) > 0)
+        self.assertTrue(len(self.browser.find_elements_by_id("id_sampling_date")) > 0)
+        self.assertTrue(
+            len(self.browser.find_elements_by_id("id_population_description")) > 0
+        )
+        self.assertTrue(
+            len(self.browser.find_elements_by_id("id_population_gender")) > 0
+        )
+        self.assertTrue(len(self.browser.find_elements_by_id("id_population_age")) > 0)
+        self.assertTrue(
+            len(self.browser.find_elements_by_id("id_population_other")) > 0
+        )
+        self.assertTrue(len(self.browser.find_elements_by_id("id_sampling_method")) > 0)
+        self.assertTrue(
+            len(self.browser.find_elements_by_id("id_analytical_method")) > 0
+        )
+        self.assertTrue(len(self.browser.find_elements_by_id("id_medium")) > 0)
+        harmonized_medium_select = Select(
+            self.browser.find_element_by_id("id_harmonized_medium")
+        )
+        harmonized_medium_select.select_by_visible_text("soil")
+        self.assertTrue(len(self.browser.find_elements_by_id("id_num_measure")) > 0)
+        self.assertTrue(len(self.browser.find_elements_by_id("id_num_nondetect")) > 0)
+        self.assertTrue(len(self.browser.find_elements_by_id("id_detect_freq")) > 0)
+        self.assertTrue(
+            len(self.browser.find_elements_by_id("id_detect_freq_type")) > 0
+        )
+        self.assertTrue(len(self.browser.find_elements_by_id("id_LOD")) > 0)
+        self.assertTrue(len(self.browser.find_elements_by_id("id_LOQ")) > 0)
+
         self.assertFalse(
             len(self.browser.find_elements_by_id("id_raw_central_comp")) > 0
         )
