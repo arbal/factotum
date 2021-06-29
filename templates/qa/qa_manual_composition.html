@@ -2,16 +2,14 @@
 {% load staticfiles %}
 {% load humanize %}
 
-{% block title %}Manual Composition Script {{ extractionscript.id }}: {{ extractionscript.title }}{% endblock %}
+{% block title %}Manual Composition Documents for Data Group: {{ datagroup.name }}{% endblock %}
 
 
 {% block content %}
-    <h1 class="col-sm-12" id="script-{{ extractionscript.id }}">
+    <h1 class="col-sm-12" id="datagroup-{{ datagroup.id }}">
         <span class="fa fa-check-square" title="factotum"></span>
-        {{ extractionscript.title }}
+        Manual Composition Documents for Data Group: {{ datagroup.name }}
     </h1>
-    <h3 class="col-sm-12"><span class="" title="factotum"></span>
-        QA Group: {{ qagroup }}</h3>
     <br>
     <table class="table table-sm table-bordered table-striped table-sortable" id='extracted_text_table'>
         <thead class="table-primary">
@@ -28,11 +26,11 @@
         {% for extractedtext in extractedtexts %}
             <tr>
                 <td>
-                    <a title="details" href="{% url "data_group_detail" extractedtext.data_document.data_group.id %}">
-                        {{ extractedtext.data_document.data_group.name }}
+                    <a title="details" href="{% url "data_group_detail" datagroup.id %}">
+                        {{ datagroup.name }}
                     </a>
                 </td>
-                <td>{{ extractedtext.data_document.data_group.group_type }}</td>
+                <td>{{ datagroup.group_type }}</td>
                 <td>{{ extractedtext.data_document }}</td>
                 <td data-order="{{ extractedtext.chemical_updated_at|date:"c" }}"
                     id="date_updated_{{ extractedtext.pk }}">

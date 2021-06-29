@@ -207,14 +207,14 @@ urlpatterns = [
         "link_product_form/<int:pk>/", views.link_product_form, name="link_product_form"
     ),
     path(
-        "qa/extractionscript/",
-        views.qa_extractionscript_index,
-        name="qa_extractionscript_index",
-    ),
-    path(
         "qa/manualcomposition/",
         views.qa_manual_composition_index,
         name="qa_manual_composition_index",
+    ),
+    path(
+        "qa/manualcomposition/<int:pk>/",
+        dashboard.views.qa.qa_manual_composition_script,
+        name="qa_manual_composition_script",
     ),
     path(
         "qa/manualcomposition/<int:pk>/summary",
@@ -227,14 +227,14 @@ urlpatterns = [
         name="qa_manual_composition_summary_table",
     ),
     path(
+        "qa/extractionscript/",
+        views.qa_extractionscript_index,
+        name="qa_extractionscript_index",
+    ),
+    path(
         "qa/extractionscript/<int:pk>/",
         dashboard.views.qa.qa_extraction_script,
         name="qa_extraction_script",
-    ),
-path(
-        "qa/manualcomposition/<int:pk>/",
-        dashboard.views.qa.qa_manual_composition_script,
-        name="qa_manual_composition_script",
     ),
     path(
         "qa/extractionscript/<int:pk>/summary",

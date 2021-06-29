@@ -42,7 +42,7 @@ QA Manually Extracted Composition Data Groups</h1>
               <a class="btn btn-light btn-sm" disabled role="button" title="QA Complete">QA Complete</a>
             {% else %}
               <a class="btn btn-info btn-sm" role="button" title="QA on {{ datagroup.name }}"
-               href='/'> View Manually Extracted Composition Records
+               href={% url "qa_manual_composition_script" datagroup.id %}> View Manually Extracted Composition Records
               </a>
             {% endif %}
         {% else %}
