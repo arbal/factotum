@@ -96,6 +96,10 @@ class TestQASummary(TestCase):
         chem_count = RawChem.objects.filter(
             extracted_text_id=self.extracted_texts[0].pk
         ).count()
+        if self.extracted_texts[0].qa_checked:
+            qa_checked = "Yes"
+        else:
+            qa_checked = "No"
 
         self.assertIn(self.extracted_texts[0].qanotes.qa_notes, response)
 
@@ -111,12 +115,12 @@ class TestQASummary(TestCase):
             self.extracted_texts[0].data_document.get_absolute_url(), table_row[1]
         )
         self.assertEqual(self.extracted_texts[0].qanotes.qa_notes, table_row[2])
-        self.assertEqual(self.extracted_texts[0].qa_checked, table_row[3])
+        self.assertEqual(qa_checked, table_row[3])
         self.assertEqual(chem_count, table_row[4])
         self.assertIn(timesince(self.extracted_texts[0].updated_at), table_row[5])
         self.assertIn(
             reverse("document_audit_log", args=[self.extracted_texts[0].pk]),
-            table_row[4],
+            table_row[5],
         )
 
     def test_qa_summary_table_valid_row_qanote(self):
