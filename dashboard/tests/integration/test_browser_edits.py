@@ -2,6 +2,7 @@ import re
 import time
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.select import Select
@@ -14,6 +15,8 @@ from dashboard.models import (
     DataGroup,
     Script,
     CurationStep,
+    ExtractedComposition,
+    DataGroupCurationWorkflow,
 )
 from dashboard.tests.loader import fixtures_standard, load_browser
 
@@ -612,3 +615,44 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             "Showing 1 to 1 of 1 entries (filtered from 24 total entries)",
             self.browser.find_element_by_xpath("//*[@id='datagroups_info']").text,
         )
+
+    def test_datagroup_tracking_set_no_co_data(self):
+        dg = DataGroup.objects.exclude(group_type__code="CO").first()
+        edit_url = self.live_server_url + f"/data_group_tracking/edit/{dg.id}/"
+        self.browser.get(edit_url)
+        with self.assertRaises(NoSuchElementException):
+            self.browser.find_element_by_id("no-co-data-btn")
+
+        wait = WebDriverWait(self.browser, 10)
+        dg = DataGroup.objects.filter(group_type__code="CO").first()
+        chems = ExtractedComposition.objects.filter(
+            extracted_text__data_document__data_group=dg
+        )
+        self.assertTrue(chems.count() > 0)
+        no_co_chems = chems.filter(has_composition_data=False)
+        self.assertTrue(no_co_chems.count() == 0)
+
+        edit_url = self.live_server_url + f"/data_group_tracking/edit/{dg.id}/"
+        self.browser.get(edit_url)
+        wait.until(ec.element_to_be_clickable((By.ID, "no-co-data-btn")))
+        self.browser.find_element_by_id("no-co-data-btn").click()
+        wait.until(ec.element_to_be_clickable((By.ID, "confirm-btn")))
+        self.browser.find_element_by_id("confirm-btn").click()
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.CLASS_NAME, "alert-success"),
+                "The Has Composition Data flag has been reset for all chemicals",
+            )
+        )
+        no_co_chems = ExtractedComposition.objects.filter(
+            extracted_text__data_document__data_group=dg, has_composition_data=False
+        )
+        self.assertEquals(chems.count(), no_co_chems.count())
+        wf = DataGroupCurationWorkflow.objects.filter(
+            data_group=dg,
+            curation_step=CurationStep.objects.filter(
+                name="Composition Cleaned"
+            ).first(),
+        ).first()
+        self.assertIsNotNone(wf)
+        self.assertEquals("N", wf.step_status)

@@ -23,7 +23,6 @@ from dashboard.forms.data_group import (
     UploadDocsForm,
     RegisterRecordsFormSet,
     ProductBulkCSVFormSet,
-    FunctionalUseBulkCSVFormSet,
 )
 from dashboard.forms.forms import DataGroupWorkflowForm
 from dashboard.models import (
@@ -598,6 +597,35 @@ def edit_data_group_tracking(
             form.save()
             return redirect("data_group_tracking")
     return render(request, template_name, data)
+
+
+@login_required()
+def set_data_group_no_co_data(request, dg_pk):
+    datagroup = get_object_or_404(DataGroup, pk=dg_pk)
+    if request.method == "POST":
+        with transaction.atomic():
+            # reset the flag for all related documents
+            ExtractedComposition.objects.filter(
+                extracted_text__data_document__data_group=datagroup
+            ).update(has_composition_data=False)
+            # set the step status to n/a
+            step = CurationStep.objects.filter(name="Composition Cleaned").first()
+            wf = DataGroupCurationWorkflow.objects.filter(
+                data_group=datagroup, curation_step=step
+            ).first()
+            if wf is not None:
+                if wf.step_status != "N":
+                    wf.step_status = "N"
+                    wf.save()
+            else:
+                DataGroupCurationWorkflow.objects.create(
+                    data_group=datagroup, curation_step=step, step_status="N"
+                )
+            messages.success(
+                request,
+                "The Has Composition Data flag has been reset for all chemicals",
+            )
+    return redirect("data_group_tracking_edit", dg_pk=dg_pk)
 
 
 @register.filter(name="get_current_step_status")
