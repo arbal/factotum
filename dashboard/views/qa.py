@@ -291,6 +291,7 @@ class SummaryTable(BaseDatatableView):
         "data_document__data_group__name",
         "data_document__title",
         "qanotes__qa_notes",
+        "qa_checked",
         "rawchem_count",
         "last_updated",
     ]
@@ -316,6 +317,11 @@ class SummaryTable(BaseDatatableView):
                 return row.qanotes.qa_notes
             except QANotes.DoesNotExist:
                 return None
+        if column == "qa_checked":
+            if row.qa_checked:
+                return "Yes"
+            else:
+                return "No"
         if column == "rawchem_count":
             return row.rawchem_count
         elif column == "last_updated":
