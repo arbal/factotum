@@ -9,51 +9,66 @@
 
 <div class="row">
 
-    <div class="col-7">
-        <h3 class="card-header">Downloads</h3>
+    <div class="col-6">
+        <h3 class="card-header">Download Metadata</h3>
         <ul class="list-group">
             <li class="list-group-item">
-                <a class="btn btn-primary ml-3 mr-3 col-7" role="button" href="{% url "download_PUCs" %}">
-                    Download PUCs
-                </a>
-                <a href="{% url "puc_list" %}"> PUCs</a>
+                <div class="d-flex flex-column align-items-center">
+                    <a class="btn btn-primary ml-3 mr-3 col-7 justify-content-center" role="button" href="{% url "download_PUCs" %}">
+                        Download PUCs
+                    </a>
+                    <a class="mt-2" href="{% url "puc_list" %}"> PUCs</a>
+                </div>
             </li>
-            <li class="list-group-item">
+            <li class="list-group-item text-center">
                 <a class="btn btn-primary ml-3 col-7" role="button" href="{% url "download_PUCTags" %}">
                     Download PUC Attributes
                 </a>
             </li>
-            <li class="list-group-item">
-                <a class="btn btn-primary ml-3 mr-3 col-7" role="button" href="{% url "download_LPKeywords" %}">
-                    Download List Presence Keywords
-                </a>
-                <a href="{% url "list_presence_tag_list" %}"> List Presence Keywords</a>
+            <li class="list-group-item text-center">
+                <div class="d-flex flex-column align-items-center">
+                    <a class="btn btn-primary ml-3 mr-3 col-7" role="button" href="{% url "download_LPKeywords" %}">
+                        Download List Presence Keywords
+                    </a>
+                    <a class="mt-2" href="{% url "list_presence_tag_list" %}"> List Presence Keywords</a>
+                </div>
             </li>
-            <li class="list-group-item">
-                <a class="btn btn-primary ml-3 col-7" role="button" href="{% url "download_FunctionalUseCategories" %}">
-                    Download Functional Use Categories
-                </a>
-                <a class="col-5" href="{% url "functional_use_category_list" %}"> Functional Use Categories</a>
+            <li class="list-group-item text-center">
+                <div class="d-flex flex-column align-items-center">
+                    <a class="btn btn-primary ml-3 col-7" role="button" href="{% url "download_FunctionalUseCategories" %}">
+                        Download Functional Use Categories
+                    </a>
+                    <a class="mt-2" href="{% url "functional_use_category_list" %}"> Functional Use Categories</a>
+                </div>
             </li>
-            <li class="list-group-item">
+        </ul> <!-- list-group -->
+    </div> <!-- col-6 -->
+
+    <div class="col-6">
+        <h3 class="card-header">Download Bulk Data</h3>
+        <ul class="list-group">
+            <li class="list-group-item text-center">
                 <a class="btn btn-primary ml-3 col-7" role="button" href="{% url "download_LP_chemicals" %}">
-                    Download List Presence Chemicals
+                    Bulk Download Chemical Presence Data
               </a>
             </li>
-            <li class="list-group-item">
+            <li class="list-group-item text-center">
                 <a class="btn btn-primary ml-3 col-7" role="button" href="{% url "download_functional_uses" %}">
                     Bulk Download Functional Use Data
                 </a>
             </li>
-            <li class="list-group-item">
+            <li class="list-group-item text-center">
                 <a class="btn btn-primary ml-3 col-7" role="button" href="{% url "download_CO_chemicals" %}">
                     Bulk Download Composition Data
                 </a>
             </li>
         </ul> <!-- list-group -->
-    </div> <!-- col-7 -->
+    </div> <!-- col-6 -->
 
-    <div class="col-5">
+</div> <!-- row -->
+
+<div class="row mt-4">
+    <div class="col-6">
         <h3 class="card-header">Summary Metrics by Chemical</h3>
         <ul class="list-group">
                 <li class="list-group-item">
@@ -77,9 +92,8 @@
         </form>
           </li>
       </ul> <!-- list-group -->
-    </div> <!-- col-5-->
-
-</div> <!-- row -->
+    </div> <!-- col-6-->
+</div>
 
 <div class="row mt-4">
     <div class="col-12">
