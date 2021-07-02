@@ -256,6 +256,7 @@ def qa_manual_composition_script(
 
     extractedtexts = (
         ExtractedText.objects.filter(data_document__data_group=datagroup)
+        .prefetch_related("data_document__data_group")
         .filter(extraction_script__id=MANUAL_SCRIPT_ID)
         .annotate(chemical_count=Count("rawchem"))
         .annotate(chemical_updated_at=Max("rawchem__updated_at"))
