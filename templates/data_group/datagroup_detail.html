@@ -137,7 +137,7 @@
                                     <a class="nav-link" id="extfile_formset-nav-link" data-toggle="tab" role="tab"
                                        href="#extfile_formset">Extracted</a>
                                 </li>
-                            {% elif datagroup.type == 'FU' or datagroup.type == 'CO' or datagroup.type == 'CP' %}
+                            {% elif datagroup.type == 'FU' or datagroup.type == 'CO' or datagroup.type == 'CP' or datagroup.type == 'LM' %}
                                 {% if not datagroup.all_matched %}
                                     <li class="nav-item" data-toggle="tooltip" data-placement="bottom"
                                         title="Missing documents">
