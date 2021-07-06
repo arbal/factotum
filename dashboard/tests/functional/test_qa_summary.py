@@ -187,7 +187,7 @@ class TestQASummary(TestCase):
         table_row = self._match_table_row(
             response_json, self.extracted_texts[0].qanotes.qa_notes
         )
-        self.assertIn(timesince(self.extracted_texts[0].updated_at), table_row[4])
+        self.assertIn(timesince(self.extracted_texts[0].updated_at), table_row[5])
 
     def test_qa_summary_table_last_updated_doc_update(self):
         """Last updated should change when the data document is updated"""
@@ -203,7 +203,7 @@ class TestQASummary(TestCase):
             response_json, self.extracted_texts[0].qanotes.qa_notes
         )
         self.assertIn(
-            timesince(self.extracted_texts[0].data_document.updated_at), table_row[4]
+            timesince(self.extracted_texts[0].data_document.updated_at), table_row[5]
         )
 
     def test_qa_summary_table_last_updated_rawchem_update(self):
@@ -221,7 +221,7 @@ class TestQASummary(TestCase):
             response_json, self.extracted_texts[0].qanotes.qa_notes
         )
         self.assertIn(
-            timesince(self.extracted_texts[0].rawchem.first().updated_at), table_row[4]
+            timesince(self.extracted_texts[0].rawchem.first().updated_at), table_row[5]
         )
 
     def test_document_audit_log(self):

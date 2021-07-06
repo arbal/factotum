@@ -318,10 +318,7 @@ class SummaryTable(BaseDatatableView):
             except QANotes.DoesNotExist:
                 return None
         if column == "qa_checked":
-            if row.qa_checked:
-                return "Yes"
-            else:
-                return "No"
+            return "Yes" if row.qa_checked else "No"
         if column == "rawchem_count":
             return row.rawchem_count
         elif column == "last_updated":

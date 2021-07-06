@@ -240,7 +240,5 @@ class TestGetData(TestCase):
         response = self.client.get("/dl_co_chemicals/")
         self.assertContains(
             response,
-            "Walmart MSDS,body butter (PLP) Recertification / (ANHUA ZHOULI INDUSTRY),,2020-06-12,body butter,Formulation,Personal care,general moisturizing,hand/body lotion,Manual,\"2,6-Di-tert-butyl-p-cresol\",128-37-0,,,,No,,,,unknown,,,,reported",
+            'Walmart MSDS,body butter (PLP) Recertification / (ANHUA ZHOULI INDUSTRY),,2020-06-12,body butter,Formulation,Personal care,general moisturizing,hand/body lotion,Manual,"2,6-Di-tert-butyl-p-cresol",128-37-0,,,,No,,,,unknown,,,,reported',
         )
-
-
