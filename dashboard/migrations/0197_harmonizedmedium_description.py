@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0196_lm_models'),
-    ]
+    dependencies = [("dashboard", "0196_lm_models")]
 
     operations = [
         migrations.AddField(
-            model_name='harmonizedmedium',
-            name='description',
+            model_name="harmonizedmedium",
+            name="description",
             field=models.TextField(blank=True),
-        ),
+        )
     ]
