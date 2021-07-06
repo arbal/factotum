@@ -445,15 +445,21 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             ).text,
         )
         self.assertEqual(
-            "50",
+            "Yes",
             self.browser.find_element_by_xpath(
                 '//table[@id="document-table"]/tbody/tr[1]/td[4]'
+            ).text,
+        )
+        self.assertEqual(
+            "50",
+            self.browser.find_element_by_xpath(
+                '//table[@id="document-table"]/tbody/tr[1]/td[5]'
             ).text,
         )
         self.assertIn(
             "Last updated",
             self.browser.find_element_by_xpath(
-                '//table[@id="document-table"]/tbody/tr[1]/td[5]'
+                '//table[@id="document-table"]/tbody/tr[1]/td[6]'
             ).text,
         )
 
