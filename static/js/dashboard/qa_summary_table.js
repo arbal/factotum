@@ -15,7 +15,10 @@ $(document).ready(function () {
                 width: "30%",
             },
             {
-                width: "10%",
+                width: "5%",
+            },
+            {
+                width: "5%",
             },
             {
                 searchable: false,
