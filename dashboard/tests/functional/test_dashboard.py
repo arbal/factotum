@@ -208,7 +208,7 @@ class DashboardTest(TestCase):
         for i in range(1, 5):
             self.assertNotIn("subject " + str(i), response)
             self.assertNotIn("body text " + str(i), response)
-        response = self.client.get("/news").content.decode("utf8")
+        response = self.client.get("/news/").content.decode("utf8")
         for i in range(1, 10):
             self.assertIn("subject " + str(i), response)
             self.assertIn("body text " + str(i), response)
