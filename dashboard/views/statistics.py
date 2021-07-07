@@ -16,7 +16,7 @@ class Statistics(View):
 
     def get(self, request):
         stats = get_stats()
-        return render(request, self.template_name, context=stats)
+        return render(request, self.template_name, {"stats": stats})
 
 
 def grouptype_stats(request):

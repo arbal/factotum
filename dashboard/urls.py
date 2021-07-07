@@ -575,6 +575,7 @@ urlpatterns = [
         dashboard.views.edit_data_group_tracking,
         name="data_group_tracking_edit",
     ),
+    path("news", dashboard.views.all_news, name="news"),
     path("", include("django_prometheus.urls")),
 ]
 if settings.DEBUG is True:

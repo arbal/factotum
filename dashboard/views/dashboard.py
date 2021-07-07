@@ -15,6 +15,7 @@ from dashboard.models import (
     ProductToPUC,
     RawChem,
     FunctionalUseCategory,
+    News,
 )
 
 
@@ -35,8 +36,15 @@ def get_stats():
 
 def index(request):
     stats = get_stats()
+    news = News.objects.order_by("-updated_at")[:5]
+    return render(
+        request, "dashboard/index.html", {"stats": stats, "latest_news": news}
+    )
 
-    return render(request, "dashboard/index.html", stats)
+
+def all_news(request):
+    news = News.objects.order_by("-updated_at")
+    return render(request, "news/all_news.html", {"news": news})
 
 
 def datadocument_count_by_date():

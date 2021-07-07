@@ -46,6 +46,7 @@ from dashboard.models import (
     FunctionalUseToRawChem,
     ExtractedLMDoc,
     ExtractedLMRec,
+    News,
 )
 from dashboard.models.extracted_lmrec import HarmonizedMedium, StatisticalValue
 
@@ -226,3 +227,4 @@ admin.site.register(FunctionalUse, FunctionalUseAdmin)
 admin.site.register(FunctionalUseToRawChem, FunctionalUseToRawChemAdmin)
 admin.site.register(FunctionalUseCategory)
 admin.site.register(CurationStep)
+admin.site.register(News)
