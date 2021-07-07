@@ -3,7 +3,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 import dashboard.views.data_group
-import dashboard.views.qa
 import dashboard.views.functional_use_category
 from . import views
 
@@ -580,6 +579,7 @@ urlpatterns = [
         dashboard.views.set_data_group_no_co_data,
         name="data_group_no_co_data",
     ),
+    path("news", dashboard.views.all_news, name="news"),
     path("", include("django_prometheus.urls")),
 ]
 if settings.DEBUG is True:

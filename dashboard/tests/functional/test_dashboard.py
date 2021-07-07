@@ -198,17 +198,8 @@ class DashboardTest(TestCase):
     def test_news(self):
         response = self.client.get("/").content.decode("utf8")
         self.assertNotIn("Latest News", response)
-        news = []
         for i in range(1, 10):
-            news.append(News(subject="subject " + str(i), body="body text " + str(i)))
-        News.objects.bulk_create(news)
-        # after creating the records, iterate back through them 
-        # and assign updated_at values that wil sort them properly
-        days_ago = 0
-        for n in News.objects.all().order_by('-created_at'):
-            n.updated_at = datetime.datetime.now() - datetime.timedelta(days=days_ago)
-            days_ago += 1
-            n.save()
+            News.objects.create(subject="subject " + str(i), body="body text " + str(i))
         response = self.client.get("/").content.decode("utf8")
         self.assertIn("Latest News", response)
         for i in range(5, 10):
