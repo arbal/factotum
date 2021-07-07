@@ -183,7 +183,36 @@ class DataGroup(CommonInfo, QASummaryNote):
             ]
 
         if self.type == "LM":
-            return extract_fields + ["chem_detected_flag"]
+            return [
+                "data_document_id",
+                "data_document_filename",
+                "doc_date",
+                "study_type",
+                "media",
+                "qa_flag",
+                "qa_who",
+                "extraction_wa",
+                "raw_chem_name",
+                "raw_cas",
+                "chem_detected_flag",
+                "study_location",
+                "sampling_date",
+                "population_description",
+                "population_gender",
+                "population_age",
+                "population_other",
+                "sampling_method",
+                "analytical_method",
+                "medium",
+                "harmonized_medium",
+                "num_measure",
+                "num_nondetect",
+                "detect_freq",
+                "detect_freq_type",
+                "LOD",
+                "LOQ",
+                "statistical_values",
+            ]
 
     def get_clean_comp_data_fieldnames(self):
         return ["id", "lower_wf_analysis", "central_wf_analysis", "upper_wf_analysis"]
@@ -224,7 +253,7 @@ class DataGroup(CommonInfo, QASummaryNote):
 
     def include_extract_form(self):
         if (
-            self.type in ["FU", "CO", "CP"]
+            self.type in ["FU", "CO", "CP", "LM"]
             and self.all_matched()
             and not self.all_extracted()
         ):

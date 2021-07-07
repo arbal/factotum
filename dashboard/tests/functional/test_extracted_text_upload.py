@@ -19,7 +19,10 @@ from dashboard.models import (
     ExtractedFunctionalUse,
     FunctionalUse,
     RawChem,
+    ExtractedLMDoc,
+    ExtractedLMRec,
 )
+from dashboard.models.extracted_lmrec import HarmonizedMedium, StatisticalValue
 from dashboard.tests.mixins import TempFileMixin
 
 
@@ -433,3 +436,200 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
             1,
             "One new ExtractedCPCat after upload.",
         )
+
+    def generate_lm_upload_request_data(self, sample_csv):
+        sample_csv_bytes = sample_csv.encode(encoding="UTF-8", errors="strict")
+        in_mem_sample_csv = InMemoryUploadedFile(
+            io.BytesIO(sample_csv_bytes),
+            field_name="extfile-bulkformsetfileupload",
+            name="Chemical_presence_list_template.csv",
+            content_type="text/csv",
+            size=len(sample_csv),
+            charset="utf-8",
+        )
+        req_data = {"extfile-extraction_script": 5, "extfile-submit": "Submit"}
+        req_data.update(self.mng_data)
+        req_data["extfile-bulkformsetfileupload"] = in_mem_sample_csv
+
+        return req_data
+
+    def test_literature_monitor_upload(self):
+        dg = DataGroup.objects.filter(group_type__code="LM").first()
+        dd = DataDocument.objects.filter(data_group=dg).first()
+        lmdoc = ExtractedLMDoc(
+            doc_date="2020-01-01",
+            study_type="Targeted",
+            media="media",
+            qa_flag="qa flag",
+            qa_who="qa who",
+            extraction_wa="extraction wa",
+        )
+        lmrec = ExtractedLMRec(
+            raw_chem_name="raw chem",
+            raw_cas="raw cas",
+            chem_detected_flag="1",
+            study_location="study location",
+            sampling_date="01/01/2021",
+            population_description="population description",
+            population_gender="F",
+            population_age="adults",
+            population_other="other",
+            sampling_method="sampling method",
+            analytical_method="analytical method",
+            medium="medium",
+            harmonized_medium=HarmonizedMedium.objects.first(),
+            num_measure=100,
+            num_nondetect=10,
+            detect_freq=2.0,
+            detect_freq_type="R",
+            LOD=3.3,
+            LOQ=4.4,
+        )
+
+        sample_csv = (
+            "data_document_id,data_document_filename,doc_date,study_type,media,qa_flag,qa_who,extraction_wa,"
+            "raw_chem_name,raw_cas,chem_detected_flag,study_location,sampling_date,population_description,"
+            "population_gender,population_age,population_other,sampling_method,analytical_method,medium,"
+            "harmonized_medium,num_measure,num_nondetect,detect_freq,detect_freq_type,LOD,LOQ,statistical_values"
+            "\n"
+            f"{dd.id},{dd.file.name},{lmdoc.doc_date},{lmdoc.study_type},{lmdoc.media},"
+            f"{lmdoc.qa_flag},{lmdoc.qa_who},{lmdoc.extraction_wa},"
+            f"{lmrec.raw_chem_name},{lmrec.raw_cas},{lmrec.chem_detected_flag},{lmrec.study_location},"
+            f"{lmrec.sampling_date},{lmrec.population_description},aaaa,"
+            f"{lmrec.population_age},{lmrec.population_other},{lmrec.sampling_method},{lmrec.analytical_method},"
+            f"{lmrec.medium},bbbb,{lmrec.num_measure},{lmrec.num_nondetect},"
+            f"{lmrec.detect_freq},cccc,{lmrec.LOD},{lmrec.LOQ},"
+            "\"{'name': '', 'value': '', 'value_type': 'dddd', 'stat_unit': ''}\""
+        )
+        req_data = self.generate_lm_upload_request_data(sample_csv)
+        # Now get the response
+        resp = self.c.post(f"/datagroup/{dg.id}/", req_data)
+        resp = self.get_results(resp)
+        self.assertContains(resp, "aaaa is not one of the available choices")
+        self.assertContains(resp, "bbbb is not one of the available choices")
+        self.assertContains(resp, "cccc is not one of the available choices")
+        self.assertContains(resp, "dddd is not one of the available choices")
+        self.assertContains(resp, "name field is required")
+        self.assertContains(resp, "value field is required")
+        self.assertContains(resp, "stat_unit field is required")
+
+        sample_csv = (
+            "data_document_id,data_document_filename,doc_date,study_type,media,qa_flag,qa_who,extraction_wa,"
+            "raw_chem_name,raw_cas,chem_detected_flag,study_location,sampling_date,population_description,"
+            "population_gender,population_age,population_other,sampling_method,analytical_method,medium,"
+            "harmonized_medium,num_measure,num_nondetect,detect_freq,detect_freq_type,LOD,LOQ,statistical_values"
+            "\n"
+            f"{dd.id},{dd.file.name},{lmdoc.doc_date},{lmdoc.study_type},{lmdoc.media},"
+            f"{lmdoc.qa_flag},{lmdoc.qa_who},{lmdoc.extraction_wa},"
+            f"chem1,{lmrec.raw_cas},{lmrec.chem_detected_flag},{lmrec.study_location},"
+            f"{lmrec.sampling_date},{lmrec.population_description},{lmrec.population_gender},"
+            f"{lmrec.population_age},{lmrec.population_other},{lmrec.sampling_method},{lmrec.analytical_method},"
+            f"{lmrec.medium},{lmrec.harmonized_medium.name},{lmrec.num_measure},{lmrec.num_nondetect},"
+            f"{lmrec.detect_freq},{lmrec.detect_freq_type},{lmrec.LOD},{lmrec.LOQ},"
+            "\"{'name': 'median', 'value': '1.1', 'value_type': 'R', 'stat_unit': 'mg/L'};"
+            "{'name': 'mean', 'value': 2.2, 'value_type': 'C', 'stat_unit': 'mg/L'}\""
+            "\n"
+            f"{dd.id},{dd.file.name},{lmdoc.doc_date},{lmdoc.study_type},{lmdoc.media},"
+            f"{lmdoc.qa_flag},{lmdoc.qa_who},{lmdoc.extraction_wa},"
+            "chem2,,,,,,,,,,,,,,,,,,,"
+            "\n"
+            f"{dd.id},{dd.file.name},{lmdoc.doc_date},{lmdoc.study_type},{lmdoc.media},"
+            f"{lmdoc.qa_flag},{lmdoc.qa_who},{lmdoc.extraction_wa},"
+            f"chem3,{lmrec.raw_cas},{lmrec.chem_detected_flag},{lmrec.study_location},"
+            f"{lmrec.sampling_date},{lmrec.population_description},{lmrec.population_gender},"
+            f"{lmrec.population_age},{lmrec.population_other},{lmrec.sampling_method},{lmrec.analytical_method},"
+            f"{lmrec.medium},{lmrec.harmonized_medium.name},{lmrec.num_measure},{lmrec.num_nondetect},"
+            f"{lmrec.detect_freq},{lmrec.detect_freq_type},{lmrec.LOD},{lmrec.LOQ},"
+            "\"{'name': 'mean', 'value': 3, 'value_type': 'computed', 'stat_unit': 'mg/L'}\""
+        )
+        req_data = self.generate_lm_upload_request_data(sample_csv)
+        # Now get the response
+        resp = self.c.post(f"/datagroup/{dg.id}/", req_data)
+        resp = self.get_results(resp)
+        self.assertContains(resp, '"result": 3,')
+
+        doc = ExtractedLMDoc.objects.filter(data_document=dd, media="media").first()
+        self.assertIsNotNone(doc)
+        self.assertEquals(lmdoc.doc_date, doc.doc_date)
+        self.assertEquals(lmdoc.study_type, doc.study_type)
+        self.assertEquals(lmdoc.qa_flag, doc.qa_flag)
+        self.assertEquals(lmdoc.qa_who, doc.qa_who)
+        self.assertEquals(lmdoc.extraction_wa, doc.extraction_wa)
+
+        chem1 = ExtractedLMRec.objects.filter(
+            raw_chem_name="chem1", extracted_text_id=dd.id
+        ).first()
+        self.assertIsNotNone(chem1)
+        self.assertEquals(lmrec.raw_cas, chem1.raw_cas)
+        self.assertEquals(lmrec.chem_detected_flag, chem1.chem_detected_flag)
+        self.assertEquals(lmrec.study_location, chem1.study_location)
+        self.assertEquals(lmrec.sampling_date, chem1.sampling_date.strftime("%m/%d/%Y"))
+        self.assertEquals(lmrec.population_description, chem1.population_description)
+        self.assertEquals(lmrec.sampling_method, chem1.sampling_method)
+        self.assertEquals(lmrec.analytical_method, chem1.analytical_method)
+        self.assertEquals(lmrec.medium, chem1.medium)
+        self.assertEquals(lmrec.harmonized_medium, chem1.harmonized_medium)
+        self.assertEquals(lmrec.num_measure, chem1.num_measure)
+        self.assertEquals(lmrec.num_nondetect, chem1.num_nondetect)
+        self.assertEquals(lmrec.detect_freq, chem1.detect_freq)
+        self.assertEquals(lmrec.detect_freq_type, chem1.detect_freq_type)
+        self.assertEquals(lmrec.LOD, chem1.LOD)
+        self.assertEquals(lmrec.LOQ, chem1.LOQ)
+
+        stats1 = StatisticalValue.objects.filter(record=chem1)
+        self.assertEquals(2, stats1.count())
+        stat_value = stats1.first()
+        self.assertEquals(stat_value.name, "median")
+        self.assertEquals(stat_value.value, 1.1)
+        self.assertEquals(stat_value.value_type, "R")
+        self.assertEquals(stat_value.stat_unit, "mg/L")
+
+        chem2 = ExtractedLMRec.objects.filter(
+            raw_chem_name="chem2", extracted_text_id=dd.id
+        ).first()
+        self.assertIsNotNone(chem2)
+        self.assertEquals("", chem2.raw_cas)
+        self.assertIsNone(chem2.chem_detected_flag)
+        self.assertIsNone(chem2.study_location)
+        self.assertIsNone(chem2.sampling_date)
+        self.assertIsNone(chem2.population_description)
+        self.assertIsNone(chem2.sampling_method)
+        self.assertIsNone(chem2.analytical_method)
+        self.assertIsNone(chem2.medium)
+        self.assertIsNone(chem2.harmonized_medium)
+        self.assertIsNone(chem2.num_measure)
+        self.assertIsNone(chem2.num_nondetect)
+        self.assertIsNone(chem2.detect_freq)
+        self.assertIsNone(chem2.detect_freq_type)
+        self.assertIsNone(chem2.LOD)
+        self.assertIsNone(chem2.LOQ)
+        stats2 = StatisticalValue.objects.filter(record=chem2)
+        self.assertEquals(0, stats2.count())
+
+        chem3 = ExtractedLMRec.objects.filter(
+            raw_chem_name="chem3", extracted_text_id=dd.id
+        ).first()
+        self.assertIsNotNone(chem3)
+        self.assertEquals(lmrec.raw_cas, chem3.raw_cas)
+        self.assertEquals(lmrec.chem_detected_flag, chem3.chem_detected_flag)
+        self.assertEquals(lmrec.study_location, chem3.study_location)
+        self.assertEquals(lmrec.sampling_date, chem3.sampling_date.strftime("%m/%d/%Y"))
+        self.assertEquals(lmrec.population_description, chem3.population_description)
+        self.assertEquals(lmrec.sampling_method, chem3.sampling_method)
+        self.assertEquals(lmrec.analytical_method, chem3.analytical_method)
+        self.assertEquals(lmrec.medium, chem3.medium)
+        self.assertEquals(lmrec.harmonized_medium, chem3.harmonized_medium)
+        self.assertEquals(lmrec.num_measure, chem3.num_measure)
+        self.assertEquals(lmrec.num_nondetect, chem3.num_nondetect)
+        self.assertEquals(lmrec.detect_freq, chem3.detect_freq)
+        self.assertEquals(lmrec.detect_freq_type, chem3.detect_freq_type)
+        self.assertEquals(lmrec.LOD, chem3.LOD)
+        self.assertEquals(lmrec.LOQ, chem3.LOQ)
+
+        stats3 = StatisticalValue.objects.filter(record=chem3)
+        self.assertEquals(1, stats3.count())
+        stat_value = stats3.first()
+        self.assertEquals(stat_value.name, "mean")
+        self.assertEquals(stat_value.value, 3)
+        self.assertEquals(stat_value.value_type, "C")
+        self.assertEquals(stat_value.stat_unit, "mg/L")

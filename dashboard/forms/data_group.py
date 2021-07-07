@@ -1,3 +1,4 @@
+import ast
 import itertools
 import uuid
 from datetime import datetime
@@ -19,7 +20,6 @@ from dashboard.models import (
     DuplicateProduct,
     ProductDocument,
     Script,
-    DocumentType,
     ExtractedComposition,
     FunctionalUse,
     FunctionalUseCategory,
@@ -31,6 +31,14 @@ from dashboard.models import (
     ExtractedFunctionalUse,
     ExtractedListPresence,
     WeightFractionType,
+    ExtractedLMDoc,
+    ExtractedLMRec,
+)
+from dashboard.models.extracted_lmrec import (
+    StatisticalValue,
+    HarmonizedMedium,
+    GENDER_CHOICES,
+    TYPE_CHOICES,
 )
 from dashboard.models.functional_use import FunctionalUseToRawChem
 
@@ -336,6 +344,111 @@ class ChemicalPresenceExtractFileForm(BaseExtractFileForm):
         obj.validate_unique()
 
 
+class LiteratureMonitorExtractFileForm(BaseExtractFileForm):
+    prod_name = field_for_model(ExtractedText, "prod_name")
+    rev_num = field_for_model(ExtractedText, "rev_num")
+    study_type = field_for_model(ExtractedLMDoc, "study_type")
+    media = field_for_model(ExtractedLMDoc, "media")
+    qa_flag = field_for_model(ExtractedLMDoc, "qa_flag")
+    qa_who = field_for_model(ExtractedLMDoc, "qa_who")
+    extraction_wa = field_for_model(ExtractedLMDoc, "extraction_wa")
+    chem_detected_flag = field_for_model(RawChem, "chem_detected_flag")
+    study_location = field_for_model(ExtractedLMRec, "study_location")
+    sampling_date = field_for_model(ExtractedLMRec, "sampling_date")
+    population_description = field_for_model(ExtractedLMRec, "population_description")
+    population_gender = field_for_model(ExtractedLMRec, "population_gender")
+    population_age = field_for_model(ExtractedLMRec, "population_age")
+    population_other = field_for_model(ExtractedLMRec, "population_other")
+    sampling_method = field_for_model(ExtractedLMRec, "sampling_method")
+    analytical_method = field_for_model(ExtractedLMRec, "analytical_method")
+    medium = field_for_model(ExtractedLMRec, "medium")
+    harmonized_medium = forms.CharField(required=False)
+    num_measure = field_for_model(ExtractedLMRec, "num_measure")
+    num_nondetect = field_for_model(ExtractedLMRec, "num_nondetect")
+    detect_freq = field_for_model(ExtractedLMRec, "detect_freq")
+    detect_freq_type = field_for_model(ExtractedLMRec, "detect_freq_type")
+    LOD = field_for_model(ExtractedLMRec, "LOD")
+    LOQ = field_for_model(ExtractedLMRec, "LOQ")
+    statistical_values = forms.CharField(required=False)
+
+    def clean(self):
+        super().clean()
+        data = self.cleaned_data
+        params = clean_dict(data, ExtractedLMDoc)
+        obj = ExtractedLMDoc(**params)
+        obj.clean()
+        obj.validate_unique()
+
+        # set harmonized medium from name string
+        hm = data.pop("harmonized_medium", None)
+        if hm:
+            hm_obj = HarmonizedMedium.objects.filter(name=hm).first()
+            if hm_obj:
+                data["harmonized_medium"] = hm_obj
+            else:
+                self.add_error(
+                    "harmonized_medium",
+                    forms.ValidationError(
+                        f"Select a valid choice. {hm} is not one of the available choices."
+                    ),
+                )
+
+        # parse and set statistical values
+        statistics = data.pop("statistical_values", None)
+        data["statistical_values"] = []
+        if statistics:
+            stat_strings = [stat.strip() for stat in statistics.split(";")]
+            for stat in stat_strings:
+                if stat:
+                    stat_map = ast.literal_eval(stat)
+                    stat_val = StatisticalValue(**stat_map)
+                    stat_val.clean()
+                    # validate statistical value fields
+                    valid_types = []
+                    for k, v in TYPE_CHOICES:
+                        valid_types.append(k)
+                    has_error = False
+                    if stat_val.value_type and stat_val.value_type not in valid_types:
+                        self.add_error(
+                            "statistical_values",
+                            forms.ValidationError(
+                                f"Invalid value_type choice. {stat_val.value_type} is not one of the available choices."
+                            ),
+                        )
+                        has_error = True
+                    if not stat_val.value_type:
+                        self.add_error(
+                            "statistical_values",
+                            forms.ValidationError("value_type field is required"),
+                        )
+                        has_error = True
+                    if not stat_val.name:
+                        self.add_error(
+                            "statistical_values",
+                            forms.ValidationError("name field is required"),
+                        )
+                        has_error = True
+                    if stat_val.value is None or str(stat_val.value) == "":
+                        self.add_error(
+                            "statistical_values",
+                            forms.ValidationError("value field is required"),
+                        )
+                        has_error = True
+                    if not stat_val.stat_unit:
+                        self.add_error(
+                            "statistical_values",
+                            forms.ValidationError("stat_unit field is required"),
+                        )
+                        has_error = True
+                    if not has_error:
+                        data["statistical_values"].append(stat_val)
+
+        params = clean_dict(data, ExtractedLMRec)
+        obj = ExtractedLMRec(**params)
+        obj.clean()
+        obj.validate_unique()
+
+
 class ExtractFileFormSet(FormTaskMixin, DGFormSet):
     prefix = "extfile"
     header_fields = ["extraction_script"]
@@ -352,6 +465,8 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
             self.form = CompositionExtractFileForm
         elif dg.type == "CP":
             self.form = ChemicalPresenceExtractFileForm
+        elif dg.type == "LM":
+            self.form = LiteratureMonitorExtractFileForm
         # For the template render
         self.extraction_script_choices = [
             (str(s.pk), str(s))
@@ -475,7 +590,12 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
                 datadocument = None
             # Child creates
             child_params = clean_dict(data, Child)
-            use_vals = [u.strip() for u in form["report_funcuse"].value().split(";")]
+            if form["report_funcuse"].value():
+                use_vals = [
+                    u.strip() for u in form["report_funcuse"].value().split(";")
+                ]
+            else:
+                use_vals = []
             existing_uses = None
             new_uses = None
             # Only include children if relevant data is attached
@@ -555,6 +675,12 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
             f.cleaned_data["new_uses"] for f in self.forms if f.cleaned_data["child"]
         ]
 
+        # Set of statistical values for lm record
+        statistical_values = []
+        for f in self.forms:
+            if "statistical_values" in f.cleaned_data.keys():
+                statistical_values.append(f.cleaned_data["statistical_values"])
+
         with transaction.atomic():
             # Abstract some of the funcuse info out of the save.
             # Creates FunctionalUses for all new_funcuses report_funcuse strings
@@ -586,6 +712,14 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
                     )
             # Add all new connections at once.
             FunctionalUseToRawChem.objects.bulk_create(reported_uses)
+
+            # create all statistic values
+            statistics = []
+            for chem, stats in zip(chems, statistical_values):
+                for stat in stats:
+                    stat.record = chem
+                    statistics.append(stat)
+            StatisticalValue.objects.bulk_create(statistics)
         return len(self.forms)
 
     def _create_new_functional_uses(self, funcuses, new_funcuses):
