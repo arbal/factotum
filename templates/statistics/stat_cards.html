@@ -6,10 +6,10 @@
         <div class="card-body">
             <h3 class="card-title text-muted">Documents</h3>
             <div class="card-text font-weight-bold display-4">
-                {% if datadocument_count > 999999 %}
-                    {{ datadocument_count | intword }}
+                {% if stats.datadocument_count > 999999 %}
+                    {{ stats.datadocument_count | intword }}
                 {% else %}
-                    {{ datadocument_count | intcomma }}
+                    {{ stats.datadocument_count | intcomma }}
                 {% endif %}
             </div>
         </div>
@@ -18,10 +18,10 @@
         <div class="card-body">
             <h3 class="card-title text-muted">Products</h3>
             <div class="card-text font-weight-bold display-4">
-                {% if product_count > 999999 %}
-                    {{ product_count | intword }}
+                {% if stats.product_count > 999999 %}
+                    {{ stats.product_count | intword }}
                 {% else %}
-                    {{ product_count | intcomma }}
+                    {{ stats.product_count | intcomma }}
                 {% endif %}
             </div>
         </div>
@@ -30,10 +30,10 @@
         <div class="card-body">
             <h3 class="card-title text-muted">Extracted Chemicals</h3>
             <div class="card-text font-weight-bold display-4">
-                {% if chemical_count > 999999 %}
-                    {{ chemical_count | intword }}
+                {% if stats.chemical_count > 999999 %}
+                    {{ stats.chemical_count | intword }}
                 {% else %}
-                    {{ chemical_count | intcomma }}
+                    {{ stats.chemical_count | intcomma }}
                 {% endif %}
             </div>
         </div>
@@ -45,10 +45,10 @@
         <div class="card-body">
             <h3 class="card-title text-muted">Products Linked To PUCs</h3>
             <div name="product_with_puc_count" class="card-text font-weight-bold display-4">
-                {% if product_with_puc_count > 999999 %}
-                    {{ product_with_puc_count | intword }}
+                {% if stats.product_with_puc_count > 999999 %}
+                    {{ stats.product_with_puc_count | intword }}
                 {% else %}
-                    {{ product_with_puc_count | intcomma }}
+                    {{ stats.product_with_puc_count | intcomma }}
                 {% endif %}
             </div>
         </div>
@@ -57,10 +57,10 @@
         <div class="card-body">
             <h3 class="card-title text-muted">Curated Chemical Records</h3>
             <div name="chemical_records" class="card-text font-weight-bold display-4">
-                {% if curated_chemical_count > 999999 %}
-                    {{ curated_chemical_count | intword }}
+                {% if stats.curated_chemical_count > 999999 %}
+                    {{ stats.curated_chemical_count | intword }}
                 {% else %}
-                    {{ curated_chemical_count | intcomma }}
+                    {{ stats.curated_chemical_count | intcomma }}
                 {% endif %}
             </div>
         </div>
@@ -69,10 +69,10 @@
         <div class="card-body">
             <h3 class="card-title text-muted">Unique DTXSIDs</h3>
             <div class="card-text font-weight-bold display-4" name="dsstox">
-                {% if dsstox_sid_count > 999999 %}
-                    {{ dsstox_sid_count | intword }}
+                {% if stats.dsstox_sid_count > 999999 %}
+                    {{ stats.dsstox_sid_count | intword }}
                 {% else %}
-                    {{ dsstox_sid_count | intcomma }}
+                    {{ stats.dsstox_sid_count | intcomma }}
                 {% endif %}
             </div>
         </div>
