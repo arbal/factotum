@@ -565,12 +565,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.browser.find_element_by_id("id_sampling_method").send_keys(
             "The sampling method is often a very long decription of the field process."
         )
-        self.browser.find_element_by_id("id_num_measure").send_keys(
-            "60"
-        )
-        self.browser.find_element_by_id("id_num_nondetect").send_keys(
-            "10"
-        )
+        self.browser.find_element_by_id("id_num_measure").send_keys("60")
+        self.browser.find_element_by_id("id_num_nondetect").send_keys("10")
         save_button.click()
 
         time.sleep(3)
@@ -585,8 +581,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         # Confirm that the edits were written to the ExtractedLMRec object
         self.assertEqual(lm_chem.updated_by, User.objects.get(username="Karyn"))
         self.assertTrue(lm_chem.updated_at != "")
-        self.assertEqual(lm_chem.num_measure , 60)
-        self.assertEqual(lm_chem.num_nondetect , 10)
+        self.assertEqual(lm_chem.num_measure, 60)
+        self.assertEqual(lm_chem.num_nondetect, 10)
 
         self.assertInHTML(
             "The Rawest Chem Name",
