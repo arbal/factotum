@@ -1,4 +1,5 @@
 import json
+import datetime
 
 from django.test import TestCase, tag
 from django.urls import resolve, reverse
@@ -15,6 +16,7 @@ from dashboard.models import (
     GroupType,
     DataDocument,
     DSSToxLookup,
+    News,
 )
 from dashboard.tests.loader import load_model_objects, fixtures_standard
 
@@ -192,6 +194,24 @@ class DashboardTest(TestCase):
         row1 = csv_lines[1].split(",")
         self.assertEqual(row1[0], pt.name)
         self.assertEqual(row1[1], pt.definition)
+
+    def test_news(self):
+        response = self.client.get("/").content.decode("utf8")
+        self.assertNotIn("Latest News", response)
+        for i in range(1, 10):
+            News.objects.create(subject="subject " + str(i), body="body text " + str(i))
+        response = self.client.get("/").content.decode("utf8")
+        self.assertIn("Latest News", response)
+        for i in range(5, 10):
+            self.assertIn("subject " + str(i), response)
+            self.assertIn("body text " + str(i), response)
+        for i in range(1, 5):
+            self.assertNotIn("subject " + str(i), response)
+            self.assertNotIn("body text " + str(i), response)
+        response = self.client.get("/news").content.decode("utf8")
+        for i in range(1, 10):
+            self.assertIn("subject " + str(i), response)
+            self.assertIn("body text " + str(i), response)
 
 
 class DashboardTestWithFixtures(TestCase):

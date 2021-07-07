@@ -22,6 +22,7 @@ IS_WS_API = True if env.ROOT_URLCONF == "api" else False
 INSTALLED_APPS = [
     "dal",
     "dal_select2",
+    "ckeditor",
     "django.contrib.contenttypes",
     "django.contrib.admin",
     "django.contrib.auth",
