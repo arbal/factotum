@@ -1,4 +1,5 @@
 {% extends 'core/base.html' %}
+{% load staticfiles %}
 
 {% block content %}
     <h1 class="col-sm-12 p-2"><span class="fa fa-wrench" title="factotum" aria-hidden="true"></span>
@@ -6,4 +7,12 @@
     </h1>
 
     {% include "statistics/stat_cards.html" %}
+
+    <div class="mt-lg-5 mb-3">
+    {% include "news/latest_news.html" %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/dashboard/news.js' %}"></script>
 {% endblock %}

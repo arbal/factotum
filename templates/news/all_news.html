@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% block title %}Factotum News{% endblock %}
+
+{% block content %}
+    <h1>Factotum News</h1>
+    {% for news in news %}
+        <div class="mt-4 mb-4">
+            <h5>{{ news.subject }}</h5>
+            <div class="mt-2 mb-2 small text-muted">{{ news.updated_at }}</div>
+            <div>{{ news.body|safe }}</div>
+        </div>
+    {% endfor %}
+{% endblock %}
+

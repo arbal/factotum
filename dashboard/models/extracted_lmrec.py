@@ -112,6 +112,9 @@ class StatisticalValue(CommonInfo):
     def clean(self):
         # Strip whitespace from stat_unit
         self.stat_unit = self.stat_unit.strip()
+        for k, v in TYPE_CHOICES:
+            if self.value_type and self.value_type.lower() == v.lower():
+                self.value_type = k
 
     def __str__(self):
         return f"{self.name} {self.value} {self.stat_unit}"
@@ -125,6 +128,7 @@ class HarmonizedMedium(CommonInfo):
     """
 
     name = models.CharField(max_length=200, unique=True)
+    description = models.TextField(blank=True)
 
     def __str__(self):
         return self.name

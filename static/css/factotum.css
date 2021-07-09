@@ -128,3 +128,14 @@ div.search-result-main{
     -moz-transition: -moz-box-shadow 0.5s ease-out, opacity 0.5s ease-out;
     transition: box-shadow 0.5s ease-out, opacity 0.5s ease-out;
 }
+
+.carousel-control-prev,
+.carousel-control-next {
+    color: #0076ff !important;
+    margin-left: -120px;
+    margin-right: -120px;
+}
+
+#news-slider {
+    min-height: 150px;
+}
