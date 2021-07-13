@@ -624,8 +624,9 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
 
                 # Get new (to be created) functional uses
                 new_uses = set(uses)
-                new_uses.difference(set(map(lambda o: o.report_funcuse, existing_uses)))
-
+                new_uses = new_uses.difference(
+                    set(map(lambda o: o.report_funcuse.lower(), existing_uses))
+                )
             else:
                 child = None
             if (
