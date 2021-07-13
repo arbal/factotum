@@ -567,6 +567,12 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         self.assertEquals(lmdoc.qa_who, doc.qa_who)
         self.assertEquals(lmdoc.extraction_wa, doc.extraction_wa)
 
+        # confirm that a duplicate ExtractedComposition record is not
+        # being generated
+        self.assertEqual(
+            ExtractedComposition.objects.filter(extracted_text_id=dd.id).count(), 0
+        )
+
         chem1 = ExtractedLMRec.objects.filter(
             raw_chem_name="chem1", extracted_text_id=dd.id
         ).first()

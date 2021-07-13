@@ -7,7 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait, Select
 
-from dashboard.models import DataDocument, ExtractedText, RawChem, FunctionalUse
+from dashboard.models import DataDocument, ExtractedText, ExtractedLMRec, FunctionalUse
 from dashboard.tests.loader import fixtures_standard, load_browser
 
 
@@ -497,7 +497,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             "test extraction wa",
             self.browser.find_element_by_id("id_extraction_wa").text,
         )
-
+        # Test the creation and editing of a new chemical card
         add_chem_button = wait.until(
             ec.element_to_be_clickable((By.XPATH, "//*[@id='add_chemical']"))
         )
@@ -505,40 +505,32 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
         save_button = wait.until(ec.element_to_be_clickable((By.ID, "saveChem")))
 
-        self.assertTrue(len(self.browser.find_elements_by_id("id_raw_chem_name")) > 0)
-        self.assertTrue(len(self.browser.find_elements_by_id("id_raw_cas")) > 0)
-        self.assertTrue(
-            len(self.browser.find_elements_by_id("id_chem_detected_flag")) > 0
-        )
-        self.assertTrue(len(self.browser.find_elements_by_id("id_study_location")) > 0)
-        self.assertTrue(len(self.browser.find_elements_by_id("id_sampling_date")) > 0)
-        self.assertTrue(
-            len(self.browser.find_elements_by_id("id_population_description")) > 0
-        )
-        self.assertTrue(
-            len(self.browser.find_elements_by_id("id_population_gender")) > 0
-        )
-        self.assertTrue(len(self.browser.find_elements_by_id("id_population_age")) > 0)
-        self.assertTrue(
-            len(self.browser.find_elements_by_id("id_population_other")) > 0
-        )
-        self.assertTrue(len(self.browser.find_elements_by_id("id_sampling_method")) > 0)
-        self.assertTrue(
-            len(self.browser.find_elements_by_id("id_analytical_method")) > 0
-        )
-        self.assertTrue(len(self.browser.find_elements_by_id("id_medium")) > 0)
-        harmonized_medium_select = Select(
-            self.browser.find_element_by_id("id_harmonized_medium")
-        )
-        harmonized_medium_select.select_by_visible_text("soil")
-        self.assertTrue(len(self.browser.find_elements_by_id("id_num_measure")) > 0)
-        self.assertTrue(len(self.browser.find_elements_by_id("id_num_nondetect")) > 0)
-        self.assertTrue(len(self.browser.find_elements_by_id("id_detect_freq")) > 0)
-        self.assertTrue(
-            len(self.browser.find_elements_by_id("id_detect_freq_type")) > 0
-        )
-        self.assertTrue(len(self.browser.find_elements_by_id("id_LOD")) > 0)
-        self.assertTrue(len(self.browser.find_elements_by_id("id_LOQ")) > 0)
+        # confirm presence of input fields
+        for id in [
+            "id_raw_chem_name",
+            "id_raw_cas",
+            "id_chem_detected_flag",
+            "id_study_location",
+            "id_sampling_date",
+            "id_population_description",
+            "id_population_gender",
+            "id_population_age",
+            "id_population_other",
+            "id_sampling_method",
+            "id_analytical_method",
+            "id_medium",
+            "id_harmonized_medium",
+            "id_num_measure",
+            "id_num_nondetect",
+            "id_detect_freq",
+            "id_detect_freq_type",
+            "id_LOD",
+            "id_LOQ",
+        ]:
+            self.assertTrue(
+                len(self.browser.find_elements_by_id(id)) > 0,
+                f"Could not find element with id {id}",
+            )
 
         self.assertFalse(
             len(self.browser.find_elements_by_id("id_raw_central_comp")) > 0
@@ -553,23 +545,48 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         )
         self.assertFalse(len(self.browser.find_elements_by_id("id_component")) > 0)
 
+        # Update values and save them
         self.browser.find_element_by_id("id_raw_chem_name").send_keys(
             "The Rawest Chem Name"
         )
+        self.browser.find_element_by_id("id_raw_cas").send_keys("7732-18-1")
+        chem_detected_select = Select(
+            self.browser.find_element_by_id("id_chem_detected_flag")
+        )
+        chem_detected_select.select_by_visible_text("Yes")
+
+        harmonized_medium_select = Select(
+            self.browser.find_element_by_id("id_harmonized_medium")
+        )
+        harmonized_medium_select.select_by_visible_text("soil")
+        self.browser.find_element_by_id("id_population_description").send_keys(
+            "The population is described here"
+        )
+        self.browser.find_element_by_id("id_sampling_method").send_keys(
+            "The sampling method is often a very long decription of the field process."
+        )
+        self.browser.find_element_by_id("id_num_measure").send_keys("60")
+        self.browser.find_element_by_id("id_num_nondetect").send_keys("10")
         save_button.click()
 
         time.sleep(3)
         # query for the latest chemical
 
-        raw_chem = (
-            RawChem.objects.filter(extracted_text_id=doc.pk).order_by("id").last()
+        lm_chem = (
+            ExtractedLMRec.objects.filter(extracted_text_id=doc.pk)
+            .order_by("id")
+            .last()
         )
-        self.assertEqual(raw_chem.updated_by, User.objects.get(username="Karyn"))
-        self.assertTrue(raw_chem.updated_at != "")
+
+        # Confirm that the edits were written to the ExtractedLMRec object
+        self.assertEqual(lm_chem.updated_by, User.objects.get(username="Karyn"))
+        self.assertTrue(lm_chem.updated_at != "")
+        self.assertEqual(lm_chem.num_measure, 60)
+        self.assertEqual(lm_chem.num_nondetect, 10)
 
         self.assertInHTML(
             "The Rawest Chem Name",
-            self.browser.find_element_by_id(f"raw_chem_name-{raw_chem.pk}").text,
+            self.browser.find_element_by_id(f"raw_chem_name-{lm_chem.pk}").text,
         )
 
     def test_co_multiple_fu(self):
