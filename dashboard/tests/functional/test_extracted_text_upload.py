@@ -64,6 +64,7 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         self.c.login(username="Karyn", password="specialP@55word")
 
     def generate_valid_chem_csv(self):
+        FunctionalUse.objects.create(report_funcuse="Adhesive")
         csv_string = (
             "data_document_id,data_document_filename,"
             "prod_name,doc_date,rev_num,raw_category,raw_cas,raw_chem_name,"
@@ -71,13 +72,13 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
             "ingredient_rank,raw_central_comp,component"
             "\n"
             "8,11177849.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
-            "0000075-37-6,hydrofluorocarbon 152a (difluoroethane),,0.39,0.42,1,,,Test Component"
+            "0000075-37-6,hydrofluorocarbon 152a (difluoroethane),solvent,0.39,0.42,1,,,Test Component"
             "\n"
             "7,11165872.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
             "0000064-17-5,sd alcohol 40-b (ethanol),adhesive,0.5,0.55,1,,,Test Component"
             "\n"
             "7,11165872.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
-            "0000064-17-6,sd alcohol 40-c (ethanol c),adhesive;propellant,,,2,,,Test Component"
+            "0000064-17-6,sd alcohol 40-c (ethanol c),Adhesive;propellant,,,2,,,Test Component"
             "\n"
             "7,11165872.pdf,Alberto European Hairspray (Aerosol) - All Variants,,,aerosol hairspray,"
             ",,,,,,,,"
@@ -248,13 +249,23 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
             extracted_text__data_document__data_group__id=6
         )
         # Verify multiple report_funcuse upload
+        ec = new_ex_chems.filter(raw_cas="0000064-17-5").prefetch_related(
+            "functional_uses"
+        )[0]
+        self.assertEqual(ec.functional_uses.count(), 1)
+        self.assertEqual("Adhesive", ec.functional_uses.first().report_funcuse)
+        ec = new_ex_chems.filter(raw_cas="0000075-37-6").prefetch_related(
+            "functional_uses"
+        )[0]
+        self.assertEqual(ec.functional_uses.count(), 1)
+        self.assertEqual("solvent", ec.functional_uses.first().report_funcuse)
         ec = new_ex_chems.filter(
             raw_chem_name="sd alcohol 40-c (ethanol c)"
         ).prefetch_related("functional_uses")[0]
         self.assertEqual(ec.functional_uses.count(), 2)
         self.assertSetEqual(
             set(f.report_funcuse for f in ec.functional_uses.all()),
-            {"adhesive", "propellant"},
+            {"Adhesive", "propellant"},
         )
 
         dg = DataGroup.objects.get(pk=6)
