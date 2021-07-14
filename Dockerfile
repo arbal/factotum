@@ -1,3 +1,5 @@
+ARG REBUILD_INDEX=false
+
 FROM python:3.7-alpine
 
 RUN apk add --no-cache \
@@ -20,7 +22,12 @@ RUN rm -f .env \
  && rm -rf media \
  && python manage.py collectstatic
 
-CMD gunicorn factotum.wsgi -c factotum/gunicorn.py
+CMD if [ "$REBUILD_INDEX" = "true" ] ; then \
+ python manage.py search_index --rebuild -f && \
+ gunicorn factotum.wsgi -c factotum/gunicorn.py \
+; else \
+ gunicorn factotum.wsgi -c factotum/gunicorn.py \
+; fi
 
 EXPOSE 8000 8001
 VOLUME /app/collected_static
