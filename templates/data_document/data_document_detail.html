@@ -297,10 +297,12 @@
             <hr>
             <div>
                 <div class="d-flex justify-content-between">
-                    <h5 class="d-inline mr-2"
-                        id="list-presence-tags-applied-title">
-                        <b>Keywords Applied</b>
-                    </h5>
+                    {% if doc.data_group.is_chemical_presence or doc.data_group.is_habits_and_practices %}
+                        <h5 class="d-inline mr-2"
+                            id="list-presence-tags-applied-title">
+                            <b>Keywords Applied</b>
+                        </h5>
+                    {% endif %}
                 </div>
                 <div>
                     <ul style="list-style-type:none;">

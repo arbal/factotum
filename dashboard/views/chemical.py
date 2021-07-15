@@ -6,6 +6,7 @@ from django_datatables_view.base_datatable_view import BaseDatatableView
 from djqscsv import render_to_csv_response
 
 from dashboard.models import (
+    DataDocument,
     DSSToxLookup,
     PUC,
     ProductDocument,
@@ -15,6 +16,8 @@ from dashboard.models import (
     ProductToPucClassificationMethod,
     ExtractedComposition,
     FunctionalUseToRawChem,
+    ExtractedLMRec,
+    UnionExtractedLMHHRec,
 )
 
 
@@ -416,6 +419,41 @@ class ChemicalFunctionalUseListJson(BaseDatatableView):
             return format_html(
                 '<span title="{}">{}</span>',
                 row.chemical.extracted_text.data_document.data_group.group_type.description,
+                value,
+            )
+        return value
+
+
+class ChemicalLMAndHHDocumentJson(BaseDatatableView):
+    model = UnionExtractedLMHHRec
+    columns = [
+        "rawchem.extracted_text.data_document.data_group.group_type.code",
+        "rawchem.extracted_text.data_document.title",
+        "medium",
+        "harmonized_medium.name",
+        "num_measure",
+        "rawchem.chem_detected_flag",
+    ]
+
+    def get_filter_method(self):
+        return self.FILTER_ICONTAINS
+
+    def get_initial_queryset(self):
+        sid = self.request.GET.get("sid")
+        if sid:
+            return UnionExtractedLMHHRec.objects.filter(rawchem__dsstox__sid=sid)
+        return UnionExtractedLMHHRec.objects.exclude(rawchem__dsstox__isnull=True)
+
+    def render_column(self, row, column):
+        value = self._render_column(row, column)
+        if column == "rawchem.extracted_text.data_document.title":
+            doc = DataDocument.objects.get(
+                id=row.rawchem.extracted_text.data_document.id
+            )
+            chem_pk = row.rawchem_id
+            return format_html(
+                '<a href="{}" title="Go to Document detail" target="_blank">{}</a>',
+                doc.get_absolute_url() + "#chem-card-" + str(chem_pk),
                 value,
             )
         return value

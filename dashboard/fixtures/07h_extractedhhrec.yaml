@@ -1,344 +1,302 @@
 - model: dashboard.extractedhhrec
   pk: 760
   fields:
-    media: Air
+    medium: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 761
   fields:
-    media: Air
+    medium: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 762
   fields:
-    media: Air
+    medium: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 763
   fields:
-    media: Air
+    medium: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 764
   fields:
-    media: Air
+    medium: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 765
   fields:
-    media: Air
+    medium: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 766
   fields:
-    media: Air
+    medium: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 767
   fields:
-    media: Air
+    medium: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 768
   fields:
-    media: Air
+    medium: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 769
   fields:
-    media: Air
+    medium: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 770
   fields:
-    media: Air
+    medium: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 771
   fields:
-    media: Air
+    medium: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 772
   fields:
-    media: Air
+    medium: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 773
   fields:
-    media: Air
+    medium: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 774
   fields:
-    media: Air
+    medium: Air
     sampling_method: 1.4 liter evacuated canisters
     analytical_method: EPA method TO-15
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 775
   fields:
-    media: Surface Wipe
+    medium: Surface Wipe
     sampling_method: 100-square-centimeter (100 cm2) template
     analytical_method: liquid chromatography and high performance liquid chromatography
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 776
   fields:
-    media: Surface Wipe
+    medium: Surface Wipe
     sampling_method: ''
     analytical_method: liquid chromatography and high performance liquid chromatography
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 777
   fields:
-    media: Surface Wipe
+    medium: Surface Wipe
     sampling_method: ''
     analytical_method: liquid chromatography and high performance liquid chromatography
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 778
   fields:
-    media: air
+    medium: air
     sampling_method: August 2016 - area, task-based, and instantaneous air samples
       using evacuated canisters; April 2017 - area air samples using thermal desorption
       tubes
     analytical_method: August 2016- GC/MS modifications made;  April 2017- (NIOSH)
       Method 2549
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 779
   fields:
-    media: air
+    medium: air
     sampling_method: August 2016 - area, task-based, and instantaneous air samples
       using evacuated canisters; April 2017 - area air samples using thermal desorption
       tubes
     analytical_method: August 2016- GC/MS modifications made;  April 2017- (NIOSH)
       Method 2549
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 780
   fields:
-    media: air
+    medium: air
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 781
   fields:
-    media: air
+    medium: air
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 782
   fields:
-    media: air
+    medium: air
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 783
   fields:
-    media: air
+    medium: air
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 784
   fields:
-    media: air
+    medium: air
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 785
   fields:
-    media: air
+    medium: air
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 786
   fields:
-    media: air
+    medium: air
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 787
   fields:
-    media: air
+    medium: air
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 788
   fields:
-    media: air
+    medium: air
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 789
   fields:
-    media: air
+    medium: air
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 790
   fields:
-    media: air
+    medium: air
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 791
   fields:
-    media: air
+    medium: air
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 792
   fields:
-    media: air
+    medium: air
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 793
   fields:
-    media: air
+    medium: air
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 794
   fields:
-    media: air
+    medium: air
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 795
   fields:
-    media: air
+    medium: air
     sampling_method: area sample
     analytical_method: derivatization technique, An Aeroqual Series 500 portable air
       monitor with an ozone sensor
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 796
   fields:
-    media: air
+    medium: air
     sampling_method: area sample
     analytical_method: derivatization technique
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 797
   fields:
-    media: air
+    medium: air
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 798
   fields:
-    media: air
+    medium: air
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 799
   fields:
-    media: air
+    medium: air
     sampling_method: closed-face cassettes with endotoxinfree polycarbonate filters
     analytical_method: ' kinetic-chromogenic procedure using the limulus amebocyte
       lysate assay [Cambrex 2005]'
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 800
   fields:
-    media: ''
+    medium: ''
     sampling_method: ''
     analytical_method: ''
-    num_measure: ''
-    num_nondetect: ''
+
 - model: dashboard.extractedhhrec
   pk: 801
   fields:
-    media: air
+    medium: air
     sampling_method: " TSI DustTrak\u2122 DRX 8533 Aerosol Monitor\""
     analytical_method: " TSI DustTrak\u2122 DRX 8533 Aerosol Monitor\""
-    num_measure: ''
-    num_nondetect: ''
+

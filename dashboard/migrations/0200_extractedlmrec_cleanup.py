@@ -5,7 +5,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [("dashboard", "0198_news")]
+    dependencies = [("dashboard", "0199_alter_hhrec_fields")]
 
     operations = [
         migrations.RunSQL(

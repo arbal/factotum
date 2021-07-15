@@ -3,12 +3,75 @@ import json
 from django.urls import reverse
 from lxml import html
 
-from django.test import TestCase, tag
+from django.test import TestCase, tag, TransactionTestCase
 
 from dashboard.models import DSSToxLookup, ProductDocument, PUC, ProductToPUC
 from dashboard.tests.loader import fixtures_standard
 
 from django.test import override_settings
+from django.db import transaction
+
+from dashboard.tests.factories import (
+    ExtractedLMRecFactory,
+    ExtractedHHRecFactory,
+    TrueChemicalFactory,
+    DataDocumentFactory,
+)
+from dashboard.tests.loader import load_model_objects
+from dashboard.models import UnionExtractedLMHHRec
+
+
+@tag("factory")
+class LMRecTests(TransactionTestCase):
+    """
+    This test uses factories instead of the fixtures
+    """
+
+    def setUp(self):
+        self.objects = load_model_objects()
+
+        self.client.login(username="Karyn", password="specialP@55word")
+
+        true_chem = TrueChemicalFactory.create(
+            sid="DTXSID70452491", true_chemname="Benzene", true_cas="32501-94-3"
+        )
+        # Create data documents of both types
+        lmdocs = DataDocumentFactory.create_batch(10, data_group__group_type__code="LM")
+        hhdocs = DataDocumentFactory.create_batch(10, data_group__group_type__code="HH")
+
+        # populate each document with chemical records, one of which is curated to the truechem
+        for hhdoc in hhdocs:
+            ExtractedHHRecFactory(extracted_text__data_document=hhdoc, dsstox=true_chem)
+            ExtractedHHRecFactory.create_batch(
+                10, extracted_text__data_document=hhdoc, is_curated=False
+            )
+
+        for lmdoc in lmdocs:
+            ExtractedLMRecFactory(extracted_text__data_document=lmdoc, dsstox=true_chem)
+            ExtractedLMRecFactory.create_batch(
+                10, extracted_text__data_document=lmdoc, is_curated=False
+            )
+
+    def test_lm_hh_union_queryset(self):
+        # true_chem = DSSToxLookup.objects.get(sid='DTXSID70452491')
+
+        chem_table_qs = UnionExtractedLMHHRec.objects.filter(rawchem__dsstox__sid="DTXSID70452491")
+
+        self.assertEqual("DTXSID70452491", chem_table_qs.first().rawchem.dsstox.sid)
+        self.assertEqual(20, chem_table_qs.count())
+
+    def test_lmhh_table(self):
+        dss = DSSToxLookup.objects.get(sid="DTXSID70452491")
+        response = self.client.get(dss.get_absolute_url())
+        self.assertContains(response, 'Products Containing "Benzene"')
+
+        response = self.client.get(f"/lmhh_sid_json/?sid={dss.sid}")
+        data = json.loads(response.content)
+        self.assertEqual(
+            data["recordsTotal"],
+            20,
+            f"DSSTox pk={dss.pk} should have 20 total records in the JSON",
+        )
 
 
 @override_settings(CACHEOPS_ENABLED=False)

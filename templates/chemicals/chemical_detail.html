@@ -186,7 +186,7 @@
 
     <div class="col-lg-12 mt-4" id="tables">
         <ul class="row nav nav-pills mb-3">
-            <li class="col-lg-4 nav-item h-nav border rounded p-0">
+            <li class="col-lg-3 nav-item h-nav border rounded p-0">
                 <a class="nav-link text-center active"
                    data-toggle="pill"
                    href="#product-table-div"
@@ -194,7 +194,7 @@
                     <b>Products</b>
                 </a>
             </li>
-            <li class="col-lg-4 nav-item h-nav border rounded p-0">
+            <li class="col-lg-3 nav-item h-nav border rounded p-0">
                 <a class="nav-link text-center"
                    data-toggle="pill"
                    href="#document-table-div"
@@ -202,12 +202,20 @@
                     <b>Documents</b>
                 </a>
             </li>
-            <li class="col-lg-4 nav-item h-nav border rounded p-0">
+            <li class="col-lg-3 nav-item h-nav border rounded p-0">
                 <a class="nav-link text-center"
                    data-toggle="pill"
                    href="#functional-use-table-div"
                    id="functional-use-tab-header">
                     <b>Functional Uses</b>
+                </a>
+            </li>
+            <li class="col-lg-3 nav-item h-nav border rounded p-0">
+                <a class="nav-link text-center"
+                   data-toggle="pill"
+                   href="#lmhh-table-div"
+                   id="lmhh-tab-header">
+                    <b>LM & HHE Documents</b>
                 </a>
             </li>
         </ul>
@@ -372,6 +380,43 @@
                     <tbody></tbody>
                 </table>
             </div>
+
+            <div class="tab-pane container p-0 fade" id="lmhh-table-div">
+                <h4>Literature Monitoring and Health Hazard Evaluations mentioning "{{ chemical.true_chemname }}"
+                    <!-- <span class="float-right">
+                    <button id="reset-lmhh" class="btn btn-outline-secondary p-1"
+                            disabled>
+                            Show All Documents
+                        </button>
+                    </span> -->
+                </h4>
+                <table class="table table-striped dataTable table-sm" id="lmhh-documents">
+                    <thead>
+                    <tr>
+                        <th title="Data group type used in Factotum curation">
+                          Data Type
+                        </th>
+                        <th title="Data document containing the chemical">
+                          Document
+                        </th>
+                        <th title="Reported medium">
+                          Reported Medium
+                        </th>
+                        <th title="Harmonized medium">
+                          Harmonized Medium
+                        </th>
+                        <th title="Number of samples">
+                            Number of Samples
+                        </th>
+                        <th title="Chemical detected (yes/no)">
+                           Chemical Detected
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
         </div>
     </div>
 

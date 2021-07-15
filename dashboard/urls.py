@@ -351,6 +351,11 @@ urlpatterns = [
         "hp_json/", views.HabitsAndPracticesDocumentsJson.as_view(), name="hp_ajax_url"
     ),
     path(
+        "lmhh_sid_json/",
+        views.ChemicalLMAndHHDocumentJson.as_view(),
+        name="lmhh_sid_ajax_url",
+    ),
+    path(
         "curated_chem_json/",
         views.CuratedChemicalsListJson.as_view(),
         name="curated_chem_ajax_url",
