@@ -43,7 +43,7 @@ def index(request):
 
 
 def all_news(request):
-    news = News.objects.order_by("-updated_at")
+    news = News.objects.filter(section="news").order_by("-updated_at")
     return render(request, "news/all_news.html", {"news": news})
 
 
