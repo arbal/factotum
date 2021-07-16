@@ -1,0 +1,7 @@
+{% if getting_started.count > 0 %}
+<div id="getting-started"">
+        {% for article in getting_started %}
+            <div>{{ article.body|safe }}</div>
+        {% endfor %}
+</div>
+{% endif %}

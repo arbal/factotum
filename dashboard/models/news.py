@@ -1,11 +1,11 @@
 from django.db import models
 from .common_info import CommonInfo
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class News(CommonInfo):
     subject = models.CharField(max_length=200)
-    body = RichTextField()
+    body = RichTextUploadingField()
     section = models.CharField(max_length=20, default="news")
 
     def __str__(self):

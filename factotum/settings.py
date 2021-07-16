@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "dal",
     "dal_select2",
     "ckeditor",
+    "ckeditor_uploader",
     "django.contrib.contenttypes",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -170,6 +171,7 @@ USE_TZ = False
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "collected_static")
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 MEDIA_URL = env.MEDIA_URL
 MEDIA_ROOT = env.MEDIA_ROOT

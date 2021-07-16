@@ -36,9 +36,14 @@ def get_stats():
 
 def index(request):
     stats = get_stats()
-    news = News.objects.order_by("-updated_at")[:5]
+    news = News.objects.filter(section="news").order_by("-updated_at")[:5]
+    getting_started = News.objects.filter(section="gettingstarted").order_by(
+        "-updated_at"
+    )
     return render(
-        request, "dashboard/index.html", {"stats": stats, "latest_news": news}
+        request,
+        "dashboard/index.html",
+        {"stats": stats, "latest_news": news, "getting_started": getting_started},
     )
 
 
@@ -147,8 +152,7 @@ def product_with_puc_count_by_month():
 
 
 def download_PUCs(request):
-    """This view is used to download all of the PUCs in CSV form.
-    """
+    """This view is used to download all of the PUCs in CSV form."""
     response = HttpResponse(content_type="text/csv")
     response["Content-Disposition"] = 'attachment; filename="PUCs.csv"'
     pucs = (
@@ -189,7 +193,7 @@ def download_PUCs(request):
 
 
 def download_LPKeywords(request):
-    """This view gets called to download all of the list presence keywords 
+    """This view gets called to download all of the list presence keywords
     and their definitions in a csv form.
     """
     response = HttpResponse(content_type="text/csv")
@@ -206,8 +210,7 @@ def download_LPKeywords(request):
 
 
 def download_FunctionalUseCategories(request):
-    """This view gets called to download all the functional use categories in a csv form.
-    """
+    """This view gets called to download all the functional use categories in a csv form."""
     response = HttpResponse(content_type="text/csv")
     response[
         "Content-Disposition"
