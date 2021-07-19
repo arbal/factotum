@@ -37,9 +37,9 @@ def get_stats():
 def index(request):
     stats = get_stats()
     news = News.objects.filter(section="news").order_by("-updated_at")[:5]
-    getting_started = News.objects.filter(section="gettingstarted").order_by(
-        "-updated_at"
-    )
+    getting_started = News.objects.filter(
+        section=News.GETTING_STARTED_SECTION_NAME
+    ).order_by("-updated_at")
     return render(
         request,
         "dashboard/index.html",

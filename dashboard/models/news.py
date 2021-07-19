@@ -2,6 +2,8 @@ from django.db import models
 from .common_info import CommonInfo
 from ckeditor_uploader.fields import RichTextUploadingField
 
+GETTING_STARTED_SECTION_NAME = "gettingstarted"
+
 
 class News(CommonInfo):
     subject = models.CharField(max_length=200)

@@ -6,19 +6,17 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0201_add_lm_hh_union_view'),
-    ]
+    dependencies = [("dashboard", "0201_add_lm_hh_union_view")]
 
     operations = [
         migrations.AddField(
-            model_name='news',
-            name='section',
-            field=models.CharField(default='news', max_length=20),
+            model_name="news",
+            name="section",
+            field=models.CharField(default="news", max_length=20),
         ),
         migrations.AlterField(
-            model_name='news',
-            name='body',
+            model_name="news",
+            name="body",
             field=ckeditor_uploader.fields.RichTextUploadingField(),
         ),
     ]
