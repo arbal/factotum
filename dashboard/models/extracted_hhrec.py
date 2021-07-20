@@ -53,11 +53,16 @@ class ExtractedHHRec(RawChem):
         return [
             "raw_chem_name",
             "raw_cas",
-            "medium",
-            "num_measure",
-            "num_nondetect",
             "sampling_method",
             "analytical_method",
+            "medium",
+            "harmonized_medium",
+            "num_measure",
+            "num_nondetect",
+            "detect_freq",
+            "detect_freq_type",
+            "LOD",
+            "LOQ",
         ]
 
     def get_card_body_fields(self):
@@ -67,7 +72,6 @@ class ExtractedHHRec(RawChem):
                 "value": getattr(self, field),
             }
             for field in [
-
                 "sampling_method",
                 "analytical_method",
                 "medium",
