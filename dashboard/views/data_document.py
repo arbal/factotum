@@ -44,6 +44,7 @@ from dashboard.models import (
     DataGroup,
     FunctionalUseToRawChem,
     ExtractedLMRec,
+    ExtractedHHRec,
 )
 from django.forms import inlineformset_factory, formset_factory
 from django import forms
@@ -904,7 +905,7 @@ def cards_detail(request, doc, card_qs, paginate=False):
         card_qs = card_qs.order_by("raw_chem_name")
         template = "data_document/cards/functional_use_cards.html"
 
-    elif Child == ExtractedLMRec:
+    elif Child in [ExtractedLMRec, ExtractedHHRec]:
         card_qs = card_qs.order_by("raw_chem_name")
         template = "data_document/cards/lm_cards.html"
 

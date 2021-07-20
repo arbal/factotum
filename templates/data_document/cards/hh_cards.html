@@ -15,18 +15,18 @@
 
         {% for chemical in chemicals %}
             <div class="card mt-2 big-bottom"
-            id="chem-card-{{ chemical.pk }}">
+                 id="chem-card-{{ chemical.pk }}">
                 <div class="card-body shadow rounded"
-                        id="chem-click-{{ chemical.pk }}"
-                        data-chem-id="{{ chemical.pk }}">
+                     id="chem-click-{{ chemical.pk }}"
+                     data-chem-id="{{ chemical.pk }}">
 
                     <div class="card-title border-bottom">
 
                         <!-- Raw Chem Row -->
                         <div class="row mb-1 align-items-center">
                             <div class="col col-md-5 col-xl-7 text-truncate"
-                                    id="raw_chem_name-{{ chemical.pk }}"
-                                    title="{{ chemical.raw_chem_name }}"
+                                 id="raw_chem_name-{{ chemical.pk }}"
+                                 title="{{ chemical.raw_chem_name }}"
                             >
                                 <small class="text-muted">
                                     {{ chemical.raw_chem_name|default:"None" }}
@@ -40,7 +40,7 @@
                             <div class="col-auto order-1 order-md-3 text-right">
                                 {% if doc.detail_page_editable and request.user.is_authenticated %}
                                     <div class="btn-group btn-group-sm"
-                                            id="chem-card-{{ chemical.pk }}-buttons">
+                                         id="chem-card-{{ chemical.pk }}-buttons">
                                         <button class="btn btn-outline-secondary hover-success"
                                                 id="chemical-update-{{ chemical.pk }}"
                                                 title="edit"
@@ -75,7 +75,7 @@
                                     data-placement="bottom">
                                     {% if chemical.dsstox.true_chemname %}
                                         <a title="go to substance"
-                                            href="{% url 'chemical' chemical.dsstox.sid %}">
+                                           href="{% url 'chemical' chemical.dsstox.sid %}">
                                             {{ chemical.dsstox.true_chemname }}
                                         </a>
                                     {% endif %}
@@ -92,17 +92,10 @@
                             </div>
                             <div class="col text-right text-truncate">
                                 {% if chemical.dsstox %}
-                                {% if chemical.provisional %}
-                                    <div class="row d-flex justify-content-end">
-                                        <div class="col">
-                                            <small class="text-danger " title="The DSSTOX SID was provisionally assigned by the Factotum system.">Provisional</small>
-                                        </div>
-                                        </div>
-                                {% endif %}
                                     <h4 class="d-inline">
                                         <a href="https://comptox.epa.gov/dashboard/dsstoxdb/results?search={{ chemical.dsstox.sid }}"
-                                            target='_blank'
-                                            title="{{ chemical.dsstox.sid }}"
+                                           target='_blank'
+                                           title="{{ chemical.dsstox.sid }}"
                                         >
                                             {{ chemical.dsstox.sid }}
                                         </a>
@@ -112,36 +105,23 @@
                         </div>
 
                     </div>
+
                     <!-- card -->
                     <div class="card-text">
-                        {% if doc.data_group.can_have_chem_detected_flag %}
-                            <div class="row">
-                                <div class="col-auto">
-                                    <small class="text-muted">Detected:</small>
+                        <div class="row">
+                            {% for field in chemical.get_card_body_fields %}
+                                <div class="col-4">
+                                    <span class="font-weight-bold">
+                                        {% if field.name != "LOD" and field.name != "LOQ" %}
+                                            {{ field.name | title }}
+                                        {% else %}
+                                            {{ field.name }}
+                                        {% endif %}
+                                    </span>
+                                    {{ field.value }}
                                 </div>
-                                <div class="col">
-                                    <small class="text-muted">{{ chemical.get_chem_detected_flag_display|default_if_none:"Unknown" }}</small>
-                                </div>
-                            </div>
-                        {% endif %}
-
-
-
-                        {% if doc.data_group.can_have_funcuse %}
-                                <div class="row">
-                                    <div class="col-md-9" id="functional_uses_{{ chemical.id }}">
-                                        <b>Reported Functional Uses</b>
-                                        {% for fuse in chemical.functional_uses.all %}
-                                            <p>{{ fuse }}</p>
-                                        {% empty %}
-                                            <p class="text-muted">None reported</p>
-                                        {% endfor %}
-                                    </div>
-                                    {% if doc.data_group.is_chemical_presence %}
-                                        {% include 'data_document/lp_tag_buttons.html' %}
-                                    {% endif %}
-                                </div>
-                            {% endif %}
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
                 <div class="modal fade"
@@ -173,7 +153,7 @@
                                             class="btn btn-secondary"
                                             data-dismiss="modal"> Cancel
                                     </button>
-                                    <button id="chemical-modal-delete-{{ chemical.pk }}"
+                                    <button id="chemical-modal-save-{{ chemical.pk }}"
                                             type="submit"
                                             class="btn btn-primary">
                                         Delete
@@ -208,8 +188,8 @@
                  data-url="{% url 'chemical_create' doc.pk %}"></div>
             <div class="modal" id="chemical-update-modal" data-backdrop="static"
                  data-url="{% url 'chemical_update' 47 %}"></div>
-            <div class="modal" id="chemical-audit-log-modal" data-backdrop="static"></div>
         {% endif %}
+        <div class="modal" id="chemical-audit-log-modal" data-backdrop="static"></div>
     </div>
 
 {% endblock %}

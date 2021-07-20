@@ -14,8 +14,8 @@ GENDER_CHOICES = (("M", "Male"), ("F", "Female"), ("A", "All"), ("O", "Other"))
 
 class UnionExtractedLMHHRec(DBView):
     """
-    This is a database view that unions the ExtractedLMRec and ExtractedHHRec 
-    tables 
+    This is a database view that unions the ExtractedLMRec and ExtractedHHRec
+    tables
     """
 
     rawchem = models.ForeignKey(RawChem, on_delete=models.DO_NOTHING)
@@ -107,13 +107,19 @@ class ExtractedLMRec(RawChem):
         blank=True,
         null=True,
         default=None,
-        related_name="record",
+        related_name="lm_record",
     )
     num_measure = models.IntegerField(null=True, blank=True)
     num_nondetect = models.IntegerField(null=True, blank=True)
-    detect_freq = models.FloatField(null=True, blank=True)
+    detect_freq = models.FloatField(
+        null=True, blank=True, verbose_name="Detection frequency"
+    )
     detect_freq_type = models.CharField(
-        max_length=1, choices=TYPE_CHOICES, blank=True, null=True
+        max_length=1,
+        choices=TYPE_CHOICES,
+        blank=True,
+        null=True,
+        verbose_name="Detection frequency type",
     )
     LOD = models.FloatField("LOD", null=True, blank=True)
     LOQ = models.FloatField("LOQ", null=True, blank=True)
