@@ -16,6 +16,7 @@ from dashboard.models import (
     RawChem,
     FunctionalUseCategory,
     News,
+    HarmonizedMedium,
 )
 
 
@@ -147,8 +148,7 @@ def product_with_puc_count_by_month():
 
 
 def download_PUCs(request):
-    """This view is used to download all of the PUCs in CSV form.
-    """
+    """This view is used to download all of the PUCs in CSV form."""
     response = HttpResponse(content_type="text/csv")
     response["Content-Disposition"] = 'attachment; filename="PUCs.csv"'
     pucs = (
@@ -189,7 +189,7 @@ def download_PUCs(request):
 
 
 def download_LPKeywords(request):
-    """This view gets called to download all of the list presence keywords 
+    """This view gets called to download all of the list presence keywords
     and their definitions in a csv form.
     """
     response = HttpResponse(content_type="text/csv")
@@ -206,8 +206,7 @@ def download_LPKeywords(request):
 
 
 def download_FunctionalUseCategories(request):
-    """This view gets called to download all the functional use categories in a csv form.
-    """
+    """This view gets called to download all the functional use categories in a csv form."""
     response = HttpResponse(content_type="text/csv")
     response[
         "Content-Disposition"
@@ -222,6 +221,21 @@ def download_FunctionalUseCategories(request):
             category.description,
             category.created_at.strftime("%m/%d/%Y %H:%M:%S"),
         ]
+        writer.writerow(row)
+
+    return response
+
+
+def download_HarmonizedMedia(request):
+    """This view gets called to download all the harmonized media in a csv form."""
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = 'attachment; filename="HarmonizedMedia.csv"'
+    writer = csv.writer(response)
+    cols = ["Name", "Description"]
+    writer.writerow(cols)
+    mediums = HarmonizedMedium.objects.all()
+    for medium in mediums:
+        row = [medium.name, medium.description]
         writer.writerow(row)
 
     return response

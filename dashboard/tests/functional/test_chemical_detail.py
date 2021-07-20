@@ -55,7 +55,9 @@ class LMRecTests(TransactionTestCase):
     def test_lm_hh_union_queryset(self):
         # true_chem = DSSToxLookup.objects.get(sid='DTXSID70452491')
 
-        chem_table_qs = UnionExtractedLMHHRec.objects.filter(rawchem__dsstox__sid="DTXSID70452491")
+        chem_table_qs = UnionExtractedLMHHRec.objects.filter(
+            rawchem__dsstox__sid="DTXSID70452491"
+        )
 
         self.assertEqual("DTXSID70452491", chem_table_qs.first().rawchem.dsstox.sid)
         self.assertEqual(20, chem_table_qs.count())
