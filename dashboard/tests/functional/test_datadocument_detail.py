@@ -486,15 +486,48 @@ class TestDynamicDetailFormsets(TestCase):
                 # A document with the CP data group type should be linked to
                 # ExtractedCPCat objects
                 if doc.data_group.group_type.code == "CP":
-                    self.assertEqual(type(extsub), ExtractedCPCat)
+                    self.assertEqual(
+                        type(extsub),
+                        ExtractedCPCat,
+                    )
+                elif doc.data_group.group_type.code == "CO":
+                    self.assertEqual(
+                        type(extsub),
+                        ExtractedText,
+                    )
                 elif doc.data_group.group_type.code == "HH":
-                    self.assertEqual(type(extsub), ExtractedHHDoc)
+                    self.assertEqual(
+                        type(extsub),
+                        ExtractedHHDoc,
+                    )
+                elif doc.data_group.group_type.code == "HP":
+                    self.assertEqual(
+                        type(extsub),
+                        ExtractedText,
+                    )
                 elif doc.data_group.group_type.code == "LM":
-                    self.assertEqual(type(extsub), ExtractedLMDoc)
+                    self.assertEqual(
+                        type(extsub),
+                        ExtractedLMDoc,
+                    )
+                elif doc.data_group.group_type.code == "FU":
+                    self.assertEqual(
+                        type(extsub),
+                        ExtractedText,
+                    )
                 else:
-                    self.assertEqual(type(extsub), ExtractedText)
+                    print(f"doc: {doc.id} --- {doc.data_group.group_type.code}")
+                    self.assertEqual(
+                        type(extsub),
+                        ExtractedText,
+                    )
             except ObjectDoesNotExist:
                 pass
+            except Exception as inst:
+                self.assertIsNone(
+                    inst,
+                    f"the subclass of document {doc.id}: {doc} is {type(extsub)} \n with a group type of {doc.data_group.group_type.code}",
+                )
 
     def test_every_extractedtext(self):
         """'Loop through all the ExtractedText objects and confirm that the new
