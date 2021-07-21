@@ -14,10 +14,9 @@ class Migration(migrations.Migration):
             code=django_db_views.migration_functions.ForwardViewMigration(
                 "(SELECT \n            dashboard_extractedlmrec.rawchem_ptr_id as id,\n            dashboard_extractedlmrec.rawchem_ptr_id as rawchem_id,\n            dashboard_extractedlmrec.rawchem_ptr_id,\n            dashboard_extractedlmrec.medium,\n            dashboard_extractedlmrec.num_measure,\n            dashboard_extractedlmrec.harmonized_medium_id\n        FROM\n            dashboard_extractedlmrec\n                INNER JOIN\n            dashboard_rawchem ON (dashboard_extractedlmrec.rawchem_ptr_id = dashboard_rawchem.id)\n        ) \n        UNION \n        (SELECT \n            dashboard_extractedhhrec.rawchem_ptr_id as id,\n            dashboard_extractedhhrec.rawchem_ptr_id as rawchem_id,\n            dashboard_extractedhhrec.rawchem_ptr_id,\n            dashboard_extractedhhrec.medium,\n            dashboard_extractedhhrec.num_measure,\n            NULL AS harmonized_medium_id\n        FROM\n            dashboard_extractedhhrec\n                INNER JOIN\n            dashboard_rawchem ON (dashboard_extractedhhrec.rawchem_ptr_id = dashboard_rawchem.id)\n                INNER JOIN\n            dashboard_dsstoxlookup ON (dashboard_rawchem.dsstox_id = dashboard_dsstoxlookup.id)\n        )",
                 "union_lmrec_hhrec",
-                engine="factotum.db",
             ),
             reverse_code=django_db_views.migration_functions.BackwardViewMigration(
-                "", "union_lmrec_hhrec", engine="factotum.db"
+                "", "union_lmrec_hhrec"
             ),
             atomic=False,
         ),

@@ -401,6 +401,11 @@ urlpatterns = [
         name="download_FunctionalUseCategories",
     ),
     path(
+        "dl_harmonized_media/",
+        views.download_HarmonizedMedia,
+        name="download_HarmonizedMedia",
+    ),
+    path(
         "dl_functional_uses/",
         views.download_functional_uses,
         name="download_functional_uses",

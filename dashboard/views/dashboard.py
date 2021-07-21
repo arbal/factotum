@@ -16,6 +16,7 @@ from dashboard.models import (
     RawChem,
     FunctionalUseCategory,
     News,
+    HarmonizedMedium,
 )
 
 
@@ -225,6 +226,21 @@ def download_FunctionalUseCategories(request):
             category.description,
             category.created_at.strftime("%m/%d/%Y %H:%M:%S"),
         ]
+        writer.writerow(row)
+
+    return response
+
+
+def download_HarmonizedMedia(request):
+    """This view gets called to download all the harmonized media in a csv form."""
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = 'attachment; filename="HarmonizedMedia.csv"'
+    writer = csv.writer(response)
+    cols = ["Name", "Description"]
+    writer.writerow(cols)
+    mediums = HarmonizedMedium.objects.all()
+    for medium in mediums:
+        row = [medium.name, medium.description]
         writer.writerow(row)
 
     return response
