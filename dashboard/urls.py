@@ -421,9 +421,7 @@ urlpatterns = [
         name="functional_use_category_detail",
     ),
     path(
-        "harmonized_media/",
-        views.harmonized_medium_list,
-        name="harmonized_medium_list",
+        "harmonized_media/", views.harmonized_medium_list, name="harmonized_medium_list"
     ),
     path(
         "dl_raw_chems_dg/<int:pk>/",
