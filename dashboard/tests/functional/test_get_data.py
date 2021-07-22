@@ -12,6 +12,7 @@ from dashboard.models import (
     ProductToPUC,
     PUC,
     FunctionalUseCategory,
+    HarmonizedMedium,
 )
 from dashboard.tests.loader import fixtures_standard
 from dashboard.views.get_data import stats_by_dtxsids
@@ -191,6 +192,8 @@ class TestGetData(TestCase):
         self.assertContains(response, reverse("list_presence_tag_list"))
         self.assertContains(response, "Download Functional Use Categories")
         self.assertContains(response, reverse("functional_use_category_list"))
+        self.assertContains(response, "Download Harmonized Media")
+        self.assertContains(response, reverse("harmonized_medium_list"))
 
     def test_download_list_presence_keywords(self):
         response = self.client.get("/dl_lpkeywords/")
@@ -205,18 +208,26 @@ class TestGetData(TestCase):
         self.assertContains(response, "fragrance")
         self.assertContains(response, "surfactant,surfactant")
 
-    def test_download_harmonized_media(self):
-        response = self.client.get("/dl_harmonized_media/")
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "soil")
-
-    def test_function_user_categories_page(self):
+    def test_functional_use_categories_page(self):
         response = self.client.get(reverse("functional_use_category_list"))
         self.assertEqual(response.status_code, 200)
         categories = FunctionalUseCategory.objects.all()
         for cat in categories:
             self.assertContains(response, cat.title)
             self.assertContains(response, cat.description)
+
+    def test_download_harmonized_media(self):
+        response = self.client.get("/dl_harmonized_media/")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "soil")
+
+    def test_harmonized_media_page(self):
+        response = self.client.get(reverse("harmonized_medium_list"))
+        self.assertEqual(response.status_code, 200)
+        media = HarmonizedMedium.objects.all()
+        for medium in media:
+            self.assertContains(response, medium.name)
+            self.assertContains(response, medium.description)
 
     def test_download_functional_uses(self):
         response = self.client.get("/dl_functional_uses/")
