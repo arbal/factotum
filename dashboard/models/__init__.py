@@ -29,7 +29,7 @@ from .extracted_list_presence import (
 from .extracted_hhdoc import ExtractedHHDoc
 from .extracted_hhrec import ExtractedHHRec
 from .extracted_lmdoc import ExtractedLMDoc
-from .extracted_lmrec import ExtractedLMRec
+from .extracted_lmrec import ExtractedLMRec, UnionExtractedLMHHRec, HarmonizedMedium
 from .script import Script, QAGroup
 from .dsstox_lookup import DSSToxLookup
 from .unit_type import UnitType

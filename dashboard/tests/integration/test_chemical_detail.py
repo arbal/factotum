@@ -411,7 +411,6 @@ class TestChemicalDetail(StaticLiveServerTestCase):
         # Click table heading
         self.browser.find_element_by_id("lpkHeading").click()
         # filter by keyword
-        self.browser.find_element_by_id("lpkHeading").click()
         keyword_filter = wait.until(ec.element_to_be_clickable((By.ID, "keywords-1")))
         keyword_filter.click()
         self.browser.implicitly_wait(1)

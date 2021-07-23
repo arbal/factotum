@@ -205,6 +205,11 @@ class TestGetData(TestCase):
         self.assertContains(response, "fragrance")
         self.assertContains(response, "surfactant,surfactant")
 
+    def test_download_harmonized_media(self):
+        response = self.client.get("/dl_harmonized_media/")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "soil")
+
     def test_function_user_categories_page(self):
         response = self.client.get(reverse("functional_use_category_list"))
         self.assertEqual(response.status_code, 200)

@@ -5,6 +5,7 @@ var chemical = $('#chemical'),
     puc_parents = chemical.data('puc-parents'),
     document_table,
     functional_use_table,
+    lmhh_table,
     product_table;
 
 fobc = new nestedBubbleChart(500, 500, false, "/dl_pucs_json/?kind=FO&dtxsid=" + sid, "nestedcircles_FO");
@@ -27,12 +28,16 @@ $(document).ready(function () {
     document_table = build_document_table().on('draw', moveText);
     product_table = build_product_table().on('draw', moveText);
     functional_use_table = build_functional_use_table();
+    lmhh_table = build_lmhh_table();
 
     $("#document-tab-header").on("click", function() {
         $('#documents').css('width', '100%');
     });
     $("#functional-use-tab-header").on("click", function() {
         $('#functional-uses').css('width', '100%');
+    });
+    $("#lmhh-tab-header").on("click", function() {
+        $('#lmhh-documents').css('width', '100%');
     });
     //expand accordion to default puc, if one exists
     if (puc_parents.length) {
@@ -65,6 +70,7 @@ $(document).ready(function () {
         document_table.ajax.url(get_documents_url()).load(moveText);
         product_table.ajax.url(get_products_url()).load(moveText);
         functional_use_table.ajax.url(get_functional_uses_url()).load();
+        lmhh_table.ajax.url(get_lmhh_url()).load();
     });
     $('a[id^="keywords-"]').on('click', e => {
         if ($(e.currentTarget).find(".icon-primary").length > 0) {
@@ -146,6 +152,10 @@ function get_products_url() {
 
 function get_functional_uses_url() {
     return '/chemical_functional_use_json/?sid=' + chemical.data('sid') + '&puc=' + chemical.data('puc');
+}
+
+function get_lmhh_url() {
+    return '/lmhh_sid_json/?sid=' + chemical.data('sid') ;
 }
 
 function build_document_table() {
@@ -314,5 +324,73 @@ function build_functional_use_table() {
             }
         },
         ajax: get_functional_uses_url()
+    });
+}
+
+
+function build_lmhh_table() {
+    return $('#lmhh-documents').DataTable({
+        language: {
+            "infoFiltered": "_FILTER_ (filtered from _MAX_ total documents)"
+        },
+        columns: [
+            { // data type
+                data: 0,
+                orderable: true,
+                searchable: false,
+                className: "text-center"
+            },
+            { // document
+                data: 1,
+                orderable: true,
+                searchable: true
+            },
+            { // reported medium
+                data: 2,
+                orderable: true,
+                searchable: true,
+            },
+            { // harmonized medium
+                data: 3,
+                orderable: true,
+                searchable: true
+            },
+            { // number of samples
+                data: 4,
+                orderable: true,
+                searchable: false,
+                className: "text-center",
+                width: "16%"
+            },
+            { // chemical_detected_flag
+                data: 5,
+                orderable: true,
+                searchable: false,
+                className: "text-center",
+                width: "16%"
+            }
+        ],
+        dom: "<'row'<'col-6 form-inline'l><'col-6 form-inline'f>>" +
+            "<'row'<'col-12 p-0'tr>>" +
+            "<'row'i>" +
+            "<'row'<'ml-auto'p>>",
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        ordering: true,
+        // stateSave: true,
+        drawCallback: () => {
+            let infoText = $('#lmhh-documents_info').text();
+            if (infoText.indexOf('_FILTER_') > 0) {
+                // customized the filter message
+                let filter = '';
+                infoText = infoText.replace('_FILTER_', filter);
+                $("#lmhh-documents_info").html(infoText);
+            }
+        },
+        ajax: get_lmhh_url(),
+        initComplete: function() {
+            $('#lmhh-documents_info-text').text($('#lmhh-documents_info').text());
+        }
     });
 }

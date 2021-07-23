@@ -25,6 +25,7 @@ services:
     image: factotum
     restart: unless-stopped
     environment: &factotum_env
+      REBUILD_INDEX: "true"
       ALLOWED_HOSTS: ${ALLOWED_HOSTS:-.epa.gov}
       DATA_UPLOAD_MAX_NUMBER_FIELDS: ${DATA_UPLOAD_MAX_NUMBER_FIELDS:-10000}
       DEBUG: ${DEBUG:-false}
@@ -135,6 +136,7 @@ services:
     restart: unless-stopped
     environment:
       <<: *factotum_env
+      REBUILD_INDEX: "false"
       ALLOWED_HOSTS: ${ALLOWED_HOSTS:-.epa.gov}
       DEBUG: ${DEBUG:-false}
       FACTOTUM_WS_ALLOWED_HOSTS: ${FACTOTUM_WS_ALLOWED_HOSTS:-}

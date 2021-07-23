@@ -61,13 +61,13 @@ class HHTest(TestCase):
         # Add extracted records to the document
         hhrec1 = ExtractedHHRec.objects.create(
             extracted_text=exhhdoc,
-            media="Air",
+            medium="Air",
             sampling_method="1.4 liter evacuated canisters, analytical_method: EPA method TO-15",
             raw_chem_name="carbon disulfide",
         )
         hhrec2 = ExtractedHHRec.objects.create(
             extracted_text=exhhdoc,
-            media="Air",
+            medium="Air",
             sampling_method="1.4 liter evacuated canisters, analytical_method: EPA method TO-15",
             raw_chem_name="chloromethane",
         )

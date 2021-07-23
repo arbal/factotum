@@ -11,11 +11,11 @@ class ExtractedHHRec(RawChem):
     Its parent records use the `dashboard.models.extracted_hhdoc.ExtractedHHDoc` model.
     """
 
-    media = models.CharField("Media", max_length=30, blank=True)
+    medium = models.CharField("Medium", max_length=30, blank=True)
     sampling_method = models.TextField("Sampling Method", blank=True)
     analytical_method = models.TextField("Analytical Method", blank=True)
-    num_measure = models.CharField("Numeric Measure", max_length=50, blank=True)
-    num_nondetect = models.CharField("Numeric Nondetect", max_length=50, blank=True)
+    num_measure = models.TextField("Numeric Measure", null=True, blank=True)
+    num_nondetect = models.TextField("Numeric Nondetect", null=True, blank=True)
 
     class JSONAPIMeta:
         resource_name = "humanHealthRecord"
@@ -30,7 +30,7 @@ class ExtractedHHRec(RawChem):
         return [
             "raw_chem_name",
             "raw_cas",
-            "media",
+            "medium",
             "num_measure",
             "num_nondetect",
             "sampling_method",
@@ -45,7 +45,7 @@ class ExtractedHHRec(RawChem):
             list -- a list of field names
         """
         return [
-            "media",
+            "medium",
             "sampling_method",
             "analytical_method",
             "num_measure",
@@ -69,8 +69,8 @@ class ExtractedHHRec(RawChem):
         return text_type(self._meta.get_field(field).verbose_name)
 
     @property
-    def media_label(self):
-        return self.__get_label("media")
+    def medium_label(self):
+        return self.__get_label("medium")
 
     @property
     def sampling_method_label(self):

@@ -1,11 +1,11 @@
 {% extends 'core/base.html' %}
 {% load staticfiles %}
 {% load humanize %}
-{% block title %}QA Manually Extracted Composition Documentss{% endblock %}
+{% block title %}QA Manually Extracted Composition Data Groups{% endblock %}
 
 {% block content %}
 <h1 class="col-sm-12"><span class="fa fa-check-square" title="factotum"></span>
-QA Manually Extracted Composition Documents</h1>
+QA Manually Extracted Composition Data Groups</h1>
 <br>
 <table class="table table-striped table-bordered dataTable no-footer" id='data_group_table'>
     <thead class="table-primary">
@@ -42,7 +42,7 @@ QA Manually Extracted Composition Documents</h1>
               <a class="btn btn-light btn-sm" disabled role="button" title="QA Complete">QA Complete</a>
             {% else %}
               <a class="btn btn-info btn-sm" role="button" title="QA on {{ datagroup.name }}"
-               href='/'> View Manually Extracted Composition Records
+               href={% url "qa_manual_composition_script" datagroup.id %}> View Manually Extracted Composition Records
               </a>
             {% endif %}
         {% else %}

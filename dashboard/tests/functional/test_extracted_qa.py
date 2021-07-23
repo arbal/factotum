@@ -111,14 +111,23 @@ class ExtractedQaTestWithFixtures(TestCase):
         response = self.client.get(reverse("qa_manual_composition_index"))
         self.assertContains(response, "Walmart MSDS", count=18)
 
-        # test summary count
+        # test datagroup
         extext = ExtractedText.objects.filter(extraction_script=script).first()
+        data_group = extext.data_document.data_group
+        response = self.client.get(
+            reverse("qa_manual_composition_script", kwargs={"pk": data_group.pk})
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response, f"Manual Composition Documents for Data Group: {data_group.name}"
+        )
+
+        # test summary count
         # add qa note and approve it
         notes = "test qa notes"
         QANotes.objects.create(extracted_text=extext, qa_notes=notes)
         extext.qa_checked = True
         extext.save()
-        data_group = extext.data_document.data_group
         total_count = ExtractedText.objects.filter(
             extraction_script=script, data_document__data_group=data_group
         ).count()

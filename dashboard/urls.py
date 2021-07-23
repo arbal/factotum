@@ -206,14 +206,14 @@ urlpatterns = [
         "link_product_form/<int:pk>/", views.link_product_form, name="link_product_form"
     ),
     path(
-        "qa/extractionscript/",
-        views.qa_extractionscript_index,
-        name="qa_extractionscript_index",
-    ),
-    path(
         "qa/manualcomposition/",
         views.qa_manual_composition_index,
         name="qa_manual_composition_index",
+    ),
+    path(
+        "qa/manualcomposition/<int:pk>/",
+        dashboard.views.qa.qa_manual_composition_script,
+        name="qa_manual_composition_script",
     ),
     path(
         "qa/manualcomposition/<int:pk>/summary",
@@ -224,6 +224,11 @@ urlpatterns = [
         "qa/manualcomposition/<int:pk>/summary/table",
         dashboard.views.qa.ManualCompositionDataGroupSummaryTable.as_view(),
         name="qa_manual_composition_summary_table",
+    ),
+    path(
+        "qa/extractionscript/",
+        views.qa_extractionscript_index,
+        name="qa_extractionscript_index",
     ),
     path(
         "qa/extractionscript/<int:pk>/",
@@ -346,6 +351,11 @@ urlpatterns = [
         "hp_json/", views.HabitsAndPracticesDocumentsJson.as_view(), name="hp_ajax_url"
     ),
     path(
+        "lmhh_sid_json/",
+        views.ChemicalLMAndHHDocumentJson.as_view(),
+        name="lmhh_sid_ajax_url",
+    ),
+    path(
         "curated_chem_json/",
         views.CuratedChemicalsListJson.as_view(),
         name="curated_chem_ajax_url",
@@ -389,6 +399,11 @@ urlpatterns = [
         "dl_functionalusecategories/",
         views.download_FunctionalUseCategories,
         name="download_FunctionalUseCategories",
+    ),
+    path(
+        "dl_harmonized_media/",
+        views.download_HarmonizedMedia,
+        name="download_HarmonizedMedia",
     ),
     path(
         "dl_functional_uses/",

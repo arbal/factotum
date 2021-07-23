@@ -243,6 +243,34 @@ def qa_extraction_script(request, pk, template_name="qa/extraction_script.html")
 
 
 @login_required()
+def qa_manual_composition_script(
+    request, pk, template_name="qa/qa_manual_composition.html"
+):
+    datagroup = DataGroup.objects.get(pk=pk)
+    if datagroup.group_type.code != "CO":
+        raise ValidationError("This DataGroup is not of a Composition type")
+
+    MANUAL_SCRIPT_ID = (
+        Script.objects.filter(title="Manual (dummy)", script_type="EX").first().id
+    )
+
+    extractedtexts = (
+        ExtractedText.objects.filter(
+            data_document__data_group=datagroup, qa_checked=False
+        )
+        .prefetch_related("data_document__data_group")
+        .filter(extraction_script__id=MANUAL_SCRIPT_ID)
+        .annotate(chemical_count=Count("rawchem"))
+        .annotate(chemical_updated_at=Max("rawchem__updated_at"))
+    )
+    return render(
+        request,
+        template_name,
+        {"datagroup": datagroup, "extractedtexts": extractedtexts},
+    )
+
+
+@login_required()
 def qa_extraction_script_summary(
     request, pk, template_name="qa/extraction_script_summary.html"
 ):

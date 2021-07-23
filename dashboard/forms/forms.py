@@ -525,7 +525,7 @@ class ExtractedHHRecForm(ExtractedChemicalModelForm):
         fields = [
             "raw_chem_name",
             "raw_cas",
-            "media",
+            "medium",
             "num_measure",
             "num_nondetect",
             "sampling_method",

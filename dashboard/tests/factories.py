@@ -122,9 +122,9 @@ class DataDocumentFactory(FactotumFactoryBase):
 
     data_group = factory.SubFactory(DataGroupFactory)
     document_type = factory.SubFactory(DocumentTypeFactory)
-    title = factory.Faker("word")
-    note = factory.Faker("sentence")
-    subtitle = factory.Faker("word")
+    title = factory.Faker("sentence")
+    note = factory.Faker("paragraph")
+    subtitle = factory.Faker("sentence")
 
     @factory.post_generation
     def product(self, create, extracted, **kwargs):
@@ -463,4 +463,13 @@ class ExtractedHHRecFactory(RawChemFactory):
 
     extracted_text = factory.SubFactory(
         ExtractedTextFactory, data_document__data_group__group_type__code="HH"
+    )
+
+
+class ExtractedLMRecFactory(RawChemFactory):
+    class Meta:
+        model = models.ExtractedLMRec
+
+    extracted_text = factory.SubFactory(
+        ExtractedTextFactory, data_document__data_group__group_type__code="LM"
     )

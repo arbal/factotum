@@ -1,10 +1,74 @@
 from django.db import models
+from django.apps import apps
+
+from django.db.models import Value, CharField
+from django_db_views.db_view import DBView
 
 from .raw_chem import RawChem
 from .common_info import CommonInfo
+from dashboard.models.custom_onetoone_field import CustomOneToOneField
 
 TYPE_CHOICES = (("R", "Reported"), ("C", "Computed"))
 GENDER_CHOICES = (("M", "Male"), ("F", "Female"), ("A", "All"), ("O", "Other"))
+
+
+class UnionExtractedLMHHRec(DBView):
+    """
+    This is a database view that unions the ExtractedLMRec and ExtractedHHRec 
+    tables 
+    """
+
+    rawchem = models.ForeignKey(RawChem, on_delete=models.DO_NOTHING)
+    medium = models.CharField(max_length=200, blank=True, null=True)
+    harmonized_medium = models.ForeignKey(
+        "HarmonizedMedium",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        default=None,
+        related_name="lm_or_hh_record",
+    )
+    num_measure = models.TextField("Numeric Measure", null=True, blank=True)
+
+    def __str__(self):
+        return str(self.rawchem.raw_chem_name) if self.rawchem.raw_chem_name else ""
+
+    view_definition = """
+         (SELECT 
+            dashboard_extractedlmrec.rawchem_ptr_id as id,
+            dashboard_extractedlmrec.rawchem_ptr_id as rawchem_id,
+            dashboard_extractedlmrec.rawchem_ptr_id,
+            dashboard_extractedlmrec.medium,
+            dashboard_extractedlmrec.num_measure,
+            dashboard_extractedlmrec.harmonized_medium_id
+        FROM
+            dashboard_extractedlmrec
+                INNER JOIN
+            dashboard_rawchem ON (dashboard_extractedlmrec.rawchem_ptr_id = dashboard_rawchem.id)
+        ) 
+        UNION 
+        (SELECT 
+            dashboard_extractedhhrec.rawchem_ptr_id as id,
+            dashboard_extractedhhrec.rawchem_ptr_id as rawchem_id,
+            dashboard_extractedhhrec.rawchem_ptr_id,
+            dashboard_extractedhhrec.medium,
+            dashboard_extractedhhrec.num_measure,
+            NULL AS harmonized_medium_id
+        FROM
+            dashboard_extractedhhrec
+                INNER JOIN
+            dashboard_rawchem ON (dashboard_extractedhhrec.rawchem_ptr_id = dashboard_rawchem.id)
+                INNER JOIN
+            dashboard_dsstoxlookup ON (dashboard_rawchem.dsstox_id = dashboard_dsstoxlookup.id)
+        )
+      """
+
+    class JSONAPIMeta:
+        resource_name = "unionLMRecHHRec"
+
+    class Meta:
+        managed = False
+        db_table = "union_lmrec_hhrec"
 
 
 class ExtractedLMRec(RawChem):
