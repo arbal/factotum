@@ -4,11 +4,14 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class News(CommonInfo):
+    GETTING_STARTED_SECTION_NAME = "gettingstarted"
+    SECTION_CHOICES = (
+        ("news", "news"),
+        (GETTING_STARTED_SECTION_NAME, "getting started"),
+    )
     subject = models.CharField(max_length=200)
     body = RichTextUploadingField()
-    section = models.CharField(max_length=20, default="news")
-
-    GETTING_STARTED_SECTION_NAME = "gettingstarted"
+    section = models.CharField(max_length=20, choices=SECTION_CHOICES, default="news")
 
     def __str__(self):
         return self.subject

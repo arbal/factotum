@@ -12,7 +12,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="news",
             name="section",
-            field=models.CharField(default="news", max_length=20),
+            field=models.CharField(
+                choices=[("news", "news"), ("gettingstarted", "getting started")],
+                default="news",
+                max_length=20,
+            ),
         ),
         migrations.AlterField(
             model_name="news",
