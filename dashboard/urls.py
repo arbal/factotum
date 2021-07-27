@@ -595,6 +595,7 @@ urlpatterns = [
         name="data_group_no_co_data",
     ),
     path("news/", dashboard.views.all_news, name="news"),
+    path("ckeditor/", include("ckeditor_uploader.urls")),
     path("", include("django_prometheus.urls")),
 ]
 if settings.DEBUG is True:
