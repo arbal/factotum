@@ -9,6 +9,7 @@ from dashboard.models import (
     ExtractedComposition,
     ExtractedHabitsAndPractices,
     ExtractedListPresence,
+    ExtractedHPDoc,
     ExtractedHHRec,
     ExtractedFunctionalUse,
     DataGroup,
@@ -43,6 +44,8 @@ fixtures_standard = [
     "07f_extractedfunctionaluse",
     "07g_extractedlistpresence",
     "07h_extractedhhrec",
+    "07i_extractedhpdoc",
+    "07j_extractedlmdoc",
     "08_script",
     "09_productdocument",
     "10_habits_and_practices",
@@ -65,6 +68,7 @@ fixtures_habits_practices = [
     "05_product",
     "06_datadocument",
     "07_extractedtext",
+    "07i_extractedhpdoc",
     "07d_rawchem",
     "07e_extractedcomposition",
     "08_script",
@@ -125,6 +129,7 @@ def load_model_objects():
     )
     gt = GroupType.objects.create(title="Composition", code="CO")
     gt_hh = GroupType.objects.create(title="HHE Report", code="HH")
+    gt_hp = GroupType.objects.create(title="Habits and practices", code="HP")
     dg = DataGroup.objects.create(
         name="Data Group for Test",
         description="Testing...",
@@ -145,11 +150,25 @@ def load_model_objects():
         group_type=gt_hh,
         url="https://www.epa.gov",
     )
-    dt = DocumentType.objects.create(title="MSDS", code="MS")
-    dt2 = DocumentType.objects.create(title="HHE Report", code="HH")
+    dg_hp = DataGroup.objects.create(
+        name="HP Data Group for Test",
+        description="HP Testing...",
+        data_source=ds,
+        download_script=script,
+        downloaded_by=user,
+        downloaded_at=timezone.now(),
+        group_type=gt_hp,
+        url="https://www.epa.gov",
+    )
+    dt_ms = DocumentType.objects.create(title="MSDS", code="MS")
+    dt_hh = DocumentType.objects.create(title="HHE Report", code="HH")
+    dt_ja = DocumentType.objects.create(title="Journal article", code="JA")
 
     doc = DataDocument.objects.create(
-        title="test document", data_group=dg, document_type=dt, filename="example.pdf"
+        title="test document",
+        data_group=dg,
+        document_type=dt_ms,
+        filename="example.pdf",
     )
     p = Product.objects.create(upc="Test UPC for ProductToPUC")
 
@@ -186,13 +205,23 @@ def load_model_objects():
         name="Test PUC Attribute", definition="I'd really like to be defined."
     )
     pd = ProductDocument.objects.create(product=p, document=doc)
-    ehp_dt = ExtractedHabitsAndPracticesDataType.objects.create(
+    ehpdt = ExtractedHabitsAndPracticesDataType.objects.create(
         title="Test Data Type", description="Test Description"
     )
+
+    dd_hp = DataDocument.objects.create(
+        title="Habits and Practices Document",
+        data_group=dg_hp,
+        document_type=dt_ja,
+        filename="HPexample.pdf",
+    )
+    hpdoc = ExtractedHPDoc.objects.create(
+        prod_name="Habits and practices prod name",
+        data_document=dd_hp,
+        extraction_script=exscript,
+    )
     ehp = ExtractedHabitsAndPractices.objects.create(
-        extracted_text=extext,
-        product_surveyed="Test Product Surveyed",
-        data_type=ehp_dt,
+        extracted_text=hpdoc, product_surveyed="Test Product Surveyed", data_type=ehpdt
     )
 
     return dotdict(
@@ -214,9 +243,8 @@ def load_model_objects():
             "ec": ec,
             "pt": pt,
             "pd": pd,
-            "dt": dt,
+            "ehpdt": ehpdt,
             "gt": gt,
-            "ehp_dt": ehp_dt,
             "ehp": ehp,
         }
     )

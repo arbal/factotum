@@ -15,6 +15,7 @@ from dashboard.models import (
     ExtractedLMDoc,
     ExtractedHHRec,
     ExtractedLMRec,
+    ExtractedHPDoc,
     ExtractedComposition,
     ExtractedHabitsAndPracticesToTag,
     ExtractedListPresence,
@@ -486,41 +487,20 @@ class TestDynamicDetailFormsets(TestCase):
                 # A document with the CP data group type should be linked to
                 # ExtractedCPCat objects
                 if doc.data_group.group_type.code == "CP":
-                    self.assertEqual(
-                        type(extsub),
-                        ExtractedCPCat,
-                    )
+                    self.assertEqual(type(extsub), ExtractedCPCat)
                 elif doc.data_group.group_type.code == "CO":
-                    self.assertEqual(
-                        type(extsub),
-                        ExtractedText,
-                    )
+                    self.assertEqual(type(extsub), ExtractedText)
                 elif doc.data_group.group_type.code == "HH":
-                    self.assertEqual(
-                        type(extsub),
-                        ExtractedHHDoc,
-                    )
+                    self.assertEqual(type(extsub), ExtractedHHDoc)
                 elif doc.data_group.group_type.code == "HP":
-                    self.assertEqual(
-                        type(extsub),
-                        ExtractedText,
-                    )
+                    self.assertEqual(type(extsub), ExtractedHPDoc)
                 elif doc.data_group.group_type.code == "LM":
-                    self.assertEqual(
-                        type(extsub),
-                        ExtractedLMDoc,
-                    )
+                    self.assertEqual(type(extsub), ExtractedLMDoc)
                 elif doc.data_group.group_type.code == "FU":
-                    self.assertEqual(
-                        type(extsub),
-                        ExtractedText,
-                    )
+                    self.assertEqual(type(extsub), ExtractedText)
                 else:
                     print(f"doc: {doc.id} --- {doc.data_group.group_type.code}")
-                    self.assertEqual(
-                        type(extsub),
-                        ExtractedText,
-                    )
+                    self.assertEqual(type(extsub), ExtractedText)
             except ObjectDoesNotExist:
                 pass
             except Exception as inst:
