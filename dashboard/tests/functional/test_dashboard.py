@@ -155,7 +155,7 @@ class DashboardTest(TestCase):
         )
         self.assertEqual(
             json_response_content["data"][0][1],
-            "1 (100%)",
+            "1 (50%)",
             "documentcount returned seems to be incorrect information",
         )
         self.assertEqual(
@@ -170,7 +170,7 @@ class DashboardTest(TestCase):
         )
         self.assertEqual(
             json_response_content_after_create["data"][0][1],
-            "2 (100%)",
+            "2 (67%)",
             "Adding a data document should increase documentcount",
         )
         self.assertEqual(

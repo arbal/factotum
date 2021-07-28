@@ -6,7 +6,7 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [("dashboard", "0202_hhe_fields")]
+    dependencies = [("dashboard", "0203_hhe_fields")]
 
     operations = [
         migrations.AlterField(

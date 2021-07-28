@@ -11,9 +11,10 @@ def habitsandpractices(request, pk, template_name="data_group/habitsandpractices
         DataDocument.objects.filter(data_group__group_type__code="HP"), pk=pk
     )
     script = Script.objects.get(title="Manual (dummy)", script_type="EX")
-    extext, created = ExtractedText.objects.get_or_create(
+    extext, created = ExtractedHPDoc.objects.get_or_create(
         data_document=doc, extraction_script=script
     )
+
     if created:
         extext.doc_date = "please add..."
     ExtractedTextForm, HnPFormSet = create_detail_formset(doc)

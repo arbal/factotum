@@ -127,6 +127,12 @@ def load_model_objects():
         qa_begun=False,
         script_type="EX",
     )
+    exscript2 = Script.objects.create(
+        title="Manual (dummy)",
+        url="http://www.epa.gov/",
+        qa_begun=False,
+        script_type="EX",
+    )
     gt = GroupType.objects.create(title="Composition", code="CO")
     gt_hh = GroupType.objects.create(title="HHE Report", code="HH")
     gt_hp = GroupType.objects.create(title="Habits and practices", code="HP")
@@ -218,7 +224,7 @@ def load_model_objects():
     hpdoc = ExtractedHPDoc.objects.create(
         prod_name="Habits and practices prod name",
         data_document=dd_hp,
-        extraction_script=exscript,
+        extraction_script=exscript2,
     )
     ehp = ExtractedHabitsAndPractices.objects.create(
         extracted_text=hpdoc, product_surveyed="Test Product Surveyed", data_type=ehpdt
@@ -234,6 +240,8 @@ def load_model_objects():
             "dg": dg,
             "dg_hh": dg_hh,
             "doc": doc,
+            "dd_hp": dd_hp,
+            "hpdoc": hpdoc,
             "p": p,
             "puc": puc,
             "extext": extext,
@@ -243,8 +251,10 @@ def load_model_objects():
             "ec": ec,
             "pt": pt,
             "pd": pd,
+            "dt": dt_ms,
             "ehpdt": ehpdt,
             "gt": gt,
+            "gt_hp": gt_hp,
             "ehp": ehp,
         }
     )

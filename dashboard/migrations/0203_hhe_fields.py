@@ -6,7 +6,7 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [("dashboard", "0201_add_lm_hh_union_view")]
+    dependencies = [("dashboard", "0202_news_section_upload")]
 
     operations = [
         migrations.AddField(
