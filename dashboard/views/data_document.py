@@ -1,6 +1,8 @@
+import os
+
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.http import JsonResponse, HttpResponseBadRequest
+from django.http import JsonResponse, HttpResponseBadRequest, FileResponse, HttpResponse
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views import View
@@ -12,7 +14,6 @@ from djqscsv import render_to_csv_response
 from dashboard.forms.forms import (
     ExtractedHabitsAndPracticesForm,
     RawChemToFunctionalUseForm,
-    StatisticalValueForm,
 )
 from dashboard.forms.tag_forms import ExtractedHabitsAndPracticesTagForm
 from dashboard.utils import get_extracted_models, GroupConcat
@@ -31,7 +32,6 @@ from dashboard.models import (
     DataDocument,
     ExtractedListPresence,
     ExtractedText,
-    FunctionalUse,
     Script,
     ExtractedListPresenceToTag,
     ExtractedListPresenceTag,
@@ -42,11 +42,11 @@ from dashboard.models import (
     ExtractedHabitsAndPracticesToTag,
     ExtractedFunctionalUse,
     DataGroup,
-    FunctionalUseToRawChem,
     ExtractedLMRec,
 )
 from django.forms import inlineformset_factory, formset_factory
-from django import forms
+
+from factotum.settings import CSV_STORAGE_ROOT
 
 CHEMICAL_FORMS = {
     "CO": ExtractedCompositionForm,
@@ -772,73 +772,12 @@ def download_list_presence_chemicals(request):
 
 
 def download_composition_chemicals(request):
-    chemicals = (
-        ExtractedComposition.objects.all()
-        .prefetch_related("weight_fraction_type", "unit_type", "product_uber_puc")
-        .values(
-            "extracted_text__data_document__data_group__data_source__title",
-            "extracted_text__data_document__title",
-            "extracted_text__data_document__subtitle",
-            "extracted_text__doc_date",
-            "extracted_text__data_document__product__title",
-            "extracted_text__data_document__product__product_uber_puc__puc__kind__name",
-            "extracted_text__data_document__product__product_uber_puc__puc__gen_cat",
-            "extracted_text__data_document__product__product_uber_puc__puc__prod_fam",
-            "extracted_text__data_document__product__product_uber_puc__puc__prod_type",
-            "extracted_text__data_document__product__product_uber_puc__classification_method__name",
-            "raw_chem_name",
-            "raw_cas",
-            "dsstox__sid",
-            "dsstox__true_chemname",
-            "dsstox__true_cas",
-            "provisional",
-            "raw_min_comp",
-            "raw_max_comp",
-            "raw_central_comp",
-            "unit_type__title",
-            "lower_wf_analysis",
-            "upper_wf_analysis",
-            "central_wf_analysis",
-            "weight_fraction_type__title",
-        )
-        .order_by(
-            "extracted_text__data_document__data_group__data_source",
-            "extracted_text__data_document__title",
-            "raw_chem_name",
-        )
-    )
-    filename = "composition_chemicals.csv"
-    return render_to_csv_response(
-        chemicals,
-        filename=filename,
-        append_datestamp=True,
-        field_header_map={
-            "extracted_text__data_document__data_group__data_source__title": "Data Source",
-            "extracted_text__data_document__title": "Data Document Title",
-            "extracted_text__data_document__subtitle": "Data Document Subtitle",
-            "extracted_text__doc_date": "Document Date",
-            "extracted_text__data_document__product__title": "Product",
-            "extracted_text__data_document__product__product_uber_puc__puc__kind__name": "PUC Kind",
-            "extracted_text__data_document__product__product_uber_puc__puc__gen_cat": "PUC Gen Cat",
-            "extracted_text__data_document__product__product_uber_puc__puc__prod_fam": "PUC Prod Fam",
-            "extracted_text__data_document__product__product_uber_puc__puc__prod_type": "PUC Prod Type",
-            "extracted_text__data_document__product__product_uber_puc__classification_method__name": "PUC Classification Method",
-            "raw_chem_name": "Raw Chemical Name",
-            "raw_cas": "Raw CAS",
-            "dsstox__sid": "DTXSID",
-            "dsstox__true_chemname": "True Chemical Name",
-            "dsstox__true_cas": "True CAS",
-            "provisional": "Provisional",
-            "raw_min_comp": "Raw Min Comp",
-            "raw_max_comp": "Raw Max Comp",
-            "raw_central_comp": "Raw Central Comp",
-            "unit_type__title": "Unit Type",
-            "lower_wf_analysis": "Lower Weight Fraction",
-            "upper_wf_analysis": "Upper Weight Fraction",
-            "central_wf_analysis": "Central Weight Fraction",
-            "weight_fraction_type__title": "Weight Fraction Type",
-        },
-        field_serializer_map={"provisional": (lambda f: ("Yes" if f == "1" else "No"))},
+    filename = "composition_chemicals.zip"
+    filepath = os.path.join(CSV_STORAGE_ROOT, filename)
+    if os.path.exists(filepath):
+        return FileResponse(open(filepath, "rb"), filename=filename, as_attachment=True)
+    return HttpResponse(
+        "Composition Data not available yet, please try again later.", status=404
     )
 
 
