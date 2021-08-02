@@ -179,6 +179,7 @@ services:
     environment:
       <<: *factotum_env
       PROVISIONAL_ASSIGNMENT_SCHEDULE: ${PROVISIONAL_ASSIGNMENT_SCHEDULE:-}
+      GENERATE_BULK_DOWNLOAD_SCHEDULE: ${GENERATE_BULK_DOWNLOAD_SCHEDULE:-}
     volumes:
       - ${MEDIA_ROOT}:/app/media
       - celeryfiletasks:/app/celeryfiles
