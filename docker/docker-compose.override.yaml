@@ -65,7 +65,7 @@ services:
     depends_on:
       - elasticsearch
 
-  factotum-nginx:
+  nginx:
     image: nginx:1-alpine
     restart: unless-stopped
     ports:
