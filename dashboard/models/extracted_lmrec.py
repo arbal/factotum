@@ -3,8 +3,10 @@ from django.apps import apps
 
 from django.db.models import Value, CharField
 from django_db_views.db_view import DBView
-
+from django.db.models import Q
+from django.urls import reverse
 from .raw_chem import RawChem
+from .data_document import DataDocument
 from .common_info import CommonInfo
 from dashboard.models.custom_onetoone_field import CustomOneToOneField
 
@@ -196,3 +198,25 @@ class HarmonizedMedium(CommonInfo):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("harmonized_medium_detail", args=(self.pk,))
+
+    @property
+    def chemical_count(self):
+        return (
+            RawChem.objects.filter(Q(unionextractedlmhhrec__harmonized_medium=self))
+            .values("dsstox")
+            .distinct()
+            .count()
+        )
+
+    @property
+    def document_count(self):
+        return (
+            DataDocument.objects.filter(
+                Q(extractedtext__rawchem__unionextractedlmhhrec__harmonized_medium=self)
+            )
+            .distinct()
+            .count()
+        )

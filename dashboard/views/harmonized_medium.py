@@ -7,3 +7,12 @@ def harmonized_medium_list(
 ):
     media = HarmonizedMedium.objects.all().values("id", "name", "description")
     return render(request, template_name, {"media": list(media)})
+
+def harmonized_medium_detail(
+    request,
+    pk,
+    template_name="harmonized_medium/harmonized_medium_detail.html",
+):
+    medium = get_object_or_404(HarmonizedMedium, pk=pk)
+    data = {"medium": medium}
+    return render(request, template_name, data)
