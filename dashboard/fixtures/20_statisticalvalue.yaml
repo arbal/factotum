@@ -1,0 +1,60 @@
+- model: dashboard.statisticalvalue
+  pk: 1
+  fields:
+    created_at: 2021-07-26 15:25:41.556506
+    updated_at: 2021-07-26 15:25:41.556506
+    created_by: 1
+    updated_by: 1
+    rawchem: 904
+    name: MEAN
+    value: 51.0
+    value_type: R
+    stat_unit: percent
+- model: dashboard.statisticalvalue
+  pk: 2
+  fields:
+    created_at: 2021-07-26 15:25:41.561617
+    updated_at: 2021-07-26 15:25:41.561617
+    created_by: 1
+    updated_by: 1
+    rawchem: 904
+    name: MEDIAN
+    value: 44.0
+    value_type: C
+    stat_unit: percent
+- model: dashboard.statisticalvalue
+  pk: 3
+  fields:
+    created_at: 2021-07-26 15:25:41.566133
+    updated_at: 2021-07-26 15:25:41.566133
+    created_by: 1
+    updated_by: 1
+    rawchem: 904
+    name: MAX
+    value: 99.0
+    value_type: R
+    stat_unit: percent
+- model: dashboard.statisticalvalue
+  pk: 4
+  fields:
+    created_at: 2021-07-26 15:27:48.365698
+    updated_at: 2021-07-26 15:27:48.365698
+    created_by: 1
+    updated_by: 1
+    rawchem: 906
+    name: MEAN
+    value: 32.0
+    value_type: R
+    stat_unit: percent
+- model: dashboard.statisticalvalue
+  pk: 5
+  fields:
+    created_at: 2021-07-26 15:27:48.370844
+    updated_at: 2021-07-26 15:27:48.370844
+    created_by: 1
+    updated_by: 1
+    rawchem: 906
+    name: P75
+    value: 44.0
+    value_type: R
+    stat_unit: percent

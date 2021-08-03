@@ -1,0 +1,38 @@
+- model: dashboard.extractedlmrec
+  pk: 904
+  fields:
+    study_location: JMRL Library
+    sampling_date: 2020-12-01
+    population_description: null
+    population_gender: null
+    population_age: null
+    population_other: null
+    sampling_method: null
+    analytical_method: null
+    medium: ocean
+    harmonized_medium: 29
+    num_measure: null
+    num_nondetect: null
+    detect_freq: null
+    detect_freq_type: null
+    LOD: null
+    LOQ: null
+- model: dashboard.extractedlmrec
+  pk: 906
+  fields:
+    study_location: null
+    sampling_date: 2021-01-01
+    population_description: null
+    population_gender: A
+    population_age: '13'
+    population_other: null
+    sampling_method: null
+    analytical_method: null
+    medium: null
+    harmonized_medium: null
+    num_measure: null
+    num_nondetect: null
+    detect_freq: null
+    detect_freq_type: null
+    LOD: null
+    LOQ: null

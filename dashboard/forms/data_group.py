@@ -33,9 +33,9 @@ from dashboard.models import (
     WeightFractionType,
     ExtractedLMDoc,
     ExtractedLMRec,
+    StatisticalValue,
 )
 from dashboard.models.extracted_lmrec import (
-    StatisticalValue,
     HarmonizedMedium,
     GENDER_CHOICES,
     TYPE_CHOICES,
@@ -718,7 +718,7 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
             statistics = []
             for chem, stats in zip(chems, statistical_values):
                 for stat in stats:
-                    stat.record = chem
+                    stat.rawchem_id = chem.rawchem_ptr_id
                     statistics.append(stat)
             StatisticalValue.objects.bulk_create(statistics)
         return len(self.forms)

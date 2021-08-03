@@ -12032,3 +12032,29 @@
     rid: ""
     dsstox: 
     chem_detected_flag: null
+- model: dashboard.rawchem
+  pk: 904
+  fields:
+    created_at: 2019-04-08 07:01:07.897509
+    updated_at: 2019-04-08 07:01:07.897509
+    created_by: 1
+    updated_by: null
+    extracted_text: 9
+    raw_cas: ""
+    raw_chem_name: Moby Dick
+    rid: ""
+    dsstox:
+    chem_detected_flag: null
+- model: dashboard.rawchem
+  pk: 906
+  fields:
+    created_at: 2019-04-08 07:01:07.897509
+    updated_at: 2019-04-08 07:01:07.897509
+    created_by: 1
+    updated_by: null
+    extracted_text: 9
+    raw_cas: ""
+    raw_chem_name: War and Peace
+    rid: ""
+    dsstox:
+    chem_detected_flag: null

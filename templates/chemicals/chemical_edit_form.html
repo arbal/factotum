@@ -1,9 +1,13 @@
 {% load i18n widget_tweaks %}
 {% load staticfiles %}
 <style>
-.mystical {
-    display: none;
-}
+    .mystical {
+        display: none;
+    }
+
+    .modal-dialog {
+        max-width: 720px !important;
+    }
 </style>
 <div class="modal-dialog" role="document">
     <form action="{% url post_url form.instance.pk %}" method="post" id="chem-update" class="form">
@@ -18,11 +22,6 @@
             </div>
             <div class="modal-body">
                 {% include 'core/bs4_funcuse_form.html' with form=form %}
-                <div>
-                    {% if puc_form %}
-                        {{ puc_form }}
-                    {% endif %}
-                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

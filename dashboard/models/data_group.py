@@ -114,6 +114,10 @@ class DataGroup(CommonInfo, QASummaryNote):
     def can_have_chem_detected_flag(self):
         return self.type in ["LM", "CP"]
 
+    @property
+    def can_have_statistical_values(self):
+        return self.type in ["LM", "HH"]
+
     def get_products(self):
         return Product.objects.filter(documents__in=self.datadocument_set.all())
 
