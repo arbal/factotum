@@ -124,6 +124,7 @@
                                 </div>
                             {% endfor %}
                         </div>
+                        {% include 'core/components/all_statvalues_in_chemical_card.html' %}
                     </div>
                 </div>
                 <div class="modal fade"
@@ -180,8 +181,8 @@
                         data-target="#chemical-add-modal"
                         style="z-index: 290;"> <!-- z-index workaround for selenium/webdriver bug -->
                     <span class="card-body shadow rounded p-0 m-0 text-center"
-                         data-toggle="tooltip"
-                         title="Add chemical">
+                          data-toggle="tooltip"
+                          title="Add chemical">
                         <span class="fa fa-fs fa-plus"></span>
                     </span>
                 </button>

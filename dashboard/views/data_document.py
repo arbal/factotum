@@ -14,6 +14,7 @@ from djqscsv import render_to_csv_response
 from dashboard.forms.forms import (
     ExtractedHabitsAndPracticesForm,
     RawChemToFunctionalUseForm,
+    RawChemToStatisticalValueForm,
 )
 from dashboard.forms.tag_forms import ExtractedHabitsAndPracticesTagForm
 from dashboard.utils import get_extracted_models, GroupConcat
@@ -44,8 +45,9 @@ from dashboard.models import (
     DataGroup,
     ExtractedLMRec,
     ExtractedHHRec,
+    StatisticalValue,
 )
-from django.forms import inlineformset_factory, formset_factory
+from django.forms import inlineformset_factory
 
 from factotum.settings import CSV_STORAGE_ROOT
 
@@ -73,6 +75,7 @@ def data_document_detail(request, pk):
     Parent, Child = get_extracted_models(doc.data_group.group_type.code)
     ext = Parent.objects.filter(pk=doc.pk).first()
     fufs = []
+    svfs = []
     tag_form = None
 
     if doc.data_group.group_type.code in CHEMICAL_TYPES:
@@ -95,8 +98,13 @@ def data_document_detail(request, pk):
                 extra=1,
             )
             fufs = FuncUseFormSet(instance=chem)
+            StatValueFormSet = inlineformset_factory(
+                RawChem, StatisticalValue, form=RawChemToStatisticalValueForm, extra=1
+            )
+            svfs = StatValueFormSet(instance=chem)
     context = {
         "fufs": fufs,
+        "svfs": svfs,
         "doc": doc,
         "extracted_text": ext,
         "edit_text_form": ParentForm(instance=ext),  # empty form if ext is None
@@ -134,31 +142,38 @@ class ChemCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         doc = DataDocument.objects.get(pk=self.kwargs.get("doc"))
-        extra = (
-            12
-            if doc.data_group.can_have_multiple_funcuse
-            else 1
-            if doc.data_group.can_have_funcuse
-            else 0
-        )
         FuncUseFormSet = inlineformset_factory(
             RawChem,
             RawChem.functional_uses.through,
             form=RawChemToFunctionalUseForm,
-            extra=extra,
-            can_delete=False,
+            extra=(
+                12
+                if doc.data_group.can_have_multiple_funcuse
+                else 1
+                if doc.data_group.can_have_funcuse
+                else 0
+            ),
+            can_delete=True,
         )
-        # stat_formset = formset_factory(StatisticalValueForm, extra=5)
+        StatValueFormSet = inlineformset_factory(
+            RawChem,
+            StatisticalValue,
+            form=RawChemToStatisticalValueForm,
+            extra=(12 if doc.data_group.can_have_statistical_values else 0),
+            can_delete=True,
+        )
         context.update(
             {
-                "formset": FuncUseFormSet,
-                # "stat_formset": stat_formset,
+                "fuformset": FuncUseFormSet,
+                "svformset": StatValueFormSet,
                 "doc": doc,
                 "post_url": "chemical_create",
             }
         )
         if not "fufs" in context:
-            context["fufs"] = FuncUseFormSet()
+            context["fufs"] = FuncUseFormSet(instance=self.object)
+        if not "svfs" in context:
+            context["svfs"] = StatValueFormSet(instance=self.object)
         return context
 
     def get_form_class(self):
@@ -172,8 +187,13 @@ class ChemCreateView(CreateView):
     def form_valid(self, form):
         form.instance.extracted_text_id = self.kwargs.get("doc")
         self.object = form.save()
-        FuncUseFormSet = self.get_context_data()["formset"]
-        formset = FuncUseFormSet(self.request.POST, instance=self.object)
+        doc = self.object.extracted_text.data_document
+        if doc.data_group.can_have_funcuse:
+            FormSet = self.get_context_data()["fuformset"]
+            formset = FormSet(self.request.POST, instance=self.object)
+        elif doc.data_group.can_have_statistical_values:
+            FormSet = self.get_context_data()["svformset"]
+            formset = FormSet(self.request.POST, instance=self.object)
         if formset.is_valid():
             formset.save()
             return render(
@@ -203,25 +223,38 @@ class ChemUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         doc = self.object.extracted_text.data_document
-        extra = (
-            12
-            if doc.data_group.can_have_multiple_funcuse
-            else 1
-            if doc.data_group.can_have_funcuse
-            else 0
-        )
         FuncUseFormSet = inlineformset_factory(
             RawChem,
             RawChem.functional_uses.through,
             form=RawChemToFunctionalUseForm,
-            extra=extra,
+            extra=(
+                12
+                if doc.data_group.can_have_multiple_funcuse
+                else 1
+                if doc.data_group.can_have_funcuse
+                else 0
+            ),
+            can_delete=True,
+        )
+        StatValueFormSet = inlineformset_factory(
+            RawChem,
+            StatisticalValue,
+            form=RawChemToStatisticalValueForm,
+            extra=(12 if doc.data_group.can_have_statistical_values else 0),
             can_delete=True,
         )
         context.update(
-            {"formset": FuncUseFormSet, "doc": doc, "post_url": "chemical_update"}
+            {
+                "fuformset": FuncUseFormSet,
+                "svformset": StatValueFormSet,
+                "doc": doc,
+                "post_url": "chemical_update",
+            }
         )
         if not "fufs" in context:
             context["fufs"] = FuncUseFormSet(instance=self.object)
+        if not "svfs" in context:
+            context["svfs"] = StatValueFormSet(instance=self.object)
         return context
 
     def get_form_class(self):
@@ -233,8 +266,13 @@ class ChemUpdateView(UpdateView):
 
     def form_valid(self, form):
         self.object = form.save()
-        FuncUseFormSet = self.get_context_data()["formset"]
-        formset = FuncUseFormSet(self.request.POST, instance=self.object)
+        doc = self.object.extracted_text.data_document
+        if doc.data_group.can_have_funcuse:
+            FormSet = self.get_context_data()["fuformset"]
+            formset = FormSet(self.request.POST, instance=self.object)
+        elif doc.data_group.can_have_statistical_values:
+            FormSet = self.get_context_data()["svformset"]
+            formset = FormSet(self.request.POST, instance=self.object)
         if formset.is_valid():
             formset.save()
             return render(

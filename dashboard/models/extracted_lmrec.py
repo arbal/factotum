@@ -1,12 +1,9 @@
 from django.db import models
-from django.apps import apps
 
-from django.db.models import Value, CharField
 from django_db_views.db_view import DBView
 
 from .raw_chem import RawChem
 from .common_info import CommonInfo
-from dashboard.models.custom_onetoone_field import CustomOneToOneField
 
 TYPE_CHOICES = (("R", "Reported"), ("C", "Computed"))
 GENDER_CHOICES = (("M", "Male"), ("F", "Female"), ("A", "All"), ("O", "Other"))
@@ -159,35 +156,6 @@ class ExtractedLMRec(RawChem):
             ]
             if getattr(self, field)
         ]
-
-
-class StatisticalValue(CommonInfo):
-    """
-    This contains statistical values for Literature Monitoring Records.
-
-    Used in a many to one relationship to ExtractedLMRec.
-    """
-
-    record = models.ForeignKey(
-        "ExtractedLMRec", on_delete=models.CASCADE, related_name="statistics"
-    )
-
-    name = models.CharField(max_length=30)
-    value = models.FloatField()
-    value_type = models.CharField(max_length=1, choices=TYPE_CHOICES)
-    # It would be best to leave this non-standardized.
-    # There are many ways to represent the units, so it would be difficult to make a standard list.
-    stat_unit = models.CharField(max_length=30)
-
-    def clean(self):
-        # Strip whitespace from stat_unit
-        self.stat_unit = self.stat_unit.strip()
-        for k, v in TYPE_CHOICES:
-            if self.value_type and self.value_type.lower() == v.lower():
-                self.value_type = k
-
-    def __str__(self):
-        return f"{self.name} {self.value} {self.stat_unit}"
 
 
 class HarmonizedMedium(CommonInfo):
