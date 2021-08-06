@@ -421,6 +421,9 @@ urlpatterns = [
         name="functional_use_category_detail",
     ),
     path(
+        "harmonized_media/", views.harmonized_medium_list, name="harmonized_medium_list"
+    ),
+    path(
         "dl_raw_chems_dg/<int:pk>/",
         views.download_raw_chems_dg,
         name="download_raw_chems_dg",
@@ -595,6 +598,7 @@ urlpatterns = [
         name="data_group_no_co_data",
     ),
     path("news/", dashboard.views.all_news, name="news"),
+    path("ckeditor/", include("ckeditor_uploader.urls")),
     path("", include("django_prometheus.urls")),
 ]
 if settings.DEBUG is True:

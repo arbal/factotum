@@ -65,7 +65,7 @@ services:
     depends_on:
       - elasticsearch
 
-  factotum-nginx:
+  nginx:
     image: nginx:1-alpine
     restart: unless-stopped
     ports:
@@ -179,6 +179,7 @@ services:
     environment:
       <<: *factotum_env
       PROVISIONAL_ASSIGNMENT_SCHEDULE: ${PROVISIONAL_ASSIGNMENT_SCHEDULE:-}
+      GENERATE_BULK_DOWNLOAD_SCHEDULE: ${GENERATE_BULK_DOWNLOAD_SCHEDULE:-}
     volumes:
       - ${MEDIA_ROOT}:/app/media
       - celeryfiletasks:/app/celeryfiles

@@ -208,6 +208,11 @@ class MetaEnv(type):
         return cls._get("PROVISIONAL_ASSIGNMENT_SCHEDULE", default, prefix=False)
 
     @property
+    def GENERATE_BULK_DOWNLOAD_SCHEDULE(cls):
+        default = "0 4 * * *"
+        return cls._get("GENERATE_BULK_DOWNLOAD_SCHEDULE", default, prefix=False)
+
+    @property
     def LOGSTASH_HOST(cls):
         default = "localhost"
         return cls._get("LOGSTASH_HOST", default)

@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "dal",
     "dal_select2",
     "ckeditor",
+    "ckeditor_uploader",
     "django.contrib.contenttypes",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -170,6 +171,7 @@ USE_TZ = False
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "collected_static")
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 MEDIA_URL = env.MEDIA_URL
 MEDIA_ROOT = env.MEDIA_ROOT
@@ -188,6 +190,7 @@ MESSAGE_TAGS = {
 }
 
 DOCS_ROOT = os.path.join(BASE_DIR, "docs/_build/html")
+CSV_STORAGE_ROOT = os.path.join(BASE_DIR, "csv_storage")
 
 EXTRA = 1
 
@@ -200,6 +203,7 @@ CELERY_BROKER_URL = (
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 CELERY_FILETASK_ROOT = os.path.join(BASE_DIR, "celeryfiles")
 PROVISIONAL_ASSIGNMENT_SCHEDULE = env.PROVISIONAL_ASSIGNMENT_SCHEDULE
+GENERATE_BULK_DOWNLOAD_SCHEDULE = env.GENERATE_BULK_DOWNLOAD_SCHEDULE
 
 PROMETHEUS_EXPORT_MIGRATIONS = False
 

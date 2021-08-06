@@ -24,3 +24,4 @@ from .statistics import *
 from .visualizations import *
 from .errors import *
 from .functional_use_category import *
+from .harmonized_medium import *

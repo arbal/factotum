@@ -1,6 +1,8 @@
+import os
+
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.http import JsonResponse, HttpResponseBadRequest
+from django.http import JsonResponse, HttpResponseBadRequest, FileResponse, HttpResponse
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views import View
@@ -12,7 +14,7 @@ from djqscsv import render_to_csv_response
 from dashboard.forms.forms import (
     ExtractedHabitsAndPracticesForm,
     RawChemToFunctionalUseForm,
-    StatisticalValueForm,
+    RawChemToStatisticalValueForm,
 )
 from dashboard.forms.tag_forms import ExtractedHabitsAndPracticesTagForm
 from dashboard.utils import get_extracted_models, GroupConcat
@@ -31,7 +33,6 @@ from dashboard.models import (
     DataDocument,
     ExtractedListPresence,
     ExtractedText,
-    FunctionalUse,
     Script,
     ExtractedListPresenceToTag,
     ExtractedListPresenceTag,
@@ -42,11 +43,12 @@ from dashboard.models import (
     ExtractedHabitsAndPracticesToTag,
     ExtractedFunctionalUse,
     DataGroup,
-    FunctionalUseToRawChem,
     ExtractedLMRec,
+    StatisticalValue,
 )
-from django.forms import inlineformset_factory, formset_factory
-from django import forms
+from django.forms import inlineformset_factory
+
+from factotum.settings import CSV_STORAGE_ROOT
 
 CHEMICAL_FORMS = {
     "CO": ExtractedCompositionForm,
@@ -72,6 +74,7 @@ def data_document_detail(request, pk):
     Parent, Child = get_extracted_models(doc.data_group.group_type.code)
     ext = Parent.objects.filter(pk=doc.pk).first()
     fufs = []
+    svfs = []
     tag_form = None
 
     if doc.data_group.group_type.code in CHEMICAL_TYPES:
@@ -94,8 +97,13 @@ def data_document_detail(request, pk):
                 extra=1,
             )
             fufs = FuncUseFormSet(instance=chem)
+            StatValueFormSet = inlineformset_factory(
+                RawChem, StatisticalValue, form=RawChemToStatisticalValueForm, extra=1
+            )
+            svfs = StatValueFormSet(instance=chem)
     context = {
         "fufs": fufs,
+        "svfs": svfs,
         "doc": doc,
         "extracted_text": ext,
         "edit_text_form": ParentForm(instance=ext),  # empty form if ext is None
@@ -133,31 +141,38 @@ class ChemCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         doc = DataDocument.objects.get(pk=self.kwargs.get("doc"))
-        extra = (
-            12
-            if doc.data_group.can_have_multiple_funcuse
-            else 1
-            if doc.data_group.can_have_funcuse
-            else 0
-        )
         FuncUseFormSet = inlineformset_factory(
             RawChem,
             RawChem.functional_uses.through,
             form=RawChemToFunctionalUseForm,
-            extra=extra,
-            can_delete=False,
+            extra=(
+                12
+                if doc.data_group.can_have_multiple_funcuse
+                else 1
+                if doc.data_group.can_have_funcuse
+                else 0
+            ),
+            can_delete=True,
         )
-        # stat_formset = formset_factory(StatisticalValueForm, extra=5)
+        StatValueFormSet = inlineformset_factory(
+            RawChem,
+            StatisticalValue,
+            form=RawChemToStatisticalValueForm,
+            extra=(12 if doc.data_group.can_have_statistical_values else 0),
+            can_delete=True,
+        )
         context.update(
             {
-                "formset": FuncUseFormSet,
-                # "stat_formset": stat_formset,
+                "fuformset": FuncUseFormSet,
+                "svformset": StatValueFormSet,
                 "doc": doc,
                 "post_url": "chemical_create",
             }
         )
         if not "fufs" in context:
-            context["fufs"] = FuncUseFormSet()
+            context["fufs"] = FuncUseFormSet(instance=self.object)
+        if not "svfs" in context:
+            context["svfs"] = StatValueFormSet(instance=self.object)
         return context
 
     def get_form_class(self):
@@ -171,8 +186,13 @@ class ChemCreateView(CreateView):
     def form_valid(self, form):
         form.instance.extracted_text_id = self.kwargs.get("doc")
         self.object = form.save()
-        FuncUseFormSet = self.get_context_data()["formset"]
-        formset = FuncUseFormSet(self.request.POST, instance=self.object)
+        doc = self.object.extracted_text.data_document
+        if doc.data_group.can_have_funcuse:
+            FormSet = self.get_context_data()["fuformset"]
+            formset = FormSet(self.request.POST, instance=self.object)
+        elif doc.data_group.can_have_statistical_values:
+            FormSet = self.get_context_data()["svformset"]
+            formset = FormSet(self.request.POST, instance=self.object)
         if formset.is_valid():
             formset.save()
             return render(
@@ -202,25 +222,38 @@ class ChemUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         doc = self.object.extracted_text.data_document
-        extra = (
-            12
-            if doc.data_group.can_have_multiple_funcuse
-            else 1
-            if doc.data_group.can_have_funcuse
-            else 0
-        )
         FuncUseFormSet = inlineformset_factory(
             RawChem,
             RawChem.functional_uses.through,
             form=RawChemToFunctionalUseForm,
-            extra=extra,
+            extra=(
+                12
+                if doc.data_group.can_have_multiple_funcuse
+                else 1
+                if doc.data_group.can_have_funcuse
+                else 0
+            ),
+            can_delete=True,
+        )
+        StatValueFormSet = inlineformset_factory(
+            RawChem,
+            StatisticalValue,
+            form=RawChemToStatisticalValueForm,
+            extra=(12 if doc.data_group.can_have_statistical_values else 0),
             can_delete=True,
         )
         context.update(
-            {"formset": FuncUseFormSet, "doc": doc, "post_url": "chemical_update"}
+            {
+                "fuformset": FuncUseFormSet,
+                "svformset": StatValueFormSet,
+                "doc": doc,
+                "post_url": "chemical_update",
+            }
         )
         if not "fufs" in context:
             context["fufs"] = FuncUseFormSet(instance=self.object)
+        if not "svfs" in context:
+            context["svfs"] = StatValueFormSet(instance=self.object)
         return context
 
     def get_form_class(self):
@@ -232,8 +265,13 @@ class ChemUpdateView(UpdateView):
 
     def form_valid(self, form):
         self.object = form.save()
-        FuncUseFormSet = self.get_context_data()["formset"]
-        formset = FuncUseFormSet(self.request.POST, instance=self.object)
+        doc = self.object.extracted_text.data_document
+        if doc.data_group.can_have_funcuse:
+            FormSet = self.get_context_data()["fuformset"]
+            formset = FormSet(self.request.POST, instance=self.object)
+        elif doc.data_group.can_have_statistical_values:
+            FormSet = self.get_context_data()["svformset"]
+            formset = FormSet(self.request.POST, instance=self.object)
         if formset.is_valid():
             formset.save()
             return render(
@@ -772,73 +810,12 @@ def download_list_presence_chemicals(request):
 
 
 def download_composition_chemicals(request):
-    chemicals = (
-        ExtractedComposition.objects.all()
-        .prefetch_related("weight_fraction_type", "unit_type", "product_uber_puc")
-        .values(
-            "extracted_text__data_document__data_group__data_source__title",
-            "extracted_text__data_document__title",
-            "extracted_text__data_document__subtitle",
-            "extracted_text__doc_date",
-            "extracted_text__data_document__product__title",
-            "extracted_text__data_document__product__product_uber_puc__puc__kind__name",
-            "extracted_text__data_document__product__product_uber_puc__puc__gen_cat",
-            "extracted_text__data_document__product__product_uber_puc__puc__prod_fam",
-            "extracted_text__data_document__product__product_uber_puc__puc__prod_type",
-            "extracted_text__data_document__product__product_uber_puc__classification_method__name",
-            "raw_chem_name",
-            "raw_cas",
-            "dsstox__sid",
-            "dsstox__true_chemname",
-            "dsstox__true_cas",
-            "provisional",
-            "raw_min_comp",
-            "raw_max_comp",
-            "raw_central_comp",
-            "unit_type__title",
-            "lower_wf_analysis",
-            "upper_wf_analysis",
-            "central_wf_analysis",
-            "weight_fraction_type__title",
-        )
-        .order_by(
-            "extracted_text__data_document__data_group__data_source",
-            "extracted_text__data_document__title",
-            "raw_chem_name",
-        )
-    )
-    filename = "composition_chemicals.csv"
-    return render_to_csv_response(
-        chemicals,
-        filename=filename,
-        append_datestamp=True,
-        field_header_map={
-            "extracted_text__data_document__data_group__data_source__title": "Data Source",
-            "extracted_text__data_document__title": "Data Document Title",
-            "extracted_text__data_document__subtitle": "Data Document Subtitle",
-            "extracted_text__doc_date": "Document Date",
-            "extracted_text__data_document__product__title": "Product",
-            "extracted_text__data_document__product__product_uber_puc__puc__kind__name": "PUC Kind",
-            "extracted_text__data_document__product__product_uber_puc__puc__gen_cat": "PUC Gen Cat",
-            "extracted_text__data_document__product__product_uber_puc__puc__prod_fam": "PUC Prod Fam",
-            "extracted_text__data_document__product__product_uber_puc__puc__prod_type": "PUC Prod Type",
-            "extracted_text__data_document__product__product_uber_puc__classification_method__name": "PUC Classification Method",
-            "raw_chem_name": "Raw Chemical Name",
-            "raw_cas": "Raw CAS",
-            "dsstox__sid": "DTXSID",
-            "dsstox__true_chemname": "True Chemical Name",
-            "dsstox__true_cas": "True CAS",
-            "provisional": "Provisional",
-            "raw_min_comp": "Raw Min Comp",
-            "raw_max_comp": "Raw Max Comp",
-            "raw_central_comp": "Raw Central Comp",
-            "unit_type__title": "Unit Type",
-            "lower_wf_analysis": "Lower Weight Fraction",
-            "upper_wf_analysis": "Upper Weight Fraction",
-            "central_wf_analysis": "Central Weight Fraction",
-            "weight_fraction_type__title": "Weight Fraction Type",
-        },
-        field_serializer_map={"provisional": (lambda f: ("Yes" if f == "1" else "No"))},
+    filename = "composition_chemicals.zip"
+    filepath = os.path.join(CSV_STORAGE_ROOT, filename)
+    if os.path.exists(filepath):
+        return FileResponse(open(filepath, "rb"), filename=filename, as_attachment=True)
+    return HttpResponse(
+        "Composition Data not available yet, please try again later.", status=404
     )
 
 

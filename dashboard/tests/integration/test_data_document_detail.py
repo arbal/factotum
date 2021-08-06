@@ -7,7 +7,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait, Select
 
-from dashboard.models import DataDocument, ExtractedText, ExtractedLMRec, FunctionalUse
+from dashboard.models import (
+    DataDocument,
+    ExtractedText,
+    ExtractedLMRec,
+    FunctionalUse,
+    StatisticalValue,
+)
 from dashboard.tests.loader import fixtures_standard, load_browser
 
 
@@ -567,6 +573,18 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         )
         self.browser.find_element_by_id("id_num_measure").send_keys("60")
         self.browser.find_element_by_id("id_num_nondetect").send_keys("10")
+
+        statvalue_name = Select(self.browser.find_element_by_id("id_statistics-0-name"))
+        statvalue_name.select_by_visible_text("Mean")
+        self.browser.find_element_by_id("id_statistics-0-value").send_keys("55")
+        self.browser.find_element_by_id("id_statistics-0-stat_unit").send_keys(
+            "percent"
+        )
+        statvalue_stat_type = Select(
+            self.browser.find_element_by_id("id_statistics-0-value_type")
+        )
+        statvalue_stat_type.select_by_visible_text("Reported")
+
         save_button.click()
 
         time.sleep(3)
@@ -583,6 +601,14 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.assertTrue(lm_chem.updated_at != "")
         self.assertEqual(lm_chem.num_measure, 60)
         self.assertEqual(lm_chem.num_nondetect, 10)
+
+        statvalue = (
+            StatisticalValue.objects.filter(rawchem_id=lm_chem.pk).order_by("id").last()
+        )
+        self.assertEqual(statvalue.name, "MEAN")
+        self.assertEqual(statvalue.value, 55)
+        self.assertEqual(statvalue.stat_unit, "percent")
+        self.assertEqual(statvalue.value_type, "R")
 
         self.assertInHTML(
             "The Rawest Chem Name",
