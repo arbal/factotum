@@ -5,10 +5,19 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("dashboard", "0203_hhe_fields")]
 
     operations = [
+        migrations.RunSQL(
+            sql="""
+                INSERT INTO dashboard_extractedhpdoc (extractedtext_ptr_id, extraction_completed) SELECT 321515, 0
+                WHERE EXISTS
+                 (SELECT data_document_id from dashboard_extractedtext where data_document_id = 321515) 
+                AND NOT EXISTS
+                 (SELECT extractedtext_ptr_id from dashboard_extractedhpdoc where extractedtext_ptr_id = 321515);
+                 """,
+            reverse_sql=migrations.RunSQL.noop,
+        ),
         migrations.AlterField(
             model_name="extractedhabitsandpractices",
             name="extracted_text",

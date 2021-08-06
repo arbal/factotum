@@ -6,7 +6,7 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [("dashboard", "0202_news_section_upload")]
+    dependencies = [("dashboard", "0204_hpdoc_foreign_key")]
 
     operations = [
         migrations.RemoveField(model_name="statisticalvalue", name="record"),
