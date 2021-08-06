@@ -46,6 +46,7 @@ fixtures_standard = [
     "07h_extractedhhrec",
     "07i_extractedhpdoc",
     "07j_extractedlmdoc",
+    "07k_extractedlmrec",
     "08_script",
     "09_productdocument",
     "10_habits_and_practices",

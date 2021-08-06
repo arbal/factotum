@@ -2,13 +2,35 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+from dashboard.models import ExtractedText, ExtractedHPDoc
+
+
+def add_missing_extractedhpdoc(apps, schema_editor):
+    ets = ExtractedText.objects.filter(data_document__data_group__group_type__code="HP")
+    for et in ets:
+        match_et = ExtractedHPDoc.objects.filter(extractedtext_ptr_id=et.data_document_id).first()
+        if match_et is None:
+            ExtractedHPDoc.objects.create(extractedtext_ptr_id=et.data_document_id)
+
+
+def empty_reverse_function(apps, schema_editor):
+    # The reverse function is not required
+    pass
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("dashboard", "0203_hhe_fields")]
 
     operations = [
+        migrations.RunSQL(
+            sql="""
+                INSERT INTO dashboard_extractedhpdoc (extractedtext_ptr_id, extraction_completed)
+                     SELECT distinct(extracted_text_id), 0
+                     FROM dashboard_extractedhabitsandpractices
+                     WHERE extracted_text_id not in (select extractedtext_ptr_id from dashboard_extractedhpdoc);
+                 """,
+            reverse_sql=migrations.RunSQL.noop,
+        ),
         migrations.AlterField(
             model_name="extractedhabitsandpractices",
             name="extracted_text",
