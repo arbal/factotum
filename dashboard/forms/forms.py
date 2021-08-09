@@ -376,8 +376,8 @@ class RawChemToStatisticalValueForm(forms.ModelForm):
 
 
 class RawChemicalSubclassFormSet(BaseInlineFormSet):
-    """ The formset used for all the subclasses of RawChemical,
-    since it includes the Functional Use records as a nested formset """
+    """The formset used for all the subclasses of RawChemical,
+    since it includes the Functional Use records as a nested formset"""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -564,10 +564,15 @@ class ExtractedHHRecForm(ExtractedChemicalModelForm):
             "raw_chem_name",
             "raw_cas",
             "medium",
+            "harmonized_medium",
             "num_measure",
             "num_nondetect",
             "sampling_method",
             "analytical_method",
+            "detect_freq",
+            "detect_freq_type",
+            "LOD",
+            "LOQ",
         ]
 
 

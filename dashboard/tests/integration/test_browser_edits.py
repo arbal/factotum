@@ -235,7 +235,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             # Go to the extraction script's summary page
             scr_id = et.extraction_script_id
             qa_summary_url = (
-                    self.live_server_url + f"/qa/extractionscript/{scr_id}/summary"
+                self.live_server_url + f"/qa/extractionscript/{scr_id}/summary"
             )
             self.browser.get(qa_summary_url)
 

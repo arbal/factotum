@@ -214,7 +214,7 @@ class ExtractedHPDocFactory(ExtractedTextFactory):
     class Meta:
         model = models.ExtractedHPDoc
 
-    extraction_completed = factory.Faker("Boolean")
+    extraction_completed = 0
     data_document = factory.SubFactory(
         DataDocumentFactory, data_group__group_type__code="HP"
     )
@@ -384,7 +384,7 @@ class ExtractedHabitsAndPracticesFactory(FactotumFactoryBase):
     product_surveyed = factory.Faker("word")
     notes = factory.Faker("paragraph")
     extracted_text = factory.SubFactory(
-        ExtractedTextFactory, data_document__data_group__group_type__code="HP"
+        ExtractedHPDocFactory, data_document__data_group__group_type__code="HP"
     )
     data_type = factory.SubFactory(ExtractedHabitsAndPracticesDataTypeFactory)
 

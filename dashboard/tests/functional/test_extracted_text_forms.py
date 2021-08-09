@@ -25,12 +25,10 @@ class ExtractedTextFormsTest(TestCase):
         )
         cls.data_doc = DataDocument.objects.create(data_group=cls.data_group)
 
-        # Add HP grouptype
-        cls.hp_group_type = GroupType.objects.create(
-            code="HP", title="Habits and Practices"
-        )
+        # Loaded records already include the HP grouptype
+
         cls.hp_data_group = DataGroup.objects.create(
-            group_type=cls.hp_group_type,
+            group_type=cls.objects["gt_hp"],
             downloaded_at=now(),
             downloaded_by=User.objects.first(),
             data_source=DataSource.objects.first(),

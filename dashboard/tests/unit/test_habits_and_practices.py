@@ -26,16 +26,14 @@ class HabitViewTest(TestCase):
         self.assertEqual(found.func, views.link_habitsandpractices)
 
     def test_product_surveyed_field(self):
-        self.objects.gt.code = "HP"
-        self.objects.gt.save()
-        _, HnPFormSet = create_detail_formset(self.objects.doc)
+        _, HnPFormSet = create_detail_formset(self.objects.dd_hp)
         data = {
             "habits-TOTAL_FORMS": "2",
             "habits-INITIAL_FORMS": "1",
             "habits-MIN_NUM_FORMS": "0",
             "habits-MAX_NUM_FORMS": "1000",
             "habits-0-id": self.objects.ehp.pk,
-            "habits-0-data_type": self.objects.ehp_dt.pk,
+            "habits-0-data_type": self.objects.ehpdt.pk,
             "habits-0-product_surveyed": "",
         }
         hp_formset = HnPFormSet(data, prefix="habits")
@@ -47,7 +45,7 @@ class HabitViewTest(TestCase):
             "habits-MIN_NUM_FORMS": "0",
             "habits-MAX_NUM_FORMS": "1000",
             "habits-0-id": self.objects.ehp.pk,
-            "habits-0-data_type": self.objects.ehp_dt.pk,
+            "habits-0-data_type": self.objects.ehpdt.pk,
             "habits-0-product_surveyed": "monster trucks",
         }
         hp_formset = HnPFormSet(data, prefix="habits")
@@ -55,9 +53,8 @@ class HabitViewTest(TestCase):
         self.assertTrue(hp_formset.is_valid())
 
     def test_data_type_field(self):
-        self.objects.gt.code = "HP"
-        self.objects.gt.save()
-        _, HnPFormSet = create_detail_formset(self.objects.doc)
+
+        _, HnPFormSet = create_detail_formset(self.objects.dd_hp)
         data = {
             "habits-TOTAL_FORMS": "2",
             "habits-INITIAL_FORMS": "1",
@@ -76,7 +73,7 @@ class HabitViewTest(TestCase):
             "habits-MIN_NUM_FORMS": "0",
             "habits-MAX_NUM_FORMS": "1000",
             "habits-0-id": self.objects.ehp.pk,
-            "habits-0-data_type": self.objects.ehp_dt.pk,
+            "habits-0-data_type": self.objects.ehpdt.pk,
             "habits-0-product_surveyed": "monster trucks",
         }
         hp_formset = HnPFormSet(data, prefix="habits")
@@ -85,14 +82,8 @@ class HabitViewTest(TestCase):
 
     def test_edit_hnp_detail(self):
         """This page may not be in use anymore."""
-        self.objects.exscript.title = "Manual (dummy)"
-        self.objects.exscript.save()
-        self.objects.ehp.data_document.data_group.group_type = GroupType.objects.create(
-            code="HP"
-        )
-        self.objects.ehp.data_document.data_group.save()
         self.client.login(username="Karyn", password="specialP@55word")
-        pk = self.objects.ehp.data_document.pk
+        pk = self.objects.dd_hp.pk
         response = self.client.get(f"/habitsandpractices/{pk}/")
         self.assertNotContains(response, "Raw Category", html=True)
 
