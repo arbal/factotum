@@ -5,6 +5,7 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
+
     dependencies = [
         ('dashboard', '0205_statistical_value_updates'),
     ]
