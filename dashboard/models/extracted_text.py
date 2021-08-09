@@ -22,7 +22,7 @@ class ExtractedText(CommonInfo):
         blank=True,
         help_text="The name of the product according to the extracted document",
     )
-    doc_date = models.CharField("Document date", max_length=25, blank=True)
+    doc_date = models.CharField("Document date", max_length=25, blank=True, help_text="Date the study document was published")
     rev_num = models.CharField("Revision number", max_length=50, blank=True)
     extraction_script = models.ForeignKey(
         "Script", on_delete=models.CASCADE, limit_choices_to={"script_type": "EX"}
