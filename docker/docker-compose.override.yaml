@@ -9,6 +9,12 @@ services:
     build: https://github.com/HumanExposure/factotum_elastic.git#${FACTOTUM_ELASTIC_BRANCH:-master}:elasticsearch
     environment:
       ES_JAVA_OPTS: -Xms${ES_MEMORY_LIMIT:-5g} -Xmx${ES_MEMORY_LIMIT:-5g} -Des.enforce.bootstrap.checks=true
+      xpack.graph.enabled: "false"
+      xpack.monitoring.enabled: "false"
+      xpack.security.enabled: ${ELASTICSEARCH_SECURITY_ENABLED:-false}
+      xpack.security.transport.ssl.enabled: ${ELASTICSEARCH_SECURITY_ENABLED:-false}
+      xpack.watcher.enabled: "false"
+
 
   logstash:
     build: https://github.com/HumanExposure/factotum_elastic.git#${FACTOTUM_ELASTIC_BRANCH:-master}:logstash
