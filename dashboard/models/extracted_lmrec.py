@@ -77,34 +77,27 @@ class ExtractedLMRec(RawChem):
     Its parent records use the `dashboard.models.extracted_lmdoc.ExtractedLMDoc` model.
     """
 
-    study_location = models.CharField(max_length=200, blank=True, null=True,
-                                      help_text="Location where the study was performed")
-    sampling_date = models.DateField(blank=True, null=True, help_text="Date or date range when the study was performed")
-    population_description = models.CharField(max_length=200, blank=True, null=True,
-                                              help_text="General description of the population studied")
+    study_location = models.CharField(max_length=200, blank=True, null=True)
+    sampling_date = models.DateField(blank=True, null=True)
+    population_description = models.CharField(max_length=200, blank=True, null=True)
     population_gender = models.CharField(
-        max_length=30, choices=GENDER_CHOICES, blank=True, null=True,
-        help_text="Gender or genders of the population studied"
+        max_length=30, choices=GENDER_CHOICES, blank=True, null=True
     )
     population_age = models.CharField(
         max_length=200,
-        help_text="Age groups or age ranges studied in the population",
+        help_text="Age can be reported as age ranges, or descriptive groups (adults, children, etc.)",
         blank=True,
         null=True,
-
     )
     population_other = models.CharField(
         max_length=200,
-        help_text="Other population information such as occupation",
+        help_text="Used for occupational or other population stratifiers we want to retain at the chemical level.",
         blank=True,
         null=True,
     )
-    sampling_method = models.CharField(max_length=200, blank=True, null=True,
-                                       help_text="Reported method by which the media samples were collected")
-    analytical_method = models.CharField(max_length=200, blank=True, null=True,
-                                         help_text="Reported method by which the media samples were analyzed")
-    medium = models.CharField(max_length=200, blank=True, null=True,
-                              help_text="Environmental or biological medium studied (as reported)")
+    sampling_method = models.CharField(max_length=200, blank=True, null=True)
+    analytical_method = models.CharField(max_length=200, blank=True, null=True)
+    medium = models.CharField(max_length=200, blank=True, null=True)
     harmonized_medium = models.ForeignKey(
         "HarmonizedMedium",
         on_delete=models.SET_NULL,
@@ -112,12 +105,11 @@ class ExtractedLMRec(RawChem):
         null=True,
         default=None,
         related_name="lm_record",
-        help_text="Medium harmonized to standard categories used in Factotum"
     )
-    num_measure = models.IntegerField(null=True, blank=True, help_text="Total number of measurements taken")
-    num_nondetect = models.IntegerField(null=True, blank=True, help_text="Reported number of non-detects")
+    num_measure = models.IntegerField(null=True, blank=True)
+    num_nondetect = models.IntegerField(null=True, blank=True)
     detect_freq = models.FloatField(
-        null=True, blank=True, verbose_name="Detection frequency", help_text="Detection frequency in the medium"
+        null=True, blank=True, verbose_name="Detection frequency"
     )
     detect_freq_type = models.CharField(
         max_length=1,
@@ -125,10 +117,9 @@ class ExtractedLMRec(RawChem):
         blank=True,
         null=True,
         verbose_name="Detection frequency type",
-        help_text="Indicates whether the detection frequency was reported in study or computed by data curators"
     )
-    LOD = models.FloatField("LOD", null=True, blank=True, help_text="Analytical limit of detection")
-    LOQ = models.FloatField("LOQ", null=True, blank=True, help_text="Analytical limit of quantification")
+    LOD = models.FloatField("LOD", null=True, blank=True)
+    LOQ = models.FloatField("LOQ", null=True, blank=True)
 
     @classmethod
     def auditlog_fields(cls):

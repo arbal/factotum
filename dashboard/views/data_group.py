@@ -48,7 +48,7 @@ def data_group_list(request, code=None, template_name="data_group/datagroup_list
         group = get_object_or_404(GroupType, code=code)
         datagroups = (
             DataGroup.objects.filter(group_type=group)
-                .values(
+            .values(
                 "group_type__title",
                 "name",
                 "data_source",
@@ -60,13 +60,13 @@ def data_group_list(request, code=None, template_name="data_group/datagroup_list
                 "download_script__url",
                 "download_script__title",
             )
-                .annotate(num_extracted=Count("datadocument__extractedtext"))
-                .order_by("name")
+            .annotate(num_extracted=Count("datadocument__extractedtext"))
+            .order_by("name")
         )
     else:
         datagroups = (
             DataGroup.objects.all()
-                .values(
+            .values(
                 "group_type__title",
                 "name",
                 "data_source",
@@ -78,8 +78,8 @@ def data_group_list(request, code=None, template_name="data_group/datagroup_list
                 "download_script__url",
                 "download_script__title",
             )
-                .annotate(num_extracted=Count("datadocument__extractedtext"))
-                .order_by("name")
+            .annotate(num_extracted=Count("datadocument__extractedtext"))
+            .order_by("name")
         )
     data = {}
     data["datagroups"] = list(datagroups)
@@ -215,9 +215,9 @@ def data_group_documents_table(request, pk):
     dg = get_object_or_404(DataGroup, pk=pk)
     docs = (
         DataDocument.objects.filter(data_group=dg)
-            .annotate(extracted=Exists(ExtractedText.objects.filter(pk=OuterRef("pk"))))
-            .annotate(product_title=F("products__title"))
-            .annotate(
+        .annotate(extracted=Exists(ExtractedText.objects.filter(pk=OuterRef("pk"))))
+        .annotate(product_title=F("products__title"))
+        .annotate(
             puc=Case(
                 When(products__product_uber_puc__puc__isnull=True, then=Value("")),
                 When(
@@ -241,12 +241,12 @@ def data_group_documents_table(request, pk):
                 ),
             )
         )
-            .annotate(
+        .annotate(
             classification_method=F(
                 "products__product_uber_puc__classification_method__name"
             )
         )
-            .annotate(product_id=F("products__id"))
+        .annotate(product_id=F("products__id"))
     )
     if dg.is_habits_and_practices:
         docs = docs.prefetch_related("extractedtext__extractedhpdoc")
@@ -279,8 +279,8 @@ def data_group_documents_table(request, pk):
                 )
             # If the document is not extracted or the hpdoc does not exist, just set extracted to false.
             except (
-                    DataDocument.extractedtext.RelatedObjectDoesNotExist,
-                    ExtractedText.extractedhpdoc.RelatedObjectDoesNotExist,
+                DataDocument.extractedtext.RelatedObjectDoesNotExist,
+                ExtractedText.extractedhpdoc.RelatedObjectDoesNotExist,
             ):
                 doc_dict.update({"extracted": False})
         else:
@@ -291,7 +291,7 @@ def data_group_documents_table(request, pk):
 
 @login_required()
 def data_group_create(
-        request, pk, template_name="data_group/datagroup_create_form.html"
+    request, pk, template_name="data_group/datagroup_create_form.html"
 ):
     datasource = get_object_or_404(DataSource, pk=pk)
     group_key = DataGroup.objects.filter(data_source=datasource).count() + 1
@@ -348,7 +348,7 @@ def data_group_create(
 
 @login_required()
 def data_group_update(
-        request, pk, template_name="data_group/datagroup_update_form.html"
+    request, pk, template_name="data_group/datagroup_update_form.html"
 ):
     datagroup = get_object_or_404(DataGroup, pk=pk)
     form = DataGroupForm(request.POST or None, instance=datagroup)
@@ -369,7 +369,7 @@ def data_group_update(
 
 @login_required()
 def data_group_delete(
-        request, pk, template_name="data_source/datasource_confirm_delete.html"
+    request, pk, template_name="data_source/datasource_confirm_delete.html"
 ):
     datagroup = get_object_or_404(DataGroup, pk=pk)
     if request.method == "POST":
@@ -380,7 +380,7 @@ def data_group_delete(
 
 @login_required()
 def data_group_delete_products(
-        request, pk, template_name="data_group/product_delete_progress.html"
+    request, pk, template_name="data_group/product_delete_progress.html"
 ):
     """
     This is an endpoint that deletes Product objects associated with the Data Group
@@ -475,8 +475,8 @@ def download_unextracted_datadocuments(request, pk):
     datagroup = DataGroup.objects.get(pk=pk)
     documents = (
         DataDocument.objects.filter(data_group=datagroup, extractedtext__isnull=True)
-            .exclude(file="")
-            .values("pk", "filename")
+        .exclude(file="")
+        .values("pk", "filename")
     )
     filename = datagroup.get_name_as_slug() + "_unextracted_documents.csv"
     response = HttpResponse(content_type="text/csv")
@@ -573,10 +573,10 @@ def download_raw_functional_use_records(request, pk):
 def data_group_tracking(request, template_name="data_group/data_group_tracking.html"):
     datagroups = (
         DataGroup.objects.all()
-            .select_related("data_source", "group_type")
-            .prefetch_related("curation_steps")
-            .annotate(doc_count=Count("datadocument"))
-            .order_by("name")
+        .select_related("data_source", "group_type")
+        .prefetch_related("curation_steps")
+        .annotate(doc_count=Count("datadocument"))
+        .order_by("name")
     )
     curationsteps = CurationStep.objects.all().values("name", "id")
     data = {"datagroups": list(datagroups), "curationsteps": list(curationsteps)}
@@ -586,7 +586,7 @@ def data_group_tracking(request, template_name="data_group/data_group_tracking.h
 
 @login_required()
 def edit_data_group_tracking(
-        request, dg_pk, template_name="data_group/data_group_tracking_edit.html"
+    request, dg_pk, template_name="data_group/data_group_tracking_edit.html"
 ):
     datagroup = get_object_or_404(DataGroup, pk=dg_pk)
     form = DataGroupWorkflowForm(request.POST or None, instance=datagroup)

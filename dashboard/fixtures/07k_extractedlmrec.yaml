@@ -10,7 +10,7 @@
     sampling_method: null
     analytical_method: null
     medium: ocean
-    harmonized_medium: 29
+    harmonized_medium: 4
     num_measure: null
     num_nondetect: null
     detect_freq: null
