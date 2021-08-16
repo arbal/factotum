@@ -4,7 +4,7 @@ from six import text_type
 from .extracted_text import ExtractedText
 from .raw_chem import RawChem
 
-TYPE_CHOICES = (("R", "Reported"), ("C", "Computed"))
+DETECT_FREQ_TYPE_CHOICES = (("R", "Reported"), ("C", "Computed"))
 
 
 class ExtractedHHRec(RawChem):
@@ -32,7 +32,7 @@ class ExtractedHHRec(RawChem):
     )
     detect_freq_type = models.CharField(
         max_length=1,
-        choices=TYPE_CHOICES,
+        choices=DETECT_FREQ_TYPE_CHOICES,
         blank=True,
         null=True,
         verbose_name="Detection frequency type",

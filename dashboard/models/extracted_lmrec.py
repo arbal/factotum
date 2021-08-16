@@ -5,7 +5,7 @@ from django_db_views.db_view import DBView
 from .raw_chem import RawChem
 from .common_info import CommonInfo
 
-TYPE_CHOICES = (("R", "Reported"), ("C", "Computed"))
+DETECT_FREQ_TYPE_CHOICES = (("R", "Reported"), ("C", "Computed"))
 GENDER_CHOICES = (("M", "Male"), ("F", "Female"), ("A", "All"), ("O", "Other"))
 
 
@@ -121,7 +121,7 @@ class ExtractedLMRec(RawChem):
     )
     detect_freq_type = models.CharField(
         max_length=1,
-        choices=TYPE_CHOICES,
+        choices=DETECT_FREQ_TYPE_CHOICES,
         blank=True,
         null=True,
         verbose_name="Detection frequency type",
