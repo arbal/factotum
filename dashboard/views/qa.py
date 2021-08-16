@@ -487,8 +487,8 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
         else:
             nextid = extext.next_extracted_text_in_qa_group()
         # derive number of approved records and remaining unapproved in QA Group
-        a = extext.qa_group.get_approved_doc_count()
-        r = ExtractedText.objects.filter(qa_group=extext.qa_group).count() - a
+        a = extext.get_approved_doc_count()
+        r = extext.get_qa_queryset().count() - a
         stats = "%s document(s) approved, %s documents remaining" % (a, r)
 
     # If the Referer is set but not the extractionscript or a previous extracted text page
