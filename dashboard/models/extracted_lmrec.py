@@ -144,6 +144,7 @@ class ExtractedLMRec(RawChem):
             {
                 "name": self._meta.get_field(field).verbose_name,
                 "value": getattr(self, field),
+                "help_text": self._meta.get_field(field).help_text,
             }
             for field in [
                 "study_location",
