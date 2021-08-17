@@ -1,20 +1,29 @@
 from django.db import connection
 from pathlib import Path
+from urllib import request
 
 
 def fetch_dashboard_logstash(**kwargs):
-    "Return all rows from the logstash query as a dict"
-    querysql = Path("../factotum_elastic/logstash/query.sql").read_text()
+    """
+    Run the logstash query as specified in the dev branch and
+    return the resulting rows as a dict that can be used to
+    populate the index.
+    """
+    url = "https://raw.githubusercontent.com/HumanExposure/factotum_elastic/dev/logstash/query.sql"
+    querysql = ""
+    queryfile = request.urlopen(url)
+    for line in queryfile:
+        querysql += line.decode("utf-8").replace("\n", " ")
     where_sql = kwargs.get("where", None)
     if where_sql:
         querysql = querysql + " " + where_sql
-    # querysql = querysql.replace('\n', '')
     with connection.cursor() as cursor:
         cursor.execute(querysql)
         columns = [col[0] for col in cursor.description]
         indexed = [dict(zip(columns, row)) for row in cursor.fetchall()]
 
     return indexed
+
 
 def shell_logstash_populate():
     """
@@ -23,16 +32,15 @@ def shell_logstash_populate():
     from django.conf import settings
     import base64
     import requests
+
     esurl = settings.ELASTICSEARCH["default"]["HOSTS"][0]
     index = settings.ELASTICSEARCH["default"]["INDEX"]
-    (es_username, es_password) = settings.ELASTICSEARCH["default"][
-        "HTTP_AUTH"
-    ]
+    (es_username, es_password) = settings.ELASTICSEARCH["default"]["HTTP_AUTH"]
     auth_header = {
         "Authorization": "Basic "
-        + base64.b64encode(
-            f"{es_username}:{es_password}".encode("utf-8")
-        ).decode("utf-8")
+        + base64.b64encode(f"{es_username}:{es_password}".encode("utf-8")).decode(
+            "utf-8"
+        )
     }
 
     # PUC = 259 (Pet shampoo) or PUC = 210 (shampoo)
@@ -44,4 +52,3 @@ def shell_logstash_populate():
             json=doc_dict,
             headers=auth_header,
         )
-
