@@ -37,20 +37,6 @@ class TestSearch(TestCase):
             ).decode("utf-8")
         }
 
-    def tearDown(self):
-        """
-        Delete the documents that were added to the index for the purposes of the test
-        """
-        delete_json = {
-            "query": {"match": {"datadocument_subtitle": "test_phrase_search"}}
-        }
-
-        cleanup_response = requests.post(
-            f"http://{self.esurl}/dashboard/_delete_by_query/",
-            json=delete_json,
-            headers=self.auth_header,
-        )
-
     def _b64_str(self, s):
         return base64.b64encode(s.encode()).decode("unicode_escape")
 
@@ -345,9 +331,9 @@ class TestSearch(TestCase):
 
     def test_boosted_fields(self):
         """
-        A search for "water" should score a document with "water" (or 
+        A search for "water" should score a document with "water" (or
         a synonym) in its chemicals' true chem names higher
-        than a document with "water" in its title. 
+        than a document with "water" in its title.
         """
         # The first result row should contain "True chemical name:"
         qs = self._get_query_str("water")
@@ -399,8 +385,9 @@ class TestSearch(TestCase):
             new_title = "Shampoo " + str(i)
             if i % 4 == 0:
                 new_title = (
-                    "Pet " + new_title # every fourth document should be called "Pet Shampoo _"
-                )  
+                    "Pet "
+                    + new_title  # every fourth document should be called "Pet Shampoo _"
+                )
             # using the "test_phrase_search" subtitle will allow the tearDown() method to find
             # these documents and delete them
             doc = DataDocumentFactory(
@@ -427,10 +414,11 @@ class TestSearch(TestCase):
                 json=doc_dict,
                 headers=self.auth_header,
             )
+            self.assertEqual(201, response.status_code)
 
         # Unquoted search should return records with just "shampoo"
 
-        b64 = base64.b64encode(b"shampoo").decode("unicode_escape")
+        b64 = base64.b64encode(b"pet shampoo").decode("unicode_escape")
         response = self.client.get("/search/product/?q=" + b64)
         soup = bs4.BeautifulSoup(response.content, features="lxml")
         hits = soup.find_all("h5", {"class": "hit-header"})
@@ -445,5 +433,17 @@ class TestSearch(TestCase):
         soup = bs4.BeautifulSoup(response.content, features="lxml")
         hits = soup.find_all("h5", {"class": "hit-header"})
         self.assertEqual(
-            len(hits), 3, "There should be 3 results for the unquoted search"
+            len(hits), 3, "There should be 3 results for the quoted search"
         )
+
+        # Delete the documents that were added to the index for the purposes of the test
+        delete_json = {
+            "query": {"match": {"datadocument_subtitle": "test_phrase_search"}}
+        }
+
+        cleanup_response = requests.post(
+            f"http://{self.esurl}/dashboard/_delete_by_query/",
+            json=delete_json,
+            headers=self.auth_header,
+        )
+        self.assertEqual(200, cleanup_response.status_code)
