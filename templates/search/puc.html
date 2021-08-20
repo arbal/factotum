@@ -1,7 +1,7 @@
 {% for hit in result.hits %}
-<div class="row pt-3 pb-3 border-bottom border-top">
+<div class="row pt-3 pb-3 border-bottom border-top puc-result">
     <div class="col-sm">
-        <h5>
+        <h5 class="hit-header">
             <a href="{% url 'puc_detail' hit.id %}">
                 <span
                     class="pr-1"

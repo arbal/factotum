@@ -1,0 +1,4 @@
+- model: dashboard.extractedlmdoc
+  pk: 9
+  fields:
+    media: "Ambient air"

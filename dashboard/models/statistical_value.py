@@ -1,7 +1,7 @@
 from django.db import models
 from dashboard.models import CommonInfo
 
-TYPE_CHOICES = (("R", "Reported"), ("C", "Computed"))
+VALUE_TYPE_CHOICES = (("R", "Reported"), ("C", "Computed"))
 NAME_CHOICES = (
     ("MEAN", "Mean"),
     ("MEDIAN", "Median"),
@@ -33,7 +33,7 @@ class StatisticalValue(CommonInfo):
         max_length=1,
         null=False,
         blank=False,
-        choices=TYPE_CHOICES,
+        choices=VALUE_TYPE_CHOICES,
     )
     # It would be best to leave this non-standardized.
     # There are many ways to represent the units, so it would be difficult to make a standard list.
@@ -44,7 +44,7 @@ class StatisticalValue(CommonInfo):
     def clean(self):
         self.name = self.name.strip()
         self.stat_unit = self.stat_unit.strip()
-        for k, v in TYPE_CHOICES:
+        for k, v in VALUE_TYPE_CHOICES:
             if self.value_type and self.value_type.lower() == v.lower():
                 self.value_type = k
 

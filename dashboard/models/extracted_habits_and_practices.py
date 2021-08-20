@@ -7,12 +7,12 @@ from django.utils.translation import ugettext_lazy as _
 
 
 from .common_info import CommonInfo
-from .extracted_text import ExtractedText
+from .extracted_hpdoc import ExtractedHPDoc
 
 
 class ExtractedHabitsAndPracticesDataType(CommonInfo):
     """
-    The controlled vocabulary for the `data_type` attribute 
+    The controlled vocabulary for the `data_type` attribute
     of `dashboard.extracted_habits_and_practices.ExtractedHabitsAndPractices`.
     """
 
@@ -25,12 +25,12 @@ class ExtractedHabitsAndPracticesDataType(CommonInfo):
 
 class ExtractedHabitsAndPractices(CommonInfo):
     """
-    This is the detailed child record for habits and practices data. Unlike other 
+    This is the detailed child record for habits and practices data. Unlike other
     models at this position in the hierarchy, it is not a subclass of `dashboard.raw_chem.RawChem`.
     """
 
     extracted_text = models.ForeignKey(
-        ExtractedText, on_delete=models.CASCADE, related_name="practices"
+        ExtractedHPDoc, on_delete=models.CASCADE, related_name="practices"
     )
     data_type = models.ForeignKey(
         ExtractedHabitsAndPracticesDataType, on_delete=models.PROTECT
@@ -104,7 +104,7 @@ class ExtractedHabitsAndPracticesToTag(TaggedItemBase, CommonInfo):
 
 class ExtractedHabitsAndPracticesTagKind(CommonInfo):
     """
-    The controlled vocabulary for an aggregation field on the  
+    The controlled vocabulary for an aggregation field on the
     `dashboard.extracted_habits_and_practices.ExtractedHabitsAndPracticesTag` model.
     """
 

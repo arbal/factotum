@@ -93,6 +93,8 @@ VALID_MODELS = {"product", "datadocument", "puc", "chemical", "tag"}
 
 TOTAL_COUNT_AGG = "unique_total_count"
 
+PHRASE_SLOP = 1
+
 
 class ElasticPaginator:
     """To be used with Django's paginator"""
@@ -198,16 +200,36 @@ def run_query(
     # Enable highlighting
     s = s.highlight_options(order="score")
     s = s.highlight("*")
+    # Determine if the search term was a quoted phrase
+    quoted = q != q.strip('"')
     # add the query with optional fuzziness
     if fuzzy:
         s = s.query(
-            MultiMatch(query=q, fields=fields, type="most_fields", fuzziness="AUTO")
+            MultiMatch(
+                query=q, fields=fields, type="most_fields", fuzziness="AUTO"
+            )
         )
     else:
         # s = s.query(MultiMatch(query=q, fields=fields, type="most_fields"))
-        s = s.query(
-            MultiMatch(query=q, fields=fields, type="cross_fields", tie_breaker="0.5")
-        )
+        if quoted:
+            s = s.query(
+                MultiMatch(
+                    query=q,
+                    fields=fields,
+                    type="phrase",
+                    slop=PHRASE_SLOP,
+                    tie_breaker="0.5",
+                )
+            )
+        else:
+            s = s.query(
+                MultiMatch(
+                    query=q,
+                    fields=fields,
+                    type="most_fields",
+                    tie_breaker="0.5",
+                )
+            )
     # collapse on id_field
     dict_update = {}
     inner_hits = []
@@ -343,7 +365,26 @@ def get_unique_count(q, model, fuzzy=False, connection="default"):
     if fuzzy:
         s = s.query(MultiMatch(query=q, fields=fields, fuzziness="AUTO"))
     else:
-        s = s.query(MultiMatch(query=q, fields=fields))
+        # check for a quoted phrase
+        if q != q.strip('"'):
+            s = s.query(
+                MultiMatch(
+                    query=q,
+                    fields=fields,
+                    type="phrase",
+                    slop=PHRASE_SLOP,
+                    tie_breaker="0.5",
+                )
+            )
+        else:
+            s = s.query(
+                MultiMatch(
+                    query=q,
+                    fields=fields,
+                    type="best_fields",
+                    tie_breaker="0.5",
+                )
+            )
 
     # add cardinal aggregation on id_field to get unique total count
     s.aggs.bucket(TOTAL_COUNT_AGG, A("cardinality", field=id_field))
