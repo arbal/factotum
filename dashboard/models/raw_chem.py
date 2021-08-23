@@ -25,11 +25,16 @@ class RawChem(CommonInfo):
         blank=False,
     )
     raw_cas = models.CharField(
-        "Raw CAS", max_length=100, blank=True,
-        help_text="Chemical abstract service registry number (CASRN) as reported in original study"
+        "Raw CAS",
+        max_length=100,
+        blank=True,
+        help_text="Chemical abstract service registry number (CASRN) as reported in original study",
     )
     raw_chem_name = models.CharField(
-        "Raw chemical name", max_length=1300, blank=True, help_text="Chemical name as reported in original study"
+        "Raw chemical name",
+        max_length=1300,
+        blank=True,
+        help_text="Chemical name as reported in original study",
     )
 
     rid = models.CharField(max_length=50, blank=True, help_text="RID")
@@ -51,7 +56,7 @@ class RawChem(CommonInfo):
         choices=CHEM_DETECTED_CHOICES,
         null=True,
         blank=True,
-        help_text="Flag indicating whether a chemical was ever detected in the studied medium"
+        help_text="Flag indicating whether a chemical was ever detected in the studied medium",
     )
     provisional = models.BooleanField(
         default=False,

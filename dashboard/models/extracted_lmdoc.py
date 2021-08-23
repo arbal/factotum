@@ -11,11 +11,19 @@ class ExtractedLMDoc(ExtractedText):
     )
 
     study_type = models.CharField(
-        "Study Type", choices=STUDY_TYPE_CHOICES, max_length=12, blank=True,
-        help_text="Indicates whether the study was a targeted analysis of specific chemicals, general chemical screening, or other"
+        "Study Type",
+        choices=STUDY_TYPE_CHOICES,
+        max_length=12,
+        blank=True,
+        help_text="Indicates whether the study was a targeted analysis of specific chemicals, general chemical screening, or other",
     )
 
-    media = models.CharField("Media", max_length=100, blank=True, help_text="General list of environmental or biological media studied")
+    media = models.CharField(
+        "Media",
+        max_length=100,
+        blank=True,
+        help_text="General list of environmental or biological media studied",
+    )
     qa_flag = models.CharField(
         "QA flag",
         help_text="Indicates whether QA has been completed",
