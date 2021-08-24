@@ -447,3 +447,63 @@ class TestSearch(TestCase):
             headers=self.auth_header,
         )
         self.assertEqual(200, cleanup_response.status_code)
+
+    def test_special_char_search(self):
+        """
+        Users should be able to use search strings that contain special
+        characters, like:
+        'normal/ oily' 
+        '(-)-beta-Pinene'
+        'bath $10'
+        """
+        datadocs = []
+        search_terms = ["normal/ oily", "(-)-beta-Pinene", "bath $10"]
+        for term in search_terms:
+            doc = DataDocumentFactory(
+                    title=term,
+                    subtitle="test_special_search",
+                    product=[ProductFactory(title=term)],
+                )
+            datadocs.append(doc)
+
+        # create the WHERE clause out of the new docs
+        where_batch = "WHERE dd.id IN ("
+        for doc in datadocs:
+            where_batch = where_batch + str(doc.id) + ", "
+        where_batch = where_batch + " -99)"  # close out the WHERE clause
+
+        # once the documents and products have been added, get the JSON
+        # for POSTing them to the search index
+        docs_json = fetch_dashboard_logstash(where=where_batch)
+
+        for doc_dict in docs_json:
+            # add the JSON to the index
+            response = requests.post(
+                f"http://{self.esurl}/dashboard/_doc/",
+                json=doc_dict,
+                headers=self.auth_header,
+            )
+            self.assertEqual(201, response.status_code)
+        
+        # test the search term
+        for term in search_terms:
+            b64 = base64.b64encode(b"{term}").decode("unicode_escape")
+            print("/search/product/?q=" + b64)
+            response = self.client.get("/search/product/?q=" + b64)
+            soup = bs4.BeautifulSoup(response.content, features="lxml")
+            hits = soup.find_all("h5", {"class": "hit-header"})
+            self.assertEqual(
+                len(hits), 13, "There should be 1 result"
+            )
+
+        # Delete the documents that were added to the index for the purposes of the test
+        delete_json = {
+            "query": {"match": {"datadocument_subtitle": "test_special_search"}}
+        }
+
+        cleanup_response = requests.post(
+            f"http://{self.esurl}/dashboard/_delete_by_query/",
+            json=delete_json,
+            headers=self.auth_header,
+        )
+        self.assertEqual(200, cleanup_response.status_code)
