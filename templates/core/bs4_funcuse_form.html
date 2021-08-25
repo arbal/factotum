@@ -137,6 +137,7 @@
                     <span class="fa fa-fs fa-plus"></span></a>
                 </span>
         <br>
+        <small class="form-text text-muted">{{ svfs.model.get_help_text }}</small>
         {{ svfs.management_form }}
         {% for form in svfs %}
             {% for field in form.hidden_fields %}

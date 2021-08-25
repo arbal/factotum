@@ -1,10 +1,10 @@
 {% if chemical.statistics.all %}
-    <div class="row my-3">
+    <div class="row my-3" title="{{ chemical.statistics.all.0.get_help_text }}">
         <div class="col-auto">
             <span class="font-weight-bold">Statistical Values</span>
         </div>
 
-        <div class="col-7" title="Measurement summary statistics including value, units, and whether statistic was reported in study or calculated by data curator.">
+        <div class="col-7">
             {% for statistical_value in chemical.statistics.all %}
                 <div class="row">
                     <div class="col-4 mx-0 text-right">

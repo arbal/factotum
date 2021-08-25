@@ -65,3 +65,7 @@ class StatisticalValue(CommonInfo):
 
     def __str__(self):
         return f"{self.name} {self.value} {self.stat_unit}"
+
+    @classmethod
+    def get_help_text(self):
+        return "Measurement summary statistics including value, units, and whether statistic was reported in study or calculated by data curator."
