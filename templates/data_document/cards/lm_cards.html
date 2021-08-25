@@ -110,7 +110,7 @@
                     <div class="card-text">
                         <div class="row">
                             {% for field in chemical.get_card_body_fields %}
-                                <div class="col-4" id= "{{ field.name | slugify }}-{{chemical.id}}" >
+                                <div class="col-4" id= "{{ field.name | slugify }}-{{chemical.id}}" title="{{ field.help_text }}">
                                     <span class="font-weight-bold" >
                                         {% if field.name != "LOD" and field.name != "LOQ" %}
                                             {{ field.name | title }}
