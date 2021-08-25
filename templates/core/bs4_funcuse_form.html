@@ -174,7 +174,7 @@
                             {% render_field field class="form-control is-valid ml-1" %}
                         {% endif %}
                     {% else %}
-                        {% render_field field title=field.label data-toggle="tooltip" class="form-control ml-1" %}
+                        {% render_field field title=field.help_text data-toggle="tooltip" class="form-control ml-1"%}
                     {% endif %}
                 {% endif %}
             {% endfor %}

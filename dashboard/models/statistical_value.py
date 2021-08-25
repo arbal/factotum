@@ -25,20 +25,21 @@ class StatisticalValue(CommonInfo):
         "RawChem", on_delete=models.CASCADE, default=None, related_name="statistics"
     )
     name = models.CharField(
-        "Statistic Name", max_length=30, choices=NAME_CHOICES, null=False, blank=False
+        "Statistic Name", max_length=30, choices=NAME_CHOICES, null=False, blank=False, help_text="Name of the measurement statistic"
     )
-    value = models.FloatField("Statistic Value", null=False, blank=False)
+    value = models.FloatField("Statistic Value", null=False, blank=False, help_text=" Value of measurement statistic")
     value_type = models.CharField(
         "Reported or Computed",
         max_length=1,
         null=False,
         blank=False,
         choices=VALUE_TYPE_CHOICES,
+        help_text="Indicates whether the statistical value was reported in study or calculated by data curators"
     )
     # It would be best to leave this non-standardized.
     # There are many ways to represent the units, so it would be difficult to make a standard list.
     stat_unit = models.CharField(
-        "Statistic Unit", max_length=30, null=False, blank=False
+        "Statistic Unit", max_length=30, null=False, blank=False, help_text="Units for the measurement statistic"
     )
 
     def clean(self):
@@ -50,3 +51,17 @@ class StatisticalValue(CommonInfo):
 
     def __str__(self):
         return f"{self.name} {self.value} {self.stat_unit}"
+
+    def get_statistical_value_help_text(self):
+        return [
+            {
+                "help_text": self._meta.get_field(field).help_text,
+            }
+            for field in [
+                "name",
+                "value",
+                "value_type",
+                "stat_unit",
+            ]
+            if getattr(self, field)
+        ]
