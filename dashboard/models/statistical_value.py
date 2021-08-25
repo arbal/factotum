@@ -51,17 +51,3 @@ class StatisticalValue(CommonInfo):
 
     def __str__(self):
         return f"{self.name} {self.value} {self.stat_unit}"
-
-    def get_statistical_value_help_text(self):
-        return [
-            {
-                "help_text": self._meta.get_field(field).help_text,
-            }
-            for field in [
-                "name",
-                "value",
-                "value_type",
-                "stat_unit",
-            ]
-            if getattr(self, field)
-        ]
