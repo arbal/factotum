@@ -11,8 +11,11 @@ from django.test import TestCase, RequestFactory
 from django.conf import settings
 
 import bs4
+import json
 
 from elastic.models import QueryLog
+from dashboard.tests.elastic_factories import fetch_dashboard_logstash
+from dashboard.tests.factories import DataDocumentFactory, ProductFactory
 
 
 class TestSearch(TestCase):
@@ -27,6 +30,12 @@ class TestSearch(TestCase):
         (self.es_username, self.es_password) = settings.ELASTICSEARCH["default"][
             "HTTP_AUTH"
         ]
+        self.auth_header = {
+            "Authorization": "Basic "
+            + base64.b64encode(
+                f"{self.es_username}:{self.es_password}".encode("utf-8")
+            ).decode("utf-8")
+        }
 
     def _b64_str(self, s):
         return base64.b64encode(s.encode()).decode("unicode_escape")
@@ -47,18 +56,12 @@ class TestSearch(TestCase):
         """
         The correct JSON comes back from the elasticsearch server
         """
-        auth_header = {
-            "Authorization": "Basic "
-            + base64.b64encode(
-                f"{self.es_username}:{self.es_password}".encode("utf-8")
-            ).decode("utf-8")
-        }
-        response = requests.get(f"http://{self.esurl}", headers=auth_header)
+        response = requests.get(f"http://{self.esurl}", headers=self.auth_header)
         self.assertTrue(response.status_code == 200)
 
         response = requests.get(
             f"http://{self.esurl}/{self.index}/_search?q=ethylparaben",
-            headers=auth_header,
+            headers=self.auth_header,
         )
         self.assertIn("DTXSID9022528", str(response.content))
 
@@ -328,9 +331,9 @@ class TestSearch(TestCase):
 
     def test_boosted_fields(self):
         """
-        A search for "water" should score a document with "water" (or 
+        A search for "water" should score a document with "water" (or
         a synonym) in its chemicals' true chem names higher
-        than a document with "water" in its title. 
+        than a document with "water" in its title.
         """
         # The first result row should contain "True chemical name:"
         qs = self._get_query_str("water")
@@ -368,3 +371,79 @@ class TestSearch(TestCase):
         expected_total = "1 tags returned in"
         total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
         self.assertIn(expected_total, total_took)
+
+    def test_phrase_search(self):
+        """
+        Using a quoted string should promote the phrase in the results
+        """
+
+        # Use factories, since there need to be more products and documents than
+        # the fixtures include
+        doc_count = 12
+        datadocs = []
+        for i in range(doc_count):
+            new_title = "Shampoo " + str(i)
+            if i % 4 == 0:
+                new_title = (
+                    "Pet "
+                    + new_title  # every fourth document should be called "Pet Shampoo _"
+                )
+            # using the "test_phrase_search" subtitle will allow the tearDown() method to find
+            # these documents and delete them
+            doc = DataDocumentFactory(
+                title=new_title,
+                subtitle="test_phrase_search",
+                product=[ProductFactory(title=new_title)],
+            )
+            datadocs.append(doc)
+
+        # create the WHERE clause out of the new docs
+        where_batch = "WHERE dd.id IN ("
+        for doc in datadocs:
+            where_batch = where_batch + str(doc.id) + ", "
+        where_batch = where_batch + " -99)"  # close out the WHERE clause
+
+        # once the documents and products have been added, get the JSON
+        # for POSTing them to the search index
+        docs_json = fetch_dashboard_logstash(where=where_batch)
+
+        for doc_dict in docs_json:
+            # add the JSON to the index
+            response = requests.post(
+                f"http://{self.esurl}/dashboard/_doc/",
+                json=doc_dict,
+                headers=self.auth_header,
+            )
+            self.assertEqual(201, response.status_code)
+
+        # Unquoted search should return records with just "shampoo"
+
+        b64 = base64.b64encode(b"pet shampoo").decode("unicode_escape")
+        response = self.client.get("/search/product/?q=" + b64)
+        soup = bs4.BeautifulSoup(response.content, features="lxml")
+        hits = soup.find_all("h5", {"class": "hit-header"})
+        self.assertEqual(
+            len(hits), 13, "There should be 13 results for the unquoted search"
+        )
+
+        # Quoted search should only return records with "pet shampoo"
+
+        b64 = base64.b64encode(b'"pet shampoo"').decode("unicode_escape")
+        response = self.client.get("/search/product/?q=" + b64)
+        soup = bs4.BeautifulSoup(response.content, features="lxml")
+        hits = soup.find_all("h5", {"class": "hit-header"})
+        self.assertEqual(
+            len(hits), 3, "There should be 3 results for the quoted search"
+        )
+
+        # Delete the documents that were added to the index for the purposes of the test
+        delete_json = {
+            "query": {"match": {"datadocument_subtitle": "test_phrase_search"}}
+        }
+
+        cleanup_response = requests.post(
+            f"http://{self.esurl}/dashboard/_delete_by_query/",
+            json=delete_json,
+            headers=self.auth_header,
+        )
+        self.assertEqual(200, cleanup_response.status_code)
