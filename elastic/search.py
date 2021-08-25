@@ -201,7 +201,7 @@ def run_query(
     s = s.highlight_options(order="score")
     s = s.highlight("*")
     # Determine if the search term was a quoted phrase
-    quoted = q != q.strip('"')
+    quoted = q != q.strip('"') or q != q.strip("'")
     # add the query with optional fuzziness
     if fuzzy:
         s = s.query(
