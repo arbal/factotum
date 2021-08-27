@@ -444,6 +444,14 @@ class TestSearch(TestCase):
         self.assertEqual(
             len(hits), 3, "There should be 3 results for the quoted search"
         )
+        # the result counts in the tabs should match the other counts
+        nav_tabs = soup.find('ul', attrs={'class': 'nav-tabs'})
+        badges = nav_tabs.find_all("span", {"class": "badge-light"})
+        # Products,  Documents, PUCs, Chemicals, Tags 
+        self.assertEqual(
+            str(len(hits)), badges[0].text, "The result count in the Products badge should match the number of h5 elements below"
+        )
+
         # single quotes should have the same behavior
         b64 = base64.b64encode(b"'pet shampoo'").decode("unicode_escape")
         response = self.client.get("/search/product/?q=" + b64)
@@ -451,6 +459,13 @@ class TestSearch(TestCase):
         hits = soup.find_all("h5", {"class": "hit-header"})
         self.assertEqual(
             len(hits), 3, "There should be 3 results for the quoted search"
+        )
+        # the result counts in the tabs should match the other counts
+        nav_tabs = soup.find('ul', attrs={'class': 'nav-tabs'})
+        badges = nav_tabs.find_all("span", {"class": "badge-light"})
+        # Products,  Documents, PUCs, Chemicals, Tags 
+        self.assertEqual(
+            str(len(hits)), badges[0].text, "The result count in the Products badge should match the number of h5 elements below"
         )
 
         # Delete the documents that were added to the index for the purposes of the test

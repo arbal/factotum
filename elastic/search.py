@@ -361,7 +361,8 @@ def get_unique_count(q, model, fuzzy=False, connection="default"):
         s = s.query(MultiMatch(query=q, fields=fields, fuzziness="AUTO"))
     else:
         # check for a quoted phrase
-        if q != q.strip('"'):
+        quoted = q != q.strip('"') or q != q.strip("'")
+        if quoted:
             s = s.query(
                 MultiMatch(
                     query=q,
