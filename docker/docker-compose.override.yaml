@@ -43,6 +43,7 @@ services:
       MAX_UPLOAD_SIZE: ${MAX_UPLOAD_SIZE:-5242880}
       MEDIA_ROOT: /app/media
       MEDIA_URL: ${MEDIA_URL:-http://factotum.epa.gov/media/}
+      DOWNLOADS_ROOT: /app/downloads
       PRODUCT_IMAGE_DIRECTORY_MAX_UPLOAD: ${PRODUCT_IMAGE_DIRECTORY_MAX_UPLOAD:-5000000}
       PRODUCT_IMAGE_DIRECTORY_MAX_FILE_COUNT: ${PRODUCT_IMAGE_DIRECTORY_MAX_FILE_COUNT:-500}
       PRODUCT_IMAGE_MAX_SIZE: ${PRODUCT_IMAGE_MAX_SIZE:-1000000}
@@ -60,6 +61,7 @@ services:
       ROOT_URLCONF: ${ROOT_URLCONF:-factotum}
     volumes:
       - ${MEDIA_ROOT}:/app/media
+      - ${DOWNLOADS_ROOT}:/app/downloads
       - celeryfiletasks:/app/celeryfiles
       - factotumstatic:/app/collected_static
     depends_on:
@@ -73,6 +75,7 @@ services:
       - ${FACTOTUM_WS_PORT:-8001}:${FACTOTUM_WS_PORT:-8001}
     volumes:
       - ${MEDIA_ROOT}:/app/media/:ro
+      - ${DOWNLOADS_ROOT}:/app/downloads/:ro
       - factotumstatic:/app/collected_static:ro
     depends_on:
       - factotum
@@ -167,6 +170,7 @@ services:
       <<: *factotum_env
     volumes:
       - ${MEDIA_ROOT}:/app/media
+      - ${DOWNLOADS_ROOT}:/app/downloads
       - celeryfiletasks:/app/celeryfiles
     depends_on:
       - factotum
@@ -182,6 +186,7 @@ services:
       GENERATE_BULK_DOWNLOAD_SCHEDULE: ${GENERATE_BULK_DOWNLOAD_SCHEDULE:-}
     volumes:
       - ${MEDIA_ROOT}:/app/media
+      - ${DOWNLOADS_ROOT}:/app/downloads
       - celeryfiletasks:/app/celeryfiles
     depends_on:
       - factotum

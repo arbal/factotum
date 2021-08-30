@@ -190,7 +190,7 @@ MESSAGE_TAGS = {
 }
 
 DOCS_ROOT = os.path.join(BASE_DIR, "docs/_build/html")
-CSV_STORAGE_ROOT = os.path.join(BASE_DIR, "csv_storage")
+DOWNLOADS_ROOT = os.path.join(BASE_DIR, "csv_storage")
 
 EXTRA = 1
 
