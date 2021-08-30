@@ -35,13 +35,9 @@ from dashboard.models import (
     ExtractedLMRec,
     StatisticalValue,
 )
-from dashboard.models.extracted_lmrec import (
-    HarmonizedMedium,
-)
+from dashboard.models.extracted_lmrec import HarmonizedMedium
 
-from dashboard.models.statistical_value import (
-    VALUE_TYPE_CHOICES,
-)
+from dashboard.models.statistical_value import VALUE_TYPE_CHOICES
 
 from dashboard.models.functional_use import FunctionalUseToRawChem
 

@@ -205,9 +205,7 @@ def run_query(
     # add the query with optional fuzziness
     if fuzzy:
         s = s.query(
-            MultiMatch(
-                query=q, fields=fields, type="most_fields", fuzziness="AUTO"
-            )
+            MultiMatch(query=q, fields=fields, type="most_fields", fuzziness="AUTO")
         )
     else:
         # s = s.query(MultiMatch(query=q, fields=fields, type="most_fields"))
@@ -224,10 +222,7 @@ def run_query(
         else:
             s = s.query(
                 MultiMatch(
-                    query=q,
-                    fields=fields,
-                    type="most_fields",
-                    tie_breaker="0.5",
+                    query=q, fields=fields, type="most_fields", tie_breaker="0.5"
                 )
             )
     # collapse on id_field
@@ -379,10 +374,7 @@ def get_unique_count(q, model, fuzzy=False, connection="default"):
         else:
             s = s.query(
                 MultiMatch(
-                    query=q,
-                    fields=fields,
-                    type="best_fields",
-                    tie_breaker="0.5",
+                    query=q, fields=fields, type="best_fields", tie_breaker="0.5"
                 )
             )
 
