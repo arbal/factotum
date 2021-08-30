@@ -12,7 +12,10 @@ from dashboard.models import (
     ExtractedText,
     ExtractedCPCat,
     ExtractedHHDoc,
+    ExtractedLMDoc,
     ExtractedHHRec,
+    ExtractedLMRec,
+    ExtractedHPDoc,
     ExtractedComposition,
     ExtractedHabitsAndPracticesToTag,
     ExtractedListPresence,
@@ -485,12 +488,26 @@ class TestDynamicDetailFormsets(TestCase):
                 # ExtractedCPCat objects
                 if doc.data_group.group_type.code == "CP":
                     self.assertEqual(type(extsub), ExtractedCPCat)
+                elif doc.data_group.group_type.code == "CO":
+                    self.assertEqual(type(extsub), ExtractedText)
                 elif doc.data_group.group_type.code == "HH":
                     self.assertEqual(type(extsub), ExtractedHHDoc)
+                elif doc.data_group.group_type.code == "HP":
+                    self.assertEqual(type(extsub), ExtractedHPDoc)
+                elif doc.data_group.group_type.code == "LM":
+                    self.assertEqual(type(extsub), ExtractedLMDoc)
+                elif doc.data_group.group_type.code == "FU":
+                    self.assertEqual(type(extsub), ExtractedText)
                 else:
+                    print(f"doc: {doc.id} --- {doc.data_group.group_type.code}")
                     self.assertEqual(type(extsub), ExtractedText)
             except ObjectDoesNotExist:
                 pass
+            except Exception as inst:
+                self.assertIsNone(
+                    inst,
+                    f"the subclass of document {doc.id}: {doc} is {type(extsub)} \n with a group type of {doc.data_group.group_type.code}",
+                )
 
     def test_every_extractedtext(self):
         """'Loop through all the ExtractedText objects and confirm that the new
@@ -696,6 +713,61 @@ class TestDynamicDetailFormsets(TestCase):
         response = self.client.get("/datadocument/%i/" % data_document.pk)
 
         self.assertTemplateUsed("data_document/functional_use_cards.html")
+
+    def test_hh_chemical_cards(self):
+        data_document = DataDocument.objects.get(pk=354782)
+        response = self.client.get("/datadocument/%i/" % data_document.pk)
+        self.assertTemplateUsed("data_document/lm_cards.html")
+        # create a new HHRec and assign its attributes
+        hhrec = ExtractedHHRec(
+            raw_chem_name="Chemname",
+            raw_cas="45-9-1",
+            sampling_method="test sampling method",
+            extracted_text=data_document.extractedtext,
+            analytical_method="test analytical_method",
+            medium="air",
+            num_measure="30",
+            num_nondetect="5",
+            detect_freq=0.25,
+            detect_freq_type="R",
+            LOD=2,
+            LOQ=4,
+        )
+        hhrec.save()
+        response = self.client.get("/datadocument/%i/cards" % data_document.id)
+        page = html.fromstring(response.content)
+
+        raw_chem_name = page.xpath(
+            '//*[@id="raw_chem_name-' + str(hhrec.id) + '"]/small'
+        )[0].text
+        self.assertIn(hhrec.raw_chem_name, raw_chem_name)
+
+        fieldpairs = zip(
+            [
+                "detection-frequency",
+                "detection-frequency-type",
+                "sampling-method",
+                "analytical-method",
+                "medium",
+                "LOD",
+                "LOQ",
+            ],
+            [
+                "detect_freq",
+                "detect_freq_type",
+                "sampling_method",
+                "analytical_method",
+                "medium",
+                "LOD",
+                "LOQ",
+            ],
+        )
+        for id, fieldname in fieldpairs:
+            try:
+                element = page.xpath(f'//*[@id="{id}-{str(hhrec.id)}"]/span[2]')[0]
+                self.assertIn(str(getattr(hhrec, fieldname)), element.text)
+            except:
+                pass
 
     def test_organization_presence(self):
         for doc_id in [

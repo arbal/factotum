@@ -126,31 +126,8 @@
                         {% endif %}
 
 
-                        {% if doc.data_group.is_hh %}
-                            <ul>
-                                <li>
-                                    <b>{{ chemical.medium_label }}</b>
-                                    <p>{{ chemical.medium }}</p>
-                                </li>
-                                <li>
-                                    <b>{{ chemical.num_measure_label }}</b>
-                                    <p>{{ chemical.num_measure }}</p>
-                                </li>
-                                <li>
-                                    <b>{{ chemical.num_nondetect_label }}</b>
-                                    <p>{{ chemical.num_nondetect }}</p>
-                                </li>
-                                <li>
-                                    <b>{{ chemical.sampling_method_label }}</b>
-                                    <p>{{ chemical.sampling_method }}</p>
-                                </li>
-                                <li>
-                                    <b>{{ chemical.analytical_method_label }}</b>
-                                    <p>{{ chemical.analytical_method }}</p>
-                                </li>
-                            </ul>
-                        {% else %}
-                            {% if doc.data_group.can_have_funcuse %}
+
+                        {% if doc.data_group.can_have_funcuse %}
                                 <div class="row">
                                     <div class="col-md-9" id="functional_uses_{{ chemical.id }}">
                                         <b>Reported Functional Uses</b>
@@ -165,7 +142,6 @@
                                     {% endif %}
                                 </div>
                             {% endif %}
-                        {% endif %}
                     </div>
                 </div>
                 <div class="modal fade"

@@ -7,7 +7,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait, Select
 
-from dashboard.models import DataDocument, ExtractedText, ExtractedLMRec, FunctionalUse
+from dashboard.models import (
+    DataDocument,
+    ExtractedText,
+    ExtractedLMRec,
+    FunctionalUse,
+    StatisticalValue,
+)
 from dashboard.tests.loader import fixtures_standard, load_browser
 
 
@@ -531,6 +537,15 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 len(self.browser.find_elements_by_id(id)) > 0,
                 f"Could not find element with id {id}",
             )
+            self.assertTrue(
+                len(
+                    self.browser.find_element_by_xpath(
+                        "//span[@id='" + id + "']/following-sibling::small"
+                    )
+                )
+                > 0,
+                f"Could not find help text for with id {id}",
+            )
 
         self.assertFalse(
             len(self.browser.find_elements_by_id("id_raw_central_comp")) > 0
@@ -562,119 +577,132 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.browser.find_element_by_id("id_population_description").send_keys(
             "The population is described here"
         )
-        self.browser.find_element_by_id("id_sampling_method").send_keys(
-            "The sampling method is often a very long decription of the field process."
+
+    self.browser.find_element_by_id("id_sampling_method").send_keys(
+        "The sampling method is often a very long decription of the field process."
+    )
+
+
+self.browser.find_element_by_id("id_num_measure").send_keys("60")
+self.browser.find_element_by_id("id_num_nondetect").send_keys("10")
+
+statvalue_name = Select(self.browser.find_element_by_id("id_statistics-0-name"))
+statvalue_name.select_by_visible_text("Mean")
+self.browser.find_element_by_id("id_statistics-0-value").send_keys("55")
+self.browser.find_element_by_id("id_statistics-0-stat_unit").send_keys("percent")
+statvalue_stat_type = Select(
+    self.browser.find_element_by_id("id_statistics-0-value_type")
+)
+statvalue_stat_type.select_by_visible_text("Reported")
+
+save_button.click()
+
+time.sleep(3)
+# query for the latest chemical
+
+lm_chem = ExtractedLMRec.objects.filter(extracted_text_id=doc.pk).order_by("id").last()
+
+# Confirm that the edits were written to the ExtractedLMRec object
+self.assertEqual(lm_chem.updated_by, User.objects.get(username="Karyn"))
+self.assertTrue(lm_chem.updated_at != "")
+self.assertEqual(lm_chem.num_measure, 60)
+self.assertEqual(lm_chem.num_nondetect, 10)
+
+statvalue = StatisticalValue.objects.filter(rawchem_id=lm_chem.pk).order_by("id").last()
+self.assertEqual(statvalue.name, "MEAN")
+self.assertEqual(statvalue.value, 55)
+self.assertEqual(statvalue.stat_unit, "percent")
+self.assertEqual(statvalue.value_type, "R")
+
+self.assertInHTML(
+    "The Rawest Chem Name",
+    self.browser.find_element_by_id(f"raw_chem_name-{lm_chem.pk}").text,
+)
+
+
+def test_co_multiple_fu(self):
+    doc = DataDocument.objects.get(pk=7)
+
+    list_url = self.live_server_url + f"/datadocument/{doc.pk}/"
+    self.browser.get(list_url)
+    chem = doc.extractedtext.rawchem.first()
+    wait = WebDriverWait(self.browser, 10)
+    update_button = wait.until(
+        ec.element_to_be_clickable((By.XPATH, f'//*[@id="chemical-update-{chem.pk}"]'))
+    )
+    update_button.click()
+
+    # Verify that the modal window appears by finding the Save button
+    # The modal window does not immediately appear, so the browser
+    # should wait for the button to be clickable
+
+    save_button = wait.until(
+        ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
+    )
+
+    # verify that Add Functional Use button exists
+    funcuse_add_btn = self.browser.find_element_by_xpath(f'//*[@id="funcuse-add"]')
+    funcuse_add_btn.click()
+    new_funcuse_box = wait.until(
+        ec.element_to_be_clickable(
+            (By.XPATH, f"//*[@id='id_functionalusetorawchem_set-1-report_funcuse']")
         )
-        self.browser.find_element_by_id("id_num_measure").send_keys("60")
-        self.browser.find_element_by_id("id_num_nondetect").send_keys("10")
-        save_button.click()
+    )
+    new_funcuse_box.send_keys("adhesive")
+    save_button.click()
 
-        time.sleep(3)
-        # query for the latest chemical
+    # Reload the page after saving
+    self.browser.get(list_url)
 
-        lm_chem = (
-            ExtractedLMRec.objects.filter(extracted_text_id=doc.pk)
-            .order_by("id")
-            .last()
+    new_fu = chem.functional_uses.get(report_funcuse="adhesive")
+
+    self.assertIsNotNone(new_fu)
+    time.sleep(1)
+    functional_uses_col = self.browser.find_element_by_xpath(
+        f'//*[@id="functional_uses_{new_fu.id}"]'
+    )
+    self.assertIn("adhesive", functional_uses_col.text)
+
+
+def test_cp_multiple_fu(self):
+    doc = DataDocument.objects.get(pk=354787)
+
+    list_url = self.live_server_url + f"/datadocument/{doc.pk}/"
+    self.browser.get(list_url)
+    chem = doc.extractedtext.rawchem.first()
+
+    self.browser.find_element_by_xpath(f'//*[@id="chemical-update-{chem.pk}"]').click()
+
+    # Verify that the modal window appears by finding the Save button
+    # The modal window does not immediately appear, so the browser
+    # should wait for the button to be clickable
+    wait = WebDriverWait(self.browser, 10)
+    save_button = wait.until(
+        ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
+    )
+
+    # verify that Add Functional Use button exists
+    funcuse_add_btn = self.browser.find_element_by_xpath(f'//*[@id="funcuse-add"]')
+    funcuse_add_btn.click()
+    new_funcuse_box = wait.until(
+        ec.element_to_be_clickable(
+            (By.XPATH, f"//*[@id='id_functionalusetorawchem_set-1-report_funcuse']")
         )
+    )
+    new_funcuse_box.send_keys("adhesive")
+    save_button.click()
 
-        # Confirm that the edits were written to the ExtractedLMRec object
-        self.assertEqual(lm_chem.updated_by, User.objects.get(username="Karyn"))
-        self.assertTrue(lm_chem.updated_at != "")
-        self.assertEqual(lm_chem.num_measure, 60)
-        self.assertEqual(lm_chem.num_nondetect, 10)
+    # Reload the page after saving
+    self.browser.get(list_url)
 
-        self.assertInHTML(
-            "The Rawest Chem Name",
-            self.browser.find_element_by_id(f"raw_chem_name-{lm_chem.pk}").text,
+    new_fu = chem.functional_uses.get(report_funcuse="adhesive")
+
+    self.assertIsNotNone(new_fu)
+
+    functional_uses_col = wait.until(
+        ec.element_to_be_clickable(
+            (By.XPATH, f'//*[@id="functional_uses_{new_fu.id}"]')
         )
+    )
 
-    def test_co_multiple_fu(self):
-        doc = DataDocument.objects.get(pk=7)
-
-        list_url = self.live_server_url + f"/datadocument/{doc.pk}/"
-        self.browser.get(list_url)
-        chem = doc.extractedtext.rawchem.first()
-        wait = WebDriverWait(self.browser, 10)
-        update_button = wait.until(
-            ec.element_to_be_clickable(
-                (By.XPATH, f'//*[@id="chemical-update-{chem.pk}"]')
-            )
-        )
-        update_button.click()
-
-        # Verify that the modal window appears by finding the Save button
-        # The modal window does not immediately appear, so the browser
-        # should wait for the button to be clickable
-
-        save_button = wait.until(
-            ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
-        )
-
-        # verify that Add Functional Use button exists
-        funcuse_add_btn = self.browser.find_element_by_xpath(f'//*[@id="funcuse-add"]')
-        funcuse_add_btn.click()
-        new_funcuse_box = wait.until(
-            ec.element_to_be_clickable(
-                (By.XPATH, f"//*[@id='id_functionalusetorawchem_set-1-report_funcuse']")
-            )
-        )
-        new_funcuse_box.send_keys("adhesive")
-        save_button.click()
-
-        # Reload the page after saving
-        self.browser.get(list_url)
-
-        new_fu = chem.functional_uses.get(report_funcuse="adhesive")
-
-        self.assertIsNotNone(new_fu)
-        time.sleep(1)
-        functional_uses_col = self.browser.find_element_by_xpath(
-            f'//*[@id="functional_uses_{new_fu.id}"]'
-        )
-        self.assertIn("adhesive", functional_uses_col.text)
-
-    def test_cp_multiple_fu(self):
-        doc = DataDocument.objects.get(pk=354787)
-
-        list_url = self.live_server_url + f"/datadocument/{doc.pk}/"
-        self.browser.get(list_url)
-        chem = doc.extractedtext.rawchem.first()
-
-        self.browser.find_element_by_xpath(
-            f'//*[@id="chemical-update-{chem.pk}"]'
-        ).click()
-
-        # Verify that the modal window appears by finding the Save button
-        # The modal window does not immediately appear, so the browser
-        # should wait for the button to be clickable
-        wait = WebDriverWait(self.browser, 10)
-        save_button = wait.until(
-            ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
-        )
-
-        # verify that Add Functional Use button exists
-        funcuse_add_btn = self.browser.find_element_by_xpath(f'//*[@id="funcuse-add"]')
-        funcuse_add_btn.click()
-        new_funcuse_box = wait.until(
-            ec.element_to_be_clickable(
-                (By.XPATH, f"//*[@id='id_functionalusetorawchem_set-1-report_funcuse']")
-            )
-        )
-        new_funcuse_box.send_keys("adhesive")
-        save_button.click()
-
-        # Reload the page after saving
-        self.browser.get(list_url)
-
-        new_fu = chem.functional_uses.get(report_funcuse="adhesive")
-
-        self.assertIsNotNone(new_fu)
-
-        functional_uses_col = wait.until(
-            ec.element_to_be_clickable(
-                (By.XPATH, f'//*[@id="functional_uses_{new_fu.id}"]')
-            )
-        )
-
-        self.assertIn("adhesive", functional_uses_col.text)
+    self.assertIn("adhesive", functional_uses_col.text)

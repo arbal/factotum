@@ -21,8 +21,9 @@ from dashboard.models import (
     RawChem,
     ExtractedLMDoc,
     ExtractedLMRec,
+    StatisticalValue,
 )
-from dashboard.models.extracted_lmrec import HarmonizedMedium, StatisticalValue
+from dashboard.models.extracted_lmrec import HarmonizedMedium
 from dashboard.tests.mixins import TempFileMixin
 
 
@@ -593,7 +594,7 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         self.assertEquals(lmrec.LOD, chem1.LOD)
         self.assertEquals(lmrec.LOQ, chem1.LOQ)
 
-        stats1 = StatisticalValue.objects.filter(record=chem1)
+        stats1 = StatisticalValue.objects.filter(rawchem_id=chem1.rawchem_ptr_id)
         self.assertEquals(2, stats1.count())
         stat_value = stats1.first()
         self.assertEquals(stat_value.name, "median")
@@ -620,7 +621,7 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         self.assertIsNone(chem2.detect_freq_type)
         self.assertIsNone(chem2.LOD)
         self.assertIsNone(chem2.LOQ)
-        stats2 = StatisticalValue.objects.filter(record=chem2)
+        stats2 = StatisticalValue.objects.filter(rawchem_id=chem2.rawchem_ptr_id)
         self.assertEquals(0, stats2.count())
 
         chem3 = ExtractedLMRec.objects.filter(
@@ -643,7 +644,7 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         self.assertEquals(lmrec.LOD, chem3.LOD)
         self.assertEquals(lmrec.LOQ, chem3.LOQ)
 
-        stats3 = StatisticalValue.objects.filter(record=chem3)
+        stats3 = StatisticalValue.objects.filter(rawchem_id=chem3.rawchem_ptr_id)
         self.assertEquals(1, stats3.count())
         stat_value = stats3.first()
         self.assertEquals(stat_value.name, "mean")

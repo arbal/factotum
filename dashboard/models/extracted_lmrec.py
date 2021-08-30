@@ -1,23 +1,20 @@
 from django.db import models
-from django.apps import apps
 
-from django.db.models import Value, CharField
 from django_db_views.db_view import DBView
 from django.db.models import Q
 from django.urls import reverse
 from .raw_chem import RawChem
 from .data_document import DataDocument
 from .common_info import CommonInfo
-from dashboard.models.custom_onetoone_field import CustomOneToOneField
 
-TYPE_CHOICES = (("R", "Reported"), ("C", "Computed"))
+DETECT_FREQ_TYPE_CHOICES = (("R", "Reported"), ("C", "Computed"))
 GENDER_CHOICES = (("M", "Male"), ("F", "Female"), ("A", "All"), ("O", "Other"))
 
 
 class UnionExtractedLMHHRec(DBView):
     """
-    This is a database view that unions the ExtractedLMRec and ExtractedHHRec 
-    tables 
+    This is a database view that unions the ExtractedLMRec and ExtractedHHRec
+    tables
     """
 
     rawchem = models.ForeignKey(RawChem, on_delete=models.DO_NOTHING)
@@ -82,43 +79,95 @@ class ExtractedLMRec(RawChem):
     Its parent records use the `dashboard.models.extracted_lmdoc.ExtractedLMDoc` model.
     """
 
-    study_location = models.CharField(max_length=200, blank=True, null=True)
-    sampling_date = models.DateField(blank=True, null=True)
-    population_description = models.CharField(max_length=200, blank=True, null=True)
+    study_location = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="Location where the study was performed",
+    )
+    sampling_date = models.DateField(
+        blank=True,
+        null=True,
+        help_text="Date or date range when the study was performed",
+    )
+    population_description = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="General description of the population studied",
+    )
     population_gender = models.CharField(
-        max_length=30, choices=GENDER_CHOICES, blank=True, null=True
+        max_length=30,
+        choices=GENDER_CHOICES,
+        blank=True,
+        null=True,
+        help_text="Gender or genders of the population studied",
     )
     population_age = models.CharField(
         max_length=200,
-        help_text="Age can be reported as age ranges, or descriptive groups (adults, children, etc.)",
+        help_text="Age groups or age ranges studied in the population",
         blank=True,
         null=True,
     )
     population_other = models.CharField(
         max_length=200,
-        help_text="Used for occupational or other population stratifiers we want to retain at the chemical level.",
+        help_text="Other population information such as occupation",
         blank=True,
         null=True,
     )
-    sampling_method = models.CharField(max_length=200, blank=True, null=True)
-    analytical_method = models.CharField(max_length=200, blank=True, null=True)
-    medium = models.CharField(max_length=200, blank=True, null=True)
+    sampling_method = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="Reported method by which the media samples were collected",
+    )
+    analytical_method = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="Reported method by which the media samples were analyzed",
+    )
+    medium = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="Environmental or biological medium studied (as reported)",
+    )
     harmonized_medium = models.ForeignKey(
         "HarmonizedMedium",
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
         default=None,
-        related_name="record",
+        related_name="lm_record",
+        help_text="Medium harmonized to standard categories used in Factotum",
     )
-    num_measure = models.IntegerField(null=True, blank=True)
-    num_nondetect = models.IntegerField(null=True, blank=True)
-    detect_freq = models.FloatField(null=True, blank=True)
+    num_measure = models.IntegerField(
+        null=True, blank=True, help_text="Total number of measurements taken"
+    )
+    num_nondetect = models.IntegerField(
+        null=True, blank=True, help_text="Reported number of non-detects"
+    )
+    detect_freq = models.FloatField(
+        null=True,
+        blank=True,
+        verbose_name="Detection frequency",
+        help_text="Detection frequency in the medium",
+    )
     detect_freq_type = models.CharField(
-        max_length=1, choices=TYPE_CHOICES, blank=True, null=True
+        max_length=1,
+        choices=DETECT_FREQ_TYPE_CHOICES,
+        blank=True,
+        null=True,
+        verbose_name="Detection frequency type",
+        help_text="Indicates whether the detection frequency was reported in study or computed by data curators",
     )
-    LOD = models.FloatField("LOD", null=True, blank=True)
-    LOQ = models.FloatField("LOQ", null=True, blank=True)
+    LOD = models.FloatField(
+        "LOD", null=True, blank=True, help_text="Analytical limit of detection"
+    )
+    LOQ = models.FloatField(
+        "LOQ", null=True, blank=True, help_text="Analytical limit of quantification"
+    )
 
     @classmethod
     def auditlog_fields(cls):
@@ -134,6 +183,7 @@ class ExtractedLMRec(RawChem):
             {
                 "name": self._meta.get_field(field).verbose_name,
                 "value": getattr(self, field),
+                "help_text": self._meta.get_field(field).help_text,
             }
             for field in [
                 "study_location",
@@ -155,35 +205,6 @@ class ExtractedLMRec(RawChem):
             ]
             if getattr(self, field)
         ]
-
-
-class StatisticalValue(CommonInfo):
-    """
-    This contains statistical values for Literature Monitoring Records.
-
-    Used in a many to one relationship to ExtractedLMRec.
-    """
-
-    record = models.ForeignKey(
-        "ExtractedLMRec", on_delete=models.CASCADE, related_name="statistics"
-    )
-
-    name = models.CharField(max_length=30)
-    value = models.FloatField()
-    value_type = models.CharField(max_length=1, choices=TYPE_CHOICES)
-    # It would be best to leave this non-standardized.
-    # There are many ways to represent the units, so it would be difficult to make a standard list.
-    stat_unit = models.CharField(max_length=30)
-
-    def clean(self):
-        # Strip whitespace from stat_unit
-        self.stat_unit = self.stat_unit.strip()
-        for k, v in TYPE_CHOICES:
-            if self.value_type and self.value_type.lower() == v.lower():
-                self.value_type = k
-
-    def __str__(self):
-        return f"{self.name} {self.value} {self.stat_unit}"
 
 
 class HarmonizedMedium(CommonInfo):

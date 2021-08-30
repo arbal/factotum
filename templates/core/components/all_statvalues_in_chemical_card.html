@@ -1,0 +1,25 @@
+{% if chemical.statistics.all %}
+    <div class="row my-3" title="{{ chemical.statistics.all.0.get_help_text }}">
+        <div class="col-auto">
+            <span class="font-weight-bold">Statistical Values</span>
+        </div>
+
+        <div class="col-7">
+            {% for statistical_value in chemical.statistics.all %}
+                <div class="row">
+                    <div class="col-4 mx-0 text-right">
+                        <span>{{ statistical_value.get_name_display }}</span>
+                    </div>
+                    <div class="col-4 mx-0">
+                        <span>{{ statistical_value.value }}</span>
+                        <span>{{ statistical_value.stat_unit }}</span>
+                    </div>
+                    <div class="col-4 mx-0">
+                        <small>{{ statistical_value.get_value_type_display }}</small>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+

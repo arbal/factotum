@@ -12,6 +12,7 @@ from dashboard.models import (
     Script,
     DataGroup,
     QANotes,
+    data_document,
 )
 
 
@@ -101,7 +102,7 @@ class ExtractedQaTestWithFixtures(TestCase):
             ).count()
             factory_count = (doc_count // 2) + 1
 
-            extext = factories.ExtractedTextFactory.create_batch(
+            factories.ExtractedTextFactory.create_batch(
                 factory_count,
                 data_document__data_group=dg,
                 extraction_script=script,
@@ -149,3 +150,54 @@ class ExtractedQaTestWithFixtures(TestCase):
         self.assertIn(data_group.name, row[0])
         self.assertIn(extext.data_document.title, row[1])
         self.assertEquals(notes, row[2])
+
+        # pick a new ExtractedText to work with
+        extext = ExtractedText.objects.filter(
+            data_document__data_group=data_group, extraction_script=script
+        )[5]
+        docid = extext.pk
+        # Open a document's QA page
+        response = self.client.get(reverse("extracted_text_qa", kwargs={"pk": docid}))
+
+        # The breadcrumb navigation should direct to the manualcomposition path
+        self.assertContains(response, f"/qa/manualcomposition/{data_group.id}/")
+
+        # The count of remaining documents should reflect the data group's manual
+        # documents, not the QAGroup for the manual extraction script.
+        a = extext.get_approved_doc_count()
+        r = extext.get_qa_queryset().filter(qa_checked=False).count()
+        stats = "%s document(s) approved, %s documents remaining" % (a, r)
+
+        self.assertContains(response, stats)
+
+        # Approval should redirect to the next manually-extracted composition
+        # record in the data group
+        nextid = extext.next_extracted_text_in_qa_group()
+        response = self.client.post(f"/extractedtext/approve/{extext.pk}/", follow=True)
+        self.assertRedirects(response, f"/qa/extractedtext/{nextid}/")
+
+        # Confirm that the approval was applied
+        self.assertTrue(ExtractedText.objects.get(pk=docid).qa_checked)
+
+        # the page is showing a new document now
+        extext = ExtractedText.objects.get(pk=nextid)
+        # Check that the title matches
+        self.assertContains(response, f"Data Document: {extext.data_document.title}")
+
+        # On the post-approval page:
+        # the approved/remaining counts should be incremented or decremented
+        # accordingly
+        a = a + 1
+        r = r - 1
+        stats = "%s document(s) approved, %s documents remaining" % (a, r)
+        self.assertContains(response, stats)
+
+        # The "exit" button should return the user to the QA summary
+        # page for the data group, not the script.
+
+        # update the nextid
+        nextid = extext.next_extracted_text_in_qa_group()
+        skip_html = f'href="/qa/extractedtext/{nextid}/"'
+        # The "skip" button should return the user to the QA summary
+        # page for the data group, not the script.
+        self.assertContains(response, skip_html)

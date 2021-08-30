@@ -643,6 +643,12 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         wait.until(ec.element_to_be_clickable((By.ID, "no-co-data-btn")))
         self.browser.find_element_by_id("no-co-data-btn").click()
         wait.until(ec.element_to_be_clickable((By.ID, "confirm-btn")))
+
+        self.assertIn(
+            f"all {chems.count()} chemicals",
+            self.browser.find_element_by_xpath("//*[@id='no-comp-data-confirm']").text,
+        )
+
         self.browser.find_element_by_id("confirm-btn").click()
         wait.until(
             ec.text_to_be_present_in_element(

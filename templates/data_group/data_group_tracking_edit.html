@@ -36,9 +36,10 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        Are you sure to reset the Has Composition Data flag for all chemicals in this group
-                        and set the Composition Cleaned step status to N/A?
+                    <div class="modal-body" id="no-comp-data-confirm">
+                        Are you sure you want to reset the <b>Has Composition Data</b> flag for
+                        {{ co_count|pluralize:"the,all" }} {{ co_count }} chemical{{ co_count|pluralize }}
+                        in this group and set the Composition Cleaned step status to N/A?
                     </div>
                     <div class="modal-footer">
                         <button id="cancel-btn"

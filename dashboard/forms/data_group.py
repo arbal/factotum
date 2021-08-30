@@ -33,13 +33,12 @@ from dashboard.models import (
     WeightFractionType,
     ExtractedLMDoc,
     ExtractedLMRec,
-)
-from dashboard.models.extracted_lmrec import (
     StatisticalValue,
-    HarmonizedMedium,
-    GENDER_CHOICES,
-    TYPE_CHOICES,
 )
+from dashboard.models.extracted_lmrec import HarmonizedMedium
+
+from dashboard.models.statistical_value import VALUE_TYPE_CHOICES
+
 from dashboard.models.functional_use import FunctionalUseToRawChem
 
 from dashboard.utils import (
@@ -405,7 +404,7 @@ class LiteratureMonitorExtractFileForm(BaseExtractFileForm):
                     stat_val.clean()
                     # validate statistical value fields
                     valid_types = []
-                    for k, v in TYPE_CHOICES:
+                    for k, v in VALUE_TYPE_CHOICES:
                         valid_types.append(k)
                     has_error = False
                     if stat_val.value_type and stat_val.value_type not in valid_types:
@@ -718,7 +717,7 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
             statistics = []
             for chem, stats in zip(chems, statistical_values):
                 for stat in stats:
-                    stat.record = chem
+                    stat.rawchem_id = chem.rawchem_ptr_id
                     statistics.append(stat)
             StatisticalValue.objects.bulk_create(statistics)
         return len(self.forms)

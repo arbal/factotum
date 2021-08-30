@@ -1,0 +1,8 @@
+- model: dashboard.extractedhpdoc
+  pk: 53
+  fields:
+    extraction_completed: True
+- model: dashboard.extractedhpdoc
+  pk: 54
+  fields:
+    extraction_completed: False

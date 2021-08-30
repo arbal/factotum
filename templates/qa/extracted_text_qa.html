@@ -8,7 +8,12 @@
 {% block content %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            {% if doc.data_group.type == "CP" %}
+            {% if doc.data_group.type == "CO" and script.title == "Manual (dummy)" %}
+            <li class="breadcrumb-item"><a href="{% url "qa_manual_composition_index" %}">Manual Composition</a></li>
+            <li class="breadcrumb-item">
+                <a href="{% url "qa_manual_composition_script" doc.data_group_id %}">{{ doc.data_group }} </a>
+            </li>          
+            {% elif doc.data_group.type == "CP" %}
                 <li class="breadcrumb-item"><a href="{% url "qa_chemicalpresence_index" %}">Chemical Presence</a></li>
                 <li class="breadcrumb-item">
                     <a href="{% url "qa_chemical_presence_group" doc.data_group_id %}"> {{ doc.data_group }} </a>
@@ -163,29 +168,27 @@
                     <button type="submit" id="approve" name="approve"
                             class="btn btn-success btn-lg btn-block" role="button">Approve
                     </button>
-                    {% if referer == "qa_extraction_script" and doc.data_group.type != "CP" %}
+                    <!-- start Skip button -->
+                    {% if nextid > 0 %} <!-- there is a Next Document ID -->
                         <br>
-                        {% if nextid > 0 %}
-                            <a class="btn btn-warning btn-lg btn-block"
-                               href="{% url "extracted_text_qa" nextid %}" name="skip"
-                               role="button">Skip</a>
-                        {% else %}
+                        {% if referer == "qa_extraction_script" and doc.data_group.type != "CP" %}
+                            <!-- arrived on a non-Chemical Presence page from a script index page -->
+                                <a class="btn btn-warning btn-lg btn-block"
+                                href="{% url "extracted_text_qa" nextid %}" name="skip" id="skip" 
+                                role="button">Skip</a>
+                        {% endif %}
+                    {% else %} <!-- there is no Next Document ID -->
+                        {% if doc.data_group.type != "CP" %} <!-- show the button disabled -->
                             <button type="button"
                                     title="All the other documents in this QA group have been approved"
-                                    name="skip" class="btn btn-secondary btn-lg btn-block"
-                                    aria-disabled="true" disabled>Skip
-                            </button>
-                        {% endif %}
+                                    name="skip" id="skip" class="btn btn-secondary btn-lg btn-block"
+                                    aria-disabled="true" disabled>Skip</button>
+                        {% endif%}
                     {% endif %}
+                    <!-- end Skip button -->
                     <br>
-                    {% if referer == "qa_extraction_script" %}
-                        <a class="btn btn-secondary btn-lg btn-block"
-                           href="{% url referer doc.extractedtext.extraction_script_id %}"
-                           role="button">Exit</a>
-                    {% else %}
-                        <a class="btn btn-secondary btn-lg btn-block" href="{{ referer }}"
-                           role="button">Exit</a>
-                    {% endif %}
+                    <a class="btn btn-secondary btn-lg btn-block" href="{{ exit_url }}" id="exit" 
+                            role="button">Exit</a>
                 </form>
             </div>
 

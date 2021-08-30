@@ -93,6 +93,10 @@ python manage.py dumpdata dashboard.extractedcomposition --format=yaml > ./dashb
 python manage.py dumpdata dashboard.extractedfunctionaluse --format=yaml > ./dashboard/fixtures/07f_extractedfunctionaluse.yaml
 python manage.py dumpdata dashboard.extractedlistpresence --format=yaml > ./dashboard/fixtures/07g_extractedlistpresence.yaml
 python manage.py dumpdata dashboard.extractedhhrec --format=yaml > ./dashboard/fixtures/07h_extractedhhrec.yaml
+python manage.py dumpdata dashboard.extractedhhrec --format=yaml > ./dashboard/fixtures/07h_extractedhhrec.yaml
+python manage.py dumpdata dashboard.extractedhhrec --format=yaml > ./dashboard/fixtures/07i_extractedhpdoc.yaml
+python manage.py dumpdata dashboard.extractedhhrec --format=yaml > ./dashboard/fixtures/07i_extractedlmdoc.yaml
+python manage.py dumpdata dashboard.extractedlmrec --format=yaml > ./dashboard/fixtures/07k_extractedlmrec.yaml
 python manage.py dumpdata dashboard.script --format=yaml > ./dashboard/fixtures/08_script.yaml
 python manage.py dumpdata dashboard.productdocument --format=yaml > ./dashboard/fixtures/09_productdocument.yaml
 python manage.py dumpdata dashboard.extractedhabitsandpractices --format=yaml > ./dashboard/fixtures/10_habits_and_practices.yaml
@@ -101,5 +105,8 @@ python manage.py dumpdata dashboard.producttopuc --format=yaml > ./dashboard/fix
 python manage.py dumpdata dashboard.puctag dashboard.producttotag dashboard.puctotag --format=yaml > ./dashboard/fixtures/13_puc_tag.yaml
 python manage.py dumpdata dashboard.extractedlistpresencetag --format=yaml > ./dashboard/fixtures/14_list_presence_tag.yaml
 python manage.py dumpdata dashboard.extractedlistpresencetotag --format=yaml > ./dashboard/fixtures/15_list_presence_to_tag.yaml
-
+python manage.py dumpdata dashboard.taxonomy dashboard.taxonomysource dashboard.taxonomytopuc --format=yaml > ./dashboard/fixtures/17_taxonomy.yaml
+python manage.py dumpdata dashboard.functionaluse dashboard.functionalusecategory dashboard.functionalusetorawchem --format=yaml > ./dashboard/fixtures/18_functional_use.yaml
+python manage.py dumpdata dashboard.curationstep --format=yaml > ./dashboard/fixtures/19_curation_step.yaml
+python manage.py dumpdata dashboard.statisticalvalue --format=yaml > ./dashboard/fixtures/20_statisticalvalue.yaml
 """

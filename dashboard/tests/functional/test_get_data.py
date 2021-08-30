@@ -1,3 +1,6 @@
+import os
+import shutil
+
 from django.contrib.auth.models import User
 from django.test import TestCase, override_settings, tag
 from django.test.client import Client
@@ -16,6 +19,8 @@ from dashboard.models import (
 )
 from dashboard.tests.loader import fixtures_standard
 from dashboard.views.get_data import stats_by_dtxsids
+from factotum.settings import CSV_STORAGE_ROOT
+from dashboard.tasks import generate_bulk_download_file
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
@@ -246,15 +251,18 @@ class TestGetData(TestCase):
         )
 
     def test_download_co(self):
+        # clear files
+        path = CSV_STORAGE_ROOT
+        if os.path.exists(path):
+            shutil.rmtree(path)
+        response = self.client.get("/dl_co_chemicals/")
+        self.assertEqual(response.status_code, 404)
+
+        # invoke task to generate file
+        generate_bulk_download_file.apply()
         response = self.client.get("/dl_co_chemicals/")
         self.assertEqual(response.status_code, 200)
-        self.assertContains(
-            response,
-            "Data Source,Data Document Title,Data Document Subtitle,Document Date,Product,PUC Kind,PUC Gen Cat,PUC Prod Fam,PUC Prod Type,PUC Classification Method,Raw Chemical Name,Raw CAS,DTXSID,True Chemical Name,True CAS,Provisional,Raw Min Comp,Raw Max Comp,Raw Central Comp,Unit Type,Lower Weight Fraction,Upper Weight Fraction,Central Weight Fraction,Weight Fraction Type",
-        )
-        # the response has to be fetched again or the assertion will fail
-        response = self.client.get("/dl_co_chemicals/")
-        self.assertContains(
-            response,
-            'Walmart MSDS,body butter (PLP) Recertification / (ANHUA ZHOULI INDUSTRY),,2020-06-12,body butter,Formulation,Personal care,general moisturizing,hand/body lotion,Manual,"2,6-Di-tert-butyl-p-cresol",128-37-0,,,,No,,,,unknown,,,,reported',
+        self.assertEquals(
+            response.get("Content-Disposition"),
+            'attachment; filename="composition_chemicals.zip"',
         )

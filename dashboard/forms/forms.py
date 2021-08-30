@@ -35,9 +35,9 @@ from dashboard.models import (
     CurationStep,
     FunctionalUseToRawChem,
     ExtractedLMRec,
+    StatisticalValue,
 )
 from dashboard.models.extracted_hpdoc import ExtractedHPDoc
-from dashboard.models.extracted_lmrec import StatisticalValue
 
 from dashboard.utils import get_extracted_models
 
@@ -353,9 +353,31 @@ class RawChemToFunctionalUseForm(forms.ModelForm):
         fields = ("functional_use",)
 
 
+class RawChemToStatisticalValueForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields.update(
+            forms.fields_for_model(
+                StatisticalValue, ("name", "value", "value_type", "stat_unit")
+            )
+        )
+        self.fields["name"].widget.attrs.update({"style": "width:200px; !important"})
+        self.fields["value"].widget.attrs.update({"style": "width:120px; !important"})
+        self.fields["value_type"].widget.attrs.update(
+            {"style": "width:140px; !important"}
+        )
+        self.fields["stat_unit"].widget.attrs.update(
+            {"style": "width:120px; !important"}
+        )
+
+    class Meta:
+        model = StatisticalValue
+        fields = ("name", "value", "stat_unit", "value_type")
+
+
 class RawChemicalSubclassFormSet(BaseInlineFormSet):
-    """ The formset used for all the subclasses of RawChemical,
-    since it includes the Functional Use records as a nested formset """
+    """The formset used for all the subclasses of RawChemical,
+    since it includes the Functional Use records as a nested formset"""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -378,6 +400,15 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
                 prefix="%s-%s"
                 % (form.prefix, FunctionalUseFormset.get_default_prefix()),
             )
+            StatisticalValueFormset = forms.inlineformset_factory(
+                RawChem, StatisticalValue, form=RawChemToStatisticalValueForm, extra=0
+            )
+            form.statistical_values = StatisticalValueFormset(
+                instance=form.instance,
+                data=form.data if self.is_bound else None,
+                prefix="%s-%s"
+                % (form.prefix, StatisticalValueFormset.get_default_prefix()),
+            )
 
     def is_valid(self):
         result = super(RawChemicalSubclassFormSet, self).is_valid()
@@ -385,6 +416,8 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
             for form in self.forms:
                 if hasattr(form, "functional_uses"):
                     result = result and form.functional_uses.is_valid()
+                if result and hasattr(form, "statistical_values"):
+                    result = result and form.statistical_values.is_valid()
 
         return result
 
@@ -394,6 +427,8 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
             for form in self.forms:
                 if hasattr(form, "functional_uses"):
                     result = result or form.functional_uses.has_changed()
+                if result and hasattr(form, "statistical_values"):
+                    result = result and form.statistical_values.has_changed()
 
         return result
 
@@ -402,6 +437,9 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
             if hasattr(form, "functional_uses"):
                 for fu in form.functional_uses:
                     fu.save(commit=commit)
+            if hasattr(form, "statistical_values"):
+                for sv in form.statistical_values:
+                    sv.save(commit=commit)
         result = super(RawChemicalSubclassFormSet, self).save(commit=commit)
         return result
 
@@ -526,10 +564,15 @@ class ExtractedHHRecForm(ExtractedChemicalModelForm):
             "raw_chem_name",
             "raw_cas",
             "medium",
+            "harmonized_medium",
             "num_measure",
             "num_nondetect",
             "sampling_method",
             "analytical_method",
+            "detect_freq",
+            "detect_freq_type",
+            "LOD",
+            "LOQ",
         ]
 
 

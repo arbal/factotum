@@ -449,6 +449,9 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
     is its own QA Group, as with ExtractedCPCat and ExtractedHHDoc records.
     """
     extext = get_object_or_404(ExtractedText.objects.select_subclasses(), pk=pk)
+    MANUAL_SCRIPT_ID = (
+        Script.objects.filter(title="Manual (dummy)", script_type="EX").first().id
+    )
 
     doc = DataDocument.objects.get(pk=pk)
     exscript = extext.extraction_script
@@ -487,8 +490,8 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
         else:
             nextid = extext.next_extracted_text_in_qa_group()
         # derive number of approved records and remaining unapproved in QA Group
-        a = extext.qa_group.get_approved_doc_count()
-        r = ExtractedText.objects.filter(qa_group=extext.qa_group).count() - a
+        a = extext.get_approved_doc_count()
+        r = extext.get_qa_queryset().count() - a
         stats = "%s document(s) approved, %s documents remaining" % (a, r)
 
     # If the Referer is set but not the extractionscript or a previous extracted text page
@@ -496,6 +499,19 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
     referer = request.headers.get("Referer", "")
     if "extractionscript" in referer or "extractedtext" in referer or referer == "":
         referer = "qa_extraction_script"
+    # assign the destination link for the Exit button
+    if extext.group_type in ["CO"] and extext.extraction_script_id == MANUAL_SCRIPT_ID:
+        exit_url = reverse(
+            "qa_manual_composition_script", kwargs={"pk": doc.data_group_id}
+        )
+    elif extext.group_type in ["CP"]:
+        exit_url = reverse(
+            "qa_chemical_presence_group", kwargs={"pk": doc.data_group_id}
+        )
+    else:
+        exit_url = reverse(
+            "qa_extraction_script", kwargs={"pk": extext.extraction_script_id}
+        )
 
     # Create the formset factory for the extracted records
     # The model used for the formset depends on whether the
@@ -526,7 +542,6 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
         "document_type"
     ].queryset = DocumentType.objects.compatible(doc)
     document_type_form.fields["document_type"].label = "Data Document Type:"
-
     context = {
         "extracted_text": extext,
         "doc": doc,
@@ -538,6 +553,7 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
         "referer": referer,
         "document_type_form": document_type_form,
         "unsaved": "false",
+        "exit_url": exit_url,
         "cards": cards_detail(request, doc, flagged_qs, False).content.decode("utf8"),
     }
 

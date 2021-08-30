@@ -590,7 +590,10 @@ def edit_data_group_tracking(
 ):
     datagroup = get_object_or_404(DataGroup, pk=dg_pk)
     form = DataGroupWorkflowForm(request.POST or None, instance=datagroup)
-    data = {"datagroup": datagroup, "form": form}
+    co_count = ExtractedComposition.objects.filter(
+        extracted_text__data_document__data_group=datagroup
+    ).count()
+    data = {"datagroup": datagroup, "form": form, "co_count": co_count}
 
     if request.method == "POST":
         if form.is_valid():

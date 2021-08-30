@@ -47,8 +47,9 @@ from dashboard.models import (
     ExtractedLMDoc,
     ExtractedLMRec,
     News,
+    StatisticalValue,
 )
-from dashboard.models.extracted_lmrec import HarmonizedMedium, StatisticalValue
+from dashboard.models.extracted_lmrec import HarmonizedMedium
 
 
 class PUCAdminForm(forms.ModelForm):

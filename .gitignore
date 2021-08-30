@@ -159,3 +159,6 @@ src/
 /celeryfiles
 /celerybeat-schedule.db
 /venv37/
+
+# generated files for bulk download
+csv_storage/

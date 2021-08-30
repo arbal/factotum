@@ -22,7 +22,12 @@ class ExtractedText(CommonInfo):
         blank=True,
         help_text="The name of the product according to the extracted document",
     )
-    doc_date = models.CharField("Document date", max_length=25, blank=True)
+    doc_date = models.CharField(
+        "Document date",
+        max_length=25,
+        blank=True,
+        help_text="Date the study document was published",
+    )
     rev_num = models.CharField("Revision number", max_length=50, blank=True)
     extraction_script = models.ForeignKey(
         "Script", on_delete=models.CASCADE, limit_choices_to={"script_type": "EX"}
@@ -56,15 +61,52 @@ class ExtractedText(CommonInfo):
     def group_type(self):
         return self.data_document.data_group.group_type.code
 
+    def get_qa_queryset(self):
+        """
+        The business logic that assigns a set of composition documents 
+        to a QA Group depends on whether the set of records was manually
+        extracted or extracted via a script.
+        Documents are only aggregated under the QAGroup model when the
+        QA workflow is based on their extraction script. When composition
+        documents have been manually extracted, the unit of QA aggregation
+        is the data group.   
+        """
+        # Manually-extracted composition documents
+        if self.extraction_script.title == "Manual (dummy)" and self.group_type == "CO":
+            qs = ExtractedText.objects.filter(
+                extraction_script=self.extraction_script,
+                data_document__data_group=self.data_document.data_group,
+            )
+
+        # Script-extracted composition documents
+        elif self.group_type == "CO":
+            qs = ExtractedText.objects.filter(qa_group=self.qa_group)
+        # CPCat and HHE documents are what remains
+        else:
+            qs = ExtractedText.objects.filter(
+                data_document__data_group=self.data_document.data_group
+            )
+        return qs
+
+    def get_approved_doc_count(self):
+        """
+        Returns the number of documents in the current object's
+        QA set that have been approved (moved here from the QAGroup model)
+        """
+        qs = self.get_qa_queryset().filter(qa_checked=True)
+        return qs.count()
+
     def next_extracted_text_in_qa_group(self):
+        """
+        Returns the extracted document next up in the QA cycle after
+        the current object
+        """
         nextid = 0
         # If the document is part of a Script-based QA Group, the
         # next document is drawn from that group. If it is a CPCat
         # or HHE record, there is no next document
         extextnext = get_next_or_prev(
-            ExtractedText.objects.filter(qa_group=self.qa_group, qa_checked=False),
-            self,
-            "next",
+            self.get_qa_queryset().filter(qa_checked=False), self, "next"
         )
         if extextnext:
             # Replace our item with the next one
@@ -76,13 +118,17 @@ class ExtractedText(CommonInfo):
     def get_qa_index_path(self):
         """
         The type of data group to which the extracted text object belongs
-        determines which QA index it will use.
+        and its extraction method determine which QA index it will use.
         """
         group_type_code = self.data_document.data_group.group_type.code
 
         if group_type_code in ["CP", "HH"]:
             # TODO: change HH to its own path
             return reverse("qa_chemicalpresence_index")
+        elif (
+            self.extraction_script.title == "Manual (dummy)" and group_type_code == "CO"
+        ):
+            return reverse("qa_manual_composition_index")
         else:
             return (
                 reverse("qa_extractionscript_index") + f"?group_type={group_type_code}"

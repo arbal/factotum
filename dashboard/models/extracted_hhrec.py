@@ -4,10 +4,12 @@ from six import text_type
 from .extracted_text import ExtractedText
 from .raw_chem import RawChem
 
+DETECT_FREQ_TYPE_CHOICES = (("R", "Reported"), ("C", "Computed"))
+
 
 class ExtractedHHRec(RawChem):
     """
-    This is the chemical-level detail model for human health data. 
+    This is the chemical-level detail model for human health data.
     Its parent records use the `dashboard.models.extracted_hhdoc.ExtractedHHDoc` model.
     """
 
@@ -16,6 +18,27 @@ class ExtractedHHRec(RawChem):
     analytical_method = models.TextField("Analytical Method", blank=True)
     num_measure = models.TextField("Numeric Measure", null=True, blank=True)
     num_nondetect = models.TextField("Numeric Nondetect", null=True, blank=True)
+
+    harmonized_medium = models.ForeignKey(
+        "HarmonizedMedium",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        default=None,
+        related_name="hh_record",
+    )
+    detect_freq = models.FloatField(
+        null=True, blank=True, verbose_name="Detection frequency"
+    )
+    detect_freq_type = models.CharField(
+        max_length=1,
+        choices=DETECT_FREQ_TYPE_CHOICES,
+        blank=True,
+        null=True,
+        verbose_name="Detection frequency type",
+    )
+    LOD = models.FloatField("LOD", null=True, blank=True)
+    LOQ = models.FloatField("LOQ", null=True, blank=True)
 
     class JSONAPIMeta:
         resource_name = "humanHealthRecord"
@@ -30,11 +53,37 @@ class ExtractedHHRec(RawChem):
         return [
             "raw_chem_name",
             "raw_cas",
-            "medium",
-            "num_measure",
-            "num_nondetect",
             "sampling_method",
             "analytical_method",
+            "medium",
+            "harmonized_medium",
+            "num_measure",
+            "num_nondetect",
+            "detect_freq",
+            "detect_freq_type",
+            "LOD",
+            "LOQ",
+        ]
+
+    def get_card_body_fields(self):
+        return [
+            {
+                "name": self._meta.get_field(field).verbose_name,
+                "value": getattr(self, field),
+            }
+            for field in [
+                "sampling_method",
+                "analytical_method",
+                "medium",
+                "harmonized_medium",
+                "num_measure",
+                "num_nondetect",
+                "detect_freq",
+                "detect_freq_type",
+                "LOD",
+                "LOQ",
+            ]
+            if getattr(self, field)
         ]
 
     @classmethod
