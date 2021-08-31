@@ -176,6 +176,8 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 MEDIA_URL = env.MEDIA_URL
 MEDIA_ROOT = env.MEDIA_ROOT
 
+DOWNLOADS_ROOT = env.DOWNLOADS_ROOT
+
 LOGIN_REDIRECT_URL = "index"
 LOGIN_URL = "login"
 
@@ -190,7 +192,6 @@ MESSAGE_TAGS = {
 }
 
 DOCS_ROOT = os.path.join(BASE_DIR, "docs/_build/html")
-DOWNLOADS_ROOT = os.path.join(BASE_DIR, "csv_storage")
 
 EXTRA = 1
 

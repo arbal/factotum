@@ -60,8 +60,8 @@ services:
       REDIS_PORT: ${REDIS_PORT:-6379}
       ROOT_URLCONF: ${ROOT_URLCONF:-factotum}
     volumes:
-      - ${MEDIA_ROOT}:/app/media
-      - ${DOWNLOADS_ROOT}:/app/downloads
+      - ${MEDIA_ROOT}/:/app/media
+      - ${DOWNLOADS_ROOT}/:/app/downloads
       - celeryfiletasks:/app/celeryfiles
       - factotumstatic:/app/collected_static
     depends_on:
@@ -74,8 +74,8 @@ services:
       - ${FACTOTUM_PORT:-8000}:${FACTOTUM_PORT:-8000}
       - ${FACTOTUM_WS_PORT:-8001}:${FACTOTUM_WS_PORT:-8001}
     volumes:
-      - ${MEDIA_ROOT}:/app/media/:ro
-      - ${DOWNLOADS_ROOT}:/app/downloads/:ro
+      - ${MEDIA_ROOT}/:/app/media/:ro
+      - ${DOWNLOADS_ROOT}/:/app/downloads/:ro
       - factotumstatic:/app/collected_static:ro
     depends_on:
       - factotum
@@ -160,7 +160,7 @@ services:
       SQL_PORT: ${SQL_PORT:-3306}
       SQL_USER: ${SQL_USER:-dave}
     volumes:
-      - ${MEDIA_ROOT}:/app/media
+      - ${MEDIA_ROOT}/:/app/media
 
   celery:
     build: https://github.com/HumanExposure/factotum.git#${FACTOTUM_BRANCH:-master}
@@ -169,8 +169,8 @@ services:
     environment:
       <<: *factotum_env
     volumes:
-      - ${MEDIA_ROOT}:/app/media
-      - ${DOWNLOADS_ROOT}:/app/downloads
+      - ${MEDIA_ROOT}/:/app/media
+      - ${DOWNLOADS_ROOT}/:/app/downloads
       - celeryfiletasks:/app/celeryfiles
     depends_on:
       - factotum
@@ -185,8 +185,8 @@ services:
       PROVISIONAL_ASSIGNMENT_SCHEDULE: ${PROVISIONAL_ASSIGNMENT_SCHEDULE:-}
       GENERATE_BULK_DOWNLOAD_SCHEDULE: ${GENERATE_BULK_DOWNLOAD_SCHEDULE:-}
     volumes:
-      - ${MEDIA_ROOT}:/app/media
-      - ${DOWNLOADS_ROOT}:/app/downloads
+      - ${MEDIA_ROOT}/:/app/media
+      - ${DOWNLOADS_ROOT}/:/app/downloads
       - celeryfiletasks:/app/celeryfiles
     depends_on:
       - factotum
