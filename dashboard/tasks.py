@@ -23,11 +23,11 @@ def setup_periodic_tasks(sender, **kwargs):
         provisional_sid_assignment.s(),
         name="provisional_sid_assignment",
     )
-    sender.add_periodic_task(
-        crontab(*settings.GENERATE_BULK_DOWNLOAD_SCHEDULE.split(" ")),
-        generate_bulk_download_file.s(),
-        name="generate_bulk_download_csv",
-    )
+    # sender.add_periodic_task(
+    #     crontab(*settings.GENERATE_BULK_DOWNLOAD_SCHEDULE.split(" ")),
+    #     generate_bulk_download_file.s(),
+    #     name="generate_bulk_download_csv",
+    # )
 
 
 @app.task
