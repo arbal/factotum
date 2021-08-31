@@ -48,5 +48,7 @@ def shell_logstash_populate():
     for doc_dict in docs_json:
         # add the JSON to the index
         response = requests.post(
-            f"http://{esurl}/dashboard/_doc/", json=doc_dict, headers=auth_header
+            f"http://{esurl}/dashboard/_doc/",
+            json=doc_dict,
+            headers=auth_header,
         )

@@ -201,3 +201,5 @@ class ExtractedQaTestWithFixtures(TestCase):
         # The "skip" button should return the user to the QA summary
         # page for the data group, not the script.
         self.assertContains(response, skip_html)
+
+
