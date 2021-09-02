@@ -19,7 +19,7 @@ from dashboard.models import (
 )
 from dashboard.tests.loader import fixtures_standard
 from dashboard.views.get_data import stats_by_dtxsids
-from factotum.settings import CSV_STORAGE_ROOT
+from factotum.settings import DOWNLOADS_ROOT
 from dashboard.tasks import generate_bulk_download_file
 
 
@@ -252,9 +252,9 @@ class TestGetData(TestCase):
 
     def test_download_co(self):
         # clear files
-        path = CSV_STORAGE_ROOT
-        if os.path.exists(path):
-            shutil.rmtree(path)
+        path = DOWNLOADS_ROOT
+        # if os.path.exists(path):
+        #     shutil.rmtree(path)
         response = self.client.get("/dl_co_chemicals/")
         self.assertEqual(response.status_code, 404)
 
