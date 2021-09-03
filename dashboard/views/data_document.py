@@ -49,7 +49,7 @@ from dashboard.models import (
 )
 from django.forms import inlineformset_factory
 
-from factotum.settings import CSV_STORAGE_ROOT
+from factotum.settings import DOWNLOADS_ROOT
 
 CHEMICAL_FORMS = {
     "CO": ExtractedCompositionForm,
@@ -812,7 +812,7 @@ def download_list_presence_chemicals(request):
 
 def download_composition_chemicals(request):
     filename = "composition_chemicals.zip"
-    filepath = os.path.join(CSV_STORAGE_ROOT, filename)
+    filepath = os.path.join(DOWNLOADS_ROOT, filename)
     if os.path.exists(filepath):
         return FileResponse(open(filepath, "rb"), filename=filename, as_attachment=True)
     return HttpResponse(

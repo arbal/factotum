@@ -426,7 +426,7 @@
                     <div class="mt-2">
                         {% for field in edit_text_form.visible_fields %}
                             <dl class="mb-0">
-                                <dt>
+                                <dt title="{{ field.help_text }}">
                                     {{ field.label }}
                                 </dt>
                                 <dd class="pl-4 mb-0"

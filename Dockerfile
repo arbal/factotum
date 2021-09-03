@@ -20,6 +20,7 @@ WORKDIR /app
 RUN rm -f .env \
  && rm -rf collected_static \
  && rm -rf media \
+ && rm -rf downloads \
  && python manage.py collectstatic
 
 CMD if [ "$REBUILD_INDEX" = "true" ] ; then \
@@ -32,3 +33,4 @@ CMD if [ "$REBUILD_INDEX" = "true" ] ; then \
 EXPOSE 8000 8001
 VOLUME /app/collected_static
 VOLUME /app/media
+VOLUME /app/downloads
