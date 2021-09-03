@@ -175,7 +175,7 @@
                         </a>
                     </div>
                 </li>
-                {% to_list 'qa_extractionscript_index' 'qa_chemicalpresence_index' as qa_list %}
+                {% to_list 'qa_extractionscript_index' 'qa_chemicalpresence_index' 'qa_composition_cleaning_index' as qa_list %}
                 <li class="nav-item dropdown
                     {% if request.resolver_match.url_name in qa_list %}
                         active
@@ -205,6 +205,10 @@
                            href="{% url 'qa_chemicalpresence_index' %}">
                             Chemical Presence
                         </a>
+                        <a class="dropdown-item"
+                        href="{% url 'qa_composition_cleaning_index' %}">
+                          Cleaned Composition
+                     </a>
                     </div>
                 </li>
                 {% block nav %}{% endblock %}

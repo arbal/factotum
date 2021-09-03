@@ -242,9 +242,32 @@ def qa_extraction_script(request, pk, template_name="qa/extraction_script.html")
     )
 
 @login_required()
-def qa_composition_cleaning_script(request, pk, template_name="qa/composition_cleaning_script.html"):
+def qa_composition_cleaning_index(request, template_name="qa/composition_cleaning_index.html"):
     """
     The index page for all the QA Groups based on composition data cleaning scripts
+    """
+    extractedtext_count = Count("extractedtext__cleaning_script")
+    qa_group_count = Count("extractedtext__qa_group")
+    qa_complete_count = Count("extractedtext", filter=Q(extractedtext__qa_checked=True))
+    percent_complete = (qa_complete_count / qa_group_count) * 100
+
+    cleaning_scripts = (
+        Script.objects.filter(script_type="DC")
+        .annotate(extractedtext_count=extractedtext_count)
+        .annotate(percent_complete=percent_complete)
+        .annotate(qa_group_count=qa_group_count)
+        .filter(extractedtext_count__gt=0)
+    )
+    return render(
+        request,
+        template_name,
+        {"cleaning_scripts": cleaning_scripts},
+    )
+
+@login_required()
+def qa_composition_cleaning_script(request, pk, template_name="qa/composition_cleaning_detail.html"):
+    """
+    The detail page for a QA Group based on a composition data cleaning script
     """
     script = get_object_or_404(Script, pk=pk)
     # If the Script has no related ExtractedText objects, redirect back to the QA index
