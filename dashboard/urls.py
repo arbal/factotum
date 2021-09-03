@@ -212,8 +212,8 @@ urlpatterns = [
     ),
     path(
         "qa/manualcomposition/<int:pk>/",
-        dashboard.views.qa.qa_manual_composition_script,
-        name="qa_manual_composition_script",
+        dashboard.views.qa.qa_manual_composition_datagroup,
+        name="qa_manual_composition_datagroup",
     ),
     path(
         "qa/manualcomposition/<int:pk>/summary",

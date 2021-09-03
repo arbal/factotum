@@ -32,6 +32,11 @@ class ExtractedText(CommonInfo):
     extraction_script = models.ForeignKey(
         "Script", on_delete=models.CASCADE, limit_choices_to={"script_type": "EX"}
     )
+    cleaning_script = models.ForeignKey("Script", on_delete=models.CASCADE,  
+        limit_choices_to={"script_type": "DC"}, 
+        null=True, blank=True, help_text="The script used to clean the data after extraction",
+        related_name="cleaned_documents",
+    )
     qa_checked = models.BooleanField(default=False, verbose_name="QA approved")
     qa_edited = models.BooleanField(default=False, verbose_name="QA edited")
     qa_approved_date = models.DateTimeField(

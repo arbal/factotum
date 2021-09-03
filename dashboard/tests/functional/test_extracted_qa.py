@@ -116,7 +116,7 @@ class ExtractedQaTestWithFixtures(TestCase):
         extext = ExtractedText.objects.filter(extraction_script=script).first()
         data_group = extext.data_document.data_group
         response = self.client.get(
-            reverse("qa_manual_composition_script", kwargs={"pk": data_group.pk})
+            reverse("qa_manual_composition_datagroup", kwargs={"pk": data_group.pk})
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(

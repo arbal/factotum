@@ -241,9 +241,30 @@ def qa_extraction_script(request, pk, template_name="qa/extraction_script.html")
         {"extractionscript": script, "extractedtexts": texts, "qagroup": qa_group},
     )
 
+@login_required()
+def qa_composition_cleaning_script(request, pk, template_name="qa/composition_cleaning_script.html"):
+    """
+    The index page for all the QA Groups based on composition data cleaning scripts
+    """
+    script = get_object_or_404(Script, pk=pk)
+    # If the Script has no related ExtractedText objects, redirect back to the QA index
+    if ExtractedText.objects.filter(extraction_script=script).count() == 0:
+        return redirect("qa_extractionscript_index")
+    qa_group = script.get_or_create_qa_group()
+    texts = (
+        ExtractedText.objects.filter(qa_group=qa_group, qa_checked=False)
+        .select_related("data_document__data_group__group_type")
+        .annotate(chemical_count=Count("rawchem"))
+        .annotate(chemical_updated_at=Max("rawchem__updated_at"))
+    )
+    return render(
+        request,
+        template_name,
+        {"extractionscript": script, "extractedtexts": texts, "qagroup": qa_group},
+    )
 
 @login_required()
-def qa_manual_composition_script(
+def qa_manual_composition_datagroup(
     request, pk, template_name="qa/qa_manual_composition.html"
 ):
     datagroup = DataGroup.objects.get(pk=pk)
@@ -502,7 +523,7 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
     # assign the destination link for the Exit button
     if extext.group_type in ["CO"] and extext.extraction_script_id == MANUAL_SCRIPT_ID:
         exit_url = reverse(
-            "qa_manual_composition_script", kwargs={"pk": doc.data_group_id}
+            "qa_manual_composition_datagroup", kwargs={"pk": doc.data_group_id}
         )
     elif extext.group_type in ["CP"]:
         exit_url = reverse(

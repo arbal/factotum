@@ -111,12 +111,8 @@ def data_document_detail(request, pk):
         "tag_form": tag_form,
     }
     if doc.data_group.group_type.code == "CO":
-        script_chem = (
-            Child.objects.filter(extracted_text__data_document=doc)
-            .filter(script__isnull=False)
-            .first()
-        )
-        context["cleaning_script"] = script_chem.script if script_chem else None
+        script_chem = doc.extractedtext.cleaning_script if doc.extractedtext.cleaning_script else None
+        context["cleaning_script"] = script_chem
 
     tags = (
         ExtractedListPresenceTag.objects.filter(

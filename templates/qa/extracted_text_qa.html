@@ -11,7 +11,7 @@
             {% if doc.data_group.type == "CO" and script.title == "Manual (dummy)" %}
             <li class="breadcrumb-item"><a href="{% url "qa_manual_composition_index" %}">Manual Composition</a></li>
             <li class="breadcrumb-item">
-                <a href="{% url "qa_manual_composition_script" doc.data_group_id %}">{{ doc.data_group }} </a>
+                <a href="{% url "qa_manual_composition_datagroup" doc.data_group_id %}">{{ doc.data_group }} </a>
             </li>          
             {% elif doc.data_group.type == "CP" %}
                 <li class="breadcrumb-item"><a href="{% url "qa_chemicalpresence_index" %}">Chemical Presence</a></li>
