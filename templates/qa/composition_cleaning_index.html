@@ -12,24 +12,25 @@ QA: Composition Cleaning Scripts</h1>
     <thead class="table-primary">
         <th>Cleaning Script</th>
         <th>Script Updated</th>
-        <th>Extracted Text</th>
+        <th>Cleaned Documents</th>
         <th>QA Group Documents</th>
-        <th>Percent of QA Group Checked</th>
+        <th>Percent of Script's QA Group Checked</th>
         <th>QA Summary</th>
         <th>QA Status</th>
     </thead>
     <tbody>
     {% for cleaning_script in cleaning_scripts %}
       <tr>
-        <td>
+        <td style="text-align:left">
             {% if cleaning_script.url %}
-                <a href="{{ cleaning_script.url }}"
-                   title="Link to {{ cleaning_script.title }}" id="script-{{cleaning_script.id}}">
-                    {{ cleaning_script.title }}
-                </a>
-            {% else %}
-                 {{ cleaning_script.title }}
+            <a class="btn btn-outline-secondary btn-sm hover-info"
+                title="Source code for {{ cleaning_script.title }}"
+                data-toggle="tooltip"
+                href="{{ cleaning_script.url }}">
+                <span class="fas fa-broom"></span>
+            </a>
             {% endif %}
+            {{ cleaning_script.title }}
         </td>
         <td data-order="{{ cleaning_script.updated_at | date:"Y-m-d" }}">{{ cleaning_script.updated_at | date:"M d, Y" }}</td>
         <td id="docs-{{cleaning_script.id}}">{{ cleaning_script.extractedtext_count }}</td>
@@ -50,12 +51,12 @@ QA: Composition Cleaning Scripts</h1>
             {% elif cleaning_script.qa_begun %}
                 <a class="btn btn-primary btn-sm col-12" role="button"
                    title="QA started on {{ cleaning_script.title }}"
-                   href='{% url "qa_cleaning_script" cleaning_script.id %}'> Continue QA
+                   href='{% url "qa_cleaning_script_detail" cleaning_script.id %}'> Continue QA
                 </a>
             {% else %}
               <a class="btn btn-primary btn-sm col-12" role="button"
                  title="Begin QA on {{ cleaning_script.title }}"
-                 href='{% url "qa_cleaning_script" cleaning_script.id %}'> Begin QA
+                 href='{% url "qa_cleaning_script_detail" cleaning_script.id %}'> Begin QA
                 </a>
             {% endif %}
         {% endif %}

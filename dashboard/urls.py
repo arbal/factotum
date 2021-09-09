@@ -231,6 +231,16 @@ urlpatterns = [
         name="qa_composition_cleaning_index",
     ),
     path(
+        "qa/manualcompositioncleaning/<int:pk>/summary",
+        views.qa_cleaning_script_summary,
+        name="qa_cleaning_script_summary",
+    ),
+    path(
+        "qa/manualcompositioncleaning/<int:pk>/detail",
+        views.qa_cleaning_script_detail,
+        name="qa_cleaning_script_detail",
+    ),
+    path(
         "qa/extractionscript/",
         views.qa_extractionscript_index,
         name="qa_extractionscript_index",
