@@ -6,15 +6,21 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0207_statistical_value_updates'),
-    ]
+    dependencies = [("dashboard", "0207_statistical_value_updates")]
 
     operations = [
         migrations.AddField(
-            model_name='extractedtext',
-            name='cleaning_script',
-            field=models.ForeignKey(blank=True, help_text='The script used to clean the data after extraction', limit_choices_to={'script_type': 'DC'}, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='cleaned_documents', to='dashboard.Script'),
+            model_name="extractedtext",
+            name="cleaning_script",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="The script used to clean the data after extraction",
+                limit_choices_to={"script_type": "DC"},
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="cleaned_documents",
+                to="dashboard.Script",
+            ),
         ),
         migrations.RunSQL(
             sql="""

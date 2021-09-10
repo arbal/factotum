@@ -160,6 +160,10 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
             context["cleancomp_formset"] = CleanCompFormSet(dg, request.POST)
             if formset.is_valid():
                 num_saved = formset.save()
+                # save the cleaning script id to the extracted text records
+                cleaning_script_id = request.POST["cleancomp-cleaning_script_id"]
+                
+
                 messages.success(
                     request,
                     "%d clean composition data record%s uploaded successfully."
@@ -171,6 +175,7 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
                     messages.error(request, e)
             return redirect("data_group_detail", dg.pk)
         context["cleancomp_formset"] = CleanCompFormSet(dg)
+        
 
     if dg.include_bulk_assign_form():
         if "bulkassignprod-submit" in request.POST:

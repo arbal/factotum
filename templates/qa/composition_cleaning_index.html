@@ -34,7 +34,7 @@ QA: Composition Cleaning Scripts</h1>
         </td>
         <td data-order="{{ cleaning_script.updated_at | date:"Y-m-d" }}">{{ cleaning_script.updated_at | date:"M d, Y" }}</td>
         <td id="docs-{{cleaning_script.id}}">{{ cleaning_script.extractedtext_count }}</td>
-        <td id="qa-group-count">{{ cleaning_script.qa_group_count }}</td>
+        <td id="qa-group-count-{{cleaning_script.id}}">{{ cleaning_script.qa_group_count }}</td>
         <td id="pct-{{cleaning_script.id}}">{{ cleaning_script.percent_complete|default:"0" }}{{' '}}%</td>
         <td>
             <a href="{% url 'qa_cleaning_script_summary' cleaning_script.id %}"

@@ -69,7 +69,7 @@ class UploadExtractedFileTest(TestCase):
             charset="utf-8",
         )
         data = {
-            "cleancomp-script_id": 17,
+            "cleancomp-cleaning_script_id": 17,
             "cleancomp-weight_fraction_type_id": 2,
             "cleancomp-submit": "Submit",
             "cleancomp-bulkformsetfileupload": in_mem_sample_csv,
@@ -80,14 +80,15 @@ class UploadExtractedFileTest(TestCase):
             resp, "2 clean composition data records uploaded successfully."
         )
         self.assertEqual(
-            ExtractedComposition.objects.filter(script_id=17).count(),
-            2,
-            "There should be only 2 ExtractedComposition objects",
-        )
-        self.assertEqual(
             ExtractedComposition.objects.filter(weight_fraction_type_id=2).count(),
             2,
             "Weight fraction type properly set",
+        )
+        # the cleaning_script attribute of the ExtractedText parent record should be updated
+        self.assertEqual(
+            ExtractedComposition.objects.get(pk=9).extracted_text.cleaning_script_id,
+            17,
+            "Cleaning script id of the parent record should match what was in the POST data",
         )
 
     def test_valid_clean_comp_data_with_BOM_upload(self):
@@ -102,7 +103,7 @@ class UploadExtractedFileTest(TestCase):
             charset="utf-8",
         )
         data = {
-            "cleancomp-script_id": 17,
+            "cleancomp-cleaning_script_id": 17,
             "cleancomp-weight_fraction_type_id": 1,
             "cleancomp-submit": "Submit",
             "cleancomp-bulkformsetfileupload": in_mem_sample_csv,
@@ -111,11 +112,6 @@ class UploadExtractedFileTest(TestCase):
         resp = self.c.post(path="/datagroup/47/", data=data, follow=True)
         self.assertContains(
             resp, "2 clean composition data records uploaded successfully."
-        )
-        self.assertEqual(
-            ExtractedComposition.objects.filter(script_id=17).count(),
-            2,
-            "There should be only 2 ExtractedComposition objects",
         )
 
     def test_invalid_headers_clean_comp_data_upload(self):
@@ -130,7 +126,7 @@ class UploadExtractedFileTest(TestCase):
             charset="utf-8",
         )
         data = {
-            "cleancomp-script_id": 17,
+            "cleancomp-cleaning_script_id": 17,
             "cleancomp-submit": "Submit",
             "cleancomp-bulkformsetfileupload": in_mem_sample_csv,
         }
@@ -169,7 +165,7 @@ class UploadExtractedFileTest(TestCase):
             charset="utf-8",
         )
         data = {
-            "cleancomp-script_id": 12,
+            "cleancomp-cleaning_script_id": 12,
             "cleancomp-submit": "Submit",
             "cleancomp-bulkformsetfileupload": in_mem_sample_csv,
         }

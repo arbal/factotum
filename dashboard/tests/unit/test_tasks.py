@@ -106,8 +106,6 @@ class GenerateBulkDownloadTest(TestCase):
     def test_generate_bulk_download_file(self):
         # clear files
         path = DOWNLOADS_ROOT
-        if os.path.exists(path):
-            shutil.rmtree(path)
         # invoke task
         factories.ExtractedCompositionFactory.create_batch(500)
         generate_bulk_download_file.apply()
