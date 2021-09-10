@@ -398,7 +398,7 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
                 instance=form.instance,
                 data=form.data if self.is_bound else None,
                 prefix="%s-%s"
-                % (form.prefix, FunctionalUseFormset.get_default_prefix()),
+                       % (form.prefix, FunctionalUseFormset.get_default_prefix()),
             )
             StatisticalValueFormset = forms.inlineformset_factory(
                 RawChem, StatisticalValue, form=RawChemToStatisticalValueForm, extra=0
@@ -407,7 +407,7 @@ class RawChemicalSubclassFormSet(BaseInlineFormSet):
                 instance=form.instance,
                 data=form.data if self.is_bound else None,
                 prefix="%s-%s"
-                % (form.prefix, StatisticalValueFormset.get_default_prefix()),
+                       % (form.prefix, StatisticalValueFormset.get_default_prefix()),
             )
 
     def is_valid(self):
@@ -452,9 +452,9 @@ class ExtractedChemicalModelForm(forms.ModelForm):
     def save(self, commit=True):
         result = super().save(commit=commit)
         if (
-            result
-            and self.referer
-            and ("extractionscript" in self.referer or "extractedtext" in self.referer)
+                result
+                and self.referer
+                and ("extractionscript" in self.referer or "extractedtext" in self.referer)
         ):
             extext = ExtractedText.objects.get(pk=self.instance.extracted_text.pk)
             extext.qa_edited = True
@@ -487,9 +487,9 @@ class ExtractedCompositionForm(ExtractedChemicalModelForm):
             {"class": "ml-2 align-middle"}
         )
         if self.referer and (
-            "extractionscript" in self.referer
-            or "extractedtext" in self.referer
-            or self.referer == ""
+                "extractionscript" in self.referer
+                or "extractedtext" in self.referer
+                or self.referer == ""
         ):
             self.fields.pop("weight_fraction_type")
 
@@ -554,7 +554,12 @@ class ExtractedHabitsAndPracticesForm(ExtractedChemicalModelForm):
 class ExtractedListPresenceForm(ExtractedChemicalModelForm):
     class Meta:
         model = ExtractedListPresence
-        fields = ["raw_chem_name", "raw_cas", "component", "chem_detected_flag"]
+        fields = [
+            "raw_chem_name",
+            "raw_cas",
+            "component",
+            "chem_detected_flag",
+        ]
 
 
 class ExtractedHHRecForm(ExtractedChemicalModelForm):
@@ -563,6 +568,7 @@ class ExtractedHHRecForm(ExtractedChemicalModelForm):
         fields = [
             "raw_chem_name",
             "raw_cas",
+            "chem_detected_flag",
             "medium",
             "harmonized_medium",
             "num_measure",
@@ -599,12 +605,12 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
     extracted = hasattr(document, "extractedtext")
 
     def make_formset(
-        parent_model,
-        model,
-        formset=BaseInlineFormSet,
-        form=forms.ModelForm,
-        exclude=exclude,
-        hidden=hidden,
+            parent_model,
+            model,
+            formset=BaseInlineFormSet,
+            form=forms.ModelForm,
+            exclude=exclude,
+            hidden=hidden,
     ):
         formset_fields = model.detail_fields()
         if exclude:
