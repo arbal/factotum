@@ -115,7 +115,9 @@ class Script(CommonInfo, QASummaryNote):
         # Set the appropriate qa_group attribute of each ExtractedText record
         # to the new QA Group
         if self.script_type == "DC":
-            texts = ExtractedText.objects.filter(cleaning_script=self, qa_checked=False)
+            texts = ExtractedText.objects.filter(
+                cleaning_script=self, cleaning_qa_checked=False
+            )
         else:
             texts = ExtractedText.objects.filter(
                 extraction_script=self, qa_checked=False

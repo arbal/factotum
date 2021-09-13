@@ -765,7 +765,7 @@ class CleanCompForm(forms.ModelForm):
         obj = ExtractedComposition(**params)
         obj.clean()
         # Ensure data is provided.
-        
+
         central_wf_analysis = self.cleaned_data.get("central_wf_analysis")
         lower_wf_analysis = self.cleaned_data.get("lower_wf_analysis")
         upper_wf_analysis = self.cleaned_data.get("upper_wf_analysis")
@@ -812,7 +812,9 @@ class CleanCompFormSet(DGFormSet):
         cleaning_script_id = self.forms[0].cleaned_data.get("cleaning_script_id")
         if (
             cleaning_script_id
-            and not Script.objects.filter(script_type="DC", pk=cleaning_script_id).exists()
+            and not Script.objects.filter(
+                script_type="DC", pk=cleaning_script_id
+            ).exists()
         ):
             raise forms.ValidationError(f"Invalid script selection.")
         # Check that weight_fraction_type is valid
@@ -834,8 +836,12 @@ class CleanCompFormSet(DGFormSet):
             )
 
             cleaning_script_id = self.forms[0].cleaned_data.get("cleaning_script_id")
-            et_ids = ExtractedComposition.objects.filter(rawchem_ptr_id__in=self.cleaned_ids).values_list("extracted_text_id")
-            ExtractedText.objects.filter(data_document_id__in=et_ids).update(cleaning_script_id=cleaning_script_id)
+            et_ids = ExtractedComposition.objects.filter(
+                rawchem_ptr_id__in=self.cleaned_ids
+            ).values_list("extracted_text_id")
+            ExtractedText.objects.filter(data_document_id__in=et_ids).update(
+                cleaning_script_id=cleaning_script_id
+            )
 
             chems = []
             for form in self.forms:
@@ -844,13 +850,15 @@ class CleanCompFormSet(DGFormSet):
                 chem.upper_wf_analysis = form.cleaned_data.get("upper_wf_analysis")
                 chem.central_wf_analysis = form.cleaned_data.get("central_wf_analysis")
                 chem.lower_wf_analysis = form.cleaned_data.get("lower_wf_analysis")
-                chem.extracted_text.cleaning_script_id = form.cleaned_data["cleaning_script_id"]
+                chem.extracted_text.cleaning_script_id = form.cleaned_data[
+                    "cleaning_script_id"
+                ]
                 chem.weight_fraction_type_id = form.cleaned_data[
                     "weight_fraction_type_id"
                 ]
                 chem.updated_at = timezone.now()
                 chems.append(chem)
-            
+
             ExtractedComposition.objects.bulk_update(
                 chems,
                 [
@@ -861,7 +869,7 @@ class CleanCompFormSet(DGFormSet):
                     "updated_at",
                 ],
             )
-            
+
         return len(self.forms)
 
 

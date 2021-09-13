@@ -242,3 +242,16 @@ class TestQaPage(TestCase):
         # now this group should not show on page
         response = self.client.get(f"/qa/chemicalpresence/")
         self.assertNotIn(f"/qa/chemicalpresencegroup/49/".encode(), response.content)
+
+    def test_cleaning_script_qa_begin(self):
+        """
+        Check that starting the QA process for a cleaning script flips the variable on the Script
+        """
+        self.assertFalse(
+            Script.objects.get(pk=16).qa_begun,
+            "The Script should have qa_begun of False at the beginning",
+        )
+        self.client.get("/qa/manualcompositioncleaning/16/")
+        self.assertTrue(
+            Script.objects.get(pk=16).qa_begun, "qa_begun should now be true"
+        )

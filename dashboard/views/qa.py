@@ -268,31 +268,6 @@ def qa_composition_cleaning_index(
 
 
 @login_required()
-def qa_composition_cleaning_script(
-    request, pk, template_name="qa/composition_cleaning_detail.html"
-):
-    """
-    The detail page for a QA Group based on a composition data cleaning script
-    """
-    script = get_object_or_404(Script, pk=pk)
-    # If the Script has no related ExtractedText objects, redirect back to the QA index
-    if ExtractedText.objects.filter(extraction_script=script).count() == 0:
-        return redirect("qa_extractionscript_index")
-    qa_group = script.get_or_create_qa_group()
-    texts = (
-        ExtractedText.objects.filter(qa_group=qa_group, qa_checked=False)
-        .select_related("data_document__data_group__group_type")
-        .annotate(chemical_count=Count("rawchem"))
-        .annotate(chemical_updated_at=Max("rawchem__updated_at"))
-    )
-    return render(
-        request,
-        template_name,
-        {"extractionscript": script, "extractedtexts": texts, "qagroup": qa_group},
-    )
-
-
-@login_required()
 def qa_cleaning_script_summary(
     request, pk, template_name="qa/composition_cleaning_detail.html"
 ):
@@ -305,14 +280,60 @@ def qa_cleaning_script_summary(
 
 @login_required()
 def qa_cleaning_script_detail(
-    request, pk, template_name="qa/composition_cleaning_detail.html"
+    request, pk, template_name="qa/composition_cleaning_script_detail.html"
 ):
     """
     The detail page for a Cleaning Script's QA Group
     """
     script = get_object_or_404(Script, pk=pk)
-    return render(request, template_name, {"cleaningscript": script})
+    qa_group = script.get_or_create_qa_group()
+    # If the Script has no related ExtractedText objects, redirect back to the QA index
+    if ExtractedText.objects.filter(cleaning_script=script).count() == 0:
+        return redirect("qa_composition_cleaning_index")
 
+    texts = (
+        ExtractedText.objects.filter(
+            cleaning_qa_group=qa_group, cleaning_qa_checked=False
+        )
+        .select_related("data_document__data_group__group_type")
+        .annotate(
+            chemical_count=Count(
+                "rawchem", filter=Q(rawchem__extractedcomposition__isnull=False)
+            )
+        )
+        .annotate(chemical_updated_at=Max("rawchem__updated_at"))
+    )
+    return render(
+        request,
+        template_name,
+        {"cleaningscript": script, "extractedtexts": texts, "qagroup": qa_group},
+    )
+
+@login_required()
+def qa_extracted_composition_document_detail(
+    request, pk, template_name="qa/composition_document_detail.html"
+):
+    """
+    The QA detail page for a document's ExtractedComposition data.
+    """
+    extext = get_object_or_404(ExtractedText.objects.select_subclasses(), pk=pk)
+    doc = extext.data_document
+    ParentForm, ChildForm = create_detail_formset(
+        doc,
+        settings.EXTRA,
+        can_delete=True,
+        exclude=["weight_fraction_type", "true_cas", "true_chemname", "sid"],
+    )
+    detail_formset = ChildForm(instance=extext)
+    flagged_qs = detail_formset.get_queryset()
+    context = {
+        "extracted_text": extext,
+        "doc": doc,
+        "script": extext.cleaning_script,
+        "cards": cards_detail(request, doc, flagged_qs, False).content.decode("utf8"),
+    }
+
+    return render(request, template_name, context)
 
 @login_required()
 def qa_manual_composition_datagroup(
