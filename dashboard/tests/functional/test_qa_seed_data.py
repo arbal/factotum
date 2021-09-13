@@ -48,12 +48,12 @@ class TestQaPage(TestCase):
         self.assertIn(f"/qa/extractedtext/{et.pk}/".encode(), response.content)
         # After opening the URL, the following should be true:
         # One new QA group should be created
-        group_count = QAGroup.objects.filter(extraction_script_id=pk).count()
+        group_count = QAGroup.objects.filter(script_id=pk).count()
         self.assertTrue(group_count == 1)
         # The ExtractionScript's qa_begun property should be set to True
         self.assertTrue(Script.objects.get(pk=pk).qa_begun)
         # The ExtractedText object should be assigned to the QA Group
-        group_pk = QAGroup.objects.get(extraction_script_id=pk).pk
+        group_pk = QAGroup.objects.get(script_id=pk).pk
         et = ExtractedText.objects.filter(extraction_script=pk).first()
         self.assertTrue(et.qa_group_id == group_pk)
         # The link on the QA index page should now say "Continue QA"
@@ -107,12 +107,12 @@ class TestQaPage(TestCase):
         # following should be true:
         # One new QA group should be created
         scr = ExtractedText.objects.get(pk=pk).extraction_script
-        group_count = QAGroup.objects.filter(extraction_script=scr).count()
+        group_count = QAGroup.objects.filter(script=scr).count()
         self.assertTrue(group_count == 1)
         # The ExtractionScript's qa_begun property should be set to True
         self.assertTrue(scr.qa_begun)
         # The ExtractedText object should be assigned to the QA Group
-        new_group = QAGroup.objects.get(extraction_script=scr)
+        new_group = QAGroup.objects.get(script=scr)
         et = ExtractedText.objects.get(pk=pk)
         self.assertTrue(et.qa_group == new_group)
         # The link on the QA index page should now say "Continue QA"
@@ -132,7 +132,7 @@ class TestQaPage(TestCase):
         # After opening the QA link from the data document detail page, the
         # following should be true:
         # One new QA group should be created
-        new_group = QAGroup.objects.get(extraction_script=scr)
+        new_group = QAGroup.objects.get(script=scr)
 
         # There should be a lot of ExtractedText records assigned to the QAGroup
         initial_qa_count = ExtractedText.objects.filter(qa_group=new_group).count()

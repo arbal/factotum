@@ -31,7 +31,7 @@ class ExtractedQaTest(TestCase):
         response = self.client.get(f"/qa/extractionscript/{pk}/")
         self.assertEqual(response.status_code, 200)
         qa_group = QAGroup.objects.get(
-            extraction_script=self.objects.extext.extraction_script
+            script=self.objects.extext.extraction_script
         )
         ext = ExtractedText.objects.get(qa_group=qa_group)
         self.assertIsNotNone(ext.qa_group)
