@@ -6,6 +6,13 @@
 
 
 {% block content %}
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url "qa_composition_cleaning_index" %}">Cleaned Composition QA</a></li>
+        </ol>
+    </nav>
+
     <h1 class="col-sm-12" id="script-{{ cleaningscript.id }}">
         <span class="fa fa-check-square" title="factotum"></span>
         {{ cleaningscript.title }}
