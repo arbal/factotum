@@ -309,6 +309,7 @@ def qa_cleaning_script_detail(
         {"cleaningscript": script, "extractedtexts": texts, "qagroup": qa_group},
     )
 
+
 @login_required()
 def qa_extracted_composition_document_detail(
     request, pk, template_name="qa/composition_document_detail.html"
@@ -334,6 +335,7 @@ def qa_extracted_composition_document_detail(
     }
 
     return render(request, template_name, context)
+
 
 @login_required()
 def qa_manual_composition_datagroup(

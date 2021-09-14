@@ -262,9 +262,9 @@ class TestQaPage(TestCase):
         self.assertTrue(
             Script.objects.get(pk=script_id).qa_begun, "qa_begun should now be true"
         )
-        
+
         qag = QAGroup.objects.filter(script_id=script_id).first()
-        self.assertIsNotNone(qag,"Confirm the presence of the newly-created QA Group")
+        self.assertIsNotNone(qag, "Confirm the presence of the newly-created QA Group")
         ets = ExtractedText.objects.filter(cleaning_script_id=script_id)
         for et in ets:
             self.assertEqual(et.cleaning_qa_group_id, qag.pk)
@@ -272,12 +272,16 @@ class TestQaPage(TestCase):
 
         doctag = f'<td id="docs-{str(script_id)}">{str(ets.count())}</td>'.encode()
         self.assertIn(
-            doctag, response.content,"the table should show the correct count of cleaned documents"
+            doctag,
+            response.content,
+            "the table should show the correct count of cleaned documents",
         )
         qadoc_count = ExtractedText.objects.filter(cleaning_qa_group_id=qag.pk).count()
-        qatag = f'<td id="qa-group-count-{str(script_id)}">{str(qadoc_count)}</td>'.encode()
-        self.assertIn(
-            qatag, response.content,"the table should show the correct count of cleaned documents assigned to the Cleaning QA Group"
+        qatag = (
+            f'<td id="qa-group-count-{str(script_id)}">{str(qadoc_count)}</td>'.encode()
         )
-
-
+        self.assertIn(
+            qatag,
+            response.content,
+            "the table should show the correct count of cleaned documents assigned to the Cleaning QA Group",
+        )
