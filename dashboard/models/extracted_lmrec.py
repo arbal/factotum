@@ -52,7 +52,7 @@ class UnionExtractedLMHHRec(DBView):
             dashboard_extractedhhrec.rawchem_ptr_id,
             dashboard_extractedhhrec.medium,
             dashboard_extractedhhrec.num_measure,
-            NULL AS harmonized_medium_id
+            dashboard_extractedhhrec.harmonized_medium_id AS harmonized_medium_id
         FROM
             dashboard_extractedhhrec
                 INNER JOIN
