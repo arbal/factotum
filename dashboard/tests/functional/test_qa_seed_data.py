@@ -11,6 +11,7 @@ from dashboard.models import (
     ExtractedListPresence,
 )
 from django.db.models import Count
+from django.urls import reverse
 from lxml import html
 
 
@@ -245,13 +246,38 @@ class TestQaPage(TestCase):
 
     def test_cleaning_script_qa_begin(self):
         """
-        Check that starting the QA process for a cleaning script flips the variable on the Script
+        For ExtractedComposition records:
+        Opening the cleaning script detail page should start the the QA process 
+        by creating a QA Group containing all the extracted documents
         """
+        script_id = 16
         self.assertFalse(
-            Script.objects.get(pk=16).qa_begun,
+            Script.objects.get(pk=script_id).qa_begun,
             "The Script should have qa_begun of False at the beginning",
         )
-        self.client.get("/qa/manualcompositioncleaning/16/")
+        ets = ExtractedText.objects.filter(cleaning_script_id=script_id)
+        for et in ets:
+            self.assertIsNone(et.cleaning_qa_group)
+        self.client.get(reverse("qa_cleaning_script_detail", args=[16]))
         self.assertTrue(
-            Script.objects.get(pk=16).qa_begun, "qa_begun should now be true"
+            Script.objects.get(pk=script_id).qa_begun, "qa_begun should now be true"
         )
+        
+        qag = QAGroup.objects.filter(script_id=script_id).first()
+        self.assertIsNotNone(qag,"Confirm the presence of the newly-created QA Group")
+        ets = ExtractedText.objects.filter(cleaning_script_id=script_id)
+        for et in ets:
+            self.assertEqual(et.cleaning_qa_group_id, qag.pk)
+        response = self.client.get(reverse("qa_composition_cleaning_index"))
+
+        doctag = f'<td id="docs-{str(script_id)}">{str(ets.count())}</td>'.encode()
+        self.assertIn(
+            doctag, response.content,"the table should show the correct count of cleaned documents"
+        )
+        qadoc_count = ExtractedText.objects.filter(cleaning_qa_group_id=qag.pk).count()
+        qatag = f'<td id="qa-group-count-{str(script_id)}">{str(qadoc_count)}</td>'.encode()
+        self.assertIn(
+            qatag, response.content,"the table should show the correct count of cleaned documents assigned to the Cleaning QA Group"
+        )
+
+
