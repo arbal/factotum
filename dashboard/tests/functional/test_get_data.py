@@ -16,6 +16,8 @@ from dashboard.models import (
     PUC,
     FunctionalUseCategory,
     HarmonizedMedium,
+    ExtractedHHRec,
+    ExtractedLMRec,
 )
 from dashboard.tests.loader import fixtures_standard
 from dashboard.views.get_data import stats_by_dtxsids
@@ -233,6 +235,27 @@ class TestGetData(TestCase):
         for medium in media:
             self.assertContains(response, medium.name)
             self.assertContains(response, medium.description)
+
+    def test_harmonized_media_detail_page(self):
+        medium = HarmonizedMedium.objects.first()
+        hhrec = ExtractedHHRec.objects.first()
+        hhrec.harmonized_medium_id = medium.pk
+        hhrec.save()
+        lmrec = ExtractedLMRec.objects.first()
+        lmrec.harmonized_medium_id = medium.pk
+        lmrec.save()
+
+        response = self.client.get(
+            reverse("harmonized_medium_detail", kwargs={"pk": medium.pk})
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, medium.description)
+        countlink = "<a href=\"#tables\" onclick=\"activateTable('#chemical-tab-header')\">2</a>"
+        self.assertContains(response, countlink )
+        countlink = "<a href=\"#tables\" onclick=\"activateTable('#document-tab-header')\">2</a>"
+        self.assertContains(response, countlink )
+        
+
 
     def test_download_functional_uses(self):
         response = self.client.get("/dl_functional_uses/")

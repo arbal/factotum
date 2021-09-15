@@ -716,6 +716,7 @@ class TestDynamicDetailFormsets(TestCase):
         hhrec = ExtractedHHRec(
             raw_chem_name="Chemname",
             raw_cas="45-9-1",
+            chem_detected_flag=1,
             sampling_method="test sampling method",
             extracted_text=data_document.extractedtext,
             analytical_method="test analytical_method",
@@ -745,6 +746,7 @@ class TestDynamicDetailFormsets(TestCase):
                 "medium",
                 "LOD",
                 "LOQ",
+                "chem_detected_flag",
             ],
             [
                 "detect_freq",
@@ -754,6 +756,7 @@ class TestDynamicDetailFormsets(TestCase):
                 "medium",
                 "LOD",
                 "LOQ",
+                "chem_detected_flag",
             ],
         )
         for id, fieldname in fieldpairs:
