@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ("dashboard", "0210_remove_extractedcomposition_script"),
+        ("dashboard", "0210_archive_extractedcomposition_script"),
     ]
 
     operations = [
