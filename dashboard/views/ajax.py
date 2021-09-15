@@ -462,21 +462,21 @@ class HarmonizedMediumDocumentListJson(FilterDatatableView):
         qs = super().get_initial_queryset()
         medium = self.request.GET.get("medium")
         if medium:
-            qs = qs.filter(Q(extractedtext__rawchem__unionextractedlmhhrec__harmonized_medium=medium))
+            qs = qs.filter(
+                Q(
+                    extractedtext__rawchem__unionextractedlmhhrec__harmonized_medium=medium
+                )
+            )
         # using the .distinct() function means that a dict is returned, not
         # a queryset.
         qs = (
-            qs.order_by(
-                "data_group__group_type__code",
-                "title",
-            )
+            qs.order_by("data_group__group_type__code", "title")
             .values(
                 "id",
                 "title",
                 "data_group__group_type__code",
                 "extractedtext__doc_date",
                 "extractedtext__rawchem__unionextractedlmhhrec__medium",
-
             )
             .distinct()
         )
@@ -530,6 +530,7 @@ class HarmonizedMediumChemicalListJson(FilterDatatableView):
                 Q(true_cas__icontains=s) | Q(true_chemname__icontains=s)
             ).distinct()
         return qs
+
 
 @cache_page(86400)
 def sids_by_grouptype_ajax(request):

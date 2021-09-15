@@ -341,5 +341,5 @@ class TestAjax(TestCase):
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.content)
         self.assertEquals(data["recordsTotal"], 1)
-        self.assertIn('LM', data["data"][0][0])
+        self.assertIn("LM", data["data"][0][0])
         self.assertIn("/datadocument/9/", data["data"][0][1])
