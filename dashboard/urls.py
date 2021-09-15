@@ -348,6 +348,16 @@ urlpatterns = [
     path("fuc_d_json/", views.FUCDocumentListJson.as_view(), name="fuc_d_ajax_url"),
     path("fuc_c_json/", views.FUCChemicalListJson.as_view(), name="fuc_c_ajax_url"),
     path(
+        "hm_d_json/",
+        views.HarmonizedMediumDocumentListJson.as_view(),
+        name="hm_d_ajax_url",
+    ),
+    path(
+        "hm_c_json/",
+        views.HarmonizedMediumChemicalListJson.as_view(),
+        name="hm_c_ajax_url",
+    ),
+    path(
         "hp_json/", views.HabitsAndPracticesDocumentsJson.as_view(), name="hp_ajax_url"
     ),
     path(
@@ -422,6 +432,11 @@ urlpatterns = [
     ),
     path(
         "harmonized_media/", views.harmonized_medium_list, name="harmonized_medium_list"
+    ),
+    path(
+        "harmonized_medium/<int:pk>/",
+        views.harmonized_medium_detail,
+        name="harmonized_medium_detail",
     ),
     path(
         "dl_raw_chems_dg/<int:pk>/",
