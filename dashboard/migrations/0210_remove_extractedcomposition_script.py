@@ -5,7 +5,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [("dashboard", "0208_extractedtext_cleaning_script")]
+    dependencies = [("dashboard", "0209_extractedtext_cleaning_script")]
 
     operations = [
         migrations.RemoveField(model_name="extractedcomposition", name="script")

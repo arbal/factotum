@@ -5,7 +5,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [("dashboard", "0210_add_cleaning_qa_fields")]
+    dependencies = [("dashboard", "0211_add_cleaning_qa_fields")]
 
     operations = [
         migrations.RenameField(
