@@ -5621,6 +5621,7 @@
     doc_date: '2018-04-07'
     rev_num: '47'
     extraction_script: 6
+    cleaning_script: 16
     qa_checked: false
     qa_edited: false
     qa_approved_date: null

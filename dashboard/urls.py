@@ -212,8 +212,8 @@ urlpatterns = [
     ),
     path(
         "qa/manualcomposition/<int:pk>/",
-        dashboard.views.qa.qa_manual_composition_script,
-        name="qa_manual_composition_script",
+        dashboard.views.qa.qa_manual_composition_datagroup,
+        name="qa_manual_composition_datagroup",
     ),
     path(
         "qa/manualcomposition/<int:pk>/summary",
@@ -225,6 +225,31 @@ urlpatterns = [
         dashboard.views.qa.ManualCompositionDataGroupSummaryTable.as_view(),
         name="qa_manual_composition_summary_table",
     ),
+    # Cleaned Composition QA
+    ## Index page
+    path(
+        "qa/manualcompositioncleaning/",
+        views.qa_composition_cleaning_index,
+        name="qa_composition_cleaning_index",
+    ),
+    ## Script summary page
+    path(
+        "qa/manualcompositioncleaning/<int:pk>/summary",
+        views.qa_cleaning_script_summary,
+        name="qa_cleaning_script_summary",
+    ),
+    ## Script detail page with list of documents
+    path(
+        "qa/manualcompositioncleaning/<int:pk>/",
+        views.qa_cleaning_script_detail,
+        name="qa_cleaning_script_detail",
+    ),
+    path(
+        "qa/extractedcomposition/<int:pk>/",
+        dashboard.views.qa.qa_extracted_composition_document_detail,
+        name="qa_extracted_composition_document_detail",
+    ),
+    # Extraction Script QA
     path(
         "qa/extractionscript/",
         views.qa_extractionscript_index,

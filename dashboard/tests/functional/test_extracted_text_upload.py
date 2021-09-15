@@ -179,7 +179,7 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         # Check the scripts offered in the selection form
         resp = self.c.get(path="/datagroup/6/", stream=True)
         self.assertTrue("extfile_formset" in resp.context)
-        self.assertContains(resp, 'name="cleancomp-script_id"')
+        self.assertContains(resp, 'name="cleancomp-cleaning_script_id"')
         soup = bs4.BeautifulSoup(resp.content, features="lxml")
 
         # The options should include "Home Depot (extraction)"

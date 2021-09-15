@@ -144,12 +144,6 @@ class DataDocumentDetailTest(TransactionTestCase):
         comptox = "https://comptox.epa.gov/dashboard/dsstoxdb/results?search="
         response = self.client.get(f"/datadocument/{doc.pk}/cards")
         self.assertContains(response, comptox)
-        chems = doc.extractedtext.rawchem.all().select_subclasses()
-        for chem in chems:
-            chem.script = None
-            chem.save()
-        response = self.client.get(doc.get_absolute_url())
-        self.assertNotContains(response, "Cleaning Script")
 
     def test_product_card_location(self):
         response = self.client.get("/datadocument/179486/")

@@ -30,9 +30,7 @@ class ExtractedQaTest(TestCase):
         pk = self.objects.extext.extraction_script.pk
         response = self.client.get(f"/qa/extractionscript/{pk}/")
         self.assertEqual(response.status_code, 200)
-        qa_group = QAGroup.objects.get(
-            extraction_script=self.objects.extext.extraction_script
-        )
+        qa_group = QAGroup.objects.get(script=self.objects.extext.extraction_script)
         ext = ExtractedText.objects.get(qa_group=qa_group)
         self.assertIsNotNone(ext.qa_group)
         response = self.client.get(f"/qa/extractedtext/{ext.pk}/")
@@ -116,7 +114,7 @@ class ExtractedQaTestWithFixtures(TestCase):
         extext = ExtractedText.objects.filter(extraction_script=script).first()
         data_group = extext.data_document.data_group
         response = self.client.get(
-            reverse("qa_manual_composition_script", kwargs={"pk": data_group.pk})
+            reverse("qa_manual_composition_datagroup", kwargs={"pk": data_group.pk})
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(

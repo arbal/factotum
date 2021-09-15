@@ -12,12 +12,11 @@ class CleanCompFormTest(TestCase):
 
     def setUp(self):
         self.extracted_chem = factories.ExtractedCompositionFactory()
-        self.script = factories.ScriptFactory()
         self.weight_fraction_type = factories.WeightFractionTypeFactory()
 
         self.base_form_data = {
+            "cleaning_script_id": self.extracted_chem.extracted_text.cleaning_script_id,
             "ExtractedComposition_id": self.extracted_chem.pk,
-            "script_id": self.script.pk,
             "weight_fraction_type_id": self.weight_fraction_type.pk,
             "lower_wf_analysis": "0.0",
             "central_wf_analysis": "",
@@ -36,8 +35,8 @@ class CleanCompFormTest(TestCase):
     def test_valid_central_wf(self):
         form = CleanCompForm(
             {
+                "cleaning_script_id": self.extracted_chem.extracted_text.cleaning_script_id,
                 "ExtractedComposition_id": self.extracted_chem.pk,
-                "script_id": self.script.pk,
                 "weight_fraction_type_id": self.weight_fraction_type.pk,
                 "lower_wf_analysis": "",
                 "central_wf_analysis": "0.5",
@@ -45,11 +44,6 @@ class CleanCompFormTest(TestCase):
             }
         )
         self.assertTrue(form.is_valid())
-
-    def test_invalid_script(self):
-        form = CleanCompForm(self._update_base_form_data(script_id=None))
-        self.assertFalse(form.is_valid())
-        self.assertIsNotNone(form.errors.get("script_id"))
 
     def test_invalid_chemical(self):
         form = CleanCompForm(self._update_base_form_data(ExtractedComposition_id=None))
