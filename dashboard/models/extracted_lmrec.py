@@ -1,8 +1,10 @@
 from django.db import models
 
 from django_db_views.db_view import DBView
-
+from django.db.models import Q
+from django.urls import reverse
 from .raw_chem import RawChem
+from .data_document import DataDocument
 from .common_info import CommonInfo
 
 DETECT_FREQ_TYPE_CHOICES = (("R", "Reported"), ("C", "Computed"))
@@ -50,7 +52,7 @@ class UnionExtractedLMHHRec(DBView):
             dashboard_extractedhhrec.rawchem_ptr_id,
             dashboard_extractedhhrec.medium,
             dashboard_extractedhhrec.num_measure,
-            NULL AS harmonized_medium_id
+            dashboard_extractedhhrec.harmonized_medium_id AS harmonized_medium_id
         FROM
             dashboard_extractedhhrec
                 INNER JOIN
@@ -217,3 +219,25 @@ class HarmonizedMedium(CommonInfo):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("harmonized_medium_detail", args=(self.pk,))
+
+    @property
+    def chemical_count(self):
+        return (
+            RawChem.objects.filter(Q(unionextractedlmhhrec__harmonized_medium=self))
+            .values("dsstox")
+            .distinct()
+            .count()
+        )
+
+    @property
+    def document_count(self):
+        return (
+            DataDocument.objects.filter(
+                Q(extractedtext__rawchem__unionextractedlmhhrec__harmonized_medium=self)
+            )
+            .distinct()
+            .count()
+        )

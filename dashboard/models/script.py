@@ -14,6 +14,8 @@ class Script(CommonInfo, QASummaryNote):
     researchers run scripts to extract data from PDF files, to assign PUCs to products,
     and to perform other data cleaning tasks.
     For some data types, the script provides the aggregation unit for QA work.
+    An `EX` type can serve as the `extraction_script` for an `ExtractedText` record,
+    a 'DC' type can serve as the `cleaning_script` for the same record or another.
     """
 
     TYPE_CHOICES = (
@@ -40,19 +42,30 @@ class Script(CommonInfo, QASummaryNote):
     def __str__(self):
         return str(self.title)
 
-    def get_absolute_url(self):
-        return reverse("extraction_script_edit", kwargs={"pk": self.pk})
-
     def get_qa_group_count(self):
-        return DataDocument.objects.filter(
-            extractedtext__qa_group__isnull=False,
-            extractedtext__extraction_script=self.pk,
-        ).count()
+        if self.script_type == "DC":
+            n = DataDocument.objects.filter(
+                extractedtext__cleaning_qa_group__isnull=False,
+                extractedtext__cleaning_script=self.pk,
+            ).count()
+        else:
+            n = DataDocument.objects.filter(
+                extractedtext__qa_group__isnull=False,
+                extractedtext__extraction_script=self.pk,
+            ).count()
+        return n
 
     def get_qa_complete_extractedtext_count(self):
-        return DataDocument.objects.filter(
-            extractedtext__qa_checked=True, extractedtext__extraction_script=self.pk
-        ).count()
+        if self.script_type == "DC":
+            n = DataDocument.objects.filter(
+                extractedtext__cleaning_qa_checked=True,
+                extractedtext__cleaning_script=self.pk,
+            ).count()
+        else:
+            n = DataDocument.objects.filter(
+                extractedtext__qa_checked=True, extractedtext__extraction_script=self.pk
+            ).count()
+        return n
 
     def get_pct_checked(self, numeric=False):
         qa_group_count = self.get_qa_group_count()
@@ -80,9 +93,7 @@ class Script(CommonInfo, QASummaryNote):
         return self.get_pct_checked(numeric=True) == 100
 
     def get_or_create_qa_group(self):
-        qa_group = QAGroup.objects.filter(
-            extraction_script=self, qa_complete=False
-        ).first()
+        qa_group = QAGroup.objects.filter(script=self, qa_complete=False).first()
         if not qa_group:
             qa_group = self.create_qa_group()
             self.qa_begun = True
@@ -99,10 +110,18 @@ class Script(CommonInfo, QASummaryNote):
         # approved in order for the script's QA sat
         QA_COMPLETE_PERCENTAGE = 0.2
 
-        qa_group = QAGroup.objects.create(extraction_script=self)
+        qa_group = QAGroup.objects.create(script=self)
 
-        # Set the qa_group attribute of each ExtractedText record to the new QA Group
-        texts = ExtractedText.objects.filter(extraction_script=self, qa_checked=False)
+        # Set the appropriate qa_group attribute of each ExtractedText record
+        # to the new QA Group
+        if self.script_type == "DC":
+            texts = ExtractedText.objects.filter(
+                cleaning_script=self, cleaning_qa_checked=False
+            )
+        else:
+            texts = ExtractedText.objects.filter(
+                extraction_script=self, qa_checked=False
+            )
 
         # If fewer than 100 related records, they make up the entire QA Group
         if len(texts) >= 100:
@@ -116,7 +135,10 @@ class Script(CommonInfo, QASummaryNote):
             texts = ExtractedText.objects.filter(pk__in=pks)
 
         if texts:
-            texts.update(qa_group=qa_group)
+            if self.script_type == "DC":
+                texts.update(cleaning_qa_group=qa_group)
+            else:
+                texts.update(qa_group=qa_group)
 
         return qa_group
 
@@ -125,7 +147,10 @@ class Script(CommonInfo, QASummaryNote):
         """
         qa_group = self.get_or_create_qa_group()
         text = ExtractedText.objects.get(pk=force_doc_id)
-        text.qa_group = qa_group
+        if self.script_type == "DC":
+            text.cleaning_qa_group = qa_group
+        else:
+            text.qa_group = qa_group
         text.save()
         return qa_group
 
@@ -136,15 +161,15 @@ class QAGroup(CommonInfo):
     before the data document or group can be considered cleaned.
     """
 
-    extraction_script = models.ForeignKey(
+    script = models.ForeignKey(
         Script,
         on_delete=models.CASCADE,
         related_name="qa_group",
         blank=False,
         null=False,
-        limit_choices_to={"script_type": "EX"},
+        limit_choices_to={"script_type": "EX", "script_type": "DC"},
     )
     qa_complete = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.extraction_script) + "_" + str(self.pk)
+        return str(self.script) + "_" + str(self.pk)
