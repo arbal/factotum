@@ -54,7 +54,7 @@ QA: Composition Cleaning Scripts</h1>
                    href='{% url "qa_cleaning_script_detail" cleaning_script.id %}'> Continue QA
                 </a>
             {% else %}
-              <a class="btn btn-primary btn-sm col-12" role="button"
+              <a class="btn btn-primary btn-sm col-12" role="button", id="detail-{{ cleaning_script.id }}"
                  title="Begin QA on {{ cleaning_script.title }}"
                  href='{% url "qa_cleaning_script_detail" cleaning_script.id %}'> Begin QA
                 </a>

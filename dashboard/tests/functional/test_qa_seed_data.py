@@ -9,6 +9,7 @@ from dashboard.models import (
     QAGroup,
     QANotes,
     ExtractedListPresence,
+    ExtractedComposition,
 )
 from django.db.models import Count
 from django.urls import reverse
@@ -285,3 +286,16 @@ class TestQaPage(TestCase):
             response.content,
             "the table should show the correct count of cleaned documents assigned to the Cleaning QA Group",
         )
+        # proceed back to the script's QA detail page
+        response = self.client.get(
+            reverse("qa_cleaning_script_detail", args=[16])
+        ).content.decode("utf8")
+        # the chemical record count listed should match the number of ExtractedComposition records related to the document
+        et_id = ExtractedText.objects.filter(cleaning_qa_group_id=qag.pk).first().pk
+        chem_count_orm = ExtractedComposition.objects.filter(
+            extracted_text_id=et_id
+        ).count()
+        chem_count_xpath = f'//*[@id="docrow-{et_id}"]/td[5]'
+        response_html = html.fromstring(response)
+        chem_count_table = int(response_html.xpath(chem_count_xpath)[0].text)
+        self.assertEqual(chem_count_orm, chem_count_table)
