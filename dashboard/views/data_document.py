@@ -49,7 +49,7 @@ from dashboard.models import (
 )
 from django.forms import inlineformset_factory
 
-from factotum.settings import CSV_STORAGE_ROOT
+from factotum.settings import DOWNLOADS_ROOT
 
 CHEMICAL_FORMS = {
     "CO": ExtractedCompositionForm,
@@ -110,13 +110,16 @@ def data_document_detail(request, pk):
         "edit_text_form": ParentForm(instance=ext),  # empty form if ext is None
         "tag_form": tag_form,
     }
-    if doc.data_group.group_type.code == "CO":
-        script_chem = (
-            Child.objects.filter(extracted_text__data_document=doc)
-            .filter(script__isnull=False)
-            .first()
-        )
-        context["cleaning_script"] = script_chem.script if script_chem else None
+    try:
+        if doc.data_group.group_type.code == "CO":
+            script_chem = (
+                doc.extractedtext.cleaning_script
+                if doc.extractedtext.cleaning_script
+                else None
+            )
+            context["cleaning_script"] = script_chem
+    except ExtractedText.DoesNotExist:
+        context["cleaning_script"] = None
 
     tags = (
         ExtractedListPresenceTag.objects.filter(
@@ -812,7 +815,7 @@ def download_list_presence_chemicals(request):
 
 def download_composition_chemicals(request):
     filename = "composition_chemicals.zip"
-    filepath = os.path.join(CSV_STORAGE_ROOT, filename)
+    filepath = os.path.join(DOWNLOADS_ROOT, filename)
     if os.path.exists(filepath):
         return FileResponse(open(filepath, "rb"), filename=filename, as_attachment=True)
     return HttpResponse(

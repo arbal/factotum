@@ -6,7 +6,7 @@ from django.test import TestCase
 from dashboard.tests import factories
 from dashboard.tests.factories import ExtractedCompositionFactory
 from dashboard.tasks import provisional_sid_assignment, generate_bulk_download_file
-from factotum.settings import CSV_STORAGE_ROOT
+from factotum.settings import DOWNLOADS_ROOT
 
 
 class ProvisionalSidAssignmentTest(TestCase):
@@ -105,9 +105,7 @@ class ProvisionalSidAssignmentTest(TestCase):
 class GenerateBulkDownloadTest(TestCase):
     def test_generate_bulk_download_file(self):
         # clear files
-        path = CSV_STORAGE_ROOT
-        if os.path.exists(path):
-            shutil.rmtree(path)
+        path = DOWNLOADS_ROOT
         # invoke task
         factories.ExtractedCompositionFactory.create_batch(500)
         generate_bulk_download_file.apply()

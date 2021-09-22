@@ -21,7 +21,7 @@ $('#grouptype_table').DataTable({
         },
     },
     "columns": [{"title": "Group Type"},
-        {"title": "Documents (%)"},
-        {"title": "Raw Chemical Records (%)"},
-        {"title": "Curated Chemical Records (%)"},]
+        {"title": "Documents (% of total)"},
+        {"title": "Extracted Chemical Records (% of total)"},
+        {"title": "Curated Chemical Records (% of total)"},]
 })

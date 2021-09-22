@@ -11,7 +11,7 @@ from djqscsv import write_csv
 
 from dashboard.models import ExtractedComposition
 from factotum.celery import app
-from factotum.settings import CSV_STORAGE_ROOT
+from factotum.settings import DOWNLOADS_ROOT
 
 logger = logging.getLogger("django")
 
@@ -123,48 +123,49 @@ def generate_bulk_download_file():
             "raw_chem_name",
         )
     )
-    # create directory is not exist yet and change to it
-    path = CSV_STORAGE_ROOT
-    if not os.path.exists(path):
-        os.mkdir(path)
-    os.chdir(path)
-    # generate the csv file and compress it
-    filename = "composition_chemicals.csv"
-    zip_filename = "composition_chemicals.zip"
-    with open(filename, "wb") as chem_file:
-        write_csv(
-            chemicals,
-            chem_file,
-            field_header_map={
-                "extracted_text__data_document__data_group__data_source__title": "Data Source",
-                "extracted_text__data_document__title": "Data Document Title",
-                "extracted_text__data_document__subtitle": "Data Document Subtitle",
-                "extracted_text__doc_date": "Document Date",
-                "extracted_text__data_document__product__title": "Product",
-                "extracted_text__data_document__product__product_uber_puc__puc__kind__name": "PUC Kind",
-                "extracted_text__data_document__product__product_uber_puc__puc__gen_cat": "PUC Gen Cat",
-                "extracted_text__data_document__product__product_uber_puc__puc__prod_fam": "PUC Prod Fam",
-                "extracted_text__data_document__product__product_uber_puc__puc__prod_type": "PUC Prod Type",
-                "extracted_text__data_document__product__product_uber_puc__classification_method__name": "PUC Classification Method",
-                "raw_chem_name": "Raw Chemical Name",
-                "raw_cas": "Raw CAS",
-                "dsstox__sid": "DTXSID",
-                "dsstox__true_chemname": "True Chemical Name",
-                "dsstox__true_cas": "True CAS",
-                "provisional": "Provisional",
-                "raw_min_comp": "Raw Min Comp",
-                "raw_max_comp": "Raw Max Comp",
-                "raw_central_comp": "Raw Central Comp",
-                "unit_type__title": "Unit Type",
-                "lower_wf_analysis": "Lower Weight Fraction",
-                "upper_wf_analysis": "Upper Weight Fraction",
-                "central_wf_analysis": "Central Weight Fraction",
-                "weight_fraction_type__title": "Weight Fraction Type",
-            },
-            field_serializer_map={
-                "provisional": (lambda f: ("Yes" if f == "1" else "No"))
-            },
-        )
-    with ZipFile(zip_filename, "w", compression=zipfile.ZIP_DEFLATED) as zip_file:
-        zip_file.write(filename)
-    logger.info("Generate composition bulk download task done")
+    # the DOWNLOADS_ROOT folder should have been created by docker
+    path = DOWNLOADS_ROOT
+    if os.path.exists(path):
+        os.chdir(path)
+        # generate the csv file and compress it
+        filename = "composition_chemicals.csv"
+        zip_filename = "composition_chemicals.zip"
+        with open(filename, "wb") as chem_file:
+            write_csv(
+                chemicals,
+                chem_file,
+                field_header_map={
+                    "extracted_text__data_document__data_group__data_source__title": "Data Source",
+                    "extracted_text__data_document__title": "Data Document Title",
+                    "extracted_text__data_document__subtitle": "Data Document Subtitle",
+                    "extracted_text__doc_date": "Document Date",
+                    "extracted_text__data_document__product__title": "Product",
+                    "extracted_text__data_document__product__product_uber_puc__puc__kind__name": "PUC Kind",
+                    "extracted_text__data_document__product__product_uber_puc__puc__gen_cat": "PUC Gen Cat",
+                    "extracted_text__data_document__product__product_uber_puc__puc__prod_fam": "PUC Prod Fam",
+                    "extracted_text__data_document__product__product_uber_puc__puc__prod_type": "PUC Prod Type",
+                    "extracted_text__data_document__product__product_uber_puc__classification_method__name": "PUC Classification Method",
+                    "raw_chem_name": "Raw Chemical Name",
+                    "raw_cas": "Raw CAS",
+                    "dsstox__sid": "DTXSID",
+                    "dsstox__true_chemname": "True Chemical Name",
+                    "dsstox__true_cas": "True CAS",
+                    "provisional": "Provisional",
+                    "raw_min_comp": "Raw Min Comp",
+                    "raw_max_comp": "Raw Max Comp",
+                    "raw_central_comp": "Raw Central Comp",
+                    "unit_type__title": "Unit Type",
+                    "lower_wf_analysis": "Lower Weight Fraction",
+                    "upper_wf_analysis": "Upper Weight Fraction",
+                    "central_wf_analysis": "Central Weight Fraction",
+                    "weight_fraction_type__title": "Weight Fraction Type",
+                },
+                field_serializer_map={
+                    "provisional": (lambda f: ("Yes" if f == "1" else "No"))
+                },
+            )
+        with ZipFile(zip_filename, "w", compression=zipfile.ZIP_DEFLATED) as zip_file:
+            zip_file.write(filename)
+        logger.info("Generate composition bulk download task done")
+    else:
+        logger.error(f"No directory found at {DOWNLOADS_ROOT}")

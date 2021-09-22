@@ -53,6 +53,7 @@ class ExtractedHHRec(RawChem):
         return [
             "raw_chem_name",
             "raw_cas",
+            "chem_detected_flag",
             "sampling_method",
             "analytical_method",
             "medium",

@@ -90,9 +90,6 @@ class ExtractedComposition(RawChem):
         validators=[validate_wf_analysis],
         help_text="maximum weight fraction",
     )
-    script = models.ForeignKey(
-        to=Script, on_delete=models.CASCADE, null=True, blank=True
-    )
 
     class Meta:
         ordering = (

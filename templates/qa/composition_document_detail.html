@@ -3,27 +3,15 @@
 {% load staticfiles %}
 {% load humanize %}
 
-{% block title %}QA Data Document {{ doc.id }}: {{ doc.title }}{% endblock %}
+{% block title %}QA Cleaned Composition Data for Data Document {{ doc.id }}: {{ doc.title }}{% endblock %}
 
 {% block content %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            {% if doc.data_group.type == "CO" and script.title == "Manual (dummy)" %}
-            <li class="breadcrumb-item"><a href="{% url "qa_manual_composition_index" %}">Manual Composition</a></li>
-            <li class="breadcrumb-item">
-                <a href="{% url "qa_manual_composition_datagroup" doc.data_group_id %}">{{ doc.data_group }} </a>
-            </li>          
-            {% elif doc.data_group.type == "CP" %}
-                <li class="breadcrumb-item"><a href="{% url "qa_chemicalpresence_index" %}">Chemical Presence</a></li>
+                <li class="breadcrumb-item"><a href="{% url "qa_composition_cleaning_index" %}">Cleaned Composition QA</a></li>
                 <li class="breadcrumb-item">
-                    <a href="{% url "qa_chemical_presence_group" doc.data_group_id %}"> {{ doc.data_group }} </a>
+                    <a href="{% url "qa_cleaning_script_detail" script.id %}"> {{ script }} </a>
                 </li>
-            {% else %}
-                <li class="breadcrumb-item"><a href="{% url "qa_extractionscript_index" %}">Composition</a></li>
-                <li class="breadcrumb-item">
-                    <a href="{% url "qa_extraction_script" script.id %}"> {{ script }} </a>
-                </li>
-            {% endif %}
             <li class="breadcrumb-item active" aria-current="page">{{ doc.title }}</li>
         </ol>
     </nav>
@@ -41,6 +29,10 @@
             </a>
         </h3>
 
+        <div class="alert alert-danger" role="alert">
+            TODO
+          </div>
+
         <div class="row m-0 border-bottom">
             <div class="col-3 border-right my-auto p-2 font-weight-bold">Data Group</div>
             <div class="col-9 p-2" id="data_group">
@@ -51,14 +43,7 @@
         </div>
 
         <div class="row m-0 border-bottom">
-            <div class="col-3 border-right my-auto p-2 font-weight-bold">Document Type</div>
-            <form method="post" action="{% url "save_data_document_type" doc.pk %}" novalidate>
-                <input id="document_type_selector" type="hidden" name="referer" value="{{ request.path }}"/>
-                {% csrf_token %}
-                <div class="col-9 p-2">
-                    {{ document_type_form.document_type }}
-                </div>
-            </form>
+            
         </div>
         <div class="row m-0 border-bottom">
             <div class="col-3 border-right my-auto p-2 font-weight-bold">Subtitle</div>
@@ -108,11 +93,7 @@
         {% endif %}
 
         <div class="row m-0 border-bottom">
-            <div class="col-3 p-2 border-right my-auto font-weight-bold">Total Chemical Records</div>
-            <div class="col-9 p-2" id="chem">
-                <select name="chems" id="id_chems" multiple hidden></select>
-                {{ extracted_text.chemical_count }}
-            </div>
+            
         </div>
     </div>
 
@@ -149,76 +130,22 @@
     </div>
 
     <div class="card">
-    <h3 class="card-header">
-        {{ doc.data_group.group_type }} Records
-    </h3>
-    <div id="card-panel" class="card-body">
-        {{ cards | safe }}
-    </div>
-    </div>
+        <h3 class="card-header">
+            {{ doc.data_group.group_type }} Records
+        </h3>
+        <div id="card-panel" class="card-body">
+            {{ cards | safe }}
+        </div>
+        </div>
 
     <div class="card">
         <h3 class="card-header">QA Review</h3>
         <div class="row card-body">
-            <div class="col-6">
-                <form action="{% url "approve_extracted_text" doc.pk %}" method="post"
-                      id="approve-form">
-                    {% csrf_token %}
-                    <input type="hidden" name="referer" value="{{ request.path }}"/>
-                    <button type="submit" id="approve" name="approve"
-                            class="btn btn-success btn-lg btn-block" role="button">Approve
-                    </button>
-                    <!-- start Skip button -->
-                    {% if nextid > 0 %} <!-- there is a Next Document ID -->
-                        <br>
-                        {% if referer == "qa_extraction_script" and doc.data_group.type != "CP" %}
-                            <!-- arrived on a non-Chemical Presence page from a script index page -->
-                                <a class="btn btn-warning btn-lg btn-block"
-                                href="{% url "extracted_text_qa" nextid %}" name="skip" id="skip" 
-                                role="button">Skip</a>
-                        {% endif %}
-                    {% else %} <!-- there is no Next Document ID -->
-                        {% if doc.data_group.type != "CP" %} <!-- show the button disabled -->
-                            <button type="button"
-                                    title="All the other documents in this QA group have been approved"
-                                    name="skip" id="skip" class="btn btn-secondary btn-lg btn-block"
-                                    aria-disabled="true" disabled>Skip</button>
-                        {% endif%}
-                    {% endif %}
-                    <!-- end Skip button -->
-                    <br>
-                    <a class="btn btn-secondary btn-lg btn-block" href="{{ exit_url }}" id="exit" 
-                            role="button">Exit</a>
-                </form>
-            </div>
+ 
 
-            <div class="col-6 text-center">
-                <form action="{% url "save_qa_notes" doc.pk %}" method="POST" id="qa-notes-form">
-                    {% csrf_token %}
-                    <b>{{ notesform.qa_notes.label_tag }}</b>&nbsp;<input type="submit"
-                                                                          id="btn-save-notes"
-                                                                          value="Save Note"
-                                                                          class="btn btn-sm btn-primary">
-                    <br>
-                    {% if notesform.is_bound %}
-                        {% if notesform.errors %}
-                            {{ notesform.qa_notes.errors }}
-                            {% render_field notesform.qa_notes class="form-control is-invalid" %}
-                            {% for k, error in notesform.errors.items %}
-                                <div class="invalid-feedback">
-                                    {{ error }}
-                                </div>
-                            {% endfor %}
-                        {% else %}
-                            {% render_field notesform.qa_notes class="form-control is-valid" %}
-                        {% endif %}
-                    {% else %}
-                        {% render_field notesform.qa_notes class="form-control" %}
-                    {% endif %}
-                </form>
-            </div>
+            
         </div>
-        <p class="card-footer"> {{ stats }}</p>
+        <p class="card-footer"> </p>
     </div>
 {% endblock %}
 

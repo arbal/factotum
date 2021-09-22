@@ -563,6 +563,7 @@ class ExtractedHHRecForm(ExtractedChemicalModelForm):
         fields = [
             "raw_chem_name",
             "raw_cas",
+            "chem_detected_flag",
             "medium",
             "harmonized_medium",
             "num_measure",

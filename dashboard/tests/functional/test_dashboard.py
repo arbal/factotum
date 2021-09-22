@@ -155,32 +155,32 @@ class DashboardTest(TestCase):
         )
         self.assertEqual(
             json_response_content["data"][0][1],
-            "1 (50%)",
+            "1 (50.00%)",
             "documentcount returned seems to be incorrect information",
         )
         self.assertEqual(
             json_response_content["data"][0][2],
-            "1 (100%)",
+            "1 (100.00%)",
             "rawchemcount returned seems to be incorrect information",
         )
         self.assertEqual(
             json_response_content["data"][0][3],
-            "0 (0%)",
+            "0 (0.00%)",
             "curatedchemcount returned seems to be incorrect information",
         )
         self.assertEqual(
             json_response_content_after_create["data"][0][1],
-            "2 (67%)",
+            "2 (66.67%)",
             "Adding a data document should increase documentcount",
         )
         self.assertEqual(
             json_response_content_after_create["data"][0][2],
-            "2 (100%)",
+            "2 (100.00%)",
             "Adding a RawChem should increase rawchemcount",
         )
         self.assertEqual(
             json_response_content_after_create["data"][0][3],
-            "1 (100%)",
+            "1 (100.00%)",
             "Adding a Curated Chem should increase curatedchemcount",
         )
 
@@ -220,7 +220,9 @@ class DashboardTestWithFixtures(TestCase):
     def test_chemical_card(self):
         response = self.client.get("/").content.decode("utf8")
         self.assertIn(
-            "Unique DTXSID", response, "Where is the DSS Tox Chemicals card???"
+            "Unique Chemicals (DTXSIDs)",
+            response,
+            "Where is the DSS Tox Chemicals card???",
         )
         response_html = html.fromstring(response)
         num_dss = int(response_html.xpath('//*[@name="dsstox"]')[0].text)
@@ -235,15 +237,15 @@ class DashboardTestWithFixtures(TestCase):
     def test_producttopuc_counts(self):
         response = self.client.get("/").content.decode("utf8")
         self.assertIn(
-            "Products Linked To PUC",
+            "Products Linked To Product Use Categories",
             response,
-            "Where is the Products Linked to PUC card???",
+            "Where is the Products Linked to PUC card?",
         )
         response_html = html.fromstring(response)
 
         chem_count = int(
             response_html.xpath(
-                '//div[@class="card-body" and contains(h3, "Extracted Chemicals")]/div'
+                '//div[@class="card-body" and contains(h3, "Extracted Chemical Records")]/div'
             )[0].text
         )
         self.assertEqual(RawChem.objects.count(), chem_count)
