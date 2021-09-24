@@ -472,7 +472,7 @@ class TestCleaningQASummary(TestCase):
             self.extracted_texts[0].data_document.get_absolute_url(), table_row[1]
         )
         self.assertEqual(self.extracted_texts[0].qanotes.qa_notes, table_row[2])
-        self.assertEqual(cleaning_qa_checked, table_row[3])
+        self.assertEqual(self.extracted_texts[0].cleaning_qa_checked, table_row[3]=="Yes")
         self.assertEqual(chem_count, table_row[4])
         self.assertIn(timesince(self.extracted_texts[0].updated_at), table_row[5])
         self.assertIn(

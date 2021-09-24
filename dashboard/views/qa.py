@@ -280,8 +280,8 @@ def qa_cleaning_script_summary(
         "cleaned_documents", filter=Q(cleaned_documents__cleaning_qa_checked=True)
     )
     qa_note_count = Count(
-        "extractedtext__qanotes__qa_notes",
-        filter=~Q(extractedtext__qanotes__qa_notes=""),
+        "cleaned_documents__qanotes__qa_notes",
+        filter=~Q(cleaned_documents__qanotes__qa_notes="") & ~Q(cleaned_documents__qanotes__qa_notes__isnull=True),
     )
     script = (
         Script.objects.filter(pk=pk)
