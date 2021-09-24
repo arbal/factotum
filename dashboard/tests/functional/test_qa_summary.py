@@ -370,7 +370,7 @@ class TestCleaningQASummary(TestCase):
         with mock.patch(
             "django.utils.timezone.now", mock.Mock(return_value=self.five_weeks_ago)
         ):
-            self.cleaning_script = factories.ScriptFactory( script_type="DC")
+            self.cleaning_script = factories.ScriptFactory(script_type="DC")
             self.extracted_texts = factories.ExtractedTextFactory.create_batch(
                 3,
                 data_document__data_group__group_type__code="CO",
@@ -420,7 +420,9 @@ class TestCleaningQASummary(TestCase):
         self.assertIn(str(self.cleaning_script.qa_group.get()), response)
 
         # Verify QA extracted text count, QA complete count, and QA incomplete count
-        qa_complete_count = sum([text.cleaning_qa_checked for text in self.extracted_texts])
+        qa_complete_count = sum(
+            [text.cleaning_qa_checked for text in self.extracted_texts]
+        )
         self.assertIn(
             str(len(self.extracted_texts)),
             response_html.xpath('//*[@id="extractedtext_count"]')[0].text,
@@ -472,7 +474,9 @@ class TestCleaningQASummary(TestCase):
             self.extracted_texts[0].data_document.get_absolute_url(), table_row[1]
         )
         self.assertEqual(self.extracted_texts[0].qanotes.qa_notes, table_row[2])
-        self.assertEqual(self.extracted_texts[0].cleaning_qa_checked, table_row[3]=="Yes")
+        self.assertEqual(
+            self.extracted_texts[0].cleaning_qa_checked, table_row[3] == "Yes"
+        )
         self.assertEqual(chem_count, table_row[4])
         self.assertIn(timesince(self.extracted_texts[0].updated_at), table_row[5])
         self.assertIn(

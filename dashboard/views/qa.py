@@ -281,7 +281,8 @@ def qa_cleaning_script_summary(
     )
     qa_note_count = Count(
         "cleaned_documents__qanotes__qa_notes",
-        filter=~Q(cleaned_documents__qanotes__qa_notes="") & ~Q(cleaned_documents__qanotes__qa_notes__isnull=True),
+        filter=~Q(cleaned_documents__qanotes__qa_notes="")
+        & ~Q(cleaned_documents__qanotes__qa_notes__isnull=True),
     )
     script = (
         Script.objects.filter(pk=pk)
@@ -886,7 +887,7 @@ def delete_extracted_text(
         redirect_to = "extraction_script_delete_list"
     else:
         redirect_to = "qa_extractionscript_index"
-    
+
     # schedule async task as it may take sometime to finish the bulk deletion
     delete_task = delete_extracted_script_task.apply_async(
         args=[pk], shadow=f"extracted_script_delete.{pk}"
