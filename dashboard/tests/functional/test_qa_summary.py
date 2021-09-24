@@ -1,5 +1,6 @@
 import json
 import time
+import factory
 from datetime import datetime, timedelta
 from unittest import mock, skip
 
@@ -354,4 +355,127 @@ class TestFUQASummary(TestCase):
         self.assertIn(
             str(len(self.extracted_texts) - qa_complete_count),
             response_html.xpath('//*[@id="qa_incomplete_extractedtext_count"]')[0].text,
+        )
+
+
+class TestCleaningQASummary(TestCase):
+    fixtures = ["00_superuser"]
+
+    def setUp(self):
+        self.client.login(username="Karyn", password="specialP@55word")
+
+        self.five_weeks_ago = datetime.now() - timedelta(weeks=5)
+
+        # Mock fakes the auto_now call on update and created at making all these create 5 weeks old.
+        with mock.patch(
+            "django.utils.timezone.now", mock.Mock(return_value=self.five_weeks_ago)
+        ):
+            self.cleaning_script = factories.ScriptFactory( script_type="DC")
+            self.extracted_texts = factories.ExtractedTextFactory.create_batch(
+                3,
+                data_document__data_group__group_type__code="CO",
+                cleaning_script=self.cleaning_script,
+            )
+            # add 10 ExtractedComposition records to each document
+            for et in self.extracted_texts:
+                chems = factories.ExtractedCompositionFactory.create_batch(
+                    10, extracted_text=et
+                )
+
+            # Approve one document
+            QANotes(
+                extracted_text=self.extracted_texts[0],
+                qa_notes="This Cleaned Composition data looks good",
+            ).save()
+            self.extracted_texts[0].cleaning_qa_checked = True
+            self.extracted_texts[0].data_document.title = "Foobar"
+            self.extracted_texts[0].save()
+            self.extracted_texts[0].data_document.save()
+
+        # create data that should not be reflected in results
+        factories.ExtractedCompositionFactory()
+
+    def _match_table_row(self, response_json, qa_note):
+        """Matches a row in the response table by the qa_note and returns it.
+        Only one row will be returned if multiple notes are the same."""
+        row_response = None
+        for row in response_json:
+            if row[2] == qa_note:
+                row_response = row
+        return row_response
+
+    def test_qa_summary(self):
+        """This tests the basic data on the page.
+        The table is sourced through ajax and will need a direct pull"""
+
+        response = self.client.get(
+            reverse("qa_cleaning_script_summary", args=[self.cleaning_script.pk])
+        ).content.decode("utf-8")
+        response_html = html.fromstring(response)
+
+        # Verify title (h1) contains the name of the script
+        self.assertIn(self.cleaning_script.title, response_html.xpath("//h1")[0].text)
+
+        # Verify QA Group is somewhere on the page (All ET should have the same qa group)
+        self.assertIn(str(self.cleaning_script.qa_group.get()), response)
+
+        # Verify QA extracted text count, QA complete count, and QA incomplete count
+        qa_complete_count = sum([text.cleaning_qa_checked for text in self.extracted_texts])
+        self.assertIn(
+            str(len(self.extracted_texts)),
+            response_html.xpath('//*[@id="extractedtext_count"]')[0].text,
+        )
+        self.assertIn(
+            str(qa_complete_count),
+            response_html.xpath('//*[@id="qa_complete_extractedtext_count"]')[0].text,
+        )
+        self.assertIn(
+            str(
+                QANotes.objects.filter(extracted_text__in=self.extracted_texts)
+                .exclude(qa_notes="")
+                .count()
+            ),
+            response_html.xpath('//*[@id="qa_notes"]')[0].text,
+        )
+        self.assertIn(
+            str(len(self.extracted_texts) - qa_complete_count),
+            response_html.xpath('//*[@id="qa_incomplete_extractedtext_count"]')[0].text,
+        )
+
+    def test_qa_summary_table(self):
+        """Verify data from table returns a row for each extracted text connected to this script
+        that has QANotes or has related updated audit logs"""
+
+        response = self.client.get(
+            reverse("qa_cleaning_script_summary_table", args=[self.cleaning_script.pk])
+        ).content.decode("utf-8")
+        response_json = json.loads(response).get("data")
+        chem_count = RawChem.objects.filter(
+            extracted_text_id=self.extracted_texts[0].pk
+        ).count()
+        if self.extracted_texts[0].qa_checked:
+            qa_checked = "Yes"
+        else:
+            qa_checked = "No"
+
+        self.assertIn(self.extracted_texts[0].qanotes.qa_notes, response)
+
+        # Verify data in extracted text 0 matches a row in the response
+        table_row = self._match_table_row(
+            response_json, self.extracted_texts[0].qanotes.qa_notes
+        )
+        self.assertIn(
+            self.extracted_texts[0].data_document.data_group.name, table_row[0]
+        )
+        self.assertIn(self.extracted_texts[0].data_document.title, table_row[1])
+        self.assertIn(
+            self.extracted_texts[0].data_document.get_absolute_url(), table_row[1]
+        )
+        self.assertEqual(self.extracted_texts[0].qanotes.qa_notes, table_row[2])
+        self.assertEqual(cleaning_qa_checked, table_row[3])
+        self.assertEqual(chem_count, table_row[4])
+        self.assertIn(timesince(self.extracted_texts[0].updated_at), table_row[5])
+        self.assertIn(
+            reverse("document_audit_log", args=[self.extracted_texts[0].pk]),
+            table_row[5],
         )
