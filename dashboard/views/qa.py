@@ -1,3 +1,4 @@
+from dashboard.models.extracted_composition import ExtractedComposition
 import json
 
 from celery import shared_task
@@ -345,7 +346,7 @@ def qa_cleaning_script_detail(
 
 
 @login_required()
-def qa_extracted_composition_document_detail(
+def qa_cleaned_composition_document_detail(
     request, pk, template_name="qa/composition_document_detail.html"
 ):
     """
@@ -360,12 +361,15 @@ def qa_extracted_composition_document_detail(
         exclude=["weight_fraction_type", "true_cas", "true_chemname", "sid"],
     )
     detail_formset = ChildForm(instance=extext)
-    flagged_qs = detail_formset.get_queryset()
+
     context = {
         "extracted_text": extext,
         "doc": doc,
         "script": extext.cleaning_script,
-        "cards": cards_detail(request, doc, flagged_qs, False).content.decode("utf8"),
+        "chemicals": doc.extractedtext.rawchem,
+        "cleaned_composition_table_url": reverse(
+            "qa_cleaned_composition_detail_table", args=[pk]
+        ),
     }
 
     return render(request, template_name, context)
@@ -662,6 +666,41 @@ class ManualCompositionDataGroupSummaryTable(ExtractionSummaryTable):
         return ExtractedText.objects.filter(
             data_document__data_group__id=self.pk, extraction_script=MANUAL_SCRIPT_ID
         )
+
+
+class CleanedCompositionDetailTable(BaseDatatableView):
+    """
+    Provides the AJAX data for the cleaned composition detail page.
+    Example: http://127.0.0.1:8000/qa/cleanedcomposition/1364907/table
+    """
+
+    model = ExtractedComposition
+    columns = [
+        "raw_chem_name",
+        "raw_central_comp",
+        "central_wf_analysis",
+    ]
+
+    def get(self, request, pk, *args, **kwargs):
+        """This PK should be a data document ID"""
+        self.pk = pk
+        return super().get(request, *args, **kwargs)
+
+    def get_initial_queryset(self):
+        return ExtractedComposition.objects.filter(extracted_text_id=self.pk)
+
+    def render_column(self, row, column):
+        if column == "raw_chem_name":
+            return row.raw_chem_name
+
+        if column == "raw_central_comp":
+            return(row.raw_central_comp if row.raw_central_comp else  f"{row.raw_min_comp} - {row.raw_max_comp}")
+
+        if column == "central_wf_analysis":
+            return(row.central_wf_analysis if row.central_wf_analysis else f"{float('%.4g' % row.lower_wf_analysis)} - {float('%.4g' % row.upper_wf_analysis)}" )
+
+        super().render_column(row, column)
+
 
 
 @login_required()

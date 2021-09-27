@@ -250,9 +250,14 @@ urlpatterns = [
         name="qa_cleaning_script_detail",
     ),
     path(
-        "qa/extractedcomposition/<int:pk>/",
-        dashboard.views.qa.qa_extracted_composition_document_detail,
-        name="qa_extracted_composition_document_detail",
+        "qa/cleanedcomposition/<int:pk>/",
+        dashboard.views.qa.qa_cleaned_composition_document_detail,
+        name="qa_cleaned_composition_document_detail",
+    ),
+    path(
+        "qa/cleanedcomposition/<int:pk>/table",
+        dashboard.views.qa.CleanedCompositionDetailTable.as_view(),
+        name="qa_cleaned_composition_detail_table",
     ),
     # Extraction Script QA
     path(
