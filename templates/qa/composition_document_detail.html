@@ -137,9 +137,63 @@
     <div class="card">
         <h3 class="card-header">QA Review</h3>
         <div class="row card-body">
- 
+            <div class="col-6">
+                <form action="{% url "approve_extracted_text" doc.pk %}" method="post"
+                      id="approve-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="referer" value="{{ request.path }}"/>
+                    <button type="submit" id="approve" name="approve"
+                            class="btn btn-success btn-lg btn-block" role="button">Approve
+                    </button>
+                    <!-- start Skip button -->
+                    {% if nextid > 0 %} <!-- there is a Next Document ID -->
+                        <br>
+                        {% if referer == "qa_extraction_script" and doc.data_group.type != "CP" %}
+                            <!-- arrived on a non-Chemical Presence page from a script index page -->
+                                <a class="btn btn-warning btn-lg btn-block"
+                                href="{% url "extracted_text_qa" nextid %}" name="skip" id="skip" 
+                                role="button">Skip</a>
+                        {% endif %}
+                    {% else %} <!-- there is no Next Document ID -->
+                        {% if doc.data_group.type != "CP" %} <!-- show the button disabled -->
+                            <button type="button"
+                                    title="All the other documents in this QA group have been approved"
+                                    name="skip" id="skip" class="btn btn-secondary btn-lg btn-block"
+                                    aria-disabled="true" disabled>Skip</button>
+                        {% endif%}
+                    {% endif %}
+                    <!-- end Skip button -->
+                    <br>
+                    <a class="btn btn-secondary btn-lg btn-block" href="{{ exit_url }}" id="exit" 
+                            role="button">Exit</a>
+                </form>
+            </div>
 
-            
+            <div class="col-6 text-center">
+                <form action="{% url "save_qa_notes" doc.pk %}" method="POST" id="qa-notes-form">
+                    {% csrf_token %}
+                    <b>{{ notesform.qa_notes.label_tag }}</b>&nbsp;<input type="submit"
+                                                                          id="btn-save-notes"
+                                                                          value="Save Note"
+                                                                          class="btn btn-sm btn-primary">
+                    <br>
+                    {% if notesform.is_bound %}
+                        {% if notesform.errors %}
+                            {{ notesform.qa_notes.errors }}
+                            {% render_field notesform.qa_notes class="form-control is-invalid" %}
+                            {% for k, error in notesform.errors.items %}
+                                <div class="invalid-feedback">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            {% render_field notesform.qa_notes class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field notesform.qa_notes class="form-control" %}
+                    {% endif %}
+                </form>
+            </div>
         </div>
         <p class="card-footer"> </p>
     </div>
