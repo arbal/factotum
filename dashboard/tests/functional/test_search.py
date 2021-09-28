@@ -418,11 +418,10 @@ class TestSearch(TestCase):
                 headers=self.auth_header,
             )
             self.assertEqual(201, response.status_code)
-        
+
         # refresh the index before proceeding
         requests.post(
-            f"http://{self.esurl}/dashboard/_refresh/",
-            headers=self.auth_header,
+            f"http://{self.esurl}/dashboard/_refresh/", headers=self.auth_header
         )
 
         # Unquoted search should return records with just "shampoo"
@@ -445,11 +444,13 @@ class TestSearch(TestCase):
             len(hits), 3, "There should be 3 results for the quoted search"
         )
         # the result counts in the tabs should match the other counts
-        nav_tabs = soup.find('ul', attrs={'class': 'nav-tabs'})
+        nav_tabs = soup.find("ul", attrs={"class": "nav-tabs"})
         badges = nav_tabs.find_all("span", {"class": "badge-light"})
-        # Products,  Documents, PUCs, Chemicals, Tags 
+        # Products,  Documents, PUCs, Chemicals, Tags
         self.assertEqual(
-            str(len(hits)), badges[0].text, "The result count in the Products badge should match the number of h5 elements below"
+            str(len(hits)),
+            badges[0].text,
+            "The result count in the Products badge should match the number of h5 elements below",
         )
 
         # single quotes should have the same behavior
@@ -461,11 +462,13 @@ class TestSearch(TestCase):
             len(hits), 3, "There should be 3 results for the quoted search"
         )
         # the result counts in the tabs should match the other counts
-        nav_tabs = soup.find('ul', attrs={'class': 'nav-tabs'})
+        nav_tabs = soup.find("ul", attrs={"class": "nav-tabs"})
         badges = nav_tabs.find_all("span", {"class": "badge-light"})
-        # Products,  Documents, PUCs, Chemicals, Tags 
+        # Products,  Documents, PUCs, Chemicals, Tags
         self.assertEqual(
-            str(len(hits)), badges[0].text, "The result count in the Products badge should match the number of h5 elements below"
+            str(len(hits)),
+            badges[0].text,
+            "The result count in the Products badge should match the number of h5 elements below",
         )
 
         # Delete the documents that were added to the index for the purposes of the test
@@ -480,8 +483,7 @@ class TestSearch(TestCase):
         )
         self.assertEqual(200, cleanup_response.status_code)
         requests.post(
-            f"http://{self.esurl}/dashboard/_refresh/",
-            headers=self.auth_header,
+            f"http://{self.esurl}/dashboard/_refresh/", headers=self.auth_header
         )
 
 
@@ -517,8 +519,7 @@ class TestSearchView(TestCase):
         )
         self.assertEqual(200, cleanup_response.status_code)
         requests.post(
-            f"http://{self.esurl}/dashboard/_refresh/",
-            headers=self.auth_header,
+            f"http://{self.esurl}/dashboard/_refresh/", headers=self.auth_header
         )
 
     def test_special_char_search(self):
@@ -558,8 +559,7 @@ class TestSearchView(TestCase):
             )
             self.assertEqual(201, response.status_code)
             requests.post(
-                f"http://{self.esurl}/dashboard/_refresh/",
-                headers=self.auth_header,
+                f"http://{self.esurl}/dashboard/_refresh/", headers=self.auth_header
             )
 
         # test the search terms

@@ -26,6 +26,7 @@ from dashboard.models import (
     ExtractedHabitsAndPractices,
     RawChem,
     AuditLog,
+    HarmonizedMedium,
 )
 
 
@@ -422,6 +423,89 @@ class FUCChemicalListJson(FilterDatatableView):
             vals = (
                 RawChem.objects.filter(dsstox__isnull=False)
                 .filter(Q(functional_uses__category=fuc))
+                .values("dsstox")
+            )
+            return qs.filter(pk__in=vals)
+        return qs
+
+    def render_column(self, row, column):
+        value = self._render_column(row, column)
+        if value and hasattr(row, "get_absolute_url"):
+            if column == "true_chemname":
+                return format_html(truncatechars(value, 89))
+            return format_html(
+                '<a href="{}" title="Go to Chemical detail" target="_blank">{}</a>',
+                row.get_absolute_url(),
+                value,
+            )
+        return value
+
+    def filter_queryset(self, qs):
+        s = self.request.GET.get("search[value]", None)
+        if s:
+            qs = qs.filter(
+                Q(true_cas__icontains=s) | Q(true_chemname__icontains=s)
+            ).distinct()
+        return qs
+
+
+class HarmonizedMediumDocumentListJson(FilterDatatableView):
+    model = DataDocument
+    columns = [
+        "data_group__group_type__code",
+        "title",
+        "extractedtext__doc_date",
+        "extractedtext__rawchem__unionextractedlmhhrec__medium",
+    ]
+
+    def get_initial_queryset(self):
+        qs = super().get_initial_queryset()
+        medium = self.request.GET.get("medium")
+        if medium:
+            qs = qs.filter(
+                Q(
+                    extractedtext__rawchem__unionextractedlmhhrec__harmonized_medium=medium
+                )
+            )
+        # using the .distinct() function means that a dict is returned, not
+        # a queryset.
+        qs = (
+            qs.order_by("data_group__group_type__code", "title")
+            .values(
+                "id",
+                "title",
+                "data_group__group_type__code",
+                "extractedtext__doc_date",
+                "extractedtext__rawchem__unionextractedlmhhrec__medium",
+            )
+            .distinct()
+        )
+        return qs
+
+    def render_column(self, row, column):
+        value = self._render_column(row, column)
+        if column == "title":
+            doc_id = row["id"]
+            doc = DataDocument.objects.get(pk=doc_id)
+            return format_html(
+                '<a href="{}" title="Go to Document detail" target="_blank">{}</a>',
+                doc.get_absolute_url(),
+                value,
+            )
+        return value
+
+
+class HarmonizedMediumChemicalListJson(FilterDatatableView):
+    model = DSSToxLookup
+    columns = ["sid", "true_cas", "true_chemname"]
+
+    def get_initial_queryset(self):
+        qs = super().get_initial_queryset()
+        medium = self.request.GET.get("medium")
+        if medium:
+            vals = (
+                RawChem.objects.filter(dsstox__isnull=False)
+                .filter(Q(unionextractedlmhhrec__harmonized_medium=medium))
                 .values("dsstox")
             )
             return qs.filter(pk__in=vals)

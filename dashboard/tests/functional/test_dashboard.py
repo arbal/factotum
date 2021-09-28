@@ -220,7 +220,9 @@ class DashboardTestWithFixtures(TestCase):
     def test_chemical_card(self):
         response = self.client.get("/").content.decode("utf8")
         self.assertIn(
-            "Unique Chemicals (DTXSIDs)", response, "Where is the DSS Tox Chemicals card???"
+            "Unique Chemicals (DTXSIDs)",
+            response,
+            "Where is the DSS Tox Chemicals card???",
         )
         response_html = html.fromstring(response)
         num_dss = int(response_html.xpath('//*[@name="dsstox"]')[0].text)

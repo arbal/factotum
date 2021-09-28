@@ -10,7 +10,6 @@
     lower_wf_analysis: '0.125000000000000'
     central_wf_analysis: null
     upper_wf_analysis: '0.250000000000000'
-    script: 16
 - model: dashboard.extractedcomposition
   pk: 3
   fields:
@@ -50,7 +49,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 8
   fields:
@@ -63,7 +61,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 9
   fields:
@@ -76,7 +73,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 10
   fields:
@@ -89,7 +85,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 11
   fields:
@@ -102,7 +97,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 12
   fields:
@@ -115,7 +109,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 13
   fields:
@@ -128,7 +121,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 14
   fields:
@@ -141,7 +133,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 15
   fields:
@@ -154,7 +145,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 16
   fields:
@@ -167,7 +157,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 17
   fields:
@@ -180,7 +169,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 18
   fields:
@@ -193,7 +181,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 19
   fields:
@@ -206,7 +193,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 20
   fields:
@@ -219,7 +205,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 21
   fields:
@@ -232,7 +217,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 22
   fields:
@@ -245,7 +229,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 23
   fields:
@@ -258,7 +241,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 24
   fields:
@@ -271,7 +253,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 25
   fields:
@@ -284,7 +265,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 26
   fields:
@@ -297,7 +277,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 27
   fields:
@@ -310,7 +289,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 28
   fields:
@@ -323,7 +301,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 29
   fields:
@@ -336,7 +313,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 30
   fields:
@@ -349,7 +325,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 31
   fields:
@@ -362,7 +337,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 32
   fields:
@@ -375,7 +349,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 33
   fields:
@@ -388,7 +361,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 34
   fields:
@@ -401,7 +373,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 35
   fields:
@@ -414,7 +385,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 36
   fields:
@@ -427,7 +397,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 37
   fields:
@@ -440,7 +409,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 38
   fields:
@@ -453,7 +421,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 39
   fields:
@@ -466,7 +433,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 40
   fields:
@@ -479,7 +445,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 41
   fields:
@@ -492,7 +457,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 42
   fields:
@@ -505,7 +469,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 43
   fields:
@@ -518,7 +481,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 44
   fields:
@@ -531,7 +493,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 45
   fields:
@@ -544,7 +505,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 46
   fields:
@@ -557,7 +517,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 47
   fields:
@@ -570,7 +529,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 48
   fields:
@@ -583,7 +541,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 49
   fields:
@@ -596,7 +553,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 50
   fields:
@@ -609,7 +565,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 51
   fields:
@@ -622,7 +577,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 52
   fields:
@@ -635,7 +589,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 53
   fields:
@@ -648,7 +601,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 54
   fields:
@@ -661,7 +613,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 55
   fields:
@@ -674,7 +625,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 56
   fields:
@@ -687,7 +637,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 57
   fields:
@@ -700,7 +649,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 58
   fields:
@@ -713,7 +661,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 59
   fields:
@@ -726,7 +673,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 60
   fields:
@@ -739,7 +685,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 61
   fields:
@@ -752,7 +697,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 62
   fields:
@@ -765,7 +709,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 63
   fields:
@@ -778,7 +721,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 64
   fields:
@@ -791,7 +733,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 65
   fields:
@@ -804,7 +745,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 66
   fields:
@@ -817,7 +757,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 67
   fields:
@@ -830,7 +769,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 68
   fields:
@@ -843,7 +781,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 69
   fields:
@@ -856,7 +793,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 70
   fields:
@@ -869,7 +805,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 71
   fields:
@@ -882,7 +817,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 72
   fields:
@@ -895,7 +829,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 73
   fields:
@@ -908,7 +841,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 74
   fields:
@@ -921,7 +853,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 75
   fields:
@@ -934,7 +865,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 76
   fields:
@@ -947,7 +877,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 77
   fields:
@@ -960,7 +889,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 78
   fields:
@@ -973,7 +901,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 79
   fields:
@@ -986,7 +913,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 80
   fields:
@@ -999,7 +925,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 81
   fields:
@@ -1012,7 +937,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 82
   fields:
@@ -1025,7 +949,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 83
   fields:
@@ -1038,7 +961,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 84
   fields:
@@ -1051,7 +973,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 85
   fields:
@@ -1064,7 +985,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 86
   fields:
@@ -1077,7 +997,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 87
   fields:
@@ -1090,7 +1009,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 88
   fields:
@@ -1103,7 +1021,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 89
   fields:
@@ -1116,7 +1033,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 90
   fields:
@@ -1129,7 +1045,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 91
   fields:
@@ -1142,7 +1057,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 92
   fields:
@@ -1155,7 +1069,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 93
   fields:
@@ -1168,7 +1081,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 94
   fields:
@@ -1181,7 +1093,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 95
   fields:
@@ -1194,7 +1105,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 96
   fields:
@@ -1207,7 +1117,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 97
   fields:
@@ -1220,7 +1129,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 98
   fields:
@@ -1233,7 +1141,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 99
   fields:
@@ -1246,7 +1153,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 100
   fields:
@@ -1259,7 +1165,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 101
   fields:
@@ -1272,7 +1177,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 102
   fields:
@@ -1285,7 +1189,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 103
   fields:
@@ -1298,7 +1201,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 104
   fields:
@@ -1311,7 +1213,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 105
   fields:
@@ -1324,7 +1225,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 106
   fields:
@@ -1337,7 +1237,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 107
   fields:
@@ -1350,7 +1249,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 108
   fields:
@@ -1363,7 +1261,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 109
   fields:
@@ -1376,7 +1273,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 110
   fields:
@@ -1389,7 +1285,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 111
   fields:
@@ -1402,7 +1297,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 112
   fields:
@@ -1415,7 +1309,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 113
   fields:
@@ -1428,7 +1321,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 114
   fields:
@@ -1441,7 +1333,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 115
   fields:
@@ -1454,7 +1345,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 116
   fields:
@@ -1467,7 +1357,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 117
   fields:
@@ -1480,7 +1369,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 118
   fields:
@@ -1493,7 +1381,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 119
   fields:
@@ -1506,7 +1393,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 120
   fields:
@@ -1519,7 +1405,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 121
   fields:
@@ -1532,7 +1417,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 122
   fields:
@@ -1545,7 +1429,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 123
   fields:
@@ -1558,7 +1441,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 124
   fields:
@@ -1571,7 +1453,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 125
   fields:
@@ -1584,7 +1465,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 126
   fields:
@@ -1597,7 +1477,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 127
   fields:
@@ -1610,7 +1489,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 128
   fields:
@@ -1623,7 +1501,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 129
   fields:
@@ -1636,7 +1513,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 130
   fields:
@@ -1649,7 +1525,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 131
   fields:
@@ -1662,7 +1537,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 132
   fields:
@@ -1675,7 +1549,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 133
   fields:
@@ -1688,7 +1561,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 134
   fields:
@@ -1701,7 +1573,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 135
   fields:
@@ -1714,7 +1585,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 136
   fields:
@@ -1727,7 +1597,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 137
   fields:
@@ -1740,7 +1609,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 138
   fields:
@@ -1753,7 +1621,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 139
   fields:
@@ -1766,7 +1633,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 140
   fields:
@@ -1779,7 +1645,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 141
   fields:
@@ -1792,7 +1657,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 142
   fields:
@@ -1805,7 +1669,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 143
   fields:
@@ -1818,7 +1681,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 144
   fields:
@@ -1831,7 +1693,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 145
   fields:
@@ -1844,7 +1705,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 146
   fields:
@@ -1857,7 +1717,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 147
   fields:
@@ -1870,7 +1729,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 148
   fields:
@@ -1883,7 +1741,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 149
   fields:
@@ -1896,7 +1753,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 150
   fields:
@@ -1909,7 +1765,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 151
   fields:
@@ -1922,7 +1777,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 152
   fields:
@@ -1935,7 +1789,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 153
   fields:
@@ -1948,7 +1801,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 154
   fields:
@@ -1961,7 +1813,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 155
   fields:
@@ -1974,7 +1825,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 156
   fields:
@@ -1987,7 +1837,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 157
   fields:
@@ -2000,7 +1849,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 158
   fields:
@@ -2013,7 +1861,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 159
   fields:
@@ -2026,7 +1873,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 160
   fields:
@@ -2039,7 +1885,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 161
   fields:
@@ -2052,7 +1897,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 162
   fields:
@@ -2065,7 +1909,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 163
   fields:
@@ -2078,7 +1921,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 164
   fields:
@@ -2091,7 +1933,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 165
   fields:
@@ -2104,7 +1945,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 166
   fields:
@@ -2117,7 +1957,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 167
   fields:
@@ -2130,7 +1969,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 168
   fields:
@@ -2143,7 +1981,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 169
   fields:
@@ -2156,7 +1993,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 170
   fields:
@@ -2169,7 +2005,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 171
   fields:
@@ -2182,7 +2017,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 172
   fields:
@@ -2195,7 +2029,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 173
   fields:
@@ -2208,7 +2041,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 174
   fields:
@@ -2221,7 +2053,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 175
   fields:
@@ -2234,7 +2065,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 176
   fields:
@@ -2247,7 +2077,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 177
   fields:
@@ -2260,7 +2089,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 178
   fields:
@@ -2273,7 +2101,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 179
   fields:
@@ -2286,7 +2113,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 180
   fields:
@@ -2299,7 +2125,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 181
   fields:
@@ -2312,7 +2137,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 182
   fields:
@@ -2325,7 +2149,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 183
   fields:
@@ -2338,7 +2161,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 184
   fields:
@@ -2351,7 +2173,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 185
   fields:
@@ -2364,7 +2185,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 186
   fields:
@@ -2377,7 +2197,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 187
   fields:
@@ -2390,7 +2209,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 188
   fields:
@@ -2403,7 +2221,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 189
   fields:
@@ -2416,7 +2233,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 190
   fields:
@@ -2429,7 +2245,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 191
   fields:
@@ -2442,7 +2257,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 192
   fields:
@@ -2455,7 +2269,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 193
   fields:
@@ -2468,7 +2281,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 194
   fields:
@@ -2481,7 +2293,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 195
   fields:
@@ -2494,7 +2305,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 196
   fields:
@@ -2507,7 +2317,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 197
   fields:
@@ -2520,7 +2329,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 198
   fields:
@@ -2533,7 +2341,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 199
   fields:
@@ -2546,7 +2353,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 200
   fields:
@@ -2559,7 +2365,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 201
   fields:
@@ -2572,7 +2377,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 202
   fields:
@@ -2585,7 +2389,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 203
   fields:
@@ -2598,7 +2401,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 204
   fields:
@@ -2611,7 +2413,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 205
   fields:
@@ -2624,7 +2425,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 206
   fields:
@@ -2637,7 +2437,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 207
   fields:
@@ -2650,7 +2449,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 208
   fields:
@@ -2663,7 +2461,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 209
   fields:
@@ -2676,7 +2473,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 210
   fields:
@@ -2689,7 +2485,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 211
   fields:
@@ -2702,7 +2497,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 212
   fields:
@@ -2715,7 +2509,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 213
   fields:
@@ -2728,7 +2521,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 214
   fields:
@@ -2741,7 +2533,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 215
   fields:
@@ -2754,7 +2545,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 216
   fields:
@@ -2767,7 +2557,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 217
   fields:
@@ -2780,7 +2569,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 218
   fields:
@@ -2793,7 +2581,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 219
   fields:
@@ -2806,7 +2593,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 220
   fields:
@@ -2819,7 +2605,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 221
   fields:
@@ -2832,7 +2617,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 222
   fields:
@@ -2845,7 +2629,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 223
   fields:
@@ -2858,7 +2641,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 224
   fields:
@@ -2871,7 +2653,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 225
   fields:
@@ -2884,7 +2665,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 226
   fields:
@@ -2897,7 +2677,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 227
   fields:
@@ -2910,7 +2689,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 228
   fields:
@@ -2923,7 +2701,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 229
   fields:
@@ -2936,7 +2713,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 230
   fields:
@@ -2949,7 +2725,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 231
   fields:
@@ -2962,7 +2737,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 232
   fields:
@@ -2975,7 +2749,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 233
   fields:
@@ -2988,7 +2761,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 234
   fields:
@@ -3001,7 +2773,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 235
   fields:
@@ -3014,7 +2785,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 236
   fields:
@@ -3027,7 +2797,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 237
   fields:
@@ -3040,7 +2809,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 238
   fields:
@@ -3053,7 +2821,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 239
   fields:
@@ -3066,7 +2833,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 240
   fields:
@@ -3079,7 +2845,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 241
   fields:
@@ -3092,7 +2857,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 242
   fields:
@@ -3105,7 +2869,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 243
   fields:
@@ -3118,7 +2881,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 244
   fields:
@@ -3131,7 +2893,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 245
   fields:
@@ -3144,7 +2905,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 246
   fields:
@@ -3157,7 +2917,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 247
   fields:
@@ -3170,7 +2929,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 248
   fields:
@@ -3183,7 +2941,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 249
   fields:
@@ -3196,7 +2953,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 250
   fields:
@@ -3209,7 +2965,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 251
   fields:
@@ -3222,7 +2977,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 252
   fields:
@@ -3235,7 +2989,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 253
   fields:
@@ -3248,7 +3001,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 254
   fields:
@@ -3261,7 +3013,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 255
   fields:
@@ -3274,7 +3025,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 256
   fields:
@@ -3287,7 +3037,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 257
   fields:
@@ -3300,7 +3049,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 258
   fields:
@@ -3313,7 +3061,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 259
   fields:
@@ -3326,7 +3073,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 260
   fields:
@@ -3339,7 +3085,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 261
   fields:
@@ -3352,7 +3097,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 262
   fields:
@@ -3365,7 +3109,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 263
   fields:
@@ -3378,7 +3121,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 264
   fields:
@@ -3391,7 +3133,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 265
   fields:
@@ -3404,7 +3145,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 266
   fields:
@@ -3417,7 +3157,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 267
   fields:
@@ -3430,7 +3169,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 268
   fields:
@@ -3443,7 +3181,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 269
   fields:
@@ -3456,7 +3193,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 270
   fields:
@@ -3469,7 +3205,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 271
   fields:
@@ -3482,7 +3217,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 272
   fields:
@@ -3495,7 +3229,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 273
   fields:
@@ -3508,7 +3241,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 274
   fields:
@@ -3521,7 +3253,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 275
   fields:
@@ -3534,7 +3265,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 276
   fields:
@@ -3547,7 +3277,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 277
   fields:
@@ -3560,7 +3289,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 278
   fields:
@@ -3573,7 +3301,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 279
   fields:
@@ -3586,7 +3313,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 280
   fields:
@@ -3599,7 +3325,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 281
   fields:
@@ -3612,7 +3337,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 282
   fields:
@@ -3625,7 +3349,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 283
   fields:
@@ -3638,7 +3361,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 284
   fields:
@@ -3651,7 +3373,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 285
   fields:
@@ -3664,7 +3385,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 286
   fields:
@@ -3677,7 +3397,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 287
   fields:
@@ -3690,7 +3409,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 288
   fields:
@@ -3703,7 +3421,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 289
   fields:
@@ -3716,7 +3433,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 290
   fields:
@@ -3729,7 +3445,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 291
   fields:
@@ -3742,7 +3457,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 292
   fields:
@@ -3755,7 +3469,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 293
   fields:
@@ -3768,7 +3481,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 294
   fields:
@@ -3781,7 +3493,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 295
   fields:
@@ -3794,7 +3505,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 296
   fields:
@@ -3807,7 +3517,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 297
   fields:
@@ -3820,7 +3529,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 298
   fields:
@@ -3833,7 +3541,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 299
   fields:
@@ -3846,7 +3553,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 300
   fields:
@@ -3859,7 +3565,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 301
   fields:
@@ -3872,7 +3577,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 302
   fields:
@@ -3885,7 +3589,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 303
   fields:
@@ -3898,7 +3601,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 304
   fields:
@@ -3911,7 +3613,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 305
   fields:
@@ -3924,7 +3625,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 306
   fields:
@@ -3937,7 +3637,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 307
   fields:
@@ -3950,7 +3649,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 308
   fields:
@@ -3963,7 +3661,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 309
   fields:
@@ -3976,7 +3673,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 310
   fields:
@@ -3989,7 +3685,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 311
   fields:
@@ -4002,7 +3697,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 312
   fields:
@@ -4015,7 +3709,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 313
   fields:
@@ -4028,7 +3721,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 314
   fields:
@@ -4041,7 +3733,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 315
   fields:
@@ -4054,7 +3745,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 316
   fields:
@@ -4067,7 +3757,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 317
   fields:
@@ -4080,7 +3769,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 318
   fields:
@@ -4093,7 +3781,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 319
   fields:
@@ -4106,7 +3793,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 320
   fields:
@@ -4119,7 +3805,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 321
   fields:
@@ -4132,7 +3817,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 322
   fields:
@@ -4145,7 +3829,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 323
   fields:
@@ -4158,7 +3841,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 324
   fields:
@@ -4171,7 +3853,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 325
   fields:
@@ -4184,7 +3865,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 326
   fields:
@@ -4197,7 +3877,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 327
   fields:
@@ -4210,7 +3889,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 328
   fields:
@@ -4223,7 +3901,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 329
   fields:
@@ -4236,7 +3913,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 330
   fields:
@@ -4249,7 +3925,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 331
   fields:
@@ -4262,7 +3937,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 332
   fields:
@@ -4275,7 +3949,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 333
   fields:
@@ -4288,7 +3961,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 334
   fields:
@@ -4301,7 +3973,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 335
   fields:
@@ -4314,7 +3985,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 336
   fields:
@@ -4327,7 +3997,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 337
   fields:
@@ -4340,7 +4009,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 338
   fields:
@@ -4353,7 +4021,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 339
   fields:
@@ -4366,7 +4033,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 340
   fields:
@@ -4379,7 +4045,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 341
   fields:
@@ -4392,7 +4057,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 342
   fields:
@@ -4405,7 +4069,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 343
   fields:
@@ -4418,7 +4081,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 344
   fields:
@@ -4431,7 +4093,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 345
   fields:
@@ -4444,7 +4105,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 346
   fields:
@@ -4457,7 +4117,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 347
   fields:
@@ -4470,7 +4129,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 348
   fields:
@@ -4483,7 +4141,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 349
   fields:
@@ -4496,7 +4153,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 350
   fields:
@@ -4509,7 +4165,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 351
   fields:
@@ -4522,7 +4177,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 352
   fields:
@@ -4535,7 +4189,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 353
   fields:
@@ -4548,7 +4201,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 354
   fields:
@@ -4561,7 +4213,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 355
   fields:
@@ -4574,7 +4225,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 356
   fields:
@@ -4587,7 +4237,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 357
   fields:
@@ -4600,7 +4249,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 358
   fields:
@@ -4613,7 +4261,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 359
   fields:
@@ -4626,7 +4273,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 360
   fields:
@@ -4639,7 +4285,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 361
   fields:
@@ -4652,7 +4297,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 362
   fields:
@@ -4665,7 +4309,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 363
   fields:
@@ -4678,7 +4321,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 364
   fields:
@@ -4691,7 +4333,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 365
   fields:
@@ -4704,7 +4345,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 366
   fields:
@@ -4717,7 +4357,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 367
   fields:
@@ -4730,7 +4369,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 368
   fields:
@@ -4743,7 +4381,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 369
   fields:
@@ -4756,7 +4393,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 370
   fields:
@@ -4769,7 +4405,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 371
   fields:
@@ -4782,7 +4417,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 372
   fields:
@@ -4795,7 +4429,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 373
   fields:
@@ -4808,7 +4441,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 374
   fields:
@@ -4821,7 +4453,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 375
   fields:
@@ -4834,7 +4465,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 376
   fields:
@@ -4847,7 +4477,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 377
   fields:
@@ -4860,7 +4489,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 378
   fields:
@@ -4873,7 +4501,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 379
   fields:
@@ -4886,7 +4513,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 380
   fields:
@@ -4899,7 +4525,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 381
   fields:
@@ -4912,7 +4537,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 382
   fields:
@@ -4925,7 +4549,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 383
   fields:
@@ -4938,7 +4561,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 384
   fields:
@@ -4951,7 +4573,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 385
   fields:
@@ -4964,7 +4585,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 386
   fields:
@@ -4977,7 +4597,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 387
   fields:
@@ -4990,7 +4609,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 388
   fields:
@@ -5003,7 +4621,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 389
   fields:
@@ -5016,7 +4633,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 390
   fields:
@@ -5029,7 +4645,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 391
   fields:
@@ -5042,7 +4657,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 392
   fields:
@@ -5055,7 +4669,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 393
   fields:
@@ -5068,7 +4681,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 394
   fields:
@@ -5081,7 +4693,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 395
   fields:
@@ -5094,7 +4705,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 396
   fields:
@@ -5107,7 +4717,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 397
   fields:
@@ -5120,7 +4729,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 398
   fields:
@@ -5133,7 +4741,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 399
   fields:
@@ -5146,7 +4753,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 400
   fields:
@@ -5159,7 +4765,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 401
   fields:
@@ -5172,7 +4777,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 402
   fields:
@@ -5185,7 +4789,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 403
   fields:
@@ -5198,7 +4801,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 404
   fields:
@@ -5211,7 +4813,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 405
   fields:
@@ -5224,7 +4825,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 406
   fields:
@@ -5237,7 +4837,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 407
   fields:
@@ -5250,7 +4849,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 408
   fields:
@@ -5263,7 +4861,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 409
   fields:
@@ -5276,7 +4873,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 410
   fields:
@@ -5289,7 +4885,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 411
   fields:
@@ -5302,7 +4897,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 412
   fields:
@@ -5315,7 +4909,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 413
   fields:
@@ -5328,7 +4921,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 414
   fields:
@@ -5341,7 +4933,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 415
   fields:
@@ -5354,7 +4945,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 416
   fields:
@@ -5367,7 +4957,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 417
   fields:
@@ -5380,7 +4969,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 418
   fields:
@@ -5393,7 +4981,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 419
   fields:
@@ -5406,7 +4993,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 420
   fields:
@@ -5419,7 +5005,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 421
   fields:
@@ -5432,7 +5017,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 422
   fields:
@@ -5445,7 +5029,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 423
   fields:
@@ -5458,7 +5041,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 424
   fields:
@@ -5471,7 +5053,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 425
   fields:
@@ -5484,7 +5065,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 426
   fields:
@@ -5497,7 +5077,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 427
   fields:
@@ -5510,7 +5089,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 428
   fields:
@@ -5523,7 +5101,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 429
   fields:
@@ -5536,7 +5113,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 430
   fields:
@@ -5549,7 +5125,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 431
   fields:
@@ -5562,7 +5137,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 432
   fields:
@@ -5575,7 +5149,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 433
   fields:
@@ -5588,7 +5161,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 434
   fields:
@@ -5601,7 +5173,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 435
   fields:
@@ -5614,7 +5185,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 436
   fields:
@@ -5627,7 +5197,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 437
   fields:
@@ -5640,7 +5209,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 438
   fields:
@@ -5653,7 +5221,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 439
   fields:
@@ -5666,7 +5233,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 440
   fields:
@@ -5679,7 +5245,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 441
   fields:
@@ -5692,7 +5257,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 442
   fields:
@@ -5705,7 +5269,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 443
   fields:
@@ -5718,7 +5281,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 444
   fields:
@@ -5731,7 +5293,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 445
   fields:
@@ -5744,7 +5305,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 446
   fields:
@@ -5757,7 +5317,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 447
   fields:
@@ -5770,7 +5329,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 448
   fields:
@@ -5783,7 +5341,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 449
   fields:
@@ -5796,7 +5353,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 450
   fields:
@@ -5809,7 +5365,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 451
   fields:
@@ -5822,7 +5377,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 452
   fields:
@@ -5835,7 +5389,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 453
   fields:
@@ -5848,7 +5401,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 454
   fields:
@@ -5861,7 +5413,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 455
   fields:
@@ -5874,7 +5425,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 456
   fields:
@@ -5887,7 +5437,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 457
   fields:
@@ -5900,7 +5449,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 458
   fields:
@@ -5913,7 +5461,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 459
   fields:
@@ -5926,7 +5473,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 460
   fields:
@@ -5939,7 +5485,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 461
   fields:
@@ -5952,7 +5497,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 462
   fields:
@@ -5965,7 +5509,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 463
   fields:
@@ -5978,7 +5521,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 464
   fields:
@@ -5991,7 +5533,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 465
   fields:
@@ -6004,7 +5545,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 466
   fields:
@@ -6017,7 +5557,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 467
   fields:
@@ -6030,7 +5569,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 468
   fields:
@@ -6043,7 +5581,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 469
   fields:
@@ -6056,7 +5593,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 470
   fields:
@@ -6069,7 +5605,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 471
   fields:
@@ -6082,7 +5617,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 472
   fields:
@@ -6095,7 +5629,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 473
   fields:
@@ -6108,7 +5641,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 474
   fields:
@@ -6121,7 +5653,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 475
   fields:
@@ -6134,7 +5665,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 476
   fields:
@@ -6147,7 +5677,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 477
   fields:
@@ -6160,7 +5689,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 478
   fields:
@@ -6173,7 +5701,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 479
   fields:
@@ -6186,7 +5713,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 480
   fields:
@@ -6199,7 +5725,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 481
   fields:
@@ -6212,7 +5737,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 482
   fields:
@@ -6225,7 +5749,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 483
   fields:
@@ -6238,7 +5761,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 484
   fields:
@@ -6251,7 +5773,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 485
   fields:
@@ -6264,7 +5785,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 486
   fields:
@@ -6277,7 +5797,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 487
   fields:
@@ -6290,7 +5809,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 488
   fields:
@@ -6303,7 +5821,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 489
   fields:
@@ -6316,7 +5833,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 490
   fields:
@@ -6329,7 +5845,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 491
   fields:
@@ -6342,7 +5857,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 492
   fields:
@@ -6355,7 +5869,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 493
   fields:
@@ -6368,7 +5881,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 494
   fields:
@@ -6381,7 +5893,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 495
   fields:
@@ -6394,7 +5905,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 496
   fields:
@@ -6407,7 +5917,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 497
   fields:
@@ -6420,7 +5929,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 498
   fields:
@@ -6433,7 +5941,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 499
   fields:
@@ -6446,7 +5953,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 500
   fields:
@@ -6459,7 +5965,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 501
   fields:
@@ -6472,7 +5977,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 502
   fields:
@@ -6485,7 +5989,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 503
   fields:
@@ -6498,7 +6001,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 504
   fields:
@@ -6511,7 +6013,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 505
   fields:
@@ -6524,7 +6025,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 506
   fields:
@@ -6537,7 +6037,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 507
   fields:
@@ -6550,7 +6049,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 508
   fields:
@@ -6563,7 +6061,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 509
   fields:
@@ -6576,7 +6073,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 510
   fields:
@@ -6589,7 +6085,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 511
   fields:
@@ -6602,7 +6097,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 512
   fields:
@@ -6615,7 +6109,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 513
   fields:
@@ -6628,7 +6121,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 514
   fields:
@@ -6641,7 +6133,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 515
   fields:
@@ -6654,7 +6145,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 516
   fields:
@@ -6667,7 +6157,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 517
   fields:
@@ -6680,7 +6169,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 518
   fields:
@@ -6693,7 +6181,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 519
   fields:
@@ -6706,7 +6193,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 520
   fields:
@@ -6719,7 +6205,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 521
   fields:
@@ -6732,7 +6217,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 522
   fields:
@@ -6745,7 +6229,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 523
   fields:
@@ -6758,7 +6241,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 524
   fields:
@@ -6771,7 +6253,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 525
   fields:
@@ -6784,7 +6265,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 526
   fields:
@@ -6797,7 +6277,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 527
   fields:
@@ -6810,7 +6289,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 528
   fields:
@@ -6823,7 +6301,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 529
   fields:
@@ -6836,7 +6313,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 530
   fields:
@@ -6849,7 +6325,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 531
   fields:
@@ -6862,7 +6337,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 532
   fields:
@@ -6875,7 +6349,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 533
   fields:
@@ -6888,7 +6361,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 534
   fields:
@@ -6901,7 +6373,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 535
   fields:
@@ -6914,7 +6385,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 536
   fields:
@@ -6927,7 +6397,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 537
   fields:
@@ -6940,7 +6409,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 538
   fields:
@@ -6953,7 +6421,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 539
   fields:
@@ -6966,7 +6433,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 540
   fields:
@@ -6979,7 +6445,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 541
   fields:
@@ -6992,7 +6457,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 542
   fields:
@@ -7005,7 +6469,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 543
   fields:
@@ -7018,7 +6481,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 544
   fields:
@@ -7031,7 +6493,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 545
   fields:
@@ -7044,7 +6505,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 546
   fields:
@@ -7057,7 +6517,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 547
   fields:
@@ -7070,7 +6529,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 548
   fields:
@@ -7083,7 +6541,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 549
   fields:
@@ -7096,7 +6553,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 550
   fields:
@@ -7109,7 +6565,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 551
   fields:
@@ -7122,7 +6577,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 552
   fields:
@@ -7135,7 +6589,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 553
   fields:
@@ -7148,7 +6601,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 554
   fields:
@@ -7161,7 +6613,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 555
   fields:
@@ -7174,7 +6625,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 556
   fields:
@@ -7187,7 +6637,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 557
   fields:
@@ -7200,7 +6649,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 558
   fields:
@@ -7213,7 +6661,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 559
   fields:
@@ -7226,7 +6673,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 560
   fields:
@@ -7239,7 +6685,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 561
   fields:
@@ -7252,7 +6697,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 562
   fields:
@@ -7265,7 +6709,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 563
   fields:
@@ -7278,7 +6721,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 564
   fields:
@@ -7291,7 +6733,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 565
   fields:
@@ -7304,7 +6745,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 566
   fields:
@@ -7317,7 +6757,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 567
   fields:
@@ -7330,7 +6769,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 568
   fields:
@@ -7343,7 +6781,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 569
   fields:
@@ -7356,7 +6793,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 570
   fields:
@@ -7369,7 +6805,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 571
   fields:
@@ -7382,7 +6817,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 572
   fields:
@@ -7395,7 +6829,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 573
   fields:
@@ -7408,7 +6841,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 574
   fields:
@@ -7421,7 +6853,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 575
   fields:
@@ -7434,7 +6865,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 576
   fields:
@@ -7447,7 +6877,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 577
   fields:
@@ -7460,7 +6889,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 578
   fields:
@@ -7473,7 +6901,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 579
   fields:
@@ -7486,7 +6913,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 580
   fields:
@@ -7499,7 +6925,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 581
   fields:
@@ -7512,7 +6937,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 582
   fields:
@@ -7525,7 +6949,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 583
   fields:
@@ -7538,7 +6961,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 584
   fields:
@@ -7551,7 +6973,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 585
   fields:
@@ -7564,7 +6985,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 586
   fields:
@@ -7577,7 +6997,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 587
   fields:
@@ -7590,7 +7009,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 588
   fields:
@@ -7603,7 +7021,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 589
   fields:
@@ -7616,7 +7033,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 590
   fields:
@@ -7629,7 +7045,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 591
   fields:
@@ -7642,7 +7057,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 592
   fields:
@@ -7655,7 +7069,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 593
   fields:
@@ -7668,7 +7081,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 594
   fields:
@@ -7681,7 +7093,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 595
   fields:
@@ -7694,7 +7105,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 596
   fields:
@@ -7707,7 +7117,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 597
   fields:
@@ -7720,7 +7129,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 598
   fields:
@@ -7733,7 +7141,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 599
   fields:
@@ -7746,7 +7153,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 600
   fields:
@@ -7759,7 +7165,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 601
   fields:
@@ -7772,7 +7177,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 602
   fields:
@@ -7785,7 +7189,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 603
   fields:
@@ -7798,7 +7201,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 604
   fields:
@@ -7811,7 +7213,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 605
   fields:
@@ -7824,7 +7225,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 606
   fields:
@@ -7837,7 +7237,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 607
   fields:
@@ -7850,7 +7249,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 608
   fields:
@@ -7863,7 +7261,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 609
   fields:
@@ -7876,7 +7273,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 610
   fields:
@@ -7889,7 +7285,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 611
   fields:
@@ -7902,7 +7297,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 612
   fields:
@@ -7915,7 +7309,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 613
   fields:
@@ -7928,7 +7321,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 614
   fields:
@@ -7941,7 +7333,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 615
   fields:
@@ -7954,7 +7345,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 616
   fields:
@@ -7967,7 +7357,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 617
   fields:
@@ -7980,7 +7369,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 618
   fields:
@@ -7993,7 +7381,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 619
   fields:
@@ -8006,7 +7393,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 620
   fields:
@@ -8019,7 +7405,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 621
   fields:
@@ -8032,7 +7417,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 622
   fields:
@@ -8045,7 +7429,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 623
   fields:
@@ -8058,7 +7441,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 624
   fields:
@@ -8071,7 +7453,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 625
   fields:
@@ -8084,7 +7465,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 626
   fields:
@@ -8097,7 +7477,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 627
   fields:
@@ -8110,7 +7489,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 628
   fields:
@@ -8123,7 +7501,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 629
   fields:
@@ -8136,7 +7513,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 630
   fields:
@@ -8149,7 +7525,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 631
   fields:
@@ -8162,7 +7537,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 632
   fields:
@@ -8175,7 +7549,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 633
   fields:
@@ -8188,7 +7561,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 634
   fields:
@@ -8201,7 +7573,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 635
   fields:
@@ -8214,7 +7585,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 636
   fields:
@@ -8227,7 +7597,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 637
   fields:
@@ -8240,7 +7609,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 638
   fields:
@@ -8253,7 +7621,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 639
   fields:
@@ -8266,7 +7633,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 640
   fields:
@@ -8279,7 +7645,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 641
   fields:
@@ -8292,7 +7657,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 642
   fields:
@@ -8305,7 +7669,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 643
   fields:
@@ -8318,7 +7681,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 644
   fields:
@@ -8331,7 +7693,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 645
   fields:
@@ -8344,7 +7705,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 646
   fields:
@@ -8357,7 +7717,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 647
   fields:
@@ -8370,7 +7729,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 648
   fields:
@@ -8383,7 +7741,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 649
   fields:
@@ -8396,7 +7753,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 650
   fields:
@@ -8409,7 +7765,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 651
   fields:
@@ -8422,7 +7777,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 652
   fields:
@@ -8435,7 +7789,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 653
   fields:
@@ -8448,7 +7801,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 654
   fields:
@@ -8461,7 +7813,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 655
   fields:
@@ -8474,7 +7825,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 656
   fields:
@@ -8487,7 +7837,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 657
   fields:
@@ -8500,7 +7849,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 658
   fields:
@@ -8513,7 +7861,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 659
   fields:
@@ -8526,7 +7873,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 660
   fields:
@@ -8539,7 +7885,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 661
   fields:
@@ -8552,7 +7897,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 662
   fields:
@@ -8565,7 +7909,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 663
   fields:
@@ -8578,7 +7921,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 664
   fields:
@@ -8591,7 +7933,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 665
   fields:
@@ -8604,7 +7945,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 666
   fields:
@@ -8617,7 +7957,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 667
   fields:
@@ -8630,7 +7969,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 668
   fields:
@@ -8643,7 +7981,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 669
   fields:
@@ -8656,7 +7993,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 670
   fields:
@@ -8669,7 +8005,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 671
   fields:
@@ -8682,7 +8017,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 672
   fields:
@@ -8695,7 +8029,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 673
   fields:
@@ -8708,7 +8041,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 674
   fields:
@@ -8721,7 +8053,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 675
   fields:
@@ -8734,7 +8065,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 676
   fields:
@@ -8747,7 +8077,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 677
   fields:
@@ -8760,7 +8089,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 678
   fields:
@@ -8773,7 +8101,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 679
   fields:
@@ -8786,7 +8113,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 680
   fields:
@@ -8799,7 +8125,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 681
   fields:
@@ -8812,7 +8137,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 682
   fields:
@@ -8825,7 +8149,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 683
   fields:
@@ -8838,7 +8161,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 684
   fields:
@@ -8851,7 +8173,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 685
   fields:
@@ -8864,7 +8185,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 686
   fields:
@@ -8877,7 +8197,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 687
   fields:
@@ -8890,7 +8209,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 688
   fields:
@@ -8903,7 +8221,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 689
   fields:
@@ -8916,7 +8233,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 690
   fields:
@@ -8929,7 +8245,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 691
   fields:
@@ -8942,7 +8257,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 692
   fields:
@@ -8955,7 +8269,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 693
   fields:
@@ -8968,7 +8281,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 694
   fields:
@@ -8981,7 +8293,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 695
   fields:
@@ -8994,7 +8305,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 696
   fields:
@@ -9007,7 +8317,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 697
   fields:
@@ -9020,7 +8329,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 698
   fields:
@@ -9033,7 +8341,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 699
   fields:
@@ -9046,7 +8353,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 700
   fields:
@@ -9059,7 +8365,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 701
   fields:
@@ -9072,7 +8377,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 702
   fields:
@@ -9085,7 +8389,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 703
   fields:
@@ -9098,7 +8401,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 704
   fields:
@@ -9111,7 +8413,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 705
   fields:
@@ -9124,7 +8425,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 706
   fields:
@@ -9137,7 +8437,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 707
   fields:
@@ -9150,7 +8449,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 708
   fields:
@@ -9163,7 +8461,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 709
   fields:
@@ -9176,7 +8473,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 710
   fields:
@@ -9189,7 +8485,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 711
   fields:
@@ -9202,7 +8497,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 712
   fields:
@@ -9215,7 +8509,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 713
   fields:
@@ -9228,7 +8521,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 714
   fields:
@@ -9241,7 +8533,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 715
   fields:
@@ -9254,7 +8545,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 716
   fields:
@@ -9267,7 +8557,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 717
   fields:
@@ -9280,7 +8569,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 718
   fields:
@@ -9293,7 +8581,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 719
   fields:
@@ -9306,7 +8593,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 720
   fields:
@@ -9319,7 +8605,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 721
   fields:
@@ -9332,7 +8617,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 722
   fields:
@@ -9345,7 +8629,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 723
   fields:
@@ -9358,7 +8641,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 724
   fields:
@@ -9371,7 +8653,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 725
   fields:
@@ -9384,7 +8665,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 726
   fields:
@@ -9397,7 +8677,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 727
   fields:
@@ -9410,7 +8689,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 728
   fields:
@@ -9423,7 +8701,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 729
   fields:
@@ -9436,7 +8713,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 730
   fields:
@@ -9449,7 +8725,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 731
   fields:
@@ -9462,7 +8737,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 732
   fields:
@@ -9475,7 +8749,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 733
   fields:
@@ -9488,7 +8761,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 734
   fields:
@@ -9501,7 +8773,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 735
   fields:
@@ -9514,7 +8785,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 736
   fields:
@@ -9527,7 +8797,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 737
   fields:
@@ -9540,7 +8809,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 738
   fields:
@@ -9553,7 +8821,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 739
   fields:
@@ -9566,7 +8833,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 740
   fields:
@@ -9579,7 +8845,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 741
   fields:
@@ -9592,7 +8857,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 742
   fields:
@@ -9605,7 +8869,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 743
   fields:
@@ -9618,7 +8881,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 744
   fields:
@@ -9631,7 +8893,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 745
   fields:
@@ -9644,7 +8905,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 746
   fields:
@@ -9657,7 +8917,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 747
   fields:
@@ -9670,7 +8929,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 748
   fields:
@@ -9683,7 +8941,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 749
   fields:
@@ -9696,7 +8953,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 750
   fields:
@@ -9709,7 +8965,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 751
   fields:
@@ -9722,7 +8977,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 752
   fields:
@@ -9735,7 +8989,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 753
   fields:
@@ -9748,7 +9001,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 754
   fields:
@@ -9761,7 +9013,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 755
   fields:
@@ -9774,7 +9025,6 @@
     lower_wf_analysis: null
     central_wf_analysis: null
     upper_wf_analysis: null
-    script: null
 - model: dashboard.extractedcomposition
   pk: 856
   fields:
@@ -9789,4 +9039,3 @@
     lower_wf_analysis: null
     central_wf_analysis: '0.150000000000000'
     upper_wf_analysis: null
-    script: 16
