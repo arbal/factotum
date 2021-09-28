@@ -27,7 +27,7 @@ class RawCategoryToPUCList(LoginRequiredMixin, ListView):
                 "data_group__name", "data_group__id", "raw_category"
             )
             .annotate(product_count=Count("products"))
-            .filter(product_count__gte=50)
+            .filter(product_count__gte=5)
             .exclude(raw_category__isnull=False, raw_category="")
             .order_by("-product_count")
         )
