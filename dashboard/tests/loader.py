@@ -104,7 +104,7 @@ def load_browser():
         return webdriver.Firefox()
     else:
         return webdriver.Chrome(
-            executable_path=settings.CHROMEDRIVER_PATH, chrome_options=chrome_options
+            executable_path=settings.CHROMEDRIVER_PATH, options=chrome_options
         )
 
 

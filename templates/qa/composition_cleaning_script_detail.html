@@ -1,5 +1,5 @@
 {% extends 'core/base.html' %}
-{% load staticfiles %}
+{% load static %}
 {% load humanize %}
 
 {% block title %}Cleaning Script {{ cleaningscript.id }}: {{ cleaningscript.title }}{% endblock %}
@@ -27,13 +27,13 @@
             <th>Group Type</th>
             <th>Data Document</th>
             <th>Date Updated</th>
-            <th>Extracted Composition Records</th>
+            <th>Chemical Records</th>
             <th>QA Checked</th>
         </tr>
         </thead>
         <tbody>
         {% for extractedtext in extractedtexts %}
-            <tr>
+            <tr id="docrow-{{extractedtext.data_document_id}}">
                 <td>
                     <a title="details" href="{% url "data_group_detail" extractedtext.data_document.data_group.id %}">
                         {{ extractedtext.data_document.data_group.name }}
