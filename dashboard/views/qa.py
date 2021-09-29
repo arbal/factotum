@@ -254,7 +254,7 @@ def qa_composition_cleaning_index(
         filter=Q(cleaned_documents__cleaning_qa_group__isnull=False),
     )
     qa_complete_count = Count(
-        "extractedtext", filter=Q(extractedtext__cleaning_qa_checked=True)
+        "cleaned_documents", filter=Q(cleaned_documents__cleaning_qa_checked=True)
     )
     percent_complete = (qa_complete_count / qa_group_count) * 100
     cleaning_scripts = (
@@ -262,6 +262,7 @@ def qa_composition_cleaning_index(
         .annotate(extractedtext_count=Count("cleaned_documents"))
         .annotate(percent_complete=percent_complete)
         .annotate(qa_group_count=qa_group_count)
+        .annotate(qa_complete_count=qa_complete_count)
         .filter(extractedtext_count__gt=0)
     )
     return render(request, template_name, {"cleaning_scripts": cleaning_scripts})
