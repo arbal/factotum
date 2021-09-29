@@ -148,6 +148,32 @@ class ExtractedText(CommonInfo):
             nextid = 0
         return nextid
 
+    def get_cleaning_qa_queryset(self):
+        """
+        The cleaning QA queryset is the collection of extractedtext
+        records that share a Cleaning QA Group  
+        """
+
+        qs = ExtractedText.objects.filter(cleaning_qa_group=self.cleaning_qa_group)
+        return qs
+
+    def next_extracted_text_in_cleaning_qa_group(self):
+        """
+        Returns the extracted document next up in the QA cycle 
+        for the current object's cleaned composition data
+        """
+        nextid = 0
+
+        extextnext = get_next_or_prev(
+            self.get_cleaning_qa_queryset().filter(cleaning_qa_checked=False), self, "next"
+        )
+        if extextnext:
+            # Replace our item with the next one
+            nextid = extextnext.pk
+        if extextnext == self:
+            nextid = 0
+        return nextid
+
     def get_qa_index_path(self):
         """
         The type of data group to which the extracted text object belongs
@@ -166,6 +192,7 @@ class ExtractedText(CommonInfo):
             return (
                 reverse("qa_extractionscript_index") + f"?group_type={group_type_code}"
             )
+
 
     def one_to_one_check(self, odict):
         """

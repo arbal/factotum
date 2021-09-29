@@ -361,12 +361,15 @@ def qa_cleaned_composition_document_detail(
         exclude=["weight_fraction_type", "true_cas", "true_chemname", "sid"],
     )
     detail_formset = ChildForm(instance=extext)
+    note, _ = QANotes.objects.get_or_create(extracted_text=extext)
+    notesform = QANotesForm(instance=note)
 
     context = {
         "extracted_text": extext,
         "doc": doc,
         "script": extext.cleaning_script,
         "chemicals": doc.extractedtext.rawchem,
+        "notesform": notesform,
         "cleaned_composition_table_url": reverse(
             "qa_cleaned_composition_detail_table", args=[pk]
         ),
@@ -983,3 +986,33 @@ def approve_extracted_text(request, pk):
                 the QA Notes have been populated.",
             )
             return HttpResponseRedirect(reverse("extracted_text_qa", args=[(pk)]))
+
+@login_required()
+def approve_cleaned_composition(request, pk):
+    """
+    This is an endpoint that processes approval button on a cleaned composition
+    QA page
+    """
+    extext = get_object_or_404(ExtractedText.objects.select_subclasses(), pk=pk)
+    nextpk = extext.next_extracted_text_in_cleaning_qa_group()
+
+    if request.method == "POST":
+        extext.cleaning_qa_approved_date = timezone.now()
+        extext.cleaning_qa_approved_by = request.user
+        extext.cleaning_qa_checked = True
+        extext.save()
+        # The ExtractedText record's cleaned composition data is now approved.
+        # Redirect to the appropriate page.
+
+        referer = request.POST.get("referer", "")
+        if not nextpk == 0:
+            redirect_to = reverse("qa_cleaned_composition_document_detail", args=[(nextpk)])
+        elif nextpk == 0:
+            # return to the top of the most local QA stack.
+            redirect_to = reverse("qa_cleaning_script_summary", args=[(pk)])
+
+        messages.success(request, "The cleaned composition data has been approved!")
+        if is_safe_url(url=redirect_to, allowed_hosts=request.get_host()):
+            return HttpResponseRedirect(redirect_to)
+        else:
+            return HttpResponseRedirect(reverse("qa_cleaned_composition_document_detail", args=[(pk)]))

@@ -138,7 +138,7 @@
         <h3 class="card-header">QA Review</h3>
         <div class="row card-body">
             <div class="col-6">
-                <form action="{% url "approve_extracted_text" doc.pk %}" method="post"
+                <form action="{% url "approve_cleaned_composition" doc.pk %}" method="post"
                       id="approve-form">
                     {% csrf_token %}
                     <input type="hidden" name="referer" value="{{ request.path }}"/>
@@ -202,6 +202,7 @@
 {% block js %}
     {{ cleaned_composition_table_url|json_script:"cleaned_composition_table_url" }}
     <script src="{% static 'js/dashboard/qa_cleaned_composition_table.js' %}"></script>
+    <script src="{% static 'js/dashboard/qa_extracted_text.js' %}"></script>
     <script type="module" src="{% static 'js/dashboard/qa_summary_note_ajax.js' %}"></script>
 {% endblock %}
 

@@ -249,15 +249,21 @@ urlpatterns = [
         views.qa_cleaning_script_detail,
         name="qa_cleaning_script_detail",
     ),
+    ## Document-level detail page
     path(
         "qa/cleanedcomposition/<int:pk>/",
         dashboard.views.qa.qa_cleaned_composition_document_detail,
         name="qa_cleaned_composition_document_detail",
     ),
     path(
-        "qa/cleanedcomposition/<int:pk>/table",
+        "qa/cleanedcomposition/<int:pk>/table/",
         dashboard.views.qa.CleanedCompositionDetailTable.as_view(),
         name="qa_cleaned_composition_detail_table",
+    ),
+    path(
+        "qa/cleanedcomposition/<int:pk>/approve/",
+        dashboard.views.qa.approve_cleaned_composition,
+        name="approve_cleaned_composition",
     ),
     # Extraction Script QA
     path(
