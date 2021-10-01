@@ -145,28 +145,27 @@
                     <button type="submit" id="approve" name="approve"
                             class="btn btn-success btn-lg btn-block" role="button">Approve
                     </button>
+                </form>
                     <!-- start Skip button -->
                     {% if nextid > 0 %} <!-- there is a Next Document ID -->
                         <br>
-                        {% if referer == "qa_extraction_script" and doc.data_group.type != "CP" %}
-                            <!-- arrived on a non-Chemical Presence page from a script index page -->
-                                <a class="btn btn-warning btn-lg btn-block"
-                                href="{% url "extracted_text_qa" nextid %}" name="skip" id="skip" 
-                                role="button">Skip</a>
-                        {% endif %}
+                            <a class="btn btn-warning btn-lg btn-block"
+                            href="{% url "qa_cleaned_composition_document_detail" nextid %}" name="skip" id="skip" 
+                            role="button">Skip</a>
                     {% else %} <!-- there is no Next Document ID -->
-                        {% if doc.data_group.type != "CP" %} <!-- show the button disabled -->
                             <button type="button"
                                     title="All the other documents in this QA group have been approved"
                                     name="skip" id="skip" class="btn btn-secondary btn-lg btn-block"
-                                    aria-disabled="true" disabled>Skip</button>
-                        {% endif%}
+                                    aria-disabled="true" disabled>
+                                    Skip
+                            </button>
+
                     {% endif %}
                     <!-- end Skip button -->
                     <br>
-                    <a class="btn btn-secondary btn-lg btn-block" href="{{ exit_url }}" id="exit" 
+                    <a class="btn btn-secondary btn-lg btn-block" href="{% url "qa_cleaning_script_detail" script.id %}" id="exit" 
                             role="button">Exit</a>
-                </form>
+                
             </div>
 
             <div class="col-6 text-center">

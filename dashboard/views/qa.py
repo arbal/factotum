@@ -365,12 +365,16 @@ def qa_cleaned_composition_document_detail(
     note, _ = QANotes.objects.get_or_create(extracted_text=extext)
     notesform = QANotesForm(instance=note)
 
+    nextid = extext.next_extracted_text_in_cleaning_qa_group()
+
+
     context = {
         "extracted_text": extext,
         "doc": doc,
         "script": extext.cleaning_script,
         "chemicals": doc.extractedtext.rawchem,
         "notesform": notesform,
+        "nextid": nextid,
         "cleaned_composition_table_url": reverse(
             "qa_cleaned_composition_detail_table", args=[pk]
         ),
