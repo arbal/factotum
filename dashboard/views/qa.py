@@ -726,7 +726,7 @@ def delete_extracted_script_task(self, pk):
     extraction_script = Script.objects.get(pk=pk)
     with transaction.atomic():
         ExtractedText.objects.filter(extraction_script=extraction_script).delete()
-        QAGroup.objects.filter(extraction_script=extraction_script).delete()
+        QAGroup.objects.filter(script=extraction_script).delete()
         extraction_script.qa_begun = False
         extraction_script.save()
 
@@ -750,18 +750,16 @@ def delete_extracted_text(
 
     """
     script = get_object_or_404(Script, pk=pk)
-
     previous_url = request.META.get("HTTP_REFERER")
     if previous_url is not None and previous_url.endswith("extractionscripts/delete/"):
         redirect_to = "extraction_script_delete_list"
     else:
         redirect_to = "qa_extractionscript_index"
-
+    
     # schedule async task as it may take sometime to finish the bulk deletion
     delete_task = delete_extracted_script_task.apply_async(
         args=[pk], shadow=f"extracted_script_delete.{pk}"
     )
-
     return render(
         request,
         template_name,

@@ -578,46 +578,53 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             "The population is described here"
         )
 
-    self.browser.find_element_by_id("id_sampling_method").send_keys(
-        "The sampling method is often a very long decription of the field process."
-    )
+        self.browser.find_element_by_id("id_sampling_method").send_keys(
+            "The sampling method is often a very long decription of the field process."
+        )
 
+        self.browser.find_element_by_id("id_num_measure").send_keys("60")
+        self.browser.find_element_by_id("id_num_nondetect").send_keys("10")
 
-self.browser.find_element_by_id("id_num_measure").send_keys("60")
-self.browser.find_element_by_id("id_num_nondetect").send_keys("10")
+        statvalue_name = Select(self.browser.find_element_by_id("id_statistics-0-name"))
+        statvalue_name.select_by_visible_text("Mean")
+        self.browser.find_element_by_id("id_statistics-0-value").send_keys("55")
+        self.browser.find_element_by_id("id_statistics-0-stat_unit").send_keys(
+            "percent"
+        )
+        statvalue_stat_type = Select(
+            self.browser.find_element_by_id("id_statistics-0-value_type")
+        )
+        statvalue_stat_type.select_by_visible_text("Reported")
 
-statvalue_name = Select(self.browser.find_element_by_id("id_statistics-0-name"))
-statvalue_name.select_by_visible_text("Mean")
-self.browser.find_element_by_id("id_statistics-0-value").send_keys("55")
-self.browser.find_element_by_id("id_statistics-0-stat_unit").send_keys("percent")
-statvalue_stat_type = Select(
-    self.browser.find_element_by_id("id_statistics-0-value_type")
-)
-statvalue_stat_type.select_by_visible_text("Reported")
+        save_button.click()
 
-save_button.click()
+        time.sleep(3)
+        # query for the latest chemical
 
-time.sleep(3)
-# query for the latest chemical
+        lm_chem = (
+            ExtractedLMRec.objects.filter(extracted_text_id=doc.pk)
+            .order_by("id")
+            .last()
+        )
 
-lm_chem = ExtractedLMRec.objects.filter(extracted_text_id=doc.pk).order_by("id").last()
+        # Confirm that the edits were written to the ExtractedLMRec object
+        self.assertEqual(lm_chem.updated_by, User.objects.get(username="Karyn"))
+        self.assertTrue(lm_chem.updated_at != "")
+        self.assertEqual(lm_chem.num_measure, 60)
+        self.assertEqual(lm_chem.num_nondetect, 10)
 
-# Confirm that the edits were written to the ExtractedLMRec object
-self.assertEqual(lm_chem.updated_by, User.objects.get(username="Karyn"))
-self.assertTrue(lm_chem.updated_at != "")
-self.assertEqual(lm_chem.num_measure, 60)
-self.assertEqual(lm_chem.num_nondetect, 10)
+        statvalue = (
+            StatisticalValue.objects.filter(rawchem_id=lm_chem.pk).order_by("id").last()
+        )
+        self.assertEqual(statvalue.name, "MEAN")
+        self.assertEqual(statvalue.value, 55)
+        self.assertEqual(statvalue.stat_unit, "percent")
+        self.assertEqual(statvalue.value_type, "R")
 
-statvalue = StatisticalValue.objects.filter(rawchem_id=lm_chem.pk).order_by("id").last()
-self.assertEqual(statvalue.name, "MEAN")
-self.assertEqual(statvalue.value, 55)
-self.assertEqual(statvalue.stat_unit, "percent")
-self.assertEqual(statvalue.value_type, "R")
-
-self.assertInHTML(
-    "The Rawest Chem Name",
-    self.browser.find_element_by_id(f"raw_chem_name-{lm_chem.pk}").text,
-)
+        self.assertInHTML(
+            "The Rawest Chem Name",
+            self.browser.find_element_by_id(f"raw_chem_name-{lm_chem.pk}").text,
+        )
 
 
 def test_co_multiple_fu(self):
