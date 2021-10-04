@@ -33,6 +33,7 @@ from dashboard.models import (
     RawChem,
     AuditLog,
     GroupType,
+    weight_fraction_type,
 )
 
 
@@ -366,11 +367,16 @@ def qa_cleaned_composition_document_detail(
 
     nextid = extext.next_extracted_text_in_cleaning_qa_group()
 
+    firstexcomp = doc.extractedtext.rawchem.select_subclasses().first()
+
+
     context = {
         "extracted_text": extext,
         "doc": doc,
         "script": extext.cleaning_script,
         "chemicals": doc.extractedtext.rawchem,
+        "weight_fraction_type": firstexcomp.weight_fraction_type,
+        "unit_type": firstexcomp.unit_type,
         "notesform": notesform,
         "nextid": nextid,
         "cleaned_composition_table_url": reverse(
@@ -1011,7 +1017,6 @@ def approve_cleaned_composition(request, pk):
         # The ExtractedText record's cleaned composition data is now approved.
         # Redirect to the appropriate page.
 
-        referer = request.POST.get("referer", "")
         if not nextpk == 0:
             redirect_to = reverse(
                 "qa_cleaned_composition_document_detail", args=[(nextpk)]
@@ -1047,7 +1052,6 @@ def reject_cleaned_composition(request, pk):
         # The ExtractedText record's cleaned composition data is now approved.
         # Redirect to the appropriate page.
 
-        referer = request.POST.get("referer", "")
         if not nextpk == 0:
             redirect_to = reverse(
                 "qa_cleaned_composition_document_detail", args=[(nextpk)]

@@ -112,7 +112,7 @@
     <div class="card">
         <h3 class="card-header">
             {{ doc.data_group.group_type }} Records
-    
+
             <div class="btn-group btn-group-sm shadow float-right">
 
                 {% if extracted_text.cleaning_script.url %}
@@ -127,7 +127,8 @@
                 {% endif %}
             </div>
         </h3>
-        <div id="card-panel" class="card-body">
+        <div class="col-6"><p class="mb-0">Unit type: {{unit_type}}; Weight fraction type: {{weight_fraction_type}}</p></div>
+        <div id="card-panel" class="card-body pt-2">
 
             {% include 'qa/qa_cleaned_composition_table.html' %}
         </div>
@@ -151,7 +152,7 @@
                     {% csrf_token %}
                     <input type="hidden" name="referer" value="{{ request.path }}"/>
                     <button type="submit" id="reject" name="approve"
-                            class="btn btn-danger btn-lg btn-block" role="button">Reject
+                            class="btn btn-warning btn-lg btn-block" role="button">Reject
                     </button>
                 </form>
                     <!-- start Skip button -->
