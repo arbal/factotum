@@ -137,7 +137,7 @@
     <div class="card">
         <h3 class="card-header">QA Review</h3>
         <div class="row card-body">
-            <div class="col-6">
+            <div class="col-2">
                 <form action="{% url "approve_cleaned_composition" doc.pk %}" method="post"
                       id="approve-form">
                     {% csrf_token %}
@@ -146,10 +146,18 @@
                             class="btn btn-success btn-lg btn-block" role="button">Approve
                     </button>
                 </form>
+                <form action="{% url "reject_cleaned_composition" doc.pk %}" method="post"
+                        id="reject-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="referer" value="{{ request.path }}"/>
+                    <button type="submit" id="reject" name="approve"
+                            class="btn btn-danger btn-lg btn-block" role="button">Reject
+                    </button>
+                </form>
                     <!-- start Skip button -->
                     {% if nextid > 0 %} <!-- there is a Next Document ID -->
                         <br>
-                            <a class="btn btn-warning btn-lg btn-block"
+                            <a class="btn btn-secondary btn-lg btn-block"
                             href="{% url "qa_cleaned_composition_document_detail" nextid %}" name="skip" id="skip" 
                             role="button">Skip</a>
                     {% else %} <!-- there is no Next Document ID -->
@@ -163,12 +171,12 @@
                     {% endif %}
                     <!-- end Skip button -->
                     <br>
-                    <a class="btn btn-secondary btn-lg btn-block" href="{% url "qa_cleaning_script_detail" script.id %}" id="exit" 
+                    <a class="btn btn-outline-secondary btn-lg btn-block" href="{% url "qa_cleaning_script_detail" script.id %}" id="exit" 
                             role="button">Exit</a>
                 
             </div>
 
-            <div class="col-6 text-center">
+            <div class="col-10 text-center">
                 <form action="{% url "save_qa_notes" doc.pk %}" method="POST" id="qa-notes-form">
                     {% csrf_token %}
                     <b>{{ notesform.qa_notes.label_tag }}</b>&nbsp;<input type="submit"

@@ -28,7 +28,7 @@
             <th>Data Document</th>
             <th>Date Updated</th>
             <th>Chemical Records</th>
-            <th>QA Checked</th>
+            <th>QA Status</th>
         </tr>
         </thead>
         <tbody>
@@ -47,9 +47,9 @@
                 </td>
                 <td>{{ extractedtext.chemical_count }}</td>
                 <td>
-                    <a class="btn btn-info btn-sm fa-check-square {% if extractedtext.cleaning_qa_checked %} fa {% endif %}"
+                    <a class="btn btn-info btn-sm  "
                        role="button" title="check"
-                       href="{% url "qa_cleaned_composition_document_detail" extractedtext.pk %}"> {{ extractedtext.cleaning_qa_checked }}
+                       href="{% url "qa_cleaned_composition_document_detail" extractedtext.pk %}"> {{ extractedtext.cleaning_qa_status }}
                     </a>
                 </td>
             </tr>

@@ -265,6 +265,11 @@ urlpatterns = [
         dashboard.views.qa.approve_cleaned_composition,
         name="approve_cleaned_composition",
     ),
+    path(
+        "qa/cleanedcomposition/<int:pk>/reject/",
+        dashboard.views.qa.reject_cleaned_composition,
+        name="reject_cleaned_composition",
+    ),
     # Extraction Script QA
     path(
         "qa/extractionscript/",

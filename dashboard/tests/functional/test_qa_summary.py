@@ -421,7 +421,7 @@ class TestCleaningQASummary(TestCase):
 
         # Verify QA extracted text count, QA complete count, and QA incomplete count
         qa_complete_count = sum(
-            [text.cleaning_qa_checked for text in self.extracted_texts]
+            [text.cleaning_qa_checked or 0 for text in self.extracted_texts]
         )
         self.assertIn(
             str(len(self.extracted_texts)),

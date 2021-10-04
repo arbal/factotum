@@ -74,3 +74,13 @@ code {
     background-color: #f8f9fa;
     border-color: #e2e6ea;
 }
+
+/*/ COLOR PALETTE VARIABLES (from scss example) */
+:root {
+$brand-primary: #1b6ec2;
+$brand-success: #396f3a;
+$brand-warning: #b24d04;
+$brand-danger: #c92a2a;
+$brand-info: #0b7285; 
+}
+
