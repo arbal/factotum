@@ -127,7 +127,7 @@
                 {% endif %}
             </div>
         </h3>
-        <div class="col-6"><p class="mb-0">Unit type: {{unit_type}}; Weight fraction type: {{weight_fraction_type}}</p></div>
+
         <div id="card-panel" class="card-body pt-2">
 
             {% include 'qa/qa_cleaned_composition_table.html' %}
@@ -176,8 +176,7 @@
                             role="button">Exit</a>
                 
             </div>
-
-            <div class="col-10 text-center">
+            <div class="col-10 text-left">
                 <form action="{% url "save_qa_notes" doc.pk %}" method="POST" id="qa-notes-form">
                     {% csrf_token %}
                     <b>{{ notesform.qa_notes.label_tag }}</b>&nbsp;<input type="submit"
