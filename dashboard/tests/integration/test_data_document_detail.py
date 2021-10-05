@@ -539,8 +539,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             )
             self.assertTrue(
                 len(
-                    self.browser.find_element_by_xpath(
-                        "//span[@id='" + id + "']/following-sibling::small"
+                    self.browser.find_elements_by_xpath(
+                        "//*[@id='" + id + "']/following-sibling::small"
                     )
                 )
                 > 0,
