@@ -1,3 +1,4 @@
+import json
 from dashboard.tests.loader import fixtures_standard
 from django.contrib.auth.models import User
 from dashboard import views
@@ -10,6 +11,7 @@ from dashboard.models import (
     QANotes,
     ExtractedListPresence,
     ExtractedComposition,
+    extracted_text,
 )
 from django.db.models import Count
 from django.urls import reverse
@@ -299,3 +301,102 @@ class TestQaPage(TestCase):
         response_html = html.fromstring(response)
         chem_count_table = int(response_html.xpath(chem_count_xpath)[0].text)
         self.assertEqual(chem_count_orm, chem_count_table)
+
+    def test_qa_cleaned_composition_document_table(self):
+        """
+        Test the endpoint that populates the table of cleaned composition
+        values agains the seed data
+        """
+        script_id = 16
+
+        et_id = ExtractedText.objects.filter(cleaning_script_id=script_id).first().pk
+        response = self.client.get(
+            reverse("qa_cleaned_composition_detail_table", args=[et_id])
+        ).content.decode("utf8")
+        records = json.loads(response)
+        tablechem = records["data"][0]
+        dbchem = (
+            RawChem.objects.filter(extracted_text_id=et_id)
+            .filter(raw_chem_name=tablechem[0])
+            .select_subclasses()
+            .first()
+        )
+        self.assertEqual(tablechem[2], f"{float('%.4g' % dbchem.central_wf_analysis)}")
+
+    def test_cleaning_script_qa_process(self):
+        """
+        Open the script page for cleaned ExtractedComposition records
+        and go through the QA process
+        """
+        script_id = 16
+
+        response = self.client.get(
+            reverse("qa_cleaning_script_detail", args=[script_id])
+        ).content.decode("utf8")
+        qag = QAGroup.objects.filter(script_id=script_id).first()
+        et = ExtractedText.objects.filter(cleaning_qa_group_id=qag.pk).first()
+        et_id = et.pk
+        doc_link_xpath = f'//*[@id="qa-link-{et_id}"]'
+
+        response_html = html.fromstring(response)
+        # find the document detail link
+        doc_detail_button = response_html.get_element_by_id(f"qa-link-{et_id}")
+        doc_detail_text = response_html.xpath(doc_link_xpath)[0].text
+        self.assertHTMLEqual("Not reviewed", doc_detail_text)
+
+        doc_qa_url = doc_detail_button.get("href")
+        response = self.client.get(doc_qa_url).content.decode("utf8")
+        detail_html = html.fromstring(response)
+        # the table of extracted composition values has not loaded yet,
+        # so trust the other test for that part
+
+        # Check the Exit button's link
+        exit_button = detail_html.get_element_by_id("exit")
+        exit_url = exit_button.get("href")
+        self.assertEqual(
+            reverse("qa_cleaning_script_detail", args=[script_id]), exit_url
+        )
+
+        # The Skip button should be disabled, since this is the only
+        # document in the QA group
+        skip_button = detail_html.get_element_by_id("skip")
+        skip_status = skip_button.get("aria-disabled")
+        self.assertTrue(skip_status)
+
+        # The "Reject" button is part of a form
+        reject_form = detail_html.get_element_by_id("reject-form")
+        reject_path = reject_form.get("action")
+        response = self.client.post(reject_path, follow=True)
+        # Rejecting the document should redirect the user to the cleaning script QA index
+        self.assertEqual(
+            response.status_code,
+            200,
+            "User should be redirected to the QA script's detail page",
+        )
+        self.assertRedirects(
+            response, reverse("qa_cleaning_script_detail", args=[script_id])
+        )
+        message = list(response.context.get("messages"))[0]
+        rejection_text = f"The cleaned composition data for {et.data_document.title} has been rejected."
+        self.assertEqual(rejection_text, message.message)
+        et = ExtractedText.objects.get(pk=et_id)
+        self.assertEqual(et.cleaning_qa_checked, False)
+
+        # Approve the same document
+        approve_form = detail_html.get_element_by_id("approve-form")
+        approve_path = approve_form.get("action")
+        response = self.client.post(approve_path, follow=True)
+        # Rejecting the document should redirect the user to the cleaning script QA index
+        self.assertEqual(
+            response.status_code,
+            200,
+            "User should be redirected to the QA script's detail page",
+        )
+        self.assertRedirects(
+            response, reverse("qa_cleaning_script_detail", args=[script_id])
+        )
+        message = list(response.context.get("messages"))[0]
+        approval_text = f"The cleaned composition data for {et.data_document.title} has been approved!"
+        self.assertEqual(approval_text, message.message)
+        et = ExtractedText.objects.get(pk=et_id)
+        self.assertEqual(et.cleaning_qa_checked, True)

@@ -367,8 +367,11 @@ def qa_cleaned_composition_document_detail(
 
     nextid = extext.next_extracted_text_in_cleaning_qa_group()
 
+    # Use the arbitrary first record in the queryset to provide
+    # the weight fraction type and unit type attributes, which
+    # should be common to all the ExtractedComposition records, even
+    # though the field lives on the ExtractedComposition detail level
     firstexcomp = doc.extractedtext.rawchem.select_subclasses().first()
-
 
     context = {
         "extracted_text": extext,
@@ -583,7 +586,12 @@ class CleaningSummaryTable(BaseDatatableView):
             except QANotes.DoesNotExist:
                 return None
         if column == "cleaning_qa_checked":
-            return "Yes" if row.cleaning_qa_checked else "No"
+            if row.cleaning_qa_checked:
+                return "Approved"
+            elif row.cleaning_qa_checked == False:
+                return "Rejected"
+            else:
+                return "Not reviewed"
         if column == "rawchem_count":
             return row.rawchem_count
         elif column == "last_updated":
@@ -709,11 +717,10 @@ class CleanedCompositionDetailTable(BaseDatatableView):
             )
 
         if column == "central_wf_analysis":
-            return (
-                f"{float('%.4g' % row.central_wf_analysis)}"
-                if row.central_wf_analysis
-                else f"{float('%.4g' % row.lower_wf_analysis)} - {float('%.4g' % row.upper_wf_analysis)}"
-            )
+            if row.central_wf_analysis:
+                return f"{float('%.4g' % row.central_wf_analysis)}"
+            if row.lower_wf_analysis:
+                f"{float('%.4g' % row.lower_wf_analysis)} - {float('%.4g' % row.upper_wf_analysis)}"
 
         super().render_column(row, column)
 
@@ -1027,13 +1034,17 @@ def approve_cleaned_composition(request, pk):
                 "qa_cleaning_script_detail", args=[(extext.cleaning_script_id)]
             )
 
-        messages.success(request, f"The cleaned composition data for {extext.data_document.title} has been approved!")
+        messages.success(
+            request,
+            f"The cleaned composition data for {extext.data_document.title} has been approved!",
+        )
         if is_safe_url(url=redirect_to, allowed_hosts=request.get_host()):
             return HttpResponseRedirect(redirect_to)
         else:
             return HttpResponseRedirect(
                 reverse("qa_cleaned_composition_document_detail", args=[(pk)])
             )
+
 
 @login_required()
 def reject_cleaned_composition(request, pk):
@@ -1062,11 +1073,13 @@ def reject_cleaned_composition(request, pk):
                 "qa_cleaning_script_detail", args=[(extext.cleaning_script_id)]
             )
 
-        messages.success(request, f"The cleaned composition data for {extext.data_document.title} has been rejected.")
+        messages.success(
+            request,
+            f"The cleaned composition data for {extext.data_document.title} has been rejected.",
+        )
         if is_safe_url(url=redirect_to, allowed_hosts=request.get_host()):
             return HttpResponseRedirect(redirect_to)
         else:
             return HttpResponseRedirect(
                 reverse("qa_cleaned_composition_document_detail", args=[(pk)])
             )
-

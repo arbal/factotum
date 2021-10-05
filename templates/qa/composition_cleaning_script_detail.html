@@ -47,7 +47,8 @@
                 </td>
                 <td>{{ extractedtext.chemical_count }}</td>
                 <td>
-                    <a class="btn btn-info btn-sm  "
+                    <a id="qa-link-{{extractedtext.pk}}"
+                       class="btn btn-info btn-sm  "
                        role="button" title="check"
                        href="{% url "qa_cleaned_composition_document_detail" extractedtext.pk %}"> {{ extractedtext.cleaning_qa_status }}
                     </a>
