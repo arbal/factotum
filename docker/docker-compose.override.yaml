@@ -68,7 +68,7 @@ services:
       - elasticsearch
 
   nginx:
-    image: nginx:1-alpine
+    image: nginx:1.21-alpine
     restart: unless-stopped
     ports:
       - ${FACTOTUM_PORT:-8000}:${FACTOTUM_PORT:-8000}
