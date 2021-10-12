@@ -57,6 +57,7 @@ services:
       REDIS_CELERY_DATABASE: ${REDIS_CELERY_DATABASE:-1}
       REDIS_CACHEOPS_DATABASE: ${REDIS_CACHEOPS_DATABASE:-2}
       REDIS_HOST: redis
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-factotum}
       REDIS_PORT: ${REDIS_PORT:-6379}
       ROOT_URLCONF: ${ROOT_URLCONF:-factotum}
     volumes:
@@ -68,7 +69,7 @@ services:
       - elasticsearch
 
   nginx:
-    image: nginx:1-alpine
+    image: nginx:1.21-alpine
     restart: unless-stopped
     ports:
       - ${FACTOTUM_PORT:-8000}:${FACTOTUM_PORT:-8000}

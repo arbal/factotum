@@ -145,13 +145,13 @@ ELASTICSEARCH_DSL = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://{env.REDIS_HOST}:{env.REDIS_PORT}/{env.REDIS_CACHE_DATABASE}",
+        "LOCATION": f"redis://:{env.REDIS_PASSWORD}@{env.REDIS_HOST}:{env.REDIS_PORT}/{env.REDIS_CACHE_DATABASE}",
         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
     }
 }
 
 CACHEOPS_REDIS = (
-    f"redis://{env.REDIS_HOST}:{env.REDIS_PORT}/{env.REDIS_CACHEOPS_DATABASE}"
+    f"redis://:{env.REDIS_PASSWORD}@{env.REDIS_HOST}:{env.REDIS_PORT}/{env.REDIS_CACHEOPS_DATABASE}"
 )
 CACHEOPS_DEFAULTS = {"timeout": env.CACHEOPS_DEFAULT_TIMEOUT}  # default to one hour
 CACHEOPS = {
@@ -199,7 +199,7 @@ TEST_BROWSER = "chrome"
 CHROMEDRIVER_PATH = env.CHROMEDRIVER_PATH
 
 CELERY_BROKER_URL = (
-    f"redis://{env.REDIS_HOST}:{env.REDIS_PORT}/{env.REDIS_CELERY_DATABASE}"
+    f"redis://:{env.REDIS_PASSWORD}@{env.REDIS_HOST}:{env.REDIS_PORT}/{env.REDIS_CELERY_DATABASE}"
 )
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 CELERY_FILETASK_ROOT = os.path.join(BASE_DIR, "celeryfiles")

@@ -159,6 +159,11 @@ class MetaEnv(type):
         return cls._get("REDIS_PORT", default)
 
     @property
+    def REDIS_PASSWORD(cls):
+        default = "factotum"
+        return cls._get("REDIS_PASSWORD", default)
+
+    @property
     def CACHEOPS_DEFAULT_TIMEOUT(cls):
         default = 60 * 60  # default to one hour
         return int(cls._get("CACHEOPS_DEFAULT_TIMEOUT", default))
