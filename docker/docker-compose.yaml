@@ -48,4 +48,4 @@ services:
     restart: unless-stopped
     volumes:
       - redisdata:/data
-    command: redis-server --port ${REDIS_PORT:-6379} --appendonly yes
+    command: redis-server --port ${REDIS_PORT:-6379} --appendonly yes --requirepass ${REDIS_PASSWORD:-factotum}
