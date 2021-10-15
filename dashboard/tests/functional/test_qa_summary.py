@@ -4,7 +4,7 @@ import factory
 from datetime import datetime, timedelta
 from unittest import mock, skip
 
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.urls import reverse
 from django.utils.timesince import timesince
 from lxml import html
