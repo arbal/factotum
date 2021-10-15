@@ -2,7 +2,7 @@ import json
 from dashboard.tests.loader import fixtures_standard
 from django.contrib.auth.models import User
 from dashboard import views
-from django.test import TestCase, override_settings, RequestFactory
+from django.test import TestCase, override_settings, RequestFactory, tag
 from dashboard.models import (
     RawChem,
     Script,

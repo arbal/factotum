@@ -717,10 +717,10 @@ class CleanedCompositionDetailTable(BaseDatatableView):
             )
 
         if column == "central_wf_analysis":
+            if row.lower_wf_analysis:
+                return f"{float('%.4g' % row.lower_wf_analysis)} - {float('%.4g' % row.upper_wf_analysis)}"
             if row.central_wf_analysis:
                 return f"{float('%.4g' % row.central_wf_analysis)}"
-            if row.lower_wf_analysis:
-                f"{float('%.4g' % row.lower_wf_analysis)} - {float('%.4g' % row.upper_wf_analysis)}"
 
         super().render_column(row, column)
 
