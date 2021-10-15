@@ -19,6 +19,7 @@ from lxml import html
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
+@tag("qa")
 class TestQaPage(TestCase):
     fixtures = fixtures_standard
 

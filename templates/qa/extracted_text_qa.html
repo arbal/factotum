@@ -12,9 +12,14 @@
             <li class="breadcrumb-item"><a href="{% url "qa_manual_composition_index" %}">Manual Composition</a></li>
             <li class="breadcrumb-item">
                 <a href="{% url "qa_manual_composition_datagroup" doc.data_group_id %}">{{ doc.data_group }} </a>
-            </li>          
+            </li>        
             {% elif doc.data_group.type == "CP" %}
                 <li class="breadcrumb-item"><a href="{% url "qa_chemicalpresence_index" %}">Chemical Presence</a></li>
+                <li class="breadcrumb-item">
+                    <a href="{% url "qa_chemical_presence_group" doc.data_group_id %}"> {{ doc.data_group }} </a>
+                </li>
+            {% elif doc.data_group.type == "FU" %}
+                <li class="breadcrumb-item"><a href="{% url "qa_extractionscript_index" %}?group_type=FU">Functional Use</a></li>
                 <li class="breadcrumb-item">
                     <a href="{% url "qa_chemical_presence_group" doc.data_group_id %}"> {{ doc.data_group }} </a>
                 </li>

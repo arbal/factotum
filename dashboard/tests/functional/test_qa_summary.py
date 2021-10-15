@@ -13,6 +13,7 @@ from dashboard.models import QANotes, AuditLog, RawChem, Script, DataGroup
 from dashboard.tests import factories
 
 
+@tag("qa")
 class TestQASummary(TestCase):
     fixtures = ["00_superuser"]
 
@@ -282,6 +283,7 @@ class TestQASummary(TestCase):
         return row_response
 
 
+@tag("qa")
 class TestFUQASummary(TestCase):
     fixtures = ["00_superuser"]
 
@@ -358,6 +360,7 @@ class TestFUQASummary(TestCase):
         )
 
 
+@tag("qa")
 class TestCleaningQASummary(TestCase):
     fixtures = ["00_superuser"]
 
