@@ -315,14 +315,22 @@ class TestQaPage(TestCase):
             reverse("qa_cleaned_composition_detail_json", args=[et_id])
         ).content.decode("utf8")
         records = json.loads(response)
-        tablechem = records["data"][0]
-        dbchem = (
-            RawChem.objects.filter(extracted_text_id=et_id)
-            .filter(raw_chem_name=tablechem[0])
-            .select_subclasses()
-            .first()
-        )
-        self.assertEqual(tablechem[2], f"{float('%.4g' % dbchem.central_wf_analysis)}")
+        tablechems = records["data"]
+        dbchems = RawChem.objects.filter(extracted_text_id=et_id).select_subclasses()
+        for tablechem in tablechems:
+            tableid = tablechem[3]
+            dbchem = dbchems.get(pk=tableid)
+            self.assertEqual(dbchem.raw_chem_name, tablechem[0])
+            # if there is a central_wf_analysis, that should be by itself
+            if dbchem.central_wf_analysis:
+                self.assertEqual(
+                    tablechem[2], f"{float('%.4g' % dbchem.central_wf_analysis)}"
+                )
+            if dbchem.lower_wf_analysis:
+                self.assertEqual(
+                    tablechem[2],
+                    f"{float('%.4g' % dbchem.lower_wf_analysis)} - {float('%.4g' % dbchem.upper_wf_analysis)}",
+                )
 
     def test_cleaning_script_qa_process(self):
         """
