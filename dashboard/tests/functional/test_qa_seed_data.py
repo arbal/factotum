@@ -312,7 +312,7 @@ class TestQaPage(TestCase):
 
         et_id = ExtractedText.objects.filter(cleaning_script_id=script_id).first().pk
         response = self.client.get(
-            reverse("qa_cleaned_composition_detail_table", args=[et_id])
+            reverse("qa_cleaned_composition_detail_json", args=[et_id])
         ).content.decode("utf8")
         records = json.loads(response)
         tablechem = records["data"][0]

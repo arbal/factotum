@@ -257,8 +257,8 @@ urlpatterns = [
     ),
     path(
         "qa/cleanedcomposition/<int:pk>/table/",
-        dashboard.views.qa.CleanedCompositionDetailTable.as_view(),
-        name="qa_cleaned_composition_detail_table",
+        dashboard.views.qa.CleanedCompositionDetailJson.as_view(),
+        name="qa_cleaned_composition_detail_json",
     ),
     path(
         "qa/cleanedcomposition/<int:pk>/approve/",

@@ -383,7 +383,7 @@ def qa_cleaned_composition_document_detail(
         "notesform": notesform,
         "nextid": nextid,
         "cleaned_composition_table_url": reverse(
-            "qa_cleaned_composition_detail_table", args=[pk]
+            "qa_cleaned_composition_detail_json", args=[pk]
         ),
     }
 
@@ -688,14 +688,14 @@ class ManualCompositionDataGroupSummaryTable(ExtractionSummaryTable):
         )
 
 
-class CleanedCompositionDetailTable(BaseDatatableView):
+class CleanedCompositionDetailJson(BaseDatatableView):
     """
     Provides the AJAX data for the cleaned composition detail page.
     Example: http://127.0.0.1:8000/qa/cleanedcomposition/1364907/table
     """
 
     model = ExtractedComposition
-    columns = ["raw_chem_name", "raw_central_comp", "central_wf_analysis"]
+    columns = ["raw_chem_name", "raw_central_comp", "central_wf_analysis", "id"]
 
     def get(self, request, pk, *args, **kwargs):
         """This PK should be a data document ID"""
@@ -709,20 +709,22 @@ class CleanedCompositionDetailTable(BaseDatatableView):
         if column == "raw_chem_name":
             return row.raw_chem_name
 
-        if column == "raw_central_comp":
+        elif column == "raw_central_comp":
             return (
                 row.raw_central_comp
                 if row.raw_central_comp
                 else f"{row.raw_min_comp} - {row.raw_max_comp}"
             )
 
-        if column == "central_wf_analysis":
+        elif column == "central_wf_analysis":
             if row.lower_wf_analysis:
                 return f"{float('%.4g' % row.lower_wf_analysis)} - {float('%.4g' % row.upper_wf_analysis)}"
             if row.central_wf_analysis:
                 return f"{float('%.4g' % row.central_wf_analysis)}"
-
-        super().render_column(row, column)
+        elif column == "id":
+            return row.id
+        else:
+            super().render_column(row, column)
 
 
 @login_required()
