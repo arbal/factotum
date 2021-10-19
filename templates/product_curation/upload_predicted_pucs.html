@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Upload Predicted PUC Assignments{% endblock %}
+
+{% block errors %}
+    {% if form.errors %}
+        <ul class="user-msg error">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>
+                        {% if field != '__all__' %}
+                            <strong>{{ field.label }}:</strong>
+                        {% endif %}
+                        {{ error }}
+                    </li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1>
+        <span>Upload Predicted PUC Assignments</span>
+    </h1>
+
+    <form action='' method="post">
+        {% csrf_token %}
+
+
+    </form>
+{% endblock %}
+
+{% block js %}
+
+    {{ form.media }}
+{% endblock %}
+
+

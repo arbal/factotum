@@ -23,6 +23,7 @@ from dashboard.models import (
     PUCTag,
     PUCToTag,
     ProductToTag,
+    Script,
 )
 from dashboard.forms import (
     ProductPUCForm,
@@ -486,4 +487,14 @@ def product_puc_reconciliation(
 ):
     data = {}
     data["products"] = {}
+    return render(request, template_name, data)
+
+
+@login_required()
+def upload_predicted_pucs(
+    request, template_name="product_curation/upload_predicted_pucs.html"
+):
+    data = {}
+    scripts = Script.objects.filter(script_type="PC")
+    data["scripts"] = scripts
     return render(request, template_name, data)
