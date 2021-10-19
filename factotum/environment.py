@@ -54,6 +54,12 @@ class MetaEnv(type):
         return cls._get("MEDIA_URL", default)
 
     @property
+    def DOWNLOADS_ROOT(cls):
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        default = os.path.join(base_dir, "downloads")
+        return cls._get("DOWNLOADS_ROOT", default)
+
+    @property
     def FACTOTUM_PORT(cls):
         deafult = "8000"
         return cls._get("FACTOTUM_PORT", deafult)
@@ -151,6 +157,11 @@ class MetaEnv(type):
     def REDIS_PORT(cls):
         default = "6379"
         return cls._get("REDIS_PORT", default)
+
+    @property
+    def REDIS_PASSWORD(cls):
+        default = "factotum"
+        return cls._get("REDIS_PASSWORD", default)
 
     @property
     def CACHEOPS_DEFAULT_TIMEOUT(cls):

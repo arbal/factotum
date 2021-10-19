@@ -1,6 +1,6 @@
 {% extends "core/base.html" %}
 {% load widget_tweaks %}
-{% load staticfiles %}
+{% load static %}
 {% load humanize %}
 
 {% block title %}QA Data Document {{ doc.id }}: {{ doc.title }}{% endblock %}
@@ -11,7 +11,7 @@
             {% if doc.data_group.type == "CO" and script.title == "Manual (dummy)" %}
             <li class="breadcrumb-item"><a href="{% url "qa_manual_composition_index" %}">Manual Composition</a></li>
             <li class="breadcrumb-item">
-                <a href="{% url "qa_manual_composition_script" doc.data_group_id %}">{{ doc.data_group }} </a>
+                <a href="{% url "qa_manual_composition_datagroup" doc.data_group_id %}">{{ doc.data_group }} </a>
             </li>          
             {% elif doc.data_group.type == "CP" %}
                 <li class="breadcrumb-item"><a href="{% url "qa_chemicalpresence_index" %}">Chemical Presence</a></li>
@@ -174,32 +174,21 @@
                         {% if referer == "qa_extraction_script" and doc.data_group.type != "CP" %}
                             <!-- arrived on a non-Chemical Presence page from a script index page -->
                                 <a class="btn btn-warning btn-lg btn-block"
-                                href="{% url "extracted_text_qa" nextid %}" name="skip"
+                                href="{% url "extracted_text_qa" nextid %}" name="skip" id="skip" 
                                 role="button">Skip</a>
                         {% endif %}
                     {% else %} <!-- there is no Next Document ID -->
                         {% if doc.data_group.type != "CP" %} <!-- show the button disabled -->
                             <button type="button"
                                     title="All the other documents in this QA group have been approved"
-                                    name="skip" class="btn btn-secondary btn-lg btn-block"
+                                    name="skip" id="skip" class="btn btn-secondary btn-lg btn-block"
                                     aria-disabled="true" disabled>Skip</button>
                         {% endif%}
                     {% endif %}
                     <!-- end Skip button -->
                     <br>
-                    {% if referer == "qa_extraction_script" %}
-                        <a class="btn btn-secondary btn-lg btn-block"
-                           href="{% url referer doc.extractedtext.extraction_script_id %}"
-                           role="button">Exit</a>
-                    {% else %}
-                        {% if doc.data_group.type == "CO" and script.title == "Manual (dummy)" %}
-                            <a class="btn btn-secondary btn-lg btn-block" href="{% url 'qa_manual_composition_script' doc.data_group_id %}"
-                                role="button">Exit</a>
-                        {% else %}
-                            <a class="btn btn-secondary btn-lg btn-block" href="{{ referer }}"
+                    <a class="btn btn-secondary btn-lg btn-block" href="{{ exit_url }}" id="exit" 
                             role="button">Exit</a>
-                        {% endif %}
-                    {% endif %}
                 </form>
             </div>
 

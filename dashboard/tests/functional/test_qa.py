@@ -3,6 +3,8 @@ from datetime import date
 
 from django.test import TestCase, tag
 
+from dashboard.tests.factories import DataGroupFactory, ExtractedTextFactory
+
 from dashboard.tests.loader import fixtures_standard
 from dashboard.models import Script, ExtractedText, RawChem, DataDocument
 
@@ -123,8 +125,8 @@ class QATest(TestCase):
         response_html = html.fromstring(response.content)
         component_text = response_html.xpath(
             f'//*[@id="component-{rawchem.id}"]/text()'
-        )
-        self.assertIn(component, "Test Component")
+        )[0]
+        self.assertIn(component, component_text)
 
     def test_qa_compextractionscript(self):
         script = Script.objects.get(pk=12)
@@ -144,9 +146,56 @@ class QATest(TestCase):
         )[0]
         self.assertIn(date.today().strftime("%b %d, %Y"), date_updated_text)
 
+        # open the first extracted document
+        response = self.client.get("/qa/extractedtext/%i/" % text.pk)
+        response_html = html.fromstring(response.content)
+
+        # skip button should go to the next extracted text record
+        skip_button = response_html.xpath("//*[@id='skip']")[0]
+        skip_button_html = html.tostring(skip_button).decode("utf-8")
+        next_extracted_text_id = text.next_extracted_text_in_qa_group()
+        self.assertIn(
+            f'href="/qa/extractedtext/{next_extracted_text_id}/"', skip_button_html
+        )
+
+        exit_button = response_html.xpath("//*[@id='exit']")[0]
+        exit_button_html = html.tostring(exit_button).decode("utf-8")
+        self.assertIn("/qa/extractionscript/12/", exit_button_html)
+
     def test_qa_pdf_download(self):
         data_document = DataDocument.objects.get(pk=354787)
         response = self.client.get("/qa/extractedtext/%i/" % data_document.pk)
         response_html = html.fromstring(response.content)
         filename = data_document.filename
         self.assertTrue(response_html.xpath(f'//a[@title="{filename}"]'))
+
+    def test_qa_compmanual(self):
+        """
+        Test the behavior of the manually-extracted Composition QA pages
+        """
+        MANUAL_SCRIPT_ID = (
+            Script.objects.filter(title="Manual (dummy)", script_type="EX").first().id
+        )
+        script = Script.objects.get(pk=MANUAL_SCRIPT_ID)
+        # new extractedtext objects from factories
+        dg = DataGroupFactory(name="Manually Extracted Composition Records")
+        doc_count = 20
+        ets = ExtractedTextFactory.create_batch(
+            size=doc_count, extraction_script=script, data_document__data_group=dg
+        )
+
+        response = self.client.get("/qa/manualcomposition/")
+        response_html = html.fromstring(response.content)
+
+        table_doc_count = response_html.xpath(
+            '//*[@id="data_group_table"]/tbody/tr/td[3]'
+        )[0].text
+        self.assertEqual(str(doc_count), table_doc_count)
+
+        # open the data group's QA page
+        response = self.client.get(f"/qa/manualcomposition/{dg.pk}/")
+        self.assertEqual(str(response.status_code), "200")
+
+        # open the first extracted document
+        response = self.client.get("/qa/extractedtext/%i/" % ets[0].pk)
+        response_html = html.fromstring(response.content)

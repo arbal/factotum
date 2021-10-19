@@ -22,7 +22,12 @@ class ExtractedText(CommonInfo):
         blank=True,
         help_text="The name of the product according to the extracted document",
     )
-    doc_date = models.CharField("Document date", max_length=25, blank=True, help_text="Date the study document was published")
+    doc_date = models.CharField(
+        "Document date",
+        max_length=25,
+        blank=True,
+        help_text="Date the study document was published",
+    )
     rev_num = models.CharField("Revision number", max_length=50, blank=True)
     extraction_script = models.ForeignKey(
         "Script", on_delete=models.CASCADE, limit_choices_to={"script_type": "EX"}
@@ -46,7 +51,40 @@ class ExtractedText(CommonInfo):
         null=True,
         blank=True,
     )
-
+    cleaning_script = models.ForeignKey(
+        "Script",
+        on_delete=models.CASCADE,
+        limit_choices_to={"script_type": "DC"},
+        null=True,
+        blank=True,
+        help_text="The script used to clean the data after extraction",
+        related_name="cleaned_documents",
+    )
+    cleaning_qa_checked = models.BooleanField(
+        default=False, verbose_name="Cleaning QA approved"
+    )
+    cleaning_qa_edited = models.BooleanField(
+        default=False, verbose_name="Cleaning QA edited"
+    )
+    cleaning_qa_approved_date = models.DateTimeField(
+        null=True, blank=True, verbose_name="Cleaning QA approval date"
+    )
+    cleaning_qa_approved_by = models.ForeignKey(
+        "auth.User",
+        on_delete=models.SET_NULL,
+        verbose_name="Cleaning QA approved by",
+        null=True,
+        blank=True,
+        related_name="cleaned_documents",
+    )
+    cleaning_qa_group = models.ForeignKey(
+        "QAGroup",
+        verbose_name="Cleaning QA group",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="cleaned_documents",
+    )
     objects = InheritanceManager()
 
     def __str__(self):

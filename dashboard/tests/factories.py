@@ -427,7 +427,9 @@ class ExtractedCompositionFactory(RawChemFactory):
         add_functional_uses = False
 
     extracted_text = factory.SubFactory(
-        ExtractedTextFactory, data_document__data_group__group_type__code="CO"
+        ExtractedTextFactory,
+        data_document__data_group__group_type__code="CO",
+        cleaning_script=factory.SubFactory(ScriptFactory, script_type="DC"),
     )
     raw_min_comp = factory.LazyAttribute(lambda o: random.randint(0, 50))
     raw_max_comp = factory.LazyAttribute(lambda o: random.randint(50, 100))

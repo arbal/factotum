@@ -43,6 +43,7 @@ services:
       MAX_UPLOAD_SIZE: ${MAX_UPLOAD_SIZE:-5242880}
       MEDIA_ROOT: /app/media
       MEDIA_URL: ${MEDIA_URL:-http://factotum.epa.gov/media/}
+      DOWNLOADS_ROOT: /app/downloads
       PRODUCT_IMAGE_DIRECTORY_MAX_UPLOAD: ${PRODUCT_IMAGE_DIRECTORY_MAX_UPLOAD:-5000000}
       PRODUCT_IMAGE_DIRECTORY_MAX_FILE_COUNT: ${PRODUCT_IMAGE_DIRECTORY_MAX_FILE_COUNT:-500}
       PRODUCT_IMAGE_MAX_SIZE: ${PRODUCT_IMAGE_MAX_SIZE:-1000000}
@@ -56,23 +57,26 @@ services:
       REDIS_CELERY_DATABASE: ${REDIS_CELERY_DATABASE:-1}
       REDIS_CACHEOPS_DATABASE: ${REDIS_CACHEOPS_DATABASE:-2}
       REDIS_HOST: redis
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-factotum}
       REDIS_PORT: ${REDIS_PORT:-6379}
       ROOT_URLCONF: ${ROOT_URLCONF:-factotum}
     volumes:
-      - ${MEDIA_ROOT}:/app/media
+      - ${MEDIA_ROOT}/:/app/media
+      - ${DOWNLOADS_ROOT}/:/app/downloads
       - celeryfiletasks:/app/celeryfiles
       - factotumstatic:/app/collected_static
     depends_on:
       - elasticsearch
 
   nginx:
-    image: nginx:1-alpine
+    image: nginx:1.21-alpine
     restart: unless-stopped
     ports:
       - ${FACTOTUM_PORT:-8000}:${FACTOTUM_PORT:-8000}
       - ${FACTOTUM_WS_PORT:-8001}:${FACTOTUM_WS_PORT:-8001}
     volumes:
-      - ${MEDIA_ROOT}:/app/media/:ro
+      - ${MEDIA_ROOT}/:/app/media/:ro
+      - ${DOWNLOADS_ROOT}/:/app/downloads/:ro
       - factotumstatic:/app/collected_static:ro
     depends_on:
       - factotum
@@ -157,7 +161,7 @@ services:
       SQL_PORT: ${SQL_PORT:-3306}
       SQL_USER: ${SQL_USER:-dave}
     volumes:
-      - ${MEDIA_ROOT}:/app/media
+      - ${MEDIA_ROOT}/:/app/media
 
   celery:
     build: https://github.com/HumanExposure/factotum.git#${FACTOTUM_BRANCH:-master}
@@ -166,7 +170,8 @@ services:
     environment:
       <<: *factotum_env
     volumes:
-      - ${MEDIA_ROOT}:/app/media
+      - ${MEDIA_ROOT}/:/app/media
+      - ${DOWNLOADS_ROOT}/:/app/downloads
       - celeryfiletasks:/app/celeryfiles
     depends_on:
       - factotum
@@ -181,7 +186,8 @@ services:
       PROVISIONAL_ASSIGNMENT_SCHEDULE: ${PROVISIONAL_ASSIGNMENT_SCHEDULE:-}
       GENERATE_BULK_DOWNLOAD_SCHEDULE: ${GENERATE_BULK_DOWNLOAD_SCHEDULE:-}
     volumes:
-      - ${MEDIA_ROOT}:/app/media
+      - ${MEDIA_ROOT}/:/app/media
+      - ${DOWNLOADS_ROOT}/:/app/downloads
       - celeryfiletasks:/app/celeryfiles
     depends_on:
       - factotum

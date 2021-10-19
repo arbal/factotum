@@ -104,7 +104,7 @@ def load_browser():
         return webdriver.Firefox()
     else:
         return webdriver.Chrome(
-            executable_path=settings.CHROMEDRIVER_PATH, chrome_options=chrome_options
+            executable_path=settings.CHROMEDRIVER_PATH, options=chrome_options
         )
 
 
@@ -192,6 +192,7 @@ def load_model_objects():
         prod_name="Test Extracted Text Record",
         data_document=doc,
         extraction_script=exscript,
+        cleaning_script=script,
     )
     ut = UnitType.objects.create(title="percent composition")
     wft = WeightFractionType.objects.create(title="reported", description="reported")
@@ -204,7 +205,6 @@ def load_model_objects():
         lower_wf_analysis=0.123456789012345,
         central_wf_analysis=0.2,
         upper_wf_analysis=1,
-        script=script,
     )
     rc = ec.rawchem_ptr
 

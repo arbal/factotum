@@ -1,8 +1,10 @@
 from django.db import models
 
 from django_db_views.db_view import DBView
-
+from django.db.models import Q
+from django.urls import reverse
 from .raw_chem import RawChem
+from .data_document import DataDocument
 from .common_info import CommonInfo
 
 DETECT_FREQ_TYPE_CHOICES = (("R", "Reported"), ("C", "Computed"))
@@ -50,7 +52,7 @@ class UnionExtractedLMHHRec(DBView):
             dashboard_extractedhhrec.rawchem_ptr_id,
             dashboard_extractedhhrec.medium,
             dashboard_extractedhhrec.num_measure,
-            NULL AS harmonized_medium_id
+            dashboard_extractedhhrec.harmonized_medium_id AS harmonized_medium_id
         FROM
             dashboard_extractedhhrec
                 INNER JOIN
@@ -77,21 +79,35 @@ class ExtractedLMRec(RawChem):
     Its parent records use the `dashboard.models.extracted_lmdoc.ExtractedLMDoc` model.
     """
 
-    study_location = models.CharField(max_length=200, blank=True, null=True,
-                                      help_text="Location where the study was performed")
-    sampling_date = models.DateField(blank=True, null=True, help_text="Date or date range when the study was performed")
-    population_description = models.CharField(max_length=200, blank=True, null=True,
-                                              help_text="General description of the population studied")
+    study_location = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="Location where the study was performed",
+    )
+    sampling_date = models.DateField(
+        blank=True,
+        null=True,
+        help_text="Date or date range when the study was performed",
+    )
+    population_description = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="General description of the population studied",
+    )
     population_gender = models.CharField(
-        max_length=30, choices=GENDER_CHOICES, blank=True, null=True,
-        help_text="Gender or genders of the population studied"
+        max_length=30,
+        choices=GENDER_CHOICES,
+        blank=True,
+        null=True,
+        help_text="Gender or genders of the population studied",
     )
     population_age = models.CharField(
         max_length=200,
         help_text="Age groups or age ranges studied in the population",
         blank=True,
         null=True,
-
     )
     population_other = models.CharField(
         max_length=200,
@@ -99,12 +115,24 @@ class ExtractedLMRec(RawChem):
         blank=True,
         null=True,
     )
-    sampling_method = models.CharField(max_length=200, blank=True, null=True,
-                                       help_text="Reported method by which the media samples were collected")
-    analytical_method = models.CharField(max_length=200, blank=True, null=True,
-                                         help_text="Reported method by which the media samples were analyzed")
-    medium = models.CharField(max_length=200, blank=True, null=True,
-                              help_text="Environmental or biological medium studied (as reported)")
+    sampling_method = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="Reported method by which the media samples were collected",
+    )
+    analytical_method = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="Reported method by which the media samples were analyzed",
+    )
+    medium = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="Environmental or biological medium studied (as reported)",
+    )
     harmonized_medium = models.ForeignKey(
         "HarmonizedMedium",
         on_delete=models.SET_NULL,
@@ -112,12 +140,19 @@ class ExtractedLMRec(RawChem):
         null=True,
         default=None,
         related_name="lm_record",
-        help_text="Medium harmonized to standard categories used in Factotum"
+        help_text="Medium harmonized to standard categories used in Factotum",
     )
-    num_measure = models.IntegerField(null=True, blank=True, help_text="Total number of measurements taken")
-    num_nondetect = models.IntegerField(null=True, blank=True, help_text="Reported number of non-detects")
+    num_measure = models.IntegerField(
+        null=True, blank=True, help_text="Total number of measurements taken"
+    )
+    num_nondetect = models.IntegerField(
+        null=True, blank=True, help_text="Reported number of non-detects"
+    )
     detect_freq = models.FloatField(
-        null=True, blank=True, verbose_name="Detection frequency", help_text="Detection frequency in the medium"
+        null=True,
+        blank=True,
+        verbose_name="Detection frequency",
+        help_text="Detection frequency in the medium",
     )
     detect_freq_type = models.CharField(
         max_length=1,
@@ -125,10 +160,14 @@ class ExtractedLMRec(RawChem):
         blank=True,
         null=True,
         verbose_name="Detection frequency type",
-        help_text="Indicates whether the detection frequency was reported in study or computed by data curators"
+        help_text="Indicates whether the detection frequency was reported in study or computed by data curators",
     )
-    LOD = models.FloatField("LOD", null=True, blank=True, help_text="Analytical limit of detection")
-    LOQ = models.FloatField("LOQ", null=True, blank=True, help_text="Analytical limit of quantification")
+    LOD = models.FloatField(
+        "LOD", null=True, blank=True, help_text="Analytical limit of detection"
+    )
+    LOQ = models.FloatField(
+        "LOQ", null=True, blank=True, help_text="Analytical limit of quantification"
+    )
 
     @classmethod
     def auditlog_fields(cls):
@@ -144,6 +183,7 @@ class ExtractedLMRec(RawChem):
             {
                 "name": self._meta.get_field(field).verbose_name,
                 "value": getattr(self, field),
+                "help_text": self._meta.get_field(field).help_text,
             }
             for field in [
                 "study_location",
@@ -179,3 +219,25 @@ class HarmonizedMedium(CommonInfo):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("harmonized_medium_detail", args=(self.pk,))
+
+    @property
+    def chemical_count(self):
+        return (
+            RawChem.objects.filter(Q(unionextractedlmhhrec__harmonized_medium=self))
+            .values("dsstox")
+            .distinct()
+            .count()
+        )
+
+    @property
+    def document_count(self):
+        return (
+            DataDocument.objects.filter(
+                Q(extractedtext__rawchem__unionextractedlmhhrec__harmonized_medium=self)
+            )
+            .distinct()
+            .count()
+        )

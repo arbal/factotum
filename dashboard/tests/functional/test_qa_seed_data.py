@@ -9,8 +9,10 @@ from dashboard.models import (
     QAGroup,
     QANotes,
     ExtractedListPresence,
+    ExtractedComposition,
 )
 from django.db.models import Count
+from django.urls import reverse
 from lxml import html
 
 
@@ -48,12 +50,12 @@ class TestQaPage(TestCase):
         self.assertIn(f"/qa/extractedtext/{et.pk}/".encode(), response.content)
         # After opening the URL, the following should be true:
         # One new QA group should be created
-        group_count = QAGroup.objects.filter(extraction_script_id=pk).count()
+        group_count = QAGroup.objects.filter(script_id=pk).count()
         self.assertTrue(group_count == 1)
         # The ExtractionScript's qa_begun property should be set to True
         self.assertTrue(Script.objects.get(pk=pk).qa_begun)
         # The ExtractedText object should be assigned to the QA Group
-        group_pk = QAGroup.objects.get(extraction_script_id=pk).pk
+        group_pk = QAGroup.objects.get(script_id=pk).pk
         et = ExtractedText.objects.filter(extraction_script=pk).first()
         self.assertTrue(et.qa_group_id == group_pk)
         # The link on the QA index page should now say "Continue QA"
@@ -107,12 +109,12 @@ class TestQaPage(TestCase):
         # following should be true:
         # One new QA group should be created
         scr = ExtractedText.objects.get(pk=pk).extraction_script
-        group_count = QAGroup.objects.filter(extraction_script=scr).count()
+        group_count = QAGroup.objects.filter(script=scr).count()
         self.assertTrue(group_count == 1)
         # The ExtractionScript's qa_begun property should be set to True
         self.assertTrue(scr.qa_begun)
         # The ExtractedText object should be assigned to the QA Group
-        new_group = QAGroup.objects.get(extraction_script=scr)
+        new_group = QAGroup.objects.get(script=scr)
         et = ExtractedText.objects.get(pk=pk)
         self.assertTrue(et.qa_group == new_group)
         # The link on the QA index page should now say "Continue QA"
@@ -132,7 +134,7 @@ class TestQaPage(TestCase):
         # After opening the QA link from the data document detail page, the
         # following should be true:
         # One new QA group should be created
-        new_group = QAGroup.objects.get(extraction_script=scr)
+        new_group = QAGroup.objects.get(script=scr)
 
         # There should be a lot of ExtractedText records assigned to the QAGroup
         initial_qa_count = ExtractedText.objects.filter(qa_group=new_group).count()
@@ -242,3 +244,58 @@ class TestQaPage(TestCase):
         # now this group should not show on page
         response = self.client.get(f"/qa/chemicalpresence/")
         self.assertNotIn(f"/qa/chemicalpresencegroup/49/".encode(), response.content)
+
+    def test_cleaning_script_qa_begin(self):
+        """
+        For ExtractedComposition records:
+        Opening the cleaning script detail page should start the the QA process 
+        by creating a QA Group containing all the extracted documents
+        """
+        script_id = 16
+        self.assertFalse(
+            Script.objects.get(pk=script_id).qa_begun,
+            "The Script should have qa_begun of False at the beginning",
+        )
+        ets = ExtractedText.objects.filter(cleaning_script_id=script_id)
+        for et in ets:
+            self.assertIsNone(et.cleaning_qa_group)
+        self.client.get(reverse("qa_cleaning_script_detail", args=[16]))
+        self.assertTrue(
+            Script.objects.get(pk=script_id).qa_begun, "qa_begun should now be true"
+        )
+
+        qag = QAGroup.objects.filter(script_id=script_id).first()
+        self.assertIsNotNone(qag, "Confirm the presence of the newly-created QA Group")
+        ets = ExtractedText.objects.filter(cleaning_script_id=script_id)
+        for et in ets:
+            self.assertEqual(et.cleaning_qa_group_id, qag.pk)
+        response = self.client.get(reverse("qa_composition_cleaning_index"))
+
+        doctag = f'<td id="docs-{str(script_id)}">{str(ets.count())}</td>'.encode()
+        self.assertIn(
+            doctag,
+            response.content,
+            "the table should show the correct count of cleaned documents",
+        )
+        qadoc_count = ExtractedText.objects.filter(cleaning_qa_group_id=qag.pk).count()
+        qatag = (
+            f'<td id="qa-group-count-{str(script_id)}">{str(qadoc_count)}</td>'.encode()
+        )
+        self.assertIn(
+            qatag,
+            response.content,
+            "the table should show the correct count of cleaned documents assigned to the Cleaning QA Group",
+        )
+        # proceed back to the script's QA detail page
+        response = self.client.get(
+            reverse("qa_cleaning_script_detail", args=[16])
+        ).content.decode("utf8")
+        # the chemical record count listed should match the number of ExtractedComposition records related to the document
+        et_id = ExtractedText.objects.filter(cleaning_qa_group_id=qag.pk).first().pk
+        chem_count_orm = ExtractedComposition.objects.filter(
+            extracted_text_id=et_id
+        ).count()
+        chem_count_xpath = f'//*[@id="docrow-{et_id}"]/td[5]'
+        response_html = html.fromstring(response)
+        chem_count_table = int(response_html.xpath(chem_count_xpath)[0].text)
+        self.assertEqual(chem_count_orm, chem_count_table)

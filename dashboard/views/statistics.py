@@ -50,11 +50,11 @@ def grouptype_stats(request):
                 [
                     row.title,
                     # Document count by grouptype with % total
-                    f"{row.documentcount} ({(row.documentcount / (datadocument_total or 1))*100:.0f}%)",
+                    f"{row.documentcount} ({(row.documentcount / (datadocument_total or 1))*100:.2f}%)",
                     # Raw chemical counts by grouptype with % total
-                    f"{row.rawchemcount} ({(row.rawchemcount / (rawchem_total or 1))*100:.0f}%)",
+                    f"{row.rawchemcount} ({(row.rawchemcount / (rawchem_total or 1))*100:.2f}%)",
                     # Curated chemical counts by grouptypes with % total
-                    f"{row.curatedchemcount} ({(row.curatedchemcount / (curatedchem_total or 1))*100:.0f}%)",
+                    f"{row.curatedchemcount} ({(row.curatedchemcount / (curatedchem_total or 1))*100:.2f}%)",
                 ]
                 for row in grouptype_rows
             ]
