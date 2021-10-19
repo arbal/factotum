@@ -143,6 +143,7 @@ factotum.iml
 /webpack-stats.json
 /assets/bundles/
 /media/
+/downloads/
 .vscode/settings.json
 *.code-workspace
 slop/

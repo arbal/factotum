@@ -16,10 +16,12 @@ from dashboard.models import (
     PUC,
     FunctionalUseCategory,
     HarmonizedMedium,
+    ExtractedHHRec,
+    ExtractedLMRec,
 )
 from dashboard.tests.loader import fixtures_standard
 from dashboard.views.get_data import stats_by_dtxsids
-from factotum.settings import CSV_STORAGE_ROOT
+from factotum.settings import DOWNLOADS_ROOT
 from dashboard.tasks import generate_bulk_download_file
 
 
@@ -234,6 +236,29 @@ class TestGetData(TestCase):
             self.assertContains(response, medium.name)
             self.assertContains(response, medium.description)
 
+    def test_harmonized_media_detail_page(self):
+        medium = HarmonizedMedium.objects.first()
+        hhrec = ExtractedHHRec.objects.first()
+        hhrec.harmonized_medium_id = medium.pk
+        hhrec.save()
+        lmrec = ExtractedLMRec.objects.first()
+        lmrec.harmonized_medium_id = medium.pk
+        lmrec.save()
+
+        response = self.client.get(
+            reverse("harmonized_medium_detail", kwargs={"pk": medium.pk})
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, medium.description)
+        countlink = (
+            '<a href="#tables" onclick="activateTable(\'#chemical-tab-header\')">2</a>'
+        )
+        self.assertContains(response, countlink)
+        countlink = (
+            '<a href="#tables" onclick="activateTable(\'#document-tab-header\')">2</a>'
+        )
+        self.assertContains(response, countlink)
+
     def test_download_functional_uses(self):
         response = self.client.get("/dl_functional_uses/")
         self.assertEqual(response.status_code, 200)
@@ -251,13 +276,6 @@ class TestGetData(TestCase):
         )
 
     def test_download_co(self):
-        # clear files
-        path = CSV_STORAGE_ROOT
-        if os.path.exists(path):
-            shutil.rmtree(path)
-        response = self.client.get("/dl_co_chemicals/")
-        self.assertEqual(response.status_code, 404)
-
         # invoke task to generate file
         generate_bulk_download_file.apply()
         response = self.client.get("/dl_co_chemicals/")

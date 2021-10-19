@@ -537,10 +537,15 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 len(self.browser.find_elements_by_id(id)) > 0,
                 f"Could not find element with id {id}",
             )
-            self.assertTrue(len(self.browser.find_element_by_xpath(
-                "//span[@id='" + id + "']/following-sibling::small")) > 0,
-                            f"Could not find help text for with id {id}",
-                            )
+            self.assertTrue(
+                len(
+                    self.browser.find_element_by_xpath(
+                        "//span[@id='" + id + "']/following-sibling::small"
+                    )
+                )
+                > 0,
+                f"Could not find help text for with id {id}",
+            )
 
         self.assertFalse(
             len(self.browser.find_elements_by_id("id_raw_central_comp")) > 0
@@ -571,58 +576,55 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         harmonized_medium_select.select_by_visible_text("soil")
         self.browser.find_element_by_id("id_population_description").send_keys(
             "The population is described here"
-
         )
 
-    self.browser.find_element_by_id("id_sampling_method").send_keys(
-        "The sampling method is often a very long decription of the field process."
+        self.browser.find_element_by_id("id_sampling_method").send_keys(
+            "The sampling method is often a very long decription of the field process."
+        )
 
-    )
+        self.browser.find_element_by_id("id_num_measure").send_keys("60")
+        self.browser.find_element_by_id("id_num_nondetect").send_keys("10")
 
+        statvalue_name = Select(self.browser.find_element_by_id("id_statistics-0-name"))
+        statvalue_name.select_by_visible_text("Mean")
+        self.browser.find_element_by_id("id_statistics-0-value").send_keys("55")
+        self.browser.find_element_by_id("id_statistics-0-stat_unit").send_keys(
+            "percent"
+        )
+        statvalue_stat_type = Select(
+            self.browser.find_element_by_id("id_statistics-0-value_type")
+        )
+        statvalue_stat_type.select_by_visible_text("Reported")
 
-self.browser.find_element_by_id("id_num_measure").send_keys("60")
-self.browser.find_element_by_id("id_num_nondetect").send_keys("10")
+        save_button.click()
 
-statvalue_name = Select(self.browser.find_element_by_id("id_statistics-0-name"))
-statvalue_name.select_by_visible_text("Mean")
-self.browser.find_element_by_id("id_statistics-0-value").send_keys("55")
-self.browser.find_element_by_id("id_statistics-0-stat_unit").send_keys(
-    "percent"
-)
-statvalue_stat_type = Select(
-    self.browser.find_element_by_id("id_statistics-0-value_type")
-)
-statvalue_stat_type.select_by_visible_text("Reported")
+        time.sleep(3)
+        # query for the latest chemical
 
-save_button.click()
+        lm_chem = (
+            ExtractedLMRec.objects.filter(extracted_text_id=doc.pk)
+            .order_by("id")
+            .last()
+        )
 
-time.sleep(3)
-# query for the latest chemical
+        # Confirm that the edits were written to the ExtractedLMRec object
+        self.assertEqual(lm_chem.updated_by, User.objects.get(username="Karyn"))
+        self.assertTrue(lm_chem.updated_at != "")
+        self.assertEqual(lm_chem.num_measure, 60)
+        self.assertEqual(lm_chem.num_nondetect, 10)
 
-lm_chem = (
-    ExtractedLMRec.objects.filter(extracted_text_id=doc.pk)
-        .order_by("id")
-        .last()
-)
+        statvalue = (
+            StatisticalValue.objects.filter(rawchem_id=lm_chem.pk).order_by("id").last()
+        )
+        self.assertEqual(statvalue.name, "MEAN")
+        self.assertEqual(statvalue.value, 55)
+        self.assertEqual(statvalue.stat_unit, "percent")
+        self.assertEqual(statvalue.value_type, "R")
 
-# Confirm that the edits were written to the ExtractedLMRec object
-self.assertEqual(lm_chem.updated_by, User.objects.get(username="Karyn"))
-self.assertTrue(lm_chem.updated_at != "")
-self.assertEqual(lm_chem.num_measure, 60)
-self.assertEqual(lm_chem.num_nondetect, 10)
-
-statvalue = (
-    StatisticalValue.objects.filter(rawchem_id=lm_chem.pk).order_by("id").last()
-)
-self.assertEqual(statvalue.name, "MEAN")
-self.assertEqual(statvalue.value, 55)
-self.assertEqual(statvalue.stat_unit, "percent")
-self.assertEqual(statvalue.value_type, "R")
-
-self.assertInHTML(
-    "The Rawest Chem Name",
-    self.browser.find_element_by_id(f"raw_chem_name-{lm_chem.pk}").text,
-)
+        self.assertInHTML(
+            "The Rawest Chem Name",
+            self.browser.find_element_by_id(f"raw_chem_name-{lm_chem.pk}").text,
+        )
 
 
 def test_co_multiple_fu(self):
@@ -633,9 +635,7 @@ def test_co_multiple_fu(self):
     chem = doc.extractedtext.rawchem.first()
     wait = WebDriverWait(self.browser, 10)
     update_button = wait.until(
-        ec.element_to_be_clickable(
-            (By.XPATH, f'//*[@id="chemical-update-{chem.pk}"]')
-        )
+        ec.element_to_be_clickable((By.XPATH, f'//*[@id="chemical-update-{chem.pk}"]'))
     )
     update_button.click()
 
@@ -678,9 +678,7 @@ def test_cp_multiple_fu(self):
     self.browser.get(list_url)
     chem = doc.extractedtext.rawchem.first()
 
-    self.browser.find_element_by_xpath(
-        f'//*[@id="chemical-update-{chem.pk}"]'
-    ).click()
+    self.browser.find_element_by_xpath(f'//*[@id="chemical-update-{chem.pk}"]').click()
 
     # Verify that the modal window appears by finding the Save button
     # The modal window does not immediately appear, so the browser

@@ -1,5 +1,5 @@
 {% if chemical.statistics.all %}
-    <div class="row my-3">
+    <div class="row my-3" title="{{ chemical.statistics.all.0.get_help_text }}">
         <div class="col-auto">
             <span class="font-weight-bold">Statistical Values</span>
         </div>

@@ -1,0 +1,72 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}QA Cleaning Scripts{% endblock %}
+
+{% block content %}
+<h1 class="col-sm-12"><span class="fa fa-check-square" title="factotum"></span>
+QA: Composition Cleaning Scripts</h1>
+<br>
+
+    <table class="table table-striped table-bordered dataTable no-footer" id='cleaning_script_table'>
+    <thead class="table-primary">
+        <th>Cleaning Script</th>
+        <th>Script Updated</th>
+        <th>Cleaned Documents</th>
+        <th>QA Group Documents</th>
+        <th>Percent of Script's QA Group Checked</th>
+        <th>QA Summary</th>
+        <th>QA Status</th>
+    </thead>
+    <tbody>
+    {% for cleaning_script in cleaning_scripts %}
+      <tr>
+        <td style="text-align:left">
+            {% if cleaning_script.url %}
+            <a class="btn btn-outline-secondary btn-sm hover-info"
+                title="Source code for {{ cleaning_script.title }}"
+                data-toggle="tooltip"
+                href="{{ cleaning_script.url }}">
+                <span class="fas fa-broom"></span>
+            </a>
+            {% endif %}
+            {{ cleaning_script.title }}
+        </td>
+        <td data-order="{{ cleaning_script.updated_at | date:"Y-m-d" }}">{{ cleaning_script.updated_at | date:"M d, Y" }}</td>
+        <td id="docs-{{cleaning_script.id}}">{{ cleaning_script.extractedtext_count }}</td>
+        <td id="qa-group-count-{{cleaning_script.id}}">{{ cleaning_script.qa_group_count }}</td>
+        <td id="pct-{{cleaning_script.id}}">{{ cleaning_script.percent_complete|default:"0" }}{{' '}}%</td>
+        <td>
+            <a href="{% url 'qa_cleaning_script_summary' cleaning_script.id %}"
+               title="Link to {{ cleaning_script.title }} Summary" id="{{cleaning_script.id}}">
+                <span class="fa fa-tasks"></span>
+            </a>
+        </td>
+        <td id="qa-{{cleaning_script.id}}">
+        {% if cleaning_script.extractedtext_count > 0 %}
+            {% if cleaning_script.percent_complete == 100 %}
+              <a class="btn btn-light btn-sm col-12" disabled role="button"
+                title="QA Complete on {{ cleaning_script.title }}"> QA Complete
+                </a>
+            {% elif cleaning_script.qa_begun %}
+                <a class="btn btn-primary btn-sm col-12" role="button"
+                   title="QA started on {{ cleaning_script.title }}"
+                   href='{% url "qa_cleaning_script_detail" cleaning_script.id %}'> Continue QA
+                </a>
+            {% else %}
+              <a class="btn btn-primary btn-sm col-12" role="button", id="detail-{{ cleaning_script.id }}"
+                 title="Begin QA on {{ cleaning_script.title }}"
+                 href='{% url "qa_cleaning_script_detail" cleaning_script.id %}'> Begin QA
+                </a>
+            {% endif %}
+        {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/dashboard/qa_cleaning_script_index.js' %}"></script>
+{% endblock %}

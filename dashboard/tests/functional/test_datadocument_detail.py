@@ -144,12 +144,6 @@ class DataDocumentDetailTest(TransactionTestCase):
         comptox = "https://comptox.epa.gov/dashboard/dsstoxdb/results?search="
         response = self.client.get(f"/datadocument/{doc.pk}/cards")
         self.assertContains(response, comptox)
-        chems = doc.extractedtext.rawchem.all().select_subclasses()
-        for chem in chems:
-            chem.script = None
-            chem.save()
-        response = self.client.get(doc.get_absolute_url())
-        self.assertNotContains(response, "Cleaning Script")
 
     def test_product_card_location(self):
         response = self.client.get("/datadocument/179486/")
@@ -722,6 +716,7 @@ class TestDynamicDetailFormsets(TestCase):
         hhrec = ExtractedHHRec(
             raw_chem_name="Chemname",
             raw_cas="45-9-1",
+            chem_detected_flag=1,
             sampling_method="test sampling method",
             extracted_text=data_document.extractedtext,
             analytical_method="test analytical_method",
@@ -751,6 +746,7 @@ class TestDynamicDetailFormsets(TestCase):
                 "medium",
                 "LOD",
                 "LOQ",
+                "chem_detected_flag",
             ],
             [
                 "detect_freq",
@@ -760,6 +756,7 @@ class TestDynamicDetailFormsets(TestCase):
                 "medium",
                 "LOD",
                 "LOQ",
+                "chem_detected_flag",
             ],
         )
         for id, fieldname in fieldpairs:

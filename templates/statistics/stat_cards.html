@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 {% load humanize %}
 
 <div class="card-deck">
@@ -28,27 +28,28 @@
     </div>
     <div class="card text-center bg-light">
         <div class="card-body">
-            <h3 class="card-title text-muted">Extracted Chemicals</h3>
-            <div class="card-text font-weight-bold display-4">
-                {% if stats.chemical_count > 999999 %}
-                    {{ stats.chemical_count | intword }}
-                {% else %}
-                    {{ stats.chemical_count | intcomma }}
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="card-deck pt-2 mt-2">
-    <div class="card text-center bg-light">
-        <div class="card-body">
-            <h3 class="card-title text-muted">Products Linked To PUCs</h3>
+            <h3 class="card-title text-muted">Products Linked To Product Use Categories</h3>
             <div name="product_with_puc_count" class="card-text font-weight-bold display-4">
                 {% if stats.product_with_puc_count > 999999 %}
                     {{ stats.product_with_puc_count | intword }}
                 {% else %}
                     {{ stats.product_with_puc_count | intcomma }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="card-deck pt-2 mt-2">
+    <div class="card text-center bg-light">
+        <div class="card-body">
+            <h3 class="card-title text-muted">Extracted Chemical Records</h3>
+            <div class="card-text font-weight-bold display-4">
+                {% if stats.chemical_count > 999999 %}
+                    {{ stats.chemical_count | intword }}
+                {% else %}
+                    {{ stats.chemical_count | intcomma }}
                 {% endif %}
             </div>
         </div>
@@ -67,7 +68,7 @@
     </div>
     <div class="card text-center bg-light">
         <div class="card-body">
-            <h3 class="card-title text-muted">Unique DTXSIDs</h3>
+            <h3 class="card-title text-muted">Unique Chemicals (DTXSIDs)</h3>
             <div class="card-text font-weight-bold display-4" name="dsstox">
                 {% if stats.dsstox_sid_count > 999999 %}
                     {{ stats.dsstox_sid_count | intword }}

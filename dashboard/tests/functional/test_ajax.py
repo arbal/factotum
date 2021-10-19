@@ -335,3 +335,11 @@ class TestAjax(TestCase):
         response = self.client.get("/fuc_c_json/?functional_use_category=3")
         data = json.loads(response.content)
         self.assertEquals(data["recordsTotal"], 3)
+
+    def test_documents_by_harmonized_medium(self):
+        response = self.client.get("/hm_d_json/?medium=4")
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 1)
+        self.assertIn("LM", data["data"][0][0])
+        self.assertIn("/datadocument/9/", data["data"][0][1])

@@ -35,13 +35,9 @@ from dashboard.models import (
     ExtractedLMRec,
     StatisticalValue,
 )
-from dashboard.models.extracted_lmrec import (
-    HarmonizedMedium,
-)
+from dashboard.models.extracted_lmrec import HarmonizedMedium
 
-from dashboard.models.statistical_value import (
-    VALUE_TYPE_CHOICES,
-)
+from dashboard.models.statistical_value import VALUE_TYPE_CHOICES
 
 from dashboard.models.functional_use import FunctionalUseToRawChem
 
@@ -756,7 +752,7 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
 
 class CleanCompForm(forms.ModelForm):
     ExtractedComposition_id = forms.IntegerField(required=True)
-    script_id = forms.IntegerField(required=True)
+    cleaning_script_id = forms.IntegerField(required=True)
     weight_fraction_type_id = forms.IntegerField(required=True)
 
     class Meta:
@@ -769,6 +765,7 @@ class CleanCompForm(forms.ModelForm):
         obj = ExtractedComposition(**params)
         obj.clean()
         # Ensure data is provided.
+
         central_wf_analysis = self.cleaned_data.get("central_wf_analysis")
         lower_wf_analysis = self.cleaned_data.get("lower_wf_analysis")
         upper_wf_analysis = self.cleaned_data.get("upper_wf_analysis")
@@ -778,7 +775,7 @@ class CleanCompForm(forms.ModelForm):
 
 class CleanCompFormSet(DGFormSet):
     prefix = "cleancomp"
-    header_fields = ["script_id", "weight_fraction_type_id"]
+    header_fields = ["cleaning_script_id", "weight_fraction_type_id"]
     serializer = CSVReader
     form = CleanCompForm
 
@@ -812,10 +809,12 @@ class CleanCompFormSet(DGFormSet):
                 f"The following IDs do not exist in ExtractedCompositions for this data group: {bad_ids_str}"
             )
         # Ensure script ID is valid
-        script_id = self.forms[0].cleaned_data.get("script_id")
+        cleaning_script_id = self.forms[0].cleaned_data.get("cleaning_script_id")
         if (
-            script_id
-            and not Script.objects.filter(script_type="DC", pk=script_id).exists()
+            cleaning_script_id
+            and not Script.objects.filter(
+                script_type="DC", pk=cleaning_script_id
+            ).exists()
         ):
             raise forms.ValidationError(f"Invalid script selection.")
         # Check that weight_fraction_type is valid
@@ -835,6 +834,15 @@ class CleanCompFormSet(DGFormSet):
             database_chemicals = ExtractedComposition.objects.select_for_update().in_bulk(
                 self.cleaned_ids
             )
+
+            cleaning_script_id = self.forms[0].cleaned_data.get("cleaning_script_id")
+            et_ids = ExtractedComposition.objects.filter(
+                rawchem_ptr_id__in=self.cleaned_ids
+            ).values_list("extracted_text_id")
+            ExtractedText.objects.filter(data_document_id__in=et_ids).update(
+                cleaning_script_id=cleaning_script_id
+            )
+
             chems = []
             for form in self.forms:
                 pk = form.cleaned_data["ExtractedComposition_id"]
@@ -842,23 +850,26 @@ class CleanCompFormSet(DGFormSet):
                 chem.upper_wf_analysis = form.cleaned_data.get("upper_wf_analysis")
                 chem.central_wf_analysis = form.cleaned_data.get("central_wf_analysis")
                 chem.lower_wf_analysis = form.cleaned_data.get("lower_wf_analysis")
-                chem.script_id = form.cleaned_data["script_id"]
+                chem.extracted_text.cleaning_script_id = form.cleaned_data[
+                    "cleaning_script_id"
+                ]
                 chem.weight_fraction_type_id = form.cleaned_data[
                     "weight_fraction_type_id"
                 ]
                 chem.updated_at = timezone.now()
                 chems.append(chem)
+
             ExtractedComposition.objects.bulk_update(
                 chems,
                 [
                     "upper_wf_analysis",
                     "central_wf_analysis",
                     "lower_wf_analysis",
-                    "script_id",
                     "weight_fraction_type_id",
                     "updated_at",
                 ],
             )
+
         return len(self.forms)
 
 

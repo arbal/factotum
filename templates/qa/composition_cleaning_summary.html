@@ -1,0 +1,37 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Cleaning QA Summary For Script {{ cleaningscript.id }}: {{ cleaningscript.title }}{% endblock %}
+
+{% block content %}
+    <h1>Cleaning QA Summary: {{ cleaningscript.title }}</h1>
+    <br>
+    <dl class="row">
+        <dt class="col-3">QA Group</dt>
+        <dd class="col-9">{{ qa_group }}</dd>
+        <dt class="col-3">Total Documents</dt>
+        <dd class="col-9" id="extractedtext_count">{{ cleaningscript.extractedtext_count }}</dd>
+        <dt class="col-3">Total Approved Documents</dt>
+        <dd class="col-9"
+            id="qa_complete_extractedtext_count">{{ cleaningscript.qa_complete_extractedtext_count }}</dd>
+        <dt class="col-3">Total QA Notes</dt>
+        <dd class="col-9" id="qa_notes">{{ cleaningscript.qa_note_count }}</dd>
+        <dt class="col-3">Total Remaining Documents</dt>
+        <dd class="col-9"
+            id="qa_incomplete_extractedtext_count">{{ cleaningscript.qa_incomplete_extractedtext_count }}</dd>
+        <dt class="col-3">QA Summary Note</dt>
+        <dd class="col-6">
+            {% include "qa/qa_summary_note_form.html" with model="script" pk=cleaningscript.pk %}
+        </dd>
+    </dl>
+
+    {% include 'qa/qa_summary_table.html' %}
+
+{% endblock %}
+
+{% block js %}
+    {{ document_table_url|json_script:"document_table_url" }}
+    <script src="{% static 'js/dashboard/qa_summary_table.js' %}"></script>
+    <script type="module" src="{% static 'js/dashboard/qa_summary_note_ajax.js' %}"></script>
+{% endblock %}

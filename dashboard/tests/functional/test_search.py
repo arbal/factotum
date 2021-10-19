@@ -6,6 +6,7 @@ from lxml import html
 from django.contrib.auth import get_user_model
 from django.contrib.messages import get_messages
 from dashboard.tests.loader import *
+from django.contrib.sessions.middleware import SessionMiddleware
 import requests
 from django.test import TestCase, RequestFactory
 from django.conf import settings
@@ -14,8 +15,10 @@ import bs4
 import json
 
 from elastic.models import QueryLog
+from dashboard.views.search import search_model
 from dashboard.tests.elastic_factories import fetch_dashboard_logstash
 from dashboard.tests.factories import DataDocumentFactory, ProductFactory
+from django.contrib.auth.models import User
 
 
 class TestSearch(TestCase):
@@ -416,6 +419,11 @@ class TestSearch(TestCase):
             )
             self.assertEqual(201, response.status_code)
 
+        # refresh the index before proceeding
+        requests.post(
+            f"http://{self.esurl}/dashboard/_refresh/", headers=self.auth_header
+        )
+
         # Unquoted search should return records with just "shampoo"
 
         b64 = base64.b64encode(b"pet shampoo").decode("unicode_escape")
@@ -435,6 +443,33 @@ class TestSearch(TestCase):
         self.assertEqual(
             len(hits), 3, "There should be 3 results for the quoted search"
         )
+        # the result counts in the tabs should match the other counts
+        nav_tabs = soup.find("ul", attrs={"class": "nav-tabs"})
+        badges = nav_tabs.find_all("span", {"class": "badge-light"})
+        # Products,  Documents, PUCs, Chemicals, Tags
+        self.assertEqual(
+            str(len(hits)),
+            badges[0].text,
+            "The result count in the Products badge should match the number of h5 elements below",
+        )
+
+        # single quotes should have the same behavior
+        b64 = base64.b64encode(b"'pet shampoo'").decode("unicode_escape")
+        response = self.client.get("/search/product/?q=" + b64)
+        soup = bs4.BeautifulSoup(response.content, features="lxml")
+        hits = soup.find_all("h5", {"class": "hit-header"})
+        self.assertEqual(
+            len(hits), 3, "There should be 3 results for the quoted search"
+        )
+        # the result counts in the tabs should match the other counts
+        nav_tabs = soup.find("ul", attrs={"class": "nav-tabs"})
+        badges = nav_tabs.find_all("span", {"class": "badge-light"})
+        # Products,  Documents, PUCs, Chemicals, Tags
+        self.assertEqual(
+            str(len(hits)),
+            badges[0].text,
+            "The result count in the Products badge should match the number of h5 elements below",
+        )
 
         # Delete the documents that were added to the index for the purposes of the test
         delete_json = {
@@ -447,3 +482,103 @@ class TestSearch(TestCase):
             headers=self.auth_header,
         )
         self.assertEqual(200, cleanup_response.status_code)
+        requests.post(
+            f"http://{self.esurl}/dashboard/_refresh/", headers=self.auth_header
+        )
+
+
+class TestSearchView(TestCase):
+    fixtures = fixtures_standard
+
+    def setUp(self):
+        # Every test needs access to the request factory.
+        self.request_factory = RequestFactory()
+        self.user = User.objects.get(username="Karyn")
+        self.esurl = settings.ELASTICSEARCH["default"]["HOSTS"][0]
+        self.index = settings.ELASTICSEARCH["default"]["INDEX"]
+        (self.es_username, self.es_password) = settings.ELASTICSEARCH["default"][
+            "HTTP_AUTH"
+        ]
+        self.auth_header = {
+            "Authorization": "Basic "
+            + base64.b64encode(
+                f"{self.es_username}:{self.es_password}".encode("utf-8")
+            ).decode("utf-8")
+        }
+
+    def tearDown(self):
+        # Delete the documents that were added to the index for the purposes of the test
+        delete_json = {
+            "query": {"match": {"datadocument_subtitle": "test_special_search"}}
+        }
+
+        cleanup_response = requests.post(
+            f"http://{self.esurl}/dashboard/_delete_by_query/",
+            json=delete_json,
+            headers=self.auth_header,
+        )
+        self.assertEqual(200, cleanup_response.status_code)
+        requests.post(
+            f"http://{self.esurl}/dashboard/_refresh/", headers=self.auth_header
+        )
+
+    def test_special_char_search(self):
+        """
+        Users should be able to use search strings that contain special
+        characters, like:
+        'normal/ oily' 
+        '(-)-beta-Pinene'
+        'bath $10'
+        """
+        datadocs = []
+        search_terms = ["normal/ oily", "(-)-beta-Pinene", "bath $10"]
+        for term in search_terms:
+            doc = DataDocumentFactory(
+                title=term,
+                subtitle="test_special_search",
+                product=[ProductFactory(title=term)],
+            )
+            datadocs.append(doc)
+
+        # create the WHERE clause out of the new docs
+        where_batch = "WHERE dd.id IN ("
+        for doc in datadocs:
+            where_batch = where_batch + str(doc.id) + ", "
+        where_batch = where_batch + " -99)"  # close out the WHERE clause
+
+        # once the documents and products have been added, get the JSON
+        # for POSTing them to the search index
+        docs_json = fetch_dashboard_logstash(where=where_batch)
+
+        for doc_dict in docs_json:
+            # add the JSON to the index
+            response = requests.post(
+                f"http://{self.esurl}/dashboard/_doc/",
+                json=doc_dict,
+                headers=self.auth_header,
+            )
+            self.assertEqual(201, response.status_code)
+            requests.post(
+                f"http://{self.esurl}/dashboard/_refresh/", headers=self.auth_header
+            )
+
+        # test the search terms
+        for term in search_terms:
+            # put quotes around the search term to minimize other results
+            term = f'"{term}"'
+            q = base64.b64encode(term.encode()).decode("unicode_escape")
+            request = self.request_factory.get("/search/product", {"q": q})
+
+            middleware = SessionMiddleware()
+            middleware.process_request(request)
+            request.session.save()
+            request.user = self.user
+
+            response = search_model(request, "product")
+
+            self.assertEqual(response.status_code, 200)
+            soup = bs4.BeautifulSoup(response.content, features="lxml")
+            hits = soup.find_all("h5", {"class": "hit-header"})
+            self.assertEqual(
+                len(hits), 1, f"Searching for {term} should return 1 result "
+            )

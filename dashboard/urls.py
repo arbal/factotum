@@ -212,8 +212,8 @@ urlpatterns = [
     ),
     path(
         "qa/manualcomposition/<int:pk>/",
-        dashboard.views.qa.qa_manual_composition_script,
-        name="qa_manual_composition_script",
+        dashboard.views.qa.qa_manual_composition_datagroup,
+        name="qa_manual_composition_datagroup",
     ),
     path(
         "qa/manualcomposition/<int:pk>/summary",
@@ -225,6 +225,36 @@ urlpatterns = [
         dashboard.views.qa.ManualCompositionDataGroupSummaryTable.as_view(),
         name="qa_manual_composition_summary_table",
     ),
+    # Cleaned Composition QA
+    ## Index page
+    path(
+        "qa/compositioncleaning/",
+        views.qa_composition_cleaning_index,
+        name="qa_composition_cleaning_index",
+    ),
+    ## Script summary page
+    path(
+        "qa/compositioncleaning/<int:pk>/summary",
+        views.qa_cleaning_script_summary,
+        name="qa_cleaning_script_summary",
+    ),
+    path(
+        "qa/cleaningscript/<int:pk>/summary/table",
+        dashboard.views.qa.CleaningScriptSummaryTable.as_view(),
+        name="qa_cleaning_script_summary_table",
+    ),
+    ## Script detail page with list of documents
+    path(
+        "qa/compositioncleaning/<int:pk>/",
+        views.qa_cleaning_script_detail,
+        name="qa_cleaning_script_detail",
+    ),
+    path(
+        "qa/extractedcomposition/<int:pk>/",
+        dashboard.views.qa.qa_extracted_composition_document_detail,
+        name="qa_extracted_composition_document_detail",
+    ),
+    # Extraction Script QA
     path(
         "qa/extractionscript/",
         views.qa_extractionscript_index,
@@ -242,7 +272,7 @@ urlpatterns = [
     ),
     path(
         "qa/extractionscript/<int:pk>/summary/table",
-        dashboard.views.qa.ScriptSummaryTable.as_view(),
+        dashboard.views.qa.ExtractionScriptSummaryTable.as_view(),
         name="qa_extraction_script_summary_table",
     ),
     path(
@@ -348,6 +378,16 @@ urlpatterns = [
     path("fuc_d_json/", views.FUCDocumentListJson.as_view(), name="fuc_d_ajax_url"),
     path("fuc_c_json/", views.FUCChemicalListJson.as_view(), name="fuc_c_ajax_url"),
     path(
+        "hm_d_json/",
+        views.HarmonizedMediumDocumentListJson.as_view(),
+        name="hm_d_ajax_url",
+    ),
+    path(
+        "hm_c_json/",
+        views.HarmonizedMediumChemicalListJson.as_view(),
+        name="hm_c_ajax_url",
+    ),
+    path(
         "hp_json/", views.HabitsAndPracticesDocumentsJson.as_view(), name="hp_ajax_url"
     ),
     path(
@@ -422,6 +462,11 @@ urlpatterns = [
     ),
     path(
         "harmonized_media/", views.harmonized_medium_list, name="harmonized_medium_list"
+    ),
+    path(
+        "harmonized_medium/<int:pk>/",
+        views.harmonized_medium_detail,
+        name="harmonized_medium_detail",
     ),
     path(
         "dl_raw_chems_dg/<int:pk>/",

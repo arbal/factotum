@@ -1,5 +1,5 @@
 {% extends 'core/base.html' %}
-{% load staticfiles %}
+{% load static %}
 {% load humanize %}
 {% block title %}Functional Use Category {{ functional_use_category.id }}: {{ functional_use_category }}{% endblock %}
 
@@ -14,7 +14,7 @@
     </dl>
 
     <div class="row pt-4">
-        <div class="col-6" id="puc_stats">
+        <div class="col-6" id="fuc_stats">
             <h4>Additional Statistics</h4>
             <dl class="row">
                 <dt class="col-6">Products</dt>
@@ -108,7 +108,7 @@
 {% endblock %}
 
 {% block css %}
-    <link href="{% static 'css/dashboard/puc_detail.css' %}" rel="stylesheet">
+    <link href="{% static 'css/dashboard/grid_detail.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block js %}
