@@ -11,6 +11,7 @@ from django.views.generic import FormView
 from django_datatables_view.base_datatable_view import BaseDatatableView
 
 from dashboard.forms.forms import BulkProductToPUCDeleteForm
+from dashboard.forms.puc_forms import PredictedPucCsvFormSet
 from dashboard.models import (
     DataSource,
     Product,
@@ -23,7 +24,6 @@ from dashboard.models import (
     PUCTag,
     PUCToTag,
     ProductToTag,
-    Script,
 )
 from dashboard.forms import (
     ProductPUCForm,
@@ -36,6 +36,7 @@ from dashboard.forms import (
 )
 from django.core.paginator import Paginator
 from django.urls import reverse, reverse_lazy
+from dashboard.utils import gather_errors
 
 
 @login_required()
@@ -495,6 +496,15 @@ def upload_predicted_pucs(
     request, template_name="product_curation/upload_predicted_pucs.html"
 ):
     data = {}
-    scripts = Script.objects.filter(script_type="PC")
-    data["scripts"] = scripts
+
+    if "upload-submit" in request.POST:
+        puc_formset = PredictedPucCsvFormSet(request.POST, request.FILES)
+        if puc_formset.is_valid():
+            puc_formset.save()
+        else:
+            errors = gather_errors(puc_formset)
+            for e in errors:
+                messages.error(request, e)
+        return redirect("upload_predicted_pucs")
+    data["puc_formset"] = PredictedPucCsvFormSet()
     return render(request, template_name, data)
