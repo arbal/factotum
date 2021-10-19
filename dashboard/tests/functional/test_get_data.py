@@ -250,12 +250,14 @@ class TestGetData(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, medium.description)
-        countlink = "<a href=\"#tables\" onclick=\"activateTable('#chemical-tab-header')\">2</a>"
-        self.assertContains(response, countlink )
-        countlink = "<a href=\"#tables\" onclick=\"activateTable('#document-tab-header')\">2</a>"
-        self.assertContains(response, countlink )
-        
-
+        countlink = (
+            '<a href="#tables" onclick="activateTable(\'#chemical-tab-header\')">2</a>'
+        )
+        self.assertContains(response, countlink)
+        countlink = (
+            '<a href="#tables" onclick="activateTable(\'#document-tab-header\')">2</a>'
+        )
+        self.assertContains(response, countlink)
 
     def test_download_functional_uses(self):
         response = self.client.get("/dl_functional_uses/")

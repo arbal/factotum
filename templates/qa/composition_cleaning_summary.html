@@ -2,28 +2,27 @@
 {% load static %}
 {% load humanize %}
 
-{% block title %}QA Summary For Manual Script on Data Group {{ datagroup.id }}: {{ datagroup.name }}{% endblock %}
+{% block title %}Cleaning QA Summary For Script {{ cleaningscript.id }}: {{ cleaningscript.title }}{% endblock %}
 
 {% block content %}
-    <h1>QA Summary: {{ datagroup.name }}</h1>
+    <h1>Cleaning QA Summary: {{ cleaningscript.title }}</h1>
     <br>
-    <div class="text-right pr-5">
-        <a href="{% url "qa_manual_composition_index" %}">QA Composition - Manual</a>
-    </div>
     <dl class="row">
         <dt class="col-3">QA Group</dt>
-        <dd class="col-9">{{ datagroup.name }}</dd>
+        <dd class="col-9">{{ qa_group }}</dd>
         <dt class="col-3">Total Documents</dt>
-        <dd class="col-9" id="document_count">{{ datagroup.document_count }}</dd>
+        <dd class="col-9" id="extractedtext_count">{{ cleaningscript.extractedtext_count }}</dd>
         <dt class="col-3">Total Approved Documents</dt>
-        <dd class="col-9" id="qa_complete_count">{{ datagroup.qa_complete_count }}</dd>
+        <dd class="col-9"
+            id="qa_complete_extractedtext_count">{{ cleaningscript.qa_complete_extractedtext_count }}</dd>
         <dt class="col-3">Total QA Notes</dt>
-        <dd class="col-9" id="qa_notes">{{ datagroup.qa_note_count }}</dd>
+        <dd class="col-9" id="qa_notes">{{ cleaningscript.qa_note_count }}</dd>
         <dt class="col-3">Total Remaining Documents</dt>
-        <dd class="col-9" id="qa_incomplete_count">{{ datagroup.qa_incomplete_count }}</dd>
+        <dd class="col-9"
+            id="qa_incomplete_extractedtext_count">{{ cleaningscript.qa_incomplete_extractedtext_count }}</dd>
         <dt class="col-3">QA Summary Note</dt>
         <dd class="col-6">
-            {% include "qa/qa_summary_note_form.html" with model="datagroup" pk=datagroup.pk %}
+            {% include "qa/qa_summary_note_form.html" with model="script" pk=cleaningscript.pk %}
         </dd>
     </dl>
 
@@ -32,9 +31,7 @@
 {% endblock %}
 
 {% block js %}
-
     {{ document_table_url|json_script:"document_table_url" }}
     <script src="{% static 'js/dashboard/qa_summary_table.js' %}"></script>
     <script type="module" src="{% static 'js/dashboard/qa_summary_note_ajax.js' %}"></script>
-
 {% endblock %}

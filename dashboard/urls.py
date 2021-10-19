@@ -228,19 +228,24 @@ urlpatterns = [
     # Cleaned Composition QA
     ## Index page
     path(
-        "qa/manualcompositioncleaning/",
+        "qa/compositioncleaning/",
         views.qa_composition_cleaning_index,
         name="qa_composition_cleaning_index",
     ),
     ## Script summary page
     path(
-        "qa/manualcompositioncleaning/<int:pk>/summary",
+        "qa/compositioncleaning/<int:pk>/summary",
         views.qa_cleaning_script_summary,
         name="qa_cleaning_script_summary",
     ),
+    path(
+        "qa/cleaningscript/<int:pk>/summary/table",
+        dashboard.views.qa.CleaningScriptSummaryTable.as_view(),
+        name="qa_cleaning_script_summary_table",
+    ),
     ## Script detail page with list of documents
     path(
-        "qa/manualcompositioncleaning/<int:pk>/",
+        "qa/compositioncleaning/<int:pk>/",
         views.qa_cleaning_script_detail,
         name="qa_cleaning_script_detail",
     ),
@@ -267,7 +272,7 @@ urlpatterns = [
     ),
     path(
         "qa/extractionscript/<int:pk>/summary/table",
-        dashboard.views.qa.ScriptSummaryTable.as_view(),
+        dashboard.views.qa.ExtractionScriptSummaryTable.as_view(),
         name="qa_extraction_script_summary_table",
     ),
     path(

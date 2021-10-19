@@ -1,11 +1,11 @@
 {% extends 'core/base.html' %}
-{% load staticfiles %}
+{% load static %}
 {% load humanize %}
 
-{% block title %}QA Summary For Extraction Script {{ extractionscript.id }}: {{ extractionscript.title }}{% endblock %}
+{% block title %}Extraction QA Summary For Script {{ extractionscript.id }}: {{ extractionscript.title }}{% endblock %}
 
 {% block content %}
-    <h1>QA Summary: {{ extractionscript.title }}</h1>
+    <h1>Extraction QA Summary: {{ extractionscript.title }}</h1>
     <br>
     <dl class="row">
         <dt class="col-3">QA Group</dt>

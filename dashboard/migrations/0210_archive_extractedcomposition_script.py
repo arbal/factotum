@@ -8,5 +8,9 @@ class Migration(migrations.Migration):
     dependencies = [("dashboard", "0209_extractedtext_cleaning_script")]
 
     operations = [
-        migrations.RenameField(model_name="extractedcomposition", old_name="script", new_name="cleaning_script_archived")
+        migrations.RenameField(
+            model_name="extractedcomposition",
+            old_name="script",
+            new_name="cleaning_script_archived",
+        )
     ]
