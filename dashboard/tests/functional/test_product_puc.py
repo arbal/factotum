@@ -1,4 +1,5 @@
 import json
+import io
 
 from django.test import TestCase, override_settings, tag, Client, RequestFactory
 from django.shortcuts import get_object_or_404
@@ -17,8 +18,10 @@ from dashboard.models import (
     ProductUberPuc,
     DSSToxLookup,
     CumulativeProductsPerPuc,
+    Script,
 )
 from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import Count, Sum
 from dashboard.models.raw_chem import RawChem
 
@@ -481,6 +484,7 @@ class TestProductPuc(TestCase):
         product_detail_url = reverse("product_detail", kwargs={"pk": prod.pk})
         self.assertRedirects(response, product_detail_url)
 
+
 class UploadPredictedPucTest(TestCase):
     fixtures = fixtures_standard
 
@@ -496,19 +500,24 @@ class UploadPredictedPucTest(TestCase):
 
     def generate_predicted_puc_string(self):
         csv_string = (
-            "product_id,puc_id\n"
-            "1866,312\n"
-            "1853,62\n"
-            "1854,62\n"
-            "1855,62"
+            "product_id,puc_id\n" "1866,312\n" "1853,62\n" "1854,62\n" "1855,62"
         )
         return csv_string
 
     def test_predicted_puc_upload_page(self):
-        resp = self.c.get(path="/upload_predicted_pucs/")
+        """
+        tests the presentation of the predicted PUC upload page
+        """
+        resp = self.c.get(path=reverse("upload_predicted_pucs"))
         print(resp)
+        # confirm that each of the "PC" scripts is in the options
+        for script in Script.objects.filter(script_type="PC"):
+            self.assertContains(resp, f'<option value="{script.pk}">{script}</option>')
 
     def test_valid_predicted_puc_upload(self):
+        """
+        tests the functionality of the predicted PUC endpoint
+        """
         sample_csv = self.generate_predicted_puc_string()
         sample_csv_bytes = sample_csv.encode(encoding="UTF-8", errors="strict")
         in_mem_sample_csv = InMemoryUploadedFile(
@@ -526,7 +535,7 @@ class UploadPredictedPucTest(TestCase):
             "predicted-bulkformsetfileupload": in_mem_sample_csv,
         }
         data.update(self.mng_data)
-        # resp = self.c.post(path="/upload_predicted_pucs/", data=data, follow=True)
+        # resp = self.c.post(path=reverse("upload_predicted_pucs"), data=data, follow=True)
 
         #########################################################
         #
