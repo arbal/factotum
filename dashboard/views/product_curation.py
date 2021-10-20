@@ -24,6 +24,7 @@ from dashboard.models import (
     PUCTag,
     PUCToTag,
     ProductToTag,
+    Script,
 )
 from dashboard.forms import (
     ProductPUCForm,
@@ -496,9 +497,17 @@ def upload_predicted_pucs(
     request, template_name="product_curation/upload_predicted_pucs.html"
 ):
     data = {}
+    puc_formset = PredictedPucCsvFormSet()
+    puc_formset.script_choices = [
+        (str(s.pk), str(s))
+        for s in Script.objects.filter(script_type="PC").filter(qa_begun=False)
+    ]
 
-    if "upload-submit" in request.POST:
+    if "POST" == request.method:
         puc_formset = PredictedPucCsvFormSet(request.POST, request.FILES)
+        print(puc_formset.__dict__)
+        for form in puc_formset:
+            print(form)
         if puc_formset.is_valid():
             puc_formset.save()
         else:
@@ -506,5 +515,5 @@ def upload_predicted_pucs(
             for e in errors:
                 messages.error(request, e)
         return redirect("upload_predicted_pucs")
-    data["puc_formset"] = PredictedPucCsvFormSet()
+    data["puc_formset"] = puc_formset
     return render(request, template_name, data)

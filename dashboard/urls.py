@@ -335,7 +335,9 @@ urlpatterns = [
         views.upload_predicted_pucs,
         name="upload_predicted_pucs",
     ),
-    path("bulk_product_puc/", views.bulk_assign_puc_to_product, name="bulk_product_puc"),
+    path(
+        "bulk_product_puc/", views.bulk_assign_puc_to_product, name="bulk_product_puc"
+    ),
     path(
         "bulk_product_tag/", views.bulk_assign_tag_to_products, name="bulk_product_tag"
     ),

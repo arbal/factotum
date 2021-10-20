@@ -1,6 +1,6 @@
 import json
 
-from django.test import TestCase, override_settings, tag
+from django.test import TestCase, override_settings, tag, Client, RequestFactory
 from django.shortcuts import get_object_or_404
 from dashboard.tests import factories
 from dashboard.tests.loader import fixtures_standard
@@ -480,3 +480,74 @@ class TestProductPuc(TestCase):
         # the page should redirect to /product/11/
         product_detail_url = reverse("product_detail", kwargs={"pk": prod.pk})
         self.assertRedirects(response, product_detail_url)
+
+class UploadPredictedPucTest(TestCase):
+    fixtures = fixtures_standard
+
+    def setUp(self):
+        self.mng_data = {
+            "predicted-TOTAL_FORMS": "0",
+            "predicted-INITIAL_FORMS": "0",
+            "predicted-MAX_NUM_FORMS": "",
+        }
+        self.c = Client()
+        self.factory = RequestFactory()
+        self.c.login(username="Karyn", password="specialP@55word")
+
+    def generate_predicted_puc_string(self):
+        csv_string = (
+            "product_id,puc_id\n"
+            "1866,312\n"
+            "1853,62\n"
+            "1854,62\n"
+            "1855,62"
+        )
+        return csv_string
+
+    def test_predicted_puc_upload_page(self):
+        resp = self.c.get(path="/upload_predicted_pucs/")
+        print(resp)
+
+    def test_valid_predicted_puc_upload(self):
+        sample_csv = self.generate_predicted_puc_string()
+        sample_csv_bytes = sample_csv.encode(encoding="UTF-8", errors="strict")
+        in_mem_sample_csv = InMemoryUploadedFile(
+            io.BytesIO(sample_csv_bytes),
+            field_name="predicted-bulkformsetfileupload",
+            name="predicted_pucs.csv",
+            content_type="text/csv",
+            size=len(sample_csv),
+            charset="utf-8",
+        )
+        script_id = Script.objects.filter(script_type="PC").first()
+        data = {
+            "predicted-cleaning_script_id": script_id,
+            "predicted-submit": "Submit",
+            "predicted-bulkformsetfileupload": in_mem_sample_csv,
+        }
+        data.update(self.mng_data)
+        # resp = self.c.post(path="/upload_predicted_pucs/", data=data, follow=True)
+
+        #########################################################
+        #
+        #  Tests to uncomment in ticket 2091
+        #
+        #########################################################
+
+        # self.assertContains(
+        #     resp, "4 Product-to-PUC assignments uploaded successfully."
+        # )
+
+        # self.assertEqual(
+        #     ProductToPUC.objects.filter(puc_id=62, classification_method_id="AU").count(),
+        #     4,
+        #     "Predicted PUCs assigned",
+        # )
+
+        # check the assignment script of the new ProductToPUC objects
+
+        # self.assertEqual(
+        #     ProductToPUC.objects.filter(puc_id=62, classification_method_id="AU").first().puc_assigned_script_id,
+        #     script_id,
+        #     "Assignment script id of the new records should match what was in the POST data",
+        # )

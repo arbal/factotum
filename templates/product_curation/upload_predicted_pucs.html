@@ -34,7 +34,7 @@
             <div class="form-group row pl-3 pr-3">
                 <select class="custom-select" name="predicted-prediction_script_id" required>
                     <option value="" selected>Choose a script...</option>
-                    {% for v, n in scripts %}
+                    {% for v, n in puc_formset.script_choices %}
                         {% if v %}
                             <option value="{{ v }}">{{ n }}</option>
                         {% endif %}
@@ -44,6 +44,7 @@
             <form action="{% url "upload_predicted_pucs" %}" method="POST"
                   enctype="multipart/form-data" class="form-horizontal">
                 {% csrf_token %}
+                {{ puc_formset.management_form }}
                 <div class="input-group">
                     <label class="input-group-btn">
                         <span class="btn btn-primary">
