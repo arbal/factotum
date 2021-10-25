@@ -4,7 +4,7 @@ import factory
 from datetime import datetime, timedelta
 from unittest import mock, skip
 
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.urls import reverse
 from django.utils.timesince import timesince
 from lxml import html
@@ -13,6 +13,7 @@ from dashboard.models import QANotes, AuditLog, RawChem, Script, DataGroup
 from dashboard.tests import factories
 
 
+@tag("qa")
 class TestQASummary(TestCase):
     fixtures = ["00_superuser"]
 
@@ -282,6 +283,7 @@ class TestQASummary(TestCase):
         return row_response
 
 
+@tag("qa")
 class TestFUQASummary(TestCase):
     fixtures = ["00_superuser"]
 
@@ -358,6 +360,7 @@ class TestFUQASummary(TestCase):
         )
 
 
+@tag("qa")
 class TestCleaningQASummary(TestCase):
     fixtures = ["00_superuser"]
 
@@ -421,7 +424,7 @@ class TestCleaningQASummary(TestCase):
 
         # Verify QA extracted text count, QA complete count, and QA incomplete count
         qa_complete_count = sum(
-            [text.cleaning_qa_checked for text in self.extracted_texts]
+            [text.cleaning_qa_checked or 0 for text in self.extracted_texts]
         )
         self.assertIn(
             str(len(self.extracted_texts)),
@@ -475,7 +478,7 @@ class TestCleaningQASummary(TestCase):
         )
         self.assertEqual(self.extracted_texts[0].qanotes.qa_notes, table_row[2])
         self.assertEqual(
-            self.extracted_texts[0].cleaning_qa_checked, table_row[3] == "Yes"
+            self.extracted_texts[0].cleaning_qa_checked, table_row[3] == "Approved"
         )
         self.assertEqual(chem_count, table_row[4])
         self.assertIn(timesince(self.extracted_texts[0].updated_at), table_row[5])

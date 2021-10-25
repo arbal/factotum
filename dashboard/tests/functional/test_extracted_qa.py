@@ -16,7 +16,7 @@ from dashboard.models import (
 )
 
 
-@tag("loader")
+@tag("loader", "qa")
 class ExtractedQaTest(TestCase):
     def setUp(self):
         self.objects = load_model_objects()
@@ -76,6 +76,7 @@ class ExtractedQaTest(TestCase):
         self.assertEqual(5, non_qa)
 
 
+@tag("qa")
 class ExtractedQaTestWithFixtures(TestCase):
 
     fixtures = fixtures_standard

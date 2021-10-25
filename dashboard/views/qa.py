@@ -1,3 +1,4 @@
+from dashboard.models.extracted_composition import ExtractedComposition
 import json
 
 from celery import shared_task
@@ -32,6 +33,7 @@ from dashboard.models import (
     RawChem,
     AuditLog,
     GroupType,
+    weight_fraction_type,
 )
 
 
@@ -327,9 +329,8 @@ def qa_cleaning_script_detail(
         return redirect("qa_composition_cleaning_index")
 
     texts = (
-        ExtractedText.objects.filter(
-            cleaning_qa_group=qa_group, cleaning_qa_checked=False
-        )
+        ExtractedText.objects.filter(cleaning_qa_group=qa_group)
+        .exclude(cleaning_qa_checked=True)
         .select_related("data_document__data_group__group_type")
         .annotate(
             chemical_count=Count(
@@ -346,7 +347,7 @@ def qa_cleaning_script_detail(
 
 
 @login_required()
-def qa_extracted_composition_document_detail(
+def qa_cleaned_composition_document_detail(
     request, pk, template_name="qa/composition_document_detail.html"
 ):
     """
@@ -361,12 +362,29 @@ def qa_extracted_composition_document_detail(
         exclude=["weight_fraction_type", "true_cas", "true_chemname", "sid"],
     )
     detail_formset = ChildForm(instance=extext)
-    flagged_qs = detail_formset.get_queryset()
+    note, _ = QANotes.objects.get_or_create(extracted_text=extext)
+    notesform = QANotesForm(instance=note)
+
+    nextid = extext.next_extracted_text_in_cleaning_qa_group()
+
+    # Use the arbitrary first record in the queryset to provide
+    # the weight fraction type and unit type attributes, which
+    # should be common to all the ExtractedComposition records, even
+    # though the field lives on the ExtractedComposition detail level
+    firstexcomp = doc.extractedtext.rawchem.select_subclasses().first()
+
     context = {
         "extracted_text": extext,
         "doc": doc,
         "script": extext.cleaning_script,
-        "cards": cards_detail(request, doc, flagged_qs, False).content.decode("utf8"),
+        "chemicals": doc.extractedtext.rawchem,
+        "weight_fraction_type": firstexcomp.weight_fraction_type,
+        "unit_type": firstexcomp.unit_type,
+        "notesform": notesform,
+        "nextid": nextid,
+        "cleaned_composition_table_url": reverse(
+            "qa_cleaned_composition_detail_json", args=[pk]
+        ),
     }
 
     return render(request, template_name, context)
@@ -568,7 +586,12 @@ class CleaningSummaryTable(BaseDatatableView):
             except QANotes.DoesNotExist:
                 return None
         if column == "cleaning_qa_checked":
-            return "Yes" if row.cleaning_qa_checked else "No"
+            if row.cleaning_qa_checked:
+                return "Approved"
+            elif row.cleaning_qa_checked == False:
+                return "Rejected"
+            else:
+                return "Not reviewed"
         if column == "rawchem_count":
             return row.rawchem_count
         elif column == "last_updated":
@@ -663,6 +686,45 @@ class ManualCompositionDataGroupSummaryTable(ExtractionSummaryTable):
         return ExtractedText.objects.filter(
             data_document__data_group__id=self.pk, extraction_script=MANUAL_SCRIPT_ID
         )
+
+
+class CleanedCompositionDetailJson(BaseDatatableView):
+    """
+    Provides the AJAX data for the cleaned composition detail page.
+    Example: http://127.0.0.1:8000/qa/cleanedcomposition/1364907/table
+    """
+
+    model = ExtractedComposition
+    columns = ["raw_chem_name", "raw_central_comp", "central_wf_analysis", "id"]
+
+    def get(self, request, pk, *args, **kwargs):
+        """This PK should be a data document ID"""
+        self.pk = pk
+        return super().get(request, *args, **kwargs)
+
+    def get_initial_queryset(self):
+        return ExtractedComposition.objects.filter(extracted_text_id=self.pk)
+
+    def render_column(self, row, column):
+        if column == "raw_chem_name":
+            return row.raw_chem_name
+
+        elif column == "raw_central_comp":
+            return (
+                row.raw_central_comp
+                if row.raw_central_comp
+                else f"{row.raw_min_comp} - {row.raw_max_comp}"
+            )
+
+        elif column == "central_wf_analysis":
+            if row.lower_wf_analysis:
+                return f"{float('%.4g' % row.lower_wf_analysis)} - {float('%.4g' % row.upper_wf_analysis)}"
+            if row.central_wf_analysis:
+                return f"{float('%.4g' % row.central_wf_analysis)}"
+        elif column == "id":
+            return row.id
+        else:
+            super().render_column(row, column)
 
 
 @login_required()
@@ -945,3 +1007,81 @@ def approve_extracted_text(request, pk):
                 the QA Notes have been populated.",
             )
             return HttpResponseRedirect(reverse("extracted_text_qa", args=[(pk)]))
+
+
+@login_required()
+def approve_cleaned_composition(request, pk):
+    """
+    This is an endpoint that processes approval button on a cleaned composition
+    QA page
+    """
+    extext = get_object_or_404(ExtractedText.objects.select_subclasses(), pk=pk)
+    nextpk = extext.next_extracted_text_in_cleaning_qa_group()
+
+    if request.method == "POST":
+        extext.cleaning_qa_approved_date = timezone.now()
+        extext.cleaning_qa_approved_by = request.user
+        extext.cleaning_qa_checked = True
+        extext.save()
+        # The ExtractedText record's cleaned composition data is now approved.
+        # Redirect to the appropriate page.
+
+        if not nextpk == 0:
+            redirect_to = reverse(
+                "qa_cleaned_composition_document_detail", args=[(nextpk)]
+            )
+        elif nextpk == 0:
+            # return to the top of the most local QA stack.
+            redirect_to = reverse(
+                "qa_cleaning_script_detail", args=[(extext.cleaning_script_id)]
+            )
+
+        messages.success(
+            request,
+            f"The cleaned composition data for {extext.data_document.title} has been approved!",
+        )
+        if is_safe_url(url=redirect_to, allowed_hosts=request.get_host()):
+            return HttpResponseRedirect(redirect_to)
+        else:
+            return HttpResponseRedirect(
+                reverse("qa_cleaned_composition_document_detail", args=[(pk)])
+            )
+
+
+@login_required()
+def reject_cleaned_composition(request, pk):
+    """
+    This is an endpoint that processes rejection button on a cleaned composition
+    QA page
+    """
+    extext = get_object_or_404(ExtractedText.objects.select_subclasses(), pk=pk)
+    nextpk = extext.next_extracted_text_in_cleaning_qa_group()
+
+    if request.method == "POST":
+        extext.cleaning_qa_approved_date = timezone.now()
+        extext.cleaning_qa_approved_by = request.user
+        extext.cleaning_qa_checked = False
+        extext.save()
+        # The ExtractedText record's cleaned composition data is now approved.
+        # Redirect to the appropriate page.
+
+        if not nextpk == 0:
+            redirect_to = reverse(
+                "qa_cleaned_composition_document_detail", args=[(nextpk)]
+            )
+        elif nextpk == 0:
+            # return to the top of the most local QA stack.
+            redirect_to = reverse(
+                "qa_cleaning_script_detail", args=[(extext.cleaning_script_id)]
+            )
+
+        messages.success(
+            request,
+            f"The cleaned composition data for {extext.data_document.title} has been rejected.",
+        )
+        if is_safe_url(url=redirect_to, allowed_hosts=request.get_host()):
+            return HttpResponseRedirect(redirect_to)
+        else:
+            return HttpResponseRedirect(
+                reverse("qa_cleaned_composition_document_detail", args=[(pk)])
+            )

@@ -91,6 +91,10 @@ class ExtractedComposition(RawChem):
         help_text="maximum weight fraction",
     )
 
+    cleaning_script_archived = models.ForeignKey(
+        to=Script, on_delete=models.CASCADE, null=True, blank=True
+    )
+
     class Meta:
         ordering = (
             F("component").asc(nulls_last=True),

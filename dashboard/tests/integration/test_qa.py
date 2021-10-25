@@ -2,6 +2,7 @@ from celery_djangotest.integration import TransactionTestCase
 from celery_usertask.models import UserTaskLog
 from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.test import tag
 from dashboard.models import ExtractedText, Script
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
@@ -45,6 +46,7 @@ class element_has_css_class(object):
             return False
 
 
+@tag("qa")
 class TestEditsWithSeedData(StaticLiveServerTestCase, TransactionTestCase):
     fixtures = fixtures_standard
 
