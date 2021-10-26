@@ -12,6 +12,7 @@ RUN apk add --no-cache \
         build-base
 
 COPY requirements.txt /requirements.txt
+RUN pip install --upgrade pip
 RUN pip --no-cache-dir install -r /requirements.txt \
  && rm /requirements.txt
 
