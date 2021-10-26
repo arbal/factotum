@@ -1,10 +1,13 @@
 import json
 import io
 
-from django.test import TestCase, override_settings, tag, Client, RequestFactory
+from decimal import *
+
+from django.test import TestCase, client, override_settings, tag, Client, RequestFactory
 from django.shortcuts import get_object_or_404
 from dashboard.tests import factories
 from dashboard.tests.loader import fixtures_standard
+from django.utils import timezone
 from lxml import html
 from django.urls import reverse
 from dashboard.models import (
@@ -24,6 +27,7 @@ from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import Count, Sum
 from dashboard.models.raw_chem import RawChem
+from dashboard.views.product_curation import product_assign_puc_to_product
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"], CACHEOPS_ENABLED=False)
@@ -499,8 +503,18 @@ class UploadPredictedPucTest(TestCase):
         self.c.login(username="Karyn", password="specialP@55word")
 
     def generate_predicted_puc_string(self):
+        """
+        Make a valid csv upload of PUC predictions,
+        including a classification_confidence value
+        that exceeds the max_digits of the field
+        """
         csv_string = (
-            "product_id,puc_id\n" "1866,312\n" "1853,62\n" "1854,62\n" "1855,62"
+            "product,puc,classification_confidence\n"
+            "1866,312,0.95\n"
+            "1853,62,0.95\n"
+            "1854,62,0.95\n"
+            "1855,62,0.955555555\n"
+            "1924,318,0.95"
         )
         return csv_string
 
@@ -509,7 +523,6 @@ class UploadPredictedPucTest(TestCase):
         tests the presentation of the predicted PUC upload page
         """
         resp = self.c.get(path=reverse("upload_predicted_pucs"))
-        print(resp)
         # confirm that each of the "PC" scripts is in the options
         for script in Script.objects.filter(script_type="PC"):
             self.assertContains(resp, f'<option value="{script.pk}">{script}</option>')
@@ -528,35 +541,36 @@ class UploadPredictedPucTest(TestCase):
             size=len(sample_csv),
             charset="utf-8",
         )
-        script_id = Script.objects.filter(script_type="PC").first()
+        script_id = Script.objects.filter(script_type="PC").first().pk
         data = {
-            "predicted-cleaning_script_id": script_id,
+            "predicted-prediction_script_id": script_id,
             "predicted-submit": "Submit",
             "predicted-bulkformsetfileupload": in_mem_sample_csv,
         }
         data.update(self.mng_data)
-        # resp = self.c.post(path=reverse("upload_predicted_pucs"), data=data, follow=True)
+        resp = self.c.post(
+            path=reverse("upload_predicted_pucs"), data=data, follow=True
+        )
 
-        #########################################################
-        #
-        #  Tests to uncomment in ticket 2091
-        #
-        #########################################################
+        self.assertContains(resp, "3 Product-to-PUC assignments created, 2 updated.")
+        # Check the newly-created objects
 
-        # self.assertContains(
-        #     resp, "4 Product-to-PUC assignments uploaded successfully."
-        # )
+        one_m_ago = timezone.now() - timezone.timedelta(minutes=1)
+        queryset = ProductToPUC.objects.filter(updated_at__gte=one_m_ago)
+        self.assertEqual(
+            queryset.count(), 5, "All five rows should have been updated recently"
+        )
+        self.assertEqual(
+            ProductToPUC.objects.filter(created_at__gte=one_m_ago).count(),
+            3,
+            "Only three should have been newly created",
+        )
 
-        # self.assertEqual(
-        #     ProductToPUC.objects.filter(puc_id=62, classification_method_id="AU").count(),
-        #     4,
-        #     "Predicted PUCs assigned",
-        # )
+        for p2p in queryset:
+            self.assertEqual(p2p.puc_assigned_script_id, script_id)
+            self.assertEqual(
+                str(p2p.puc_assigned_usr_id), self.c.session["_auth_user_id"]
+            )
+            self.assertEqual(p2p.classification_method_id, "AU")
 
-        # check the assignment script of the new ProductToPUC objects
-
-        # self.assertEqual(
-        #     ProductToPUC.objects.filter(puc_id=62, classification_method_id="AU").first().puc_assigned_script_id,
-        #     script_id,
-        #     "Assignment script id of the new records should match what was in the POST data",
-        # )
+            

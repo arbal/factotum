@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.utils import safestring
 from django.contrib import messages
+from django.template.defaultfilters import pluralize
 from django.shortcuts import redirect
 from django.db.models import Count, Q, Max
 from django.shortcuts import render, get_object_or_404
@@ -505,15 +506,21 @@ def upload_predicted_pucs(
 
     if "POST" == request.method:
         puc_formset = PredictedPucCsvFormSet(request.POST, request.FILES)
-        print(puc_formset.__dict__)
-        for form in puc_formset:
-            print(form)
+        puc_formset.user = request.user
+        if request.POST["predicted-prediction_script_id"]:
+            puc_formset.script_id = request.POST["predicted-prediction_script_id"]
         if puc_formset.is_valid():
-            puc_formset.save()
+            num_created, num_updated = puc_formset.save()
+            messages.success(
+                request,
+                "%d Product-to-PUC assignment%s created, %d updated."
+                % (num_created, pluralize(num_created), num_updated),
+            )
         else:
             errors = gather_errors(puc_formset)
             for e in errors:
                 messages.error(request, e)
         return redirect("upload_predicted_pucs")
+
     data["puc_formset"] = puc_formset
     return render(request, template_name, data)
