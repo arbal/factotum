@@ -9,7 +9,7 @@ from dashboard.tests.loader import fixtures_standard
 from dashboard.models import Script, ExtractedText, RawChem, DataDocument
 
 
-@tag("loader")
+@tag("loader", "qa")
 class QATest(TestCase):
     fixtures = fixtures_standard
 

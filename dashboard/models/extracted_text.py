@@ -61,7 +61,10 @@ class ExtractedText(CommonInfo):
         related_name="cleaned_documents",
     )
     cleaning_qa_checked = models.BooleanField(
-        default=False, verbose_name="Cleaning QA approved"
+        null=True,
+        default=None,
+        verbose_name="Cleaning QA status",
+        help_text="The approval status of a cleaned document can be 0 (rejected), 1 (approved) or null (neither approved nor rejected).",
     )
     cleaning_qa_edited = models.BooleanField(
         default=False, verbose_name="Cleaning QA edited"
@@ -93,6 +96,15 @@ class ExtractedText(CommonInfo):
     @property
     def group_type(self):
         return self.data_document.data_group.group_type.code
+
+    @property
+    def cleaning_qa_status(self):
+        if self.cleaning_qa_checked == 1:
+            return "Approved"
+        elif self.cleaning_qa_checked == 0:
+            return "Rejected"
+        else:
+            return "Not reviewed"
 
     def get_qa_queryset(self):
         """
@@ -146,6 +158,36 @@ class ExtractedText(CommonInfo):
             nextid = extextnext.pk
         if extextnext == self:
             nextid = 0
+        return nextid
+
+    def get_cleaning_qa_queryset(self):
+        """
+        The cleaning QA queryset is the collection of extractedtext
+        records that share a Cleaning QA Group  
+        """
+
+        qs = ExtractedText.objects.filter(cleaning_qa_group=self.cleaning_qa_group)
+        return qs
+
+    def next_extracted_text_in_cleaning_qa_group(self):
+        """
+        Returns the extracted document next up in the QA cycle 
+        for the current object's cleaned composition data
+        """
+        nextid = 0
+
+        extextnext = get_next_or_prev(
+            self.get_cleaning_qa_queryset().exclude(cleaning_qa_checked=True),
+            self,
+            "next",
+        )
+        if extextnext:
+            # Replace our item with the next one
+            nextid = extextnext.pk
+
+        if extextnext == self:
+            nextid = 0
+
         return nextid
 
     def get_qa_index_path(self):

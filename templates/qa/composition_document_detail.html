@@ -20,18 +20,30 @@
         <h3 class="card-header">
             <a href="{% url "data_document" doc.pk %}" target="_blank"
                title="Data Document Detail Page">Data Document: {{ doc.title }}</a>
-            <a class="btn btn-outline-secondary btn-sm hover-success float-right"
-               title="Edit Data Document"
-               id="edit_document"
-               data-toggle="tooltip"
-               href="{% url "data_document_edit" doc.id %}">
-                <span class="fa fa-fs fa-edit"></span>
-            </a>
+
+            <div class="btn-group btn-group-sm shadow float-right">
+                <a class="btn btn-outline-secondary btn-sm hover-success float-right"
+                    title="Edit Data Document"
+                    id="edit_document"
+                    data-toggle="tooltip"
+                    href="{% url "data_document_edit" doc.id %}">
+                    <span class="fa fa-fs fa-edit"></span>
+                </a>
+                {% if extracted_text.extraction_script.url %}
+                    <a class="btn btn-outline-secondary"
+                       role="button"
+                       target="_blank"
+                       title="Extraction script"
+                       data-toggle="tooltip"
+                       href={{ doc.extractedtext.extraction_script.url }}>
+                        <i class="fab fa-github"></i>
+                    </a>
+                {% endif %}
+            </div>
+
         </h3>
 
-        <div class="alert alert-danger" role="alert">
-            TODO
-          </div>
+
 
         <div class="row m-0 border-bottom">
             <div class="col-3 border-right my-auto p-2 font-weight-bold">Data Group</div>
@@ -99,67 +111,105 @@
 
     <div class="card">
         <h3 class="card-header">
-            Extracted Text
-            <a class="btn btn-outline-secondary btn-sm hover-success float-right"
-               title="Edit Extracted Text"
-               id="btn-edit-extracted-text"
-               data-toggle="modal"
-               data-target="#extextModal">
-                <span class="fa fa-fs fa-edit"></span>
-            </a>
-        </h3>
-        {% for field in ext_form.visible_fields %}
-            <div class="row m-0 border-bottom">
-                <div class="col-3 p-2 border-right my-auto font-weight-bold">{{ field.label }}</div>
-                <div class="col-9 p-2" id="{{ field.id_for_label }}">
-                    {% if field.id_for_label == "id_study_type" and field.value %}
-                        {{ extracted_text.get_study_type_display }}
-                    {% elif field.value %}
-                        {{ field.value }}
-                    {% else %}
-                        <small class="pl-3 pr-3">
-                            <i class="text-muted">
-                                ...No value
-                            </i>
-                        </small>
-                    {% endif %}
-                </div>
-            </div>
-        {% endfor %}
-        {% include "forms/extracted_text_modal.html" with form=ext_form colspan="col-8" %}
-    </div>
-
-    <div class="card">
-        <h3 class="card-header">
             {{ doc.data_group.group_type }} Records
+
+            <div class="btn-group btn-group-sm shadow float-right">
+
+                {% if extracted_text.cleaning_script.url %}
+                    <a class="btn btn-outline-secondary"
+                       role="button"
+                       target="_blank"
+                       title="Cleaning script"
+                       data-toggle="tooltip"
+                       href={{ doc.extractedtext.extraction_script.url }}>
+                        <i class="fa fa-broom"></i>
+                    </a>
+                {% endif %}
+            </div>
         </h3>
-        <div id="card-panel" class="card-body">
-            {{ cards | safe }}
+
+        <div id="card-panel" class="card-body pt-2">
+
+            {% include 'qa/qa_cleaned_composition_table.html' %}
         </div>
+
         </div>
 
     <div class="card">
         <h3 class="card-header">QA Review</h3>
         <div class="row card-body">
- 
+            <div class="col-2">
+                <form action="{% url "approve_cleaned_composition" doc.pk %}" method="post"
+                      id="approve-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="referer" value="{{ request.path }}"/>
+                    <button type="submit" id="approve" name="approve"
+                            class="btn btn-success btn-lg btn-block" role="button">Approve
+                    </button>
+                </form>
+                <form action="{% url "reject_cleaned_composition" doc.pk %}" method="post"
+                        id="reject-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="referer" value="{{ request.path }}"/>
+                    <button type="submit" id="reject" name="approve"
+                            class="btn btn-warning btn-lg btn-block" role="button">Reject
+                    </button>
+                </form>
+                    <!-- start Skip button -->
+                    {% if nextid > 0 %} <!-- there is a Next Document ID -->
+                        <br>
+                            <a class="btn btn-secondary btn-lg btn-block"
+                            href="{% url "qa_cleaned_composition_document_detail" nextid %}" name="skip" id="skip" 
+                            role="button">Skip</a>
+                    {% else %} <!-- there is no Next Document ID -->
+                            <button type="button"
+                                    title="All the other documents in this QA group have been approved"
+                                    name="skip" id="skip" class="btn btn-secondary btn-lg btn-block"
+                                    aria-disabled="true" disabled>
+                                    Skip
+                            </button>
 
-            
+                    {% endif %}
+                    <!-- end Skip button -->
+                    <br>
+                    <a class="btn btn-outline-secondary btn-lg btn-block" href="{% url "qa_cleaning_script_detail" script.id %}" id="exit" 
+                            role="button">Exit</a>
+                
+            </div>
+            <div class="col-10 text-left">
+                <form action="{% url "save_qa_notes" doc.pk %}" method="POST" id="qa-notes-form">
+                    {% csrf_token %}
+                    <b>{{ notesform.qa_notes.label_tag }}</b>&nbsp;<input type="submit"
+                                                                          id="btn-save-notes"
+                                                                          value="Save Note"
+                                                                          class="btn btn-sm btn-primary">
+                    <br>
+                    {% if notesform.is_bound %}
+                        {% if notesform.errors %}
+                            {{ notesform.qa_notes.errors }}
+                            {% render_field notesform.qa_notes class="form-control is-invalid" %}
+                            {% for k, error in notesform.errors.items %}
+                                <div class="invalid-feedback">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            {% render_field notesform.qa_notes class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field notesform.qa_notes class="form-control" %}
+                    {% endif %}
+                </form>
+            </div>
         </div>
         <p class="card-footer"> </p>
     </div>
 {% endblock %}
 
 {% block js %}
-    {{ doc.id|json_script:"doc" }}
-    <script src="{% static 'bootstrap-slider/bootstrap-slider.min.js' %}"></script>
-    <script src="{% static "js/dashboard/qa_extracted_text.js" %}"></script>
-    <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail_card_selector.js' %}"></script>
-    <script type="module" src="{% static 'js/dashboard/datadocument_detail_ajax.js' %}"></script>
-    <script src="{% static 'js/jquery.form.js' %}"></script>
-{% endblock %}
-
-{% block css %}
-    <link rel="stylesheet" href="{% static 'bootstrap-slider/css/bootstrap-slider.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap_slider_overrides.css' %}">
+    {{ cleaned_composition_table_url|json_script:"cleaned_composition_table_url" }}
+    <script src="{% static 'js/dashboard/qa_cleaned_composition_table.js' %}"></script>
+    <script src="{% static 'js/dashboard/qa_extracted_text.js' %}"></script>
+    <script type="module" src="{% static 'js/dashboard/qa_summary_note_ajax.js' %}"></script>
 {% endblock %}
 
