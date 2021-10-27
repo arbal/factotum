@@ -1,0 +1,68 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Upload Predicted PUC Assignments{% endblock %}
+
+{% block errors %}
+    {% if form.errors %}
+        <ul class="user-msg error">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>
+                        {% if field != '__all__' %}
+                            <strong>{{ field.label }}:</strong>
+                        {% endif %}
+                        {{ error }}
+                    </li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1>
+        <span>Upload Predicted PUC Assignments</span>
+    </h1>
+
+    <div class="row mb-2">
+        <div class="col-6"><h4>Upload Predicted PUCs in .csv File: </h4>
+            <div class="text-info mb-4">The uploaded .csv file must contain the IDs of the products and PUCs to be matched with the columns in this order:
+                <br>
+                <code class="m-2">product, puc, classification_confidence</code>
+            </div>
+            <form action="{% url "upload_predicted_pucs" %}" method="POST"
+                  enctype="multipart/form-data" class="form-horizontal">
+                  <div class="form-group row pl-3 pr-3">
+                    <select class="custom-select" name="predicted-prediction_script_id" required>
+                        <option value="" selected>Choose a script...</option>
+                        {% for v, n in puc_formset.script_choices %}
+                            {% if v %}
+                                <option value="{{ v }}">{{ n }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                  {% csrf_token %}
+                {{ puc_formset.management_form }}
+                <div class="input-group">
+                    <label class="input-group-btn">
+                        <span class="btn btn-primary">
+                            Choose File &hellip; <input type="file" style="display: none;" name="predicted-bulkformsetfileupload" id="csv_file" required>
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" readonly><br>
+                </div>
+                <div class="form-group">
+                        <button class="btn btn-primary pl-2 pr-2" type="submit"><span class="fa fa-upload mr-2"></span>Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/dashboard/predicted_puc_upload.js' %}"></script>
+{% endblock %}
+
+

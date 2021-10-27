@@ -1,9 +1,13 @@
 import json
+import io
 
-from django.test import TestCase, override_settings, tag
+from decimal import *
+
+from django.test import TestCase, client, override_settings, tag, Client, RequestFactory
 from django.shortcuts import get_object_or_404
 from dashboard.tests import factories
 from dashboard.tests.loader import fixtures_standard
+from django.utils import timezone
 from lxml import html
 from django.urls import reverse
 from dashboard.models import (
@@ -17,10 +21,13 @@ from dashboard.models import (
     ProductUberPuc,
     DSSToxLookup,
     CumulativeProductsPerPuc,
+    Script,
 )
 from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import Count, Sum
 from dashboard.models.raw_chem import RawChem
+from dashboard.views.product_curation import product_assign_puc_to_product
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"], CACHEOPS_ENABLED=False)
@@ -480,3 +487,90 @@ class TestProductPuc(TestCase):
         # the page should redirect to /product/11/
         product_detail_url = reverse("product_detail", kwargs={"pk": prod.pk})
         self.assertRedirects(response, product_detail_url)
+
+
+class UploadPredictedPucTest(TestCase):
+    fixtures = fixtures_standard
+
+    def setUp(self):
+        self.mng_data = {
+            "predicted-TOTAL_FORMS": "0",
+            "predicted-INITIAL_FORMS": "0",
+            "predicted-MAX_NUM_FORMS": "",
+        }
+        self.c = Client()
+        self.factory = RequestFactory()
+        self.c.login(username="Karyn", password="specialP@55word")
+
+    def generate_predicted_puc_string(self):
+        """
+        Make a valid csv upload of PUC predictions,
+        including a classification_confidence value
+        that exceeds the max_digits of the field
+        """
+        csv_string = (
+            "product,puc,classification_confidence\n"
+            "1866,312,0.95\n"
+            "1853,62,0.95\n"
+            "1854,62,0.95\n"
+            "1855,62,0.955555555\n"
+            "1924,318,0.95"
+        )
+        return csv_string
+
+    def test_predicted_puc_upload_page(self):
+        """
+        tests the presentation of the predicted PUC upload page
+        """
+        resp = self.c.get(path=reverse("upload_predicted_pucs"))
+        # confirm that each of the "PC" scripts is in the options
+        for script in Script.objects.filter(script_type="PC"):
+            self.assertContains(resp, f'<option value="{script.pk}">{script}</option>')
+
+    def test_valid_predicted_puc_upload(self):
+        """
+        tests the functionality of the predicted PUC endpoint
+        """
+        sample_csv = self.generate_predicted_puc_string()
+        sample_csv_bytes = sample_csv.encode(encoding="UTF-8", errors="strict")
+        in_mem_sample_csv = InMemoryUploadedFile(
+            io.BytesIO(sample_csv_bytes),
+            field_name="predicted-bulkformsetfileupload",
+            name="predicted_pucs.csv",
+            content_type="text/csv",
+            size=len(sample_csv),
+            charset="utf-8",
+        )
+        script_id = Script.objects.filter(script_type="PC").first().pk
+        data = {
+            "predicted-prediction_script_id": script_id,
+            "predicted-submit": "Submit",
+            "predicted-bulkformsetfileupload": in_mem_sample_csv,
+        }
+        data.update(self.mng_data)
+        resp = self.c.post(
+            path=reverse("upload_predicted_pucs"), data=data, follow=True
+        )
+
+        self.assertContains(resp, "3 Product-to-PUC assignments created, 2 updated.")
+        # Check the newly-created objects
+
+        one_m_ago = timezone.now() - timezone.timedelta(minutes=1)
+        queryset = ProductToPUC.objects.filter(updated_at__gte=one_m_ago)
+        self.assertEqual(
+            queryset.count(), 5, "All five rows should have been updated recently"
+        )
+        self.assertEqual(
+            ProductToPUC.objects.filter(created_at__gte=one_m_ago).count(),
+            3,
+            "Only three should have been newly created",
+        )
+
+        for p2p in queryset:
+            self.assertEqual(p2p.puc_assigned_script_id, script_id)
+            self.assertEqual(
+                str(p2p.puc_assigned_usr_id), self.c.session["_auth_user_id"]
+            )
+            self.assertEqual(p2p.classification_method_id, "AU")
+
+            

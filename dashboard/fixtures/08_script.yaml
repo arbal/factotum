@@ -188,3 +188,13 @@
     qa_begun: false
     script_type: FU
     confidence: 1
+- model: dashboard.script
+  pk: 20
+  fields:
+    created_at: 2020-05-07 13:38:42.306584
+    updated_at: 2021-05-07 13:38:42.306607
+    title: Product Categorization Script
+    url: ""
+    qa_begun: false
+    script_type: PC
+    confidence: 1

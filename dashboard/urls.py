@@ -347,6 +347,11 @@ urlpatterns = [
         name="bulk_remove_product_puc_table",
     ),
     path(
+        "upload_predicted_pucs/",
+        views.upload_predicted_pucs,
+        name="upload_predicted_pucs",
+    ),
+    path(
         "bulk_product_puc/", views.bulk_assign_puc_to_product, name="bulk_product_puc"
     ),
     path(
