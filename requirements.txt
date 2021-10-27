@@ -61,5 +61,5 @@ pytest-factoryboy==2.0.3
 jsonnet==0.16.0; sys_platform == 'linux' or sys_platform == 'darwin'  # https://github.com/google/jsonnet
 # Experimental binary release of jsonnet for Windows
 jsonnetbin==0.16.0; sys_platform == 'win32' or sys_platform == 'cygwin' or sys_platform == 'msys'  # https://github.com/mcovalt
-
--e git+https://github.com/bennylope/django-taggit-labels.git@7afef34125653e958dc5dba0280904a0714aa808#egg=django_taggit_labels
+django-taggit-labels==0.6.0
+# -e git+https://github.com/bennylope/django-taggit-labels.git@7afef34125653e958dc5dba0280904a0714aa808#egg=django_taggit_labels
