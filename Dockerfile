@@ -10,7 +10,9 @@ RUN apk add --no-cache \
         jpeg-dev \
         zlib-dev \
         build-base \
-        libffi-dev
+        libffi-dev \
+        libressl-dev \
+        musl-dev 
 
 COPY requirements.txt /requirements.txt
 RUN pip install --upgrade pip
