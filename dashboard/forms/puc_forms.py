@@ -6,11 +6,13 @@ from dashboard.models import Script, PUC, ProductToPUC, ExtractedHabitsAndPracti
 from celery_formtask.forms import FormTaskMixin
 from decimal import Decimal
 
+
 def round_decimal(value, places):
     if value is not None:
         # see https://docs.python.org/2/library/decimal.html#decimal.Decimal.quantize for options
         return value.quantize(Decimal(10) ** -places)
     return value
+
 
 class BasePUCForm(forms.ModelForm):
     puc = forms.ModelChoiceField(
@@ -46,14 +48,18 @@ class BulkPUCForm(BasePUCForm):
         self.fields["puc"].label = lbl
         self.fields["puc"].widget.attrs["onchange"] = "form.submit();"
 
+
 class RoundingDecimalFormField(forms.DecimalField):
     def to_python(self, value):
         value = super(RoundingDecimalFormField, self).to_python(value)
         return round_decimal(value, self.decimal_places)
+
+
 class ProductToPucForm(forms.ModelForm):
     puc_assigned_script_id = forms.IntegerField(required=False)
-    classification_confidence = RoundingDecimalFormField(max_digits = 5, decimal_places=3, required=False)
-
+    classification_confidence = RoundingDecimalFormField(
+        max_digits=5, decimal_places=3, required=False
+    )
 
     class Meta:
         model = ProductToPUC

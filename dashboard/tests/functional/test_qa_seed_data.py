@@ -311,18 +311,18 @@ class TestQaPage(TestCase):
         script_id = 16
 
         et_id = ExtractedText.objects.filter(cleaning_script_id=script_id).first().pk
-        # Create an ExtractedComposition record in which the raw_central_comp 
+        # Create an ExtractedComposition record in which the raw_central_comp
         # value has been cleaned into lower_wf_analysis and upper_wf_analysis
         newcomp = ExtractedComposition(
-            raw_central_comp="20 - 50", 
-            unit_type_id=1, 
-            lower_wf_analysis=.2,
-            upper_wf_analysis=.5,
+            raw_central_comp="20 - 50",
+            unit_type_id=1,
+            lower_wf_analysis=0.2,
+            upper_wf_analysis=0.5,
             weight_fraction_type_id=1,
             has_composition_data=1,
             raw_chem_name="chemical 1",
-            extracted_text_id = et_id,
-            )
+            extracted_text_id=et_id,
+        )
         newcomp.save()
         response = self.client.get(
             reverse("qa_cleaned_composition_detail_json", args=[et_id])
