@@ -371,15 +371,12 @@ def qa_cleaned_composition_document_detail(
     # the weight fraction type and unit type attributes, which
     # should be common to all the ExtractedComposition records, even
     # though the field lives on the ExtractedComposition detail level
-    firstexcomp = doc.extractedtext.rawchem.select_subclasses().first()
 
     context = {
         "extracted_text": extext,
         "doc": doc,
         "script": extext.cleaning_script,
         "chemicals": doc.extractedtext.rawchem,
-        "weight_fraction_type": firstexcomp.weight_fraction_type,
-        "unit_type": firstexcomp.unit_type,
         "notesform": notesform,
         "nextid": nextid,
         "cleaned_composition_table_url": reverse(
@@ -695,7 +692,18 @@ class CleanedCompositionDetailJson(BaseDatatableView):
     """
 
     model = ExtractedComposition
-    columns = ["raw_chem_name", "raw_central_comp", "central_wf_analysis", "id"]
+    columns = [
+        "raw_chem_name",
+        "raw_min_comp",
+        "raw_central_comp",
+        "raw_max_comp",
+        "unit_type",
+        "lower_wf_analysis",
+        "central_wf_analysis",
+        "upper_wf_analysis",
+        "weight_fraction_type",
+        "id",
+    ]
 
     def get(self, request, pk, *args, **kwargs):
         """This PK should be a data document ID"""
@@ -708,19 +716,22 @@ class CleanedCompositionDetailJson(BaseDatatableView):
     def render_column(self, row, column):
         if column == "raw_chem_name":
             return row.raw_chem_name
-
-        elif column == "raw_central_comp":
-            return (
-                row.raw_central_comp
-                if row.raw_central_comp
-                else f"{row.raw_min_comp} - {row.raw_max_comp}"
-            )
-
-        elif column == "central_wf_analysis":
-            if row.lower_wf_analysis:
-                return f"{float('%.4g' % row.lower_wf_analysis)} - {float('%.4g' % row.upper_wf_analysis)}"
-            if row.central_wf_analysis:
-                return f"{float('%.4g' % row.central_wf_analysis)}"
+        if column == "raw_min_comp":
+            return row.raw_min_comp
+        if column == "raw_central_comp":
+            return row.raw_central_comp
+        if column == "raw_max_comp":
+            return row.raw_max_comp
+        elif column == "lower_wf_analysis" and row.lower_wf_analysis:
+            return f"{float('%.4g' % row.lower_wf_analysis)}"
+        elif column == "central_wf_analysis" and row.central_wf_analysis:
+            return f"{float('%.4g' % row.central_wf_analysis)}"
+        elif column == "upper_wf_analysis" and  row.upper_wf_analysis:
+            return f"{float('%.4g' % row.upper_wf_analysis)}"
+        elif column == "unit_type" and row.unit_type:
+            return row.unit_type.title
+        elif column == "weight_fraction_type" and row.weight_fraction_type:
+            return row.weight_fraction_type.title
         elif column == "id":
             return row.id
         else:
