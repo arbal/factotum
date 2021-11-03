@@ -6,13 +6,31 @@ $(document).ready(function () {
         ajax: cleaned_composition_table_url,
         columns: [
             {
-                width: "40%",
+                width: "12%",
             },
             {
-                width: "30%",
+                width: "12%",
             },
             {
-                width: "30%",
+                width: "12%",
+            },
+            {
+                width: "12%",
+            },
+            {
+                width: "12%",
+            },
+            {
+                width: "12%",
+            },
+            {
+                width: "12%",
+            },
+            {
+                width: "12%",
+            },
+            {
+                width: "12%",
             },
         ]
     });

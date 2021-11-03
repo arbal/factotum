@@ -9,9 +9,13 @@ RUN apk add --no-cache \
         mariadb-dev \
         jpeg-dev \
         zlib-dev \
-        build-base
+        build-base \
+        libffi-dev \
+        libressl-dev \
+        musl-dev 
 
 COPY requirements.txt /requirements.txt
+RUN pip install --upgrade pip
 RUN pip --no-cache-dir install -r /requirements.txt \
  && rm /requirements.txt
 

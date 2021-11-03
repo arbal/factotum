@@ -311,18 +311,18 @@ class TestQaPage(TestCase):
         script_id = 16
 
         et_id = ExtractedText.objects.filter(cleaning_script_id=script_id).first().pk
-        # Create an ExtractedComposition record in which the raw_central_comp 
+        # Create an ExtractedComposition record in which the raw_central_comp
         # value has been cleaned into lower_wf_analysis and upper_wf_analysis
         newcomp = ExtractedComposition(
-            raw_central_comp="20 - 50", 
-            unit_type_id=1, 
-            lower_wf_analysis=.2,
-            upper_wf_analysis=.5,
+            raw_central_comp="20 - 50",
+            unit_type_id=1,
+            lower_wf_analysis=0.2,
+            upper_wf_analysis=0.5,
             weight_fraction_type_id=1,
             has_composition_data=1,
             raw_chem_name="chemical 1",
-            extracted_text_id = et_id,
-            )
+            extracted_text_id=et_id,
+        )
         newcomp.save()
         response = self.client.get(
             reverse("qa_cleaned_composition_detail_json", args=[et_id])
@@ -331,19 +331,9 @@ class TestQaPage(TestCase):
         tablechems = records["data"]
         dbchems = RawChem.objects.filter(extracted_text_id=et_id).select_subclasses()
         for tablechem in tablechems:
-            tableid = tablechem[3]
+            tableid = tablechem[9]
             dbchem = dbchems.get(pk=tableid)
             self.assertEqual(dbchem.raw_chem_name, tablechem[0])
-            # if there is a central_wf_analysis, that should be by itself
-            if dbchem.central_wf_analysis:
-                self.assertEqual(
-                    tablechem[2], f"{float('%.4g' % dbchem.central_wf_analysis)}"
-                )
-            if dbchem.lower_wf_analysis:
-                self.assertEqual(
-                    tablechem[2],
-                    f"{float('%.4g' % dbchem.lower_wf_analysis)} - {float('%.4g' % dbchem.upper_wf_analysis)}",
-                )
 
     def test_cleaning_script_qa_process(self):
         """

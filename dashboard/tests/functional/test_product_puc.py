@@ -572,5 +572,3 @@ class UploadPredictedPucTest(TestCase):
                 str(p2p.puc_assigned_usr_id), self.c.session["_auth_user_id"]
             )
             self.assertEqual(p2p.classification_method_id, "AU")
-
-            
