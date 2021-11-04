@@ -50,14 +50,16 @@ class ExtractedComposition(RawChem):
         on_delete=models.PROTECT,
         null=True,
         blank=True,
-        verbose_name="The unit type for the concentration, as reported in source document.",
+        verbose_name="Unit Type",
+        help_text="The unit type for the concentration, as reported in source document.",
     )
     weight_fraction_type = models.ForeignKey(
         WeightFractionType,
         on_delete=models.PROTECT,
         null=True,
         default="1",
-        verbose_name="Reported (Default) refers to weight fractions calculated using composition data present on the source document, while Predicted values are generated via model.",
+        verbose_name="Weight Fraction Type",
+        help_text="Reported (Default) refers to weight fractions calculated using composition data present on the source document, while Predicted values are generated via model.",
     )
     ingredient_rank = models.PositiveIntegerField(
         "Ingredient rank",
