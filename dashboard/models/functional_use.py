@@ -26,7 +26,12 @@ class FunctionalUse(CommonInfo):
         "FunctionalUseCategory", on_delete=models.SET_NULL, null=True, blank=True
     )
     report_funcuse = models.CharField(
-        "Reported functional use", max_length=255, null=False, blank=True, unique=True
+        "Reported functional use",
+        max_length=255,
+        null=False,
+        blank=True,
+        unique=True,
+        help_text="The function an ingredient serves within a product, as reported in source document.",
     )
     extraction_script = models.ForeignKey(
         "Script",

@@ -726,7 +726,7 @@ class CleanedCompositionDetailJson(BaseDatatableView):
             return f"{float('%.4g' % row.lower_wf_analysis)}"
         elif column == "central_wf_analysis" and row.central_wf_analysis:
             return f"{float('%.4g' % row.central_wf_analysis)}"
-        elif column == "upper_wf_analysis" and  row.upper_wf_analysis:
+        elif column == "upper_wf_analysis" and row.upper_wf_analysis:
             return f"{float('%.4g' % row.upper_wf_analysis)}"
         elif column == "unit_type" and row.unit_type:
             return row.unit_type.title
