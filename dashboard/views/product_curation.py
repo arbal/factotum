@@ -510,6 +510,13 @@ def upload_predicted_pucs(
         if request.POST["predicted-prediction_script_id"]:
             puc_formset.script_id = request.POST["predicted-prediction_script_id"]
         if puc_formset.is_valid():
+            #async_result = puc_formset.enqueue(f"predicted_puc_formset")
+
+            # return HttpResponseRedirect(
+            #     reverse("data_group_detail", args=[dg.pk])
+            #     + f"?task_id={async_result.id}"
+            # )
+            print(puc_formset)
             num_created, num_updated = puc_formset.save()
             messages.success(
                 request,

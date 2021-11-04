@@ -80,14 +80,17 @@ class PredictedPucCsvFormSet(FormTaskMixin, BaseBulkFormSet):
     serializer = CSVReader
     form = ProductToPucForm
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
     def clean(self, *args, **kwargs):
-        if self.script_id:
-            self.script = Script.objects.get(pk=self.script_id)
-
+        print("cleaning")
+        # assign the puc_assigned_script_id from the selected option
+        # self.set_progress(
+        #     current=1, total=len(self.forms), description="Validating predicted PUCs"
+        # )
         cleaned_data = super().clean()
+        for form in self.forms:
+            print(f"Assigning script_id {script_id} to {form}")
+            form.cleaned_data['puc_assigned_script_id'] = self.script_id
+
         header = list(self.bulk.fieldnames)
         header_cols = ["product", "puc", "classification_confidence"]
         if header != header_cols:
@@ -97,6 +100,9 @@ class PredictedPucCsvFormSet(FormTaskMixin, BaseBulkFormSet):
     def save(self):
         created_recs = 0
         updated_recs = 0
+        self.set_progress(
+            current=2, total=len(self.forms), description="Saving predicted PUCs"
+        )
         for form in self.forms:
             # if the product has already been assigned a PUC via the AU method,
             # update the existing record with the new PUC
@@ -106,7 +112,7 @@ class PredictedPucCsvFormSet(FormTaskMixin, BaseBulkFormSet):
                 defaults={
                     "classification_method_id": "AU",
                     "puc": form.cleaned_data["puc"],
-                    "puc_assigned_script": self.script,
+                    "puc_assigned_script_id": self.script_id,
                     "puc_assigned_usr": self.user,
                     "classification_confidence": form.cleaned_data[
                         "classification_confidence"

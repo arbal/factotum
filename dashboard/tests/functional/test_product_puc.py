@@ -551,6 +551,7 @@ class UploadPredictedPucTest(TestCase):
         resp = self.c.post(
             path=reverse("upload_predicted_pucs"), data=data, follow=True
         )
+        # self.assertContains(resp, "fa-spinner")
 
         self.assertContains(resp, "3 Product-to-PUC assignments created, 2 updated.")
         # Check the newly-created objects
