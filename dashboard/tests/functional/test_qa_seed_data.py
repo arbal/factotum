@@ -335,7 +335,6 @@ class TestQaPage(TestCase):
             dbchem = dbchems.get(pk=tableid)
             self.assertEqual(dbchem.raw_chem_name, tablechem[0])
 
-
     def test_cleaning_script_qa_process(self):
         """
         Open the script page for cleaned ExtractedComposition records

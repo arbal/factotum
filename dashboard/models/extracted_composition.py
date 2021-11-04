@@ -34,10 +34,16 @@ class ExtractedComposition(RawChem):
     # This determines if this record has composition data
     has_composition_data = models.BooleanField(default=True)
     raw_min_comp = models.CharField(
-        "Minimum", max_length=100, blank=True, help_text="The lower limit of concentration specified by a range. If a single number is given or no concentration is specified, this field should be blank."
+        "Minimum",
+        max_length=100,
+        blank=True,
+        help_text="The lower limit of concentration specified by a range. If a single number is given or no concentration is specified, this field should be blank.",
     )
     raw_max_comp = models.CharField(
-        "Maximum", max_length=100, blank=True, help_text="The upper limit of concentration specified by a range. If a single number is given or no concentration is specified, this field should be blank."
+        "Maximum",
+        max_length=100,
+        blank=True,
+        help_text="The upper limit of concentration specified by a range. If a single number is given or no concentration is specified, this field should be blank.",
     )
     unit_type = models.ForeignKey(
         UnitType,
@@ -61,7 +67,10 @@ class ExtractedComposition(RawChem):
         help_text="The numerical order the chemical ingredient appears in an ingredient list.",
     )
     raw_central_comp = models.CharField(
-        "Central", max_length=100, blank=True, help_text="The concentration if a single number is given. If a range is listed or no concentration is specified, this field should be blank."
+        "Central",
+        max_length=100,
+        blank=True,
+        help_text="The concentration if a single number is given. If a range is listed or no concentration is specified, this field should be blank.",
     )
     lower_wf_analysis = models.DecimalField(
         "Lower weight fraction analysis",

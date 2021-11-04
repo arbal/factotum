@@ -46,7 +46,10 @@ class RawChem(CommonInfo):
         blank=True,
     )
     component = models.CharField(
-        "Component", max_length=200, blank=True, help_text="The product component for products with multiple parts or items in a set."
+        "Component",
+        max_length=200,
+        blank=True,
+        help_text="The product component for products with multiple parts or items in a set.",
     )
     # Ideally the chem_detected_flag would be a nullable boolean field. However,
     # bulk_update() seems to have a bug related to nullable booleans
