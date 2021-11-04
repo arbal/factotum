@@ -34,34 +34,34 @@ class ExtractedComposition(RawChem):
     # This determines if this record has composition data
     has_composition_data = models.BooleanField(default=True)
     raw_min_comp = models.CharField(
-        "Minimum", max_length=100, blank=True, help_text="minimum composition"
+        "Minimum", max_length=100, blank=True, help_text="The lower limit of concentration specified by a range. If a single number is given or no concentration is specified, this field should be blank."
     )
     raw_max_comp = models.CharField(
-        "Maximum", max_length=100, blank=True, help_text="maximum composition"
+        "Maximum", max_length=100, blank=True, help_text="The upper limit of concentration specified by a range. If a single number is given or no concentration is specified, this field should be blank."
     )
     unit_type = models.ForeignKey(
         UnitType,
         on_delete=models.PROTECT,
         null=True,
         blank=True,
-        verbose_name="Unit type",
+        verbose_name="The unit type for the concentration, as reported in source document.",
     )
     weight_fraction_type = models.ForeignKey(
         WeightFractionType,
         on_delete=models.PROTECT,
         null=True,
         default="1",
-        verbose_name="Weight fraction type",
+        verbose_name="Reported (Default) refers to weight fractions calculated using composition data present on the source document, while Predicted values are generated via model.",
     )
     ingredient_rank = models.PositiveIntegerField(
         "Ingredient rank",
         null=True,
         blank=True,
         validators=[validate_ingredient_rank],
-        help_text="ingredient rank",
+        help_text="The numerical order the chemical ingredient appears in an ingredient list.",
     )
     raw_central_comp = models.CharField(
-        "Central", max_length=100, blank=True, help_text="central composition"
+        "Central", max_length=100, blank=True, help_text="The concentration if a single number is given. If a range is listed or no concentration is specified, this field should be blank."
     )
     lower_wf_analysis = models.DecimalField(
         "Lower weight fraction analysis",
