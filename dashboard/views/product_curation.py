@@ -10,9 +10,10 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic import FormView
 from django_datatables_view.base_datatable_view import BaseDatatableView
+from django.forms import formset_factory
 
 from dashboard.forms.forms import BulkProductToPUCDeleteForm
-from dashboard.forms.puc_forms import PredictedPucCsvFormSet
+from dashboard.forms.puc_forms import PredictedPucCsvFormSet, ProductToPucForm
 from dashboard.models import (
     DataSource,
     Product,
@@ -505,28 +506,26 @@ def upload_predicted_pucs(
     ]
 
     if "POST" == request.method:
-        puc_formset = PredictedPucCsvFormSet(request.POST, request.FILES)
-        puc_formset.user = request.user
-        if request.POST["predicted-prediction_script_id"]:
-            puc_formset.script_id = request.POST["predicted-prediction_script_id"]
-        if puc_formset.is_valid():
-            #async_result = puc_formset.enqueue(f"predicted_puc_formset")
+        script_id = request.POST["predicted-prediction_script_id"]
 
-            # return HttpResponseRedirect(
-            #     reverse("data_group_detail", args=[dg.pk])
-            #     + f"?task_id={async_result.id}"
-            # )
-            print(puc_formset)
-            num_created, num_updated = puc_formset.save()
-            messages.success(
-                request,
-                "%d Product-to-PUC assignment%s created, %d updated."
-                % (num_created, pluralize(num_created), num_updated),
-            )
-        else:
-            errors = gather_errors(puc_formset)
-            for e in errors:
-                messages.error(request, e)
+        puc_formset = PredictedPucCsvFormSet(
+            request.POST,
+            request.FILES,
+            form_kwargs={
+                "puc_assigned_script": script_id,
+                "puc_assigned_usr": request.user.id,
+            },
+        )
+        async_result = puc_formset.enqueue(f"predicted_puc_formset")
+        print( f"http://127.0.0.1:8000/api/tasks/{async_result.id}")
+
+        num_created, num_updated = async_result.result
+        messages.success(
+            request,
+            "%d Product-to-PUC assignment%s created, %d updated."
+            % (num_created, pluralize(num_created), num_updated),
+        )
+
         return redirect("upload_predicted_pucs")
 
     data["puc_formset"] = puc_formset

@@ -28,6 +28,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import Count, Sum
 from dashboard.models.raw_chem import RawChem
 from dashboard.views.product_curation import product_assign_puc_to_product
+from dashboard.forms.puc_forms import PredictedPucCsvFormSet
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"], CACHEOPS_ENABLED=False)
@@ -490,7 +491,20 @@ class TestProductPuc(TestCase):
 
 
 class UploadPredictedPucTest(TestCase):
-    fixtures = fixtures_standard
+    fixtures = [
+        "00_superuser",
+        "01_lookups",
+        "02_datasource",
+        "03_datagroup",
+        "04_PUC",
+        "05_product",
+        "06_datadocument",
+        "07_extractedtext",
+        "07d_rawchem",
+        "08_script",
+        "09_productdocument",
+        "12_product_to_puc",
+    ]
 
     def setUp(self):
         self.mng_data = {

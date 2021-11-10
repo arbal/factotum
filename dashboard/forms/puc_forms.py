@@ -3,6 +3,7 @@ from dal import autocomplete
 from django import forms
 from bulkformsets import BaseBulkFormSet, CSVReader
 from dashboard.models import Script, PUC, ProductToPUC, ExtractedHabitsAndPracticesToPUC
+from django.contrib.auth.models import User
 from celery_formtask.forms import FormTaskMixin
 from decimal import Decimal
 
@@ -56,14 +57,36 @@ class RoundingDecimalFormField(forms.DecimalField):
 
 
 class ProductToPucForm(forms.ModelForm):
-    puc_assigned_script_id = forms.IntegerField(required=False)
+    puc_assigned_script = forms.ModelChoiceField(
+        Script.objects.filter(script_type="PC"),
+        widget=forms.HiddenInput(),
+        required=False,
+    )
+    puc_assigned_usr = forms.ModelChoiceField(
+        User.objects.all(), widget=forms.HiddenInput(), required=False
+    )
     classification_confidence = RoundingDecimalFormField(
         max_digits=5, decimal_places=3, required=False
     )
 
     class Meta:
         model = ProductToPUC
-        fields = ["product", "puc", "classification_confidence"]
+        fields = [
+            "product",
+            "puc",
+            "classification_confidence",
+            "puc_assigned_script",
+            "puc_assigned_usr",
+        ]
+
+    def __init__(
+        self, puc_assigned_script=None, puc_assigned_usr=None, *args, **kwargs
+    ):
+        puc_assigned_script = kwargs.pop("puc_assigned_script", None)
+        puc_assigned_usr = kwargs.pop("puc_assigned_usr", None)
+        super(ProductToPucForm, self).__init__(*args, **kwargs)
+
+
 
 
 class PredictedPucCsvFormSet(FormTaskMixin, BaseBulkFormSet):
@@ -81,15 +104,12 @@ class PredictedPucCsvFormSet(FormTaskMixin, BaseBulkFormSet):
     form = ProductToPucForm
 
     def clean(self, *args, **kwargs):
-        print("cleaning")
-        # assign the puc_assigned_script_id from the selected option
-        # self.set_progress(
-        #     current=1, total=len(self.forms), description="Validating predicted PUCs"
-        # )
+        print("cleaning PredictedPucCsvFormSet")
+
+        self.set_progress(
+            current=1, total=len(self.forms), description="Validating predicted PUCs"
+        )
         cleaned_data = super().clean()
-        for form in self.forms:
-            print(f"Assigning script_id {script_id} to {form}")
-            form.cleaned_data['puc_assigned_script_id'] = self.script_id
 
         header = list(self.bulk.fieldnames)
         header_cols = ["product", "puc", "classification_confidence"]
@@ -98,6 +118,11 @@ class PredictedPucCsvFormSet(FormTaskMixin, BaseBulkFormSet):
         return cleaned_data
 
     def save(self):
+        print("Saving formset")
+        print(self.form_kwargs)
+        # these kwargs are not working in the subform init method
+        puc_assigned_script = self.form_kwargs.pop("puc_assigned_script", None)
+        puc_assigned_usr = self.form_kwargs.pop("puc_assigned_usr", None)
         created_recs = 0
         updated_recs = 0
         self.set_progress(
@@ -112,8 +137,8 @@ class PredictedPucCsvFormSet(FormTaskMixin, BaseBulkFormSet):
                 defaults={
                     "classification_method_id": "AU",
                     "puc": form.cleaned_data["puc"],
-                    "puc_assigned_script_id": self.script_id,
-                    "puc_assigned_usr": self.user,
+                    "puc_assigned_script_id": puc_assigned_script,
+                    "puc_assigned_usr_id": puc_assigned_usr,
                     "classification_confidence": form.cleaned_data[
                         "classification_confidence"
                     ],
