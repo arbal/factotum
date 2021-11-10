@@ -1,3 +1,4 @@
+import time
 from django.apps import apps
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
@@ -520,8 +521,7 @@ def upload_predicted_pucs(
         async_result = puc_formset.enqueue(f"predicted_puc_formset")
 
         result_url = f"/api/tasks/{async_result.id}"
-        print(result_url)
-        print(AsyncResult(async_result.id).state)
+
         data["task_id"] = async_result.id
 
         # if AsyncResult(async_result.id).state == "SUCCESS":
@@ -536,6 +536,11 @@ def upload_predicted_pucs(
         # else:
         #     messages.error(request, "error, see %s ." % (result_url))
 
+        puc_formset.script_choices = [
+            (str(s.pk), str(s))
+            for s in Script.objects.filter(script_type="PC").filter(qa_begun=False)
+        ]
+        data["puc_formset"] = puc_formset
         return render(request, template_name, data)
 
     data["puc_formset"] = puc_formset
