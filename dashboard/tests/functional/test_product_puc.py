@@ -1,5 +1,6 @@
 import json
 import io
+import time
 
 from decimal import *
 
@@ -7,6 +8,7 @@ from django.test import TestCase, client, override_settings, tag, Client, Reques
 from django.shortcuts import get_object_or_404
 from dashboard.tests import factories
 from dashboard.tests.loader import fixtures_standard
+from celery.result import AsyncResult
 from django.utils import timezone
 from lxml import html
 from django.urls import reverse
@@ -28,6 +30,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import Count, Sum
 from dashboard.models.raw_chem import RawChem
 from dashboard.views.product_curation import product_assign_puc_to_product
+from dashboard.forms.puc_forms import PredictedPucCsvFormSet
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"], CACHEOPS_ENABLED=False)
@@ -490,7 +493,20 @@ class TestProductPuc(TestCase):
 
 
 class UploadPredictedPucTest(TestCase):
-    fixtures = fixtures_standard
+    fixtures = [
+        "00_superuser",
+        "01_lookups",
+        "02_datasource",
+        "03_datagroup",
+        "04_PUC",
+        "05_product",
+        "06_datadocument",
+        "07_extractedtext",
+        "07d_rawchem",
+        "08_script",
+        "09_productdocument",
+        "12_product_to_puc",
+    ]
 
     def setUp(self):
         self.mng_data = {
@@ -543,32 +559,24 @@ class UploadPredictedPucTest(TestCase):
         )
         script_id = Script.objects.filter(script_type="PC").first().pk
         data = {
-            "predicted-prediction_script_id": script_id,
+            "predicted-prediction_script_id": [script_id],
             "predicted-submit": "Submit",
             "predicted-bulkformsetfileupload": in_mem_sample_csv,
         }
         data.update(self.mng_data)
         resp = self.c.post(
-            path=reverse("upload_predicted_pucs"), data=data, follow=True
+            path=reverse("upload_predicted_pucs"), data=data,
         )
 
-        self.assertContains(resp, "3 Product-to-PUC assignments created, 2 updated.")
-        # Check the newly-created objects
+        # the response won't immediately contain the success message, 
+        # since the javascript timer notifies the user
+        print("before wait")
+        response_html = html.fromstring(resp.content.decode("utf8"))
+        # import pdb; pdb.set_trace()
+        task_id = response_html.xpath('//*[@id="task_id"]')[
+            0
+        ].value
+        self.assertNotEqual("", task_id, "The page should contain a task ID reflecting the import underway")
+        # TODO: add an integration test
 
-        one_m_ago = timezone.now() - timezone.timedelta(minutes=1)
-        queryset = ProductToPUC.objects.filter(updated_at__gte=one_m_ago)
-        self.assertEqual(
-            queryset.count(), 5, "All five rows should have been updated recently"
-        )
-        self.assertEqual(
-            ProductToPUC.objects.filter(created_at__gte=one_m_ago).count(),
-            3,
-            "Only three should have been newly created",
-        )
 
-        for p2p in queryset:
-            self.assertEqual(p2p.puc_assigned_script_id, script_id)
-            self.assertEqual(
-                str(p2p.puc_assigned_usr_id), self.c.session["_auth_user_id"]
-            )
-            self.assertEqual(p2p.classification_method_id, "AU")

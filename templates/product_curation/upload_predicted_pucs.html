@@ -54,14 +54,25 @@
                     <input type="text" class="form-control" readonly><br>
                 </div>
                 <div class="form-group">
-                        <button class="btn btn-primary pl-2 pr-2" type="submit"><span class="fa fa-upload mr-2"></span>Upload</button>
+                        <button id="btn-upload" class="btn btn-primary pl-2 pr-2" type="submit"><span class="fa fa-upload mr-2" ></span>Upload</button>
                 </div>
             </form>
+            <p id="task_status"></p>
+            <div id="progress" style="width: 100%; text-align: center; display: none;">
+                <div>Uploading, please wait...</div>
+                <input type="hidden" id="task_id" value="{{ task_id }}"/>
+                <input type="hidden" id="redirect_to" value="{{ redirect_to }}"/>
+                <div style="padding-top: 50px;">
+                    <div class="fas fa-4x fa-spinner fa-spin"></div>
+                </div>
+            </div>
+
         </div>
     </div>
 {% endblock %}
 
 {% block js %}
+    <script src="{% static 'js/js.cookie.min.js' %}"></script>
     <script src="{% static 'js/dashboard/predicted_puc_upload.js' %}"></script>
 {% endblock %}
 
