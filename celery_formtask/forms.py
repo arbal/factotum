@@ -48,5 +48,4 @@ class FormTaskMixin:
             kwargs=self._kwargs_bak,
             **opts
         )
-        print("processform completed, returning async_result")
         return async_result

@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import FormView
 from django_datatables_view.base_datatable_view import BaseDatatableView
 from django.forms import formset_factory
+from celery.result import AsyncResult
 
 from dashboard.forms.forms import BulkProductToPUCDeleteForm
 from dashboard.forms.puc_forms import PredictedPucCsvFormSet, ProductToPucForm
@@ -517,16 +518,25 @@ def upload_predicted_pucs(
             },
         )
         async_result = puc_formset.enqueue(f"predicted_puc_formset")
-        print( f"http://127.0.0.1:8000/api/tasks/{async_result.id}")
 
-        num_created, num_updated = async_result.result
-        messages.success(
-            request,
-            "%d Product-to-PUC assignment%s created, %d updated."
-            % (num_created, pluralize(num_created), num_updated),
-        )
+        result_url = f"/api/tasks/{async_result.id}"
+        print(result_url)
+        print(AsyncResult(async_result.id).state)
+        data["task_id"] = async_result.id
 
-        return redirect("upload_predicted_pucs")
+        # if AsyncResult(async_result.id).state == "SUCCESS":
+        #     num_created, num_updated = async_result.get()
+        #     messages.success(
+        #         request,
+        #         "%d Product-to-PUC assignment%s created, %d updated."
+        #         % (num_created, pluralize(num_created), num_updated),
+        #     )
+        # elif AsyncResult(async_result.id).state == "PENDING":
+        #     messages.info(request, "still working, see %s ." % (result_url))
+        # else:
+        #     messages.error(request, "error, see %s ." % (result_url))
+
+        return render(request, template_name, data)
 
     data["puc_formset"] = puc_formset
     return render(request, template_name, data)

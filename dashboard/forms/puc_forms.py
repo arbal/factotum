@@ -87,8 +87,6 @@ class ProductToPucForm(forms.ModelForm):
         super(ProductToPucForm, self).__init__(*args, **kwargs)
 
 
-
-
 class PredictedPucCsvFormSet(FormTaskMixin, BaseBulkFormSet):
     extra = 0
     can_order = False
@@ -104,8 +102,6 @@ class PredictedPucCsvFormSet(FormTaskMixin, BaseBulkFormSet):
     form = ProductToPucForm
 
     def clean(self, *args, **kwargs):
-        print("cleaning PredictedPucCsvFormSet")
-
         self.set_progress(
             current=1, total=len(self.forms), description="Validating predicted PUCs"
         )
@@ -118,8 +114,6 @@ class PredictedPucCsvFormSet(FormTaskMixin, BaseBulkFormSet):
         return cleaned_data
 
     def save(self):
-        print("Saving formset")
-        print(self.form_kwargs)
         # these kwargs are not working in the subform init method
         puc_assigned_script = self.form_kwargs.pop("puc_assigned_script", None)
         puc_assigned_usr = self.form_kwargs.pop("puc_assigned_usr", None)
