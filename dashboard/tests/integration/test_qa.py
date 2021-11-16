@@ -264,7 +264,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase, TransactionTestCase):
 
         # should direct to delete detail page
         self.assertEqual(self.browser.current_url, delete_detail_url)
-        print(UserTaskLog.objects.all().values_list())
+
         task = UserTaskLog.objects.get(
             name=f"cleaning_script_delete.{cleaning_script.id}"
         )
