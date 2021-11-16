@@ -1125,9 +1125,7 @@ def delete_cleaned_composition_task(self, pk):
             central_wf_analysis=None, lower_wf_analysis=None, upper_wf_analysis=None
         )
         QAGroup.objects.filter(script=cleaning_script).delete()
-        ExtractedText.objects.filter(
-            cleaning_script=cleaning_script
-        ).update(
+        ExtractedText.objects.filter(cleaning_script=cleaning_script).update(
             cleaning_script=None
         )
         cleaning_script.qa_begun = False

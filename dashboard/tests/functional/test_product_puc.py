@@ -568,7 +568,7 @@ class UploadPredictedPucTest(TestCase):
 
         # the response won't immediately contain the success message,
         # since the javascript timer notifies the user
-        print("before wait")
+
         response_html = html.fromstring(resp.content.decode("utf8"))
         # import pdb; pdb.set_trace()
         task_id = response_html.xpath('//*[@id="task_id"]')[0].value

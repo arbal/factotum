@@ -3,7 +3,7 @@ from celery_usertask.models import UserTaskLog
 from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import tag
-from dashboard.models import ExtractedText, Script
+from dashboard.models import ExtractedText, Script, ExtractedComposition
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -230,3 +230,69 @@ class TestEditsWithSeedData(StaticLiveServerTestCase, TransactionTestCase):
         # the reopened page should not contain the chemical
         cards = wait.until(EC.visibility_of_element_located((By.ID, "cards")))
         self.assertNotIn(chem.raw_chem_name, cards.text)
+
+    def test_delete_cleaned_composition(self):
+        """
+        Open the cleaned composition delete-by-script page and click the delete button
+        """
+        et = ExtractedText.objects.filter(cleaning_script__isnull=False).first()
+        cleaning_script = et.cleaning_script
+        self.assertEqual(
+            1, ExtractedText.objects.filter(cleaning_script=cleaning_script).count()
+        )
+        ecs = ExtractedComposition.objects.filter(extracted_text=et)
+        self.assertEqual(3, ecs.count())
+
+        list_url = self.live_server_url + f"/cleaningscripts/delete/"
+        delete_detail_url = (
+            self.live_server_url + f"/cleanedcomposition/delete/{cleaning_script.id}/"
+        )
+        self.browser.get(list_url)
+
+        ec_delete_button = self.browser.find_element_by_id(
+            f"ec-delete-button-{cleaning_script.id}"
+        )
+        ec_delete_button.send_keys("\n")
+
+        wait = WebDriverWait(self.browser, 10)
+        popover_div = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "popover")))
+        # popover_div = self.browser.find_element_by_class_name("popover")
+        self.assertIn("Are you sure?", popover_div.text)
+
+        confirm_button = popover_div.find_element_by_class_name("btn-primary")
+        confirm_button.send_keys("\n")
+
+        # should direct to delete detail page
+        self.assertEqual(self.browser.current_url, delete_detail_url)
+        print(UserTaskLog.objects.all().values_list())
+        task = UserTaskLog.objects.get(
+            name=f"cleaning_script_delete.{cleaning_script.id}"
+        )
+        self.assertIsNotNone(task, "should set up a task")
+
+        task_id = self.browser.find_element_by_id("task_id").get_attribute("value")
+        self.assertEqual(str(task.task), task_id)
+        redirect_to = self.browser.find_element_by_id("redirect_to").get_attribute(
+            "value"
+        )
+        self.assertEqual("/cleaningscripts/delete/", redirect_to)
+
+        # wait for task to finish
+        WebDriverWait(self.browser, 30).until(EC.url_changes(delete_detail_url))
+
+        cleaning_script.refresh_from_db()
+        self.assertEqual(
+            0, ExtractedText.objects.filter(cleaning_script=cleaning_script).count()
+        )
+        self.assertEqual(False, cleaning_script.qa_begun)
+        # confirm that the ExtractedComposition records have had all their
+        # cleaned attributes erased
+        for ec in ExtractedComposition.objects.filter(extracted_text=et):
+            self.assertNotIn(
+                False,
+                [
+                    ec.lower_wf_analysis == None,
+                    ec.central_wf_analysis == None,
+                    ec.upper_wf_analysis == None,
+                ],
+            )
