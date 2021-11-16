@@ -270,6 +270,17 @@ urlpatterns = [
         dashboard.views.qa.reject_cleaned_composition,
         name="reject_cleaned_composition",
     ),
+    # delete all the cleaned composition associated with a script
+    path(
+        "cleaningscripts/delete/",
+        dashboard.views.cleaning_script_delete_list,
+        name="cleaning_script_delete_list",
+    ),
+    path(
+        "cleanedcomposition/delete/<int:pk>/",
+        views.delete_cleaned_composition,
+        name="delete_cleaned_composition",
+    ),
     # Extraction Script QA
     path(
         "qa/extractionscript/",

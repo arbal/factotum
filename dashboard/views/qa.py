@@ -1096,3 +1096,73 @@ def reject_cleaned_composition(request, pk):
             return HttpResponseRedirect(
                 reverse("qa_cleaned_composition_document_detail", args=[(pk)])
             )
+
+
+@login_required()
+def cleaning_script_delete_list(
+    request, template_name="cleaned_composition/delete.html"
+):
+    """
+    List view of cleaning scripts for deleting all the ExtractedComposition objects
+    in one of them
+    """
+    cleaningscripts = Script.objects.filter(script_type="DC").annotate(
+        num_doc=Count("cleaned_documents")
+    )
+    data = {}
+    data["object_list"] = cleaningscripts
+    return render(request, template_name, data)
+
+
+@shared_task(bind=True, track_started=True, base=UserTask)
+@usertask
+def delete_cleaned_composition_task(self, pk):
+    cleaning_script = Script.objects.get(pk=pk)
+    with transaction.atomic():
+        ExtractedComposition.objects.filter(
+            extracted_text__cleaning_script=cleaning_script
+        ).update(
+            central_wf_analysis=None, lower_wf_analysis=None, upper_wf_analysis=None
+        )
+        QAGroup.objects.filter(script=cleaning_script).delete()
+        ExtractedText.objects.filter(
+            cleaning_script=cleaning_script
+        ).update(
+            cleaning_script=None
+        )
+        cleaning_script.qa_begun = False
+        cleaning_script.save()
+
+    return "task done"
+
+
+@login_required()
+def delete_cleaned_composition(
+    request, pk, template_name="cleaned_composition/delete_progress.html"
+):
+    """
+    This is an endpoint that deletes ExtractedComposition objects associated with the provided Script pk
+    It performs the following actions:
+        a. delete all ExtractedComposition records associated with the cleaning script
+            (via the parent ExtractedText record's `cleaning_script` attribute)
+        b. reset the QA status of the cleaning script to 'QA not begun'
+        c. delete the QA group associated with the extraction script
+        d. redirects the browser to the page from which the delete was called
+
+    """
+    script = get_object_or_404(Script, pk=pk)
+    previous_url = request.META.get("HTTP_REFERER")
+    if previous_url is not None and previous_url.endswith("cleaningscripts/delete/"):
+        redirect_to = "cleaning_script_delete_list"
+    else:
+        redirect_to = "qa_composition_cleaning_index"
+    print("about to apply delete_cleaning_script_task")
+    # schedule async task as it may take sometime to finish the bulk deletion
+    delete_task = delete_cleaned_composition_task.apply_async(
+        args=[pk], shadow=f"cleaning_script_delete.{pk}"
+    )
+    return render(
+        request,
+        template_name,
+        {"script": script, "task": delete_task, "redirect_to": reverse(redirect_to)},
+    )

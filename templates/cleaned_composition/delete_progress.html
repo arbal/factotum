@@ -3,7 +3,7 @@
 
 {% block content %}
     <div style="width: 100%; text-align: center;">
-        <div>Deleting {{ script.get_datadocument_count }} extracted text record(s) from extraction script {{ script.title }}, please wait...</div>
+        <div>Deleting {{ script.get_cleaned_composition_count }} cleaned composition record(s) from cleaning script {{ script.title }}, please wait...</div>
         <input type="hidden" id="task_id" value="{{ task.id }}"/>
         <input type="hidden" id="redirect_to" value="{{ redirect_to }}"/>
         <div style="padding-top: 50px;">

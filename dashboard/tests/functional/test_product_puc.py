@@ -564,19 +564,17 @@ class UploadPredictedPucTest(TestCase):
             "predicted-bulkformsetfileupload": in_mem_sample_csv,
         }
         data.update(self.mng_data)
-        resp = self.c.post(
-            path=reverse("upload_predicted_pucs"), data=data,
-        )
+        resp = self.c.post(path=reverse("upload_predicted_pucs"), data=data)
 
-        # the response won't immediately contain the success message, 
+        # the response won't immediately contain the success message,
         # since the javascript timer notifies the user
         print("before wait")
         response_html = html.fromstring(resp.content.decode("utf8"))
         # import pdb; pdb.set_trace()
-        task_id = response_html.xpath('//*[@id="task_id"]')[
-            0
-        ].value
-        self.assertNotEqual("", task_id, "The page should contain a task ID reflecting the import underway")
+        task_id = response_html.xpath('//*[@id="task_id"]')[0].value
+        self.assertNotEqual(
+            "",
+            task_id,
+            "The page should contain a task ID reflecting the import underway",
+        )
         # TODO: add an integration test
-
-

@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.core.validators import URLValidator, MaxValueValidator, MinValueValidator
-
+from django.apps import apps
 from .common_info import CommonInfo
 from .data_document import DataDocument
 from .extracted_text import ExtractedText
@@ -153,6 +153,18 @@ class Script(CommonInfo, QASummaryNote):
             text.qa_group = qa_group
         text.save()
         return qa_group
+
+    def get_cleaned_composition_count(self):
+        ExtractedComposition = apps.get_model(
+            app_label="dashboard", model_name="ExtractedComposition"
+        )
+        if self.script_type == "DC":
+            n = ExtractedComposition.objects.filter(
+                extracted_text__cleaning_script=self
+            ).count()
+            return n
+        else:
+            return 0
 
 
 class QAGroup(CommonInfo):
