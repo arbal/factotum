@@ -2,7 +2,7 @@ import json
 
 from django.test import TestCase, override_settings, tag
 from dashboard.tests.loader import fixtures_standard
-from dashboard.models import Product, PUC, FunctionalUse
+from dashboard.models import Product, PUC, FunctionalUse, ExtractedText
 from django.urls import reverse
 from django.db.models import Count
 
@@ -120,6 +120,16 @@ class TestAjax(TestCase):
         self.assertEquals(data["recordsFiltered"], 1)
         self.assertIn("Sun_INDS_89", data["data"][0][0])
         self.assertIn("2018-04-07", data["data"][0][2])
+        # remove the record's related ExtractedText record and confirm
+        # that the JSON still loads
+        ExtractedText.objects.get(pk=156051).delete()
+        response = self.client.get("/d_json/?category=210")
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEquals(data["recordsTotal"], 558)
+        self.assertEquals(data["recordsFiltered"], 1)
+        self.assertIn("Sun_INDS_89", data["data"][0][0])
+        self.assertEquals(None, data["data"][0][2])
 
     def test_documents_by_sid_and_puc(self):
         response = self.client.get("/d_json/?sid=DTXSID9020584&pid=759")
