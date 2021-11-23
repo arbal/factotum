@@ -87,3 +87,8 @@ class NavBarTest(TestCase):
         self.client.login(username="Karyn", password="specialP@55word")
         response = self.client.get("/")
         self.assertContains(response, 'href="/extractionscripts/delete/"')
+
+    def test_delete_cleanedcomp_link(self):
+        self.client.login(username="Karyn", password="specialP@55word")
+        response = self.client.get("/")
+        self.assertContains(response, 'href="/cleaningscripts/delete/"')
