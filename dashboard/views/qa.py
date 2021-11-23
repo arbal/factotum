@@ -1154,7 +1154,6 @@ def delete_cleaned_composition(
         redirect_to = "cleaning_script_delete_list"
     else:
         redirect_to = "qa_composition_cleaning_index"
-    print("about to apply delete_cleaning_script_task")
     # schedule async task as it may take sometime to finish the bulk deletion
     delete_task = delete_cleaned_composition_task.apply_async(
         args=[pk], shadow=f"cleaning_script_delete.{pk}"
