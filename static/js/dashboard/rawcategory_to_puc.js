@@ -8,6 +8,7 @@ var rows = JSON.parse(document.getElementById('tabledata').textContent);
 var columnDefs = [
   {headerName: "Data Group", field: "data_group__name", cellRenderer: 'groupCellRenderer'},
   {headerName: "Raw Category", field: "raw_category"},
+  {headerName: "BA PUC Assignment", field: "ba_puc"},
   {headerName: "Product Count", field: "product_count", cellRenderer: 'productCountCellRenderer', cellClass: "text-right", width: 100},
 ];
 
