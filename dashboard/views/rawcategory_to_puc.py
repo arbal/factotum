@@ -23,11 +23,10 @@ class RawCategoryToPUCList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return list(
-            DataDocument.objects.values(
-                "data_group__name", "data_group__id", "raw_category"
+            DataDocument.objects.filter(products__producttopuc__classification_method="BA").values(
+                "data_group__name", "data_group__id", "raw_category", "products__producttopuc__puc__description"
             )
             .annotate(product_count=Count("products"))
-            .annotate(ba_puc="")
             .filter(product_count__gte=5)
             .exclude(raw_category__isnull=False, raw_category="")
             .order_by("-product_count")
