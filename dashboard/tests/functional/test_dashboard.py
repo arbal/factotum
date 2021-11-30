@@ -92,22 +92,23 @@ class DashboardTest(TestCase):
         self.assertEqual(
             csv_lines[0],
             (
-                "General category,Product family,Product type,"
+                "ID,General category,Product family,Product type,"
                 "Allowed attributes,Assumed attributes,Description,PUC type,PUC level,Product count,Cumulative product count"
             ),
         )
         # check the PUC from loader
         row1 = csv_lines[1].split(",")
-        self.assertEqual(len(row1), 10)
-        self.assertEqual(row1[0], "Test General Category")
-        self.assertEqual(row1[1], "Test Product Family")
-        self.assertEqual(row1[2], "Test Product Type")
-        self.assertEqual(row1[3], "aerosol; foamspray")
-        self.assertEqual(row1[4], "foamspray")
-        self.assertEqual(row1[5], "Test Product Description")
-        self.assertEqual(row1[6], "FO")
-        self.assertEqual(row1[7], "3")
-        self.assertEqual(row1[8], "0")
+        self.assertEqual(len(row1), 11)
+        self.assertEqual(row1[0], str(puc.pk))
+        self.assertEqual(row1[1], "Test General Category")
+        self.assertEqual(row1[2], "Test Product Family")
+        self.assertEqual(row1[3], "Test Product Type")
+        self.assertEqual(row1[4], "aerosol; foamspray")
+        self.assertEqual(row1[5], "foamspray")
+        self.assertEqual(row1[6], "Test Product Description")
+        self.assertEqual(row1[7], "FO")
+        self.assertEqual(row1[8], "3")
+        self.assertEqual(row1[9], "0")
 
     def test_collapsible_tree_PUCs(self):
         # Keys that must be present at every level
