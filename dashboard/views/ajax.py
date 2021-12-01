@@ -163,9 +163,9 @@ class DocumentListJson(FilterDatatableView):
         return qs
 
     def render_column(self, row, column):
-        
+
         if column == "extractedtext.doc_date":
-            if hasattr(row, 'extractedtext'):
+            if hasattr(row, "extractedtext"):
                 value = row.extractedtext.doc_date
             else:
                 value = None

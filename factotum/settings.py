@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "bulkformsets.apps.BulkFormSetsConfig",
     "docs",
     "dashboard.apps.DashboardConfig",
+    "mmdb.apps.MmdbConfig",
     "feedback.apps.FeedbackConfig",
     "celery_usertask",
     "celery_filetask",
