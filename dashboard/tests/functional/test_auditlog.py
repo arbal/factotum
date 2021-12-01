@@ -2,7 +2,7 @@ import crum
 import io
 from urllib import parse
 
-from django.test import RequestFactory, Client
+from django.test import RequestFactory, Client, tag
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
@@ -42,6 +42,7 @@ def make_upload_csv(filename):
     return in_mem_sample_csv
 
 
+@tag("fails_in_suite")
 class AuditLogTest(TempFileMixin, TransactionTestCase):
     fixtures = [
         "00_superuser.yaml",
