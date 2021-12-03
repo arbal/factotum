@@ -2,7 +2,7 @@ import io
 import bs4
 from urllib import parse
 
-from django.test import RequestFactory, Client
+from django.test import RequestFactory, Client, tag
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.files import File
 
@@ -42,6 +42,7 @@ def make_upload_csv(filename):
     return in_mem_sample_csv
 
 
+@tag("fails_in_suite")
 class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
     fixtures = [
         "00_superuser.yaml",

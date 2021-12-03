@@ -164,6 +164,7 @@ def download_PUCs(request):
     )
     writer = csv.writer(response)
     cols = [
+        "ID",
         "General category",
         "Product family",
         "Product type",
@@ -178,6 +179,7 @@ def download_PUCs(request):
     writer.writerow(cols)
     for puc in pucs:
         row = [
+            puc.pk,
             puc.gen_cat,
             puc.prod_fam,
             puc.prod_type,

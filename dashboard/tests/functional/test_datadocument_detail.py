@@ -1,7 +1,7 @@
 import os
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
-from django.test import TransactionTestCase, TestCase, override_settings
+from django.test import TransactionTestCase, TestCase, override_settings, tag
 from django.urls import reverse
 from lxml import html
 from dashboard.tests.loader import load_model_objects
@@ -29,6 +29,7 @@ from dashboard.tests.loader import fixtures_standard, datadocument_models
 from dashboard.utils import get_extracted_models
 
 
+@tag("fails_in_suite")
 @override_settings(ALLOWED_HOSTS=["testserver"])
 class DataDocumentDetailTest(TransactionTestCase):
     fixtures = fixtures_standard

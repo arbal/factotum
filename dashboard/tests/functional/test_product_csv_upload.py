@@ -3,7 +3,7 @@ import re
 from datetime import datetime
 import glob
 
-from django.test import RequestFactory, TestCase, Client
+from django.test import RequestFactory, TestCase, Client, tag
 from django.contrib.auth.models import User
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -130,6 +130,7 @@ class UploadProductTest(TempFileMixin, TestCase):
                     f"Product field {field.name} is not being set by csv",
                 )
 
+    @tag("fails_in_suite")
     def test_valid_product_data_upload_with_image(self):
         sample_csv = (
             "data_document_id,data_document_filename,title,upc,url,brand_name,size,color,item_id,parent_item_id,short_description,long_description,epa_reg_number,thumb_image,medium_image,large_image,model_number,manufacturer,image_name\n"
@@ -214,6 +215,7 @@ class UploadProductTest(TempFileMixin, TestCase):
             f"Please correct or remove their image_names and retry the upload: {self.docs[0].pk}, {self.docs[1].pk}",
         )
 
+    @tag("fails_in_suite")
     def test_image_file_too_large_error(self):
         """
         Rows with images that arent in the uploaded directory should be rejected
@@ -244,6 +246,7 @@ class UploadProductTest(TempFileMixin, TestCase):
             post_pdcount, pre_pdcount, "No rows should have been processed"
         )
 
+    @tag("fails_in_suite")
     def test_image_directory_too_large_error(self):
         """
         Rows with images that arent in the uploaded directory should be rejected
@@ -267,6 +270,7 @@ class UploadProductTest(TempFileMixin, TestCase):
             post_pdcount, pre_pdcount, "No rows should have been processed"
         )
 
+    @tag("fails_in_suite")
     def test_image_directory_exceeds_count_error(self):
         """
         Rows with images that arent in the uploaded directory should be rejected

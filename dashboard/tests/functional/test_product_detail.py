@@ -213,6 +213,7 @@ class TestProductDetail(TransactionTestCase):
         self.assertContains(response, "<dt>PUC Kind:</dt>")
         self.assertContains(response, Product.objects.get(pk=11).uber_puc.kind)
 
+    @tag("fails_in_suite")
     def test_image_upload(self):
         product_pk = 878
         product = Product.objects.get(pk=product_pk)
