@@ -305,6 +305,53 @@
 <div class="modal" id="comment-modal" data-url="{% url 'feedback:comment_create' %}"></div>
 <!-- End comment modal -->
 
+<!-- Begin Search Tips modal -->
+<div class="modal fade"
+         id="search-modal"
+         tabindex="-1" role="dialog"
+         aria-labelledby="searchTipsModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="searchTipsModalLabel">Search Tips</h5>
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% csrf_token %}
+                <div class="modal-body">
+                    Search the Factotum Database By:
+                    <ul>
+                        <li>Product (i.e. “Tide”)</li>
+                        <li>Document (i.e. "Chemicals of Concern")</li>
+                        <li>PUC (i.e. "detergent" or "toothpaste")</li>
+                        <li>General Keyword Tag (i.e. “children” or “pesticide” or “industrial” )</li>
+                        <li>Functional Use (i.e. “abrasive” or “solvent”)</li>
+                        <li>Media (i.e. “soil” or “indoor air”)</li>
+                        <li>Chemical Name (i.e. “formaldehyde”)</li>
+                        <li>CAS (i.e. “50-00-0”)</li>
+                        <li>DTXSID (i.e. “DTXSID7020637”)</li>
+
+                        <li>To search for an exact phrase, use quotation marks. i.e. "pet shampoo"</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button id="search-tips-close-btn"
+                            type="button"
+                            class="btn btn-primary"
+                            data-dismiss="modal">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- End Search Tips modal -->
+
 <!-- Fixed Footer -->
 <footer class="footer">
             <span class="text-muted">
