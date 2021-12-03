@@ -11,7 +11,10 @@ DATA_TYPE_CHOICES = (("SUMMARY", "summary"), ("SINGLE", "single-sample"))
 
 class MediaSampleSummary(CommonInfo):
     """
-    These summary records are provided from outside the ChemExpoDB system
+    These summary records are provided from outside the ChemExpoDB system.
+    The DTXSID works as a foreign key to the dashboard_dsstoxlookup table
+    but any incoming harmonized medium strings will need to be converted to
+    the pk in the lookup table. 
     """
 
     source_name = models.CharField(
