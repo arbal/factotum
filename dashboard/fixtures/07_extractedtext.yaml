@@ -12,6 +12,8 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 354786
   fields:
@@ -26,6 +28,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 354783
   fields:
@@ -40,6 +43,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 354782
   fields:
@@ -54,6 +58,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254781
   fields:
@@ -68,6 +73,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254780
   fields:
@@ -82,6 +88,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254777
   fields:
@@ -96,6 +103,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254742
   fields:
@@ -110,6 +118,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254726
   fields:
@@ -124,6 +133,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254720
   fields:
@@ -138,6 +148,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254643
   fields:
@@ -152,6 +163,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254383
   fields:
@@ -166,6 +178,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254377
   fields:
@@ -180,6 +193,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254360
   fields:
@@ -194,6 +208,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254306
   fields:
@@ -208,6 +223,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254297
   fields:
@@ -222,6 +238,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254291
   fields:
@@ -236,6 +253,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254223
   fields:
@@ -250,6 +268,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254222
   fields:
@@ -264,6 +283,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254200
   fields:
@@ -278,6 +298,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254158
   fields:
@@ -292,6 +313,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254049
   fields:
@@ -306,6 +328,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 254003
   fields:
@@ -320,6 +343,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253990
   fields:
@@ -334,6 +358,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253988
   fields:
@@ -348,6 +373,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253971
   fields:
@@ -362,6 +388,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253922
   fields:
@@ -376,6 +403,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253883
   fields:
@@ -390,6 +418,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253834
   fields:
@@ -404,6 +433,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253712
   fields:
@@ -418,6 +448,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253689
   fields:
@@ -432,6 +463,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253686
   fields:
@@ -446,6 +478,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253667
   fields:
@@ -460,6 +493,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253634
   fields:
@@ -474,6 +508,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253574
   fields:
@@ -488,6 +523,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253546
   fields:
@@ -502,6 +538,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253539
   fields:
@@ -516,6 +553,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253374
   fields:
@@ -530,6 +568,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253229
   fields:
@@ -544,6 +583,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253219
   fields:
@@ -558,6 +598,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253188
   fields:
@@ -572,6 +613,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253156
   fields:
@@ -586,6 +628,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253155
   fields:
@@ -600,6 +643,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253151
   fields:
@@ -614,6 +658,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253124
   fields:
@@ -628,6 +673,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 253086
   fields:
@@ -642,6 +688,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252952
   fields:
@@ -656,6 +703,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252939
   fields:
@@ -670,6 +718,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252912
   fields:
@@ -684,6 +733,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252879
   fields:
@@ -698,6 +748,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252826
   fields:
@@ -712,6 +763,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252806
   fields:
@@ -726,6 +778,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252780
   fields:
@@ -740,6 +793,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252713
   fields:
@@ -754,6 +808,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252618
   fields:
@@ -768,6 +823,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252584
   fields:
@@ -782,6 +838,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252538
   fields:
@@ -796,6 +853,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252501
   fields:
@@ -810,6 +868,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252476
   fields:
@@ -824,6 +883,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252456
   fields:
@@ -838,6 +898,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252415
   fields:
@@ -852,6 +913,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252395
   fields:
@@ -866,6 +928,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252387
   fields:
@@ -880,6 +943,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252383
   fields:
@@ -894,6 +958,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252370
   fields:
@@ -908,6 +973,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252369
   fields:
@@ -922,6 +988,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252334
   fields:
@@ -936,6 +1003,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252310
   fields:
@@ -950,6 +1018,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252276
   fields:
@@ -964,6 +1033,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252230
   fields:
@@ -978,6 +1048,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252229
   fields:
@@ -992,6 +1063,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252157
   fields:
@@ -1006,6 +1078,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252093
   fields:
@@ -1020,6 +1093,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252078
   fields:
@@ -1034,6 +1108,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252070
   fields:
@@ -1048,6 +1123,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 252011
   fields:
@@ -1062,6 +1138,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251968
   fields:
@@ -1076,6 +1153,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251924
   fields:
@@ -1090,6 +1168,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251903
   fields:
@@ -1104,6 +1183,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251875
   fields:
@@ -1118,6 +1198,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251870
   fields:
@@ -1132,6 +1213,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251845
   fields:
@@ -1146,6 +1228,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251784
   fields:
@@ -1160,6 +1243,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251692
   fields:
@@ -1174,6 +1258,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251542
   fields:
@@ -1188,6 +1273,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251481
   fields:
@@ -1202,6 +1288,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251332
   fields:
@@ -1216,6 +1303,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251309
   fields:
@@ -1230,6 +1318,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251308
   fields:
@@ -1244,6 +1333,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251272
   fields:
@@ -1258,6 +1348,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251253
   fields:
@@ -1272,6 +1363,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251184
   fields:
@@ -1286,6 +1378,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251180
   fields:
@@ -1300,6 +1393,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251122
   fields:
@@ -1314,6 +1408,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251077
   fields:
@@ -1328,6 +1423,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251067
   fields:
@@ -1342,6 +1438,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251058
   fields:
@@ -1356,6 +1453,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 251010
   fields:
@@ -1370,6 +1468,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250963
   fields:
@@ -1384,6 +1483,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250896
   fields:
@@ -1398,6 +1498,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250854
   fields:
@@ -1412,6 +1513,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250808
   fields:
@@ -1426,6 +1528,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250755
   fields:
@@ -1440,6 +1543,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250709
   fields:
@@ -1454,6 +1558,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250675
   fields:
@@ -1468,6 +1573,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250662
   fields:
@@ -1482,6 +1588,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250555
   fields:
@@ -1496,6 +1603,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250547
   fields:
@@ -1510,6 +1618,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250538
   fields:
@@ -1524,6 +1633,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250505
   fields:
@@ -1538,6 +1648,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250496
   fields:
@@ -1552,6 +1663,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250474
   fields:
@@ -1566,6 +1678,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250351
   fields:
@@ -1580,6 +1693,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250335
   fields:
@@ -1594,6 +1708,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250329
   fields:
@@ -1608,6 +1723,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250267
   fields:
@@ -1622,6 +1738,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250250
   fields:
@@ -1636,6 +1753,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250244
   fields:
@@ -1650,6 +1768,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250216
   fields:
@@ -1664,6 +1783,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250213
   fields:
@@ -1678,6 +1798,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250178
   fields:
@@ -1692,6 +1813,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250110
   fields:
@@ -1706,6 +1828,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 250078
   fields:
@@ -1720,6 +1843,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249937
   fields:
@@ -1734,6 +1858,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249829
   fields:
@@ -1748,6 +1873,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249796
   fields:
@@ -1762,6 +1888,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249768
   fields:
@@ -1776,6 +1903,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249735
   fields:
@@ -1790,6 +1918,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249642
   fields:
@@ -1804,6 +1933,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249613
   fields:
@@ -1818,6 +1948,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249486
   fields:
@@ -1832,6 +1963,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249467
   fields:
@@ -1846,6 +1978,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249413
   fields:
@@ -1860,6 +1993,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249412
   fields:
@@ -1874,6 +2008,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249342
   fields:
@@ -1888,6 +2023,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249338
   fields:
@@ -1902,6 +2038,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249217
   fields:
@@ -1916,6 +2053,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249215
   fields:
@@ -1930,6 +2068,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249197
   fields:
@@ -1944,6 +2083,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249107
   fields:
@@ -1958,6 +2098,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249055
   fields:
@@ -1972,6 +2113,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 249024
   fields:
@@ -1986,6 +2128,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 248872
   fields:
@@ -2000,6 +2143,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 248806
   fields:
@@ -2014,6 +2158,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 248747
   fields:
@@ -2028,6 +2173,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 248647
   fields:
@@ -2042,6 +2188,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 248645
   fields:
@@ -2056,6 +2203,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 248636
   fields:
@@ -2070,6 +2218,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 248410
   fields:
@@ -2084,6 +2233,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 248406
   fields:
@@ -2098,6 +2248,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 248359
   fields:
@@ -2112,6 +2263,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 248220
   fields:
@@ -2126,6 +2278,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 248209
   fields:
@@ -2140,6 +2293,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 248185
   fields:
@@ -2154,6 +2308,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 248098
   fields:
@@ -2168,6 +2323,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 248095
   fields:
@@ -2182,6 +2338,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 248086
   fields:
@@ -2196,6 +2353,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 248050
   fields:
@@ -2210,6 +2368,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 248014
   fields:
@@ -2224,6 +2383,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 247943
   fields:
@@ -2238,6 +2398,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 247938
   fields:
@@ -2252,6 +2413,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 247932
   fields:
@@ -2266,6 +2428,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 247931
   fields:
@@ -2280,6 +2443,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 247919
   fields:
@@ -2294,6 +2458,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 247873
   fields:
@@ -2308,6 +2473,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 247862
   fields:
@@ -2322,6 +2488,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 247790
   fields:
@@ -2336,6 +2503,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 247677
   fields:
@@ -2350,6 +2518,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 247604
   fields:
@@ -2364,6 +2533,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 247164
   fields:
@@ -2378,6 +2548,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 247152
   fields:
@@ -2392,6 +2563,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 247095
   fields:
@@ -2406,6 +2578,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 247083
   fields:
@@ -2420,6 +2593,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 247021
   fields:
@@ -2434,6 +2608,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 246960
   fields:
@@ -2448,6 +2623,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 246535
   fields:
@@ -2462,6 +2638,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 246491
   fields:
@@ -2476,6 +2653,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 246442
   fields:
@@ -2490,6 +2668,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 246427
   fields:
@@ -2504,6 +2683,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 246380
   fields:
@@ -2518,6 +2698,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 246360
   fields:
@@ -2532,6 +2713,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 246352
   fields:
@@ -2546,6 +2728,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 246186
   fields:
@@ -2560,6 +2743,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 246132
   fields:
@@ -2574,6 +2758,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 246020
   fields:
@@ -2588,6 +2773,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 245879
   fields:
@@ -2602,6 +2788,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 245820
   fields:
@@ -2616,6 +2803,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 245776
   fields:
@@ -2630,6 +2818,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 245741
   fields:
@@ -2644,6 +2833,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 245729
   fields:
@@ -2658,6 +2848,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 245722
   fields:
@@ -2672,6 +2863,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 245683
   fields:
@@ -2686,6 +2878,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 245634
   fields:
@@ -2700,6 +2893,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 245532
   fields:
@@ -2714,6 +2908,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 245512
   fields:
@@ -2728,6 +2923,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 245401
   fields:
@@ -2742,6 +2938,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 245395
   fields:
@@ -2756,6 +2953,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 245336
   fields:
@@ -2770,6 +2968,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 245143
   fields:
@@ -2784,6 +2983,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 245106
   fields:
@@ -2798,6 +2998,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 245048
   fields:
@@ -2812,6 +3013,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 244936
   fields:
@@ -2826,6 +3028,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 244882
   fields:
@@ -2840,6 +3043,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 244868
   fields:
@@ -2854,6 +3058,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 244771
   fields:
@@ -2868,6 +3073,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 244724
   fields:
@@ -2882,6 +3088,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 244645
   fields:
@@ -2896,6 +3103,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 244633
   fields:
@@ -2910,6 +3118,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 244372
   fields:
@@ -2924,6 +3133,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 244327
   fields:
@@ -2938,6 +3148,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 244294
   fields:
@@ -2952,6 +3163,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 244183
   fields:
@@ -2966,6 +3178,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 244071
   fields:
@@ -2980,6 +3193,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 244036
   fields:
@@ -2994,6 +3208,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 243857
   fields:
@@ -3008,6 +3223,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 243794
   fields:
@@ -3022,6 +3238,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 243765
   fields:
@@ -3036,6 +3253,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 243759
   fields:
@@ -3050,6 +3268,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 243534
   fields:
@@ -3064,6 +3283,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 243490
   fields:
@@ -3078,6 +3298,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 243249
   fields:
@@ -3092,6 +3313,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 181273
   fields:
@@ -3106,6 +3328,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 181081
   fields:
@@ -3120,6 +3343,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 180966
   fields:
@@ -3134,6 +3358,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 180913
   fields:
@@ -3148,6 +3373,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 180904
   fields:
@@ -3162,6 +3388,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 180891
   fields:
@@ -3176,6 +3403,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 180404
   fields:
@@ -3190,6 +3418,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 180358
   fields:
@@ -3204,6 +3433,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 180319
   fields:
@@ -3218,6 +3448,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 180309
   fields:
@@ -3232,6 +3463,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 180303
   fields:
@@ -3246,6 +3478,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 180260
   fields:
@@ -3260,6 +3493,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 180200
   fields:
@@ -3274,6 +3508,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 180174
   fields:
@@ -3288,6 +3523,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 180119
   fields:
@@ -3302,6 +3538,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 179486
   fields:
@@ -3316,6 +3553,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 178925
   fields:
@@ -3330,6 +3568,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 178646
   fields:
@@ -3344,6 +3583,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 178577
   fields:
@@ -3358,6 +3598,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 178496
   fields:
@@ -3372,6 +3613,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 178456
   fields:
@@ -3386,6 +3628,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 178193
   fields:
@@ -3400,6 +3643,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 178109
   fields:
@@ -3414,6 +3658,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 178037
   fields:
@@ -3428,6 +3673,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 177907
   fields:
@@ -3442,6 +3688,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 177896
   fields:
@@ -3456,6 +3703,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 177887
   fields:
@@ -3470,6 +3718,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 177852
   fields:
@@ -3484,6 +3733,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 177774
   fields:
@@ -3498,6 +3748,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 177772
   fields:
@@ -3512,6 +3763,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 177502
   fields:
@@ -3526,6 +3778,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 177258
   fields:
@@ -3540,6 +3793,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 177154
   fields:
@@ -3554,6 +3808,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 177134
   fields:
@@ -3568,6 +3823,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 177125
   fields:
@@ -3582,6 +3838,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 176680
   fields:
@@ -3596,6 +3853,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 176605
   fields:
@@ -3610,6 +3868,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 176535
   fields:
@@ -3624,6 +3883,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 176478
   fields:
@@ -3638,6 +3898,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 176257
   fields:
@@ -3652,6 +3913,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 176163
   fields:
@@ -3666,6 +3928,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 176109
   fields:
@@ -3680,6 +3943,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 176015
   fields:
@@ -3694,6 +3958,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 175736
   fields:
@@ -3708,6 +3973,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 174937
   fields:
@@ -3722,6 +3988,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 174801
   fields:
@@ -3736,6 +4003,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 174794
   fields:
@@ -3750,6 +4018,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 174686
   fields:
@@ -3764,6 +4033,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 174533
   fields:
@@ -3778,6 +4048,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 174238
   fields:
@@ -3792,6 +4063,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 174122
   fields:
@@ -3806,6 +4078,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 174049
   fields:
@@ -3820,6 +4093,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 173824
   fields:
@@ -3834,6 +4108,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 173802
   fields:
@@ -3848,6 +4123,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 173396
   fields:
@@ -3862,6 +4138,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 172921
   fields:
@@ -3876,6 +4153,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 172821
   fields:
@@ -3890,6 +4168,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 172793
   fields:
@@ -3904,6 +4183,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 172694
   fields:
@@ -3918,6 +4198,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 172462
   fields:
@@ -3932,6 +4213,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 172146
   fields:
@@ -3946,6 +4228,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 171900
   fields:
@@ -3960,6 +4243,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 171774
   fields:
@@ -3974,6 +4258,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 171768
   fields:
@@ -3988,6 +4273,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 171407
   fields:
@@ -4002,6 +4288,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 171361
   fields:
@@ -4016,6 +4303,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 171359
   fields:
@@ -4030,6 +4318,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 171201
   fields:
@@ -4044,6 +4333,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 170788
   fields:
@@ -4058,6 +4348,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 170709
   fields:
@@ -4072,6 +4363,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 170652
   fields:
@@ -4086,6 +4378,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 170524
   fields:
@@ -4100,6 +4393,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 170505
   fields:
@@ -4114,6 +4408,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 170415
   fields:
@@ -4128,6 +4423,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 170289
   fields:
@@ -4142,6 +4438,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 170277
   fields:
@@ -4156,6 +4453,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 169812
   fields:
@@ -4170,6 +4468,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 169753
   fields:
@@ -4184,6 +4483,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 169615
   fields:
@@ -4198,6 +4498,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 169472
   fields:
@@ -4212,6 +4513,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 169447
   fields:
@@ -4226,6 +4528,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 169381
   fields:
@@ -4240,6 +4543,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 169380
   fields:
@@ -4254,6 +4558,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 169314
   fields:
@@ -4268,6 +4573,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 169226
   fields:
@@ -4282,6 +4588,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 169143
   fields:
@@ -4296,6 +4603,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 168622
   fields:
@@ -4310,6 +4618,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 168359
   fields:
@@ -4324,6 +4633,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 168353
   fields:
@@ -4338,6 +4648,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 168259
   fields:
@@ -4352,6 +4663,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 168107
   fields:
@@ -4366,6 +4678,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 168025
   fields:
@@ -4380,6 +4693,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 167827
   fields:
@@ -4394,6 +4708,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 167497
   fields:
@@ -4408,6 +4723,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 167482
   fields:
@@ -4422,6 +4738,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 167314
   fields:
@@ -4436,6 +4753,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 167291
   fields:
@@ -4450,6 +4768,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 166938
   fields:
@@ -4464,6 +4783,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 166836
   fields:
@@ -4478,6 +4798,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 166656
   fields:
@@ -4492,6 +4813,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 166655
   fields:
@@ -4506,6 +4828,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 166510
   fields:
@@ -4520,6 +4843,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 166372
   fields:
@@ -4534,6 +4858,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 166324
   fields:
@@ -4548,6 +4873,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 166266
   fields:
@@ -4562,6 +4888,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 166229
   fields:
@@ -4576,6 +4903,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 165963
   fields:
@@ -4590,6 +4918,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 165909
   fields:
@@ -4604,6 +4933,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 165721
   fields:
@@ -4618,6 +4948,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 165493
   fields:
@@ -4632,6 +4963,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 165412
   fields:
@@ -4646,6 +4978,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 165284
   fields:
@@ -4660,6 +4993,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 165106
   fields:
@@ -4674,6 +5008,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 164683
   fields:
@@ -4688,6 +5023,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 164678
   fields:
@@ -4702,6 +5038,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 164606
   fields:
@@ -4716,6 +5053,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 164345
   fields:
@@ -4730,6 +5068,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 164199
   fields:
@@ -4744,6 +5083,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 163826
   fields:
@@ -4758,6 +5098,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 163770
   fields:
@@ -4772,6 +5113,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 163590
   fields:
@@ -4786,6 +5128,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 163538
   fields:
@@ -4800,6 +5143,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 163535
   fields:
@@ -4814,6 +5158,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 163525
   fields:
@@ -4828,6 +5173,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 163428
   fields:
@@ -4842,6 +5188,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 163267
   fields:
@@ -4856,6 +5203,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 163250
   fields:
@@ -4870,6 +5218,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 163194
   fields:
@@ -4884,6 +5233,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 163096
   fields:
@@ -4898,6 +5248,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 163092
   fields:
@@ -4912,6 +5263,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 163086
   fields:
@@ -4926,6 +5278,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 163085
   fields:
@@ -4940,6 +5293,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 163034
   fields:
@@ -4954,6 +5308,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 162849
   fields:
@@ -4968,6 +5323,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 162817
   fields:
@@ -4982,6 +5338,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 162743
   fields:
@@ -4996,6 +5353,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 162628
   fields:
@@ -5010,6 +5368,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 162451
   fields:
@@ -5024,6 +5383,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 162344
   fields:
@@ -5038,6 +5398,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 162211
   fields:
@@ -5052,6 +5413,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 162199
   fields:
@@ -5066,6 +5428,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 162149
   fields:
@@ -5080,6 +5443,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 162019
   fields:
@@ -5094,6 +5458,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 161990
   fields:
@@ -5108,6 +5473,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 161938
   fields:
@@ -5122,6 +5488,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 161698
   fields:
@@ -5136,6 +5503,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 161549
   fields:
@@ -5150,6 +5518,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 161409
   fields:
@@ -5164,6 +5533,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 161154
   fields:
@@ -5178,6 +5548,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 161013
   fields:
@@ -5192,6 +5563,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 160938
   fields:
@@ -5206,6 +5578,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 160879
   fields:
@@ -5220,6 +5593,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 160710
   fields:
@@ -5234,6 +5608,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 160685
   fields:
@@ -5248,6 +5623,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 160449
   fields:
@@ -5262,6 +5638,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 160353
   fields:
@@ -5276,6 +5653,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 160321
   fields:
@@ -5290,6 +5668,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 160247
   fields:
@@ -5304,6 +5683,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 160104
   fields:
@@ -5318,6 +5698,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 160071
   fields:
@@ -5332,6 +5713,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 160030
   fields:
@@ -5346,6 +5728,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 159926
   fields:
@@ -5360,6 +5743,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 159738
   fields:
@@ -5374,6 +5758,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 159684
   fields:
@@ -5388,6 +5773,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 159270
   fields:
@@ -5402,6 +5788,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 159066
   fields:
@@ -5416,6 +5803,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 158917
   fields:
@@ -5430,6 +5818,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 158612
   fields:
@@ -5444,6 +5833,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 158115
   fields:
@@ -5458,6 +5848,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 158102
   fields:
@@ -5472,6 +5863,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 158036
   fields:
@@ -5486,6 +5878,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 157031
   fields:
@@ -5500,6 +5893,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 156686
   fields:
@@ -5514,6 +5908,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 156624
   fields:
@@ -5528,6 +5923,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 156586
   fields:
@@ -5542,6 +5938,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 156520
   fields:
@@ -5556,6 +5953,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 156421
   fields:
@@ -5570,6 +5968,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 156247
   fields:
@@ -5584,6 +5983,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 156227
   fields:
@@ -5598,6 +5998,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 156182
   fields:
@@ -5612,6 +6013,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 156051
   fields:
@@ -5627,6 +6029,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 155180
   fields:
@@ -5641,6 +6044,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 155091
   fields:
@@ -5655,6 +6059,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 154934
   fields:
@@ -5669,6 +6074,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 154774
   fields:
@@ -5683,6 +6089,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 154624
   fields:
@@ -5697,6 +6104,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 154480
   fields:
@@ -5711,6 +6119,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 153827
   fields:
@@ -5725,6 +6134,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 153687
   fields:
@@ -5739,6 +6149,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 153618
   fields:
@@ -5753,6 +6164,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 153434
   fields:
@@ -5767,6 +6179,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 153366
   fields:
@@ -5781,6 +6194,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 153000
   fields:
@@ -5795,6 +6209,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 152797
   fields:
@@ -5809,6 +6224,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 152754
   fields:
@@ -5823,6 +6239,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 152281
   fields:
@@ -5837,6 +6254,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 152233
   fields:
@@ -5851,6 +6269,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 152059
   fields:
@@ -5865,6 +6284,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 152048
   fields:
@@ -5879,6 +6299,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 151618
   fields:
@@ -5893,6 +6314,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 151579
   fields:
@@ -5907,6 +6329,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 151031
   fields:
@@ -5921,6 +6344,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 150935
   fields:
@@ -5935,6 +6359,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 150924
   fields:
@@ -5949,6 +6374,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 150828
   fields:
@@ -5963,6 +6389,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 150584
   fields:
@@ -5977,6 +6404,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 150192
   fields:
@@ -5991,6 +6419,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 149639
   fields:
@@ -6005,6 +6434,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 149508
   fields:
@@ -6019,6 +6449,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 149452
   fields:
@@ -6033,6 +6464,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 149407
   fields:
@@ -6047,6 +6479,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 149242
   fields:
@@ -6061,6 +6494,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 148935
   fields:
@@ -6075,6 +6509,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 148922
   fields:
@@ -6089,6 +6524,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 148886
   fields:
@@ -6103,6 +6539,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 148729
   fields:
@@ -6117,6 +6554,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 148557
   fields:
@@ -6131,6 +6569,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 148549
   fields:
@@ -6145,6 +6584,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 148426
   fields:
@@ -6159,6 +6599,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 147947
   fields:
@@ -6173,6 +6614,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 147505
   fields:
@@ -6187,6 +6629,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 147489
   fields:
@@ -6201,6 +6644,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 147447
   fields:
@@ -6215,6 +6659,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 147446
   fields:
@@ -6229,6 +6674,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 147408
   fields:
@@ -6243,6 +6689,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 147387
   fields:
@@ -6257,6 +6704,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 147297
   fields:
@@ -6271,6 +6719,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 147117
   fields:
@@ -6285,6 +6734,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 147032
   fields:
@@ -6299,6 +6749,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 146915
   fields:
@@ -6313,6 +6764,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 146658
   fields:
@@ -6327,6 +6779,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 146587
   fields:
@@ -6341,6 +6794,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 146437
   fields:
@@ -6355,6 +6809,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 146313
   fields:
@@ -6369,6 +6824,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 146297
   fields:
@@ -6383,6 +6839,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 145996
   fields:
@@ -6397,6 +6854,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 145972
   fields:
@@ -6411,6 +6869,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 145754
   fields:
@@ -6425,6 +6884,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 145305
   fields:
@@ -6439,6 +6899,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 145228
   fields:
@@ -6453,6 +6914,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 144974
   fields:
@@ -6467,6 +6929,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 144903
   fields:
@@ -6481,6 +6944,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 144610
   fields:
@@ -6495,6 +6959,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 144561
   fields:
@@ -6509,6 +6974,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 144094
   fields:
@@ -6523,6 +6989,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 143711
   fields:
@@ -6537,6 +7004,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 143665
   fields:
@@ -6551,6 +7019,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 143553
   fields:
@@ -6565,6 +7034,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 143250
   fields:
@@ -6579,6 +7049,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 143049
   fields:
@@ -6593,6 +7064,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 142559
   fields:
@@ -6607,6 +7079,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 142272
   fields:
@@ -6621,6 +7094,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 142162
   fields:
@@ -6635,6 +7109,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 142067
   fields:
@@ -6649,6 +7124,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 141970
   fields:
@@ -6663,6 +7139,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 141892
   fields:
@@ -6677,6 +7154,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 141765
   fields:
@@ -6691,6 +7169,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 140076
   fields:
@@ -6705,6 +7184,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 137309
   fields:
@@ -6719,6 +7199,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 134824
   fields:
@@ -6733,6 +7214,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 134802
   fields:
@@ -6747,6 +7229,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 134372
   fields:
@@ -6761,6 +7244,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 134297
   fields:
@@ -6775,6 +7259,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 134115
   fields:
@@ -6789,6 +7274,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 134093
   fields:
@@ -6803,6 +7289,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 134073
   fields:
@@ -6817,6 +7304,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 133988
   fields:
@@ -6831,6 +7319,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 133953
   fields:
@@ -6845,6 +7334,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 133718
   fields:
@@ -6859,6 +7349,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 133439
   fields:
@@ -6873,6 +7364,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 133186
   fields:
@@ -6887,6 +7379,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 132901
   fields:
@@ -6901,6 +7394,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 132427
   fields:
@@ -6915,6 +7409,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 132304
   fields:
@@ -6929,6 +7424,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 132285
   fields:
@@ -6943,6 +7439,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 132100
   fields:
@@ -6957,6 +7454,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 131898
   fields:
@@ -6971,6 +7469,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 131589
   fields:
@@ -6985,6 +7484,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 131206
   fields:
@@ -6999,6 +7499,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 131144
   fields:
@@ -7013,6 +7514,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 130616
   fields:
@@ -7027,6 +7529,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 130255
   fields:
@@ -7041,6 +7544,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 130169
   fields:
@@ -7055,6 +7559,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 129952
   fields:
@@ -7069,6 +7574,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 129788
   fields:
@@ -7083,6 +7589,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 129746
   fields:
@@ -7097,6 +7604,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 129688
   fields:
@@ -7111,6 +7619,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 129616
   fields:
@@ -7125,6 +7634,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 129596
   fields:
@@ -7139,6 +7649,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 129298
   fields:
@@ -7153,6 +7664,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 129074
   fields:
@@ -7167,6 +7679,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 128998
   fields:
@@ -7181,6 +7694,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 127870
   fields:
@@ -7195,6 +7709,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 127808
   fields:
@@ -7209,6 +7724,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 127798
   fields:
@@ -7223,6 +7739,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 127755
   fields:
@@ -7237,6 +7754,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 127650
   fields:
@@ -7251,6 +7769,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 127133
   fields:
@@ -7265,6 +7784,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 126964
   fields:
@@ -7279,6 +7799,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 126582
   fields:
@@ -7293,6 +7814,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 126468
   fields:
@@ -7307,6 +7829,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 126447
   fields:
@@ -7321,6 +7844,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 126327
   fields:
@@ -7335,6 +7859,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 125810
   fields:
@@ -7349,6 +7874,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 125637
   fields:
@@ -7363,6 +7889,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 125274
   fields:
@@ -7377,6 +7904,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 124838
   fields:
@@ -7391,6 +7919,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 124723
   fields:
@@ -7405,6 +7934,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 124711
   fields:
@@ -7419,6 +7949,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 124302
   fields:
@@ -7433,6 +7964,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 123517
   fields:
@@ -7447,6 +7979,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 122910
   fields:
@@ -7461,6 +7994,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 122732
   fields:
@@ -7475,6 +8009,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 122582
   fields:
@@ -7489,6 +8024,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 122493
   fields:
@@ -7503,6 +8039,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 122400
   fields:
@@ -7517,6 +8054,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 122279
   fields:
@@ -7531,6 +8069,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 122079
   fields:
@@ -7545,6 +8084,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 121831
   fields:
@@ -7559,6 +8099,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 121722
   fields:
@@ -7573,6 +8114,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 121698
   fields:
@@ -7587,6 +8129,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 121576
   fields:
@@ -7601,6 +8144,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 54
   fields:
@@ -7615,6 +8159,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 53
   fields:
@@ -7629,6 +8174,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 8
   fields:
@@ -7643,6 +8189,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 7
   fields:
@@ -7657,6 +8204,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 5
   fields:
@@ -7671,6 +8219,7 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null
 - model: dashboard.extractedtext
   pk: 9
   fields:
@@ -7684,3 +8233,4 @@
     qa_approved_date: null
     qa_approved_by: null
     qa_group: null
+    cleaning_qa_checked: null

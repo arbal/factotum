@@ -177,6 +177,10 @@
                            href="{% url 'curated_chemical_removal' %}">
                             Curated Chemical Removal
                         </a>
+                        <a class="dropdown-item"
+                            href="{% url 'cleaning_script_delete_list' %}">
+                            Remove Cleaned Composition Data by Script
+                        </a>
                     </div>
                 </li>
                 {% to_list 'qa_extractionscript_index' 'qa_chemicalpresence_index' 'qa_composition_cleaning_index' as qa_list %}

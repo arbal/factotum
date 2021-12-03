@@ -1,3 +1,4 @@
+import time
 from django.apps import apps
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
@@ -10,9 +11,11 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic import FormView
 from django_datatables_view.base_datatable_view import BaseDatatableView
+from django.forms import formset_factory
+from celery.result import AsyncResult
 
 from dashboard.forms.forms import BulkProductToPUCDeleteForm
-from dashboard.forms.puc_forms import PredictedPucCsvFormSet
+from dashboard.forms.puc_forms import PredictedPucCsvFormSet, ProductToPucForm
 from dashboard.models import (
     DataSource,
     Product,
@@ -505,22 +508,40 @@ def upload_predicted_pucs(
     ]
 
     if "POST" == request.method:
-        puc_formset = PredictedPucCsvFormSet(request.POST, request.FILES)
-        puc_formset.user = request.user
-        if request.POST["predicted-prediction_script_id"]:
-            puc_formset.script_id = request.POST["predicted-prediction_script_id"]
-        if puc_formset.is_valid():
-            num_created, num_updated = puc_formset.save()
-            messages.success(
-                request,
-                "%d Product-to-PUC assignment%s created, %d updated."
-                % (num_created, pluralize(num_created), num_updated),
-            )
-        else:
-            errors = gather_errors(puc_formset)
-            for e in errors:
-                messages.error(request, e)
-        return redirect("upload_predicted_pucs")
+        script_id = request.POST["predicted-prediction_script_id"]
+
+        puc_formset = PredictedPucCsvFormSet(
+            request.POST,
+            request.FILES,
+            form_kwargs={
+                "puc_assigned_script": script_id,
+                "puc_assigned_usr": request.user.id,
+            },
+        )
+        async_result = puc_formset.enqueue(f"predicted_puc_formset")
+
+        result_url = f"/api/tasks/{async_result.id}"
+
+        data["task_id"] = async_result.id
+
+        # if AsyncResult(async_result.id).state == "SUCCESS":
+        #     num_created, num_updated = async_result.get()
+        #     messages.success(
+        #         request,
+        #         "%d Product-to-PUC assignment%s created, %d updated."
+        #         % (num_created, pluralize(num_created), num_updated),
+        #     )
+        # elif AsyncResult(async_result.id).state == "PENDING":
+        #     messages.info(request, "still working, see %s ." % (result_url))
+        # else:
+        #     messages.error(request, "error, see %s ." % (result_url))
+
+        puc_formset.script_choices = [
+            (str(s.pk), str(s))
+            for s in Script.objects.filter(script_type="PC").filter(qa_begun=False)
+        ]
+        data["puc_formset"] = puc_formset
+        return render(request, template_name, data)
 
     data["puc_formset"] = puc_formset
     return render(request, template_name, data)

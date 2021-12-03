@@ -71,14 +71,14 @@ class NavBarTest(TestCase):
         self.assertIn(
             "Resolve PUC Conflicts",
             response_html.xpath(
-                'string(//*[@id="navbarCollapse"]/ul[1]/li[5]/div/a[6]/text())'
+                'string(//*[@id="navbarCollapse"]/ul[1]/li[5]/div/a[7]/text())'
             ),
             "The PUC reconciliation link should appear in the dropdown.",
         )
         self.assertIn(
             "Bulk Remove Products from PUC",
             response_html.xpath(
-                'string(//*[@id="navbarCollapse"]/ul[1]/li[5]/div/a[5]/text())'
+                'string(//*[@id="navbarCollapse"]/ul[1]/li[5]/div/a[6]/text())'
             ),
             "The PUC reconciliation link should appear in the dropdown.",
         )
@@ -87,3 +87,8 @@ class NavBarTest(TestCase):
         self.client.login(username="Karyn", password="specialP@55word")
         response = self.client.get("/")
         self.assertContains(response, 'href="/extractionscripts/delete/"')
+
+    def test_delete_cleanedcomp_link(self):
+        self.client.login(username="Karyn", password="specialP@55word")
+        response = self.client.get("/")
+        self.assertContains(response, 'href="/cleaningscripts/delete/"')

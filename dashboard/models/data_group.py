@@ -112,7 +112,7 @@ class DataGroup(CommonInfo, QASummaryNote):
 
     @property
     def can_have_chem_detected_flag(self):
-        return self.type in ["LM", "CP"]
+        return self.type in ["LM", "CP", "HH"]
 
     @property
     def can_have_statistical_values(self):

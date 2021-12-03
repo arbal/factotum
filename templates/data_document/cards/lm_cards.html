@@ -125,6 +125,16 @@
                             {% endfor %}
                         </div>
                         {% include 'core/components/all_statvalues_in_chemical_card.html' %}
+                        {% if doc.data_group.can_have_chem_detected_flag %}
+                            <div class="row">
+                                <div class="col-auto">
+                                    <small class="text-muted">Detected:</small>
+                                </div>
+                                <div class="col">
+                                    <small class="text-muted">{{ chemical.get_chem_detected_flag_display|default_if_none:"Unknown" }}</small>
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="modal fade"
